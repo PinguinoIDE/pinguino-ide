@@ -1,0 +1,955 @@
+Archive member included because of file (symbol)
+
+/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+                              /tmp/cc8tNRSk.o (__truncdfsf2)
+/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+                              /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o) (__make_fp)
+/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+                              /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o) (__unpack_d)
+/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+                              /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o) (__pack_f)
+/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+                              /tmp/cc8tNRSk.o (strcmp)
+
+Allocating common symbols
+Common symbol       size              file
+
+UART2rpointer       0x4               /tmp/cc8tNRSk.o
+heap_ptr            0x4               /tmp/cc8tNRSk.o
+UART2wpointer       0x4               /tmp/cc8tNRSk.o
+UART2SerialBuffer   0x80              /tmp/cc8tNRSk.o
+UART1rpointer       0x4               /tmp/cc8tNRSk.o
+UART1SerialBuffer   0x80              /tmp/cc8tNRSk.o
+UART1wpointer       0x4               /tmp/cc8tNRSk.o
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .init          0x0000000000000000        0x8 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .fini          0x0000000000000000        0x8 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .text          0x0000000000000000      0x124 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .bss           0x0000000000000000       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .ctors         0x0000000000000000        0x4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .dtors         0x0000000000000000        0x4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .jcr           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .sdata         0x0000000000000000        0x4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .fini          0x0000000000000000       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .init          0x0000000000000000       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .text          0x0000000000000000        0x0 /tmp/cc8tNRSk.o
+ .data          0x0000000000000000        0x0 /tmp/cc8tNRSk.o
+ .bss           0x0000000000000000        0x0 /tmp/cc8tNRSk.o
+ .reginfo       0x0000000000000000       0x18 /tmp/cc8tNRSk.o
+ .pdr           0x0000000000000000      0xa60 /tmp/cc8tNRSk.o
+ .text.pprints  0x0000000000000000      0x224 /tmp/cc8tNRSk.o
+ .text.SerialUART1WriteChar
+                0x0000000000000000       0x24 /tmp/cc8tNRSk.o
+ .text.SerialUART2WriteChar
+                0x0000000000000000       0x24 /tmp/cc8tNRSk.o
+ .text.pprinti.clone.0
+                0x0000000000000000      0x18c /tmp/cc8tNRSk.o
+ .rodata.str1.4
+                0x0000000000000000       0x1c /tmp/cc8tNRSk.o
+ .text.pprint   0x0000000000000000      0x640 /tmp/cc8tNRSk.o
+ .text.IntConfigureSystem.clone.4
+                0x0000000000000000       0x74 /tmp/cc8tNRSk.o
+ .text.SystemUnlock
+                0x0000000000000000       0x28 /tmp/cc8tNRSk.o
+ .text.SystemLock
+                0x0000000000000000       0x18 /tmp/cc8tNRSk.o
+ .text.SystemReset
+                0x0000000000000000       0x3c /tmp/cc8tNRSk.o
+ .text.SystemClocksReadSettings
+                0x0000000000000000       0x3c /tmp/cc8tNRSk.o
+ .text.SystemClocksGetCpuFrequency
+                0x0000000000000000       0x70 /tmp/cc8tNRSk.o
+ .text.SystemClocksGetPeripheralFrequency
+                0x0000000000000000       0x94 /tmp/cc8tNRSk.o
+ .text.SystemClocksCalcCpuClockSettings
+                0x0000000000000000      0x618 /tmp/cc8tNRSk.o
+ .text.SystemClocksCalcPeripheralClockSettings
+                0x0000000000000000       0xc4 /tmp/cc8tNRSk.o
+ .text.SystemClocksWriteSettings
+                0x0000000000000000      0x12c /tmp/cc8tNRSk.o
+ .text.GetSystemClock
+                0x0000000000000000       0x88 /tmp/cc8tNRSk.o
+ .text.GetPeripheralClock
+                0x0000000000000000       0xac /tmp/cc8tNRSk.o
+ .text.SetFlashWaitStates_old
+                0x0000000000000000       0xd8 /tmp/cc8tNRSk.o
+ .text.SystemSetSystemClock
+                0x0000000000000000      0x708 /tmp/cc8tNRSk.o
+ .text.SystemSetPeripheralClock
+                0x0000000000000000      0x180 /tmp/cc8tNRSk.o
+ .text.SystemConfig
+                0x0000000000000000      0x788 /tmp/cc8tNRSk.o
+ .text.GetCP0Count
+                0x0000000000000000        0x8 /tmp/cc8tNRSk.o
+ .text.SetCP0Count
+                0x0000000000000000       0x10 /tmp/cc8tNRSk.o
+ .text.IOsetSpecial
+                0x0000000000000000       0x28 /tmp/cc8tNRSk.o
+ .text.IOsetDigital
+                0x0000000000000000       0x14 /tmp/cc8tNRSk.o
+ .text.IOsetRemap
+                0x0000000000000000        0x8 /tmp/cc8tNRSk.o
+ .text.IntSetVectorPriority
+                0x0000000000000000      0x1cc /tmp/cc8tNRSk.o
+ .rodata.IntSetVectorPriority
+                0x0000000000000000       0x80 /tmp/cc8tNRSk.o
+ .text.SerialConfigure.clone.5
+                0x0000000000000000      0x2b0 /tmp/cc8tNRSk.o
+ .text.IntGetVectorPriority
+                0x0000000000000000       0x78 /tmp/cc8tNRSk.o
+ .text.IntGetVectorSubPriority
+                0x0000000000000000       0x78 /tmp/cc8tNRSk.o
+ .text.IntClearFlag
+                0x0000000000000000       0x54 /tmp/cc8tNRSk.o
+ .text.IntGetFlag
+                0x0000000000000000       0x4c /tmp/cc8tNRSk.o
+ .text.IntEnable
+                0x0000000000000000       0x4c /tmp/cc8tNRSk.o
+ .text.IntDisable
+                0x0000000000000000       0x54 /tmp/cc8tNRSk.o
+ .text.IntGetInterruptVectorNumber
+                0x0000000000000000       0x10 /tmp/cc8tNRSk.o
+ .text.IntGetInterruptVectorPriority
+                0x0000000000000000       0x10 /tmp/cc8tNRSk.o
+ .text.IntDisableInterrupts
+                0x0000000000000000        0xc /tmp/cc8tNRSk.o
+ .text.IntEnableInterrupts
+                0x0000000000000000        0xc /tmp/cc8tNRSk.o
+ .text.IntRestoreInterrupts
+                0x0000000000000000       0x10 /tmp/cc8tNRSk.o
+ .text.IntSetEBASE
+                0x0000000000000000       0x10 /tmp/cc8tNRSk.o
+ .text.IntConfigureSystem
+                0x0000000000000000       0x9c /tmp/cc8tNRSk.o
+ .text.pinmode  0x0000000000000000      0x1c0 /tmp/cc8tNRSk.o
+ .rodata.pinmode
+                0x0000000000000000       0x1c /tmp/cc8tNRSk.o
+ .text.pinread  0x0000000000000000      0x11c /tmp/cc8tNRSk.o
+ .rodata.pinread
+                0x0000000000000000       0x1c /tmp/cc8tNRSk.o
+ .text.digitalwrite
+                0x0000000000000000      0x1c0 /tmp/cc8tNRSk.o
+ .rodata.digitalwrite
+                0x0000000000000000       0x1c /tmp/cc8tNRSk.o
+ .text.digitalread
+                0x0000000000000000      0x11c /tmp/cc8tNRSk.o
+ .rodata.digitalread
+                0x0000000000000000       0x1c /tmp/cc8tNRSk.o
+ .text.toggle   0x0000000000000000      0x11c /tmp/cc8tNRSk.o
+ .rodata.toggle
+                0x0000000000000000       0x1c /tmp/cc8tNRSk.o
+ .text.pprintf  0x0000000000000000        0xc /tmp/cc8tNRSk.o
+ .text.psprintf2
+                0x0000000000000000       0x20 /tmp/cc8tNRSk.o
+ .text.psprintf
+                0x0000000000000000       0x34 /tmp/cc8tNRSk.o
+ .text.SerialSetDataRate
+                0x0000000000000000      0x144 /tmp/cc8tNRSk.o
+ .text.SerialGetDataRate
+                0x0000000000000000      0x160 /tmp/cc8tNRSk.o
+ .text.SerialEnable
+                0x0000000000000000       0x3c /tmp/cc8tNRSk.o
+ .text.SerialSetLineControl
+                0x0000000000000000       0x3c /tmp/cc8tNRSk.o
+ .text.SerialFlush
+                0x0000000000000000       0x40 /tmp/cc8tNRSk.o
+ .text.SerialPinConfigure
+                0x0000000000000000       0x64 /tmp/cc8tNRSk.o
+ .text.SerialIntConfigure
+                0x0000000000000000       0x94 /tmp/cc8tNRSk.o
+ .text.SerialConfigure
+                0x0000000000000000      0x2a8 /tmp/cc8tNRSk.o
+ .text.SerialPrintf
+                0x0000000000000000       0x78 /tmp/cc8tNRSk.o
+ .text.SerialAvailable
+                0x0000000000000000       0x4c /tmp/cc8tNRSk.o
+ .text.SerialRead
+                0x0000000000000000       0xe0 /tmp/cc8tNRSk.o
+ .text.SerialGetKey
+                0x0000000000000000      0x174 /tmp/cc8tNRSk.o
+ .text.SerialGetString
+                0x0000000000000000      0x224 /tmp/cc8tNRSk.o
+ .text.SerialGetDataBuffer
+                0x0000000000000000       0xf4 /tmp/cc8tNRSk.o
+ .text.ClearRxError
+                0x0000000000000000       0x7c /tmp/cc8tNRSk.o
+ .text.sbrk     0x0000000000000000       0x1c /tmp/cc8tNRSk.o
+ .text.open     0x0000000000000000       0x6c /tmp/cc8tNRSk.o
+ .text.close    0x0000000000000000        0x8 /tmp/cc8tNRSk.o
+ .text.fstat    0x0000000000000000        0x8 /tmp/cc8tNRSk.o
+ .text.isatty   0x0000000000000000        0x8 /tmp/cc8tNRSk.o
+ .text.lseek    0x0000000000000000        0x8 /tmp/cc8tNRSk.o
+ .text.read     0x0000000000000000       0x7c /tmp/cc8tNRSk.o
+ .text.write    0x0000000000000000       0xb4 /tmp/cc8tNRSk.o
+ .text.loop     0x0000000000000000        0x8 /tmp/cc8tNRSk.o
+ .text.setup    0x0000000000000000        0x8 /tmp/cc8tNRSk.o
+ .text.Serial3Interrupt
+                0x0000000000000000        0xc /tmp/cc8tNRSk.o
+ .text.Serial4Interrupt
+                0x0000000000000000        0xc /tmp/cc8tNRSk.o
+ .text.Serial5Interrupt
+                0x0000000000000000        0xc /tmp/cc8tNRSk.o
+ .text.Serial6Interrupt
+                0x0000000000000000        0xc /tmp/cc8tNRSk.o
+ .rodata.portmask
+                0x0000000000000000       0x84 /tmp/cc8tNRSk.o
+ .rodata.pinmask
+                0x0000000000000000       0x84 /tmp/cc8tNRSk.o
+ .sbss.__i__    0x0000000000000000        0x4 /tmp/cc8tNRSk.o
+ .bss.buffer.5634
+                0x0000000000000000       0x50 /tmp/cc8tNRSk.o
+ .sbss.pputchar
+                0x0000000000000000        0x4 /tmp/cc8tNRSk.o
+ .rodata.pbDivs
+                0x0000000000000000       0x10 /tmp/cc8tNRSk.o
+ .data          0x0000000000000000        0x0 /tmp/cclps8Yx.o
+ .bss           0x0000000000000000        0x0 /tmp/cclps8Yx.o
+ .reginfo       0x0000000000000000       0x18 /tmp/cclps8Yx.o
+ .pdr           0x0000000000000000       0xa0 /tmp/cclps8Yx.o
+ .text          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o
+ .data          0x0000000000000000        0x0 /tmp/ccolYw9K.o
+ .bss           0x0000000000000000        0x0 /tmp/ccolYw9K.o
+ .reginfo       0x0000000000000000       0x18 /tmp/ccolYw9K.o
+ .pdr           0x0000000000000000       0x80 /tmp/ccolYw9K.o
+ .text          0x0000000000000000       0x68 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .text          0x0000000000000000       0x30 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .text          0x0000000000000000      0x100 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .text          0x0000000000000000      0x18c /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .text          0x0000000000000000       0x88 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .text          0x0000000000000000       0x58 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .ctors         0x0000000000000000        0x4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .dtors         0x0000000000000000        0x4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .jcr           0x0000000000000000        0x4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .init          0x0000000000000000       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .text          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .data          0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .bss           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .init          0x0000000000000000       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .fini          0x0000000000000000       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+kseg0_program_mem 0x000000009d006a00 0x000000000007a600 xr
+kseg0_boot_mem   0x000000009d006490 0x0000000000000970
+exception_mem    0x000000009d005000 0x0000000000001000
+kseg1_boot_mem   0x000000009d006000 0x0000000000000490
+debug_exec_mem   0x00000000bfc02000 0x0000000000000ff0
+config3          0x00000000bfc02ff0 0x0000000000000004
+config2          0x00000000bfc02ff4 0x0000000000000004
+config1          0x00000000bfc02ff8 0x0000000000000004
+config0          0x00000000bfc02ffc 0x0000000000000004
+boot_software_key 0x00000000a0000000 0x0000000000000004
+kseg1_data_mem   0x00000000a0000004 0x0000000000007ffc w !x
+sfrs             0x00000000bf800000 0x0000000000100000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+                0x0000000000004000                _min_heap_size = 0x4000
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libm.a
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a
+LOAD /tmp/cc8tNRSk.o
+LOAD /tmp/cclps8Yx.o
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/usb/libcdc.a
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/usb/libadb.a
+LOAD /tmp/ccolYw9K.o
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libm.a
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+LOAD /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+                0x00000000bf882030                BMXDUPBA = 0xbf882030
+                0x00000000bf882010                BMXDKPBA = 0xbf882010
+                0x00000000bf882020                BMXDUDBA = 0xbf882020
+                0x0000000000000001                PROVIDE (_vector_spacing, 0x1)
+                0x000000009d005000                _ebase_address = 0x9d005000
+                0x000000009d006000                _RESET_ADDR = 0x9d006000
+                0x000000009d006380                _BEV_EXCPT_ADDR = 0x9d006380
+                0x000000009d006480                _DBG_EXCPT_ADDR = 0x9d006480
+                0x00000000bfc02000                _DBG_CODE_ADDR = 0xbfc02000
+                0x000000009d005180                _GEN_EXCPT_ADDR = (_ebase_address + 0x180)
+
+.boot_software_key_sec
+ *(.boot_software_key_sec)
+
+.config_BFC02FF0
+ *(.config_BFC02FF0)
+
+.config_BFC02FF4
+ *(.config_BFC02FF4)
+
+.config_BFC02FF8
+ *(.config_BFC02FF8)
+
+.config_BFC02FFC
+ *(.config_BFC02FFC)
+                0x0000000000000400                PROVIDE (_min_stack_size, 0x400)
+                0x0000000000000000                PROVIDE (_min_heap_size, 0x0)
+
+.reset          0x000000009d006000       0x10
+ *(.reset)
+ .reset         0x000000009d006000       0x10 /tmp/cclps8Yx.o
+                0x000000009d006000                _reset
+
+.bev_excpt      0x000000009d006380        0x4
+ *(.bev_handler)
+ .bev_handler   0x000000009d006380        0x4 /tmp/cclps8Yx.o
+
+.dbg_excpt      0x000000009d006480        0x0
+                0x000000009d006480                . = (. + DEFINED (_DEBUGGER)?0x8:0x0)
+
+.dbg_code       0x00000000bfc02000        0x0
+                0x00000000bfc02000                . = (. + DEFINED (_DEBUGGER)?0xff0:0x0)
+
+.app_excpt      0x000000009d005180        0x4
+ *(.gen_handler)
+ .gen_handler   0x000000009d005180        0x4 /tmp/cclps8Yx.o
+
+.vector_0       0x000000009d005200        0x0
+ *(.vector_0)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_0) <= (_vector_spacing << 0x5))), function at exception vector 0 too large)
+
+.vector_1       0x000000009d005220        0x0
+ *(.vector_1)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_1) <= (_vector_spacing << 0x5))), function at exception vector 1 too large)
+
+.vector_2       0x000000009d005240        0x0
+ *(.vector_2)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_2) <= (_vector_spacing << 0x5))), function at exception vector 2 too large)
+
+.vector_3       0x000000009d005260        0x0
+ *(.vector_3)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_3) <= (_vector_spacing << 0x5))), function at exception vector 3 too large)
+
+.vector_4       0x000000009d005280        0x0
+ *(.vector_4)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_4) <= (_vector_spacing << 0x5))), function at exception vector 4 too large)
+
+.vector_5       0x000000009d0052a0        0x0
+ *(.vector_5)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_5) <= (_vector_spacing << 0x5))), function at exception vector 5 too large)
+
+.vector_6       0x000000009d0052c0        0x0
+ *(.vector_6)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_6) <= (_vector_spacing << 0x5))), function at exception vector 6 too large)
+
+.vector_7       0x000000009d0052e0        0x0
+ *(.vector_7)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_7) <= (_vector_spacing << 0x5))), function at exception vector 7 too large)
+
+.vector_8       0x000000009d005300        0xc
+ *(.vector_8)
+ .vector_8      0x000000009d005300        0xc /tmp/ccolYw9K.o
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_8) <= (_vector_spacing << 0x5))), function at exception vector 8 too large)
+
+.vector_9       0x000000009d005320        0x0
+ *(.vector_9)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_9) <= (_vector_spacing << 0x5))), function at exception vector 9 too large)
+
+.vector_10      0x000000009d005340        0x0
+ *(.vector_10)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_10) <= (_vector_spacing << 0x5))), function at exception vector 10 too large)
+
+.vector_11      0x000000009d005360        0x0
+ *(.vector_11)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_11) <= (_vector_spacing << 0x5))), function at exception vector 11 too large)
+
+.vector_12      0x000000009d005380        0x0
+ *(.vector_12)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_12) <= (_vector_spacing << 0x5))), function at exception vector 12 too large)
+
+.vector_13      0x000000009d0053a0        0x0
+ *(.vector_13)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_13) <= (_vector_spacing << 0x5))), function at exception vector 13 too large)
+
+.vector_14      0x000000009d0053c0        0x0
+ *(.vector_14)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_14) <= (_vector_spacing << 0x5))), function at exception vector 14 too large)
+
+.vector_15      0x000000009d0053e0        0x0
+ *(.vector_15)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_15) <= (_vector_spacing << 0x5))), function at exception vector 15 too large)
+
+.vector_16      0x000000009d005400        0x0
+ *(.vector_16)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_16) <= (_vector_spacing << 0x5))), function at exception vector 16 too large)
+
+.vector_17      0x000000009d005420        0x0
+ *(.vector_17)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_17) <= (_vector_spacing << 0x5))), function at exception vector 17 too large)
+
+.vector_18      0x000000009d005440        0x0
+ *(.vector_18)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_18) <= (_vector_spacing << 0x5))), function at exception vector 18 too large)
+
+.vector_19      0x000000009d005460        0x0
+ *(.vector_19)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_19) <= (_vector_spacing << 0x5))), function at exception vector 19 too large)
+
+.vector_20      0x000000009d005480        0x0
+ *(.vector_20)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_20) <= (_vector_spacing << 0x5))), function at exception vector 20 too large)
+
+.vector_21      0x000000009d0054a0        0x0
+ *(.vector_21)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_21) <= (_vector_spacing << 0x5))), function at exception vector 21 too large)
+
+.vector_22      0x000000009d0054c0        0x0
+ *(.vector_22)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_22) <= (_vector_spacing << 0x5))), function at exception vector 22 too large)
+
+.vector_23      0x000000009d0054e0        0x0
+ *(.vector_23)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_23) <= (_vector_spacing << 0x5))), function at exception vector 23 too large)
+
+.vector_24      0x000000009d005500        0xc
+ *(.vector_24)
+ .vector_24     0x000000009d005500        0xc /tmp/ccolYw9K.o
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_24) <= (_vector_spacing << 0x5))), function at exception vector 24 too large)
+
+.vector_25      0x000000009d005520        0x0
+ *(.vector_25)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_25) <= (_vector_spacing << 0x5))), function at exception vector 25 too large)
+
+.vector_26      0x000000009d005540        0x0
+ *(.vector_26)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_26) <= (_vector_spacing << 0x5))), function at exception vector 26 too large)
+
+.vector_27      0x000000009d005560        0x0
+ *(.vector_27)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_27) <= (_vector_spacing << 0x5))), function at exception vector 27 too large)
+
+.vector_28      0x000000009d005580        0x0
+ *(.vector_28)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_28) <= (_vector_spacing << 0x5))), function at exception vector 28 too large)
+
+.vector_29      0x000000009d0055a0        0x0
+ *(.vector_29)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_29) <= (_vector_spacing << 0x5))), function at exception vector 29 too large)
+
+.vector_30      0x000000009d0055c0        0x0
+ *(.vector_30)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_30) <= (_vector_spacing << 0x5))), function at exception vector 30 too large)
+
+.vector_31      0x000000009d0055e0        0x0
+ *(.vector_31)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_31) <= (_vector_spacing << 0x5))), function at exception vector 31 too large)
+
+.vector_32      0x000000009d005600        0xc
+ *(.vector_32)
+ .vector_32     0x000000009d005600        0xc /tmp/ccolYw9K.o
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_32) <= (_vector_spacing << 0x5))), function at exception vector 32 too large)
+
+.vector_33      0x000000009d005620        0x0
+ *(.vector_33)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_33) <= (_vector_spacing << 0x5))), function at exception vector 33 too large)
+
+.vector_34      0x000000009d005640        0x0
+ *(.vector_34)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_34) <= (_vector_spacing << 0x5))), function at exception vector 34 too large)
+
+.vector_35      0x000000009d005660        0xc
+ *(.vector_35)
+ .vector_35     0x000000009d005660        0xc /tmp/ccolYw9K.o
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_35) <= (_vector_spacing << 0x5))), function at exception vector 35 too large)
+
+.vector_36      0x000000009d005680        0x0
+ *(.vector_36)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_36) <= (_vector_spacing << 0x5))), function at exception vector 36 too large)
+
+.vector_37      0x000000009d0056a0        0x0
+ *(.vector_37)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_37) <= (_vector_spacing << 0x5))), function at exception vector 37 too large)
+
+.vector_38      0x000000009d0056c0        0x0
+ *(.vector_38)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_38) <= (_vector_spacing << 0x5))), function at exception vector 38 too large)
+
+.vector_39      0x000000009d0056e0        0x0
+ *(.vector_39)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_39) <= (_vector_spacing << 0x5))), function at exception vector 39 too large)
+
+.vector_40      0x000000009d005700        0x0
+ *(.vector_40)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_40) <= (_vector_spacing << 0x5))), function at exception vector 40 too large)
+
+.vector_41      0x000000009d005720        0x0
+ *(.vector_41)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_41) <= (_vector_spacing << 0x5))), function at exception vector 41 too large)
+
+.vector_42      0x000000009d005740        0x0
+ *(.vector_42)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_42) <= (_vector_spacing << 0x5))), function at exception vector 42 too large)
+
+.vector_43      0x000000009d005760        0x0
+ *(.vector_43)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_43) <= (_vector_spacing << 0x5))), function at exception vector 43 too large)
+
+.vector_44      0x000000009d005780        0x0
+ *(.vector_44)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_44) <= (_vector_spacing << 0x5))), function at exception vector 44 too large)
+
+.vector_45      0x000000009d0057a0        0x0
+ *(.vector_45)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_45) <= (_vector_spacing << 0x5))), function at exception vector 45 too large)
+
+.vector_46      0x000000009d0057c0        0x0
+ *(.vector_46)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_46) <= (_vector_spacing << 0x5))), function at exception vector 46 too large)
+
+.vector_47      0x000000009d0057e0        0x0
+ *(.vector_47)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_47) <= (_vector_spacing << 0x5))), function at exception vector 47 too large)
+
+.vector_48      0x000000009d005800        0x0
+ *(.vector_48)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_48) <= (_vector_spacing << 0x5))), function at exception vector 48 too large)
+
+.vector_49      0x000000009d005820        0x0
+ *(.vector_49)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_49) <= (_vector_spacing << 0x5))), function at exception vector 49 too large)
+
+.vector_50      0x000000009d005840        0x0
+ *(.vector_50)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_50) <= (_vector_spacing << 0x5))), function at exception vector 50 too large)
+
+.vector_51      0x000000009d005860        0x0
+ *(.vector_51)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_51) <= (_vector_spacing << 0x5))), function at exception vector 51 too large)
+
+.vector_52      0x000000009d005880        0x0
+ *(.vector_52)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_52) <= (_vector_spacing << 0x5))), function at exception vector 52 too large)
+
+.vector_53      0x000000009d0058a0        0x0
+ *(.vector_53)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_53) <= (_vector_spacing << 0x5))), function at exception vector 53 too large)
+
+.vector_54      0x000000009d0058c0        0x0
+ *(.vector_54)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_54) <= (_vector_spacing << 0x5))), function at exception vector 54 too large)
+
+.vector_55      0x000000009d0058e0        0x0
+ *(.vector_55)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_55) <= (_vector_spacing << 0x5))), function at exception vector 55 too large)
+
+.vector_56      0x000000009d005900        0x0
+ *(.vector_56)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_56) <= (_vector_spacing << 0x5))), function at exception vector 56 too large)
+
+.vector_57      0x000000009d005920        0x0
+ *(.vector_57)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_57) <= (_vector_spacing << 0x5))), function at exception vector 57 too large)
+
+.vector_58      0x000000009d005940        0x0
+ *(.vector_58)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_58) <= (_vector_spacing << 0x5))), function at exception vector 58 too large)
+
+.vector_59      0x000000009d005960        0x0
+ *(.vector_59)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_59) <= (_vector_spacing << 0x5))), function at exception vector 59 too large)
+
+.vector_60      0x000000009d005980        0x0
+ *(.vector_60)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_60) <= (_vector_spacing << 0x5))), function at exception vector 60 too large)
+
+.vector_61      0x000000009d0059a0        0x0
+ *(.vector_61)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_61) <= (_vector_spacing << 0x5))), function at exception vector 61 too large)
+
+.vector_62      0x000000009d0059c0        0x0
+ *(.vector_62)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_62) <= (_vector_spacing << 0x5))), function at exception vector 62 too large)
+
+.vector_63      0x000000009d0059e0        0x0
+ *(.vector_63)
+                0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_63) <= (_vector_spacing << 0x5))), function at exception vector 63 too large)
+
+.startup        0x000000009d006490      0x1bc
+ *(.startup)
+ .startup       0x000000009d006490      0x1bc /tmp/cclps8Yx.o
+
+.text           0x000000009d006a00      0x96c
+                0x000000009d006a00                _text_begin = .
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text.Serial1Interrupt
+                0x000000009d006a00      0x14c /tmp/cc8tNRSk.o
+                0x000000009d006a00                Serial1Interrupt
+ .text.Serial2Interrupt
+                0x000000009d006b4c      0x14c /tmp/cc8tNRSk.o
+                0x000000009d006b4c                Serial2Interrupt
+ .text.main     0x000000009d006c98      0x278 /tmp/cc8tNRSk.o
+                0x000000009d006c98                main
+ .text.Tmr2Interrupt
+                0x000000009d006f10        0xc /tmp/cc8tNRSk.o
+                0x000000009d006f10                Tmr2Interrupt
+ .text.RTCCInterrupt
+                0x000000009d006f1c        0xc /tmp/cc8tNRSk.o
+                0x000000009d006f1c                RTCCInterrupt
+ .text          0x000000009d006f28       0x14 /tmp/cclps8Yx.o
+ .text          0x000000009d006f3c      0x430 /tmp/ccolYw9K.o
+                0x000000009d006f3c                vector_8_ISR_wrapper
+                0x000000009d007048                vector_24_ISR_wrapper
+                0x000000009d007154                vector_32_ISR_wrapper
+                0x000000009d007260                vector_35_ISR_wrapper
+ *(.text.*personality*)
+ *(.gnu.warning)
+ *(.mips16.fn.*)
+ *(.mips16.call.*)
+                0x000000009d00736c                _text_end = .
+
+.rodata         0x000000009d00736c       0x60
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata.pllInputDivs
+                0x000000009d00736c       0x20 /tmp/cc8tNRSk.o
+ .rodata.pllOutputDivs
+                0x000000009d00738c       0x20 /tmp/cc8tNRSk.o
+ .rodata.pllMuls
+                0x000000009d0073ac       0x20 /tmp/cc8tNRSk.o
+ *(.rodata1)
+                0x000000009d0073cc                . = ALIGN (0x4)
+
+.sdata2         0x000000009d0073cc        0x0
+ *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
+                0x000000009d0073cc                . = ALIGN (0x4)
+
+.sbss2          0x000000009d0073cc        0x0
+ *(.sbss2 .sbss2.* .gnu.linkonce.sb2.*)
+                0x000000009d0073cc                . = ALIGN (0x4)
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame       0x000000009d0073cc        0x4
+ *(.eh_frame)
+ .eh_frame      0x000000009d0073cc        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .eh_frame      0x000000009d0073cc        0x4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+
+.dbg_data       0x00000000a0000004        0x0
+                0x00000000a0000004                . = (. + DEFINED (_DEBUGGER)?0x200:0x0)
+
+.data           0x00000000a0000004        0x0 load address 0x000000009d0073d0
+                0x00000000a0000004                _data_begin = .
+ *(.data .data.* .gnu.linkonce.d.*)
+ *(.gnu.linkonce.d.*personality*)
+ *(.data1)
+                0x000000009d0073d0                _data_image_begin = LOADADDR (.data)
+
+.eh_frame
+ *(.eh_frame)
+                0x00000000a0008000                _gp = (ALIGN (0x10) + 0x7ff0)
+
+.got
+ *(.got.plt)
+ *(.got)
+
+.sdata          0x00000000a0000004        0x0 load address 0x000000009d0073d0
+                0x00000000a0000004                _sdata_begin = .
+ *(.sdata .sdata.* .gnu.linkonce.s.*)
+                0x00000000a0000004                _sdata_end = .
+
+.lit8
+ *(.lit8)
+
+.lit4
+ *(.lit4)
+                0x00000000a0000004                . = ALIGN (0x4)
+                0x00000000a0000004                _data_end = .
+                0x00000000a0000004                _bss_begin = .
+
+.sbss           0x00000000a0000004       0x14 load address 0x000000009d0073d0
+                0x00000000a0000004                _sbss_begin = .
+ *(.dynsbss)
+ *(.sbss .sbss.* .gnu.linkonce.sb.*)
+ *(.scommon)
+ .scommon       0x00000000a0000004       0x14 /tmp/cc8tNRSk.o
+                0x00000000a0000004                UART2rpointer
+                0x00000000a0000008                heap_ptr
+                0x00000000a000000c                UART2wpointer
+                0x00000000a0000010                UART1rpointer
+                0x00000000a0000014                UART1wpointer
+                0x00000000a0000018                _sbss_end = .
+
+.bss            0x00000000a0000018      0x100 load address 0x000000009d0073d0
+ *(.dynbss)
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ *(COMMON)
+ COMMON         0x00000000a0000018      0x100 /tmp/cc8tNRSk.o
+                0x00000000a0000018                UART2SerialBuffer
+                0x00000000a0000098                UART1SerialBuffer
+                0x00000000a0000118                . = ALIGN (0x4)
+                0x00000000a0000118                . = ALIGN (0x4)
+                0x00000000a0000118                _end = .
+                0x00000000a0000118                _bss_end = .
+
+.heap           0x00000000a0000118     0x4000 load address 0x000000009d0073d0
+                0x00000000a0000118                _heap = .
+                0x00000000a0004118                . = (. + _min_heap_size)
+ *fill*         0x00000000a0000118     0x4000 00
+
+.stack          0x00000000a0004118      0x400 load address 0x000000009d0073d0
+                0x00000000a0004118                _splim = .
+                0x00000000a0004118                _SPLIM = .
+                0x00000000a0004518                . = (. + _min_stack_size)
+ *fill*         0x00000000a0004118      0x400 00
+
+.ramfunc        0x00000000a0004800        0x0 load address 0x000000009d0073d0
+                0x00000000a0004800                _ramfunc_begin = .
+ *(.ramfunc .ramfunc.*)
+                0x00000000a0004800                . = ALIGN (0x4)
+                0x00000000a0004800                _ramfunc_end = .
+                0x000000009d0073d0                _ramfunc_image_begin = LOADADDR (.ramfunc)
+                0x0000000000000000                _ramfunc_length = SIZEOF (.ramfunc)
+                0x00000000000047fc                _bmxdkpba_address = (_ramfunc_begin - ORIGIN (kseg1_data_mem))
+                0x0000000000007ffc                _bmxdudba_address = 0x7ffc
+                0x0000000000007ffc                _bmxdupba_address = 0x7ffc
+                0x00000000a0008000                _stack = (_ramfunc_length > 0x0)?(_ramfunc_begin - 0x4):(ORIGIN (kseg1_data_mem) + 0x7ffc)
+                0x0000000000000001                ASSERT (((_min_stack_size + _min_heap_size) <= (_stack - _heap)), Not enough space to allocate both stack and heap.  Reduce heap and/or stack size.)
+
+.pdr            0x0000000000000000        0x0
+ *(.pdr)
+ .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+
+.reginfo        0x0000000000000000       0x18
+ *(.reginfo)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.mdebug.abi32   0x0000000000000000        0x0
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .mdebug.abi32  0x0000000000000000        0x0 /tmp/cc8tNRSk.o
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+
+.gnu.attributes
+                0x0000000000000000       0x10
+ .gnu.attributes
+                0x0000000000000000       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .gnu.attributes
+                0x0000000000000010       0x10 /tmp/cc8tNRSk.o
+ .gnu.attributes
+                0x0000000000000020       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .gnu.attributes
+                0x0000000000000030       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .gnu.attributes
+                0x0000000000000040       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .gnu.attributes
+                0x0000000000000050       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .gnu.attributes
+                0x0000000000000060       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .gnu.attributes
+                0x0000000000000070       0x10 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+
+.comment        0x0000000000000000       0x3d
+ *(.comment)
+ .comment       0x0000000000000000       0x2b /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+                                         0x2c (size before relaxing)
+ .comment       0x0000000000000000       0x2c /tmp/cc8tNRSk.o
+ .comment       0x0000000000000000       0x2c /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .comment       0x0000000000000000       0x2c /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .comment       0x0000000000000000       0x2c /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .comment       0x0000000000000000       0x2c /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .comment       0x000000000000002b       0x12 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .comment       0x0000000000000000       0x2c /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x0000000000000000       0xf0
+ *(.debug_aranges)
+ .debug_aranges
+                0x0000000000000000       0x28 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_aranges
+                0x0000000000000028       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_aranges
+                0x0000000000000048       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_aranges
+                0x0000000000000068       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_aranges
+                0x0000000000000088       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_aranges
+                0x00000000000000a8       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_aranges
+                0x00000000000000c8       0x28 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+
+.debug_pubnames
+                0x0000000000000000       0xa0
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x0000000000000000       0x23 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_pubnames
+                0x0000000000000023       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_pubnames
+                0x0000000000000043       0x21 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_pubnames
+                0x0000000000000064       0x1f /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_pubnames
+                0x0000000000000083       0x1d /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+
+.debug_info     0x0000000000000000      0xc20
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x0000000000000000       0xb0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_info    0x00000000000000b0      0x267 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_info    0x0000000000000317      0x1dd /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_info    0x00000000000004f4      0x271 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_info    0x0000000000000765      0x2e4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_info    0x0000000000000a49      0x127 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_info    0x0000000000000b70       0xb0 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+
+.debug_abbrev   0x0000000000000000      0x5e0
+ *(.debug_abbrev)
+ .debug_abbrev  0x0000000000000000       0x12 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_abbrev  0x0000000000000012      0x137 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_abbrev  0x0000000000000149      0x100 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_abbrev  0x0000000000000249      0x15a /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_abbrev  0x00000000000003a3      0x185 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_abbrev  0x0000000000000528       0xa6 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_abbrev  0x00000000000005ce       0x12 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+
+.debug_line     0x0000000000000000      0x420
+ *(.debug_line)
+ .debug_line    0x0000000000000000       0x69 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_line    0x0000000000000069       0x93 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_line    0x00000000000000fc       0x8e /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_line    0x000000000000018a       0xb9 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_line    0x0000000000000243       0xe4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_line    0x0000000000000327       0x8e /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_line    0x00000000000003b5       0x6b /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+
+.debug_frame    0x0000000000000000       0xb0
+ *(.debug_frame)
+ .debug_frame   0x0000000000000000       0x28 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_frame   0x0000000000000028       0x28 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_frame   0x0000000000000050       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_frame   0x0000000000000070       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_frame   0x0000000000000090       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+
+.debug_str      0x0000000000000000      0x313
+ *(.debug_str)
+ .debug_str     0x0000000000000000      0x1f2 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+                                        0x20d (size before relaxing)
+ .debug_str     0x00000000000001f2       0x39 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+                                        0x1c8 (size before relaxing)
+ .debug_str     0x000000000000022b        0xb /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+                                        0x1f7 (size before relaxing)
+ .debug_str     0x0000000000000236       0x29 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+                                        0x20f (size before relaxing)
+ .debug_str     0x000000000000025f       0xb4 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+                                        0x12f (size before relaxing)
+
+.debug_loc      0x0000000000000000      0x473
+ *(.debug_loc)
+ .debug_loc     0x0000000000000000       0x56 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_loc     0x0000000000000056       0x78 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_loc     0x00000000000000ce       0xd3 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_loc     0x00000000000001a1      0x1dc /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_loc     0x000000000000037d       0xf6 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+/DISCARD/
+ *(.note.GNU-stack)
+OUTPUT(/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.elf elf32-littlemips)
+
+.debug_ranges   0x0000000000000000       0x40
+ .debug_ranges  0x0000000000000000       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_ranges  0x0000000000000020       0x20 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+
+.debug_pubtypes
+                0x0000000000000000      0x24b
+ .debug_pubtypes
+                0x0000000000000000       0xa3 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_pubtypes
+                0x00000000000000a3       0x78 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_pubtypes
+                0x000000000000011b       0x98 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_pubtypes
+                0x00000000000001b3       0x98 /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)

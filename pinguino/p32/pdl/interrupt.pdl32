@@ -1,0 +1,15 @@
+Int.setVectorPriority IntSetVectorPriority#include<interrupt.c>
+Int.getVectorPriority IntGetVectorPriority#include<interrupt.c>
+Int.getVectorSubPriority IntGetVectorSubPriority#include<interrupt.c>
+Int.clearFlag IntClearFlag#include<interrupt.c>
+Int.getFlag IntGetFlag#include<interrupt.c>
+Int.enable IntEnable#include<interrupt.c>
+Int.disable IntDisable#include<interrupt.c>
+Int.getInterruptVectorNumber IntGetInterruptVectorNumber#include<interrupt.c>
+Int.getInterruptVectorPriority IntGetInterruptVectorPriority#include<interrupt.c>
+Int.disableAll IntDisableInterrupts#include<interrupt.c>
+Int.enableAll IntEnableInterrupts#include<interrupt.c>
+Int.restoreAll IntRestoreInterrupts#include<interrupt.c>
+Int.setEBASE IntSetEBASE#include<interrupt.c>
+Int.configureSystem IntConfigureSystem#include<interrupt.c>
+

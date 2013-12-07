@@ -1,0 +1,24 @@
+u8 u8#include <typedef.h>
+s8 s8#include <typedef.h>
+u16 u16#include <typedef.h>
+s16 s16#include <typedef.h>
+u32 u32#include <typedef.h>
+s32 s32#include <typedef.h>
+u64 u64#include <typedef.h>
+s64 s64#include <typedef.h>
+char char#include <typedef.h>
+short short#include <typedef.h>
+int int#include <typedef.h>
+long long#include <typedef.h>
+const const#include <typedef.h>
+bool bool#include <typedef.h>
+float float#include <typedef.h>
+register register#include <typedef.h>
+typedef typedef#include <typedef.h>
+struct struct#include <typedef.h>
+case case#include <typedef.h>
+switch switch#include <typedef.h>
+default default#include <typedef.h>
+do do#include <typedef.h>
+unsigned unsigned#include <typedef.h>
+

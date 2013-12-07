@@ -1,0 +1,55 @@
+[Board]
+architecture = 8
+mode = BOOT
+device = Pinguino 2550
+bootloader = [boot2, 0x2000]
+
+[IDE]
+window/width = 1000
+window/height = 500
+window/xpos = 99
+window/ypos = 72
+maximized = False
+theme = PinguinoX
+sourcedoc = official
+output/width = 998
+output/height = 140
+postools = Right
+posoutput = Bottom
+
+[Main]
+tools = True
+open-save = True
+auto-complete = True
+
+[Tools]
+search = True
+files = True
+documents = True
+
+[Open/Save]
+autosave = False
+openlast = True
+
+[Highligh]
+codeerror = [255, 103, 103]
+
+[Source]
+userfontinoutput = True
+
+[Insert]
+brackets = True
+keys = True
+parentheses = True
+doublecuotation = True
+singlecuotation = True
+
+[Completer]
+charscount = 1
+
+[Recents]
+recents_count = 0
+
+[Last]
+last_count = 0
+

@@ -1,0 +1,257 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html >
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link REL="SHORTCUT ICON" HREF="/groups/img/3/favicon.ico">
+  <title>
+  Pinguino |
+  Google Groups
+  </title>
+  <meta name="save" content="history">
+<noscript><style type="text/css"><!--
+  .noscripthide { display:none; } .noscriptinline { display:inline; } .noscriptblock { display:block; }
+--></style></noscript>
+<script language="javascript"><!--
+  document.write('<style type="text/css">.scripthide { display: none; } .scriptinline { display: inline; } .scriptblock { display: block; }</style>');
+//--></script>
+<script language="javascript1.2"><!--
+  if (document.getElementById)
+    document.write('<style type="text/css">.script12hide { display: none; } .script12inline { display: inline; } .script12block { display: block; } .lnav { position: absolute; } .lnavch { margin-left:23.0ex;}</style>');
+//--></script>
+<script language="javascript1.3"><!--
+  if (document.getElementById)
+    document.write('<style type="text/css">.script13hide { display: none; } .script13inline { display: inline; } .script13block { display: block; }</style>');
+//--></script>
+<style type="text/css"><!--
+  @import "/groups/style.css?ig=1&av=&hl=en&v=777";
+  
+--></style>
+  <script language="javascript1.3" src="/groups/static/release/g2_common-29f34ae5a939a220e9e9d4471421e199.js"></script>
+<script language="javascript"><!--
+
+// ----------------------------------
+// used for dynamic function generation on event handlers
+
+var loaddef = "";
+var resizedef = "";
+
+//-----------------------------------
+// Browser detection and support
+
+var agt = navigator.userAgent.toLowerCase();
+var is_opera = (agt.indexOf("opera") != -1);
+var is_ie = (agt.indexOf("msie") != -1) && document.all && !is_opera;
+var is_ie5 = (agt.indexOf("msie 5") != -1) && document.all;
+window.agt = agt;
+window.is_opera = is_opera;
+window.is_ie = is_ie;
+window.is_ie5 = is_ie5;
+
+// ----------------------------------
+// cross-browser functions
+
+var IE_all_cache = new Object();
+function IE_getElementById(id) {
+  if (IE_all_cache[id] == null) {
+    IE_all_cache[id] = document.all[id];
+  }
+  return IE_all_cache[id];
+}
+
+if (document.all) {
+  if (!document.getElementById) {
+    document.getElementById = IE_getElementById;
+  }
+}
+
+
+
+  //----------------------------------
+  // Timezone detection (sets cookie)
+
+  try {
+    document.cookie = 'GTZ=' + (new Date()).getTimezoneOffset() + ';path=/;expires=Mon, 01-Jan-2024 00:00:01 GMT';
+  } catch(e) {}
+
+
+// ---------------------------------
+// shelled functions for old javascript
+function tog() {}
+
+//--></script>
+<script language="javascript1.3"><!--
+
+// ----------------------------------
+// visibility functions
+
+function tog() {
+  // tog: toggle the visibility of html elements (arguments[1..]) from none to
+  // arguments[0].  Return what should be returned in a javascript onevent().
+  display = arguments[0];
+  for( var i=1; i<arguments.length; i++ ) {    
+    var x = document.getElementById(arguments[i]);
+    if (!x) continue;
+    if (x.style.display == "none" || x.style.display == "") {
+      x.style.display = display;
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  var e = is_ie ? window.event : this;
+  if (e) {
+    if (is_ie) {
+      e.cancelBubble = true;
+      e.returnValue = false;
+      return false;
+    } else {
+      return false;
+    }
+  }
+}
+
+
+_G2_initCurrentDomain('googlegroups.com',
+            false,
+            true);
+
+_G2_initCurrentGroup('pinguinocard',
+            'a');
+
+
+
+
+//--></script>
+  <script language="javascript"><!--
+    (function(){try{var d=false;var j=window.gbar={};function _tvn(a,c){var b=parseInt(a,10);return isNaN(b)?c:b}function _tvf(a,c){var b=parseFloat(a);return isNaN(b)?c:b}function _tvb(a,c){return a=="true"?true:a=="false"?d:c}function m(a,c,b){(b||j)[a]=c}j.bv={n:_tvn("2",0),r:"",m:_tvn("1",1)};var n=function(){return j.bv.m==1};m("sb",n);
+var o={},p={},q=[],r=function(a){return a in o},s={m:[],gc:[],uf:[],pw:[],cp:[],ppal:[]},t=function(a){s.m.push(a)},u=function(a){var c=document.createElement("script");c.src=a;(document.getElementById("xjsc")||document.body).appendChild(c)},v=function(a){s.gc.push(a)},z=null,A=function(a){z=a},B=function(a,c,b){if(z){a={t:a,b:c};if(b)for(var e in b)a[e]=b[e];try{z(a)}catch(f){}}};m("mdc",o);m("mdi",p);m("bnc",q);m("qGC",v);m("qd",s);m("mdd","");m("has",r);m("trh",A);
+m("tev",B);var C=["gb_71","gb_155"];function D(a){try{var c=(document.forms[0].q||"").value;if(c)a.href=a.href.replace(/([?&])q=[^&]*|$/,function(e,f){return(f||"&")+"q="+encodeURIComponent(c)})}catch(b){F(b)}}
+var G=function(){for(var a=[],c=0,b;b=C[c];++c)(b=document.getElementById(b))&&a.push(b);return a},H=function(){var a=G();return a.length>0?a[0]:null},I=function(){return document.getElementById("gb_70")},J={},K=function(a){a=a||window.event;t(function(){j.tg(a)});a.preventDefault&&a.preventDefault();a.returnValue=d},L=function(a){t(function(){j.close(a)})},M=function(a,c){var b=RegExp("\\b"+c+"\\b"),e=a.className;return!!(e&&e.match(b))},N=function(a,c,b){if(a)try{var e=document.getElementById("gbd5").firstChild,
+f=e.firstChild,g=document.createElement("li");g.className=c+" gbmtc";g.id=b;a.className="gbmt";g.appendChild(a);if(f.hasChildNodes()){a=[["gbkc"],["gbf","gbe","gbn"],["gbkp"]];b=0;var h=f.childNodes.length;e=d;for(var i=-1,l=0,k;k=a[l];l++){for(var w=0,x;x=k[w];w++){for(;b<h&&M(f.childNodes[b],x);)b++;if(x==c){f.insertBefore(g,f.childNodes[b]);e=true;break}}if(e){if(b+1<f.childNodes.length&&M(f.childNodes[b+1],"gbkp"))i=b+1;break}if(b>0&&b+1<h)b++;else if(b>0&&b==h-1)i=b}if(i>=0){var y=document.createElement("li"),
+E=document.createElement("div");y.className="gbmtc";E.className="gbmt gbmh";y.appendChild(E);f.insertBefore(y,f.childNodes[i])}}else f.appendChild(g)}catch(Y){F(Y)}},O=function(a,c,b){N(a,c,b)},P=function(a,c){N(a,"gbe",c)},aa=function(){t(function(){j.pcm&&j.pcm()})},ba=function(a,c,b,e,f,g,h,i){t(function(){j.paa&&j.paa(a,c,b,e,f,g,h,i)})},Q=function(a,c){J[a]||(J[a]=[]);J[a].push(c)};m("so",H);m("sos",G);m("si",I);m("dh",J);m("adh",Q);m("tg",K);m("close",L);m("addLink",O);m("addExtraLink",P);
+m("pcm",aa);m("paa",ba);m("qs",D);var ca={};o.base=ca;q.push(["m",{url:"//ssl.gstatic.com/gb/js/sem_acb2e6d0072edd4aec1e769c240764fc.js"}]);var da=_tvb("false",d);q.push(["gc",{auto:da,url:"https://ssl.gstatic.com/gb/js/gcm_0f104a0c361b305bb90305eff062c94c.js"}]);var ea={version:"gcm_0f104a0c361b305bb90305eff062c94c.js",index:""};o.gc=ea;var fa=function(a){if(window.googleapis)a&&a();else{a&&v(a);a="gc";for(var c=0,b;b=q[c];++c)if(b[0]==a)break;if(b&&!b[1].l){B(2,a);u(b[1].url)}}};m("lGC",fa);window.__PVT="";
+var F=function(){},R=function(){},U=function(a){var c=new Image,b=S;c.onerror=c.onload=c.onabort=function(){try{delete T[b]}catch(e){}};T[b]=c;c.src=a;S=b+1},T=[],S=0;m("logger",{il:R,ml:F});var V=window.gbar.logger,W=_tvf("0.001",1.0E-4);
+function ga(a,c){var b=encodeURIComponent,e=["//www.google.com/gen_204?atyp=i&zx=",(new Date).getTime(),"&oge=",a,"&ogex=",b("28834"),"&ogp=",b("3"),"&ogsr=",Math.round(1/W),"&ogv=",b("1301588992.0")];if(c){e.push("&ogad=");e.push(b(ha(c)))}U(e.join(""))}function ha(a){var c=[],b;for(b in a){c.length!=0&&c.push(",");c.push(b);c.push(".");c.push(a[b])}return c.join("")}if(Math.random()<W){R=ga;m("il",R,V);var ia={};o.il=ia}var ja=function(){j.prm&&j.prm()};Q("gbd4",ja);
+var ka={g:_tvb("",d),d:_tvb("false",d),e:"",m:"",p:"//www.google.com/s2/photos/profile/?sz=48&fb=h",xa:_tvb("false",true),xp:_tvb("true",true),mg:"%1$s (delegated)",md:"%1$s (default)"};o.prf=ka;var X=_tvf("0.01",1.0E-4),Z=0;
+function _mlToken(a,c){try{if(Z<1){Z++;var b,e=a,f=c||{},g=encodeURIComponent,h=["//www.google.com/gen_204?atyp=i&zx=",(new Date).getTime(),"&jexpid=",g("28834"),"&srcpg=",g("prop=3"),"&jsr=",Math.round(1/X),"&ogv=",g("1301588992.0")],i;for(i in f){h.push("&");h.push(g(i));h.push("=");h.push(g(f[i]))}h.push("&emsg=");h.push(g(e.name+":"+e.message));var l=h.join("");if($(l))l=l.substr(0,2E3);b=l;var k=window.gbar.logger._aem(a,b);U(k)}}catch(w){}}
+var $=function(a){return a.length>=2E3},la=function(a,c){return c};if(Math.random()<X){F=_mlToken;m("_itl",$,V);m("_aem",la,V);m("ml",F,V);var ma={};o.er=ma}
+function na(){function a(){for(var k;k=g[h++];)if(k[0]=="m"||k[1].auto)break;if(k){B(2,k[0]);u(k[1].url)}h<g.length&&setTimeout(a,0)}function c(){f-- >0?setTimeout(c,0):a()}var b=_tvb("true",true),e=_tvb("false",d),f=3,g=q,h=0,i=window.gbarOnReady;if(i)try{i()}catch(l){F(l)}if(e)m("ldb",a);else if(b)window.addEventListener?window.addEventListener("load",c,d):window.attachEvent("onload",c);else c()}na();}catch(e){window.gbar&&gbar.logger&&gbar.logger.ml(e);}})();
+  //--></script>
+  <style type="text/css"><!--
+    #gb{font:13px/27px Arial,sans-serif;height:30px}#gbz,#gbg{position:absolute;white-space:nowrap;top:0;height:30px;z-index:1000}#gbz{left:0;padding-left:5px}#gbg{right:0;padding-right:5px}#gbs{background:#fff;left:0;position:absolute;visibility:hidden;z-index:998}#gbx1,#gbx2,#gbx3,#gbx4{background-color:#fff;position:absolute;width:100%;z-index:990}#gbx1,#gbx2{top:0;border-top:2px solid #bad3ea;height:0;font-size:0}#gbx3,#gbx4{top:2px;height:27px;border-bottom:1px solid #f5f5f5;background-image:url(//ssl.gstatic.com/gb/images/b_5dae6e31.png);_background-image:url(//ssl.gstatic.com/gb/images/b8_51af752e.png);background-position:0 -43px;background-repeat:repeat-x;font-size:24px;opacity:1;filter:alpha(opacity=100)}#gbx1,#gbx3{left:0}#gbx2,#gbx4{right:0}.gbxx{display:none !important}.gbm{position:absolute;z-index:999;top:32px;visibility:hidden;text-align:left;border:1px solid #c3d1ec;background:#fff;box-shadow:0 1px 5px #ccc;-moz-box-shadow:0 1px 5px #ccc;-webkit-box-shadow:0 1px 5px #ccc}#gbg .gbt:last-child .gbm{-moz-box-shadow:-1px 1px 1px #ccc}.gbto .gbm{visibility:visible}#gbz .gbm{left:0}#gbg .gbm{right:0}.gbmc{background:#fff;position:relative;z-index:2;zoom:1}.gbxms{background-color:#ccc;display:block;position:absolute;z-index:1;top:-1px;left:-2px;right:-2px;bottom:-2px;opacity:.4;-moz-border-radius:3px;filter:progid:DXImageTransform.Microsoft.Blur(pixelradius=5);*opacity:1;*top:-2px;*left:-5px;*right:5px;*bottom:4px;-ms-filter:"progid:DXImageTransform.Microsoft.Blur(pixelradius=5)";opacity:1\0/;top:-4px\0/;left:-6px\0/;right:5px\0/;bottom:4px\0/}.gbma{position:relative;top:-1px;border-style:solid dashed dashed;border-color:transparent;display:-moz-inline-box;display:inline-block;font-size:0;height:0;line-height:0;width:0;border-width:3px 3px 0;border-top-color:#36c;padding-top:1px;left:4px}.gbto .gbma{border-top-color:#36c}#gbztms,#gbgs4{padding-right:10px}#gbztms1,#gbi4m1,#gbi4s,#gbi4t{zoom:1}.gbtc,.gbmc,.gbmcc{display:block;list-style:none;margin:0;padding:0}.gbt{position:relative;display:-moz-inline-box;display:inline-block;line-height:26px;padding:0;vertical-align:top}.gbt{*display:inline}.gbto{box-shadow:0 1px 5px #ccc;-moz-box-shadow:0 1px 5px #ccc;-webkit-box-shadow:0 1px 5px #ccc}.gbzt,.gbgt,.gbgtd{cursor:pointer;display:block;text-decoration:none !important;border-top:2px solid #bad3ea}.gbts{border-left:1px solid transparent;border-right:1px solid transparent;display:block;*display:inline-block;padding:0 6px;position:relative;z-index:1000}.gbts{*display:inline}.gbto .gbts{background:#fff;border-color:#c3d1ec !important;color:#36c;padding-bottom:4px}.gbz0l .gbts{color:#363636;font-weight:bold}#gbz .gbzt,#gbz .gbgt,#gbg .gbgt{color:#36c!important}.gbtb2{display:block;border-top:1px solid transparent}.gbtcb{border-top:2px solid #fff;display:block;height:0;position:absolute;top:0;z-index:-1;right:0}#gbz .gbtcb{left:5px;right:0}#gbg .gbtcb{left:-1px;right:11px}.gbtb .gbts{background:#e6e6e6;border:0;opacity:1;filter:alpha(opacity=100);font-size:0;margin-top:2px;padding:27px 0 0;*padding:25px 0 0;width:1px}.gbzt-hvr,.gbzt:focus,.gbgt-hvr,.gbgt:focus,.gbgtd-hvr,.gbgtd:focus{background:url(//ssl.gstatic.com/gb/images/b_5dae6e31.png);_background:url(//ssl.gstatic.com/gb/images/b8_51af752e.png);background-position:0 -117px;*background-position:0 -114px;background-color:#f4f7fc;background-repeat:repeat-x;outline:none;text-decoration:none !important}.gbto .gbzt,.gbto .gbgt,.gbto .gbgtd{background-color:#fff}.gbzt-hvr .gbtb2,.gbzt:focus .gbtb2,.gbgt-hvr .gbtb2,.gbgt:focus .gbtb2,.gbgtd-hvr .gbtb2,.gbgtd:focus .gbtb2,.gbto .gbtb2{border-top-color:#bad3ea;opacity:.4;filter:alpha(opacity=40)}.gbz0l{border-top-color:#1a54e1 !important;margin:0 1px}.gbz0l .gbtb2{border-top-color:#1a54e1 !important;opacity:1 !important;filter:alpha(opacity=100) !important}#gb_70,#gbg4{border-top-color:#bad3ea}#gb_70.gbgt-hvr .gbtb2,#gbg4.gbgt-hvr .gbtb2{border-top-color:#bad3ea}#gbi4t,#gbi4s1,#gbi4t1,#gbi4m1{font-weight:bold}#gbi4s,#gbi4t{padding-left:23px}#gbi4i,#gbi4id{left:1px;border:0;height:24px;position:absolute;top:1px;width:24px}.gbto #gbi4i,.gbto #gbi4id{visibility:hidden}#gbi4id,#gbmpid{background:url(//ssl.gstatic.com/gb/images/b_5dae6e31.png);_background:url(//ssl.gstatic.com/gb/images/b8_51af752e.png)}#gbi4id{background-position:0 -212px}#gbmpid{background-position:0 -242px}#gbmpi,#gbmpid{border:none;display:inline-block;margin:10px;height:48px;width:48px}#gbmpi,#gbmpid{*display:inline}#gbg5{font-size:0}#gbgs5{padding:6px}.gbto #gbgs5{padding-bottom:9px}#gbi5{display:block;width:14px;height:15px;background:url(//ssl.gstatic.com/gb/images/b_5dae6e31.png);_background:url(//ssl.gstatic.com/gb/images/b8_51af752e.png);background-position:0 0;font-size:0}.gbto #gbi5{background-position:0 0}#gbgf .gbmt,.gbn .gbmt,.gbn .gbmt:visited{color:#dd8e27 !important}.gbf .gbmt,.gbf .gbmt:visited{color:#900 !important}.gbmt,.gbml1,.gbmt:visited,.gbml1:visited{color:#36c !important;display:block;text-decoration:none}.gbml1{display:inline-block}.gbml1{*display:inline}.gbml1-hvr{text-decoration:underline !important}.gbmt{padding-left:6px;padding-right:12px}.gbmt-hvr,.gbmt:focus{outline:0 solid black;background:#e4ebf8;cursor:pointer;text-decoration:none !important}.gbm0l,.gbm0l:visited{color:#000 !important;font-weight:bold}.gbmo{padding:10px 10px 6px}.gbmh{border-top:1px solid #e5e5e5;font-size:0}.gbmtc{padding:0;margin:0;line-height:27px}.GBMCC:last-child:after,#GBMPAL:last-child:after{content:'\0A\0A';white-space:pre;position:absolute}#gbd4 .gbpc,#gbd4 .gbmtc{line-height:17px}#gbd4 .gbmt{border-top:1px solid #e5e5e5;padding:10px}#gbd4 .gbpgs .gbmtc{line-height:27px}#gbd4 .gbpgs .gbmt{padding:0 10px}#gbmple .gbmt,#gbmpas .gbmt{font-size:15px}#gbd4 .gbpc{display:inline-block;margin:10px;vertical-align:top}#gbd4 .gbpc{*display:inline}.gbpc .gbmtc{margin-top:10px}.gbpc .gbps{color:#000;font-weight:bold}.gbpc .gbps2{font-size:13px}.gbpc .gbpd{color:#000}.gbpd .gbmt,.gbmpmtd .gbmt{color:#666 !important}.gbmpme,.gbps2{color:#666;display:block;font-size:11px}.gbp0 .gbps2,.gbmpmta .gbmpme{font-weight:bold}#gbmpp{display:none}.gbpmc{background:#edfeea}#gbpm{*border-collapse:collapse;border-spacing:0;margin:0;white-space:normal}#gbpm .gbmt{border-top:none;color:#666 !important;font:11px Arial,sans-serif}.gbpms2{font-weight:bold;white-space:nowrap}#gbmpal{*border-collapse:collapse;border-spacing:0;margin:0;white-space:nowrap}.gbmpala,.gbmpalb{font:13px Arial,sans-serif;padding:5px 10px}.gbmpala{text-align:left}.gbmpalb{text-align:right}#gbmpsb{margin:0 10px}.gbp0 .gbps,.gbmpmta .gbmpmn{color:#000;display:inline-block;font-weight:bold;padding-right:34px;position:relative}.gbp0 .gbps,.gbmpmta .gbmpmn{*display:inline}.gbmpmtc,.gbp0i{background:url(//ssl.gstatic.com/gb/images/b_5dae6e31.png);_background:url(//ssl.gstatic.com/gb/images/b8_51af752e.png);background-position:0 -186px;position:absolute;height:21px;width:24px;right:0;top:-3px}
+  --></style>
+<script language="javascript"><!--
+function ad_resize() {}
+function if_resize() {}
+function fin_resize() {}
+function qs() {}
+//--></script>
+<script language="javascript1.2"><!--
+function if_resize(name, w, h) {
+  if (document.getElementById && document.getElementById(name)){
+    document.getElementById(name).style.height = h + "px";
+    document.getElementById(name).style.width = w + "px";
+  }
+}
+function ad_resize(w, h) {
+  if_resize("google_ads_frame",w,h);
+}
+function fin_resize(w, h) {
+  if_resize("google_finance_frame",w,h);
+}
+
+function qs(el) {
+  if (window.RegExp && window.encodeURIComponent) {
+    var qe=encodeURIComponent(document.gs.q.value);
+
+    if (qe == '') {
+      return 1;
+    }
+
+    if (el.href.indexOf("q=")!=-1) {
+      el.href=el.href.replace(new RegExp("q=[^&$]*"),"q="+qe);
+    } else {
+      el.href+="&q="+qe;
+    }
+  }
+  return 1;
+}
+
+//--></script>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://pinguinocard.googlegroups.com/group/pinguinocard/feed/rss_v2_0_msgs.xml">
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="http://pinguinocard.googlegroups.com/group/pinguinocard/feed/atom_v1_0_msgs.xml">
+</head>
+<body onresize=""
+      onload=""
+      
+        topmargin=0
+        leftmargin=0
+        marginheight=0
+        marginwidth=0
+      
+      bgcolor=white
+      
+      
+  >
+  <div id=gb><div id=gbw><div id=gbz><span class=gbtcb></span><ol class=gbtc><li class=gbt><a class=gbzt onclick="gbar.logger.il(1,{t:23})" href="http://mail.google.com/mail/?tab=gm"><span class=gbtb2></span><span class=gbts>Gmail</span></a></li><li class=gbt><a class=gbzt id="gb_24" onclick="gbar.qs(this);gbar.logger.il(1,{t:24})" href="http://www.google.com/calendar?hl=en&tab=gc"><span class=gbtb2></span><span class=gbts>Calendar</span></a></li><li class=gbt><a class=gbzt onclick="gbar.logger.il(1,{t:25})" href="http://docs.google.com/?tab=go"><span class=gbtb2></span><span class=gbts>Documents</span></a></li><li class=gbt><a class=gbzt id="gb_31" onclick="gbar.qs(this);gbar.logger.il(1,{t:31})" href="http://picasaweb.google.com/home?hl=en&tab=gq"><span class=gbtb2></span><span class=gbts>Photos</span></a></li><li class=gbt><a class=gbzt onclick="gbar.logger.il(1,{t:32})" href="http://www.google.com/reader/?tab=gy"><span class=gbtb2></span><span class=gbts>Reader</span></a></li><li class=gbt><a class=gbzt id="gb_1" onclick="gbar.qs(this);gbar.logger.il(1,{t:1})" href="http://www.google.com/webhp?hl=en&tab=gw"><span class=gbtb2></span><span class=gbts>Web</span></a></li><li class=gbt><a id=gbztm class=gbgt href="http://www.google.com/intl/en/options/" onclick="gbar.tg(event,this)" aria-haspopup=true aria-owns=gbd><span class=gbtb2></span><span id=gbztms class=gbts><span id=gbztms1>more</span><span class=gbma></span></span></a><div class=gbm id=gbd aria-owner=gbztm><div class=gbmc><ol class=gbmcc><li class=gbmtc><a class=gbmt onclick="gbar.logger.il(1,{t:38})" href="http://sites.google.com/?tab=g3">Sites</a></li><li class=gbmtc><a class="gbmt gbp1 gbm0l" onclick="gbar.logger.il(1,{t:3})" href="http://groups.google.com/grphp?hl=en&tab=gg"  target=_blank>Groups</a></li><li class=gbmtc><a class=gbmt id="gb_36" onclick="gbar.qs(this);gbar.logger.il(1,{t:36})" href="http://www.youtube.com/?hl=en&tab=g1">YouTube</a></li><li class=gbmtc><div class="gbmt gbmh"></div></li><li class=gbmtc><a class=gbmt id="gb_2" onclick="gbar.qs(this);gbar.logger.il(1,{t:2})" href="http://www.google.com/imghp?hl=en&tab=gi">Images</a></li><li class=gbmtc><a class=gbmt id="gb_12" onclick="gbar.qs(this);gbar.logger.il(1,{t:12})" href="http://video.google.com/?hl=en&tab=gv">Videos</a></li><li class=gbmtc><a class=gbmt id="gb_8" onclick="gbar.qs(this);gbar.logger.il(1,{t:8})" href="http://maps.google.com/maps?hl=en&tab=gl">Maps</a></li><li class=gbmtc><a class=gbmt id="gb_5" onclick="gbar.qs(this);gbar.logger.il(1,{t:5})" href="http://news.google.com/nwshp?hl=en&tab=gn">News</a></li><li class=gbmtc><a class=gbmt id="gb_6" onclick="gbar.qs(this);gbar.logger.il(1,{t:6})" href="http://www.google.com/prdhp?hl=en&tab=gf">Shopping</a></li><li class=gbmtc><a class=gbmt id="gb_10" onclick="gbar.qs(this);gbar.logger.il(1,{t:10})" href="http://books.google.com/bkshp?hl=en&tab=gp">Books</a></li><li class=gbmtc><a class=gbmt id="gb_51" onclick="gbar.qs(this);gbar.logger.il(1,{t:51})" href="http://translate.google.com/?hl=en&tab=gT">Translate</a></li><li class=gbmtc><a class=gbmt id="gb_9" onclick="gbar.qs(this);gbar.logger.il(1,{t:9})" href="http://scholar.google.com/schhp?hl=en&tab=gs">Scholar</a></li><li class=gbmtc><a class=gbmt id="gb_27" onclick="gbar.qs(this);gbar.logger.il(1,{t:27})" href="http://www.google.com/finance?hl=en&tab=ge">Finance</a></li><li class=gbmtc><a class=gbmt id="gb_13" onclick="gbar.qs(this);gbar.logger.il(1,{t:13})" href="http://blogsearch.google.com/?hl=en&tab=gb">Blogs</a></li><li class=gbmtc><a class=gbmt id="gb_92" onclick="gbar.qs(this);gbar.logger.il(1,{t:92})" href="http://www.google.com/realtime?hl=en&tab=gY">Realtime</a></li><li class=gbmtc><div class="gbmt gbmh"></div></li><li class=gbmtc><a class=gbmt onclick="gbar.logger.il(1,{t:66})" href="http://www.google.com/intl/en/options/">even more &raquo;</a></li></ol></div></div></li></ol></div><div id=gbg><h2 class=gbxx>Account Options</h2><span class=gbtcb></span><ol class=gbtc><li class=gbt><a class=gbgt id=gb_70 href="https://www.google.com/accounts/ServiceLogin?service=groups2&amp;passive=1209600&amp;continue=http://pinguinocard.googlegroups.com/web/bootloaderARDE.hex?gda%3DjBwCrkQAAADnFlYzg3x12H7rWxnkgcwSLX4BHrxaREF4MRm7dJSM9FZW1WU6uFCX7YPiVvMSPvxV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA&amp;followup=http://pinguinocard.googlegroups.com/web/bootloaderARDE.hex?gda%3DjBwCrkQAAADnFlYzg3x12H7rWxnkgcwSLX4BHrxaREF4MRm7dJSM9FZW1WU6uFCX7YPiVvMSPvxV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA" onclick="gbar.logger.il(9,{l:'i'})"><span class=gbtb2></span><span id=gbgs4 class=gbts><span id=gbi4s1>Sign in</span></span></a></li><li class="gbt gbtb"><span class=gbts></span></li><li class=gbt><a class=gbgt id=gbg5 href="http://www.google.com/preferences?hl=en" title="Options" onclick="gbar.tg(event,this)" aria-haspopup=true aria-owns=gbd5><span class=gbtb2></span><span id=gbgs5 class=gbts><span id=gbi5></span></span></a><div class=gbm id=gbd5 aria-owner=gbg5><div class=gbmc><ol class=gbmcc><li class="gbkc gbmtc"><a class=gbmt href="/support?hl=en">Groups help</a></li><li class=gbmtc><div class="gbmt gbmh"></div></li><li class="gbkp gbmtc"><a class=gbmt href="http://www.google.com/intl/en/privacy.html">Privacy</a></li></ol></div></div></li></ol></div></div><div id=gbx1></div><div id=gbx2></div><div id=gbx3></div><div id=gbx4></div></div>
+  <div class="clear" / >
+  <div class="gtopbar">
+  <table cellpadding=0 cellspacing=0 width=100% border=0>
+  <tr valign="top">
+  <td class="maincell">
+  <table cellpadding=0 cellspacing=0 border=0>
+  <tr valign="top">
+  <td width="140" style="overflow: hidden;">
+  <a href="/"><img src="/intl/en/images/logos/groups_logo_sm.gif" width="140" height="30" alt="Google Groups Home" border=0 style="position: relative; top: 2px; margin-right: 10px;"></a>
+  </td>
+  </tr>
+  </table>
+  </td>
+  </tr>
+  </table>
+  <div style="font-size: 91%;"><a href="/">« Groups Home</a></div>
+  </div>
+<BLOCKQUOTE>
+  <H2>Found</H2>
+  <p>
+  Please click the following link to continue.<p>
+  <a href="/web/bootloaderARDE.hex?gda=IPO1c0QAAADnFlYzg3x12H7rWxnkgcwS_WEpqMelOSYDQ0hN7smofFZW1WU6uFCX7YPiVvMSPvxV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA">/web/bootloaderARDE.hex?gda=IPO1c0QAAADnFlYzg3x12H7rWxnkgcwS_WEpqMelOSYDQ0hN7smofFZW1WU6uFCX7YPiVvMSPvxV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA</a>
+</BLOCKQUOTE>
+  <div class="padt10"></div>
+  <div style="border-bottom: 1px solid #999999;"></div>
+  <div style="background-color: #eeeeee">
+<div class="padt10 padb10">
+  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign=center>
+  <td align="center" style="padding-right:1em;" class="fontsize2">
+  <b><a style="color: #00c" target=_top href="/groups/create?lnk=gcf">Create a group</a></b><font color="#333"> - </font>
+  <a style="color: #00c" target=_top href="/">Google Groups</a><font color="#333"> - </font>
+  <a style="color: #00c" target=_top href="http://www.google.com/webhp?hl=en">Google Home</a><font color="#333"> - </font>
+  <a style="color: #00c" target=_top href="http://groups.google.com/intl/en/googlegroups/terms_of_service3.html">Terms of Service</a><font color="#333"> - </font>
+  <a style="color: #00c" target=_top href="http://groups.google.com/intl/en/googlegroups/privacy3.html">Privacy Policy</a>
+  </td>
+  </tr>
+  <tr>
+  <td align="center" style="color: #333" class="fontsize1 padt5" >&copy;2011 Google</td>
+  </tr>
+  </table>
+</div>
+  </div>
+<script language="javascript"><!--
+if( loaddef != "" ) {
+  window.onload=new Function( loaddef );
+}
+if( resizedef != "" ) {
+  window.onresize = new Function( resizedef );
+}
+//--></script>
+  <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"> </script>
+  <script type="text/javascript"><!--
+      
+        _uacct = "UA-1044941-1";
+      
+      urchinTracker("\x2Fweb\x2FbootloaderARDE.hex?gda=jBwCrkQAAADnFlYzg3x12H7rWxnkgcwSLX4BHrxaREF4MRm7dJSM9FZW1WU6uFCX7YPiVvMSPvxV6u9SiETdg0Q2ffAyHU-dzc4BZkLnSFWX59nr5BxGqA\x26als_gt=group\x26als_greg=FR\x26als_gact=\x26als_gsubs=\x26als_gview=ANYONE\x26als_gpjoin=y\x26");
+    //--></script>
+</body>
+</html>

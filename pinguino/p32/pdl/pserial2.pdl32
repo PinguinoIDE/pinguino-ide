@@ -1,0 +1,12 @@
+Serial2.init serial2init#include <pinguinoserial2.c>
+Serial2.begin serial2init#include <pinguinoserial2.c>
+Serial2.write serial2write#include <pinguinoserial2.c>
+Serial2.print serial2print#include <pinguinoserial2.c>
+Serial2.println serial2println#include <pinguinoserial2.c>
+Serial2.printf serial2printf#include <pinguinoserial2.c>
+Serial2.getKey serial2getkey#include <pinguinoserial2.c>
+Serial2.getString serial2getstring#include <pinguinoserial2.c>
+Serial2.available serial2available#include <pinguinoserial2.c>
+Serial2.read serial2read#include <pinguinoserial2.c>
+Serial2.flush serial2flush#include <pinguinoserial2.c>
+Serial2.ClearRxError serial2clearrxerror#include <pinguinoserial2.c>

@@ -1,0 +1,89 @@
+*** Pinguino EasyPack for win32, release note ***
+
+First, to extract 7z archive , '7-Zip' has to be installed from here,
+     http://www.7-zip.org/
+
+Installation and start up Pinguno IDE:
+  1. Using 7-Zip, extract 'Pinguino-X4-EasyPack-Win32-RevNNN-vNN-yyyy-mm.7z' to the arbitrary folder.
+     (N,y,m is number or string) 
+     It's highly recommended extracting this archive file to the folder 
+     which name dose not have 'spaces or multibyte strings'.
+  2. Move the x4-easy-revNNN folder to i.e. 'C:\x4-easy-revNNN'.
+     (Because gpasm.exe can't recognize the long folder name.) 
+  3. Execute x4-easy-revNNN\pinguino.exe,
+     or
+     x4-easy-revNNN\pinguino_start.bat
+
+THAT'S ALL!!
+
+But... :D
+Prerequisite:
+  1. If you encounter the message of not existing 'msvc*90.dll' in Windows,
+     it has to be installed from here:
+       vcredist_x86.exe (for win32),
+         http://www.microsoft.com/en-us/download/details.aspx?id=5582&WT.mc_id=MSCOM_EN_US_DLC_DETAILS_131Z4ENUS22004
+     or as Python v2.6.6 includes 'msvc*90.dll' file , you may install the Python instead of vcredist_x86.exe
+       form here,
+         http://www.python.org/ftp/python/2.6.6/python-2.6.6.msi
+  2. On 8bit PICs, if you encounter the error message of "sdcpp can't find ..." during compilation,  
+     add SDCC execution path to Windows environment variable PATH.
+     i.e.
+	 If you extract EasyPack to c:\x4-easy-revNNN (NNN is revision number),
+	 add  c:\x4-easy-revNNN\win32\p8\bin to Windows environment variable PATH.
+	 
+	 General information about PATH setting: [ http://www.computerhope.com/issues/ch000549.htm ]
+
+Note:
+* This package dose not install the device drivers,
+  they have to be installed according to the instruction below link,
+  Windows XP:
+     http://wiki.pinguino.cc/index.php/Windows#Pinguino_Driver
+  Windows 7
+     http://wiki.pinguino.cc/index.php/Windows_7
+* If Pinguino IDE dosn't start well, delete '.config' file and restart Pinguino IDE,
+  or check 'pinguino.log' or 'pingunoPanic' file in Pinguino root folder.
+  
+Tested environment:
+  * This package has been tested only 'win32' environment at this moment,
+    Windows XP (on VMWare),
+    Windows 7(32bit).
+
+History:
+rev903    v01: 2013/10, packaged and released by avrin.
+rev857    v01: 2013/05, packaged and released by avrin.
+rev685mod v01: 2013/02, packaged and released by avrin.
+
+This package based on:
+  Pinguino: http://pinguino.cc 
+      [ svn checkout http://pinguino32.googlecode.com/svn/ide/ pinguino32 ]
+  Python: v2.6.6    
+      [ http://www.python.org/ftp/python/2.6.6/python-2.6.6.msi ]
+  Py2exe: v0.6.9
+      [ http://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.6.exe/download ]
+  PySerial: v2.5
+      [ http://sourceforge.net/projects/pyserial/files/pyserial/2.5/pyserial-2.5.win32.exe/download ]
+  pyusb-1.0.0a2-py2.6:
+      [ http://sourceforge.net/projects/pyusb/files/PyUSB%201.0/1.0.0-alpha-2/pyusb-1.0.0a2.zip/download ]
+  wxPython: 2.8.12.1(unicode) for Python 2.6
+      [ http://downloads.sourceforge.net/wxpython/wxPython2.8-win32-unicode-2.8.12.1-py26.exe ]
+   msvcp90.dll: (Using Ver.9.00.30729.1)
+      This file will be found in c:\Windows\winsxs or so on.
+Memo:
+  PySVN(not inclueded):  v1.7.6
+    http://pysvn.tigris.org/files/documents/1233/49192/py26-pysvn-svn173-1.7.6-1457.exe
+
+Packaging scripts and patches:
+  Refer to 'extra/EasyPack-doc' folder.
+
+
+
+
+
+
+Thank you very much, Pinguino Developper Team, many committers 
+and community members.
+
+
+
+2013/10: by avrin
+

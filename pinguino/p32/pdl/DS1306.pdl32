@@ -1,0 +1,41 @@
+// Initialize DS1306 using ce as chip enable line, turn on osc
+DS1306.Init DS1306_Init#include <DS1306.c>
+
+// Time set uses hours (when DS1306_writeHours24 = true) (default), hours12/ampm (when DS1306_writeHours24 = false)
+DS1306.Hours24 DS1306_Hours24#include <DS1306.c>
+
+// Primary clock (time/date) operations
+DS1306.setTime DS1306_setTime#include <DS1306.c>
+DS1306.getTime DS1306_getTime#include <DS1306.c>
+
+// Alarm management operations
+DS1306.setAlarm DS1306_setAlarm#include <DS1306.c>
+DS1306.getAlarm DS1306_getAlarm#include <DS1306.c>
+DS1306.getAlarmState DS1306_getAlarmState#include <DS1306.c>
+DS1306.getAlarmBothState DS1306_getAlarmBothState#include <DS1306.c>
+DS1306.clearAlarmState DS1306_clearAlarmState#include <DS1306.c>
+DS1306.clearAlarmBothState DS1306_clearAlarmBothState#include <DS1306.c>
+DS1306.getAlarmEnabled DS1306_getAlarmEnabled#include <DS1306.c>
+DS1306.getAlarmBothEnabled DS1306_getAlarmBothEnabled#include <DS1306.c>
+DS1306.enableAlarm DS1306_enableAlarm#include <DS1306.c>
+DS1306.disableAlarm DS1306_disableAlarm#include <DS1306.c>
+DS1306.enableBothAlarms DS1306_enableBothAlarms#include <DS1306.c>
+DS1306.disableBothAlarms DS1306_disableBothAlarms#include <DS1306.c>
+
+// 1Hz state
+DS1306.get1HzState DS1306_get1HzState#include <DS1306.c>
+DS1306.set1HzState DS1306_set1HzState#include <DS1306.c>
+
+// Trickle charge management
+DS1306.enableTrickleCharge DS1306_enableTrickleCharge#include <DS1306.c>
+DS1306.disableTrickleCharge DS1306_disableTrickleCharge#include <DS1306.c>
+DS1306.getTrickleChargeState DS1306_getTrickleChargeState#include <DS1306.c>
+
+// User memory management
+DS1306.writeUser DS1306_writeUser#include <DS1306.c>
+DS1306.readUser DS1306_readUser#include <DS1306.c>
+
+// Write Protection management
+DS1306.isWriteProtected DS1306_isWriteProtected#include <DS1306.c>
+DS1306.setWriteProtection DS1306_setWriteProtection#include <DS1306.c>
+

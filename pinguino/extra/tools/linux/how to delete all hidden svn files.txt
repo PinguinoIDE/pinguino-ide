@@ -1,0 +1,3 @@
+find . -name ".svn" -type d -exec rm -rf {} \;
+or
+find . -name ".svn" -type d -delete

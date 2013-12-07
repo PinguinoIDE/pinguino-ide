@@ -1,0 +1,12 @@
+Serial6.init serial6init#include <pinguinoserial6.c>
+Serial6.begin serial6init#include <pinguinoserial6.c>
+Serial6.write serial6write#include <pinguinoserial6.c>
+Serial6.print serial6print#include <pinguinoserial6.c>
+Serial6.println serial6println#include <pinguinoserial6.c>
+Serial6.printf serial6printf#include <pinguinoserial6.c>
+Serial6.getKey serial6getkey#include <pinguinoserial6.c>
+Serial6.getString serial6getstring#include <pinguinoserial6.c>
+Serial6.available serial6available#include <pinguinoserial6.c>
+Serial6.read serial6read#include <pinguinoserial6.c>
+Serial6.flush serial6flush#include <pinguinoserial6.c>
+Serial6.ClearRxError serial6clearrxerror#include <pinguinoserial6.c>

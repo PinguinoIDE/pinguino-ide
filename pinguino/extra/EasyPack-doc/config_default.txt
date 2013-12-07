@@ -1,0 +1,32 @@
+[Open/Save]
+openlast = True
+autosave = False
+template = True
+
+[Main]
+tools = True
+open-save = True
+
+[Highligh]
+selection = [241, 132, 88]
+
+[Source]
+tabsize = 4
+
+[Board]
+device = Pinguino 2550
+bootloader = ['boot4', 3072]
+architecture = 8
+mode = BOOT
+
+
+[IDE]
+window/ypos = 157
+maximized = False
+sashposco = 352
+sashposcl = 500
+theme = GnomeLook
+window/height = 618
+window/xpos = 59
+window/width = 1000
+

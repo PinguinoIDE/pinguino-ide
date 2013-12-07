@@ -1,0 +1,117 @@
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
+from constructor import * 
+kit = Kit()
+
+########################################################################
+class Python():
+    
+    #----------------------------------------------------------------------
+    def try_(self):
+        pm = Nested("Python")
+        pm.addLabel("try")
+        pm.addSyntax(":")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def except_(self):
+        pm = Nested("Python")
+        pm.addLabel("except")
+        pm.addSyntax(":")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def finnaly_(self):
+        pm = Nested("Python")
+        pm.addLabel("finally")
+        pm.addSyntax(":")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def for_py(self):
+        pm = Nested("Python")
+        pm.addLabel("for")
+        pm.addSpace()
+        pm.addLabel(" in")
+        pm.addSpace()
+        pm.addSyntax(":")
+        return pm.getBlock()
+    
+    ##----------------------------------------------------------------------
+    #def while_py(self):
+        #pm = Nested("Python")
+        #pm.addLabel("while")
+        #pm.addSpaceBool()
+        #pm.addSyntax(":")
+        #return pm.getBlock()
+    
+
+    #----------------------------------------------------------------------
+    def pass_py(self):
+        pm = Linear("Python")
+        pm.addLabel("pass")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def print_py(self):
+        pm = Linear("Python")
+        pm.addSyntax("__print_output__(")
+        pm.addDecorator("print ")
+        pm.addSpace()
+        pm.addSyntax(")")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def print_py_(self):
+        pm = Linear("Python")
+        pm.addSyntax("__print_output___(")
+        pm.addDecorator("print ")
+        pm.addSpace()
+        pm.addSyntax(")")
+        pm.addDecorator(",")        
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def main_py(self):
+        pm = Function("Python")
+        pm.addDecorator("if __name__ == \"__main__\"")
+        pm.addSyntax("main_py()")
+        return pm.getBlock()
+    
+        
+    #----------------------------------------------------------------------
+    def incre(self):
+        pm = Linear("Python")
+        pm.addSpace()
+        pm.addLabel("+=")
+        pm.addSpace()
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def decre(self):
+        pm = Linear("Python")
+        pm.addSpace()
+        pm.addLabel("-=")
+        pm.addSpace()
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def import_(self):
+        pm = Linear("Python")
+        pm.addLabel("import ")
+        pm.addSpace()
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def import__(self):
+        pm = Linear("Python")
+        pm.addLabel("from ")
+        pm.addSpace()
+        pm.addLabel(" import ")
+        pm.addSpace()
+        return pm.getBlock()
+        
+        
+        
+

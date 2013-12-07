@@ -1,0 +1,14 @@
+PID.init PID_init#include <pid.c>
+PID.setMode PID_SetMode#include <pid.c>
+PID.compute PID_Compute#include <pid.c>
+PID.setOutputLimits PID_SetOutputLimits#include <pid.c>
+PID.setTunings PID_SetTunings#include <pid.c>
+PID.setControllerDirection PID_SetControllerDirection#include <pid.c>
+PID.setSampleTime PID_SetSampleTime#include <pid.c>
+PID.getKp PID_GetKp#include <pid.c>
+PID.getKi PID_GetKi#include <pid.c>
+PID.getKd PID_GetKd#include <pid.c>
+PID.getMode PID_GetMode#include <pid.c>
+PID.getDirection PID_GetDirection#include <pid.c>
+PID.initialize PID_Initialize#include <pid.c>
+

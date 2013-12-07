@@ -1,0 +1,45 @@
+<RCC>
+  <qresource prefix="toolbar">
+    <file>toolbar/new_file.png</file>
+    <file>toolbar/redo.png</file>
+    <file>toolbar/search.png</file>
+    <file>toolbar/replace.png</file>
+    <file>toolbar/cut.png</file>
+    <file>toolbar/copy.png</file>
+    <file>toolbar/paste.png</file>
+    <file>toolbar/undo.png</file>
+    <file>toolbar/board.png</file>
+    <file>toolbar/switch_to_graphical.png</file>
+    <file>toolbar/open_file.png</file>
+    <file>toolbar/switch_to_text.png</file>
+    <file>toolbar/save_image.png</file>
+    <file>toolbar/download.png</file>
+    <file>toolbar/compile.png</file>
+    <file>toolbar/save_file.png</file>
+  </qresource>
+  <qresource prefix="icons">
+    <file>icons/icon_down.png</file>
+    <file>icons/icon_up.png</file>
+    <file>icons/icon_file_py.png</file>
+    <file>icons/icon_file.png</file>
+    <file>icons/icon_file_pde.png</file>
+    <file>icons/icon_dir.png</file>
+  </qresource>
+  <qresource prefix="selection">
+    <file>selection/border.svg</file>
+    <file>selection/background.svg</file>
+  </qresource>
+  <qresource prefix="logo">
+    <file>arte/pinguino11.svg</file>
+    <file>arte/windowIcon.svg</file>
+    <file>arte/banner.png</file>
+  </qresource>
+  <qresource prefix="autocompleter">
+    <file>autocompleter/reserved.png</file>
+    <file>autocompleter/function.png</file>
+    <file>autocompleter/library.png</file>
+    <file>autocompleter/snippet.png</file>
+    <file>autocompleter/short.png</file>
+    <file>autocompleter/double.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,119 @@
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+
+from py_blocks.constructor import * 
+
+
+########################################################################
+class KitBlocks():
+    
+    def __init__(self):
+        """"""
+
+    #----------------------------------------------------------------------
+    def myBlock1(self):
+        pm = Nested("Example")
+        pm.addLabel("Nested")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock2(self):
+        pm = Linear("Example")
+        pm.addLabel("Linear")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock3(self):
+        pm = NestedNext("Example")
+        pm.addLabel("NestedNext")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock4(self):
+        pm = Function("Example")
+        pm.addLabel("Function")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock5(self):
+        pm = Output("Example")
+        pm.addLabel("Output")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock6(self):
+        pm = OutputBool("Example")
+        pm.addLabel("OutputBool")
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock7(self):
+        pm = Linear("Example")
+        pm.addLabel("Edit")
+        pm.addEdit("edit", "white", (0, 0, 0))
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock8(self):
+        pm = Linear("Example")
+        pm.addLabel("Space")
+        pm.addSpace()
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock9(self):
+        pm = Linear("Example")
+        pm.addLabel("Space bool")
+        pm.addSpaceBool()
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock10(self):
+        pm = Linear("Example")
+        pm.addLabel("Choice")
+        pm.addSpinChoice("uno", ["uno", "dos", "tres", "cuatro", "cinco"])
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock11(self):
+        pm = Linear("Example")
+        pm.addLabel("Spin Int")
+        pm.addSpinInt(0, 0, 10)
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock12(self):
+        pm = Linear("Example")
+        pm.addLabel("Spin Float")
+        pm.addSpinFloat(0, 0.1, 0, 10)
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def myBlock13(self):
+        pm = Linear("Example")
+        pm.addLabel("Slider")
+        pm.addSlider(0, 0, 10)
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def sinc(self):
+        pm = Output("tutorial")
+        pm.addLabel("sinc")
+        pm.addSyntax("(")
+        pm.addSpace()
+        pm.addSyntax(")")
+        
+        code_pinguino = """
+#include <math.h>
+float sinc(float x){
+    return sin(x)/x;
+    } """
+        
+        code_python = """
+import math
+def sinc(x):
+    return math.sin(x)/x
+    """
+        pm.addCode([code_pinguino, ["sinc", "float"]], code_python)
+        
+        return pm.getBlock()   

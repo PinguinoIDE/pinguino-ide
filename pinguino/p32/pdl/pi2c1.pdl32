@@ -1,0 +1,15 @@
+I2C1.init I2C1_init#include <pinguinoi2c1.c>
+I2C1.write I2C1_write#include <pinguinoi2c1.c>
+I2C1.send I2C1_send#include <pinguinoi2c1.c>
+I2C1.sendID I2C1_sendID#include <pinguinoi2c1.c>
+I2C1.get I2C1_get#include <pinguinoi2c1.c>
+I2C1.writeChar I2C1_writechar#include <pinguinoi2c1.c>
+I2C1.readChar I2C1_readchar#include <pinguinoi2c1.c>
+I2C1.readCharNack I2C1_readchar#include <pinguinoi2c1.c>
+I2C1.readCharAck I2C1_readcharAck#include <pinguinoi2c1.c>
+I2C1.wait I2C1_wait#include <pinguinoi2c1.c>
+I2C1.start I2C1_start#include <pinguinoi2c1.c>
+I2C1.stop I2C1_stop#include <pinguinoi2c1.c>
+I2C1.restart I2C1_restart#include <pinguinoi2c1.c>
+I2C1.sendNack I2C1_sendNack#include <pinguinoi2c1.c>
+I2C1.sendAck I2C1_sendAck#include <pinguinoi2c1.c>

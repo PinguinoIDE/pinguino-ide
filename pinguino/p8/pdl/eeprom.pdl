@@ -1,0 +1,6 @@
+EEPROM.read EEPROM_read8#include <eeprom.c>
+EEPROM.read8 EEPROM_read8#include <eeprom.c>
+EEPROM.read16 EEPROM_read16#include <eeprom.c>
+EEPROM.write EEPROM_write8#include <eeprom.c>
+EEPROM.write8 EEPROM_write8#include <eeprom.c>
+EEPROM.write16 EEPROM_write16#include <eeprom.c>

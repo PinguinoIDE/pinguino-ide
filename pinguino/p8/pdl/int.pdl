@@ -1,0 +1,62 @@
+INT_TMR0 INT_TMR0#define TMR0INT
+INT_TMR1 INT_TMR1#define TMR1INT
+INT_TMR2 INT_TMR2#define TMR2INT
+INT_TMR3 INT_TMR3#define TMR3INT
+INT_TMR4 INT_TMR4#define TMR4INT
+INT_TMR5 INT_TMR5#define TMR5INT
+INT_TMR6 INT_TMR6#define TMR6INT
+INT_TMR8 INT_TMR8#define TMR8INT
+INT_INT0 INT_INT0
+INT_INT1 INT_INT1
+INT_INT2 INT_INT2
+INT_RB INT_RB
+INT_CCP1 INT_CCP1
+INT_CCP2 INT_CCP2
+INT_CM INT_CM
+INT_RC INT_RC
+INT_TX INT_TX
+INT_AD INT_AD
+INT_OSCF INT_OSCF
+INT_EE INT_EE
+INT_HLVD INT_HLVD
+INT_BCL INT_BCL
+INT_USB INT_USB
+INT_SSP INT_SSP
+Int.detach IntDisable#include <interrupt.c>#define INTDISABLE 
+Int.disable IntDisable#include <interrupt.c>#define INTDISABLE
+Int.enable IntEnable#include <interrupt.c>#define INTENABLE
+Int.attach IntEnable#include <interrupt.c>#define INTENABLE
+Int.start IntStart#include <interrupt.c>#define INTSTART
+Int.stop IntStop#include <interrupt.c>#define INTSTOP
+Int.clearFlag IntClearFlag#include <interrupt.c>#define INTCLEARFLAG
+Int.isFlagSet IntIsFlagSet#include <interrupt.c>#define INTISFLAGSET
+OnTimer0 OnTimer0#include <interrupt.c>#define TMR0INT
+OnTimer1 OnTimer1#include <interrupt.c>#define TMR1INT
+OnTimer2 OnTimer2#include <interrupt.c>#define TMR2INT
+OnTimer3 OnTimer3#include <interrupt.c>#define TMR3INT
+OnTimer4 OnTimer4#include <interrupt.c>#define TMR4INT
+OnTimer5 OnTimer5#include <interrupt.c>#define TMR5INT
+OnTimer6 OnTimer6#include <interrupt.c>#define TMR6INT
+OnTimer8 OnTimer8#include <interrupt.c>#define TMR8INT
+OnRTCC OnRTCC#include <interrupt.c>#define TMR1INT
+OnCounter0 OnCounter0#include <interrupt.c>#define CNTR0INT
+OnCounter1 OnCounter1#include <interrupt.c>#define CNTR1INT
+OnCounter3 OnCounter3#include <interrupt.c>#define CNTR3INT
+OnChangePin0 OnChangePin0#include <interrupt.c>#define INT0INT
+OnChangePin1 OnChangePin1#include <interrupt.c>#define INT1INT
+OnChangePin2 OnChangePin2#include <interrupt.c>#define INT2INT
+OnChangePin4to7 OnChangePin4to7#include <interrupt.c>#define RBINT
+OnCompare1 OnCompare1#include <interrupt.c>#define CMP1INT
+OnCompare2 OnCompare2#include <interrupt.c>#define CMP2INT
+OnCompareAll OnCompareAll#include <interrupt.c>#define CMINT
+OnEvent OnEvent#include <interrupt.c>
+OnSerialRX OnSerialRX#include <interrupt.c>#define RCINT
+OnSerialTX OnSerialTX#include <interrupt.c>#define TXINT
+OnADC OnADC#include <interrupt.c>#define ADINT
+OnOscFailed OnOscFailed#include <interrupt.c>#define OSCFINT
+OnEeprom OnEeprom#include <interrupt.c>#define EEINT
+OnLowVoltage OnLowVoltage#include <interrupt.c>#define HLVDINT
+OnBusCol OnBusCol#include <interrupt.c>#define BCLINT
+OnUSB OnUSB#include <interrupt.c>#define USBINT
+OnParallel OnParallel#include <interrupt.c>#define SSPINT
+interrupt userinterrupt#define USERINT

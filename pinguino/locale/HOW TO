@@ -1,0 +1,119 @@
+SECTIONS
+===============================================================================
+1.- About this document, and this Translation Pack
+2.- Language support (for this version)
+3.- The "locale" directory structure and content
+4.- Instructions to modify or update the translation files
+
+
+1.- ABOUT THIS DOCUMENT AND THIS TRANSLATION PACK
+===============================================================================
+This document and the internationalization code for Pinguino IDE, was
+created by Pinguino community members.  Feel free to contact us in our forum: 
+forum.pinguino.cc in the General - Suggestions for Improvement section.
+
+This document includes general information about how to install this translation
+pack and how to modify or update the built-in translation files.
+
+
+2.- LANGUAGE SUPPORT
+===============================================================================
+In this Translation Directory we have included translation files for these 
+languages:
+
+	(da) Detush
+	(en) English
+	(es) Spanish
+	(fr) French
+	(it) Italian
+	(pt) Portuguese
+	(pt_BR) Portuguese BRAZIL
+
+This is an initial selection, based on the list of countries of Pinguino users
+and activist around the world, refered by J.P.Mandon at HackingLab's Blog.
+
+Support for more languages can be easily incorporated, either edited by
+developers themselves or by a request to us to develop and deploy another 
+language with new versions of Pinguino IDE.
+
+
+3.- THE "locale" DIRECTORY STRUCTURE AND CONTENT
+===============================================================================
+In the pinguino IDE directory, you can see this directory structure:
+
+	.
+	├── HOW TO
+	├── translate.py	
+	├── de
+	│   └── LC_MESSAGES
+	│       ├── pinguino.mo
+	│       └── pinguino.po
+	├── en
+	│   └── LC_MESSAGES
+	│       ├── pinguino.mo
+	│       └── pinguino.po
+	├── es
+	│   └── LC_MESSAGES
+	│       ├── pinguino.mo
+	│       └── pinguino.po
+	├── fr
+	│   └── LC_MESSAGES
+	│       ├── pinguino.mo
+	│       └── pinguino.po
+	├── it
+	│   └── LC_MESSAGES
+	│       ├── pinguino.mo
+	│       └── pinguino.po
+	├── pt
+	│   └── LC_MESSAGES
+	│       ├── pinguino.mo
+	│       └── pinguino.po
+	├── pt_BR
+	│   └── LC_MESSAGES
+	│       ├── pinguino.mo
+	│       └── pinguino.po
+	└── sources
+	    ├── dock_files.py
+	    ├── editeur.py
+	    ├── framesX3.py
+	    ├── general.py
+	    └── pinguino.py
+
+Each directory language is indentified by two-letter codes from the ISO-639-1,
+Codes for the representation of names of languages, international standard.
+
+The ".po" files (PORTABLE Objects) are TEXT files that also contain the
+original string/translation pairs.  These are used by developers to edit the 
+translated words and phrases needed to translate the application.  They are 
+then compiled to ".mo" files (see below).
+
+The ".mo" files (MACHINE Objects) are BINARY files that contain the
+original string/translation pairs. These are used by the pygettext code, 
+included in the new pinguino.py file, to translate the application at run time.
+
+
+4.- Instructions to Modify or Update the translation files
+===============================================================================
+Modifying or updating the portable objects (*.po) and machine objects (*.mo) 
+files is very easy and simple to do.
+
+You only need to do these steps to modify or update your language files:
+
+	A) Download/Install "Poedit" (Easy to use GUI tool to edit po/mo files).
+	B) Execute translate.py
+	C) Select language
+	D) Edit the the Poedit SearchPath.
+	E) Edit the translation values then save, poedit will re-generate the .mo file
+		If a particular original string does not need to be translated, then leave
+		the translation value blank.
+	F) Execute your pinguino IDE !! you can see your changes
+
+Please, don't forget to send us your modified files (.po/.mo) to include them
+in the new versions of PinguinoIDE.  You can send it to the mailing list 
+https://groups.google.com/group/pinguinocard, you can hang it on the 
+forum specific to your language http://forum.pinguino.cc/forumdisplay.php?fid=23
+or edit the page into the wiki: wiki.pinguino.cc/index.php?title=Category:Locale.
+
+Thanks a lot !!
+
+

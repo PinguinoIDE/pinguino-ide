@@ -1,0 +1,239 @@
+Author: Wander Lairson Costa
+    Prepare for beta 1 release.
+
+Author: Wander Lairson Costa
+    Documentation update.
+    
+    From USB spec point of view, you don't need to know the interface number
+    of an endpoint to issue a transfer on that endpoint, given you know the
+    endpoint address. This is true because endpoint addresses must be unique
+    across interfaces. Nevertheless, some backends may need to know the
+    interface number.
+
+Author: Wander Lairson Costa
+    Group devices according to their bus in legacy module.
+    
+    Now that we have the *bus* property in the Device class, we can group
+    devices according to their bus, just like 0.4 version.
+
+Author: Wander Lairson Costa
+    Change PYUSB_DEBUG_LEVEL environment variable to PYUSB_DEBUG.
+    
+    Most software packages that provide log information through a
+    environment variable setting call this variable <PACKAGE-NAME>_DEBUG.
+    Let's follow this non-official standard for PyUSB too.
+
+Author: Wander Lairson Costa
+    Tutorial update.
+
+Author: Wander Lairson Costa
+    Fix: cleanup libusb 1.0 and setup it correctly.
+    
+    Now that we use a context, we don't need a global libusb initializer for
+    libusb 1.0 backend, so all initialization is done inside the _LibUSB
+    class.
+
+Author: Wander Lairson Costa
+    Fix: use the context parameter across libusb functions. closes #27
+    
+    To avoid double initialization when PyUSB is used with another library
+    thats also uses libusb, we started to make use of the context libusb
+    argument, instead of using the default one, but we didn't use it to call
+    several libusb functions, which caused segfaults on some versions of
+    libusb. This commit fixes this.
+
+Author: Wander Lairson Costa
+    Update copyright information.
+
+Author: Wander Lairson Costa
+    Experimental openusb support.
+    
+    This commit introduces a mostly usable support for openusb [1]. Known
+    issues include lack of isochronous transfers and hanging of some control
+    requests.
+    
+    [1] http://openusb.sourceforge.net
+
+Author: Wander Lairson Costa
+    More detailed control write failure test report.
+
+Author: Wander Lairson Costa
+    Avoid setting configuration to zero on tests.
+    
+    According to USB spec, setting a configuration to zero will put the
+    device back in address state and make it accessible only through the
+    default control pipe. But there are some buggy devices which actually
+    have a valid configuration *0*.
+    
+    If we can or cannot set the device configuration to zero varies
+    according to OS kernel, usb library and device. So, we avoid setting
+    configuration to zero during regression tests.
+
+Author: Wander Lairson Costa
+    Avoid destroy the _lib object before libusb is deinitialized. closes #23.
+    
+    As both the _init and _lib objects inside the libusb1 backend are global
+    objects, _lib maybe destroyed before _init, causing an error on exit.
+    
+    So, we add a reference to _lib inside _init to ensure correct destroying
+    order.
+
+Author: Wander Lairson Costa
+    Avoid deadlock by import lock. closes #7.
+    
+    Move up the import of USBError to avoid deadlocks in multithreading
+    applications.
+
+Author: Wander Lairson Costa
+    Use an explicit context to initialize libusb 1.x. closes #20
+    
+    When combining PyUSB with another module that makes use of libusb, we
+    may end up with a double free inside libusb_exit, or a application hang.
+    
+    We now use an explicit context object when initializing and exiting the
+    libusb library to avoid this problem.
+
+Author: Wander Lairson Costa
+    Include isochronous transfer in the regression tests.
+
+Author: Wander Lairson Costa
+    Updated ACKNOWLEDGEMENTS file
+
+Author: David Halter
+    Support for isochronous transfers on libusb 1.0.
+    
+    I wrote an isochronous write implementation for the libusb10 backend.
+    I used the asynchronous interface and wrapped it, so that it is
+    synchronous again in python, because that's much easier to handle.
+
+Author: David Halter
+    isochronous usb
+
+Author: Wander Lairson Costa
+    Include python 3.3 to tox.
+
+Author: Wander Lairson Costa
+    Updated acknowledgments file.
+
+Author: Wander Lairson Costa
+    Improve speed for fast reading devices. closes #18.
+    
+    Change the array initialization for read command for libusb0 and libusb1 backend.
+    
+    Current initialization can take long time because a tuple is created, changing
+    this to string improves read speed for fast devices.
+    
+    Thanks to themperek.
+
+Author: Wander Lairson Costa
+    Update version information to alpha 4.
+
+Author: clach04
+    More speed, less haste....
+
+Author: clach04
+    Last change didn't include all files.
+
+Author: clach04
+    Renamed and moved version information for module.
+
+Author: clach04
+    Added version information as part of usb (so version can be checked by users).
+    Setup now uses this instead of hard coded into setup.py
+
+Author: Wander Lairson Costa
+    Update test scripts to match new test firmware interface.
+    
+    The test firmware interface was changed to fix a mistake regarding the
+    endpoints addresses. Now endpoints from different alternate settings
+    have different addresses.
+
+Author: wander.costa
+    Thanks ponty.
+
+Author: ponty
+    git ignore tox files
+
+Author: ponty
+    tox support
+
+Author: Harry Bock
+    Explicitly use '.dll' extension for ctypes.util.find_library. closes #14.
+    
+    Workaround for CPython 3.3 issue #16283). See walac/pyusb issue #14.
+    Tested with libusb0 on Windows 7 64-bit, CPython 3.3 64-bit.
+
+Author: wander.costa
+    Thanks Harry Bock.
+
+Author: wander.costa
+    Additional information about PyUSB Windows install. closes #6.
+    
+    After Python installation, python interpreter may not be in the PATH
+    environment variable.
+
+Author: Wander Lairson Costa
+    Fixed: make sure there is a valid handle before do a reset.
+    
+    If reset method is called without a valid device handle, we will
+    probably have a crash. So, call managed_open before calling reset.
+
+Author: Wander Lairson Costa
+    Fixed compatibility with Python 3.3. closes #8.
+    
+    In usb/_interop.py in the as_array function, the array typecodes 'c' and
+    'u' are used. The 'c' typecode was removed from python 3.3 and 'u' will
+    is deprecated. The solution is to use the fromstring array method, but
+    it has the side effect of adding only the first byte of Unicode strings.
+
+Author: Wander Lairson Costa
+    Update README file.
+
+Author: Wander Lairson Costa
+    Fix: choose the correct interface according to alternate setting.
+    
+    When we set an alternate setting, we must consider it in the
+    get_interface method.
+
+Author: Wander Lairson Costa
+    Thanks to iThompson.
+    
+    For the tab errors patch.
+
+Author: Ian Thompson
+    Fixed TabError in libusb1.py
+
+Author: Wander Lairson Costa
+    Thanks.
+    
+    Acknowledgements for PyUSB contributions.
+
+Author: Simon Norberg
+    Changed order of matching in usb.core.find(..)
+    
+    Previous the custom_match was tested before any **args matching, this
+    resulted in unwanted behavior when the custom_match had to perform
+    a action towards the usb device the required permission that was not
+    necessary available for all usb devices.
+
+Author: Wander Lairson Costa
+    Merge pull request #11 from Norberg/master
+    
+    Fixed crach after introduction of port_number support
+Author: Simon Norberg
+    fixed broken test after port_number support
+
+Author: Simon Norberg
+    Stop crash when get_port_number not available
+    
+    Since get_port_number don't exist in all versions of libusb-1.0 we have
+    to handle the lack of this feature. get_port_number dont exists in
+    libusb-0.1 or openusb either, with this commit these backends are also
+    working again.
+
+Author: Wander Lairson Costa
+    Merge pull request #9 from StefanoD/master
+    
+    libusbx support extended
+Author: Stefano Di Martino
+    Support for port number retrieval for libusbx

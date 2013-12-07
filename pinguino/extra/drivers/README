@@ -1,0 +1,8 @@
+Pinguino Driver (Windows)
+
+1 - Before anything make sure you installed all necessary files (see http://wiki.pinguino.cc/index.php/Windows)
+2 - Connect your Pinguino-board. Windows will ask for a driver. Select the driver (.inf) in the folder of your OS.
+3 - Go to C:\Program Files\LibUSB-Win32\bin\ and run testlibusb-win.exe
+    
+You should get a bunch of data. (Containing Something like - Product  : Pinguino Project)
+If you only get 3 lines, you will have to install LibUSB-Win32 again.

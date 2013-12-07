@@ -1,0 +1,4 @@
+tone Tone#include <sound.c>
+noTone noTone#include <sound.c>
+Sound Sound#include <sound.c>
+Play Play#include <sound.c>

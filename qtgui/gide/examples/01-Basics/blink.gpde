@@ -1,0 +1,165 @@
+[Block-1]
+self_id = 0x3090440
+from = []
+name = function
+constructor = [['label', 'setup'], ['syntax', '()']]
+position = (40, 75)
+basename = setup
+inside = []
+to = []
+nested = ['0x3085950']
+
+[Block-2]
+self_id = 0x3089f80
+from = []
+name = function
+constructor = [['label', 'loop'], ['syntax', '()']]
+position = (483, 172)
+basename = loop
+inside = []
+to = []
+nested = ['0x3093050']
+
+[Block-3]
+self_id = 0x3093050
+from = ['0x3089f80']
+name = linear
+constructor = [['label', 'digitalWrite'], ['syntax', '('], ['space'], ['syntax', ','], ['space'], ['syntax', ')']]
+position = (495, 211)
+basename = digitalWrite
+inside = ['0x308f050', '0x308e710', '0x308f050', '0x308e710']
+to = ['0x308bab8']
+nested = []
+
+[Block-4]
+self_id = 0x308f050
+from = ['0x3093050']
+name = output
+constructor = [['spin_int', '13', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-5]
+self_id = 0x308e710
+from = ['0x3093050']
+name = output
+constructor = [['spin_choice', 'HIGH', ['HIGH', 'LOW']]]
+position = (0, 0)
+basename = choice-hl
+inside = []
+to = []
+nested = []
+
+[Block-6]
+self_id = 0x3085950
+from = ['0x3090440']
+name = linear
+constructor = [['label', 'pinMode'], ['syntax', '('], ['space'], ['syntax', ','], ['space'], ['syntax', ')']]
+position = (52, 114)
+basename = pinMode
+inside = ['0x308da70', '0x308d170', '0x308da70', '0x308d170']
+to = []
+nested = []
+
+[Block-7]
+self_id = 0x308da70
+from = ['0x3085950']
+name = output
+constructor = [['spin_int', '13', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-8]
+self_id = 0x308d170
+from = ['0x3085950']
+name = output
+constructor = [['spin_choice', 'OUTPUT', ['INPUT', 'OUTPUT']]]
+position = (0, 0)
+basename = choice-io
+inside = []
+to = []
+nested = []
+
+[Block-9]
+self_id = 0x308bab8
+from = ['0x3093050']
+name = linear
+constructor = [['label', 'delay'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (495, 250)
+basename = delay
+inside = ['0x308b488', '0x308b488']
+to = ['0x308ad88']
+nested = []
+
+[Block-10]
+self_id = 0x308b488
+from = ['0x308bab8']
+name = output
+constructor = [['spin_int', '100', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-11]
+self_id = 0x308ad88
+from = ['0x308bab8']
+name = linear
+constructor = [['label', 'digitalWrite'], ['syntax', '('], ['space'], ['syntax', ','], ['space'], ['syntax', ')']]
+position = (495, 289)
+basename = digitalWrite
+inside = ['0x308a440', '0x30896c8', '0x308a440', '0x30896c8']
+to = ['0x3088f80']
+nested = []
+
+[Block-12]
+self_id = 0x308a440
+from = ['0x308ad88']
+name = output
+constructor = [['spin_int', '13', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-13]
+self_id = 0x30896c8
+from = ['0x308ad88']
+name = output
+constructor = [['spin_choice', 'LOW', ['HIGH', 'LOW']]]
+position = (0, 0)
+basename = choice-hl
+inside = []
+to = []
+nested = []
+
+[Block-14]
+self_id = 0x3088f80
+from = ['0x308ad88']
+name = linear
+constructor = [['label', 'delay'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (495, 328)
+basename = delay
+inside = ['0x3093b00', '0x3093b00']
+to = []
+nested = []
+
+[Block-15]
+self_id = 0x3093b00
+from = ['0x3088f80']
+name = output
+constructor = [['spin_int', '100', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+

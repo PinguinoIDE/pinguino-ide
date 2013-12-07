@@ -1,0 +1,16 @@
+strcat strcat#include <string.h>
+strchr strchr#include <string.h>
+strcmp strcmp#include <string.h>
+strcpy strcpy#include <string.h>
+strcspn strcspn#include <string.h>
+strlen strlen#include <string.h>
+strlwr strlwr#include <string.h>
+strncat strncat#include <string.h>
+strncmp strncmp#include <string.h>
+strncpy strncpy#include <string.h>
+strpbrk strpbrk#include <string.h>
+strrchr strrchr#include <string.h>
+strspn strspn#include <string.h>
+strstr strstr#include <string.h>
+strtok strtok#include <string.h>
+strupr strupr#include <string.h>

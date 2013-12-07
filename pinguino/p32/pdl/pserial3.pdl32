@@ -1,0 +1,13 @@
+Serial3.init serial3init#include <pinguinoserial3.c>
+Serial3.begin serial3init#include <pinguinoserial3.c>
+Serial3.write serial3write#include <pinguinoserial3.c>
+Serial3.print serial3print#include <pinguinoserial3.c>
+Serial3.println serial3println#include <pinguinoserial3.c>
+Serial3.printf serial3printf#include <pinguinoserial3.c>
+Serial3.getKey serial3getkey#include <pinguinoserial3.c>
+Serial3.getString serial3getstring#include <pinguinoserial3.c>
+Serial3.available serial3available#include <pinguinoserial3.c>
+Serial3.read serial3read#include <pinguinoserial3.c>
+Serial3.flush serial3flush#include <pinguinoserial3.c>
+Serial3.ClearRxError serial3clearrxerror#include <pinguinoserial3.c>
+

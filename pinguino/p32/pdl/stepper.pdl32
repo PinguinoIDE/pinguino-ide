@@ -1,0 +1,5 @@
+Stepper.init Stepper_init#include <stepper.c>
+Stepper.setSpeed Stepper_setSpeed#include <stepper.c>
+Stepper.step Stepper_step#include <stepper.c>
+Stepper.stepMotor Stepper_stepMotor#include <stepper.c>
+
