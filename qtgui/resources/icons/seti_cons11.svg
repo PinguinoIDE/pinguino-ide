@@ -31,7 +31,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1626,7 +1626,7 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.1793961"
-     inkscape:cx="168.66914"
+     inkscape:cx="63.954532"
      inkscape:cy="87.42059"
      inkscape:window-x="49"
      inkscape:window-y="24"
@@ -1661,7 +1661,7 @@
        id="guide4816" />
   </sodipodi:namedview>
   <g
-     transform="matrix(0.57982237,0,0,0.57982237,273.65232,85.37342)"
+     transform="matrix(0.47165627,0,0,0.47165627,308.62348,144.19788)"
      id="g3917-3">
     <g
        id="g3904-1"
@@ -1840,15 +1840,15 @@
   </g>
   <text
      xml:space="preserve"
-     style="font-size:18.26916313px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
-     x="307.23386"
-     y="227.87622"
+     style="font-size:12.56357479px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
+     x="239.73344"
+     y="227.5941"
      id="text3249"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan3251"
-       x="307.23386"
-       y="227.87622">CC BY 3.0</tspan></text>
+       x="239.73344"
+       y="227.5941">CC BY 3.0</tspan></text>
   <g
      id="g3264"
      transform="translate(-69.985281,-104.59711)" />

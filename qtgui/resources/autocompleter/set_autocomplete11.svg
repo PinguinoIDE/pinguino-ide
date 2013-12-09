@@ -11,8 +11,8 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="384.37442"
-   height="229.27049"
+   width="384.37445"
+   height="174.6618"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -1602,10 +1602,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.6096764"
-     inkscape:cx="268.59769"
-     inkscape:cy="106.88205"
+     inkscape:cx="191.87416"
+     inkscape:cy="47.364093"
      inkscape:document-units="px"
-     inkscape:current-layer="g5781"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1317"
      inkscape:window-height="744"
@@ -1626,7 +1626,7 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        originx="1493.9047px"
-       originy="-481.48131px" />
+       originy="-536.09px" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -1636,7 +1636,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1647,7 +1647,7 @@
      transform="translate(1493.9047,-341.61036)">
     <g
        id="g3917-3"
-       transform="matrix(0.8498817,0,0,0.8498817,-1219.4024,400.7899)">
+       transform="matrix(0.44283023,0,0,0.44283023,-1160.1168,455.95447)">
       <g
          transform="translate(0.54566651,2.3894037)"
          id="g3904-1">
@@ -1714,12 +1714,12 @@
     <text
        sodipodi:linespacing="125%"
        id="text3249"
-       y="590.14221"
-       x="-1168.2018"
-       style="font-size:13.43022251px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
+       y="534.14746"
+       x="-1221.516"
+       style="font-size:11.4893055px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
        xml:space="preserve"><tspan
-         y="590.14221"
-         x="-1168.2018"
+         y="534.14746"
+         x="-1221.516"
          id="tspan3251"
          sodipodi:role="line">CC BY 3.0</tspan></text>
     <g
@@ -1727,7 +1727,7 @@
        id="g3264" />
     <g
        id="g5868"
-       transform="translate(-704.24201,-198.00046)"
+       transform="translate(-704.24201,-201.046)"
        inkscape:export-filename="/home/yeison/Documentos/python/dev/Proyectos en desarrollo/Pinguino11/qtgui/resources/autocompleter/int.png"
        inkscape:export-xdpi="27"
        inkscape:export-ydpi="27">
@@ -1857,7 +1857,7 @@
          y="455.05612" />
       <path
          transform="matrix(0.06735427,0,0,0.06735427,-1612.3501,439.22728)"
-         d="m 912.39221,572.36218 c 0,178.0523 -144.33991,322.39221 -322.39221,322.39221 -178.0523,0 -322.39221,-144.33991 -322.39221,-322.39221 0,-178.0523 144.33991,-322.39221 322.39221,-322.39221 178.0523,0 322.39221,144.33991 322.39221,322.39221 z"
+         d="m 912.39221,572.36218 a 322.39221,322.39221 0 1 1 -644.78442,0 322.39221,322.39221 0 1 1 644.78442,0 z"
          sodipodi:ry="322.39221"
          sodipodi:rx="322.39221"
          sodipodi:cy="572.36218"
@@ -1902,7 +1902,7 @@
            sodipodi:cy="572.36218"
            sodipodi:rx="322.39221"
            sodipodi:ry="322.39221"
-           d="m 912.39221,572.36218 c 0,178.0523 -144.33991,322.39221 -322.39221,322.39221 -178.0523,0 -322.39221,-144.33991 -322.39221,-322.39221 0,-178.0523 144.33991,-322.39221 322.39221,-322.39221 178.0523,0 322.39221,144.33991 322.39221,322.39221 z"
+           d="m 912.39221,572.36218 a 322.39221,322.39221 0 1 1 -644.78442,0 322.39221,322.39221 0 1 1 644.78442,0 z"
            transform="matrix(1.1899801,0,0,1.1899801,-256.37395,-133.02311)" />
         <text
            xml:space="preserve"
@@ -1967,13 +1967,13 @@
                      transform="translate(-15.064507,-1.2553756)"
                      style="fill:none;stroke:#4d4d4d;stroke-opacity:1">
                     <path
-                       style="fill:none;stroke:#4d4d4d;stroke-width:37.23017501999999723;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+                       style="fill:none;stroke:#4d4d4d;stroke-width:37.23017502;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
                        d="m 267.92761,485.4922 433.1041,0 1.55793,132.42391"
                        id="path3753"
                        inkscape:connector-curvature="0"
                        sodipodi:nodetypes="ccc" />
                     <path
-                       style="fill:none;stroke:#4d4d4d;stroke-width:39.71218490999999773;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+                       style="fill:none;stroke:#4d4d4d;stroke-width:39.71218491;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
                        d="m 634.04078,488.60807 2e-5,87.29784"
                        id="path3755"
                        inkscape:connector-curvature="0"
@@ -1982,7 +1982,7 @@
                 </g>
                 <path
                    inkscape:connector-curvature="0"
-                   style="fill:none;stroke:#4d4d4d;stroke-width:30.31316947999999911;stroke-miterlimit:4;stroke-opacity:1"
+                   style="fill:none;stroke:#4d4d4d;stroke-width:30.31316948;stroke-miterlimit:4;stroke-opacity:1"
                    d="m 310.76141,501.68992 c 0,64.10655 -23.79117,116.07517 -53.13908,116.07517 -29.3479,0 -53.13908,-51.96862 -53.13908,-116.07517 0,-64.10653 23.79118,-116.07515 53.13908,-116.07515 29.34791,0 53.13908,51.96862 53.13908,116.07515 z"
                    id="path3757" />
               </g>
@@ -2086,7 +2086,7 @@
     </g>
     <g
        id="g5853"
-       transform="translate(-333.12911,-187.51586)"
+       transform="translate(-333.12911,-187.51585)"
        inkscape:export-filename="/home/yeison/Documentos/python/dev/Proyectos en desarrollo/Pinguino11/qtgui/resources/autocompleter/float.png"
        inkscape:export-xdpi="27"
        inkscape:export-ydpi="27">
@@ -2117,7 +2117,7 @@
     </g>
     <g
        id="g5862"
-       transform="translate(-379.51694,-183.6502)"
+       transform="translate(-379.51694,-183.65019)"
        inkscape:export-filename="/home/yeison/Documentos/python/dev/Proyectos en desarrollo/Pinguino11/qtgui/resources/autocompleter/union.png"
        inkscape:export-xdpi="27"
        inkscape:export-ydpi="27">

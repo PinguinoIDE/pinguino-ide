@@ -28,7 +28,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2391,13 +2391,13 @@
      inkscape:window-height="744"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="148.11568"
-     inkscape:cy="-23.26362"
+     inkscape:zoom="1"
+     inkscape:cx="301.75584"
+     inkscape:cy="201.11246"
      inkscape:window-x="49"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g4921"
+     inkscape:current-layer="g5031"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:snap-global="true"
@@ -3480,9 +3480,9 @@
   </g>
   <g
      id="g5031"
-     transform="translate(0.52893718,9.8102909)">
+     transform="translate(15.528937,87.810289)">
     <g
-       transform="translate(372.46128,216.79007)"
+       transform="matrix(0.63468399,0,0,0.63468399,427.03184,266.00702)"
        id="g3917">
       <g
          id="g3904"
@@ -3564,12 +3564,12 @@
     <text
        sodipodi:linespacing="125%"
        id="text3249"
-       y="419.0607"
-       x="499.24091"
-       style="font-size:8.6006546px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
+       y="377.7435"
+       x="342.47226"
+       style="font-size:15.50673199px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
        xml:space="preserve"><tspan
-         y="419.0607"
-         x="499.24091"
+         y="377.7435"
+         x="342.47226"
          id="tspan3251"
          sodipodi:role="line">CC BY 3.0</tspan></text>
   </g>
