@@ -1,6 +1,5 @@
 pinguino-ide
 ===========
-Open hardware electronics prototyping platform.
 Open source integrated development enviroment (IDE).
 
   * [IDE](#ide)
