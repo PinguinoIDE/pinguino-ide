@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/Pinguino11/qtgui/frames/stdout.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/stdout.ui'
 #
-# Created: Sat Dec  7 18:36:30 2013
+# Created: Sun Dec  8 20:53:33 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,7 +14,7 @@ class Ui_Stdout(object):
         Stdout.setObjectName("Stdout")
         Stdout.resize(606, 432)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logo/arte/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Stdout.setWindowIcon(icon)
         self.centralwidget = QtGui.QWidget(Stdout)
         self.centralwidget.setObjectName("centralwidget")
@@ -36,4 +36,4 @@ class Ui_Stdout(object):
     def retranslateUi(self, Stdout):
         Stdout.setWindowTitle(QtGui.QApplication.translate("Stdout", "Stdout", None, QtGui.QApplication.UnicodeUTF8))
 
-import resourses_rc
+import resources_rc

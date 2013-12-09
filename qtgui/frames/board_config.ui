@@ -14,8 +14,8 @@
    <string>Board config</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/logo/arte/windowIcon.svg</normaloff>:/logo/arte/windowIcon.svg</iconset>
+   <iconset resource="../resources/resources.qrc">
+    <normaloff>:/logo/art/windowIcon.svg</normaloff>:/logo/art/windowIcon.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_5">
@@ -190,6 +190,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

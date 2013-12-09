@@ -14,8 +14,8 @@
    <string>Stdout</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../resources/resourses.qrc">
-    <normaloff>:/logo/arte/windowIcon.svg</normaloff>:/logo/arte/windowIcon.svg</iconset>
+   <iconset resource="../resources/resources.qrc">
+    <normaloff>:/logo/art/windowIcon.svg</normaloff>:/logo/art/windowIcon.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -40,7 +40,7 @@
   <tabstop>plainTextEdit</tabstop>
  </tabstops>
  <resources>
-  <include location="../resources/resourses.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

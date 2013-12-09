@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/Pinguino11/qtgui/frames/main.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sat Dec  7 18:36:31 2013
+# Created: Sun Dec  8 20:53:33 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,7 +14,7 @@ class Ui_PinguinoIDE(object):
         PinguinoIDE.setObjectName("PinguinoIDE")
         PinguinoIDE.resize(966, 633)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logo/arte/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         PinguinoIDE.setWindowIcon(icon)
         PinguinoIDE.setDockOptions(QtGui.QMainWindow.AllowNestedDocks|QtGui.QMainWindow.AllowTabbedDocks|QtGui.QMainWindow.AnimatedDocks|QtGui.QMainWindow.ForceTabbedDocks)
         PinguinoIDE.setUnifiedTitleAndToolBarOnMac(True)
@@ -38,7 +38,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout.setObjectName("gridLayout")
         self.label_logo = QtGui.QLabel(self.frame_logo)
         self.label_logo.setText("")
-        self.label_logo.setPixmap(QtGui.QPixmap(":/logo/arte/banner.png"))
+        self.label_logo.setPixmap(QtGui.QPixmap(":/logo/art/banner.png"))
         self.label_logo.setObjectName("label_logo")
         self.gridLayout.addWidget(self.label_logo, 0, 1, 1, 1)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -669,4 +669,5 @@ class Ui_PinguinoIDE(object):
         self.actionSave_image.setText(QtGui.QApplication.translate("PinguinoIDE", "Save image", None, QtGui.QApplication.UnicodeUTF8))
         self.actionView_Pinguino_code.setText(QtGui.QApplication.translate("PinguinoIDE", "View Pinguino code", None, QtGui.QApplication.UnicodeUTF8))
 
+import resources_rc
 import resourses_rc

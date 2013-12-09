@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/Pinguino11/qtgui/frames/about.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Sat Dec  7 18:36:32 2013
+# Created: Sun Dec  8 20:53:33 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -57,7 +57,7 @@ class Ui_About(object):
         self.label.setMinimumSize(QtCore.QSize(241, 241))
         self.label.setMaximumSize(QtCore.QSize(241, 241))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(":/logo/arte/pinguino11.svg"))
+        self.label.setPixmap(QtGui.QPixmap(":/logo/art/pinguino11.svg"))
         self.label.setScaledContents(True)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
@@ -170,7 +170,7 @@ class Ui_About(object):
         self.pushButton_credits.setText(QtGui.QApplication.translate("About", "Credits", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("About", "Cerrar", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("About", "Pinguino 11.0", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_10.setText(QtGui.QApplication.translate("About", "<html><head/><body><p><a href=\"http://pinguino.cc/\"><span style=\" text-decoration: underline; color:#ff5500;\">http://pinguino.cc/</span></a></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_10.setText(QtGui.QApplication.translate("About", "<html><head/><body><p><a href=\"http://pinguino.cc/\"><span style=\" text-decoration: underline; color:#6299e1;\">http://pinguino.cc/</span></a></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("About", "Credits", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">Jean-Pierre Mandon</p><p align=\"center\">Régis Blanchot</p><p align=\"center\">Marcus Fazzi</p><p align=\"center\">Jesus Carmona Esteban</p><p align=\"center\">Alfred Broda</p><p align=\"center\">Yeison Cardona</p><p align=\"center\">Henk Van Beek</p><p align=\"center\">Björn Pfeiffer</p><p align=\"center\">Alexis Sánchez</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("About", "Write by", None, QtGui.QApplication.UnicodeUTF8))
@@ -195,4 +195,5 @@ class Ui_About(object):
 "the GNU General Public License along with File Hunter; if not, write to\n"
 "the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA", None, QtGui.QApplication.UnicodeUTF8))
 
+import resources_rc
 import resourses_rc

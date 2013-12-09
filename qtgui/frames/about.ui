@@ -14,7 +14,7 @@
    <string>About</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../resources/resourses.qrc">
+   <iconset>
     <normaloff>:/logo/arte/windowIcon.svg</normaloff>:/logo/arte/windowIcon.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -124,7 +124,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="../resources/resourses.qrc">:/logo/arte/pinguino11.svg</pixmap>
+           <pixmap resource="../resources/resources.qrc">:/logo/art/pinguino11.svg</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -137,7 +137,7 @@
         <item row="4" column="0" colspan="3">
          <widget class="QLabel" name="label_10">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://pinguino.cc/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ff5500;&quot;&gt;http://pinguino.cc/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://pinguino.cc/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#6299e1;&quot;&gt;http://pinguino.cc/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -345,6 +345,7 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
   </widget>
  </widget>
  <resources>
+  <include location="../resources/resources.qrc"/>
   <include location="../resources/resourses.qrc"/>
  </resources>
  <connections/>

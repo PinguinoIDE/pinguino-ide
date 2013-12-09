@@ -14,8 +14,8 @@
    <string>Pinguino 11</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../resources/resourses.qrc">
-    <normaloff>:/logo/arte/windowIcon.svg</normaloff>:/logo/arte/windowIcon.svg</iconset>
+   <iconset resource="../resources/resources.qrc">
+    <normaloff>:/logo/art/windowIcon.svg</normaloff>:/logo/art/windowIcon.svg</iconset>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks|QMainWindow::ForceTabbedDocks</set>
@@ -62,7 +62,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../resources/resourses.qrc">:/logo/arte/banner.png</pixmap>
+          <pixmap resource="../resources/resources.qrc">:/logo/art/banner.png</pixmap>
          </property>
         </widget>
        </item>
@@ -588,7 +588,7 @@
                <string>Previous</string>
               </property>
               <property name="icon">
-               <iconset resource="../resources/resourses.qrc">
+               <iconset resource="../resources/resources.qrc">
                 <normaloff>:/icons/icons/icon_up.png</normaloff>:/icons/icons/icon_up.png</iconset>
               </property>
              </widget>
@@ -599,7 +599,7 @@
                <string>Next</string>
               </property>
               <property name="icon">
-               <iconset resource="../resources/resourses.qrc">
+               <iconset resource="../resources/resources.qrc">
                 <normaloff>:/icons/icons/icon_down.png</normaloff>:/icons/icons/icon_down.png</iconset>
               </property>
              </widget>
@@ -1009,7 +1009,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   </widget>
   <action name="actionNew_file">
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/new_file.png</normaloff>:/toolbar/toolbar/new_file.png</iconset>
    </property>
    <property name="text">
@@ -1021,7 +1021,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   </action>
   <action name="actionOpen_file">
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/open_file.png</normaloff>:/toolbar/toolbar/open_file.png</iconset>
    </property>
    <property name="text">
@@ -1036,7 +1036,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/save_file.png</normaloff>:/toolbar/toolbar/save_file.png</iconset>
    </property>
    <property name="text">
@@ -1065,7 +1065,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/undo.png</normaloff>:/toolbar/toolbar/undo.png</iconset>
    </property>
    <property name="text">
@@ -1080,7 +1080,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/redo.png</normaloff>:/toolbar/toolbar/redo.png</iconset>
    </property>
    <property name="text">
@@ -1095,7 +1095,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/cut.png</normaloff>:/toolbar/toolbar/cut.png</iconset>
    </property>
    <property name="text">
@@ -1110,7 +1110,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/copy.png</normaloff>:/toolbar/toolbar/copy.png</iconset>
    </property>
    <property name="text">
@@ -1125,7 +1125,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/paste.png</normaloff>:/toolbar/toolbar/paste.png</iconset>
    </property>
    <property name="text">
@@ -1150,7 +1150,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/search.png</normaloff>:/toolbar/toolbar/search.png</iconset>
    </property>
    <property name="text">
@@ -1165,7 +1165,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/replace.png</normaloff>:/toolbar/toolbar/replace.png</iconset>
    </property>
    <property name="text">
@@ -1177,7 +1177,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   </action>
   <action name="actionSelect_board">
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/board.png</normaloff>:/toolbar/toolbar/board.png</iconset>
    </property>
    <property name="text">
@@ -1189,7 +1189,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/compile.png</normaloff>:/toolbar/toolbar/compile.png</iconset>
    </property>
    <property name="text">
@@ -1204,7 +1204,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/download.png</normaloff>:/toolbar/toolbar/download.png</iconset>
    </property>
    <property name="text">
@@ -1278,7 +1278,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/switch_to_graphical.png</normaloff>
      <normalon>:/toolbar/toolbar/switch_to_text.png</normalon>:/toolbar/toolbar/switch_to_graphical.png</iconset>
    </property>
@@ -1291,7 +1291,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   </action>
   <action name="actionSave_image">
    <property name="icon">
-    <iconset resource="../resources/resourses.qrc">
+    <iconset resource="../resources/resources.qrc">
      <normaloff>:/toolbar/toolbar/save_image.png</normaloff>:/toolbar/toolbar/save_image.png</iconset>
    </property>
    <property name="text">
@@ -1322,6 +1322,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   <tabstop>pushButton_replace_all</tabstop>
  </tabstops>
  <resources>
+  <include location="../resources/resources.qrc"/>
   <include location="../resources/resourses.qrc"/>
  </resources>
  <connections/>
