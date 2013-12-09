@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sun Dec  8 20:53:33 2013
+# Created: Sun Dec  8 20:57:09 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -670,4 +670,3 @@ class Ui_PinguinoIDE(object):
         self.actionView_Pinguino_code.setText(QtGui.QApplication.translate("PinguinoIDE", "View Pinguino code", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
-import resourses_rc

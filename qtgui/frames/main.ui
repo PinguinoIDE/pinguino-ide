@@ -1323,7 +1323,6 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>
-  <include location="../resources/resourses.qrc"/>
  </resources>
  <connections/>
 </ui>
