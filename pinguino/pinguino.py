@@ -1,14 +1,18 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
+import sys
+
+parent_dir = os.path.split(os.path.dirname(__file__))[0]
+sys.path.append(os.path.join(parent_dir, "python_modules"))
+
 from python_api.pinguino import PinguinoTools
 from python_api import boards as Board
 from python_api.boards import boardlist as AllBoards
 import argparse
 import datetime
-
 import os
-import sys
 
 ########################################################################
 class Pinguino(PinguinoTools):
@@ -29,16 +33,6 @@ class Pinguino(PinguinoTools):
             self.__data__ = data
         else:
             raise Exception, "No such file or directory: %s" % file_name
-        
-    ##----------------------------------------------------------------------
-    #def compile_str(self, source):
-        #""""""
-        #temp_file = str(datetime.datetime.now().microsecond)+".pde"
-        #file_name = file(temp_file, "w")
-        #file_name.write(source)
-        #file_name.close()
-        #self.compile_file(temp_file)
-        
         
     #----------------------------------------------------------------------
     def upload(self):
@@ -240,40 +234,9 @@ if "__main__" == __name__:
                 try:
                     uploaded, result = pinguino.upload()
                     if result:
-                        for line in result: print(line)
-                    print("\n")
+                        print(result)
                 except Exception:
                     if pinguino.get_board().arch == 8:
                         print("ERROR: is possible that a parameter is incorrect, try another bootloader option.")
                         print("Boloader options: "),
                         print(", ".join(pinguino.dict_boot.keys()))
-                        print("\n")
-                        
-        
-
-#pin = Pinguino()
-#pin.set_board(Board.Pinguino2550)
-##pin.set_board(Board.PIC32_Pinguino_OTG)
-#pin.set_bootloader(pin.Boot2)
-##pin.compile_file("/home/yeison/Escritorio/test.pde")
-
-#pde_source = """
-#void setup() {
-
-#}
-
-#void loop() {
-
-#}
-#"""
-
-#pin.compile_str(pde_source)
-
-#if not pin.compiled():
-    #errors = pin.get_errors_compiling_c()
-    #print errors["complete_message"]
-    #for line in errors["line_numbers"]:
-        #print errors["messages"][line]
-
-#pass
-
