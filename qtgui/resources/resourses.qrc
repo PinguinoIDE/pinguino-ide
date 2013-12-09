@@ -30,9 +30,9 @@
     <file>selection/background.svg</file>
   </qresource>
   <qresource prefix="logo">
-    <file>arte/pinguino11.svg</file>
-    <file>arte/windowIcon.svg</file>
-    <file>arte/banner.png</file>
+    <file>art/pinguino11.svg</file>
+    <file>art/windowIcon.svg</file>
+    <file>art/banner.png</file>
   </qresource>
   <qresource prefix="autocompleter">
     <file>autocompleter/reserved.png</file>
