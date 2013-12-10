@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/inside/part.ui'
 #
-# Created: Tue Dec 10 01:58:51 2013
+# Created: Tue Dec 10 16:36:13 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,13 +20,11 @@ class Ui_Form(object):
         self.frame = QtGui.QFrame(Form)
         self.frame.setMinimumSize(QtCore.QSize(10, 34))
         self.frame.setMaximumSize(QtCore.QSize(10, 34))
-        self.frame.setStyleSheet("image: url(:/bloques/bloques/inside/arte/in/insert.svg);")
         self.frame.setObjectName("frame")
         self.gridLayout.addWidget(self.frame, 0, 0, 1, 1)
         self.frame_2 = QtGui.QFrame(Form)
         self.frame_2.setMinimumSize(QtCore.QSize(0, 34))
         self.frame_2.setMaximumSize(QtCore.QSize(16777215, 34))
-        self.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/inside/arte/in/insert3.svg);")
         self.frame_2.setObjectName("frame_2")
         self.gridLayout_2 = QtGui.QGridLayout(self.frame_2)
         self.gridLayout_2.setSpacing(0)
