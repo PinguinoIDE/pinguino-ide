@@ -12,8 +12,8 @@ class BackgroundPallete:
     def __init__(self):
         """Constructor"""
         
-        self.PinguinoColor = (175, 200, 225)
-        #self.PinguinoColor = (0, 0, 225)
+        #self.PinguinoColor = (175, 200, 225)
+        self.PinguinoColor = "#afc8e1"
         
     
     #----------------------------------------------------------------------
@@ -21,7 +21,7 @@ class BackgroundPallete:
         """"""
         palette = QtGui.QPalette(widget.palette())
         widget.setAutoFillBackground(True)
-        palette.setColor(QtGui.QPalette.Window, QtGui.QColor(*self.PinguinoColor))
+        palette.setColor(QtGui.QPalette.Window, QtGui.QColor(self.PinguinoColor))
         widget.setPalette(palette)
         
         
@@ -30,7 +30,7 @@ class BackgroundPallete:
         #""""""
         #palette = QtGui.QPalette(widget.palette())
         #widget.setAutoFillBackground(True)
-        #palette.setColor(QtGui.QPalette.Active, QtGui.QColor(*self.PinguinoColor))
+        #palette.setColor(QtGui.QPalette.Active, QtGui.QColor(self.PinguinoColor))
         #widget.setPalette(palette)
         
         
