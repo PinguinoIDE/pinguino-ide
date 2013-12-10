@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Dec 10 01:58:49 2013
+# Created: Tue Dec 10 16:36:12 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -518,7 +518,6 @@ class Ui_PinguinoIDE(object):
         self.menuEdit.addAction(self.actionSearch)
         self.menuEdit.addAction(self.actionSearch_and_replace)
         self.menuEdit.addSeparator()
-        self.menuEdit.addAction(self.actionSettings)
         self.menuView.addAction(self.actionStdout)
         self.menuPinguino.addAction(self.actionSelect_board)
         self.menuPinguino.addAction(self.actionCompile)

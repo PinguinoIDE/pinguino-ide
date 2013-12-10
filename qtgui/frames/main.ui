@@ -144,7 +144,6 @@
     <addaction name="actionSearch"/>
     <addaction name="actionSearch_and_replace"/>
     <addaction name="separator"/>
-    <addaction name="actionSettings"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
