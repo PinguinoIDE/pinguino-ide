@@ -729,3 +729,10 @@ class EventMethods(SearchReplace):
         filename = os.path.splitext(filename)[0] + ".png"
         filename = Dialogs.set_save_image(self, filename)
         if filename: image.save(filename, "png")
+        
+        
+    #----------------------------------------------------------------------
+    def __close_ide__(self):
+        """"""
+        self.close()
+        

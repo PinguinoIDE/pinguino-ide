@@ -18,6 +18,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionClose_file, QtCore.SIGNAL("triggered()"), self.close_file)
         self.connect(self.main.actionSave_file, QtCore.SIGNAL("triggered()"), self.save_file)
         self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.open_files)
+        self.connect(self.main.actionQuit, QtCore.SIGNAL("triggered()"), self.__close_ide__)
         
         self.connect(self.main.actionUndo, QtCore.SIGNAL("triggered()"), self.undo)
         self.connect(self.main.actionRedo, QtCore.SIGNAL("triggered()"), self.redo)
