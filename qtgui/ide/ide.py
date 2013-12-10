@@ -9,6 +9,8 @@ from PySide import QtGui, QtCore
 from .helpers.backgrounds import BackgroundPallete
 from .features.features import PinguinoFeatures
 from .helpers import constants as Constants
+from .helpers.dialogs import Dialogs
+from .helpers.stdout_stderr_manager import StdeOut, StdErr
 from .helpers.config import Config
 from ..frames.main import Ui_PinguinoIDE
 from pinguino.pinguino import Pinguino, AllBoards
@@ -44,15 +46,25 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         
         self.set_board()
         self.statusbar_ide(self.get_description_board())
+        
+                    
+        #self.main.plainTextEdit_output.write = self.main.plainTextEdit_output.appendPlainText
+        #self.install_out_redirect()
+        #self.install_error_redirect()
          
         
         
-    #----------------------------------------------------------------------
-    def install_log_redirect(self):
-        """"""
-        self.file_log = codecs.open(IDE_STDOUT_FILE, "w", "utf-8")
-        sys.stdout = self.file_log
+    ##----------------------------------------------------------------------
+    #def install_out_redirect(self):
+        #""""""
+        #sys.stdout = self.main.plainTextEdit_output
         
+        
+    ##----------------------------------------------------------------------
+    #def install_error_redirect(self, popup=False):
+        #""""""
+        #sys.stderr = self.main.plainTextEdit_output
+
     #----------------------------------------------------------------------
     def output_ide(self, *args, **kwargs):
         """"""
