@@ -20,7 +20,7 @@ class Decorator(object):
                 if Pinguino.get_tab().count():
                     return fn(Pinguino, *args, **kwargs)
                 else:
-                    print("No files are open.")
+                    #print("No files are open.")
                     return None
             return wrapped
         return actualdecorator
@@ -50,7 +50,7 @@ class Decorator(object):
                 if current_tab_name == name:
                     return fn(Pinguino, *args, **kwargs)
                 else:
-                    print(name + " not in focus.")
+                    #print(name + " not in focus.")
                     return None
             return wrapped
         return actualdecorator
@@ -66,7 +66,7 @@ class Decorator(object):
                 if current_tab_name == name:
                     return fn(Pinguino, *args, **kwargs)
                 else:
-                    print(name + " not in focus.")
+                    #print(name + " not in focus.")
                     return None
             return wrapped
         return actualdecorator
@@ -80,7 +80,7 @@ class Decorator(object):
                 if Pinguino.isActiveWindow():
                     return fn(Pinguino, *args, **kwargs)
                 else:
-                    print("Main inactive.")
+                    #print("Main inactive.")
                     return None
             return wrapped
         return actualdecorator
@@ -104,8 +104,6 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                
-
                 if Pinguino.is_graphical():
                     saved = Pinguino.PinguinoKIT.save_file(*args, **kwargs)
                     if saved: fn(Pinguino, *args, **kwargs)
@@ -114,8 +112,6 @@ class Decorator(object):
                     saved = Pinguino.save_file(*args, **kwargs)
                     if saved: fn(Pinguino, *args, **kwargs)
                     else: Dialogs.save_before_compile(Pinguino)             
-                    
-                
             return wrapped
         return actualdecorator
     
