@@ -1,37 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-"""-------------------------------------------------------------------------
-    constructor.py
-
-    author:		Yeison Cardona
-    contact:		yeison.eng@gmail.com 
-    first release:	21/Oct/2012
-    last release:	21/Oct/2012
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 2.1 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public
-    License along with this library; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
--------------------------------------------------------------------------"""
-
-from widgets import Label
-from widgets import ControlSpin
-from widgets import ControlSlider
-from widgets import ControlButton
+from .widgets import Label
+from .widgets import ControlSpin
+from .widgets import ControlSlider
+from .widgets import ControlButton
 #from widgets import ControlProgress
-from widgets import Name
-from inside import Inside, Inside2
-from inside import InsideBool, Inside2Bool
+from .widgets import Name
+from .inside import Inside, Inside2
+from .inside import InsideBool, Inside2Bool
 #from inside_inside import Ui_Form as InsideToInside
 
 from color import setColor
