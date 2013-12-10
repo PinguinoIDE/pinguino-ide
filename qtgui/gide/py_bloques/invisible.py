@@ -1,20 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-
-from constructor import * 
-kit = Kit()
+from . import constructor as Block
 
 ########################################################################
-class NoVisible():
-    
-    #----------------------------------------------------------------------
-    def __init__(self):
-        """constructor"""
+class NoVisible(object):
     
     #----------------------------------------------------------------------
     def edit_value(self):
-        pm = Output("None")
+        pm = Block.Output("None")
         pm.addEdit("value", "white")
         return pm.getBlock()    
     

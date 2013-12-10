@@ -1,44 +1,20 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
+from PySide import QtGui, QtCore
 
 from .blocks import Blocks
+from .tool_area import ToolArea
 from ..py_bloques.get_blocks import all_sets
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
-
-#from ..py_bloques.get_blocks import all_sets
-
 from ...ide.helpers.backgrounds import BackgroundPallete
- 
-#from constant import * 
-
-from PySide import QtGui, QtCore
-from PySide.QtCore import QThread
-from PySide.QtGui import QFontDatabase
-
-#from work_area import WorkArea
-#from tool_area import ToolArea
-from .tool_area import ToolArea
-
 from ...frames.blocks_widget import Ui_widgetBlock
-
-#from math import sqrt
-
-#from ..bloques import  
-#from blocks import * 
-
 from ...frames.grafical_widget import Ui_Form_graphical
-
-#import time
-
-        
-
 
 ########################################################################
 class Metodos(object):
     
-
     #----------------------------------------------------------------------
     #@debug
     def getWorkArea(self):

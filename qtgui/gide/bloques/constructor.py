@@ -1,23 +1,18 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
+import sys
+
+from PySide import QtGui, QtCore
+
 from .widgets import Label
 from .widgets import ControlSpin
 from .widgets import ControlSlider
 from .widgets import ControlButton
-#from widgets import ControlProgress
 from .widgets import Name
 from .inside import Inside, Inside2
 from .inside import InsideBool, Inside2Bool
-#from inside_inside import Ui_Form as InsideToInside
-
-#from .color import setColor
-
-from PySide import QtGui, QtCore
-
-#from code import * 
-
-import os, sys
 
 FONT_SIZE = 15
 ADJ = 10  #space at end

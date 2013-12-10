@@ -1,20 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from constructor import * 
-kit = Kit()
-
+from . import constructor as Block
 
 ########################################################################
-class Control():
+class Control(object):
     
     #----------------------------------------------------------------------
-    def __init__(self):
-        """constructor"""
-        
-    #----------------------------------------------------------------------
     def if_(self):
-        pm = Nested("Control")
+        pm = Block.Nested("Control")
         pm.addLabel("if")
         pm.addSyntax("(")
         pm.addSpaceBool()
@@ -23,13 +17,13 @@ class Control():
     
     #----------------------------------------------------------------------
     def else_(self):
-        pm = NestedNext("Control")
+        pm = Block.NestedNext("Control")
         pm.addLabel("else")
         return pm.getBlock()
     
     #----------------------------------------------------------------------
     def else_if(self):
-        pm = NestedNext("Control")
+        pm = Block.NestedNext("Control")
         pm.addLabel("else if")
         pm.addSyntax("(")
         pm.addSpaceBool()
@@ -38,7 +32,7 @@ class Control():
         
     #----------------------------------------------------------------------
     def while_(self):
-        pm = Nested("Control")
+        pm = Block.Nested("Control")
         pm.addLabel("while")
         pm.addSyntax("(")
         pm.addSpaceBool()
@@ -47,7 +41,7 @@ class Control():
         
     #----------------------------------------------------------------------
     def for_(self):
-        pm = Nested("Control")
+        pm = Block.Nested("Control")
         pm.addLabel("for")
         pm.addSyntax("(")
         pm.addSpace()
@@ -61,7 +55,7 @@ class Control():
 
     #----------------------------------------------------------------------
     def repeat(self):
-        pm = Nested("Control")
+        pm = Block.Nested("Control")
         pm.addSyntax("//")
         pm.addLabel("Repeat")
         pm.addSyntax("\n")
@@ -73,7 +67,7 @@ class Control():
     
     #----------------------------------------------------------------------
     def switch(self):
-        pm = Nested("Control")
+        pm = Block.Nested("Control")
         pm.addLabel("switch")
         pm.addSyntax("(")
         pm.addSpace()
@@ -82,7 +76,7 @@ class Control():
 
     #----------------------------------------------------------------------
     def case(self):
-        pm = NestedNext("Control")
+        pm = Block.NestedNext("Control")
         pm.addLabel("case")
         pm.addSyntax("(")
         pm.addSpace()
@@ -92,13 +86,13 @@ class Control():
 
     #----------------------------------------------------------------------
     def return_(self):
-        pm = Linear("Control")
+        pm = Block.Linear("Control")
         pm.addLabel("return")
         return pm.getBlock()
 
     ##----------------------------------------------------------------------
     #def return__(self):
-        #pm = Linear("Control")
+        #pm = Block.Linear("Control")
         #pm.addLabel("return")
         #pm.addSyntax(" ")
         #pm.addSpinChoice("int", ["char*", "char", "int", "float", "u8", "u16", "u32"])
@@ -109,7 +103,7 @@ class Control():
     
     #----------------------------------------------------------------------
     def return___(self):
-        pm = Linear("Control")
+        pm = Block.Linear("Control")
         pm.addLabel("return")
         pm.addSyntax(" ")
         pm.addSpace()
@@ -118,7 +112,7 @@ class Control():
 
     #----------------------------------------------------------------------
     def break_(self):
-        pm = Linear("Control")
+        pm = Block.Linear("Control")
         pm.addLabel("break")
         return pm.getBlock()
 

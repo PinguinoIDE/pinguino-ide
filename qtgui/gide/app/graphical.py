@@ -1,31 +1,20 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
-#from metodos import Metodos
-from .metodos import Metodos
-from ..bloques.color import setColor
-#from ..bloques import setColor
-from .constant import FONTS_DIR
-
-from ...frames.grafical_widget import Ui_Form_graphical
-
-from .work_area import WorkArea
-
-from ...ide.helpers.dialogs import Dialogs
-
 import codecs
 import os
-
-from PySide.QtGui import QFontDatabase
-    
-from .constant import FORMAT, INTRO_CODE
-
-import pickle
-
 import re
 from ConfigParser import RawConfigParser
-    
+
+from PySide import QtGui, QtCore
+
+from .metodos import Metodos
+from .work_area import WorkArea
+from .constant import FONTS_DIR, FORMAT, INTRO_CODE
+from ..bloques.color import setColor
+from ...frames.grafical_widget import Ui_Form_graphical
+from ...ide.helpers.dialogs import Dialogs
+
 ########################################################################
 class GraphicalIDE(Metodos):
     
@@ -319,7 +308,7 @@ class GraphicalIDE(Metodos):
     def load_fonts(self):
         for dir_font in os.listdir(FONTS_DIR):
             for ttf in filter(lambda file:file.endswith(".ttf") or file.endswith(".otf"), os.listdir(os.path.join(FONTS_DIR, dir_font))):
-                QFontDatabase.addApplicationFont(os.path.join(FONTS_DIR, dir_font, ttf))
+                QtGui.QFontDatabase.addApplicationFont(os.path.join(FONTS_DIR, dir_font, ttf))
         
         
     #----------------------------------------------------------------------

@@ -1,43 +1,32 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from ..bloques import *
-from ..py_bloques.get_blocks import all_sets
-from PySide import QtGui, QtCore
+import re
+import os
 from math import sqrt
-#import threading
-import re, os
-
-from ..py_bloques import constructor
-
-
-#from select_area import Ui_Form as Select
-from ...frames.select_area import Ui_Selection
-
-from .blocks import Blocks
-
-#from metodos import APP_NAME, APP_VERSION
 import time
 
-from ...ide.helpers.dialogs import Dialogs
+from PySide import QtGui, QtCore
 
+from .blocks import Blocks
 from .constant import INTRO_CODE, GLOBAL_CODE
+from ..bloques import BlockLinear, BlockFunction, BlockNested, \
+     BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
+from ..py_bloques.get_blocks import all_sets
+from ..py_bloques import constructor
+from ...frames.select_area import Ui_Selection
+from ...ide.helpers.dialogs import Dialogs
+from ...ide.helpers.decorators import Decorator
 
 TEMPLATES = {"and": {"python":"and", "pinguino":"&&",},
              "not": {"python":"not", "pinguino":"!",},
              "or": {"python":"or", "pinguino":"||",},
              }
 
-from ...ide.helpers.decorators import Decorator
-
-
 
 ########################################################################
 class Metadata(object):
     """"""
-
-
-        
 
 ########################################################################
 class revised_methods(object):

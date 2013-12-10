@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-import re, os, sys
+import re
+import os
+import sys
 
 extractFrom = lambda dir: [dir + path for path in os.listdir(dir) if path.endswith(".svg") and not path.startswith("__")]
 

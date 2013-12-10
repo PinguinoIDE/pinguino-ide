@@ -1,17 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from ..bloques import *
 from PySide import QtGui, QtCore
 
-#from blocks import allBlocks
-
 from .blocks import Blocks
-#from blocks import * 
-
+from ..bloques import BlockLinear, BlockFunction, BlockNested, \
+     BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
 from ...ide.helpers.decorators import Decorator
 
-
+########################################################################
 class ToolArea(QtGui.QWidget):
 
 

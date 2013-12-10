@@ -1,36 +1,23 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import sys
+
+from PySide import QtCore, QtGui
+
 from .linear import Linear
 from .nested import Nested
 from .nested_in_code import NestedLinear
-from .inside import Floatable, FloatableBool
 from .nested_in_code_next import NestedSecond
+from .inside import Floatable, FloatableBool
 from .frame_edit import FrameEdit
-#from frame_plot import FramePlot
-#from frame_debug import FrameDebug
-    
-#from .color import setColor
-
 from .constructor import Constructor, FONT_SIZE, changeFontSize
-from PySide import QtCore, QtGui
-#from PySide..Qt import *
 
-#from PyQt4.Qwt5 import *
-import sys
-#import pickle
-
-#import math
-
-    
-    
+     
 
 ########################################################################
 class Properties(object):
     """"""
-    #metadata = Metadata()
-    #identifier = "PinguinoBlock"  #!important
-    
 
     #----------------------------------------------------------------------
     def build_menu(self, event):

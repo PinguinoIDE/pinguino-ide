@@ -1,20 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-
-from constructor import * 
-kit = Kit()
+from . import constructor as Block
 
 ########################################################################
-class User():
-    
-    #----------------------------------------------------------------------
-    def __init__(self):
-        """constructor"""
+class User(object):
     
     #----------------------------------------------------------------------
     def user_function(self):
-        pm = Function("User")
+        pm = Block.Function("User")
         pm.addEdit("userFunc", None, (255, 255, 255))
         pm.addSyntax("(")
         pm.addSpace()
@@ -23,7 +17,7 @@ class User():
         
     #----------------------------------------------------------------------
     def more_args(self):
-        pm = Output("User") 
+        pm = Block.Output("User") 
         pm.addSpace()
         pm.addSyntax(",")
         pm.addDecorator(" ")
@@ -32,7 +26,7 @@ class User():
 
     #----------------------------------------------------------------------
     def asign(self):
-        pm = Linear("User")
+        pm = Block.Linear("User")
         pm.addEdit("var1", None, (255, 255, 255))
         pm.addLabel("=")
         pm.addSpace()
@@ -42,7 +36,7 @@ class User():
 
     #----------------------------------------------------------------------
     def frameEdit(self):
-        pm = FrameText("Tools")
+        pm = Block.FrameText("Tools")
         pm.bloque.append("Pinguino Rules")
         pm.bloque.append(['resize', 300, 100])
         return pm.getBlock()

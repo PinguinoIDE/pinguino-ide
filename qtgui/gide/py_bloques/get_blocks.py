@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-import constructor
 all_sets = {}
 
 #----------------------------------------------------------------------
@@ -12,20 +11,20 @@ def extractBlocks(model):
     for key in blocks: all_sets[key] = getattr(instanced, key)()
     
 
-from pinguino import Pinguino
+from .pinguino import Pinguino
 extractBlocks(Pinguino)
 
-from math_ import Math_
+from .math_ import Math_
 extractBlocks(Math_)
 
-from control import Control
+from .control import Control
 extractBlocks(Control)
 
-from widgets import Widgets
+from .widgets import Widgets
 extractBlocks(Widgets)
 
 from .invisible import NoVisible
 extractBlocks(NoVisible)
  
-from user import User
+from .user import User
 extractBlocks(User)
