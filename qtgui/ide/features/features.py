@@ -2,7 +2,6 @@
 #-*- coding: utf-8 -*-
 
 from ..events.events import PinguinoEvents
-
 from ...gide.app.graphical import GraphicalIDE
 
 ########################################################################
@@ -31,8 +30,9 @@ class PinguinoFeatures(PinguinoEvents):
         self.main.dockWidget_tools.setVisible(not toogle)  
         self.main.toolBar_search_replace.setVisible(not toogle)
         self.main.toolBar_edit.setVisible(not toogle)
-        
         self.main.toolBar_graphical.setVisible(toogle)
+        
+        self.main.menuGraphical.setEnabled(toogle)
         
         self.tab_changed()
         

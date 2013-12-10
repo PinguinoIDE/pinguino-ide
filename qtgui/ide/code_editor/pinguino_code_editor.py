@@ -3,6 +3,7 @@
 
 from PySide.QtGui import QWidget
 from PySide import QtCore, QtGui
+
 from ..code_editor.line_number import LineNumber
 from ..code_editor.editor import CustomTextEdit
 

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
-from .constants import NAME
 import os
+
+from PySide import QtGui, QtCore
+
+from .constants import NAME
 
 ########################################################################
 class Dialogs(object):
@@ -198,7 +200,7 @@ class Dialogs(object):
         msg_box.setText("Compilation done!")
         
         upload = QtGui.QPushButton()
-        upload.setText("Download now!")
+        upload.setText("Upload now!")
         
         ok = QtGui.QPushButton()
         ok.setText("Ok")

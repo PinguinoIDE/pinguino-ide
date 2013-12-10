@@ -3,7 +3,6 @@
 
 import time
 import os
-import sys
 
 from ...ide.helpers.constants import IDE_HOME_DIR, TAB_NAME, NAME, VERSION
 

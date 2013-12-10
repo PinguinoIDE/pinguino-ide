@@ -11,7 +11,7 @@ from .inside import Inside, Inside2
 from .inside import InsideBool, Inside2Bool
 #from inside_inside import Ui_Form as InsideToInside
 
-from color import setColor
+#from .color import setColor
 
 from PySide import QtGui, QtCore
 

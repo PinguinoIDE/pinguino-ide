@@ -10,17 +10,17 @@ from .frame_edit import FrameEdit
 #from frame_plot import FramePlot
 #from frame_debug import FrameDebug
     
-from color import * 
+#from .color import setColor
 
-from constructor import Constructor, FONT_SIZE, changeFontSize
+from .constructor import Constructor, FONT_SIZE, changeFontSize
 from PySide import QtCore, QtGui
 #from PySide..Qt import *
 
 #from PyQt4.Qwt5 import *
-
+import sys
 #import pickle
 
-import math
+#import math
 
     
     
@@ -906,246 +906,246 @@ class BlockFrameEdit(Constructor, Properties):
 
 
 
-########################################################################
-class BlockFramePlot(Constructor, Properties):
-    TYPE = "tipo8"
-    EXPANDIBLE = False
-    TO_TYPE = {}
-    CHILD = 1
-    toChild = 0
+#########################################################################
+#class BlockFramePlot(Constructor, Properties):
+    #TYPE = "tipo8"
+    #EXPANDIBLE = False
+    #TO_TYPE = {}
+    #CHILD = 1
+    #toChild = 0
     
-    endLine = ""
-    #color_ = "nested"
+    #endLine = ""
+    ##color_ = "nested"
     
     
-    #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE=None):
-        self.NestSec = FramePlot()
-        self.NestSec.setupUi(widget)
-        widget.setObjectName("Bloq!")
+    ##----------------------------------------------------------------------
+    #def __init__(self, widget, bloque, IDE=None):
+        #self.NestSec = FramePlot()
+        #self.NestSec.setupUi(widget)
+        #widget.setObjectName("Bloq!")
         
-        self.child = self.CHILD
-        self.Type = self.TYPE
-        self.toType = self.TO_TYPE
-        #self.nextPos = self.NEXT_POS
-        self.expandible = self.EXPANDIBLE
-        self.size = 0
-        self.f_expand = None        
+        #self.child = self.CHILD
+        #self.Type = self.TYPE
+        #self.toType = self.TO_TYPE
+        ##self.nextPos = self.NEXT_POS
+        #self.expandible = self.EXPANDIBLE
+        #self.size = 0
+        #self.f_expand = None        
         
-        self.MAX_LENGTH = 50
+        #self.MAX_LENGTH = 50
 
 
-        self.viewer = Viewer()
+        #self.viewer = Viewer()
         
         
-        self.valores_plot = map(lambda x, y: [x, y], range(1, 11), map(lambda y:math.sin(y)/y, range(1, 11)))        
+        #self.valores_plot = map(lambda x, y: [x, y], range(1, 11), map(lambda y:math.sin(y)/y, range(1, 11)))        
 
 
-        table = DataTable()
-        table.rows = self.valores_plot
+        #table = DataTable()
+        #table.rows = self.valores_plot
     
-        chart = AreaChart(table)
-        chart.setHorizontalAxisColumn(0)
-        chart.haxis_vmin = 1.0
-        chart.haxis_vmax = 10.0
-        chart.haxis_step = 1
-        chart.vaxis_vmin = -1.0
-        chart.vaxis_vmax = 1.0
-        chart.vaxis_step = 1
+        #chart = AreaChart(table)
+        #chart.setHorizontalAxisColumn(0)
+        #chart.haxis_vmin = 1.0
+        #chart.haxis_vmax = 10.0
+        #chart.haxis_step = 1
+        #chart.vaxis_vmin = -1.0
+        #chart.vaxis_vmax = 1.0
+        #chart.vaxis_step = 1
         
-        self.viewer.setGraph(chart)
+        #self.viewer.setGraph(chart)
 
-        self.NestSec.horizontalLayout_2.addWidget(self.viewer)
+        #self.NestSec.horizontalLayout_2.addWidget(self.viewer)
         
-        self.NestSec.frame_10.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        self.NestSec.frame_6.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        self.NestSec.frame_7.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        self.NestSec.frame_5.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        self.NestSec.frame_15.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/widgets/arte/box.png);"%sys.path[0])
+        #self.NestSec.frame_10.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        #self.NestSec.frame_6.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        #self.NestSec.frame_7.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        #self.NestSec.frame_5.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        #self.NestSec.frame_15.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/widgets/arte/box.png);"%sys.path[0])
         
-        self.NestSec.frame.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq11.svg);"%sys.path[0])
-        self.NestSec.frame_2.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq12.svg);"%sys.path[0])
-        self.NestSec.frame_4.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq22.svg);"%sys.path[0])
-        self.NestSec.frame_3.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq21.svg);"%sys.path[0])
+        #self.NestSec.frame.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq11.svg);"%sys.path[0])
+        #self.NestSec.frame_2.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq12.svg);"%sys.path[0])
+        #self.NestSec.frame_4.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq22.svg);"%sys.path[0])
+        #self.NestSec.frame_3.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq21.svg);"%sys.path[0])
         
-        setPartOfBlock([
-                        self.NestSec.frame_10,
-                        self.NestSec.frame_6,
-                        self.NestSec.frame_7,
-                        self.NestSec.frame_5,
-                        self.NestSec.frame_15, 
-                        self.NestSec.frame,
-                        self.NestSec.frame_2, 
-                        self.NestSec.frame_4, 
-                        self.NestSec.frame_3])        
+        #setPartOfBlock([
+                        #self.NestSec.frame_10,
+                        #self.NestSec.frame_6,
+                        #self.NestSec.frame_7,
+                        #self.NestSec.frame_5,
+                        #self.NestSec.frame_15, 
+                        #self.NestSec.frame,
+                        #self.NestSec.frame_2, 
+                        #self.NestSec.frame_4, 
+                        #self.NestSec.frame_3])        
         
-        self.layout = self.NestSec.horizontalLayout
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        #self.layout = self.NestSec.horizontalLayout
+        #self.layout.setContentsMargins(0, 0, 0, 0)
         
-        self.layout_adds = []
-        self.layout_pos = []
+        #self.layout_adds = []
+        #self.layout_pos = []
         
-        self.isideDir = "bloques/frame/arte/"
+        #self.isideDir = "bloques/frame/arte/"
         
-        self.widget = widget        
-        self.buildBlock(widget, bloque, (13, 12))
+        #self.widget = widget        
+        #self.buildBlock(widget, bloque, (13, 12))
            
-        self.widget.lower()
+        #self.widget.lower()
         
-        self.constructorCode.append(lambda :["resize", widget.width(), widget.height()])
+        #self.constructorCode.append(lambda :["resize", widget.width(), widget.height()])
     
         
-        self.widget.setMinimumSize(*bloque[1][1:])
-        self.widget.setMaximumSize(*bloque[1][1:])
-        #self.widget.setMinimumSize(QtCore.QSize(200, 70))
-        #self.widget.setMaximumSize(QtCore.QSize(200, 70))        
+        #self.widget.setMinimumSize(*bloque[1][1:])
+        #self.widget.setMaximumSize(*bloque[1][1:])
+        ##self.widget.setMinimumSize(QtCore.QSize(200, 70))
+        ##self.widget.setMaximumSize(QtCore.QSize(200, 70))        
         
-        self.valores_plot = [0]*(self.MAX_LENGTH + 1)
+        #self.valores_plot = [0]*(self.MAX_LENGTH + 1)
         
         
-    #----------------------------------------------------------------------
-    def addPlot(self, value):
-        """"""
-        self.valores_plot = self.valores_plot[1:]
-        self.valores_plot.append(value)
-        table = DataTable()
-        table.rows = map(lambda x, y: [x, y], range(self.MAX_LENGTH+1), self.valores_plot)
+    ##----------------------------------------------------------------------
+    #def addPlot(self, value):
+        #""""""
+        #self.valores_plot = self.valores_plot[1:]
+        #self.valores_plot.append(value)
+        #table = DataTable()
+        #table.rows = map(lambda x, y: [x, y], range(self.MAX_LENGTH+1), self.valores_plot)
     
-        chart = AreaChart(table)
-        chart.setHorizontalAxisColumn(0)
-        chart.haxis_vmin = 0.0
-        chart.haxis_vmax = float(self.MAX_LENGTH)
-        if not chart.haxis_vmax: chart.haxis_vmax = 10
-        chart.haxis_step = self.MAX_LENGTH / 10
-        if not chart.haxis_step: chart.haxis_step = 10
-        chart.vaxis_vmin = float(min(self.valores_plot))
-        chart.vaxis_vmax = float(max(self.valores_plot))
-        if not chart.vaxis_vmax: chart.vaxis_vmax = 10
-        chart.vaxis_step = (float(max(self.valores_plot)) - float(min(self.valores_plot))) / 10
-        if not chart.vaxis_step: chart.vaxis_step = 10
+        #chart = AreaChart(table)
+        #chart.setHorizontalAxisColumn(0)
+        #chart.haxis_vmin = 0.0
+        #chart.haxis_vmax = float(self.MAX_LENGTH)
+        #if not chart.haxis_vmax: chart.haxis_vmax = 10
+        #chart.haxis_step = self.MAX_LENGTH / 10
+        #if not chart.haxis_step: chart.haxis_step = 10
+        #chart.vaxis_vmin = float(min(self.valores_plot))
+        #chart.vaxis_vmax = float(max(self.valores_plot))
+        #if not chart.vaxis_vmax: chart.vaxis_vmax = 10
+        #chart.vaxis_step = (float(max(self.valores_plot)) - float(min(self.valores_plot))) / 10
+        #if not chart.vaxis_step: chart.vaxis_step = 10
         
         
-        self.viewer.setGraph(chart)
-        
-
-    #----------------------------------------------------------------------
-    def setSmallSize(self):
-        self.widget.setMinimumSize(350, 200)
-        self.widget.setMaximumSize(350, 200)
-        
-    #----------------------------------------------------------------------
-    def setMediumSize(self):
-        self.widget.setMinimumSize(600, 300)
-        self.widget.setMaximumSize(600, 300)
-        
-    #----------------------------------------------------------------------
-    def setLargeSize(self):
-        self.widget.setMinimumSize(800, 500)
-        self.widget.setMaximumSize(800, 500)
+        #self.viewer.setGraph(chart)
         
 
+    ##----------------------------------------------------------------------
+    #def setSmallSize(self):
+        #self.widget.setMinimumSize(350, 200)
+        #self.widget.setMaximumSize(350, 200)
+        
+    ##----------------------------------------------------------------------
+    #def setMediumSize(self):
+        #self.widget.setMinimumSize(600, 300)
+        #self.widget.setMaximumSize(600, 300)
+        
+    ##----------------------------------------------------------------------
+    #def setLargeSize(self):
+        #self.widget.setMinimumSize(800, 500)
+        #self.widget.setMaximumSize(800, 500)
+        
 
 
-########################################################################
-class BlockFrameDebug(Constructor, Properties):
-    TYPE = "tipo8"
-    EXPANDIBLE = False
-    TO_TYPE = {}
-    CHILD = 1
-    toChild = 0
+
+#########################################################################
+#class BlockFrameDebug(Constructor, Properties):
+    #TYPE = "tipo8"
+    #EXPANDIBLE = False
+    #TO_TYPE = {}
+    #CHILD = 1
+    #toChild = 0
     
-    endLine = ""
-    #color_ = "nested"
+    #endLine = ""
+    ##color_ = "nested"
     
     
-    #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE=None):
-        self.NestSec = FrameDebug()
-        self.NestSec.setupUi(widget)
-        widget.setObjectName("Bloq!")
+    ##----------------------------------------------------------------------
+    #def __init__(self, widget, bloque, IDE=None):
+        #self.NestSec = FrameDebug()
+        #self.NestSec.setupUi(widget)
+        #widget.setObjectName("Bloq!")
         
-        self.child = self.CHILD
-        self.Type = self.TYPE
-        self.toType = self.TO_TYPE
-        #self.nextPos = self.NEXT_POS
-        self.expandible = self.EXPANDIBLE
-        self.size = 0
-        self.f_expand = None        
+        #self.child = self.CHILD
+        #self.Type = self.TYPE
+        #self.toType = self.TO_TYPE
+        ##self.nextPos = self.NEXT_POS
+        #self.expandible = self.EXPANDIBLE
+        #self.size = 0
+        #self.f_expand = None        
         
-        self.MAX_LENGTH = 50
+        #self.MAX_LENGTH = 50
 
         
-        self.NestSec.frame_10.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        self.NestSec.frame_6.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        self.NestSec.frame_7.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        self.NestSec.frame_5.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        self.NestSec.frame_15.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/widgets/arte/box.png);")
-        self.NestSec.plainTextEdit.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/__fill_b.svg); color: rgb(255, 255, 255);"%sys.path[0])
+        #self.NestSec.frame_10.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        #self.NestSec.frame_6.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        #self.NestSec.frame_7.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        #self.NestSec.frame_5.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        #self.NestSec.frame_15.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/widgets/arte/box.png);")
+        #self.NestSec.plainTextEdit.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/__fill_b.svg); color: rgb(255, 255, 255);"%sys.path[0])
         
-        self.NestSec.frame.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq11.svg);"%sys.path[0])
-        self.NestSec.frame_2.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq12.svg);"%sys.path[0])
-        self.NestSec.frame_4.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq22.svg);"%sys.path[0])
-        self.NestSec.frame_3.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq21.svg);"%sys.path[0])
+        #self.NestSec.frame.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq11.svg);"%sys.path[0])
+        #self.NestSec.frame_2.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq12.svg);"%sys.path[0])
+        #self.NestSec.frame_4.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq22.svg);"%sys.path[0])
+        #self.NestSec.frame_3.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq21.svg);"%sys.path[0])
         
-        setPartOfBlock([
-                        self.NestSec.frame_10,
-                        self.NestSec.frame_6,
-                        self.NestSec.frame_7,
-                        self.NestSec.frame_5,
-                        self.NestSec.frame_15, 
-                        self.NestSec.frame,
-                        self.NestSec.frame_2, 
-                        self.NestSec.frame_4, 
-                        self.NestSec.frame_3])        
+        #setPartOfBlock([
+                        #self.NestSec.frame_10,
+                        #self.NestSec.frame_6,
+                        #self.NestSec.frame_7,
+                        #self.NestSec.frame_5,
+                        #self.NestSec.frame_15, 
+                        #self.NestSec.frame,
+                        #self.NestSec.frame_2, 
+                        #self.NestSec.frame_4, 
+                        #self.NestSec.frame_3])        
         
-        self.layout = self.NestSec.horizontalLayout
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        #self.layout = self.NestSec.horizontalLayout
+        #self.layout.setContentsMargins(0, 0, 0, 0)
         
-        self.layout_adds = []
-        self.layout_pos = []
+        #self.layout_adds = []
+        #self.layout_pos = []
         
-        self.isideDir = "bloques/frame/arte/"
+        #self.isideDir = "bloques/frame/arte/"
         
-        self.widget = widget        
-        self.buildBlock(widget, bloque, (13, 12))
+        #self.widget = widget        
+        #self.buildBlock(widget, bloque, (13, 12))
            
-        self.widget.lower()
+        #self.widget.lower()
         
-        self.constructorCode.append(lambda :["resize", widget.width(), widget.height()])
+        #self.constructorCode.append(lambda :["resize", widget.width(), widget.height()])
     
         
-        self.widget.setMinimumSize(*bloque[1][1:])
-        self.widget.setMaximumSize(*bloque[1][1:])        
-        #self.widget.setMinimumSize(QtCore.QSize(200, 70))
-        #self.widget.setMaximumSize(QtCore.QSize(200, 70))
+        #self.widget.setMinimumSize(*bloque[1][1:])
+        #self.widget.setMaximumSize(*bloque[1][1:])        
+        ##self.widget.setMinimumSize(QtCore.QSize(200, 70))
+        ##self.widget.setMaximumSize(QtCore.QSize(200, 70))
         
-        self.valores_plot = [0]*(self.MAX_LENGTH + 1)
+        #self.valores_plot = [0]*(self.MAX_LENGTH + 1)
         
-        #self.NestSec.plainTextEdit.setStyleSheet("background-color: rgb(61, 61, 61);color: rgb(255, 255, 255);")        
+        ##self.NestSec.plainTextEdit.setStyleSheet("background-color: rgb(61, 61, 61);color: rgb(255, 255, 255);")        
         
-    #----------------------------------------------------------------------
-    def addDebug(self, value):
-        """"""
-        self.NestSec.plainTextEdit.insertPlainText(str(value))
-        cursor = self.NestSec.plainTextEdit.textCursor()
-        cursor.movePosition(cursor.End)
-        self.NestSec.plainTextEdit.setTextCursor(cursor)
+    ##----------------------------------------------------------------------
+    #def addDebug(self, value):
+        #""""""
+        #self.NestSec.plainTextEdit.insertPlainText(str(value))
+        #cursor = self.NestSec.plainTextEdit.textCursor()
+        #cursor.movePosition(cursor.End)
+        #self.NestSec.plainTextEdit.setTextCursor(cursor)
         
 
-    #----------------------------------------------------------------------
-    def setSmallSize(self):
-        self.widget.setMinimumSize(350, 200)
-        self.widget.setMaximumSize(350, 200)
+    ##----------------------------------------------------------------------
+    #def setSmallSize(self):
+        #self.widget.setMinimumSize(350, 200)
+        #self.widget.setMaximumSize(350, 200)
         
-    #----------------------------------------------------------------------
-    def setMediumSize(self):
-        self.widget.setMinimumSize(600, 300)
-        self.widget.setMaximumSize(600, 300)
+    ##----------------------------------------------------------------------
+    #def setMediumSize(self):
+        #self.widget.setMinimumSize(600, 300)
+        #self.widget.setMaximumSize(600, 300)
         
-    #----------------------------------------------------------------------
-    def setLargeSize(self):
-        self.widget.setMinimumSize(800, 500)
-        self.widget.setMaximumSize(800, 500)
+    ##----------------------------------------------------------------------
+    #def setLargeSize(self):
+        #self.widget.setMinimumSize(800, 500)
+        #self.widget.setMaximumSize(800, 500)
         
 
 

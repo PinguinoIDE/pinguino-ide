@@ -7,17 +7,6 @@ from ..helpers.decorators import Decorator
 class SearchReplace(object):
     """"""
 
-    ##----------------------------------------------------------------------
-    #def init_find(self):
-        #self.connect(self.ventana.treeExamples, QtCore.SIGNAL(_fromUtf8("itemDoubleClicked(QTreeWidgetItem*,int)")), self.openexample)
-        #self.connect(self.ventana.pushButton_search, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search)
-        #self.connect(self.ventana.pushButton_prev, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_prev)
-        #self.connect(self.ventana.pushButton_next, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_next)
-        #self.connect(self.ventana.pushButton_replace, QtCore.SIGNAL(_fromUtf8("clicked()")), self.replace)
-        #self.connect(self.ventana.pushButton_replaceall, QtCore.SIGNAL(_fromUtf8("clicked()")), self.replaceall) 
-        #self.connect(self.ventana.lineEdit_search, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), self.searchInstantaneous)
-        
-        
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")  

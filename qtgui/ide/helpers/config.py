@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from ConfigParser import RawConfigParser
-from .constants import IDE_CONFIG_FILE
 import os
 import re
+from ConfigParser import RawConfigParser
+
+from .constants import IDE_CONFIG_FILE
 
 ########################################################################
 class Config(RawConfigParser, object):

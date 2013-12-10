@@ -1,23 +1,16 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-#from PyQt4 import QtCore, QtGui
-#from PyQt4.Qt import QApplication, QPoint
-#from snippet import snippet as snippet_complete
-#import sys, re
-#from PyQt4.QtGui import QListWidget, QListWidgetItem, QIcon
-
 import re
-#from ..snippets. snippets import snippet as snippet_complete
-from ..helpers.syntax import Autocompleter, Snippet
 
 from PySide import QtGui, QtCore
 from PySide.QtCore import QPoint
-from .autocompleter import PinguinoAutoCompleter
 
+from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons	
+from .syntaxhighlighter import Highlighter        
+from ..helpers.syntax import Autocompleter, Snippet
         
-from .syntaxhighlighter import Highlighter                
  
 ########################################################################
 class CustomTextEdit(QtGui.QTextEdit):

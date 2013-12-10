@@ -2,9 +2,10 @@
 #-*- coding: utf-8 -*-
 
 from PySide import QtGui, QtCore
-from metodos import Metodos
-
-from ..bloques import setColor
+#from metodos import Metodos
+from .metodos import Metodos
+from ..bloques.color import setColor
+#from ..bloques import setColor
 from .constant import FONTS_DIR
 
 from ...frames.grafical_widget import Ui_Form_graphical

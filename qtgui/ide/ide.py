@@ -1,19 +1,17 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
-from ..frames.main import Ui_PinguinoIDE
-
 import sys
 import codecs
+
+from PySide import QtGui, QtCore
 
 from .helpers.backgrounds import BackgroundPallete
 from .features.features import PinguinoFeatures
 from .helpers import constants as Constants
-
 from .helpers.config import Config
+from ..frames.main import Ui_PinguinoIDE
 from pinguino.pinguino import Pinguino, AllBoards
-#from ..gide.gide import PinguinoGIDE
 
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
@@ -128,8 +126,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         pallete.set_default_palette(self.main.toolBar_undo_redo)
         pallete.set_default_palette(self.main.toolBar_pinguino)
         pallete.set_default_palette(self.main.toolBar_graphical)
-        
-        
         pallete.set_default_palette(self.main.toolBar_switch)
         
         

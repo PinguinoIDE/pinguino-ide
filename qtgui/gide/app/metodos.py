@@ -1,31 +1,36 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-import os, sys
+
+from .blocks import Blocks
+from ..py_bloques.get_blocks import all_sets
+from ..bloques import BlockLinear, BlockFunction, BlockNested, \
+     BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
+
+#from ..py_bloques.get_blocks import all_sets
 
 from ...ide.helpers.backgrounds import BackgroundPallete
  
-from constant import * 
+#from constant import * 
 
 from PySide import QtGui, QtCore
 from PySide.QtCore import QThread
 from PySide.QtGui import QFontDatabase
 
 #from work_area import WorkArea
-from tool_area import ToolArea
+#from tool_area import ToolArea
+from .tool_area import ToolArea
 
 from ...frames.blocks_widget import Ui_widgetBlock
 
-from math import sqrt
+#from math import sqrt
 
-from ..bloques import * 
-from blocks import * 
+#from ..bloques import  
+#from blocks import * 
 
 from ...frames.grafical_widget import Ui_Form_graphical
 
-import time
-
-import os, sys
+#import time
 
         
 

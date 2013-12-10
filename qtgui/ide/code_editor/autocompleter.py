@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-
-from PySide.QtGui import QListWidget
+from PySide.QtGui import QListWidget, QListWidgetItem
 from PySide import QtCore, QtGui
-from PySide.QtGui import QListWidgetItem
 
-     
 class PinguinoAutoCompleter(QListWidget):
     
     

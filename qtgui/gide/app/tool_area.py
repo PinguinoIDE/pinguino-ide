@@ -6,7 +6,8 @@ from PySide import QtGui, QtCore
 
 #from blocks import allBlocks
 
-from blocks import * 
+from .blocks import Blocks
+#from blocks import * 
 
 from ...ide.helpers.decorators import Decorator
 

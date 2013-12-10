@@ -2,7 +2,9 @@
 #-*- coding: utf-8 -*-
 
 import functools
+
 from PySide import QtCore
+
 from .dialogs import Dialogs
 
 ########################################################################

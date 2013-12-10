@@ -1,29 +1,22 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
+import codecs
+
+from PySide import QtCore, QtGui
+
 from ..code_editor.pinguino_code_editor import PinguinoCodeEditor
 from ..helpers.syntax import Snippet
-
 from ..helpers.dialogs import Dialogs
-
-import os
-from PySide import QtCore, QtGui
-from ..helpers.constants import TAB_NAME
-
 from ..helpers.decorators import Decorator
-from ..tools.code_navigator import CodeNavigator
-
 from ..helpers import constants as Constants
-
+from ..tools.code_navigator import CodeNavigator
 from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
-
 from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
 from ..child_windows.stdout import Stdout
-
-import codecs
-
 
 
 ########################################################################
@@ -315,8 +308,8 @@ class EventMethods(SearchReplace):
         self.main.actionClose_file.setEnabled(self.main.tabWidget_files.count() > 0)
             
         editor = self.main.tabWidget_files.currentWidget()
-        if getattr(editor, "path", None): self.setWindowTitle(TAB_NAME+" - "+editor.path)
-        else: self.setWindowTitle(TAB_NAME)
+        if getattr(editor, "path", None): self.setWindowTitle(Constants.TAB_NAME+" - "+editor.path)
+        else: self.setWindowTitle(Constants.TAB_NAME)
         
         index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)

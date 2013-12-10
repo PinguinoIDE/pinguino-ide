@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+#from ..py_bloques.get_blocks import all_sets
 
-#from ..py_bloques.constructor import * 
-from ..py_bloques.get_blocks import all_sets
-#from ..user_bloques import allBlocks
-
-
-#all_sets.update(allBlocks)
 
 Blocks = {"linear": "BlockLinear",
           "function": "BlockFunction",
@@ -19,5 +14,5 @@ Blocks = {"linear": "BlockLinear",
           "frame-plot": "BlockFramePlot",
           "frame-debug": "BlockFrameDebug",}
 
-all_sets
+#all_sets
 

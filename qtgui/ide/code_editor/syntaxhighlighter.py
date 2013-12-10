@@ -1,11 +1,15 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
+
+import pickle
+import sys
+import re
 from ConfigParser import RawConfigParser
-#import syntax_strings as syntax
+
+from PySide import QtGui, QtCore
+
 from ..helpers.syntax import Autocompleter
-import pickle, sys, re
 
 archivo_configuracion=sys.path[0]+"/qtgui/ide/config.conf"
 

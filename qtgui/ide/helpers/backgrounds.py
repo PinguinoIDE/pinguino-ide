@@ -13,6 +13,7 @@ class BackgroundPallete:
         """Constructor"""
         
         self.PinguinoColor = (175, 200, 225)
+        #self.PinguinoColor = (0, 0, 225)
         
     
     #----------------------------------------------------------------------

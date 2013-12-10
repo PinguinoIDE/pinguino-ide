@@ -10,12 +10,7 @@ inside = extractFrom(os.path.join(sys.path[0], "qtgui/gide/bloques/inside/arte/i
 insidebool = extractFrom(os.path.join(sys.path[0], "qtgui/gide/bloques/inside/arte/bool/"))
 nested = extractFrom(os.path.join(sys.path[0], "qtgui/gide/bloques/nested/arte/nested/"))
 function = extractFrom(os.path.join(sys.path[0], "qtgui/gide/bloques/nested/arte/function/"))
-frame = extractFrom(os.path.join(sys.path[0], "qtgui/gide/bloques/frame/arte/"))
-
-functional_frame = [os.path.join(sys.path[0], "qtgui/gide/bloques/functionals/arte/frame.svg")]
-functional_line = [os.path.join(sys.path[0], "qtgui/gide/bloques/functionals/arte/out.svg")]
-functional_title = [os.path.join(sys.path[0], "qtgui/gide/bloques/functionals/arte/title.svg")]
-
+frame = extractFrom(os.path.join(sys.path[0], "qtgui/gide/bloques/frame_edit/arte/"))
 
 #----------------------------------------------------------------------
 def setColor(color, block):

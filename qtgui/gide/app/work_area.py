@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from ..bloques import * 
-from blocks import all_sets  #, User
+from ..bloques import *
+from ..py_bloques.get_blocks import all_sets
 from PySide import QtGui, QtCore
 from math import sqrt
 #import threading
-import re, os, sys, pickle
+import re, os
 
 from ..py_bloques import constructor
 
@@ -14,14 +14,14 @@ from ..py_bloques import constructor
 #from select_area import Ui_Form as Select
 from ...frames.select_area import Ui_Selection
 
-from blocks import *
+from .blocks import Blocks
 
 #from metodos import APP_NAME, APP_VERSION
 import time
 
 from ...ide.helpers.dialogs import Dialogs
 
-from constant import *
+from .constant import INTRO_CODE, GLOBAL_CODE
 
 TEMPLATES = {"and": {"python":"and", "pinguino":"&&",},
              "not": {"python":"not", "pinguino":"!",},
@@ -83,6 +83,7 @@ class revised_methods(object):
     #----------------------------------------------------------------------
     def get_widgets_from_layout(self, layout):
         """"""
+        if layout is None: return []
         widgets = []
         for index in range(layout.count()):
             widgets.append(layout.itemAt(index).widget())
@@ -993,8 +994,8 @@ class WorkArea(QtGui.QWidget, revised_methods):
         
     
         self.PinguinoCode += ExtraCodePinguino
-        self.PynguinoCode = INTRO_CODE_PY() + GLOBAL_CODE_PYNGUINO() + self.PyCode + ExtraCodePynguino
-        self.PythonCode = INTRO_CODE_PY() + GLOBAL_CODE_PYTHON() + self.PyCode    
+        #self.PynguinoCode = INTRO_CODE_PY() + GLOBAL_CODE_PYNGUINO() + self.PyCode + ExtraCodePynguino
+        #self.PythonCode = INTRO_CODE_PY() + GLOBAL_CODE_PYTHON() + self.PyCode    
         
         
 

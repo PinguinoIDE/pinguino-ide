@@ -2,10 +2,11 @@
 #-*- coding: utf-8 -*-
 
 
-from PySide.QtCore import QDir
-
 import os
 import sys
+
+from PySide.QtCore import QDir
+
 
 IDE_HOME_DIR = sys.path[0]
 
