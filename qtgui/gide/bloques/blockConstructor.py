@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from linear import Linear
-from nested import Nested
-from nested_in_code import NestedLinear
-from inside import Floatable, FloatableBool
-from nested_in_code_next import NestedSecond
-from frame import FrameEdit
-from frame_plot import FramePlot
-from frame_debug import FrameDebug
-
-from chart import * 
+from .linear import Linear
+from .nested import Nested
+from .nested_in_code import NestedLinear
+from .inside import Floatable, FloatableBool
+from .nested_in_code_next import NestedSecond
+from .frame_edit import FrameEdit
+#from frame_plot import FramePlot
+#from frame_debug import FrameDebug
     
 from color import * 
 
@@ -20,7 +18,7 @@ from PySide import QtCore, QtGui
 
 #from PyQt4.Qwt5 import *
 
-import pickle
+#import pickle
 
 import math
 
@@ -807,16 +805,16 @@ class BlockFrameEdit(Constructor, Properties):
         
         #self.isideDir = "bloques/nested/arte/nested/"
         
-        NestSec.frame_8.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        NestSec.frame_10.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        NestSec.frame_6.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        NestSec.frame_7.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
-        NestSec.frame_11.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame/arte/fill.svg);"%sys.path[0])
+        NestSec.frame_8.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame_edit/arte/fill.svg);"%sys.path[0])
+        NestSec.frame_10.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame_edit/arte/fill.svg);"%sys.path[0])
+        NestSec.frame_6.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame_edit/arte/fill.svg);"%sys.path[0])
+        NestSec.frame_7.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame_edit/arte/fill.svg);"%sys.path[0])
+        NestSec.frame_11.setStyleSheet("background-image: url(%s/qtgui/gide/bloques/frame_edit/arte/fill.svg);"%sys.path[0])
         
-        NestSec.frame.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq11.svg);"%sys.path[0])
-        NestSec.frame_2.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq12.svg);"%sys.path[0])
-        NestSec.frame_4.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq22.svg);"%sys.path[0])
-        NestSec.frame_3.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame/arte/esq21.svg);"%sys.path[0])
+        NestSec.frame.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame_edit/arte/esq11.svg);"%sys.path[0])
+        NestSec.frame_2.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame_edit/arte/esq12.svg);"%sys.path[0])
+        NestSec.frame_4.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame_edit/arte/esq22.svg);"%sys.path[0])
+        NestSec.frame_3.setStyleSheet("image: url(%s/qtgui/gide/bloques/frame_edit/arte/esq21.svg);"%sys.path[0])
         
         setPartOfBlock([NestSec.frame_8,
                         NestSec.frame_10, 
