@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>157</width>
-    <height>97</height>
+    <height>34</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -90,8 +90,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

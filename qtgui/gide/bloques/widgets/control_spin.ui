@@ -108,8 +108,6 @@
   <zorder>frame_4</zorder>
   <zorder>lineEdit</zorder>
  </widget>
- <resources>
-  <include location="images.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
