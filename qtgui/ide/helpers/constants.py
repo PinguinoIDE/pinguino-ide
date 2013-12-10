@@ -19,7 +19,8 @@ PINGUINOG_EXAMPLES_DIR = os.path.join(IDE_HOME_DIR, "qtgui", "gide", "examples")
 
 PINGUINO_STDOUT_FILE = os.path.join(IDE_HOME_DIR, "pinguino", "source", "stdout")
 
-IDE_STDOUT_FILE = os.path.join(IDE_HOME_DIR, "pinguino.panic")
+IDE_STDOUT_FILE = os.path.join(IDE_HOME_DIR, "pinguino.out")
+IDE_STDERR_FILE = os.path.join(IDE_HOME_DIR, "pinguino.err")
 IDE_CONFIG_FILE = os.path.join(IDE_HOME_DIR, "qtgui", "config", "pinguino.conf")
 
 NAME = "Pinguino IDE"
