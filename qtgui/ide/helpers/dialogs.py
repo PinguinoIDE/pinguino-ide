@@ -70,6 +70,15 @@ class Dialogs(object):
         return True
     
         
+    ##----------------------------------------------------------------------
+    #@classmethod
+    #def error_message(self, parent, message):
+        #""""""
+        #QtGui.QMessageBox.warning(parent,
+                #NAME+" - Error",
+                #message)
+        #return True
+        
     #----------------------------------------------------------------------
     @classmethod
     def save_before_compile(self, parent):
