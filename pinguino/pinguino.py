@@ -4,7 +4,7 @@
 import os
 import sys
 
-parent_dir = os.path.split(os.path.dirname(__file__))[0]
+parent_dir = os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]  #ugly solution
 sys.path.append(os.path.join(parent_dir, "python_modules"))
 
 from python_api.pinguino import PinguinoTools
