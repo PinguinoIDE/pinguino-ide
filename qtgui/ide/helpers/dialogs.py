@@ -18,7 +18,7 @@ class Dialogs(object):
         ext = os.path.splitext(os.path.split(filename)[1])[1]
         save_filename = QtGui.QFileDialog.getSaveFileName(parent,
                 NAME+" - Save",
-                filename,
+                os.path.join(QtCore.QDir.home().path(), filename),
                 "%s files (*%s);;All Files (*)"%(ext, ext))
         if save_filename: return save_filename[0], os.path.split(save_filename[0])[1]
         else: return None
@@ -28,7 +28,7 @@ class Dialogs(object):
     def set_open_file(self, parent, ext):
         open_files = QtGui.QFileDialog.getOpenFileNames(parent,
                 NAME+" - Open",
-                QtCore.QDir.home().dirName(), 
+                QtCore.QDir.home().path(), 
                 "%s Files (*%s);;All Files (*)"%(ext, ext))
         if open_files: return open_files[0]
         else: return None
@@ -55,7 +55,7 @@ class Dialogs(object):
         """"""
         open_dir = QtGui.QFileDialog.getExistingDirectory(parent,
                 NAME+" - Open directory",
-                QtCore.QDir.home().dirName())
+                QtCore.QDir.home().path())
         
         if open_dir: return open_dir
         else: return None
@@ -197,6 +197,34 @@ class Dialogs(object):
         
         if reply == 0: return True
         elif reply == 1: return False
+        
+        
+    
+    #----------------------------------------------------------------------
+    @classmethod
+    def error_while_unknow(self, parent):
+        """"""
+        msg_box = QtGui.QMessageBox()
+        msg_box.setIcon(QtGui.QMessageBox.Warning)
+        msg_box.setWindowTitle(NAME+" - Error")
+        msg_box.setText("Unknow error.")
+        
+        stdout = QtGui.QPushButton()
+        stdout.setText("View stdout")
+        
+        ok = QtGui.QPushButton()
+        ok.setText("Ok")
+        
+        msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
+        msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
+        
+        msg_box.setDefaultButton(ok)
+        
+        reply = msg_box.exec_()    
+        
+        if reply == 0: return True
+        elif reply == 1: return False
+                
                 
         
     #----------------------------------------------------------------------
