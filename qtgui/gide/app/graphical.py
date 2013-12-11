@@ -10,7 +10,7 @@ from PySide import QtGui, QtCore
 
 from .metodos import Metodos
 from .work_area import WorkArea
-from .constant import FONTS_DIR, FORMAT, INTRO_CODE
+from .constant import FONTS_DIR, FORMAT, INTRO_CODE, TAB_NAME
 from ..bloques.color import setColor
 from ...frames.grafical_widget import Ui_Form_graphical
 from ...ide.helpers.dialogs import Dialogs
@@ -133,9 +133,35 @@ class GraphicalIDE(Metodos):
             if not save_path: return False
             setattr(editor, "path", save_path)
             self.main.tabWidget_graphical.setTabText(index, filename)
+            self.main.tabWidget_graphical.setTabToolTip(index, save_path) 
+            self.ide.setWindowTitle(TAB_NAME+" - "+save_path)        
         
         self.__save_file__(editor=editor)
         return True
+    
+
+    #----------------------------------------------------------------------
+    def save_as(self, *args, **kwargs):
+        """"""
+        editor = kwargs.get("editor", None)
+        if not editor: editor = self.ide.get_tab().currentWidget()
+        index = self.ide.get_tab().indexOf(editor)
+        #editor = self.main.tabWidget_graphical.currentWidget()
+        #index = self.main.tabWidget_graphical.currentIndex()
+        filename = self.main.tabWidget_graphical.tabText(index)
+        save_path = getattr(editor, "path", None)
+        
+        save_path, filename = Dialogs.set_save_file(self.ide, filename)
+        if not save_path: return False
+        setattr(editor, "path", save_path)
+        self.main.tabWidget_graphical.setTabText(index, filename)
+        self.main.tabWidget_graphical.setTabToolTip(index, save_path) 
+        self.ide.setWindowTitle(TAB_NAME+" - "+save_path)        
+    
+        self.__save_file__(editor=editor)
+        return True
+        
+    
     
     #----------------------------------------------------------------------
     def get_pinguino_source_code(self):
