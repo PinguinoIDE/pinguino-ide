@@ -55,7 +55,7 @@ class GraphicalIDE(Metodos):
         self.fileName = None
         
         self.listBlocks = []
-        self.listSpaces = 0
+        #self.listSpaces = 0
         
         self.setupBloques()
         
@@ -95,13 +95,11 @@ class GraphicalIDE(Metodos):
         editor.graphical_area = area
         
         self.main.tabWidget_graphical.addTab(editor, filename)
-        
-        index = self.main.tabWidget_graphical.currentIndex()        
+              
         self.main.tabWidget_graphical.setCurrentWidget(editor) 
-        self.main.tabWidget_graphical.setTabText(index, filename)    
-        self.main.tabWidget_graphical.setTabToolTip(index, path)        
+        index = self.main.tabWidget_graphical.currentIndex()  
+        self.main.tabWidget_graphical.setTabText(index, filename[:-1])
         
-        self.listSpaces += 1
     
     
     #----------------------------------------------------------------------
@@ -237,7 +235,10 @@ class GraphicalIDE(Metodos):
             self.new_file(filename)
             editor = self.main.tabWidget_graphical.currentWidget()
             set_blocks = self.read_raw_parser(filename)
-            self.load_blocks(set_blocks)          
+            self.load_blocks(set_blocks)
+            self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
+            self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])       
+    
             
         self.ide.tab_changed()
         
@@ -323,10 +324,12 @@ class GraphicalIDE(Metodos):
         self.load_blocks(set_blocks)
         
         editor = self.main.tabWidget_graphical.currentWidget()
-        index = self.main.tabWidget_graphical.currentIndex()   
-        self.main.tabWidget_graphical.setTabText(index, os.path.split(filename)[1])    
-        self.main.tabWidget_graphical.setTabToolTip(index, filename)
+        #index = self.main.tabWidget_graphical.currentIndex()   
+        #self.main.tabWidget_graphical.setTabText(index, os.path.split(filename)[1])    
+        #self.main.tabWidget_graphical.setTabToolTip(index, filename)
         editor.path = filename
+        self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
+        self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])  
         
             
         self.ide.tab_changed()
