@@ -120,8 +120,11 @@ class GraphicalIDE(Metodos):
     #----------------------------------------------------------------------
     def save_file(self, *args, **kwargs):
         """"""
-        editor = self.main.tabWidget_graphical.currentWidget()
-        index = self.main.tabWidget_graphical.currentIndex()
+        editor = kwargs.get("editor", None)
+        if not editor: editor = self.ide.get_tab().currentWidget()
+        index = self.ide.get_tab().indexOf(editor)
+        #editor = self.main.tabWidget_graphical.currentWidget()
+        #index = self.main.tabWidget_graphical.currentIndex()
         filename = self.main.tabWidget_graphical.tabText(index)
         save_path = getattr(editor, "path", None)
         
