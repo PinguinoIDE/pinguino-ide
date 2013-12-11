@@ -15,6 +15,8 @@ from .helpers.config import Config
 from ..frames.main import Ui_PinguinoIDE
 from pinguino.pinguino import Pinguino, AllBoards
 
+from .helpers.namespaces import Namespaces
+
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     def __init__(self):
@@ -49,6 +51,15 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         
         self.install_out_redirect()
         self.install_error_redirect()
+        
+        #self.update_namespaces()
+        
+        
+    #----------------------------------------------------------------------
+    def update_namespaces(self):
+        """"""
+        names = Namespaces()
+        names.save_namespaces()        
          
     #----------------------------------------------------------------------
     def install_out_redirect(self):
@@ -81,6 +92,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     def statusbar_ide(self, status):
         """"""
         self.main.actionBoard_info.setText(status)
+
         
     #----------------------------------------------------------------------
     def set_board(self):
@@ -90,7 +102,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
             if board.name == board_name:
                 self.pinguinoAPI.set_board(board)
         
-        arch = self.configIDE.config("Board", "arch", 8)        
+        arch = self.configIDE.config("Board", "arch", 8)
         if arch == 8:
             bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
             if bootloader == "v1_v2":
