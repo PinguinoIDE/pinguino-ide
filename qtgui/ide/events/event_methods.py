@@ -42,7 +42,8 @@ class EventMethods(SearchReplace):
         editor.text_edit.copyAvailable.connect(self.__text_can_copy__)
         editor.text_edit.dropEvent = self.__drop__
         
-        self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), path)
+        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), filename[:-1])
+        
         
     #----------------------------------------------------------------------
     @Decorator.connect_features()
@@ -58,7 +59,10 @@ class EventMethods(SearchReplace):
             content = "".join(pde_file.readlines())
             pde_file.close()
             editor.text_edit.setPlainText(content)
+            #self.get_tab()
             setattr(editor, "path", filename)
+            self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
+            self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1]) 
         self.tab_changed()
         
     #----------------------------------------------------------------------
@@ -75,6 +79,8 @@ class EventMethods(SearchReplace):
         pde_file.close()
         editor.text_edit.setPlainText(content)
         setattr(editor, "path", filename)
+        self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
+        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])       
         self.tab_changed()
         
         
