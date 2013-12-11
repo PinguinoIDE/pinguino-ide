@@ -52,6 +52,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.install_out_redirect()
         self.install_error_redirect()
         
+        self.load_main_config()
+        
         #self.update_namespaces()
         
         
