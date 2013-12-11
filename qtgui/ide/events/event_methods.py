@@ -220,13 +220,13 @@ class EventMethods(SearchReplace):
     @Decorator.requiere_open_files()
     def close_file(self, *args, **kwargs):
         """"""
-        editor = kwargs["editor"]
+        editor = kwargs.get("editor", None)
         if not editor: editor = self.get_tab().currentWidget()
-        index = self.get_tab().currentIndex()
+        index = self.get_tab().indexOf(editor)
         filename = self.get_tab().tabText(index)
         save_path = getattr(editor, "path", None)
         
-        if not save_path:
+        if not save_path and filename.endswith("*"):
             reply = Dialogs.set_no_saved_file(self, filename)
             
             if reply == True:
