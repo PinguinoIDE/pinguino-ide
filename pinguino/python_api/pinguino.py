@@ -258,8 +258,8 @@ class PinguinoTools(object):
                 include = "" if include is None else include
                 define = "" if define is None else define
                 libinstructions.append([instruction, cnvinstruction, include, define])
-                if instruction == "":
-                    pass
+                
+                if not instruction: continue
                 
                 #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])"+str(instruction))+"[ ]*\(")
                 #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])"+str(instruction)+r"([' ']|['=']|['}']|[',']|[';']|[\t]|[')'].*)")
@@ -271,10 +271,7 @@ class PinguinoTools(object):
         
         return regobject[:], libinstructions[:]
         
-        
-        
-
-
+    
     #----------------------------------------------------------------------
     def preprocess(self, filename, board):
         """Read Pinguino File (.pde) and translate it into C language"""
