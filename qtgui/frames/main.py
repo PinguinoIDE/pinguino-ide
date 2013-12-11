@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Dec 10 16:36:12 2013
+# Created: Tue Dec 10 20:29:22 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -502,10 +502,17 @@ class Ui_PinguinoIDE(object):
         self.actionView_Pinguino_code = QtGui.QAction(PinguinoIDE)
         self.actionView_Pinguino_code.setEnabled(True)
         self.actionView_Pinguino_code.setObjectName("actionView_Pinguino_code")
+        self.actionSave_all = QtGui.QAction(PinguinoIDE)
+        self.actionSave_all.setObjectName("actionSave_all")
+        self.actionClose_all = QtGui.QAction(PinguinoIDE)
+        self.actionClose_all.setObjectName("actionClose_all")
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
         self.menuFile.addAction(self.actionSave_file)
         self.menuFile.addAction(self.actionClose_file)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionSave_all)
+        self.menuFile.addAction(self.actionClose_all)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionQuit)
         self.menuEdit.addAction(self.actionUndo)
@@ -672,5 +679,7 @@ class Ui_PinguinoIDE(object):
         self.actionSwitch_ide.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F10", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_image.setText(QtGui.QApplication.translate("PinguinoIDE", "Save image", None, QtGui.QApplication.UnicodeUTF8))
         self.actionView_Pinguino_code.setText(QtGui.QApplication.translate("PinguinoIDE", "View Pinguino code", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSave_all.setText(QtGui.QApplication.translate("PinguinoIDE", "Save all", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionClose_all.setText(QtGui.QApplication.translate("PinguinoIDE", "Close all", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

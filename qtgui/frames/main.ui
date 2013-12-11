@@ -128,6 +128,9 @@
     <addaction name="actionSave_file"/>
     <addaction name="actionClose_file"/>
     <addaction name="separator"/>
+    <addaction name="actionSave_all"/>
+    <addaction name="actionClose_all"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -1311,6 +1314,16 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
    </property>
    <property name="text">
     <string>View Pinguino code</string>
+   </property>
+  </action>
+  <action name="actionSave_all">
+   <property name="text">
+    <string>Save all</string>
+   </property>
+  </action>
+  <action name="actionClose_all">
+   <property name="text">
+    <string>Close all</string>
    </property>
   </action>
  </widget>
