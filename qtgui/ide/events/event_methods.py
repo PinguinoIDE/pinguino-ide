@@ -253,8 +253,11 @@ class EventMethods(SearchReplace):
     @Decorator.connect_features()
     def save_file(self, *args, **kwargs):
         """"""
-        editor = self.main.tabWidget_files.currentWidget()
-        index = self.main.tabWidget_files.currentIndex()
+        editor = kwargs.get("editor", None)
+        if not editor: editor = self.get_tab().currentWidget()
+        index = self.get_tab().indexOf(editor)
+        #editor = self.main.tabWidget_files.currentWidget()
+        #index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)
         save_path = getattr(editor, "path", None)
         
@@ -741,4 +744,23 @@ class EventMethods(SearchReplace):
     def __close_ide__(self):
         """"""
         self.close()
+        
+        
+    #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    def save_all(self):
+        """"""
+        tab = self.get_tab()
+        for index in range(tab.count()):
+            self.save_file(editor=tab.widget(index))
+        
+        
+    #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    def close_all(self):
+        """"""
+        tab = self.get_tab()
+        widgets = map(lambda index:tab.widget(index), range(tab.count()))
+        for widget in widgets:
+            self.close_file(editor=widget)
         
