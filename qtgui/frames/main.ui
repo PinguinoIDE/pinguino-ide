@@ -128,6 +128,7 @@
     <addaction name="actionSave_file"/>
     <addaction name="actionClose_file"/>
     <addaction name="separator"/>
+    <addaction name="actionSave_as"/>
     <addaction name="actionSave_all"/>
     <addaction name="actionClose_all"/>
     <addaction name="separator"/>
@@ -166,6 +167,20 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <widget class="QMenu" name="menuLinks">
+     <property name="title">
+      <string>Links</string>
+     </property>
+     <addaction name="actionGitHub"/>
+     <addaction name="actionWebsite"/>
+     <addaction name="actionWiki"/>
+     <addaction name="actionForum"/>
+     <addaction name="actionBlog"/>
+     <addaction name="actionGroup"/>
+     <addaction name="actionShop"/>
+    </widget>
+    <addaction name="menuLinks"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuSource">
@@ -1324,6 +1339,46 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   <action name="actionClose_all">
    <property name="text">
     <string>Close all</string>
+   </property>
+  </action>
+  <action name="actionWebsite">
+   <property name="text">
+    <string>Website</string>
+   </property>
+  </action>
+  <action name="actionWiki">
+   <property name="text">
+    <string>Wiki</string>
+   </property>
+  </action>
+  <action name="actionForum">
+   <property name="text">
+    <string>Forum</string>
+   </property>
+  </action>
+  <action name="actionBlog">
+   <property name="text">
+    <string>Blog</string>
+   </property>
+  </action>
+  <action name="actionGroup">
+   <property name="text">
+    <string>Group</string>
+   </property>
+  </action>
+  <action name="actionShop">
+   <property name="text">
+    <string>Shop</string>
+   </property>
+  </action>
+  <action name="actionGitHub">
+   <property name="text">
+    <string>GitHub</string>
+   </property>
+  </action>
+  <action name="actionSave_as">
+   <property name="text">
+    <string>Save as</string>
    </property>
   </action>
  </widget>
