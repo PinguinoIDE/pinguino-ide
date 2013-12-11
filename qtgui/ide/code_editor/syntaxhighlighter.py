@@ -9,6 +9,8 @@ from ConfigParser import RawConfigParser
 from PySide import QtGui, QtCore
 
 from ..helpers.syntax import Autocompleter
+from ..helpers import constants as Constants
+
 
 archivo_configuracion=sys.path[0]+"/qtgui/ide/config.conf"
 
@@ -22,9 +24,12 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         self.highlightingRules=[]
         self.highlightingRulesMatch=[]
         
+        namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
+        #self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)         
+        
         reservadas=QtGui.QTextCharFormat()
         reservadas.setForeground(color("#0000ff"))     
-        all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] 
+        all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] + namespaces["all"]
         self.highlightingRules.append(("\\b("+"|".join(all_reservadas)+")\\b", reservadas))
 
         #funtions=QtGui.QTextCharFormat()

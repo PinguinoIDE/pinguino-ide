@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 import re
+import pickle
 
 from PySide import QtGui, QtCore
 from PySide.QtCore import QPoint
@@ -10,6 +11,7 @@ from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons	
 from .syntaxhighlighter import Highlighter        
 from ..helpers.syntax import Autocompleter, Snippet
+from ..helpers import constants as Constants
         
  
 ########################################################################
@@ -27,7 +29,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.completer.keyPressEvent = self.keyPressEvent_autocompleter
         self.resize(500, 500)
         self.completer.setFont(self.font())
-        self.setAutoClose({})
+        #self.setAutoClose({})
         
         icons = CompleteIcons()
         
@@ -36,13 +38,15 @@ class CustomTextEdit(QtGui.QTextEdit):
         
         self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
         
+        namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
+        self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)
         
         Highlighter(self)
-        
-        
-    #----------------------------------------------------------------------
-    def setAutoClose(self, dic):
-        self.autoClose = dic
+
+    
+    ##----------------------------------------------------------------------
+    #def setAutoClose(self, dic):
+        #self.autoClose = dic
         
     #----------------------------------------------------------------------
     def mouseAction(self,event):
@@ -165,15 +169,21 @@ class CustomTextEdit(QtGui.QTextEdit):
     #----------------------------------------------------------------------
     def show_autocomplete_if_conditions(self):
         """"""
-        tc=self.textCursor()
-        tc.select(QtGui.QTextCursor.WordUnderCursor)
+        tc = self.textCursor()
+        #tc.select(QtGui.QTextCursor.WordUnderCursor)
+        tc.select(QtGui.QTextCursor.BlockUnderCursor)
+        
+        selected = tc.selectedText().split()
+        if not selected: return
+        #selected = selected[-1]
+        
         #Si no cumple con el mínimo de letras
         try:
-            if len(str(tc.selectedText())) < self.completer.spell:
+            if len(selected[-1]) < self.completer.spell:
                 self.completer.hide()
-                #self.setFocus()
-        except UnicodeEncodeError: return  #capturas tildes y caracteres especiales
         
-        else:
-            self.completer.popup(self.getPosPopup(), str(tc.selectedText()))
-            self.setFocus()            
+            else:
+                self.completer.popup(self.getPosPopup(), selected[-1])
+                self.setFocus()
+            
+        except UnicodeEncodeError: return  #capturas tildes y caracteres especiales        

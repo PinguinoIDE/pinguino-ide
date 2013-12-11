@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import pickle
+
 from PySide.QtGui import QListWidget, QListWidgetItem
 from PySide import QtCore, QtGui
+
+from .autocomplete_icons import CompleteIcons	
+from ..helpers.config import Config 
+from ..helpers import constants as Constants
 
 class PinguinoAutoCompleter(QListWidget):
     
@@ -28,12 +34,47 @@ class PinguinoAutoCompleter(QListWidget):
         self.itemsListName=[]
         self.temporal={"variables":[],
                        "funciones":[],
-                       "directivas":[]}
+                       "directivas":[],
+                       "arch8": [],
+                       "arch32": [],}
+        
+        self.namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
+        
+        
+        
+    #----------------------------------------------------------------------
+    def set_arch_autocompleter(self):
+        """"""
+        config = Config()
+        arch = config.config("Board", "arch", 8)
+        
+        icons = CompleteIcons()
+        
+        if arch == 8:
+            for item in self.namespaces["arch8"]:
+                self.addTemporalItem("arch8", item, icons.iconLibrary)
+            self.removeTemporalItems("arch32")
+            
+        elif arch == 32:
+            for item in self.namespaces["arch32"]:
+                self.addTemporalItem("arch32", item, icons.iconLibrary)
+            self.removeTemporalItems("arch8")
+                
+            
+        del config
+        del icons
         
     #----------------------------------------------------------------------
     def hide(self, *args):
         super(PinguinoAutoCompleter, self).hide(*args)
         self.text_edit.setFocus()
+        
+    #----------------------------------------------------------------------
+    def show(self, *args):
+        """"""
+        self.set_arch_autocompleter()
+        super(PinguinoAutoCompleter, self).show(*args)
+        
         
     #----------------------------------------------------------------------
     def focusOutEvent (self, event):
@@ -109,8 +150,8 @@ class PinguinoAutoCompleter(QListWidget):
         
     #----------------------------------------------------------------------
     def addTemporalItem(self, llave, name, icon=None):
-        item = self.addNewItem(name,icon)
-        if item != None:
+        item = self.addNewItem(name, icon)
+        if item:
             self.temporal[llave] = self.temporal[llave] + [item]
         
     #----------------------------------------------------------------------
