@@ -775,9 +775,32 @@ class EventMethods(SearchReplace):
         
         
     #----------------------------------------------------------------------
-    def __close_ide__(self):
+    def __close_ide__(self, *args, **kwargs):
         """"""
+        size = self.size()
+        self.configIDE.set("Main", "size", size.toTuple())
+        
+        pos = self.pos()
+        self.configIDE.set("Main", "position", pos.toTuple())
+        
+        self.configIDE.set("Main", "maximized", self.isMaximized())
+        
+        self.configIDE.save_config()
+        
         self.close()
+        
+    #----------------------------------------------------------------------
+    def load_main_config(self):
+        """"""
+        if self.configIDE.config("Main", "maximized", True):
+            self.showMaximized()
+        
+        else:
+            pos = self.configIDE.config("Main", "position", "(0, 0)")
+            self.move(*eval(pos))
+            
+            size = self.configIDE.config("Main", "size", "(1050, 550)")
+            self.resize(*eval(size))
         
         
     #----------------------------------------------------------------------

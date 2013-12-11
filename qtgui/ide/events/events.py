@@ -85,4 +85,6 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionForum, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://forum.pinguino.cc/"))  
         self.connect(self.main.actionBlog, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://blog.pinguino.cc/"))    
         self.connect(self.main.actionShop, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://shop.pinguino.cc/"))         
-        self.connect(self.main.actionGroup, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://groups.google.com/forum/#!forum/pinguinocard"))        
+        self.connect(self.main.actionGroup, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://groups.google.com/forum/#!forum/pinguinocard"))
+        
+        self.closeEvent = self.__close_ide__
