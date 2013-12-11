@@ -3,6 +3,7 @@
 
 import os
 import codecs
+import webbrowser
 
 from PySide import QtCore, QtGui
 
@@ -266,9 +267,38 @@ class EventMethods(SearchReplace):
             if not save_path: return False
             setattr(editor, "path", save_path)
             self.main.tabWidget_files.setTabText(index, filename)
+            self.main.tabWidget_files.setTabToolTip(index, save_path)    
+            self.setWindowTitle(Constants.TAB_NAME+" - "+save_path)        
         
         self.__save_file__(editor=editor)
         return True
+        
+        
+            
+            
+    #----------------------------------------------------------------------
+    @Decorator.connect_features()
+    def save_as(self, *args, **kwargs):
+        """"""
+        editor = kwargs.get("editor", None)
+        if not editor: editor = self.get_tab().currentWidget()
+        index = self.get_tab().indexOf(editor)
+        #editor = self.main.tabWidget_files.currentWidget()
+        #index = self.main.tabWidget_files.currentIndex()
+        filename = self.main.tabWidget_files.tabText(index)
+        save_path = getattr(editor, "path", None)
+        
+        save_path, filename = Dialogs.set_save_file(self, filename)
+        if not save_path: return False
+        setattr(editor, "path", save_path)
+        self.main.tabWidget_files.setTabText(index, filename)
+        self.main.tabWidget_files.setTabToolTip(index, save_path) 
+        self.setWindowTitle(Constants.TAB_NAME+" - "+save_path)
+        
+        self.__save_file__(editor=editor)
+        return True
+        
+                
         
         
     #----------------------------------------------------------------------
@@ -687,7 +717,11 @@ class EventMethods(SearchReplace):
             elif errors_linking:
                 if Dialogs.error_while_linking(self): self.__show_stdout__()
             elif errors_preprocess:
-                if Dialogs.error_while_preprocess(self): self.__show_stdout__()                
+                if Dialogs.error_while_preprocess(self): self.__show_stdout__()
+                
+                
+            else:
+                if Dialogs.error_while_unknow(self): self.__show_stdout__()                
                 
                 
         else:
@@ -754,7 +788,6 @@ class EventMethods(SearchReplace):
         for index in range(tab.count()):
             self.save_file(editor=tab.widget(index))
         
-        
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def close_all(self):
@@ -763,4 +796,10 @@ class EventMethods(SearchReplace):
         widgets = map(lambda index:tab.widget(index), range(tab.count()))
         for widget in widgets:
             self.close_file(editor=widget)
+        
+        
+    #----------------------------------------------------------------------
+    def open_web_site(self, url):
+        """"""
+        webbrowser.open_new_tab(url)
         

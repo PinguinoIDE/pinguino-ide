@@ -19,6 +19,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionSave_file, QtCore.SIGNAL("triggered()"), self.save_file)
         self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.open_files)
         self.connect(self.main.actionSave_all, QtCore.SIGNAL("triggered()"), self.save_all)
+        self.connect(self.main.actionSave_as, QtCore.SIGNAL("triggered()"), self.save_as)
         self.connect(self.main.actionClose_all, QtCore.SIGNAL("triggered()"), self.close_all)
         self.connect(self.main.actionQuit, QtCore.SIGNAL("triggered()"), self.__close_ide__)
         
@@ -72,9 +73,16 @@ class PinguinoEvents(EventMethods, TimerMethods):
         
         self.connect(self.main.actionSave_image, QtCore.SIGNAL("triggered()"), self.save_screen_image)        
         
-        
-        
         self.connect(self.main.actionSwitch_ide, QtCore.SIGNAL("toggled(bool)"), self.switch_ide_mode)
         
         self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)           
         
+        
+        #links
+        self.connect(self.main.actionWebsite, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://www.pinguino.cc/")) 
+        self.connect(self.main.actionGitHub, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE"))   
+        self.connect(self.main.actionWiki, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://wiki.pinguino.cc/"))
+        self.connect(self.main.actionForum, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://forum.pinguino.cc/"))  
+        self.connect(self.main.actionBlog, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://blog.pinguino.cc/"))    
+        self.connect(self.main.actionShop, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://shop.pinguino.cc/"))         
+        self.connect(self.main.actionGroup, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://groups.google.com/forum/#!forum/pinguinocard"))        
