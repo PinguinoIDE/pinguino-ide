@@ -252,10 +252,38 @@
 
 		// OLIMEX build-in buttons
 		#define USERBUTTON		2	//PORTDbits.RD0 = user button
-	#elif defined(__32MX220F032B__)|| defined(__32MX250F128B__)
-		#define USERLED			0
+
+	#elif defined(PINGUINO32MX220) || defined(PINGUINO32MX250)
+    
+		#define USERBUTTON		14
+		#define USERLED			13
+        
+        #define PWM0            8
+        #define PWM1            7
+        #define PWM2            6
+        #define PWM3            2
+        #define PWM4            1
+        
+        #define RTCC            9
+        
+        #define PMCS1           0
+        #define PMRD            2
+        #define PMWR            9
+        #define PMA1            7
+        
+        #define PMD0            12
+        #define PMD1            11
+        #define PMD2            10
+        #define PMD3            3
+        #define PMD4            4
+        #define PMD5            5
+        #define PMD6            14
+        #define PMD7            13
+        
 	#elif defined(PIC32_PINGUINO_220)
+    
 		#define	USERLED			13	// SCK2 // led1 green
+
 	#endif
 
 #endif /* __CONST_H */

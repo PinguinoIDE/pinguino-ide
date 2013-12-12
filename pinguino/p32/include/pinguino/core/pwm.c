@@ -113,10 +113,10 @@ u8 analogwrite(u8 pin, u16 setpoint)
 	}
 #endif
 
-#if defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+#if defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
 	switch (pin)
 	{
-		case 1:
+		case 1:// PWM4
 			pinmode(1, OUTPUT);
 			OC3CON=0;		// PWM Off
 			OC3R=setpoint;	// Timer3 will be compared to this values
@@ -124,7 +124,7 @@ u8 analogwrite(u8 pin, u16 setpoint)
 			OC3CON=0x000E;
 			OC3CON|=0x8000;	// PWM On
 			return 1;
-		case 2:
+		case 2:// PWM3
 			pinmode(2, OUTPUT);
 			OC4CON=0;		// PWM Off
 			OC4R=setpoint;	// Timer3 will be compared to this values
@@ -132,7 +132,7 @@ u8 analogwrite(u8 pin, u16 setpoint)
 			OC4CON=0x000E;
 			OC4CON|=0x8000;	// PWM On
 			return 1;
-		case 6:
+		case 6:// PWM2
 			pinmode(6, OUTPUT);
 			OC2CON=0;		// PWM Off
 			OC2R=setpoint;	// Timer3 will be compared to this values
@@ -140,7 +140,7 @@ u8 analogwrite(u8 pin, u16 setpoint)
 			OC2CON=0x000E;
 			OC2CON|=0x8000;	// PWM On
 			return 1;
-		case 7:
+		case 7:// PWM1
 			pinmode(7, OUTPUT);
 			OC5CON=0;		// PWM Off
 			OC5R=setpoint;	// Timer3 will be compared to this values
@@ -148,7 +148,7 @@ u8 analogwrite(u8 pin, u16 setpoint)
 			OC5CON=0x000E;
 			OC5CON|=0x8000;	// PWM On
 			return 1;
-		case 8:
+		case 8:// PWM0
 			pinmode(8, OUTPUT);
 			OC1CON=0;		// PWM Off
 			OC1R=setpoint;	// Timer3 will be compared to this values

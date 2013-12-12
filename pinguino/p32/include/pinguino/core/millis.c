@@ -38,7 +38,7 @@
 volatile u32 _millis;
 volatile u32 _micros;
 
-#if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+#if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
 volatile u32 _tmr2;
 volatile u32 _tmr2_upd;
 #endif
@@ -50,7 +50,7 @@ void millis_init(void)
 	pf = GetPeripheralClock();
 	IntConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 	T2CON=0;
-    #if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+    #if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
 	_tmr2 = pf / 1000 / 2; // 27 - 08- 2013: preserve this for the micros() function
 	TMR2 = 65535 - _tmr2;
    _tmr2_upd= TMR2;   // 26-02-2013 : correction : we will need to refresh in the interrupt with 65535 - _tmr2 to give the 1mS in the next interrupts
@@ -76,7 +76,7 @@ u32 millis()
 
 u32 micros()
 {
-    #if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+    #if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
         // The code for the 220 has not been tested!
        // return 1000*_millis + (1000*(65535-TMR2))/_tmr2; // Tested but gives more microsseconds
        _micros = 1000*_millis + (1000*(TMR2 - _tmr2))/_tmr2; // working good micros()
@@ -94,14 +94,14 @@ u32 micros()
 void Tmr2Interrupt()
 {
 	// is this an TMR2 interrupt ?
-    #if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+    #if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
 	TMR2 = _tmr2_upd; // 0xD910;	// because PR2 don't work on PIC32MX220F032D
 	if (IFS0bits.T2IF)
 	#else
 	if (IntGetFlag(INT_TIMER2)) // TODO : add PIC32_PINGUINO_220 support
 	#endif
 	{
-        #if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+        #if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
 		IFS0bits.T2IF=0;
 		#else
 		//IFS0CLR=0x00000100;

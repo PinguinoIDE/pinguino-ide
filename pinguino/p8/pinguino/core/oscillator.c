@@ -159,7 +159,14 @@ static u16 System_readFlashMemory(u32 address)
 
 u32 System_getCpuFrequency() 
 {
-    u8 CPUDIV,CPUDIV_XTAL,fosc;
+    u8 CPUDIV;
+
+    #if defined(__18f2455)  || defined(__18f4455)  || \
+        defined(__18f2550)  || defined(__18f4550)
+
+    u8 fosc, CPUDIV_XTAL;
+
+    #endif
 
     switch (OSCCONbits.SCS)
     {
@@ -198,7 +205,7 @@ u32 System_getCpuFrequency()
             // PLL ?
             
             #if defined(__18f2455) || defined(__18f4455) || \
-                  defined(__18f2550) || defined(__18f4550)
+                defined(__18f2550) || defined(__18f4550)
                   
 			fosc >>=1;
             if( (fosc==0) || (fosc==2) || (fosc==6) )

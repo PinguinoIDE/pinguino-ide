@@ -275,7 +275,7 @@ void DCF77_start(u8 dcfPin)
 	IntConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 	T1CON    = 0x20;					// prescaler 1:64, internal peripheral clock
 	TMR1     = 0;						// clear timer register
-    #if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+    #if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
     PR1      = 6250;					// load period register
     #else
     PR1      = 12500;	                // load period register

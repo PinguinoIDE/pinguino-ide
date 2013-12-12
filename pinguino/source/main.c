@@ -95,6 +95,7 @@
 #endif
 
 {
+    /*
     #if defined(__18f25k50) || defined(__18f45k50) || \
         defined(__18f26j50) || defined(__18f46j50) || \
         defined(__18f26j53) || defined(__18f46j53) || \
@@ -103,7 +104,7 @@
         u16 pll_startup_counter = 600;
 
     #endif
-    
+    */
     /// ----------------------------------------------------------------
     /// If we start from a Power-on reset, set NOT_POR bit to 1
     /// ----------------------------------------------------------------
@@ -114,6 +115,7 @@
                                 // enable priority levels on interrupts
     }
     
+/*  ALREADY DONE IN THE BOOTLOADER CODE
     /// ----------------------------------------------------------------
     /// Perform a loop for some processors until their frequency is stable
     /// ----------------------------------------------------------------
@@ -146,10 +148,11 @@
 
         // Enable the PLL and wait 2+ms until the PLL locks
         OSCCON2bits.PLLEN = 1;
+        OSCTUNEbits.SPLLMULT = 1;   // 1=3xPLL, 0=4xPLL
         while (pll_startup_counter--);
 
     #endif
-
+*/
     /// ----------------------------------------------------------------
     /// Init. all flag/interrupt
     /// ----------------------------------------------------------------
@@ -256,15 +259,14 @@
         defined(TMR4INT) || defined(TMR5INT) || \
         defined(TMR6INT) || defined(TMR8INT) 
 
-    IntTimerStart();            // Enable all defined timers interrupts
-                                // at the same time
-
+    IntTimerStart();        // Enable all defined timers interrupts
+                            // at the same time
     #endif
 
     #ifdef ON_EVENT
     //IntInit();
-    INTCONbits.GIEH = 1;   // Enable global HP interrupts
-    INTCONbits.GIEL = 1;   // Enable global LP interrupts
+    INTCONbits.GIEH = 1;    // Enable global HP interrupts
+    INTCONbits.GIEL = 1;    // Enable global LP interrupts
     #endif
 
     while (1)
@@ -279,7 +281,7 @@
      defined(USERINT)       || defined(INT0INT)     || defined(I2CINT)      || \
      defined(__SERIAL__)    || defined(ON_EVENT)    || defined(__MILLIS__)  || \
      defined(SERVOSLIBRARY) || defined(__PS2KEYB__) || defined(__DCF77__)   || \
-     defined(RTCCALARMINTENABLE)
+     defined(RTCCALARMINTENABLE) || defined(__STEPPER__) // || defined(__MICROSTEPPING__)
 
 /*  ----------------------------------------------------------------------------
     High Interrupt Vector
@@ -340,6 +342,11 @@ void high_priority_isr(void) __interrupt 1
     dcf77_interrupt();
     #endif
 
+    //#ifdef __MICROSTEPPING__
+    #ifdef __STEPPER__
+    stepper_interrupt();
+    #endif
+
     #ifdef RTCCALARMINTENABLE
     rtcc_interrupt();
     #endif
@@ -390,7 +397,7 @@ void low_priority_isr(void) __interrupt 2
 
 }
 
-#endif
+#endif /* all interrupt */
 
 /*  ----------------------------------------------------------------------------
     Reset Interrupt Vector

@@ -70,6 +70,19 @@ void analog_init(void)
 	ADCON0=0x00;        // 0b00000000 = VRef-=VSS, VRef+=VDD, No channel selected yet 
 	ADCON1=0b10111110;	// Right justified, Calibration Normal, 20TAD, FOSC/64
 
+    #elif defined(__18f25k50) || defined(__18f45k50) 
+    // RB : 01-12-2013
+    TRISA  = TRISA  | 0x2F; // 0b00101111 = RA0,1,2,3 and RA5 = AN0 to AN4 are INPUT
+    ANSELA = ANSELA | 0x2F; // AN0 to AN4 enabled 
+    ANSELB = 0;
+    ANSELC = 0;
+    #if defined(__18f45k50) 
+    ANSELD = 0;
+    ANSELE = 0;
+    #endif
+	ADCON1 = 0x00;          // VRef-=VSS, VRef+=VDD
+	ADCON2 = 0xBD;          // 0b10111101 = Right justified, 0, 20 TAD, FOSC/16
+    
     #else // PINGUINO2550
 
 	TRISA=TRISA | 0x2F; // 0b00101111 = RA0,1,2,3 and RA5 = AN0 to AN4 are INPUT
@@ -127,36 +140,36 @@ u16 analogread(u8 channel)
 
     #ifdef PICUNO_EQUO
         if(channel>=14 && channel<=16)
-            ADCON0=(channel-14)*4;
+            ADCON0=(channel-14) << 2;
         else if(channel>=17 && channel<=19)
-            ADCON0=(channel-13)*4;
+            ADCON0=(channel-13) << 2;
 
     #elif defined(PINGUINO47J53A)
-        if(channel>=8 && channel<=14)
-            ADCON0=(channel-8) << 2;             // A0 = 8, A1 = 9, ...
+        if(channel>=8 && channel<=15)
+            ADCON0=(channel-8) << 2;    // A0=8 to A7=15
         else if(channel<=7)
-            ADCON0 = channel << 2;              // A0 = 0, A1 = 1, ...
+            ADCON0 = channel << 2;      // A0=0 to A7=7
 
     #else
         if(channel>=13 && channel<=17)
-            ADCON0=(channel-13)*4;             // A0 = 13, A1 = 14, ...
+            ADCON0=(channel-13) << 2;   // A0 = 13, ..., A4 = 17
         else if(channel<=5)
-            ADCON0 = channel * 4;              // A0 = 0, A1 = 1, ...
+            ADCON0 = channel << 2;      // A0 = 0, ..., A4 = 4
     #endif
 
-    ADCON0bits.ADON=1;                          // A/D Converter module is enabled
+    ADCON0bits.ADON=1;                  // A/D Converter module is enabled
 
-    for (result=1;result<10;result++)           // Acquisition time
+    for (result=1;result<10;result++)   // Acquisition time
         __asm NOP __endasm;
 
-    ADCON0bits.GO=1;                            // Start A/D Conversion
+    ADCON0bits.GO=1;                    // Start A/D Conversion
 
-    while (ADCON0bits.GO);                      // Wait for conversion stop
+    while (ADCON0bits.GO);              // Wait for conversion stop
 
     result = ADRESH << 8;
     result += ADRESL;
 
-    ADCON0bits.ADON = 0;                        // A/D Converter module is disabled
+    ADCON0bits.ADON = 0;                // A/D Converter module is disabled
 
     return(result);
 }
@@ -192,48 +205,32 @@ u16 analogread(u8 channel)
 
 void analogwrite_init()
 {
-    #if defined(PINGUINO47J53A)
+    #if defined(__18f26j53) || defined(__18f46j53) || \
+        defined(__18f27j53) || defined(__18f47j53)
 
-    CCPTMRS1 = 0;                           // assign Timer2 to all CCP pins
+    CCPTMRS0 = 0;
+    CCPTMRS1 = 0;                       // assign Timer2 to all CCP pins
     CCPTMRS2 = 0;
   
     #endif
 
-    PR2 = 0xFF;                             // set PWM period to the max. to get 10-bit res.
-    T2CON = 0b00000100;                     // Timer2 on, prescaler is 1
+    PR2 = 0xFF;                         // set PWM period to the max. to get 10-bit res.
+    T2CON = 0b00000100;                 // Timer2 on, prescaler is 1
 }
 
 void analogwrite(u8 pin, u16 duty)
 {
-    #if !defined(PINGUINO47J53A)
-
-    switch (pin)
-    {
-        case CCP1:
-            CCP1CON  = 0b00001100;
-            CCPR1L   = ( duty >> 2 ) & 0xFF;         // 8 LSB
-            //CCP1CON |= ( (duty & 0x300) >> 8) << 4;  // 2 MSB in <5:4>
-            CCP1CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
-            break;
-
-        case CCP2:
-            CCP2CON  = 0b00001100;
-            CCPR2L   = ( duty >> 2 ) & 0xFF;                  // 8 LSB
-            //CCP2CON |= ( (duty & 0x3FF) >> 8) << 4;  // 2 MSB in <5:4>
-            CCP1CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
-            break;
-    }
-
-    #else // PINGUINO47J53A
-
-    /*
-    On PIC18F47J53 CCPx pin are multiplexed with a PORTB data latch,
-    the appropriate TRIS bit must be cleared by user to make the CCPx pin an output.
-    */
-    
     switch (pin)
     {
 
+        #if defined(__18f26j53) || defined(__18f46j53) || \
+            defined(__18f27j53) || defined(__18f47j53)
+
+        /*
+        On PIC18F47J53 CCPx pin are multiplexed with a PORTB data latch,
+        the appropriate TRIS bit must be cleared by user to make the CCPx pin an output.
+        */
+        
         case CCP4:
             //BitClear(TRISB, pin);            // Make the CCPx pin an output by clearing the appropriate TRIS bit.
             CCP4CON  = 0b00001100;           // Configure the CCPx module for PWM operation
@@ -282,9 +279,24 @@ void analogwrite(u8 pin, u16 duty)
             CCPR10L   = ( duty >> 2 ) & 0xFF;// Set the PWM duty cycle by writing to the CCPRxL register
             CCP10CON |= (duty & 0x300) >> 4; // and CCPxCON<5:4> bits
             break;
-    }
 
-    #endif
+        #else
+
+        case CCP1:
+            CCP1CON  = 0b00001100;
+            CCPR1L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP1CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        case CCP2:
+            CCP2CON  = 0b00001100;
+            CCPR2L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP1CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        #endif
+
+    }
 
     PIR1bits.TMR2IF = 0;
 }

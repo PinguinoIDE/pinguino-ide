@@ -9,7 +9,6 @@
 # ------------------------------------------------------------------------------
 # HOME, PDEDIR, PROC & BOARD are defined in pinguino.py
 
-
 OSDIR			=	linux
 SRCDIR		=	$(HOME)/source
 P32DIR		=	$(HOME)/p32
@@ -30,16 +29,22 @@ LIBDIRS		=	-L$(OBJDIR)/usb
 
 # ------------------------------------------------------------------------------
 # unsupported record in hex file / Jean-pierre Mandon 2012
+# 04       : 4 bytes
+# 0000     : address
+# 05       : record type = Start_Linear_Address_Record
+# 9D004000 : address where the user program should start
+#          : _RESET_ADDR (see lkr/procdefs.ld)
+# 1A       : checksum
 # ------------------------------------------------------------------------------
 
 BADRECORD='^:040000059D006000FA'
 ifeq ($(BOARD),PIC32_PINGUINO_220)
 	BADRECORD = '^:040000059D0040001A'
 endif
-ifeq ($(BOARD),GENERIC32MX250F128)
+ifeq ($(BOARD),PINGUINO32MX250)
 	BADRECORD = '^:040000059D0040001A'
 endif
-ifeq ($(BOARD),GENERIC32MX220F032)
+ifeq ($(BOARD),PINGUINO32MX220)
 	BADRECORD = '^:040000059D0040001A'
 endif
 
@@ -53,7 +58,7 @@ HEAP_SIZE=16384
 ifeq ($(BOARD),PIC32_PINGUINO_220)
 	HEAP_SIZE = 512
 endif
-ifeq ($(BOARD),GENERIC32MX220F032)
+ifeq ($(BOARD),PINGUINO32MX220)
 	HEAP_SIZE = 512
 endif
 
@@ -65,10 +70,10 @@ CDCLIBRARY = libcdc.a
 ifeq ($(BOARD),PIC32_PINGUINO_220)
 	CDCLIBRARY = libcdc220.a
 endif
-ifeq ($(BOARD),GENERIC32MX250F128)
+ifeq ($(BOARD),PINGUINO32MX250)
 	CDCLIBRARY = libcdc220.a
 endif
-ifeq ($(BOARD),GENERIC32MX220F032)
+ifeq ($(BOARD),PINGUINO32MX220)
 	CDCLIBRARY = libcdc220.a
 endif
 
@@ -94,8 +99,9 @@ CFLAGS		=	-fdollars-in-identifiers $(INCLUDEDIRS)
 
 LDFLAGS		=	$(LIBDIRS) $(LIBS)
 
-ELF_FLAGS	=	-EL -O3 -ffunction-sections -fdata-sections -Wl,--gc-sections -march=24kc\
+ELF_FLAGS	=	-EL -Os -ffunction-sections -fdata-sections -Wl,--gc-sections -march=24kc\
 					-msoft-float\
+                    -minterlink-mips16\
 					-Wl,--defsym,_min_heap_size=$(HEAP_SIZE)\
 					-Wl,-Map=$(SRCDIR)/output.map\
 					-Wl,-L$(OBJDIR)/\
@@ -149,4 +155,3 @@ correct:
 	#----------------------------------------------------------------------------
 	${REMOVE}
 	mv $(SRCDIR)/temp.hex $(SRCDIR)/main32.hex      
-

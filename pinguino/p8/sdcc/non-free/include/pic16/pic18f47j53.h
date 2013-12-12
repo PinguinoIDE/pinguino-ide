@@ -2786,6 +2786,12 @@ typedef union
     unsigned IRQM1              : 1;
     unsigned BUSY               : 1;
     };
+  // RB : 07-12-2013  
+  struct
+    {
+    unsigned MODE               : 2;
+    unsigned                    : 6;
+    };
 
   struct
     {

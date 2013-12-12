@@ -21,6 +21,8 @@ sqrt sqrtf#include <math.h>
 abs fabsf#include <math.h>
 sin sinf#include <math.h>
 cos cosf#include <math.h>
+sinr sinr#include <trigo.c>
+cosr cosr#include <trigo.c>
 tan tanf#include <math.h>
 min min#include <macro.h>
 max max#include <macro.h>

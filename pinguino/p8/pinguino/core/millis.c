@@ -18,9 +18,9 @@ volatile u32 _reload_val;
 
 void updateMillisReloadValue(void )   /* Call from System_setIntOsc() */
 {
-	/* Atomic operation */
+    /* Atomic operation */
     INTCONbits.TMR0IE = 0;//INT_DISABLE;
-	_reload_val = 0xFFFF - System_getPeripheralFrequency() / 1000 ;
+    _reload_val = 0xFFFF - System_getPeripheralFrequency() / 1000 ;
     INTCONbits.TMR0IE = 1;//INT_ENABLE;
 }
 void millis_init(void)
@@ -40,13 +40,13 @@ void millis_init(void)
     INTCONbits.GIEH    = 0;   // Disable global HP interrupts
     INTCONbits.GIEL    = 0;   // Disable global LP interrupts
     T0CON = 0b00001000;//T0_OFF | T0_16BIT | T0_SOURCE_INT | T0_PS_OFF;
-	_reload_val = 0xFFFF - System_getPeripheralFrequency() / 1000 ;
+    _reload_val = 0xFFFF - System_getPeripheralFrequency() / 1000 ;
     TMR0H = high8(_reload_val);
     TMR0L =  low8(_reload_val);
     INTCON2bits.TMR0IP = 1;//INT_HIGH_PRIORITY;
     INTCONbits.TMR0IF  = 0;
     INTCONbits.TMR0IE  = 1;//INT_ENABLE;
-	T0CONbits.TMR0ON   = 1;
+    T0CONbits.TMR0ON   = 1;
     INTCONbits.GIEH    = 1;   // Enable global HP interrupts
     INTCONbits.GIEL    = 1;   // Enable global LP interrupts
 
@@ -55,10 +55,10 @@ void millis_init(void)
 
 u32 millis()
 {
-	u32 temp;
-	/* Atomic operation for multibyte value */
+    u32 temp;
+    /* Atomic operation for multibyte value */
     INTCONbits.TMR0IE = 0;//INT_DISABLE;
-	temp = _millis;
+    temp = _millis;
     INTCONbits.TMR0IE = 1;//INT_ENABLE;
     return(temp);
 }
@@ -69,8 +69,8 @@ void millis_interrupt(void)
     if (INTCONbits.TMR0IF)
     {
         INTCONbits.TMR0IF = 0;
-		TMR0H = high8(_reload_val);
-		TMR0L =  low8(_reload_val);
+        TMR0H = high8(_reload_val);
+        TMR0L =  low8(_reload_val);
         _millis++;
     }
 }
