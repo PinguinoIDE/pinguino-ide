@@ -78,7 +78,7 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                if Pinguino.is_graphical(): return wrapped
+                if not Pinguino.is_graphical(): return fn(Pinguino, *args, **kwargs)
                 else: return None
             return wrapped
         return actualdecorator
