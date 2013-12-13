@@ -659,6 +659,13 @@ class EventMethods(SearchReplace):
         self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code())
         self.frame_pinguino_code.show()
                 
+                
+    #----------------------------------------------------------------------
+    def __show_current_board_info__(self):
+        """"""
+        if not Dialogs.info_board(self):
+            self.__show_board_config__()
+        
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()

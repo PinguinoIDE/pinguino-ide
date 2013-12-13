@@ -77,6 +77,8 @@ class PinguinoEvents(EventMethods, TimerMethods):
         
         self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)           
         
+        self.connect(self.main.actionCurrent_Board, QtCore.SIGNAL("triggered()"), self.__show_current_board_info__)           
+        
         
         #links
         self.connect(self.main.actionWebsite, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://www.pinguino.cc/")) 
