@@ -142,7 +142,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         pallete.set_background_pinguino(self.main.toolBar_board)
         pallete.set_background_pinguino(self.main.centralwidget.parent())
         
-        
         pallete.set_default_palette(self.main.toolBar_edit)
         pallete.set_default_palette(self.main.toolBar_files)
         pallete.set_default_palette(self.main.toolBar_search_replace)
@@ -151,5 +150,4 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         pallete.set_default_palette(self.main.toolBar_graphical)
         pallete.set_default_palette(self.main.toolBar_switch)
         
-        
-        #pallete.set_default_palette(self.main.toolBar_switch)     
+        del pallete
