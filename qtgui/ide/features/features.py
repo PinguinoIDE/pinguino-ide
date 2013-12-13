@@ -32,7 +32,7 @@ class PinguinoFeatures(PinguinoEvents):
         self.main.toolBar_edit.setVisible(not toogle)
         self.main.toolBar_graphical.setVisible(toogle)
         
-        self.main.menuGraphical.setEnabled(toogle)
+        self.main.actionView_Pinguino_code.setEnabled(toogle)
         
         self.tab_changed()
         
