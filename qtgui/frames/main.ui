@@ -153,7 +153,9 @@
     <property name="title">
      <string>View</string>
     </property>
+    <addaction name="actionView_Pinguino_code"/>
     <addaction name="actionStdout"/>
+    <addaction name="actionCurrent_Board"/>
    </widget>
    <widget class="QMenu" name="menuPinguino">
     <property name="title">
@@ -190,21 +192,11 @@
     <addaction name="actionComment_out_region"/>
     <addaction name="actionComment_Uncomment_region"/>
    </widget>
-   <widget class="QMenu" name="menuGraphical">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="title">
-     <string>Graphical mode</string>
-    </property>
-    <addaction name="actionView_Pinguino_code"/>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuSource"/>
    <addaction name="menuView"/>
    <addaction name="menuPinguino"/>
-   <addaction name="menuGraphical"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget_tools">
@@ -231,7 +223,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_5">
         <attribute name="title">
@@ -714,6 +706,9 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
    <property name="windowTitle">
     <string>File</string>
    </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <property name="iconSize">
     <size>
      <width>32</width>
@@ -729,10 +724,14 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
    <addaction name="actionNew_file"/>
    <addaction name="actionOpen_file"/>
    <addaction name="actionSave_file"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_undo_redo">
    <property name="windowTitle">
     <string>Undo Redo</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
    </property>
    <property name="iconSize">
     <size>
@@ -748,10 +747,14 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
    </attribute>
    <addaction name="actionUndo"/>
    <addaction name="actionRedo"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_edit">
    <property name="windowTitle">
     <string>Edit</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
    </property>
    <property name="iconSize">
     <size>
@@ -768,10 +771,14 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
    <addaction name="actionCut"/>
    <addaction name="actionCopy"/>
    <addaction name="actionPaste"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_search_replace">
    <property name="windowTitle">
     <string>Search Replace</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
    </property>
    <property name="iconSize">
     <size>
@@ -787,10 +794,14 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
    </attribute>
    <addaction name="actionSearch"/>
    <addaction name="actionSearch_and_replace"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_pinguino">
    <property name="windowTitle">
     <string>Pinguino</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
    </property>
    <property name="iconSize">
     <size>
@@ -807,8 +818,12 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
    <addaction name="actionSelect_board"/>
    <addaction name="actionCompile"/>
    <addaction name="actionUpload"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_board">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="maximumSize">
     <size>
      <width>16777215</width>
@@ -993,6 +1008,9 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   <widget class="QToolBar" name="toolBar_graphical">
    <property name="windowTitle">
     <string>Graphical mode</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
    </property>
    <property name="iconSize">
     <size>
@@ -1325,7 +1343,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   </action>
   <action name="actionView_Pinguino_code">
    <property name="enabled">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="text">
     <string>View Pinguino code</string>
@@ -1379,6 +1397,14 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
   <action name="actionSave_as">
    <property name="text">
     <string>Save as</string>
+   </property>
+  </action>
+  <action name="actionCurrent_Board">
+   <property name="text">
+    <string>Current Board</string>
+   </property>
+   <property name="shortcut">
+    <string>F12</string>
    </property>
   </action>
  </widget>
