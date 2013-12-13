@@ -52,7 +52,7 @@
 	#endif
 #endif
 
-#if defined(UBW32_460) || defined(EMPEROR460) || defined(PIC32_PINGUINO_220) || defined(GENERIC32MX250F128) || defined(GENERIC32MX220F032)
+#if defined(UBW32_460) || defined(EMPEROR460) || defined(PIC32_PINGUINO_220) || defined(PINGUINO32MX250) || defined(PINGUINO32MX220)
 #if (SPIx == 1)
 	#define BUFFER		SPI1BUF
 	#define STATUS		SPI1STATbits.SPIROV	// Receive Overflow Flag bit

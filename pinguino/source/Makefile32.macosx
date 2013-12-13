@@ -9,7 +9,6 @@
 # ------------------------------------------------------------------------------
 # HOME, PDEDIR, PROC & BOARD are defined in pinguino.py
 
-
 OSDIR			=	macosx
 SRCDIR		=	$(HOME)/source
 P32DIR		=	$(HOME)/p32
@@ -36,10 +35,10 @@ BADRECORD='^:040000059D006000FA'
 ifeq ($(BOARD),PIC32_PINGUINO_220)
 	BADRECORD = '^:040000059D0040001A'
 endif
-ifeq ($(BOARD),GENERIC32MX250F128)
+ifeq ($(BOARD),PINGUINO32MX250)
 	BADRECORD = '^:040000059D0040001A'
 endif
-ifeq ($(BOARD),GENERIC32MX220F032)
+ifeq ($(BOARD),PINGUINO32MX220)
 	BADRECORD = '^:040000059D0040001A'
 endif
 
@@ -53,7 +52,7 @@ HEAP_SIZE=16384
 ifeq ($(BOARD),PIC32_PINGUINO_220)
 	HEAP_SIZE = 512
 endif
-ifeq ($(BOARD),GENERIC32MX220F032)
+ifeq ($(BOARD),PINGUINO32MX220)
 	HEAP_SIZE = 512
 endif
 
@@ -65,10 +64,10 @@ CDCLIBRARY = libcdc.a
 ifeq ($(BOARD),PIC32_PINGUINO_220)
 	CDCLIBRARY = libcdc220.a
 endif
-ifeq ($(BOARD),GENERIC32MX250F128)
+ifeq ($(BOARD),PINGUINO32MX250)
 	CDCLIBRARY = libcdc220.a
 endif
-ifeq ($(BOARD),GENERIC32MX220F032)
+ifeq ($(BOARD),PINGUINO32MX220)
 	CDCLIBRARY = libcdc220.a
 endif
 

@@ -106,7 +106,8 @@
 
     #define INT_CTMU            41      // x6j50 and xxj53 only
     #define INT_RTCC            42      // x6j50 and xxj53 only
-	#define INT_NUM				43
+    #define INT_PMP             43      // xxj53 only
+	#define INT_NUM				44
 
 	///
 	/// CCPxCON: STANDARD CCPx CONTROL REGISTER

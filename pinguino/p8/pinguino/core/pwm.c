@@ -59,6 +59,8 @@ u8  _t2con;							// shadow value of T2CON
     so [(PR2) + 1] = (1/PWM Frequency) / (4 * 1/FOSC * p)
     and [(PR2) + 1] = FOSC / (4 * PWM Frequency * p)
     then [(PR2) + 1] = FOSC / PWM Frequency / 4 / p
+    --------------------------------------------------------------------
+    When TMR2 (TMR4) is equal to PR2 (PR4) the CCPx pin is set
     ------------------------------------------------------------------*/
 
 void PWM_setFrequency(u32 freq)
@@ -74,17 +76,17 @@ void PWM_setFrequency(u32 freq)
     {
         if (_pr2_plus1 <= 256)				// no needs of any prescaler
         {
-            _t2con = 0b00000000;			// prescaler is 1
+            _t2con = 0b00000100;			// prescaler is 1, Timer2 On
         }
         else if (_pr2_plus1 <= 1024)		// needs prescaler 1:4
         {
             _pr2_plus1 = _pr2_plus1 >> 2;	// divided by 4
-            _t2con = 0b00000001;			// prescaler is 4
+            _t2con = 0b00000101;			// prescaler is 4, Timer2 On
         }
         else								// needs prescaler 1:6
         {
             _pr2_plus1 = _pr2_plus1 >> 4;	// divided by 16
-            _t2con = 0b00000010;			// prescaler is 16
+            _t2con = 0b00000110;			// prescaler is 16, Timer2 On
         }
     }
 }
@@ -102,6 +104,10 @@ void PWM_setFrequency(u32 freq)
     --------------------------------------------------------------------
     PWM Duty Cycle = (CCPRxL:CCPxCON<5:4>) * Tosc * TMR2 prescaler
     (CCPRxL:CCPxCON<5:4>) = PWM Duty Cycle / (Tosc * TMR2 prescaler)
+
+    CCPxCON = 0b00001100 => PWM mode
+                            PxA and PxC are active-high;
+                            PxB and PxD are active-high
     ------------------------------------------------------------------*/
 
 void PWM_setDutyCycle(u8 pin, u16 duty)
@@ -110,24 +116,83 @@ void PWM_setDutyCycle(u8 pin, u16 duty)
 
     if (duty > 1023) duty = 1023;		// upper limit (10-bit)
 
-    pinmode(pin, INPUT);				// PWM pin as INPUT
+    // 1- Set the PWM period by writing to the PR2 (PR4) register.
+
     PR2 = _pr2_plus1 - 1;				// set PWM period
+
+    #if defined(__18f26j53) || defined(__18f46j53) || \
+        defined(__18f27j53) || defined(__18f47j53)
+
+    CCPTMRS1 = 0;                       // assign Timer2 to all CCP pins
+    CCPTMRS2 = 0;
+
+    #endif
+    
+    // 2- Set the PWM duty cycle by writing to the CCPRxL register and
+    // CCPxCON<5:4> bits.
 
     switch (pin)
     {
+        #if defined(__18f26j53) || defined(__18f46j53) || \
+            defined(__18f27j53) || defined(__18f47j53)
+
+        case CCP4:
+            CCP4CON  = 0b00001100;
+            CCPR4L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP4CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        case CCP5:
+            CCP5CON  = 0b00001100;
+            CCPR5L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP5CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        case CCP6:
+            CCP6CON  = 0b00001100;
+            CCPR6L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP6CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        case CCP7:
+            CCP7CON  = 0b00001100;
+            CCPR7L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP7CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        case CCP8:
+            CCP8CON  = 0b00001100;
+            CCPR8L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP8CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        case CCP9:
+            CCP9CON  = 0b00001100;
+            CCPR9L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP9CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        case CCP10:
+            CCP10CON  = 0b00001100;
+            CCPR10L   = ( duty >> 2 ) & 0xFF; // 8 LSB
+            CCP10CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
+            break;
+
+        #else
+
         case CCP1:
             CCP1CON  = 0b00001100;
-            CCPR1L   = ( duty >> 2 ) & 0xFF;         // 8 LSB
-            //CCP1CON |= ( (duty & 0x300) >> 8) << 4;  // 2 MSB in <5:4>
+            CCPR1L   = ( duty >> 2 ) & 0xFF; // 8 LSB
             CCP1CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
             break;
 
         case CCP2:
             CCP2CON  = 0b00001100;
-            CCPR2L   = ( duty >> 2 ) & 0xFF;                  // 8 LSB
-            //CCP2CON |= ( (duty & 0x3FF) >> 8) << 4;  // 2 MSB in <5:4>
+            CCPR2L   = ( duty >> 2 ) & 0xFF; // 8 LSB
             CCP1CON |= (duty & 0x300) >> 4;  // 2 MSB in <5:4>
             break;
+
+        #endif
             
         default:
             #ifdef DEBUG
@@ -135,14 +200,17 @@ void PWM_setDutyCycle(u8 pin, u16 duty)
             #endif
     }
 
-    // TMR2 configuration
-    //intUsed[INT_TMR2] = INT_USED;		// tell interrupt.c we use TMR2
-    //PIR1bits.TMR2IF = 0;				// reset this flag for the next test
-    T2CON = _t2con;						// Timer2 prescaler
-    T2CONbits.TMR2ON = ON;				// enable Timer2
-    // PWM pin as OUTPUT
-    while (PIR1bits.TMR2IF == 0);		// Wait until TMR2 overflows
+    // 3- Make the CCPx pin an output by clearing the appropriate TRIS bit.
+
     pinmode(pin, OUTPUT);				// PWM pin as OUTPUT
+
+    // 4- Set the TMR2 prescale value, then enable Timer2 by writing to T2CON
+
+    T2CON = _t2con;						// Timer2 prescaler + ON
+
+    // 5- Configure the CCPx module for PWM operation
+
+    //PIR1bits.TMR2IF = 0;				// Reset interrupt flag
 }
 
 /*  --------------------------------------------------------------------
@@ -170,4 +238,15 @@ void PWM_setPercentDutyCycle(u8 pin, u8 percent)
     PWM_setDutyCycle(pin, duty << 2);
 }
 
+/*  --------------------------------------------------------------------
+    pwm_interrupt
+    --------------------------------------------------------------------
+    ------------------------------------------------------------------*/
+/*
+void pwm_interrupt()
+{
+    if (PIR1bits.TMR2IF)
+        PIR1bits.TMR2IF = 0;
+}
+*/
 #endif /* __PWM__ */

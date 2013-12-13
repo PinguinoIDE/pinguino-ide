@@ -11,7 +11,7 @@ void setup()
 void loop()
 {
     toggle(USERLED);			// alternate ON and OFF
-    delay(50);		        // wait for 50ms
+    delay(500);		        // wait for 500ms
 /*	Or ...
     digitalWrite(USERLED, HIGH);
     delay(50);		     // wait for 50ms

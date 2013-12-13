@@ -91,7 +91,7 @@ const unsigned char port[19]={
                     pA, pA, pA, pC, pC, pC, pB, pB, pB }; // 9 - 17
 
 /**********************************************************************/
-#elif  defined(PINGUINO2455) || defined(PINGUINO2550) || defined(PINGUINO25K50) || defined(CHRP3)
+#elif defined(PINGUINO2455) || defined(PINGUINO2550) || defined(PINGUINO25K50)
 /**********************************************************************/
                                                     // Pinguino pin number
 const unsigned char mask[19]={
@@ -103,6 +103,21 @@ const unsigned char port[19]={
                     pB, pB, pB, pB, pB, pB, pB, pB, // 0 - 7
                     pC, pC, pC, pC, pC,             // 8 - 12
                     pA, pA, pA, pA, pA, pA};        // 13 - 18
+
+/**********************************************************************/
+#elif defined(CHRP3)
+/**********************************************************************/
+                                                    // Pinguino pin number
+const unsigned char mask[21]={
+                    _0,_1,_2,_3,_4,_5,_6,_7,        // 00 - 07
+                    _6,_7,_0,_1,_2,                 // 08 - 12
+                    _0,_1,_2,_3,_4,_5,_6,_7};       // 13 - 20
+
+const unsigned char port[21]={
+                    pB, pB, pB, pB, pB, pB, pB, pB, // 00 - 07
+                    pC, pC, pC, pC, pC,             // 08 - 12
+                    pA, pA, pA, pA, pA, pA, pA, pA  // 13 - 20
+                    };
 
 /**********************************************************************/
 #elif defined(PINGUINO26J50)
@@ -199,7 +214,9 @@ void digitalwrite(unsigned char pin, unsigned char state)
         case pC: if (state) LATC=LATC | mask[pin];
                 else LATC=LATC & (255-mask[pin]);
                 break;
-        #if defined(PINGUINO4550) || defined(PICUNO_EQUO) 
+        #if defined(PINGUINO4550)  || defined(PICUNO_EQUO)   || \
+            defined(PINGUINO45K50) || defined(PINGUINO46J50) || \
+            defined(PINGUINO47J53A)
         case pD: if (state) LATD=LATD | mask[pin]; 
                 else LATD=LATD & (255-mask[pin]);
                 break;
@@ -239,7 +256,9 @@ unsigned char digitalread(unsigned char pin)
         case pC: if ((PORTC & mask[pin])!=0) return (1);
             else return (0);
             break;
-        #if defined(PINGUINO4550) || defined(PICUNO_EQUO) 
+        #if defined(PINGUINO4550)  || defined(PICUNO_EQUO)   || \
+            defined(PINGUINO45K50) || defined(PINGUINO46J50) || \
+            defined(PINGUINO47J53A)
         case pD: if ((PORTD & mask[pin])!=0) return (1);
             else return (0);
             break;
@@ -280,7 +299,9 @@ void pinmode(unsigned char pin, unsigned char state)
         case pC: if (state) TRISC=TRISC | mask[pin];
             else TRISC=TRISC & (255-mask[pin]);
             break;
-        #if defined(PINGUINO4550) || defined(PICUNO_EQUO) 
+        #if defined(PINGUINO4550)  || defined(PICUNO_EQUO)   || \
+            defined(PINGUINO45K50) || defined(PINGUINO46J50) || \
+            defined(PINGUINO47J53A)
         case pD: if (state) TRISD=TRISD | mask[pin];
             else TRISD=TRISD & (255-mask[pin]);
             break;
@@ -311,16 +332,19 @@ void pinmode(unsigned char pin, unsigned char state)
 // *pLAT = content of PORTx
 void toggle(unsigned char pin)
 {
-    unsigned char state;
-    state = digitalread(pin);
-    digitalwrite(pin, state^1);
-/*
+    /* VERSION 1
     if (state)
         digitalwrite(pin, 0);
     else
         digitalwrite(pin, 1);
-*/
-    /*
+    */
+
+    // VERSION 2
+    unsigned char state;
+    state = digitalread(pin);
+    digitalwrite(pin, state^1);
+
+    /* VERSION 3
     unsigned char  b = mask[pin];          // 1<<bit
 
     // A variable should be declared volatile
@@ -330,7 +354,9 @@ void toggle(unsigned char pin)
     __data unsigned char volatile * pLAT; // pointer in RAM space
 
     pLAT = (__data unsigned char volatile *) (port[pin] + 0x0F89); // PORTx
-    
+   
+    // INV = (octet ^= (1 << n))
+
     if ( *pLAT & b )           // bit is set ?
         *pLAT &= (255-b);      // clear bit
     else                        // bit is not set ?

@@ -1,14 +1,15 @@
 SHELL			=	cmd.exe
 
 # ------------------------------------------------------------------------------
-# Makefile.win32 \ 32-bit Pinguino
+# Makefile.win32
+# Windows Makefile for 32-bit Pinguino
 # Regis Blanchot <rblanchot@gmail.com> 
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------
 # directories
 # ------------------------------------------------------------------------------
-# HOME, PDEDIR, PROC & BOARD are defined in pinguinobetax.py
+# HOME, PDEDIR, PROC & BOARD are defined in pinguino.py
  
 OSDIR			=	win32
 SRCDIR		=	$(HOME)\source
@@ -26,11 +27,24 @@ INCLUDEDIRS	=	-I$(INCDIR)\non-free \
 					-I$(PDEDIR) \
 					-I$(OBJDIR)
 
-#					-I$(P32DIR)\bin\$(OSDIR)\mips-elf\include\
-#					-I$(SRCDIR)\
-#					-I$(OBJDIR)\usb
-
 LIBDIRS		=	-L$(OBJDIR)\usb
+
+# ------------------------------------------------------------------------------
+# unsupported record in hex file / Jean-pierre Mandon 2012
+# ------------------------------------------------------------------------------
+
+BADRECORD='^:040000059D006000FA'
+ifeq ($(BOARD),PIC32_PINGUINO_220)
+	BADRECORD = '^:040000059D0040001A'
+endif
+ifeq ($(BOARD),PINGUINO32MX250)
+	BADRECORD = '^:040000059D0040001A'
+endif
+ifeq ($(BOARD),PINGUINO32MX220)
+	BADRECORD = '^:040000059D0040001A'
+endif
+
+REMOVE = grep --binary --invert-match $(BADRECORD) $(SRCDIR)/main32.hex > $(SRCDIR)/temp.hex
 
 # ------------------------------------------------------------------------------
 # heap size / Regis Blanchot 2012
@@ -40,7 +54,7 @@ HEAP_SIZE = 16384
 ifeq ($(BOARD),PIC32_PINGUINO_220)
 	HEAP_SIZE = 512
 endif
-ifeq ($(BOARD),GENERIC32MX220F032)
+ifeq ($(BOARD),PINGUINO32MX220)
 	HEAP_SIZE = 512
 endif
 
@@ -52,10 +66,10 @@ CDCLIBRARY = libcdc.a
 ifeq ($(BOARD),PIC32_PINGUINO_220)
 	CDCLIBRARY = libcdc220.a
 endif
-ifeq ($(BOARD),GENERIC32MX250F128)
+ifeq ($(BOARD),PINGUINO32MX250)
 	CDCLIBRARY = libcdc220.a
 endif
-ifeq ($(BOARD),GENERIC32MX220F032)
+ifeq ($(BOARD),PINGUINO32MX220)
 	CDCLIBRARY = libcdc220.a
 endif
 

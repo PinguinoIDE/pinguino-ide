@@ -128,7 +128,7 @@
       defined(PINGUINO2550)  || defined(PINGUINO4550)  || \
       defined(PINGUINO25K50) || defined(PINGUINO45K50) || \
       defined(PINGUINO26J50) || defined(PINGUINO46J50) || \
-      defined(PINGUINO27J53)
+      defined(PINGUINO27J53) || defined(CHRP3)
 
 	#define B0 0
 //	#define RB0 0
@@ -225,7 +225,7 @@
 	#define HLVDIN 17
 	#define C2OU 17
 
-    #if defined(PINGUINO2550) || defined(PINGUINO25K50) || defined(PINGUINO2455) || defined(CHRP3)
+    #if defined(PINGUINO2550) || defined(PINGUINO25K50) || defined(PINGUINO2455)
     
         #define A4          18
         //#define RA4       18
@@ -235,17 +235,37 @@
         #define CCP1        12
         #define CCP2        11
 
-        #if defined(CHRP3)
-            #define LED11   0 // ???
-            #define LED10   0
-            #define LED9    1
-            #define LED8    2
-            #define LED7    3
-            #define LED6    4
-            #define LED5    5
-            #define LED4    6
-            #define LED3    7
-        #endif
+    #elif defined(CHRP3)
+
+        #define USERLED 17
+        #define BACKLIGHT 17 // RA4
+        #define LED12   8
+        #define LED11   20
+        #define LED10   0
+        #define LED9    1
+        #define LED8    2
+        #define LED7    3
+        #define LED6    4
+        #define LED5    5
+        #define LED4    6
+        #define LED3    7
+        #define LED2    17
+        #define SERVO1  10 // RC0
+        #define SERVO2  11 // RC1
+        #define SERVO3  12 // RC2
+        #define SERVO4  12 // RC3 ???
+        #define BUTTONS2 0 
+        #define BUTTONS3 1 
+        #define BUTTONS4 2 
+        #define BUTTONS5 3 
+        #define BUTTONS6 4 
+        #define BUTTONS7 5
+        #define LIGHTSENSOR1 0
+        #define LIGHTSENSOR2 1
+        #define POSITIONSENSOR 2
+        #define TEMPSENSOR 3
+        #define POWERSENSOR 4
+        #define BUZZER  19
         
     #elif defined(PINGUINO4550) || defined(PINGUINO45K50) || defined(PINGUINO4455)
     

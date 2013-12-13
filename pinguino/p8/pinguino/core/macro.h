@@ -86,7 +86,7 @@
 		(octet ^= (1 << n))
 
 	#define BitWrite(value, bit, bitvalue) \
-		(bitvalue ? bitSet(value, bit) : bitClear(value, bit))
+		(bitvalue ? BitSet(value, bit) : BitClear(value, bit))
 	
 	#define Bit(b) \
 		(1 << (b))

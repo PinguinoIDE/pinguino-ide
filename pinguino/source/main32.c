@@ -33,7 +33,9 @@
 #include <newlib.c>
 #endif	
 
+#ifdef __USBCDC
 #include <cdc.h>
+#endif	
 
 #include "user.c"				// Pinguino User's Sketch
 
@@ -133,12 +135,10 @@ void Tmr2Interrupt(void)
 #endif /* __MILLIS__ */
 
 #ifndef __SPI__
-/*
 void SPIxInterrupt(void)
 {
 	Nop();    
 }
-*/
 #endif /* __SPI__ */
 
 // vector 35

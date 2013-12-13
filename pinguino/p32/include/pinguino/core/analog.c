@@ -11,7 +11,7 @@
 	// 08 nov. 2011 [jp.mandon@gmail.com] fixed a bug in analogRead ( stop and restart analog converter before sampling )
 	// 25 feb. 2012 [jp.mandon@gmail.com] added support for PIC32_PINGUINO_220
 	// 17 mar. 2012 [hgmvanbeek@gmail.com] added support for PIC32_PINGUINO_MICRO
-	// 19 may. 2012 [jp.mandon@gmail.com] added support for GENERIC32MX250F128 and GENERIC32MX220F032
+	// 19 may. 2012 [jp.mandon@gmail.com] added support for PINGUINO32MX250 and PINGUINO32MX220
 	----------------------------------------------------------------------------
 	This library is free software; you can redistribute it and/or
 	modify it under the terms of the GNU Lesser General Public
@@ -103,7 +103,7 @@ u16 __bufmask[]=		{0x0018,0x001C,0x0008,0x000C,0x0010,0x0014,0x0000,0x0000,
 						0x0008,0x000C,0x0010,0x0014,0x0000,0x0000};
 #endif
 
-#if defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+#if defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
 
 u16 __analogmask[]=    	{_15,_14,_13,nil,nil,nil,nil,nil,
 						nil,_3,_2,_1,_0,nil,nil,nil,
@@ -167,8 +167,8 @@ void SetAnalog(u8 pin)
 	if ((pin==4)||(pin==18)) TRISDbits.TRISD9=1;   // analog input 18 is shared with I2C
 	if ((pin==5)||(pin==19)) TRISDbits.TRISD10=1;  // analog input 19 is shared with I2C
 	#endif
-	#if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
-		#if defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+	#if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
+		#if defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
 			ANSELBSET=__analogmask[pin];
 			TRISBSET=__analogmask[pin];
 		#else
@@ -190,8 +190,8 @@ void SetAnalog(u8 pin)
 
 u8 IsDigital(u8 pin)
 {
-	#if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
-		#if defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
+	#if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
+		#if defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
 			if (ANSELB&__analogmask[pin]) return 1;
 			else return 0;
 		#else

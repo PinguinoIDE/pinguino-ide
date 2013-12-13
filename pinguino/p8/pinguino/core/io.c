@@ -45,6 +45,7 @@ void IO_init(void)
     // Set everything low
     LATA  = 0x00;
     LATB  = 0x00;
+
 	#if defined(__18f26j50) || defined(__18f46j50) || \
         defined(__18f27j53) || defined(__18f47j53)
 	    #ifdef __SERIAL__
@@ -53,8 +54,10 @@ void IO_init(void)
 		LATC  = 0x00;	
 	    #endif
 	#endif
-	#if  defined(__18f2455) || defined(__18f2550) || defined(__18f4550) || \
-      defined(__18f25k50) || defined(__18f45k50)
+    
+	#if  defined(__18f2455)  || defined(__18f4455)  || \
+         defined(__18f2550)  || defined(__18f4550)  || \
+         defined(__18f25k50) || defined(__18f45k50)
 	    #ifdef __SERIAL__
 		LATC  = 0x40;	// Except UART TX bit (maintain high state to not emit extra low state) 
 		#else
@@ -70,9 +73,9 @@ void IO_init(void)
     #endif
 
 	TRISA = 0x00;
-#ifndef I2CINT	
+    #ifndef I2CINT	
     TRISB = 0x00;
-#endif
+    #endif
     TRISCbits.TRISC0 = 0x00;
     TRISCbits.TRISC1 = 0x00;
     TRISCbits.TRISC2 = 0x00;
@@ -85,8 +88,7 @@ void IO_init(void)
     TRISE = 0x00; 
     #endif
 
-#if 0	// This seems to not necessary. by avrin
-    // Set everything low
+    // Set everything low to avoid current leakage in low-power mode
     PORTA  = 0x00;
     PORTB  = 0x00;
     PORTC  = 0x00;
@@ -96,7 +98,6 @@ void IO_init(void)
     PORTD  = 0x00; 
     PORTE  = 0x00; 
     #endif
-#endif
 }
 
 // All Analog Pins as Digital IOs
@@ -162,11 +163,13 @@ void IO_digital(void)
  **/
  
 // Peripheral Remappage
-// NB1 : the Configuration bit IOL1WAY is set to OFF in the bootloader
-// NB2 : pins must be explicitly reconfigured as digital I/O when used with a PPS
+// NB1 : the Config. bit IOL1WAY is set to OFF (cf. bootloader's code)
+// NB2 : pins must be explicitly reconfigured as digital I/O when used
+//       with a PPS
 
 #if defined(__18f26j50) || defined(__18f46j50) || \
     defined(__18f27j53) || defined(__18f47j53)
+    
 void IO_remap(void)
 {
     #if defined(__18f26j50) || defined(__18f46j50)
@@ -209,9 +212,7 @@ void IO_remap(void)
         PPSCONbits.IOLOCK = 1;			// Turn on PPS Write Protect
         //SystemLock();
 
-    #endif // defined(PINGUINO26J50) || defined(PINGUINO46J50)
-
-    #if defined(__18f27j53) || defined(__18f47j53)
+    #elif defined(__18f27j53) || defined(__18f47j53)
 
         EECON2 = 0x55;
         EECON2 = 0xAA;
@@ -225,8 +226,8 @@ void IO_remap(void)
         EECON2 = 0xAA;
         PPSCONbits.IOLOCK = 1;			// Turn on PPS Write Protect
     
-    #endif // defined(__18f27j53) || defined(__18f47j53)
+    #endif
 }
-#endif // defined(__18f26j50) || defined(__18f46j50)
+#endif // defined(__18f26j50) || defined(__18f46j50) ...
 
 #endif /* __IO_C */

@@ -1,31 +1,31 @@
 /*	----------------------------------------------------------------------------
-	FILE:			system.c
-	PROJECT:		pinguino
-	PURPOSE:		
-	PROGRAMER:		Régis Blanchot <rblanchot@gmail.com>
-	FIRST RELEASE:	16 nov. 2010
-	LAST RELEASE:	06 feb. 2012
-	----------------------------------------------------------------------------
-	CHANGELOG:
-	[23-02-11][Marcus Fazzi][Removed  asm("di")/asm("ei") from GetCP0Count/SetCP0Count]
-	[30-01-12][Régis Blanchot][Added P32MX220F032D support]
-	[06-02-12][Roland Haag][Added new clock settings]
-	[13-05-12][Jean-Pierre Mandon][added P32MX250F128B and P32MX220F032B support]
-	----------------------------------------------------------------------------
-	This library is free software; you can redistribute it and/or
-	modify it under the terms of the GNU Lesser General Public
-	License as published by the Free Software Foundation; either
-	version 2.1 of the License, or (at your option) any later version.
+    FILE:			system.c
+    PROJECT:		pinguino
+    PURPOSE:		
+    PROGRAMER:		Régis Blanchot <rblanchot@gmail.com>
+    FIRST RELEASE:	16 nov. 2010
+    LAST RELEASE:	06 feb. 2012
+    ----------------------------------------------------------------------------
+    CHANGELOG:
+    [23-02-11][Marcus Fazzi][Removed  asm("di")/asm("ei") from GetCP0Count/SetCP0Count]
+    [30-01-12][Régis Blanchot][Added P32MX220F032D support]
+    [06-02-12][Roland Haag][Added new clock settings]
+    [13-05-12][Jean-Pierre Mandon][added P32MX250F128B and P32MX220F032B support]
+    ----------------------------------------------------------------------------
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
 
-	This library is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	Lesser General Public License for more details.
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
 
-	You should have received a copy of the GNU Lesser General Public
-	License along with this library; if not, write to the Free Software
-	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-	--------------------------------------------------------------------------*/
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    --------------------------------------------------------------------------*/
 
 #ifndef __SYSTEM_C
 #define __SYSTEM_C
@@ -34,10 +34,10 @@
 #include <const.h>
 #include <typedef.h>
 
-#if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
-	#define CPUCOREMAXFREQUENCY	40000000L	// 40 MHz
+#if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
+    #define CPUCOREMAXFREQUENCY	40000000L	// 40 MHz
 #else
-	#define CPUCOREMAXFREQUENCY	80000000L	// 80 MHz
+    #define CPUCOREMAXFREQUENCY	80000000L	// 80 MHz
 #endif
 
 #define CRYSTALFREQUENCY	8000000L	// 8 MHz
@@ -158,45 +158,45 @@ typedef struct SystemClocksSettingsStruct {
 } SystemClocksSettings;
 
 /*	----------------------------------------------------------------------------
-	SystemUnlock() perform a system unlock sequence
-	--------------------------------------------------------------------------*/
+    SystemUnlock() perform a system unlock sequence
+    --------------------------------------------------------------------------*/
 
 void SystemUnlock()
 {
-	SYSKEY = 0;				// ensure OSCCON is locked
-	SYSKEY = 0xAA996655;	// Write Key1 to SYSKEY
-	SYSKEY = 0x556699AA;	// Write Key2 to SYSKEY
+    SYSKEY = 0;				// ensure OSCCON is locked
+    SYSKEY = 0xAA996655;	// Write Key1 to SYSKEY
+    SYSKEY = 0x556699AA;	// Write Key2 to SYSKEY
 }
 
 /*	----------------------------------------------------------------------------
-	SystemLock() relock OSCCON by relocking the SYSKEY
-	--------------------------------------------------------------------------*/
+    SystemLock() relock OSCCON by relocking the SYSKEY
+    --------------------------------------------------------------------------*/
 
 void SystemLock()
 {
-	SYSKEY = 0x12345678;	// Write any value other than Key1 or Key2
+    SYSKEY = 0x12345678;	// Write any value other than Key1 or Key2
 }
 
 /*	----------------------------------------------------------------------------
-	Software Reset
-	----------------------------------------------------------------------------
-	assume interrupts are disabled
-	assume the DMA controller is suspended
-	assume the device is locked
-	--------------------------------------------------------------------------*/
+    Software Reset
+    ----------------------------------------------------------------------------
+    assume interrupts are disabled
+    assume the DMA controller is suspended
+    assume the device is locked
+    --------------------------------------------------------------------------*/
 
 #ifndef __32MX220F032D__
 void SystemReset()
 {
-	u16 dummy;
+    u16 dummy;
 
-	SystemUnlock();
-	// set SWRST bit to arm reset
-	RSWRSTSET = 1;
-	// read RSWRST register to trigger reset
-	dummy = RSWRST;
-	// prevent any unwanted code execution until reset occurs
-	while(1);
+    SystemUnlock();
+    // set SWRST bit to arm reset
+    RSWRSTSET = 1;
+    // read RSWRST register to trigger reset
+    dummy = RSWRST;
+    // prevent any unwanted code execution until reset occurs
+    while(1);
 }
 #endif
 
@@ -258,15 +258,15 @@ uint32_t SystemClocksGetPeripheralFrequency(const SystemClocksSettings *s)
  * @return Nothing (the result is put into the struct)
  */
 void SystemClocksCalcCpuClockSettings(SystemClocksSettings *s, 
-				      uint32_t cpuFrequency) 
+                      uint32_t cpuFrequency) 
 {
-  if (cpuFrequency <= CPUCOREMAXFREQUENCY) 
+    if (cpuFrequency <= CPUCOREMAXFREQUENCY) 
     {
       #ifdef EXTENDED_TEST_CASE
         s->error = Error_None;
       #endif
     } 
-  else 
+    else 
     {
       cpuFrequency = CPUCOREMAXFREQUENCY;
 
@@ -275,37 +275,37 @@ void SystemClocksCalcCpuClockSettings(SystemClocksSettings *s,
       #endif
     }
 
-  uint8_t pllOutputDivIndex;
-  for (pllOutputDivIndex = 0; 
+    uint8_t pllOutputDivIndex;
+    for (pllOutputDivIndex = 0; 
        pllOutputDivIndex < pllOutputDivsCount; 
        pllOutputDivIndex++)
     {
       uint8_t pllMulIndex;
       for (pllMulIndex = 0; pllMulIndex < pllMulsCount; pllMulIndex++)
-	{
-	  if ( (cpuFrequency 
-		* pllInputDivs[s->PLLIDIV]
-		* pllOutputDivs[pllOutputDivIndex])
-	       == (CRYSTALFREQUENCY * pllMuls[pllMulIndex]) )
-	    {
-	      s->PLLODIV = pllOutputDivIndex;
-	      s->PLLMULT = pllMulIndex;
-	      // Match found
-	      return;
-	    }
-	}
+    {
+      if ( (cpuFrequency 
+        * pllInputDivs[s->PLLIDIV]
+        * pllOutputDivs[pllOutputDivIndex])
+           == (CRYSTALFREQUENCY * pllMuls[pllMulIndex]) )
+        {
+          s->PLLODIV = pllOutputDivIndex;
+          s->PLLMULT = pllMulIndex;
+          // Match found
+          return;
+        }
     }
-  
-  /* 
-   * No combination found -> try to get max CPU frequency. This
-   * depends from pllInputDiv.
-   *
-   * The selected values will result in the max CPU frequency, if
-   * the pllInputDiv is 1 or 2.
-   *
-   * With pllInputDiv > 2 we cannot reach the max frequency.
-   */
-  if (pllInputDivs[s->PLLIDIV] >= 2) 
+    }
+
+    /* 
+    * No combination found -> try to get max CPU frequency. This
+    * depends from pllInputDiv.
+    *
+    * The selected values will result in the max CPU frequency, if
+    * the pllInputDiv is 1 or 2.
+    *
+    * With pllInputDiv > 2 we cannot reach the max frequency.
+    */
+    if (pllInputDivs[s->PLLIDIV] >= 2) 
     {
       s->PLLODIV = PLLODIV1; // /1
 
@@ -313,7 +313,7 @@ void SystemClocksCalcCpuClockSettings(SystemClocksSettings *s,
         s->error = Error_NoCombinationFound;
       #endif
     }
-  else 
+    else 
     {
       s->PLLODIV = PLLODIV2; // /2
 
@@ -322,7 +322,7 @@ void SystemClocksCalcCpuClockSettings(SystemClocksSettings *s,
       #endif
     }
 
-  s->PLLMULT = PLLMULT20; // x20
+    s->PLLMULT = PLLMULT20; // x20
 }
 
 /**
@@ -337,13 +337,13 @@ void SystemClocksCalcCpuClockSettings(SystemClocksSettings *s,
  * @return Nothing (the result is put into the struct)
  */
 void SystemClocksCalcPeripheralClockSettings(SystemClocksSettings *s, 
-					     uint32_t peripheralFrequency) 
+                         uint32_t peripheralFrequency) 
 {
-  #ifdef EXTENDED_TEST_CASE
+    #ifdef EXTENDED_TEST_CASE
     s->error = Error_None;
-  #endif
+    #endif
 
-  if (peripheralFrequency > CPUCOREMAXFREQUENCY) 
+    if (peripheralFrequency > CPUCOREMAXFREQUENCY) 
     {
       peripheralFrequency = CPUCOREMAXFREQUENCY;
 
@@ -352,24 +352,24 @@ void SystemClocksCalcPeripheralClockSettings(SystemClocksSettings *s,
       #endif
     }
 
-  const uint32_t cpuFrequency = SystemClocksGetCpuFrequency(s);
+    const uint32_t cpuFrequency = SystemClocksGetCpuFrequency(s);
 
-  uint8_t i;
-  for (i = 0; i < pbDivsCount; i++) 
+    uint8_t i;
+    for (i = 0; i < pbDivsCount; i++) 
     {
       if (cpuFrequency == peripheralFrequency * pbDivs[i]) 
-	{
-	  s->PBDIV = i;
-	  // Match found
-	  return;
-	}
+    {
+      s->PBDIV = i;
+      // Match found
+      return;
+    }
     }
 
-  // No match: Use default value
-  s->PBDIV = PBDIV1; // /1
-  #ifdef EXTENDED_TEST_CASE
+    // No match: Use default value
+    s->PBDIV = PBDIV1; // /1
+    #ifdef EXTENDED_TEST_CASE
     s->error = Error_NoCombinationFound;
-  #endif
+    #endif
 }
 
 /**
@@ -387,163 +387,162 @@ void SystemClocksCalcPeripheralClockSettings(SystemClocksSettings *s,
  */
 void SystemClocksWriteSettings(const SystemClocksSettings *s) 
 {
-  SystemUnlock();
-  
-  /**
-   * @page 186 
-   *
-   * PIC32MX Family Clock Diagram
-   *
-   * @page 189
-   *
-   * OSCCON: Oscillator Control Register
-   */
+    SystemUnlock();
 
-  /* 
-   * bit 10-8 NOSC<2:0>: New Oscillator Selection bits
-   *     011 = Primary Oscillator with PLL module (XTPLL, HSPLL or ECPLL)
-   */
-  OSCCONbits.NOSC = POSCPLL;
+    /**
+    * @page 186 
+    *
+    * PIC32MX Family Clock Diagram
+    *
+    * @page 189
+    *
+    * OSCCON: Oscillator Control Register
+    */
 
-  /*
-   * bit 29-27 PLLODIV<2:0>: Output Divider for PLL
-   */
-  OSCCONbits.PLLODIV = s->PLLODIV;
-  
-  /*
-   * bit 18-16 PLLMULT<2:0>: PLL Multiplier bits
-   */
-  OSCCONbits.PLLMULT = s->PLLMULT;
-  
-  /*
-   * bit 0 OSWEN: Oscillator Switch Enable bit
-   *   1 = Initiate an osc switch to selection specified by NOSC2:NOSC0 bits
-   *   0 = Oscillator switch is complete
-   */
-  OSCCONbits.OSWEN = 1;
-  // Busy wait until osc switch has been completed
-  while (OSCCONbits.OSWEN == 1) 
+    /* 
+    * bit 10-8 NOSC<2:0>: New Oscillator Selection bits
+    *     011 = Primary Oscillator with PLL module (XTPLL, HSPLL or ECPLL)
+    */
+    OSCCONbits.NOSC = POSCPLL;
+
+    /*
+    * bit 29-27 PLLODIV<2:0>: Output Divider for PLL
+    */
+    OSCCONbits.PLLODIV = s->PLLODIV;
+
+    /*
+    * bit 18-16 PLLMULT<2:0>: PLL Multiplier bits
+    */
+    OSCCONbits.PLLMULT = s->PLLMULT;
+
+    /*
+    * bit 0 OSWEN: Oscillator Switch Enable bit
+    *   1 = Initiate an osc switch to selection specified by NOSC2:NOSC0 bits
+    *   0 = Oscillator switch is complete
+    */
+    OSCCONbits.OSWEN = 1;
+    // Busy wait until osc switch has been completed
+    while (OSCCONbits.OSWEN == 1) 
     {
       asm("nop");
     }
-  
-  /*
-   * bit 20-19 PBDIV<1:0>: Peripheral Bus Clock Divisor
-   */
-  OSCCONbits.PBDIV = s->PBDIV;
-  
-  // Set wait states
-#if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
-	// TODO
-	PMMODEbits.WAITB = 0b00;								// Data wait of 1 TPB
-#else
-	CHECON = (SystemClocksGetCpuFrequency(s) / 20) - 1;		// FlashWaitStates
-#endif
+
+    /*
+    * bit 20-19 PBDIV<1:0>: Peripheral Bus Clock Divisor
+    */
+    OSCCONbits.PBDIV = s->PBDIV;
+
+    // Set wait states
+    #if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
+    // TODO
+    PMMODEbits.WAITB = 0b00;								// Data wait of 1 TPB
+    #else
+    CHECON = (SystemClocksGetCpuFrequency(s) / 20) - 1;		// FlashWaitStates
+    #endif
   
   //
-  
   SystemLock();
 }
 
 /*	----------------------------------------------------------------------------
-	GetSystemClock
-	--------------------------------------------------------------------------*/
+    GetSystemClock
+    --------------------------------------------------------------------------*/
 
 u32 GetSystemClock(void)
 {
-	SystemClocksSettings s;
-	SystemClocksReadSettings(&s);
-	return SystemClocksGetCpuFrequency(&s);
+    SystemClocksSettings s;
+    SystemClocksReadSettings(&s);
+    return SystemClocksGetCpuFrequency(&s);
 }
 
 /*	----------------------------------------------------------------------------
-	GetPeripheralClock()
-	--------------------------------------------------------------------------*/
+    GetPeripheralClock()
+    --------------------------------------------------------------------------*/
 
 u32 GetPeripheralClock()
 {
-  SystemClocksSettings s;
-  SystemClocksReadSettings(&s);
-  return SystemClocksGetPeripheralFrequency(&s);
+    SystemClocksSettings s;
+    SystemClocksReadSettings(&s);
+    return SystemClocksGetPeripheralFrequency(&s);
 }
 
 /*	----------------------------------------------------------------------------
-	SetFlashWaitStates()
-	--------------------------------------------------------------------------*/
+    SetFlashWaitStates()
+    --------------------------------------------------------------------------*/
 
 void SetFlashWaitStates_old()
 {
-	SystemUnlock();
-#if defined(PIC32_PINGUINO_220)||defined(GENERIC32MX250F128)||defined(GENERIC32MX220F032)
-	PMMODEbits.WAITB = 0b00;					// Data wait of 1 TPB
-#else
-	CHECON = (GetSystemClock() / 20) - 1;		// FlashWaitStates
-#endif
-	SystemLock();
+    SystemUnlock();
+    #if defined(PIC32_PINGUINO_220)||defined(PINGUINO32MX250)||defined(PINGUINO32MX220)
+    PMMODEbits.WAITB = 0b00;					// Data wait of 1 TPB
+    #else
+    CHECON = (GetSystemClock() / 20) - 1;		// FlashWaitStates
+    #endif
+    SystemLock();
 }
 
 /*	----------------------------------------------------------------------------
-	SystemSetSystemClock
-	--------------------------------------------------------------------------*/
+    SystemSetSystemClock
+    --------------------------------------------------------------------------*/
 
 void SystemSetSystemClock(u32 cpuCoreFrequency)
 {
-	SystemClocksSettings s;
-	SystemClocksReadSettings(&s);
-	SystemClocksCalcCpuClockSettings(&s, cpuCoreFrequency);
-	SystemClocksWriteSettings(&s);
+    SystemClocksSettings s;
+    SystemClocksReadSettings(&s);
+    SystemClocksCalcCpuClockSettings(&s, cpuCoreFrequency);
+    SystemClocksWriteSettings(&s);
 }
 
 /*	----------------------------------------------------------------------------
-	SystemSetPeripheralClock()
-	--------------------------------------------------------------------------*/
+    SystemSetPeripheralClock()
+    --------------------------------------------------------------------------*/
 
 void SystemSetPeripheralClock(u32 peripheralFrequency)
 {
-	SystemClocksSettings s;
-	SystemClocksReadSettings(&s);
-	SystemClocksCalcPeripheralClockSettings(&s, peripheralFrequency);
-	SystemClocksWriteSettings(&s);
+    SystemClocksSettings s;
+    SystemClocksReadSettings(&s);
+    SystemClocksCalcPeripheralClockSettings(&s, peripheralFrequency);
+    SystemClocksWriteSettings(&s);
 }
 
 /*	----------------------------------------------------------------------------
-	SystemConfig()
-	--------------------------------------------------------------------------*/
+    SystemConfig()
+    --------------------------------------------------------------------------*/
 
 void SystemConfig(u32 cpuCoreFrequency)
 {
-	SystemClocksSettings s;
-	SystemClocksReadSettings(&s);
-	SystemClocksCalcCpuClockSettings(&s, cpuCoreFrequency);
-	SystemClocksCalcPeripheralClockSettings(&s, cpuCoreFrequency / 2);
-	SystemClocksWriteSettings(&s);
+    SystemClocksSettings s;
+    SystemClocksReadSettings(&s);
+    SystemClocksCalcCpuClockSettings(&s, cpuCoreFrequency);
+    SystemClocksCalcPeripheralClockSettings(&s, cpuCoreFrequency / 2);
+    SystemClocksWriteSettings(&s);
 
-	DDPCONbits.JTAGEN=0;		// PORTA is used as digital instead of JTAG
+    DDPCONbits.JTAGEN=0;		// PORTA is used as digital instead of JTAG
 }
 
 /*	----------------------------------------------------------------------------
-	GetCP0Count()
-	--------------------------------------------------------------------------*/
+    GetCP0Count()
+    --------------------------------------------------------------------------*/
 
 u32 MIPS32 GetCP0Count()
 {
-	//u32 count;
-	//asm("di"); // Disable all interrupts
-	//count = _CP0_GET_COUNT();
-	//asm("ei"); // Enable all interrupts
-	//return count;
-	return _CP0_GET_COUNT();
+    //u32 count;
+    //asm("di"); // Disable all interrupts
+    //count = _CP0_GET_COUNT();
+    //asm("ei"); // Enable all interrupts
+    //return count;
+    return _CP0_GET_COUNT();
 }
 
 /*	----------------------------------------------------------------------------
-	SetCP0Count()
-	--------------------------------------------------------------------------*/
+    SetCP0Count()
+    --------------------------------------------------------------------------*/
 
 void MIPS32 SetCP0Count(u32 count)
 {
-	//asm("di"); // Disable all interrupts
-	_CP0_SET_COUNT(count);
-	//asm("ei"); // Enable all interrupts
+    //asm("di"); // Disable all interrupts
+    _CP0_SET_COUNT(count);
+    //asm("ei"); // Enable all interrupts
 }
 
 #endif	/* __SYSTEM_C */

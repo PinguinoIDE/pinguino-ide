@@ -308,6 +308,15 @@ void IntSetEnable(u8 inter, u8 enable)
                 break;
             #endif
         #endif
+
+        #if defined(__18f46j53) || defined(__18f47j53)
+            #if defined(PMPINT)
+            case INT_PMP:
+                IPR1bits.PMPIP = INT_LOW_PRIORITY;
+                PIE1bits.PMPIE = enable;
+                break;
+            #endif
+        #endif
     }
 }
 #endif /* defined(INTENABLE) || defined(INTDISABLE) */
@@ -526,6 +535,12 @@ void IntClearFlag(u8 inter)
             case INT_RTCC: PIR3bits.RTCCIF = 0; break;
             #endif
         #endif
+
+        #if defined(__18f46j53) || defined(__18f47j53)
+            #if defined(PMPINT)
+            case INT_PMP: PIR1bits.PMPIF = 0; break;
+            #endif
+        #endif
     }
 }
 #endif /* defined(INTCLEARFLAG) */
@@ -707,6 +722,13 @@ u8 IntIsFlagSet(u8 inter)
             case INT_RTCC:	return PIR3bits.RTCCIF;
             #endif
         #endif
+
+        #if defined(__18f46j53) || defined(__18f47j53)
+            #if defined(PMPINT)
+            case INT_PMP: return PIR1bits.PMPIF;
+            #endif
+        #endif
+
     }
     return 0;
 }
@@ -1758,7 +1780,11 @@ void OnCompareAll(callback func, u8 config)
                 func:		function called when interrupt occured
     --------------------------------------------------------------------------*/
 
-#if defined (RCINT) || defined(TXINT) || defined(ADINT) || defined(OSCFINT) || defined(EEINT) || defined(HLVDINT) || defined(BCLINT) || defined(USBINT) || defined(SSPINT)
+#if defined(RCINT)   || defined(TXINT)  || defined(ADINT)   || \
+    defined(OSCFINT) || defined(EEINT)  || defined(HLVDINT) || \
+    defined(BCLINT)  || defined(USBINT) || defined(SSPINT)  || \
+    defined(PMPINT)
+
 void OnEvent(u8 inter, callback func)
 {
     if (intUsed[inter] == INT_NOT_USED)
@@ -1768,27 +1794,49 @@ void OnEvent(u8 inter, callback func)
 
         switch(inter)
         {
+            #if defined(RCINT)
             case INT_RC:					// serial rx
                 PIR1bits.RCIF = 0;
                 break;
+            #endif
+
+            #if defined(TXINT)
             case INT_TX:					// serial tx
                 PIR1bits.TXIF = 0;
                 break;
+            #endif
+
+            #if defined(ADINT)
             case INT_AD:					// ad conversion complete
                 PIR1bits.ADIF = 0;
                 break;
+            #endif
+
+            #if defined(OSFINT)
             case INT_OSCF:					// oscillator failed
                 PIR2bits.OSCFIF = 0;
                 break;
+            #endif
+
+            #if defined(EEINT)
             case INT_EE:					// eeprom write operation
                 PIR2bits.EEIF = 0;
                 break;
+            #endif
+
+            #if defined(BCLINT)
             case INT_HLVD:					// high/low voltage detect
                 PIR2bits.HLVDIF = 0;
                 break;
+            #endif
+
+            #if defined(BCLINT)
             case INT_BCL:					// bus collision
                 PIR2bits.BCLIF = 0;
                 break;
+            #endif
+
+            #if defined(USBINT)
             case INT_USB:					// usb
             #if defined(__18f25k50) || defined(__18f45k50)
                 PIR3bits.USBIF = 0;
@@ -1796,9 +1844,21 @@ void OnEvent(u8 inter, callback func)
                 PIR2bits.USBIF = 0;
             #endif
                 break;
-            case INT_SSP:
+            #endif
+
+            #if defined(SSPINT)
+            case INT_SSP:                   //
                 PIR1bits.SSPIF = 0;
                 break;
+            #endif
+
+            #if defined(__18f46j53) || defined(__18f47j53)
+            #if defined(PMPINT)
+            case INT_PMP:                   // parallel master port
+                PIR1bits.PMPIF = 0;
+                break;
+            #endif
+            #endif
         }
     }
     #ifdef DEBUG
@@ -1843,11 +1903,16 @@ void OnUSB(callback func)		{	OnEvent(INT_USB, func);	}
 #endif
 
 #ifdef SSPINT
-void OnParallel(callback func)	    {	OnEvent(INT_SSP, func);	}
+//void OnParallel(callback func)	    {	OnEvent(INT_SSP, func);	}
 void OnI2CRequest(callback func)	{	OnEvent(INT_SSP, func);	}
 void OnI2CReceive(callback func)	{	OnEvent(INT_SSP, func);	}
 #endif
 
+#if defined(__18f46j53) || defined(__18f47j53)
+#if defined(PMPINT)
+void OnParallel(callback func)	    {	OnEvent(INT_PMP, func);	}
+#endif
+#endif
 /*	----------------------------------------------------------------------------
     ---------- userhighinterrupt
     ----------------------------------------------------------------------------
@@ -2108,6 +2173,16 @@ void userlowinterrupt()
         PIR1bits.SSPIF = 0;
         intFunction[INT_SSP]();
     }
+    #endif
+
+    #if defined(__18f46j53) || defined(__18f47j53)
+    #if defined(PMPINT)
+    if (PIE1bits.PMPIE && PIR1bits.PMPIF)
+    {
+        PIR1bits.PMPIF = 0;
+        intFunction[INT_PMP]();
+    }
+    #endif
     #endif
 
     //int_start();
