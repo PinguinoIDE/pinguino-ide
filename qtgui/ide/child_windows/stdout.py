@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-
-from ...frames.stdout import Ui_Stdout
-from ..helpers.constants import TAB_NAME
-
-from ..helpers.constants import PINGUINO_STDOUT_FILE
+import codecs
 
 from PySide import QtGui, QtCore
+
+from ..helpers.constants import TAB_NAME
+from ..helpers.constants import PINGUINO_STDOUT_FILE
+from ...frames.stdout import Ui_Stdout
+
 
 ########################################################################
 class Stdout(QtGui.QMainWindow):
@@ -30,7 +31,7 @@ class Stdout(QtGui.QMainWindow):
         
 
         
-        stdout = file(PINGUINO_STDOUT_FILE, "r")
+        stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")
         content = stdout.readlines()
         stdout.close()
         self.show_text("".join(content))
