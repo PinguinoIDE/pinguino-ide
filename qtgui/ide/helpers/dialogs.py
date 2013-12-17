@@ -79,20 +79,19 @@ class Dialogs(object):
                 #message)
         #return True
         
-    ##----------------------------------------------------------------------
-    #@classmethod
-    #def info_message(self, parent, title, message):
-        #""""""
-        #QtGui.QMessageBox.information(parent,
-                #NAME+" - "+title,
-                #message)
-        #return True
+    #----------------------------------------------------------------------
+    @classmethod
+    def info_message(self, parent, message):
+        """"""
+        QtGui.QMessageBox.information(parent,
+                NAME+" - Info",
+                message)
+        return True
     
     #----------------------------------------------------------------------
     @classmethod
     def info_board(self, parent):
         """"""
-        
         board_config = parent.get_description_board()
         
         msg_box = QtGui.QMessageBox()
@@ -100,26 +99,20 @@ class Dialogs(object):
         msg_box.setWindowTitle(NAME+" - Board info")
         msg_box.setText(board_config+"\n\nUse this board config?")
         
-        #cancel = QtGui.QPushButton()
-        #cancel.setText("Cancel")
-        
+        accept = QtGui.QPushButton()
+        accept.setText("Ok")
         change = QtGui.QPushButton()
         change.setText("Change board")
         
-        compile_ = QtGui.QPushButton()
-        compile_.setText("Ok")
+        msg_box.addButton(accept, QtGui.QMessageBox.AcceptRole)        
+        msg_box.addButton(change, QtGui.QMessageBox.ApplyRole)
         
-        #msg_box.addButton(cancel, QtGui.QMessageBox.RejectRole)
-        msg_box.addButton(change, QtGui.QMessageBox.NoRole)
-        msg_box.addButton(compile_, QtGui.QMessageBox.YesRole)
         
-        msg_box.setDefaultButton(compile_)
+        msg_box.setDefaultButton(accept)
         
         reply = msg_box.exec_()    
-        
         if reply == 1: return True
         elif reply == 0: return False
-        else: return True    
         
     #----------------------------------------------------------------------
     @classmethod
