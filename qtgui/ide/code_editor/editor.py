@@ -42,6 +42,8 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)
         
         Highlighter(self)
+        
+        
 
     
     ##----------------------------------------------------------------------
@@ -49,10 +51,27 @@ class CustomTextEdit(QtGui.QTextEdit):
         #self.autoClose = dic
         
     #----------------------------------------------------------------------
-    def mouseAction(self,event):
+    def mouseAction(self, event):
         if self.underMouse(): self.completer.hide()
         QtGui.QTextEdit.mousePressEvent(self, event)
         
+        
+    #----------------------------------------------------------------------
+    def wheelEvent(self, event):
+        """"""
+        if event.modifiers() == QtCore.Qt.ControlModifier:
+            self.step_font_size(event.delta())
+                
+        
+    #----------------------------------------------------------------------
+    def step_font_size(self, delta):
+        """"""
+        font = self.font()
+        size = font.pointSize()
+        if delta > 0: font.setPointSize(size+1)
+        else: font.setPointSize(size-1)
+        self.setFont(font)
+                          
         
     #----------------------------------------------------------------------
     def insertItem(self, completion):
