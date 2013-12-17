@@ -9,7 +9,8 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    @Decorator.requiere_line_edit_content("main.lineEdit_search")  
+    @Decorator.requiere_line_edit_content("main.lineEdit_search")
+    @Decorator.requiere_text_mode()
     def search_instantaneous(self, text_to_search):
         editor = self.main.tabWidget_files.currentWidget()
         text_cur = editor.text_edit.textCursor()
@@ -38,7 +39,8 @@ class SearchReplace(object):
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    @Decorator.requiere_line_edit_content("main.lineEdit_search")  
+    @Decorator.requiere_line_edit_content("main.lineEdit_search")
+    @Decorator.requiere_text_mode()
     def search_previous(self):
         self.find_match(word=self.main.lineEdit_search.text(),
                         back=True,
@@ -47,7 +49,8 @@ class SearchReplace(object):
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    @Decorator.requiere_line_edit_content("main.lineEdit_search")    
+    @Decorator.requiere_line_edit_content("main.lineEdit_search")
+    @Decorator.requiere_text_mode()
     def search_next(self):
         self.find_match(word=self.main.lineEdit_search.text(),
                         back=False,
@@ -58,6 +61,7 @@ class SearchReplace(object):
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_line_edit_content("main.lineEdit_replace")
+    @Decorator.requiere_text_mode()
     def replace(self):
         editor = self.main.tabWidget_files.currentWidget()
         text_cur = editor.text_edit.textCursor()
@@ -71,6 +75,7 @@ class SearchReplace(object):
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_line_edit_content("main.lineEdit_replace")
+    @Decorator.requiere_text_mode()
     def replaceall(self):
         self.replace_all_match(wordOld=self.main.lineEdit_search.text(),
                                wordNew=self.main.lineEdit_replace.text(),
