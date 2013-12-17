@@ -23,6 +23,7 @@ IDE_STDOUT_FILE = os.path.join(IDE_HOME_DIR, "pinguino.out")
 IDE_STDERR_FILE = os.path.join(IDE_HOME_DIR, "pinguino.err")
 IDE_CONFIG_FILE = os.path.join(IDE_HOME_DIR, "qtgui", "config", "pinguino.conf")
 IDE_NAMESPACES_FILE = os.path.join(IDE_HOME_DIR, "qtgui", "config", "namespaces.pickle")
+IDE_WIKI_DOCS = os.path.join(IDE_HOME_DIR, "qtgui", "config", "wikidocs.pickle")
 
 NAME = "Pinguino IDE"
 VERSION = "11.0"
