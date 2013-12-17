@@ -55,18 +55,7 @@ class BoardConfig(QtGui.QMainWindow):
         self.save_config()
         self.main.configIDE.save_config()
         
-        name = self.main.configIDE.config("Board", "board", "Pinguino 2550")
-        bootloader = self.main.configIDE.config("Board", "bootloader", "v1_v2")
-        mode = self.main.configIDE.config("Board", "mode", "bootloader")
-        arch = self.main.configIDE.config("Board", "arch", 8)
-        
-        if bootloader == "v1_v2": description = "bootloader v1 & v2"
-        else: description = "bootloader v4"
-        if mode == "icsp": description = "ICSP"
-        if arch == 32: description = None
-        
-        if description: self.main.statusbar_ide(" - ".join([name, description]))
-        else: self.main.statusbar_ide(name)
+        self.main.statusbar_ide(self.main.get_status_board())
         
         self.close()
 
