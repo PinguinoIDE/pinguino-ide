@@ -36,10 +36,22 @@
   </qresource>
   <qresource prefix="autocompleter">
     <file>autocompleter/reserved.png</file>
+    <file>autocompleter/enum.png</file>
     <file>autocompleter/function.png</file>
     <file>autocompleter/library.png</file>
+    <file>autocompleter/directivas.png</file>
+    <file>autocompleter/bool.png</file>
+    <file>autocompleter/long.png</file>
     <file>autocompleter/snippet.png</file>
     <file>autocompleter/short.png</file>
+    <file>autocompleter/int.png</file>
+    <file>autocompleter/struct.png</file>
+    <file>autocompleter/union.png</file>
     <file>autocompleter/double.png</file>
+    <file>autocompleter/byte.png</file>
+    <file>autocompleter/float.png</file>
+    <file>autocompleter/cuotation.png</file>
+    <file>autocompleter/vectors.png</file>
+    <file>autocompleter/word.png</file>
   </qresource>
 </RCC>
