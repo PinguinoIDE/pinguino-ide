@@ -40,3 +40,11 @@ class PinguinoFeatures(PinguinoEvents):
     def is_graphical(self):
         """"""
         return self.main.actionSwitch_ide.isChecked()
+    
+    #----------------------------------------------------------------------
+    def is_widget(self):
+        """"""
+        tab = self.get_tab()
+        editor = tab.currentWidget()
+        if editor is None: return False
+        return getattr(editor, "is_widget", False)
