@@ -77,7 +77,11 @@ class PinguinoEvents(EventMethods, TimerMethods):
         
         self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)           
         
-        self.connect(self.main.actionCurrent_Board, QtCore.SIGNAL("triggered()"), self.__show_current_board_info__)           
+        self.connect(self.main.actionCurrent_Board, QtCore.SIGNAL("triggered()"), self.__show_current_board_info__)
+        
+        
+        self.connect(self.main.actionUse_local_compilers, QtCore.SIGNAL("triggered()"), self.pinguino_use_local_compilers)   
+        self.connect(self.main.actionUse_system_compilers, QtCore.SIGNAL("triggered()"), self.pinguino_use_system_compilers)        
         
         
         #links
@@ -90,3 +94,8 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionGroup, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://groups.google.com/forum/#!forum/pinguinocard"))
         
         self.closeEvent = self.__close_ide__
+        
+        
+        
+        
+        self.connect(self.main.actionWiki_docs, QtCore.SIGNAL("triggered()"), self.show_wiki_docs)         

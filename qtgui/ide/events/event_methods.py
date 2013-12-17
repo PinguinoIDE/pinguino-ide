@@ -18,6 +18,7 @@ from ..tools.search_replace import SearchReplace
 from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
 from ..child_windows.stdout import Stdout
+from ..widgets.wiki_widget import WikiWidget
 
 
 ########################################################################
@@ -663,8 +664,30 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     def __show_current_board_info__(self):
         """"""
-        if not Dialogs.info_board(self):
+        if Dialogs.info_board(self):
             self.__show_board_config__()
+            
+    #----------------------------------------------------------------------
+    @Decorator.files_tab_on_focus()
+    def show_wiki_docs(self):
+        """"""
+        wiki_widget = WikiWidget(self)
+        setattr(wiki_widget, "is_widget", True)
+        self.main.tabWidget_files.addTab(wiki_widget, "Docs - Pinguino Libraries")
+        self.main.tabWidget_files.setCurrentIndex(self.main.tabWidget_files.count()-1)
+        
+    #----------------------------------------------------------------------
+    @Decorator.files_tab_on_focus()
+    def set_url_wiki_docs(self, url):
+        """"""
+        wiki_widget = WikiWidget(self)
+        setattr(wiki_widget, "is_widget", True)
+        title = wiki_widget.replace_with_url(url)
+        self.main.tabWidget_files.addTab(wiki_widget, "Docs - " + title)
+        self.main.tabWidget_files.setCurrentIndex(self.main.tabWidget_files.count()-1)
+        
+        
+        
         
         
     #----------------------------------------------------------------------
@@ -752,6 +775,24 @@ class EventMethods(SearchReplace):
         if uploaded: Dialogs.upload_done(self)
         else:
             if Dialogs.upload_fail(self, result): self.pinguino_upload()
+        
+    #----------------------------------------------------------------------
+    def pinguino_use_local_compilers(self):
+        """"""
+        Dialogs.info_message(self, "No implemented yet.")
+        #self.pinguinoAPI.set_os_variables(local_compilers=True)
+        self.main.actionUse_local_compilers.setChecked(True)
+        self.main.actionUse_system_compilers.setChecked(False)
+        
+    #----------------------------------------------------------------------
+    def pinguino_use_system_compilers(self):
+        """"""
+        Dialogs.info_message(self, "No implemented yet.")
+        ##self.pinguinoAPI.set_os_variables(local_compilers=False)
+        #self.main.actionUse_local_compilers.setChecked(False)
+        #self.main.actionUse_system_compilers.setChecked(True)
+        self.main.actionUse_local_compilers.setChecked(True)
+        self.main.actionUse_system_compilers.setChecked(False)
         
                         
     #----------------------------------------------------------------------
