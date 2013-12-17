@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Mon Dec 16 10:09:11 2013
+# Created: Tue Dec 17 11:06:30 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -54,7 +54,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.tabWidget_graphical, 2, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 971, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 971, 24))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -536,10 +536,11 @@ class Ui_PinguinoIDE(object):
         self.actionCurrent_Board.setObjectName("actionCurrent_Board")
         self.actionUse_system_compilers = QtGui.QAction(PinguinoIDE)
         self.actionUse_system_compilers.setCheckable(True)
-        self.actionUse_system_compilers.setChecked(True)
+        self.actionUse_system_compilers.setChecked(False)
         self.actionUse_system_compilers.setObjectName("actionUse_system_compilers")
         self.actionUse_local_compilers = QtGui.QAction(PinguinoIDE)
         self.actionUse_local_compilers.setCheckable(True)
+        self.actionUse_local_compilers.setChecked(True)
         self.actionUse_local_compilers.setObjectName("actionUse_local_compilers")
         self.actionWiki_docs = QtGui.QAction(PinguinoIDE)
         self.actionWiki_docs.setObjectName("actionWiki_docs")
@@ -582,8 +583,8 @@ class Ui_PinguinoIDE(object):
         self.menuHelp.addAction(self.actionAbout)
         self.menuSource.addAction(self.actionComment_out_region)
         self.menuSource.addAction(self.actionComment_Uncomment_region)
-        self.menuCompilers.addAction(self.actionUse_system_compilers)
         self.menuCompilers.addAction(self.actionUse_local_compilers)
+        self.menuCompilers.addAction(self.actionUse_system_compilers)
         self.menuConfiguration.addAction(self.menuCompilers.menuAction())
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
