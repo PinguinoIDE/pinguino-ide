@@ -13,6 +13,21 @@ class Decorator(object):
 
     #----------------------------------------------------------------------
     @classmethod
+    def files_tab_on_focus(self):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                Pinguino.main.actionSwitch_ide.setChecked(False)
+                Pinguino.main.tabWidget_files.setVisible(True)
+                Pinguino.main.tabWidget_graphical.setVisible(False)
+                Pinguino.tab_changed()
+                #Pinguino.main.frame_logo.setVisible(False)
+                return fn(Pinguino, *args, **kwargs)
+            return wrapped
+        return actualdecorator
+
+    #----------------------------------------------------------------------
+    @classmethod
     def requiere_open_files(self):
         def actualdecorator(fn):
             @functools.wraps(fn)
@@ -78,7 +93,8 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                if not Pinguino.is_graphical(): return fn(Pinguino, *args, **kwargs)
+                if not Pinguino.is_graphical() and not Pinguino.is_widget():
+                    return fn(Pinguino, *args, **kwargs)
                 else: return None
             return wrapped
         return actualdecorator
@@ -137,7 +153,6 @@ class Decorator(object):
             def wrapped(Pinguino, *args, **kwargs):
                 count = Pinguino.get_tab().count()
                 Pinguino.main.actionCompile.setEnabled(bool(count))
-                #Pinguino.main.actionUpload.setEnabled(bool(count))
                 Pinguino.main.actionClose_file.setEnabled(bool(count))
                 Pinguino.main.actionSearch.setEnabled(bool(count))
                 Pinguino.main.actionSearch_and_replace.setEnabled(bool(count))
@@ -147,6 +162,17 @@ class Decorator(object):
                 
                 if not count:
                     Pinguino.main.actionUpload.setEnabled(False)
+                    
+                if Pinguino.is_widget():
+                    Pinguino.main.actionSearch.setEnabled(False)
+                    Pinguino.main.actionSearch_and_replace.setEnabled(False)
+                    Pinguino.main.actionCut.setEnabled(False)
+                    Pinguino.main.actionCopy.setEnabled(False)
+                    Pinguino.main.actionPaste.setEnabled(False)
+                    Pinguino.main.actionUndo.setEnabled(False)
+                    Pinguino.main.actionRedo.setEnabled(False)
+                    Pinguino.main.actionCompile.setEnabled(False)                 
+                    
                 
                 return fn(Pinguino, *args, **kwargs)
             return wrapped
