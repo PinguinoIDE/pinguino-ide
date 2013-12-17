@@ -47,10 +47,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.__update_graphical_path_files__(Constants.PINGUINOG_EXAMPLES_DIR)
         
         self.set_board()
-        self.statusbar_ide(self.get_description_board())
+        self.statusbar_ide(self.get_status_board())
         
-        self.install_out_redirect()
-        self.install_error_redirect()
+        #self.install_out_redirect()
+        #self.install_error_redirect()
         
         self.load_main_config()
         
@@ -125,6 +125,24 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
             board_config += "Boootloader: v4\n"
         if board.arch == 8 and board.bldr == "boot2":
             board_config += "Boootloader: v1 & v2\n"
+            
+        return board_config
+    
+                
+                
+    #----------------------------------------------------------------------
+    def get_status_board(self):
+        """"""
+        self.set_board()
+        board = self.pinguinoAPI.get_board()
+        board_config = "Board: %s" % board.name
+        #board_config += "Proc: %s\n" % board.proc
+        #board_config += "Arch: %s\n" % board.arch
+        
+        if board.arch == 8 and board.bldr == "boot4":
+            board_config += " - Boootloader: v4"
+        if board.arch == 8 and board.bldr == "boot2":
+            board_config += " - Boootloader: v1 & v2"
             
         return board_config
     
