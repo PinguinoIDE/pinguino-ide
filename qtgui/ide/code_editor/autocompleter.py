@@ -33,8 +33,8 @@ class PinguinoAutoCompleter(QListWidget):
         self.itemsList=[]
         self.itemsListName=[]
         self.temporal={"variables":[],
-                       "funciones":[],
-                       "directivas":[],
+                       "functions":[],
+                       "directives":[],
                        "arch8": [],
                        "arch32": [],}
         
@@ -140,7 +140,7 @@ class PinguinoAutoCompleter(QListWidget):
     def addNewItem(self, name, icon=None):
         if not name in self.itemsListName:
             item = QListWidgetItem()
-            if icon != None: item.setIcon(icon)
+            if icon: item.setIcon(icon)
             item.setText(name)
             self.addItem(item)
             self.itemsList.append(item)
@@ -152,14 +152,15 @@ class PinguinoAutoCompleter(QListWidget):
     def addTemporalItem(self, llave, name, icon=None):
         item = self.addNewItem(name, icon)
         if item:
-            self.temporal[llave] = self.temporal[llave] + [item]
+            self.temporal[llave].append(item)
         
     #----------------------------------------------------------------------
-    def removeTemporalItems(self,llave):
+    def removeTemporalItems(self, llave):
         for item in self.temporal[llave]:
             index = self.getIndex(item.text())
-            if index != None:
-                self.itemsList.remove(item)
+            if index:
+                self.itemsList.pop(index)
+                #self.itemsList.remove(item)
                 self.itemsListName.remove(item.text())
                 self.takeItem(index)
         self.update()
@@ -172,7 +173,7 @@ class PinguinoAutoCompleter(QListWidget):
             if start:
                 if item.text().lower().startswith(name): return cont
             else:
-                if item.text().lower() == name: return cont
+                if item.text() == name: return cont
             cont += 1
         return None
     
