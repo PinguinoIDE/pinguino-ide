@@ -17,6 +17,8 @@ from pinguino.pinguino import Pinguino, AllBoards
 
 from .helpers.namespaces import Namespaces
 
+from .code_editor.autocomplete_icons import CompleteIcons
+
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     def __init__(self):
@@ -34,6 +36,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         
         self.pinguinoAPI = Pinguino()
         self.configIDE = Config()
+        self.ICONS = CompleteIcons()
+        
         setattr(self.pinguinoAPI, "_boards_", AllBoards)
         
         self.redirect_this = None
@@ -43,6 +47,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.update_functions()
         self.update_directives()
         self.update_variables()
+        self.update_autocompleter()
         self.__update_path_files__(Constants.PINGUINO_EXAMPLES_DIR)
         self.__update_graphical_path_files__(Constants.PINGUINOG_EXAMPLES_DIR)
         
