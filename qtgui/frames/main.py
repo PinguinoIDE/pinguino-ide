@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Dec 17 17:45:42 2013
+# Created: Wed Dec 18 13:19:51 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(971, 638)
+        PinguinoIDE.resize(971, 633)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         PinguinoIDE.setWindowIcon(icon)
@@ -283,14 +283,6 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_3.setSpacing(0)
         self.gridLayout_3.setObjectName("gridLayout_3")
-        self.plainTextEdit_output = QtGui.QPlainTextEdit(self.dockWidgetContents_2)
-        self.plainTextEdit_output.setStyleSheet("background-color: rgb(0, 0, 0);\n"
-"color: rgb(255, 255, 255);\n"
-"font: 10pt \"Ubuntu Mono\";")
-        self.plainTextEdit_output.setFrameShape(QtGui.QFrame.NoFrame)
-        self.plainTextEdit_output.setReadOnly(True)
-        self.plainTextEdit_output.setObjectName("plainTextEdit_output")
-        self.gridLayout_3.addWidget(self.plainTextEdit_output, 0, 0, 1, 1)
         self.dockWidget_output.setWidget(self.dockWidgetContents_2)
         PinguinoIDE.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.dockWidget_output)
         self.toolBar_files = QtGui.QToolBar(PinguinoIDE)
@@ -686,7 +678,6 @@ class Ui_PinguinoIDE(object):
         self.checkBox_case_sensitive.setText(QtGui.QApplication.translate("PinguinoIDE", "Case sensitive", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.tab_4), QtGui.QApplication.translate("PinguinoIDE", "Search Replace", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_output.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Output", None, QtGui.QApplication.UnicodeUTF8))
-        self.plainTextEdit_output.setPlainText(QtGui.QApplication.translate("PinguinoIDE", "Welcome to Pinguino 11.0", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_files.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_undo_redo.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Undo Redo", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_edit.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Edit", None, QtGui.QApplication.UnicodeUTF8))

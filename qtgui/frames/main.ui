@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>971</width>
-    <height>638</height>
+    <height>633</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -704,24 +704,6 @@
      <property name="spacing">
       <number>0</number>
      </property>
-     <item row="0" column="0">
-      <widget class="QPlainTextEdit" name="plainTextEdit_output">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(0, 0, 0);
-color: rgb(255, 255, 255);
-font: 10pt &quot;Ubuntu Mono&quot;;</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="plainText">
-        <string>Welcome to Pinguino 11.0</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
   </widget>
@@ -1494,7 +1476,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>
-  <include location="../../../../../.designer/resources/resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
