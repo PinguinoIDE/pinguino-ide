@@ -193,3 +193,15 @@ class Decorator(object):
         return actualdecorator
     
     
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def if_autocomplete_is_enable(self):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                if Pinguino.main.actionAutocomplete.isChecked():
+                    return fn(Pinguino, *args, **kwargs)
+                #else: return None
+            return wrapped
+        return actualdecorator
