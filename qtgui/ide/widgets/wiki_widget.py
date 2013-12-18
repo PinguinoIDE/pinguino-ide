@@ -9,6 +9,7 @@ from PySide import QtCore, QtGui
 from bs4 import BeautifulSoup
 
 from ..helpers.constants import IDE_WIKI_DOCS
+from ..helpers.dialogs import Dialogs
 from ...frames.wiki_doc_widget import Ui_Form_wiki
 
 
@@ -60,7 +61,13 @@ class WikiWidget(QtGui.QWidget):
     def open_tab_doc(self, url):
         """"""
         url = url.toString()
+        if url == "__update__":
+            Dialogs.info_message(self.main, "This will take a long time.")
+            self.update_from_wiki()
+            return
+        
         if not "http" in url: return
+        
             
         #print url[1:]
         self.main.set_url_wiki_docs(url[1:])
