@@ -61,6 +61,8 @@ class CustomTextEdit(QtGui.QTextEdit):
         """"""
         if event.modifiers() == QtCore.Qt.ControlModifier:
             self.step_font_size(event.delta())
+        else:
+            super(CustomTextEdit, self).wheelEvent(event)
                 
         
     #----------------------------------------------------------------------
