@@ -2,7 +2,9 @@
 #-*- coding: utf-8 -*-
 
 from ..events.events import PinguinoEvents
+from ..widgets.output_widget import PinguinoTerminal
 from ...gide.app.graphical import GraphicalIDE
+
 
 ########################################################################
 class PinguinoFeatures(PinguinoEvents):
@@ -21,6 +23,10 @@ class PinguinoFeatures(PinguinoEvents):
         
         self.recent_files = self.configIDE.get_recents()
         self.update_recents_menu()
+        
+        #self.main.dockWidget_output.add
+        self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
+        self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
         
         
     #----------------------------------------------------------------------
