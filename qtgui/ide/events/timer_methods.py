@@ -118,6 +118,7 @@ class TimerMethods(object):
     @Decorator.requiere_main_focus()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.if_autocomplete_is_enable()
     def update_autocompleter(self):
         
         editor = self.main.tabWidget_files.currentWidget()
