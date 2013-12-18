@@ -147,9 +147,13 @@ class CustomTextEdit(QtGui.QTextEdit):
         
         self.keyPressEvent(event)
         
+    #----------------------------------------------------------------------
+    def force_keyPressEvent(self, event):
+        """"""
+        super(CustomTextEdit, self).keyPressEvent(event)
             
     #----------------------------------------------------------------------
-    def keyPressEvent(self, event):
+    def __keyPressEvent__(self, event):
         self.setFocus()
         
         if event.key() in (
