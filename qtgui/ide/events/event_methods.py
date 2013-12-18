@@ -43,17 +43,37 @@ class EventMethods(SearchReplace):
         editor.text_edit.redoAvailable.connect(self.__text_can_redo__)
         editor.text_edit.copyAvailable.connect(self.__text_can_copy__)
         editor.text_edit.dropEvent = self.__drop__
+        editor.text_edit.keyPressEvent = self.__key_pess__
         
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), filename[:-1])
         
         
     #----------------------------------------------------------------------
-    @Decorator.connect_features()
+    def __key_pess__(self, event):
+        """"""
+        editor = self.main.tabWidget_files.currentWidget()
+        if self.is_autocomplete_enable():
+            editor.text_edit.__keyPressEvent__(event)
+        else:
+            editor.text_edit.force_keyPressEvent(event)
+        
+        
+    #----------------------------------------------------------------------
+    #@Decorator.connect_features()
     def open_files(self):
         """"""
-        filenames = Dialogs.set_open_file(self, ".pde")
+        filenames = Dialogs.set_open_file(self)
         for filename in filenames:
             if self.__check_duplicate_file__(filename): continue
+
+            self.update_recents(filename)
+            if filename.endswith(".gpde"):
+                self.switch_ide_mode(True)
+                self.PinguinoKIT.open_files(filename=filename)
+                return
+            elif filename.endswith(".pde"):
+                self.switch_ide_mode(False)                
+                
             self.new_file(os.path.split(filename)[1])
             editor = self.main.tabWidget_files.currentWidget()
             #pde_file = file(filename, mode="r")
@@ -65,14 +85,26 @@ class EventMethods(SearchReplace):
             setattr(editor, "path", filename)
             self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
             self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1]) 
+            self.update_recents(filename)
+            
         self.tab_changed()
         
     #----------------------------------------------------------------------
-    @Decorator.connect_features()
+    #@Decorator.connect_features()
     def open_file_from_path(self, *args, **kwargs):
         """"""
         filename = kwargs["filename"]
         if self.__check_duplicate_file__(filename): return
+
+        self.update_recents(filename)
+
+        if filename.endswith(".gpde"):
+            self.switch_ide_mode(True)
+            self.PinguinoKIT.open_file_from_path(filename=filename)
+            return
+        elif filename.endswith(".pde"):
+            self.switch_ide_mode(False)
+        
         self.new_file(filename=filename)
         editor = self.main.tabWidget_files.currentWidget()
         #pde_file = file(path, mode="r")
@@ -261,6 +293,7 @@ class EventMethods(SearchReplace):
         #editor = self.main.tabWidget_files.currentWidget()
         #index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)
+        self.update_recents(filename)
         save_path = getattr(editor, "path", None)
         
         if not save_path:
@@ -627,10 +660,10 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     def __check_duplicate_file__(self, filename):
         """"""
-        filenames = [getattr(self.main.tabWidget_files.widget(i), "path", None) for i in range(self.main.tabWidget_files.count())]
+        filenames = [getattr(self.get_tab().widget(i), "path", None) for i in range(self.get_tab().count())]
         if filename in filenames:
             Dialogs.file_duplicated(self, filename)
-            self.main.tabWidget_files.setCurrentIndex(filenames.index(filename))
+            self.get_tab().setCurrentIndex(filenames.index(filename))
             return True
         return False
     
@@ -833,6 +866,11 @@ class EventMethods(SearchReplace):
         
         self.configIDE.set("Main", "maximized", self.isMaximized())
         
+        count = 1
+        for file_ in self.recent_files:
+            self.configIDE.set("Recents", str(count), file_)
+            count += 1
+        
         self.configIDE.save_config()
         
         self.close()
@@ -874,3 +912,50 @@ class EventMethods(SearchReplace):
         """"""
         webbrowser.open_new_tab(url)
         
+        
+    #----------------------------------------------------------------------
+    def update_recents(self, filename):
+        """"""
+        if filename in self.recent_files:
+            self.recent_files.remove(filename)
+        self.recent_files.insert(0, filename)
+        self.recent_files = self.recent_files[:10]
+        
+        self.update_recents_menu()
+        
+        
+    #----------------------------------------------------------------------
+    def update_recents_menu(self):
+        """"""
+        
+        self.main.menuRecents.clear()
+        for file_ in self.recent_files:
+            """"""
+            action = QtGui.QAction(self)
+            
+            filename = os.path.split(file_)[1]
+            
+            len_ = 40
+            if len(file_) > len_:
+                file_path_1 = file_[:len_/2]
+                file_path_2 = file_[-len_/2:]
+                file_path = file_path_1 + "..." + file_path_2
+            else: file_path = file_
+            
+            action.setText(filename+" ("+file_path+")")
+            self.connect(action, QtCore.SIGNAL("triggered()"), self.menu_recent_event(file_))
+            action.ActionEvent = self.menu_recent_event
+            
+            self.main.menuRecents.addAction(action)
+        
+        
+    #----------------------------------------------------------------------
+    def menu_recent_event(self, file_):
+        """"""
+        def menu():
+            """"""
+            self.open_file_from_path(filename=file_)
+        return menu
+            
+        
+    
