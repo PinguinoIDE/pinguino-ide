@@ -258,15 +258,19 @@ class GraphicalIDE(Metodos):
     #----------------------------------------------------------------------
     def open_files(self, *args, **kwargs):
         """"""
-        filenames = Dialogs.set_open_file(self.ide, ".gpde")
-        for filename in filenames:
-            if self.ide.__check_duplicate_file__(filename): continue
-            self.new_file(filename)
-            editor = self.main.tabWidget_graphical.currentWidget()
-            set_blocks = self.read_raw_parser(filename)
-            self.load_blocks(set_blocks)
-            self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
-            self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])       
+        #filenames = Dialogs.set_open_file(self.ide, ".gpde")
+        #for filename in filenames:
+        
+        filename = kwargs["filename"]
+            
+        if self.ide.__check_duplicate_file__(filename): return
+        
+        self.new_file(filename)
+        editor = self.main.tabWidget_graphical.currentWidget()
+        set_blocks = self.read_raw_parser(filename)
+        self.load_blocks(set_blocks)
+        self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
+        self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])       
     
             
         self.ide.tab_changed()
