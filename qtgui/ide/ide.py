@@ -10,7 +10,7 @@ from .helpers.backgrounds import BackgroundPallete
 from .features.features import PinguinoFeatures
 from .helpers import constants as Constants
 from .helpers.dialogs import Dialogs
-from .helpers.pyhton_debug import Stderr, Stdout
+from .helpers.pyhton_debug import Stderr
 from .helpers.config import Config
 from ..frames.main import Ui_PinguinoIDE
 from pinguino.pinguino import Pinguino, AllBoards
@@ -54,8 +54,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.set_board()
         self.statusbar_ide(self.get_status_board())
         
-        #self.install_out_redirect()
-        #self.install_error_redirect()
+        self.install_error_redirect()
         
         self.load_main_config()
         
@@ -67,12 +66,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         """"""
         names = Namespaces()
         names.save_namespaces()        
-         
-    #----------------------------------------------------------------------
-    def install_out_redirect(self):
-        """"""
-        sys.stdout = Stdout
-        sys.stdout.plainTextEdit_output = self.main.plainTextEdit_output
         
     #----------------------------------------------------------------------
     def install_error_redirect(self):
@@ -89,11 +82,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         for key in kwargs.keys():
             line = key + ": " + kwargs[key]
             self.main.plainTextEdit_output.appendPlainText(line)
+            
+        #self.main.plainTextEdit_output.appendPlainText(">>> ")
         
-    #----------------------------------------------------------------------
-    def clear_output_ide(self):
-        """"""
-        self.main.plainTextEdit_output.setPlainText("")
+    ##----------------------------------------------------------------------
+    #def clear_output_ide(self):
+        #""""""
+        #self.main.plainTextEdit_output.setPlainText("")
         
     #----------------------------------------------------------------------
     def statusbar_ide(self, status):
