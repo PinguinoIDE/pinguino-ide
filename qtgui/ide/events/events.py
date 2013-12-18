@@ -98,4 +98,6 @@ class PinguinoEvents(EventMethods, TimerMethods):
         
         
         
-        self.connect(self.main.actionWiki_docs, QtCore.SIGNAL("triggered()"), self.show_wiki_docs)         
+        self.connect(self.main.actionWiki_docs, QtCore.SIGNAL("triggered()"), self.show_wiki_docs)   
+        
+        self.connect(self.main.actionAutocomplete, QtCore.SIGNAL("triggered()"), self.switch_autocomplete)         
