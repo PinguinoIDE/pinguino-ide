@@ -744,7 +744,7 @@ class EventMethods(SearchReplace):
         elif reply == None: return
             
         
-        self.clear_output_ide()
+        #self.clear_output_ide()
         self.output_ide("compilling: %s"%filename)
         self.output_ide(self.get_description_board())
         
@@ -796,6 +796,8 @@ class EventMethods(SearchReplace):
             if Dialogs.compilation_done(self): self.pinguino_upload()
             
         if self.is_graphical(): os.remove(filename)
+        
+        self.main.plainTextEdit_output.appendPlainText(">>> ")
             
         
     #----------------------------------------------------------------------
