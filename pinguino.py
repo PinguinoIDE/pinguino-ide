@@ -4,6 +4,7 @@
 import sys
 import os
 sys.path.append(os.path.join("qtgui", "resources"))
+sys.path.append(os.path.join("python_modules"))
 
 from qtgui.ide import PinguinoIDE
 from PySide.QtGui import QApplication
