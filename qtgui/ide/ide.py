@@ -28,15 +28,15 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.main.setupUi(self)
         self.setWindowTitle(Constants.TAB_NAME)
         
+        self.pinguinoAPI = Pinguino()
+        self.configIDE = Config()
+        self.ICONS = CompleteIcons()
+        
         self.fix_palettes()
         self.__initialize_features__()
         
         self.connect_events()
         self.main.tabWidget_files.setVisible(False)
-        
-        self.pinguinoAPI = Pinguino()
-        self.configIDE = Config()
-        self.ICONS = CompleteIcons()
         
         setattr(self.pinguinoAPI, "_boards_", AllBoards)
         
