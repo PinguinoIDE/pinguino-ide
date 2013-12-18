@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Dec 17 14:38:14 2013
+# Created: Tue Dec 17 17:45:42 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -58,6 +58,8 @@ class Ui_PinguinoIDE(object):
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
+        self.menuRecents = QtGui.QMenu(self.menuFile)
+        self.menuRecents.setObjectName("menuRecents")
         self.menuEdit = QtGui.QMenu(self.menubar)
         self.menuEdit.setObjectName("menuEdit")
         self.menuView = QtGui.QMenu(self.menubar)
@@ -544,7 +546,13 @@ class Ui_PinguinoIDE(object):
         self.actionUse_local_compilers.setObjectName("actionUse_local_compilers")
         self.actionWiki_docs = QtGui.QAction(PinguinoIDE)
         self.actionWiki_docs.setObjectName("actionWiki_docs")
+        self.actionAutocomplete = QtGui.QAction(PinguinoIDE)
+        self.actionAutocomplete.setCheckable(True)
+        self.actionAutocomplete.setChecked(True)
+        self.actionAutocomplete.setObjectName("actionAutocomplete")
+        self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
+        self.menuFile.addAction(self.menuRecents.menuAction())
         self.menuFile.addAction(self.actionOpen_file)
         self.menuFile.addAction(self.actionSave_file)
         self.menuFile.addAction(self.actionClose_file)
@@ -586,6 +594,7 @@ class Ui_PinguinoIDE(object):
         self.menuCompilers.addAction(self.actionUse_local_compilers)
         self.menuCompilers.addAction(self.actionUse_system_compilers)
         self.menuConfiguration.addAction(self.menuCompilers.menuAction())
+        self.menuConfiguration.addAction(self.actionAutocomplete)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuSource.menuAction())
@@ -619,7 +628,7 @@ class Ui_PinguinoIDE(object):
         self.tabWidget_files.setCurrentIndex(-1)
         self.tabWidget_tools.setCurrentIndex(1)
         self.tabWidget_browser.setCurrentIndex(1)
-        self.tabWidget_blocks_tools.setCurrentIndex(0)
+        self.tabWidget_blocks_tools.setCurrentIndex(1)
         self.tabWidget_blocks.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)
         PinguinoIDE.setTabOrder(self.tabWidget_files, self.tabWidget_tools)
@@ -640,13 +649,14 @@ class Ui_PinguinoIDE(object):
     def retranslateUi(self, PinguinoIDE):
         PinguinoIDE.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Pinguino 11", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("PinguinoIDE", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuRecents.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Recents", None, QtGui.QApplication.UnicodeUTF8))
         self.menuEdit.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.menuView.setTitle(QtGui.QApplication.translate("PinguinoIDE", "View", None, QtGui.QApplication.UnicodeUTF8))
         self.menuPinguino.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Pinguino", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Help", None, QtGui.QApplication.UnicodeUTF8))
         self.menuLinks.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Links", None, QtGui.QApplication.UnicodeUTF8))
         self.menuSource.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Source", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuConfiguration.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Configuration", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuConfiguration.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Options", None, QtGui.QApplication.UnicodeUTF8))
         self.menuCompilers.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Compilers", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_tools.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Tools", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(0, QtGui.QApplication.translate("PinguinoIDE", "Examples", None, QtGui.QApplication.UnicodeUTF8))
@@ -756,5 +766,7 @@ class Ui_PinguinoIDE(object):
         self.actionUse_local_compilers.setText(QtGui.QApplication.translate("PinguinoIDE", "Use local compilers", None, QtGui.QApplication.UnicodeUTF8))
         self.actionWiki_docs.setText(QtGui.QApplication.translate("PinguinoIDE", "Wiki docs", None, QtGui.QApplication.UnicodeUTF8))
         self.actionWiki_docs.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F1", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionAutocomplete.setText(QtGui.QApplication.translate("PinguinoIDE", "Autocomplete", None, QtGui.QApplication.UnicodeUTF8))
 
+import resources_rc
 import resources_rc

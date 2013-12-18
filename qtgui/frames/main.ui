@@ -123,7 +123,14 @@
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menuRecents">
+     <property name="title">
+      <string>Recents</string>
+     </property>
+     <addaction name="separator"/>
+    </widget>
     <addaction name="actionNew_file"/>
+    <addaction name="menuRecents"/>
     <addaction name="actionOpen_file"/>
     <addaction name="actionSave_file"/>
     <addaction name="actionClose_file"/>
@@ -195,7 +202,7 @@
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
-     <string>Configuration</string>
+     <string>Options</string>
     </property>
     <widget class="QMenu" name="menuCompilers">
      <property name="title">
@@ -205,6 +212,7 @@
      <addaction name="actionUse_system_compilers"/>
     </widget>
     <addaction name="menuCompilers"/>
+    <addaction name="actionAutocomplete"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -929,7 +937,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
         <enum>QTabWidget::South</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1455,6 +1463,17 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
     <string>F1</string>
    </property>
   </action>
+  <action name="actionAutocomplete">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Autocomplete</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>tabWidget_files</tabstop>
@@ -1475,6 +1494,7 @@ font: 10pt &quot;Ubuntu Mono&quot;;</string>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>
+  <include location="../../../../../.designer/resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
