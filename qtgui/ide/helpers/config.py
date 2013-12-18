@@ -70,3 +70,14 @@ class Config(RawConfigParser, object):
         """"""
         self.readfp(file(IDE_CONFIG_FILE, "r")) 
         
+        
+    #----------------------------------------------------------------------
+    def get_recents(self):
+        """"""
+        if not self.has_section("Recents"): self.add_section("Recents")
+        options = self.options("Recents")
+        
+        files = []
+        for option in options: files.append(self.get("Recents", option))
+        
+        return files
