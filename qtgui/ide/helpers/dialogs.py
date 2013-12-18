@@ -19,7 +19,7 @@ class Dialogs(object):
         save_filename = QtGui.QFileDialog.getSaveFileName(parent,
                 NAME+" - Save",
                 os.path.join(QtCore.QDir.home().path(), filename),
-                "%s files (*%s);;All Files (*)"%(ext, ext))
+                "Pinguino files (*%s);;All Files (*)"%ext)
         if save_filename: return save_filename[0], os.path.split(save_filename[0])[1]
         else: return None
         
