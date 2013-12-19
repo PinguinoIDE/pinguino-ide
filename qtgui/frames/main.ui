@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>971</width>
-    <height>633</height>
+    <width>965</width>
+    <height>629</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,6 +47,19 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="0">
+     <widget class="QTabWidget" name="tabWidget_graphical">
+      <property name="documentMode">
+       <bool>true</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="0">
      <widget class="QFrame" name="frame_logo">
       <property name="frameShape">
@@ -56,16 +69,6 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_logo">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../resources/resources.qrc">:/logo/art/banner.png</pixmap>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="0">
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -92,20 +95,17 @@
          </property>
         </spacer>
        </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_logo">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../resources/resources.qrc">:/logo/art/banner.png</pixmap>
+         </property>
+        </widget>
+       </item>
       </layout>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QTabWidget" name="tabWidget_graphical">
-      <property name="documentMode">
-       <bool>true</bool>
-      </property>
-      <property name="tabsClosable">
-       <bool>true</bool>
-      </property>
-      <property name="movable">
-       <bool>true</bool>
-      </property>
      </widget>
     </item>
    </layout>
@@ -115,8 +115,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>971</width>
-     <height>24</height>
+     <width>965</width>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -919,7 +919,7 @@
         <enum>QTabWidget::South</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -1033,7 +1033,7 @@
   </widget>
   <widget class="QToolBar" name="toolBar_switch">
    <property name="windowTitle">
-    <string>toolBar</string>
+    <string>Mode</string>
    </property>
    <property name="layoutDirection">
     <enum>Qt::RightToLeft</enum>
@@ -1454,6 +1454,39 @@
    </property>
    <property name="text">
     <string>Autocomplete</string>
+   </property>
+  </action>
+  <action name="actionTools">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Tools</string>
+   </property>
+  </action>
+  <action name="actionShell">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Shell</string>
+   </property>
+  </action>
+  <action name="actionBlocks">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Blocks</string>
    </property>
   </action>
  </widget>
