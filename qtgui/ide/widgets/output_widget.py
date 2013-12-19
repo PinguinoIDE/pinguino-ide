@@ -5,9 +5,11 @@ import sys
 
 from PySide import QtCore, QtGui
 
+from ..helpers import constants as Constants
 from ..helpers.python_shell import PythonShell
 
-HEAD = "Welcome to Pinguino 11.0\n" + sys.version + " on " + sys.platform
+HEAD = Constants.TAB_NAME + "\n" + "Python " + sys.version + " on " + sys.platform
+HELP = 'can also use the commands: "clear", "restart"'
 
 START = ">>> "
 
@@ -25,10 +27,13 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                            "font-size: 12px;")        
         
         self.appendPlainText(HEAD)
+        self.appendPlainText(HELP)
         self.appendPlainText(START)
         
         self.shell = PythonShell()
         
+        self.historial = []
+        self.index_historial = 0
         
 
     #----------------------------------------------------------------------
@@ -37,8 +42,13 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.set_last_line()
         
         if event.key() in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Enter-1):
+            self.index_historial = 0
             super(PinguinoTerminal, self).keyPressEvent(event)
             command = self.get_command()
+            if self.run_default_command(command):
+                self.appendPlainText(START)
+                return
+            self.historial.append(command.replace("\n", ""))
             if not command.isspace():
                 self.moveCursor(QtGui.QTextCursor.End)
                 self.insertPlainText(self.shell.run(command))
@@ -48,6 +58,33 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         elif event.key() == QtCore.Qt.Key_Backspace:
             if not self.get_command(): return
             else: super(PinguinoTerminal, self).keyPressEvent(event)
+            
+        elif event.key() == QtCore.Qt.Key_Up:
+            if len(self.historial) >= self.index_historial + 1:
+                self.index_historial += 1
+                self.moveCursor(QtGui.QTextCursor.End)
+                
+                tc = self.textCursor()
+                tc.movePosition(tc.StartOfLine, tc.KeepAnchor)
+                tc.removeSelectedText()
+                tc.insertText(">>> ")
+                
+                tc.insertText(self.historial[-self.index_historial])
+                
+        elif event.key() == QtCore.Qt.Key_Down:
+            if len(self.historial) >= self.index_historial - 1:
+                self.index_historial -= 1
+                if self.index_historial <= 0:
+                    self.index_historial += 1
+                    return
+                self.moveCursor(QtGui.QTextCursor.End)
+                
+                tc = self.textCursor()
+                tc.movePosition(tc.StartOfLine, tc.KeepAnchor)
+                tc.removeSelectedText()
+                tc.insertText(">>> ")
+                
+                tc.insertText(self.historial[-self.index_historial])
             
         
         else:
@@ -60,7 +97,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         plain = self.toPlainText()
         comand = plain[plain.rfind(START):]
         return comand[len(START):]
-        
+    
 
     #----------------------------------------------------------------------
     def wheelEvent(self, event):
@@ -70,6 +107,10 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             
         else: super(PinguinoTerminal, self).wheelEvent(event)
                 
+                
+    #----------------------------------------------------------------------
+    def contextMenuEvent(self, event):
+        """"""
                 
     #----------------------------------------------------------------------
     def step_font_size(self, delta):
@@ -89,3 +130,30 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         plain = self.toPlainText()
         index = plain.rfind("\n")
         if position < index: self.moveCursor(QtGui.QTextCursor.End)
+        
+        
+        
+    #----------------------------------------------------------------------
+    def run_default_command(self, command):
+        """"""
+        command = command.replace("\n", "")
+        run = getattr(self, "command_"+command, None)
+        if run: run()
+        
+        return bool(run)
+        
+        
+    #----------------------------------------------------------------------
+    def command_clear(self):
+        """"""
+        self.clear()
+        
+        
+    #----------------------------------------------------------------------
+    def command_restart(self):
+        """"""
+        self.shell.restart()
+        self.clear()
+        self.appendPlainText(HEAD)
+        self.appendPlainText(HELP)
+        #self.appendPlainText(START)
