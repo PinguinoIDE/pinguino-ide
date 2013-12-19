@@ -21,6 +21,9 @@ class Pinguino(object):
     
     digitalRead_o = lambda n:Kit.addFunct("Pinguino", "digitalRead", 1, t="output", fill=["spin-int"])
     analogRead_o = lambda n:Kit.addFunct("Pinguino", "analogRead", 1, t="output", fill=["spin-int"])
+    
+    digitalRead_b = lambda n:Kit.addFunct("Pinguino", "digitalRead", 1, t="output-bool", fill=["spin-int"])
+    analogRead_b = lambda n:Kit.addFunct("Pinguino", "analogRead", 1, t="output-bool", fill=["spin-int"])
 
     CDC_read = lambda n:Kit.addFunct("Communication", "CDC.read", 1, t="output", fill=[])
     CDC_write = lambda n:Kit.addFunct("Communication", "CDC.write", 1, t="linear", fill=["edit-c"])
