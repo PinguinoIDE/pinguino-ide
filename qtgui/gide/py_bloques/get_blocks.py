@@ -28,3 +28,9 @@ extractBlocks(NoVisible)
  
 from .user import User
 extractBlocks(User)
+
+from .editables import Editables
+extractBlocks(Editables)
+
+from .communication import Communication
+extractBlocks(Communication)
