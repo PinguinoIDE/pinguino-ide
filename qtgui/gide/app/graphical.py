@@ -232,6 +232,7 @@ class GraphicalIDE(Metodos):
             to_save.append({
                 "basename": block.metadata.basename,
                 "position": (block.metadata.pos_.x(), block.metadata.pos_.y()),
+                #"position": (block.pos().x(), block.pos().y()),
                 "constructor": block.metadata.get_contructor(),
                 "name": block.metadata.name,
                 "self_id": self.serialize_widgets([block])[0],
@@ -271,7 +272,8 @@ class GraphicalIDE(Metodos):
         self.load_blocks(set_blocks)
         self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
         self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])       
-    
+        self.ide.setWindowTitle(TAB_NAME+" - "+filename)   
+        setattr(editor, "path", filename)
             
         self.ide.tab_changed()
         
@@ -280,6 +282,7 @@ class GraphicalIDE(Metodos):
     def load_blocks(self, set_blocks):
         """"""
         editor = self.main.tabWidget_graphical.currentWidget()
+        editor.graphical_area.isOpening = True
         
         toFitInside = []
         restaurPos = []
@@ -295,14 +298,13 @@ class GraphicalIDE(Metodos):
             newIcon, pos2 = editor.graphical_area.new_ploq(name, args, pos, basename, ID)
             newIcon.metadata.self_id = ID
             
-            newIcon.move(*block["position"])
+            newIcon.move(pos)
             newIcon.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor)) 
             
             newIcon.metadata.to = block["to"]
             newIcon.metadata.from_ = block["from"]
             newIcon.metadata.inside = block["inside"]
             newIcon.metadata.nested = block["nested"]
-            newIcon.move(pos)
                 
         self.replace_id_by_widgets()
         
@@ -314,6 +316,16 @@ class GraphicalIDE(Metodos):
             for ins in toFit:
                 wdg = self.get_widget_from_id(ins)
                 wdg.metadata.add_parent([parent, wdg.metadata.widget], force=True)
+                
+        
+        for block in editor.graphical_area.get_project_blocks():
+            if block.metadata.type_ in "tipo9 tipo7".split(): block.lower()                
+                
+        for block in editor.graphical_area.get_project_blocks():
+            if block.metadata.type_ in "tipo4".split(): block.lower()
+            
+                
+                
                 
     
     #----------------------------------------------------------------------
@@ -361,8 +373,11 @@ class GraphicalIDE(Metodos):
         #self.main.tabWidget_graphical.setTabText(index, os.path.split(filename)[1])    
         #self.main.tabWidget_graphical.setTabToolTip(index, filename)
         editor.path = filename
+        setattr(editor, "path", filename)
         self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
-        self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])  
+        self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
+        self.ide.setWindowTitle(TAB_NAME+" - "+filename)      
+        
         
             
         self.ide.tab_changed()
