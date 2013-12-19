@@ -99,6 +99,17 @@ class Decorator(object):
             return wrapped
         return actualdecorator
 
+    #----------------------------------------------------------------------
+    @classmethod
+    def requiere_graphical_mode(self):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                if Pinguino.is_graphical():
+                    return fn(Pinguino, *args, **kwargs)
+                else: return None
+            return wrapped
+        return actualdecorator
     
     #----------------------------------------------------------------------
     @classmethod
