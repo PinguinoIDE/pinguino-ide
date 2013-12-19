@@ -274,15 +274,15 @@ class Metodos(object):
         #print tab_set
             
         for key, tab in tab_set:
-            if ignore_jump:
-                """"""
-                #if side == 0: side = 1
-                #else: side = 0
+            #if ignore_jump:
+                #""""""
+                ##if side == 0: side = 1
+                ##else: side = 0
                     
-            else:
-                if tab_set.index([key, tab]) == (len(tab_set) / 2) + 1:
-                    count = 0
-                    side = 1  #rigth
+            #else:
+                #if tab_set.index([key, tab]) == (len(tab_set) / 2) + 1:
+                    #count = 0
+                    #side = 1  #rigth
             
                     
             #print count
@@ -302,27 +302,7 @@ class Metodos(object):
             
             grid_layout.addWidget(newIcon, count, side, 1, 1)
             count += 1
-            
-            
-    ##----------------------------------------------------------------------
-    #def append_block(self, new_blocks):
-        #""""""
-        #if not new_blocks: return
-            
-        #new_set = []
-        #for tab, name, block in new_blocks:
-            
-            ##widget = self.get_widget(tab)
-            ##grid_layout = widget.grid_layout
-            ##tool_area = widget.tool_area
-            
-            ##count = len(widget.content_widgets) - 1
-            ##side = count % 2
-            #new_set.append([name, block])
-            
-        
-        #self.add_blocks(tab, new_set, count=2, side=0, ignore_jump=True)
-        
+
         
         
             
@@ -332,13 +312,8 @@ class Metodos(object):
         tab_set = self.get_tab_set(name)
         new_set = map(lambda x: [x[0], x[2]], new_set)
         self.add_blocks(name, tab_set + new_set)
-        #for name in self.StartBlocks.keys():
-            #if self.StartBlocks[name][1] == tab: self.addBlock(name)
                 
 
-
- 
-            
     #----------------------------------------------------------------------
     def esTipoBloque(self, evento):
         mine = evento.mimeData()
