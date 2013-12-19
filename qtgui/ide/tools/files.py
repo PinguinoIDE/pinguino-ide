@@ -29,6 +29,7 @@ class Files(object):
         files.sort()
         
         files = filter(lambda file:not file.endswith(".pyc"), files)
+        files = filter(lambda file:not file.endswith(".hex"), files)
         
         icon_dir = QtGui.QIcon()
         icon_dir.addPixmap(QtGui.QPixmap(":/icons/icons/icon_dir.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
