@@ -35,7 +35,7 @@ class Math_(object):
     
     and_ = lambda n:Kit.addOper("Math", "@and@", "output-bool", ["space_bool", "space_bool"])  
     or_ = lambda n:Kit.addOper("Math", "@or@", "output-bool", ["space_bool", "space_bool"])  
-    not_ = lambda n:Kit.addOper("Math", "@not@", "output-bool", ["space_bool", "space_bool"])  
+    #not_ = lambda n:Kit.addOper("Math", "@not@", "output-bool", ["space_bool", "space_bool"])  
 
 
     #----------------------------------------------------------------------
@@ -75,6 +75,24 @@ class Math_(object):
         pm.addSpaceBool()
         pm.addLabel(")")
         return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def not_o(self):
+        pm = Block.OutputBool("Math")
+        pm.addSyntax("@")
+        pm.addLabel("not")
+        pm.addSyntax("@")
+        pm.addSpace()
+        return pm.getBlock()
+    
+    #----------------------------------------------------------------------
+    def not_b(self):
+        pm = Block.OutputBool("Math")
+        pm.addSyntax("@")
+        pm.addLabel("not")
+        pm.addSyntax("@")
+        pm.addSpaceBool()
+        return pm.getBlock()  
     
     #----------------------------------------------------------------------
     def incre__(self):
