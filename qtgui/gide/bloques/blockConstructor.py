@@ -340,6 +340,7 @@ class BlockFunction(Constructor, Properties):
             self.constructorCode.pop(-1)
     
         self.layout.removeWidget(self.layout_adds[-1])
+        self.layout_adds[-1].close()
         self.layout_adds.pop(-1)
         self.layout_adds_all.pop(-1)
         
@@ -706,7 +707,7 @@ class BlockNestedSecond(Constructor, Properties):
         
     
         b = QtCore.QPoint(12, 39)
-        a = widgetMove.DATA["pos"] - WidgetStatic.DATA["pos"]
+        a = widgetMove.metadata.pos_ - WidgetStatic.metadata.pos_
 
         c = b - a
         #print "XXXXXXXXXX", c, a
