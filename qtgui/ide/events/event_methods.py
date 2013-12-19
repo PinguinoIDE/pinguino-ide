@@ -683,13 +683,13 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     def __show_stdout__(self):
         """"""
-        self.frame_stdout = Stdout(self)
+        self.frame_stdout = Stdout(self, "Stdout")
         self.frame_stdout.show()
         
     #----------------------------------------------------------------------
     def __show_pinguino_code__(self):
         """"""
-        self.frame_pinguino_code = Stdout(self)
+        self.frame_pinguino_code = Stdout(self, "Pinguino code")
         self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code())
         self.frame_pinguino_code.show()
                 
