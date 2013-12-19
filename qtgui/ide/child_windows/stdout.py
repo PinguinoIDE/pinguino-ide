@@ -13,7 +13,7 @@ from ...frames.stdout import Ui_Stdout
 ########################################################################
 class Stdout(QtGui.QMainWindow):
     """"""
-    def __init__(self, parent):
+    def __init__(self, parent, title):
         #QtGui.QMainWindow.__init__(self)
         super(Stdout, self).__init__()
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
@@ -25,7 +25,7 @@ class Stdout(QtGui.QMainWindow):
         self.stdout.setupUi(self)
         self.main = parent
         
-        self.setWindowTitle(TAB_NAME+" - Stdout")
+        self.setWindowTitle(TAB_NAME+" - "+title)
         
         self.connect(self.stdout.buttonBox, QtCore.SIGNAL("clicked(QAbstractButton*)"), self.getButton)
         
