@@ -1,0 +1,143 @@
+[Block-1]
+self_id = 0x6017b90
+from = []
+name = function
+constructor = [['label', 'loop'], ['syntax', '()']]
+position = (171, 178)
+basename = loop
+inside = []
+to = []
+nested = ['0x601c878']
+
+[Block-2]
+self_id = 0x601ac68
+from = []
+name = function
+constructor = [['label', 'setup'], ['syntax', '()']]
+position = (35, 30)
+basename = setup
+inside = []
+to = []
+nested = ['0x601e050']
+
+[Block-3]
+self_id = 0x601c878
+from = ['0x6017b90']
+name = nested
+constructor = [['syntax', '//'], ['label', 'Repeat'], ['syntax', '\n'], ['syntax', 'for(__i__=0;__i__<'], ['space'], ['syntax', ';__i__=__i__+1)']]
+position = (183, 217)
+basename = repeat
+inside = ['0x601d830', '0x601d830']
+to = ['0x60173f8']
+nested = ['0x60182d8']
+
+[Block-4]
+self_id = 0x601d830
+from = ['0x601c878']
+name = output
+constructor = [['spin_int', '10', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-5]
+self_id = 0x601e050
+from = ['0x601ac68']
+name = linear
+constructor = [['label', 'pinMode'], ['syntax', '('], ['space'], ['syntax', ','], ['space'], ['syntax', ')']]
+position = (47, 69)
+basename = pinMode
+inside = ['0x60194d0', '0x6018cb0', '0x60194d0', '0x6018cb0']
+to = []
+nested = []
+
+[Block-6]
+self_id = 0x60194d0
+from = ['0x601e050']
+name = output
+constructor = [['spin_int', '13', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-7]
+self_id = 0x6018cb0
+from = ['0x601e050']
+name = output
+constructor = [['spin_choice', 'OUTPUT', ['INPUT', 'OUTPUT']]]
+position = (0, 0)
+basename = choice-io
+inside = []
+to = []
+nested = []
+
+[Block-8]
+self_id = 0x60182d8
+from = ['0x601c878']
+name = linear
+constructor = [['label', 'toggle'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (195, 256)
+basename = toggle
+inside = ['0x6012b90', '0x6012b90']
+to = ['0x6014f80']
+nested = []
+
+[Block-9]
+self_id = 0x6012b90
+from = ['0x60182d8']
+name = output
+constructor = [['spin_int', '13', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-10]
+self_id = 0x60173f8
+from = ['0x601c878']
+name = linear
+constructor = [['label', 'delay'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (183, 373)
+basename = delay
+inside = ['0x6015ea8', '0x6015ea8']
+to = []
+nested = []
+
+[Block-11]
+self_id = 0x6015ea8
+from = ['0x60173f8']
+name = output
+constructor = [['spin_int', '1000', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-12]
+self_id = 0x6014f80
+from = ['0x60182d8']
+name = linear
+constructor = [['label', 'delay'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (195, 295)
+basename = delay
+inside = ['0x6017ea8', '0x6017ea8']
+to = []
+nested = []
+
+[Block-13]
+self_id = 0x6017ea8
+from = ['0x6014f80']
+name = output
+constructor = [['spin_int', '100', -100, 100]]
+position = (0, 0)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
