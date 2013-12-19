@@ -165,9 +165,23 @@ class WorkArea(QtGui.QWidget, revised_methods):
     def build_menu(self, event):
         menu = QtGui.QMenu()
         if self.isSelecting:
-            menu.addAction("Delet selected blocks", self.deletBlocks)
+            menu.addAction("Delete selected blocks", self.deletBlocks)
             menu.addAction("Take Screenshot from selected area", self.screen_shot_area)
+            menu.addAction("Export code to pinguino editor", self.export_code_to_pinguino_editor)
         menu.exec_(event.globalPos())
+        
+        
+    #----------------------------------------------------------------------
+    def export_code_to_pinguino_editor(self):
+        """"""
+        self.updateCode()
+        code = self.PinguinoCode
+        
+        self.ide.switch_ide_mode(False)        
+        self.ide.new_file()
+        
+        editor = self.main.tabWidget_files.currentWidget()
+        editor.text_edit.setText(code)
         
         
         
@@ -270,6 +284,10 @@ class WorkArea(QtGui.QWidget, revised_methods):
         newIcon.metadata.get_contructor = nuevo.getConstructor
         
         newIcon.metadata.code_start = nuevo.codeStart
+        
+        newIcon.metadata.destroy_this = nuevo.destroy_this
+        
+        
         
     
         #data = {"name": name,
@@ -524,17 +542,6 @@ class WorkArea(QtGui.QWidget, revised_methods):
                 
     #----------------------------------------------------------------------
     def expandAll(self, release=False):
-        #var = 30
-        #for _ID in self.MetaData.keys():
-            #if self.MetaData[_ID]["expandible"]:
-                #size1 = self.getWidget(_ID).size().height()
-                #size = self.getHeight(_ID, self.getNested, self.getTo)
-                #self.MetaData[_ID]["expand"](size)
-                #size2 = self.getWidget(_ID).size().height()
-                #s = size2 - size1 
-                ##if release:
-                #if not self.isOpening:
-                    #self.moveGroup(_ID, QtCore.QPoint(0, s), nested=False)
                     
         for block in self.get_project_blocks():
             if block.metadata.expandible:
@@ -545,10 +552,7 @@ class WorkArea(QtGui.QWidget, revised_methods):
                 s = size2 - size1 
                 #if release:
                 if not self.isOpening:
-                    """"""
-                    ###################################################################
                     self.move_group(block, QtCore.QPoint(0, s), ignore_nested=True)
-                    ###################################################################
                 
         if self.isOpening: self.isOpening = False
             
@@ -561,9 +565,13 @@ class WorkArea(QtGui.QWidget, revised_methods):
         #if func2 != None: listIDs.extend(func2(ID))
             
         for blk in listIDs:
-            if blk.metadata.expandible:
+            if blk.metadata.type_ == "tipo7":
+                size += blk.metadata.widget.height() - 7 - 9
+                
+            elif blk.metadata.expandible:
                 #size += self.getWidget(ID).height() - 7
                 size += blk.metadata.widget.height() - 7
+            
             else:
                 size += blk.metadata.size
             size += self.getHeight(blk, self.getTo)
@@ -675,6 +683,7 @@ class WorkArea(QtGui.QWidget, revised_methods):
         child = self.childAt(event.pos())
         
         if child != None:
+            
             editor = self.ide.get_tab()
             if not editor.tabText(editor.currentIndex()).endswith("*"):
                 editor.setTabText(editor.currentIndex(), editor.tabText(editor.currentIndex())+"*")
@@ -684,12 +693,14 @@ class WorkArea(QtGui.QWidget, revised_methods):
                 if child == None:
                     child.sendBack()
                     return
-                
+            
             if not child.childAt(child.mapFromGlobal(event.globalPos())):
                 return
             
             #self.shadownBlock([child])
-            
+
+            if not child.metadata.type_ in "tipo4 tipo9 tipo7".split():                
+                child.raise_()
                 
             
             #QtCore.QTimer.singleShot(0, lambda: self.debugBlock(child.ID))
@@ -1199,12 +1210,20 @@ class WorkArea(QtGui.QWidget, revised_methods):
     def deletBlocks(self):
         IDs = self.getUnderSelection()
         for Id in IDs:
-            self.MetaData[Id]["object"].DeletLater = True
+            #self.MetaData[Id]["object"].DeletLater = True
+        #for block in self.get_project_blocks():
+            #block.metadata.object.DeletLater = True
+            Id.metadata.destroy_this()
+            #del Id
         
-        if not self.isSelecting:
-            for Id in self.lastBlockShadown:
-                self.MetaData[Id]["object"].DeletLater = True        
+        #if not self.isSelecting:
+            #for Id in self.lastBlockShadown:
+                #self.MetaData[Id]["object"].DeletLater = True
+                
+                
         self.SelectArea.hide()
+        #self.SelectArea.resize(QtCore.QSize(0, 0))
+        self.SelectionAbs = []
         
         
     #----------------------------------------------------------------------
