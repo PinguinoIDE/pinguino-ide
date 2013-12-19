@@ -8,16 +8,16 @@ from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
 from ...ide.helpers.decorators import Decorator
 
+
 ########################################################################
 class ToolArea(QtGui.QWidget):
-
-
+    """"""
     def __init__(self, parent=None, workArea=None, ide=None):
+        """"""
         super(ToolArea, self).__init__(parent)
 
         self.ide = ide
         self.main = ide.main
-
 
         self.piecePixmaps = []
         self.pieceRects = []
@@ -40,107 +40,7 @@ class ToolArea(QtGui.QWidget):
         self.setAcceptDrops(True)
         self.widget = parent
         
-        
-    ##----------------------------------------------------------------------
-    #def esTipoBloque(self, evento):
-        #mine = evento.mimeData()
-        #for i in list(mine.formats()):
-            #if str(i).startswith("bloque/name:"): return True
-    
-    ##----------------------------------------------------------------------
-    #def getNameClass(self, evento):
-        #mine = evento.mimeData()
-        #for i in list(mine.formats()):
-            #if str(i).startswith("bloque/name:"):
-                #return str(i)[str(i).find(":")+1:]
-        
-    ##----------------------------------------------------------------------
-    #def dragEnterEvent(self, event):
-        #if self.esTipoBloque(event):
-            #if event.source() == self:
-                #event.setDropAction(QtCore.Qt.MoveAction)
-                #event.accept()
-            #else:
-                #event.acceptProposedAction()
-        #else:
-            #event.ignore()
-
-    #----------------------------------------------------------------------
-    def get_better_pos(self, posList, pos):
-        distancia = lambda pa, pb:sqrt((pa.x()-pb.x())**2+(pa.y()-pb.y())**2)
-        
-        newPosList = []
-        for point in posList:
-            h = distancia(point, pos)
-            if h < 20 and h != 0.0: newPosList.append((point, h))
-            #print h, 
-            
-        #print ""
-        
-        if len(newPosList) == 0:
-            return pos, False
-
-        #print newPosList
-            
-        h2 = 100
-        for p in newPosList:
-            if p[1] < h2:
-                h2 = p[1]
-                poin = p[0]
-            
-        return poin, True
-        
-                
-    ###----------------------------------------------------------------------
-    ##def dropEvent(self, event):
-        ##global ID
-        ##if self.esTipoBloque(event):
-            ##itemData = event.mimeData().data('bloque/name:'+self.getNameClass(event))
-            ##dataStream = QtCore.QDataStream(itemData, QtCore.QIODevice.ReadOnly)
-            
-            ##pixmap = QtGui.QPixmap()
-            ##offset = QtCore.QPoint()
-            
-            ##if self.isDragging:
-                ##offset = QtCore.QPoint()
-                ###print "YES"
-            ##dataStream >> pixmap >> offset
-            ##if not self.isDragging:
-                ##offset = QtCore.QPoint(pixmap.width()/2, pixmap.height()/2)
-                ###print "NO"
-
-
-            ##newIcon = QtGui.QWidget(self)
-            ##newIcon.NAME = self.getNameClass(event)
-            ##nuevo = eval(self.getNameClass(event))(newIcon)
-
-            ##p = event.pos() - offset
-            
-            ###listPos = self.getTypeMagnetic(newIcon.ID)
-            ###p, accept = self.getBetterPos(listPos, p)
-            
-            ###if accept and MetaData[newIcon.ID]["expandible"]:
-                ###MetaData[newIcon.ID]["object"].expand()
-            
-            ###MetaData[newIcon.ID]["pos"] = p
-            ##newIcon.move(p)
-            
-            
-            ##newIcon.show()
-            
-            ##self.isDragging = False
-            
-
-            ##if event.source() == self:
-                ##event.setDropAction(QtCore.Qt.MoveAction)
-                ##event.accept()
-            ##else:
-                ##event.acceptProposedAction()
-        ##else:
-            ##event.ignore()        
-        
-        
-        
+ 
     #----------------------------------------------------------------------
     def mouse_move_event(self, event):
         """"""
@@ -158,7 +58,7 @@ class ToolArea(QtGui.QWidget):
             baseName = onBlock.BASENAME
             #color = onBlock.COLOR
             
-            finalBlock, self.npos = self.workArea().new_ploq(name, args, self.mapToGlobal(self.workArea().pos()), baseName)
+            finalBlock, self.npos = self.workArea().new_bloq(name, args, self.mapToGlobal(self.workArea().pos()), baseName)
 
             tempBlock = QtGui.QWidget(self.widget_parent)
             nuevo = eval(Blocks[name])(tempBlock, args[2:], None)
@@ -179,10 +79,7 @@ class ToolArea(QtGui.QWidget):
             
             self.finalBlock = finalBlock
             self.tempBlock = tempBlock
-            #self.onBlock = onBlock
             self.NUEVO = True
-            #self.prePos = onBlock.pos()
-        
         
         if onBlock != None:
             
@@ -190,15 +87,12 @@ class ToolArea(QtGui.QWidget):
             self.GlobalPoint = point+self.npos-QtCore.QPoint(10, 10)
             point -= QtCore.QPoint(self.scroll_area.horizontalScrollBar().value(), self.scroll_area.verticalScrollBar().value())
             
-            
             self.tempBlock.move(point)
             
             self.workArea().SelectArea.hide()
             self.workArea().SelectArea.resize(QtCore.QSize(0, 0))
             self.workArea().mouseMoveEvent(None, self.GlobalPoint, self.finalBlock)
-            #self.workArea().shadownBlock([self.ID])
-            self.workArea().expandSize(self.finalBlock)
-            
+            self.workArea().expand_size(self.finalBlock)
             
 
     #----------------------------------------------------------------------
@@ -209,6 +103,7 @@ class ToolArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def mouse_press_event(self, event):
+        """"""
         self.workArea().forExpand = True
         child = self.widget_parent.childAt(event.pos())
         if child:
@@ -225,6 +120,7 @@ class ToolArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def mouse_release_event(self, event):
+        """"""
         self.workArea().forExpand = False
         child, pos = self.get_child_drag()
         
@@ -236,14 +132,9 @@ class ToolArea(QtGui.QWidget):
         
         if child != None:
             
-            #child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.OpenHandCursor)
-            
             if child.childAt(child.mapFromGlobal(event.globalPos())):
                 child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.OpenHandCursor) 
-               
-            
-            #self.workArea.Frame.sizeTab = self.workArea.Frame.ventana.tabWidget.width()
-            #self.workArea.Frame.ctimer_de.start(1)            
+                        
             
             while child.objectName() != "Bloq!":
                 child = child.parent()
@@ -268,32 +159,19 @@ class ToolArea(QtGui.QWidget):
             self.CHILD = None
             self.NUEVO = False
             
-            #self.workArea.
-            
-           
             
         self.main.actionSave_file.setEnabled(True)
         self.workArea().mouseReleaseEvent(event)
-        #self.workArea().saveHistorial()
-        #self.workArea().saveHistorial()
-        
-        
+
             
             
     #----------------------------------------------------------------------
     def set_child_drag(self, child, pos):
+        """"""
         self.CHILD = child
         self.POS = pos
         
     #----------------------------------------------------------------------
     def get_child_drag(self):
+        """"""
         return self.CHILD, self.POS
-        
-    
-    ##----------------------------------------------------------------------
-    #def paintEvent(self, event):
-        #painter = QtGui.QPainter()
-        #painter.begin(self)
-        #painter.end()
-    
-    
