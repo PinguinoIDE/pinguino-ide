@@ -36,3 +36,8 @@ class PythonShell(object):
         except: log.write(traceback.format_exc())
         return log.getvalue()
 
+
+    #----------------------------------------------------------------------
+    def restart(self):
+        """"""
+        self.__init__()
