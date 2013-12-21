@@ -47,8 +47,10 @@ class PinguinoFeatures(PinguinoEvents):
         self.main.toolBar_search_replace.setVisible(not toggle)
         self.main.toolBar_edit.setVisible(not toggle)
         self.main.toolBar_graphical.setVisible(toggle)
-        
+        self.main.toolBar_undo_redo.setVisible(not toggle)
         self.main.actionView_Pinguino_code.setEnabled(toggle)
+                                                      
+        self.main.dockWidget_output.setVisible(not toggle)
         
         
         self.configIDE.set("Features", "graphical", toggle)
