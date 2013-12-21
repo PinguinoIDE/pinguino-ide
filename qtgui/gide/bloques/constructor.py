@@ -71,7 +71,7 @@ class Constructor(object):
         for i in range(len(bloque)):
             if bloque[i] in [["space"], ["space_bool"]]:
                 layout_pos.append(i)
-
+                
         self.setFlex(self.layout_adds, layout_pos, insidePos, self.layout_adds_b, self.layout_adds_all)
         widget.contextMenuEvent = self.build_menu
             
@@ -433,7 +433,7 @@ class Constructor(object):
         return widgetInside
     
     #----------------------------------------------------------------------
-    def addParent(self, widget, force=False, position=0):
+    def addParent(self, widget, force=False):
         """"""
         #self.primo = widget
         widgetMove = widget[1]
@@ -445,6 +445,7 @@ class Constructor(object):
         insidePos, layoutPos = WidgetStatic.metadata.object_.getInsidePos()
         #print layoutPos
         for po in insidePos:
+            
             if not force:
                 a = widgetMove.pos()
                 #b = po + WidgetStatic.DATA["pos"] + WidgetStatic.metadata.object_.getInsidePoint()
@@ -458,24 +459,20 @@ class Constructor(object):
             
             #print c.x()
             if -4 <= c.x() <= 4:
-                #print r
                 
-                ####if WidgetStatic.metadata.parent == "None":
-                    ####widgetMove.metadata.parent = WidgetStatic.ID
-                ####else: widgetMove.metadata.parent = WidgetStatic.metadata.parent
+                
                 if WidgetStatic.metadata.parent == "None":
                     widgetMove.metadata.parent = WidgetStatic
                 else: widgetMove.metadata.parent = WidgetStatic.metadata.parent
                 
-                #WidgetStatic.metadata.inside.append(widgetMove.ID)
-                WidgetStatic.metadata.inside.append(widgetMove)
-                #print layoutPos, layoutPos[r]
+                if layoutPos[r] == layoutPos[-1]:
+                    WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r]+1, widgetMove)
+                    
+                else:
+                    WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r], widgetMove)
                 
-                #fix last position add jump 
-                ###if layoutPos[r] == layoutPos[-1]: WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r]+1, widgetMove)
-                ###else: WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r], widgetMove)
-                if layoutPos[r] == layoutPos[-1]: WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r]+1, widgetMove)
-                else: WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r], widgetMove)
+                WidgetStatic.metadata.inside.append(widgetMove)
+                
                     
 
                 #widgetMove.getLine = widgetMove.DATA["lineCode"]
@@ -507,26 +504,24 @@ class Constructor(object):
             
             r += 1
             
-        
-            
+ 
             
     #----------------------------------------------------------------------
     def removeParent(self):
         self.w_move.metadata.parent = "None"
         self.w_parent.metadata.parent = "None"
+        
         self.w_parent.metadata.inside.remove(self.widgetMove)
+        #if self.w_move in self.w_parent.metadata.inside:
+            #self.w_parent.metadata.inside.remove(self.w_move)
+        
         self.w_parent.metadata.object_.inLayouts_all.insert(self.R, self.toAddPoint)
         self.w_parent.metadata.object_.layoutsPos.insert(self.R, self.toAddPos) 
         self.pasado.show()
         self.w_parent.metadata.object_.layout.removeWidget(self.widgetMove)
+        #self.w_parent.metadata.object_.layout.removeWidget(self.w_move)
         
-        
-        #v = self.pasado[1]
-        #v.widget()
-        
-        #self.w_parent.metadata.object_.layout.insertWidget(self.pasado[0], self.pasado[1].widget())
-        
-        
+
         #self.pasado.show()
         self.w_parent = None
         self.first = True
@@ -621,6 +616,7 @@ class Constructor(object):
                 
     def addToInside(self, widget, inside):
         toInside = self.buidToInside(widget, inside)
+        setattr(toInside, "in_type", "space")
         self.layout.addWidget(toInside)
         self.layout_adds.append(toInside)
         self.layout_adds_all.append(toInside)
@@ -628,6 +624,7 @@ class Constructor(object):
         
     def addToInsideBool(self, widget, inside):
         toInsideBool = self.buidToInsideBool(widget, inside)
+        setattr(toInsideBool, "in_type", "space")
         self.layout.addWidget(toInsideBool)
         self.layout_adds_b.append(toInsideBool)
         self.layout_adds_all.append(toInsideBool)        
