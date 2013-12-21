@@ -1,0 +1,176 @@
+[Block-1]
+self_id = 0x3746638
+from = []
+name = function
+constructor = [['label', 'global'], ['syntax', ' variables']]
+position = (39, 37)
+basename = global_vars
+inside = []
+to = []
+nested = ['0x374e8c0']
+
+[Block-2]
+self_id = 0x374ca70
+from = []
+name = function
+constructor = [['label', 'setup'], ['syntax', '()']]
+position = (181, 175)
+basename = setup
+inside = []
+to = []
+nested = ['0x374b680']
+
+[Block-3]
+self_id = 0x374b680
+from = ['0x374ca70']
+name = nested
+constructor = [['label', 'for'], ['syntax', '('], ['space'], ['syntax', ';'], ['space_bool'], ['syntax', ';'], ['space'], ['syntax', ')']]
+position = (193, 214)
+basename = for_
+inside = ['0x3752dd0', '0x374a1b8', '0x3748878']
+to = []
+nested = ['0x37518c0']
+
+[Block-4]
+self_id = 0x3752dd0
+from = ['0x374b680']
+name = output
+constructor = [['syntax', '('], ['space'], ['label', '='], ['space'], ['syntax', ')']]
+position = (256, 260)
+basename = asig
+inside = ['0x3758518', '0x3758908']
+to = []
+nested = []
+
+[Block-5]
+self_id = 0x3758518
+from = ['0x3752dd0']
+name = output
+constructor = [['edit', 'i', None, (255, 255, 255)]]
+position = (611, 90)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-6]
+self_id = 0x3758908
+from = ['0x3752dd0']
+name = output
+constructor = [['spin_int', '0', -100, 100]]
+position = (658, 90)
+basename = spin_int
+inside = []
+to = []
+nested = []
+
+[Block-7]
+self_id = 0x374a1b8
+from = ['0x374b680']
+name = output-bool
+constructor = [['syntax', '('], ['space'], ['label', '<'], ['space'], ['syntax', ')']]
+position = (376, 260)
+basename = men
+inside = ['0x3749680', '0x37491b8']
+to = []
+nested = []
+
+[Block-8]
+self_id = 0x3749680
+from = ['0x374a1b8']
+name = output
+constructor = [['edit', 'i', None, (255, 255, 255)]]
+position = (430, 43)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-9]
+self_id = 0x37491b8
+from = ['0x374a1b8']
+name = output
+constructor = [['spin_int', '8', -100, 100]]
+position = (477, 43)
+basename = spin_int
+inside = []
+to = []
+nested = []
+
+[Block-10]
+self_id = 0x3748878
+from = ['0x374b680']
+name = output
+constructor = [['space'], ['label', '++']]
+position = (500, 260)
+basename = incre__
+inside = ['0x3752a70']
+to = []
+nested = []
+
+[Block-11]
+self_id = 0x3752a70
+from = ['0x3748878']
+name = output
+constructor = [['edit', 'i', None, (255, 255, 255)]]
+position = (615, 174)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-12]
+self_id = 0x374e8c0
+from = ['0x3746638']
+name = linear
+constructor = [['edit', 'i', None, (255, 255, 255)], ['label', '='], ['space']]
+position = (51, 76)
+basename = asign
+inside = ['0x37510e0']
+to = []
+nested = []
+
+[Block-13]
+self_id = 0x37510e0
+from = ['0x374e8c0']
+name = output
+constructor = [['spin_int', '0', -100, 100]]
+position = (109, 78)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-14]
+self_id = 0x37518c0
+from = ['0x374b680']
+name = linear
+constructor = [['label', 'pinMode'], ['syntax', '('], ['space'], ['syntax', ','], ['space'], ['syntax', ')']]
+position = (205, 253)
+basename = pinMode
+inside = ['0x3752368', '0x374abd8']
+to = []
+nested = []
+
+[Block-15]
+self_id = 0x3752368
+from = ['0x37518c0']
+name = output
+constructor = [['edit', 'i', None, (255, 255, 255)]]
+position = (304, 299)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-16]
+self_id = 0x374abd8
+from = ['0x37518c0']
+name = output
+constructor = [['spin_choice', 'OUTPUT', ['INPUT', 'OUTPUT']]]
+position = (340, 299)
+basename = choice-io
+inside = []
+to = []
+nested = []
+
