@@ -28,7 +28,8 @@ class Math_(object):
     men = lambda n:Kit.addOper("Math", "<", "output-bool", ["space", "space"])   
     meneq = lambda n:Kit.addOper("Math", "<=", "output-bool", ["space", "space"])
     
-    equ = lambda n:Kit.addOper("Math", "==", "output-bool", ["space", "space"])  
+    equ = lambda n:Kit.addOper("Math", "==", "output-bool", ["space", "space"]) 
+    asig = lambda n:Kit.addOper("Math", "=", "output", ["space", "space"])  
     nequ = lambda n:Kit.addOper("Math", "!=", "output-bool", ["space", "space"])  
     equ_b = lambda n:Kit.addOper("Math", "==", "output-bool", ["space_bool", "space_bool"])  
     nequ_b = lambda n:Kit.addOper("Math", "!=", "output-bool", ["space_bool", "space_bool"])    
