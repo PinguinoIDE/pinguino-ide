@@ -11,7 +11,7 @@ from PySide import QtGui, QtCore
 from .blocks import Blocks
 from .work_area import WorkArea
 from .tool_area import ToolArea
-from .constant import FONTS_DIR, FORMAT, INTRO_CODE, TAB_NAME
+from .constant import FONTS_DIR, INTRO_CODE, TAB_NAME
 from ..bloques.color import setColor
 from ..py_bloques.get_blocks import all_sets
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
@@ -175,11 +175,12 @@ class GraphicalIDE:
     
     
     #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
     def get_pinguino_source_code(self):
         """"""
         editor = self.main.tabWidget_graphical.currentWidget()
-        editor.graphical_area.update_code()
-        return editor.graphical_area.PinguinoCode
+        #editor.graphical_area.update_code()
+        return editor.graphical_area.update_code()
                 
                 
     #----------------------------------------------------------------------
@@ -249,19 +250,60 @@ class GraphicalIDE:
                 "self_id": self.serialize_widgets([block])[0],
                 "to": self.serialize_widgets(block.metadata.to),
                 "from": self.serialize_widgets(block.metadata.from_),
-                "inside": self.serialize_widgets(block.metadata.inside),
+                #"inside2": self.serialize_widgets(block.metadata.inside), 
+                "inside": self.serialize_widgets(self.sort_inside(block)), 
                 "nested": self.serialize_widgets(block.metadata.nested),
                 })
             
         return to_save
     
+    
+    #----------------------------------------------------------------------
+    def sort_inside(self, block):
+        """"""
+        layout = block.metadata.object_.layout
+        bloque = block.ARGS[2:]
+        layout_pos = []
+        empty = block.metadata.object_.layoutsPos
+        for i in range(len(bloque)):
+            if bloque[i] in [["space"], ["space_bool"]]:
+                if i in empty:
+                    layout_pos.append(None)
+                else:
+                    layout_pos.append(True)    
+    
+        widgets = []
+        for i in range(layout.count()):
+            widgets.append(layout.itemAt(i).widget())
+            
+        widgets = filter(lambda wdg:getattr(wdg, "metadata", False), widgets)
+                         
+        inside = layout_pos
+            
+        for i in range(len(inside)):
+            if inside[i]: inside[i] = widgets.pop(0)
+            
+        return inside
+                         
+                         
+                     
+        
+    ##----------------------------------------------------------------------
+    #def force_inside(self, block, inside):
+        #""""""
+        
+        
+      
     #----------------------------------------------------------------------
     def serialize_widgets(self, widgets):
         """"""
         ser = []
         for widget in widgets:
             name = widget.__str__()
-            id_ = re.findall("[.]*0x[\dabcdef]*[.]*", name)[0]
+            if name == "None":
+                id_ = None
+            else:
+                id_ = re.findall("[.]*0x[\dabcdef]*[.]*", name)[0]
             ser.append(id_)
         return ser
         
@@ -297,8 +339,11 @@ class GraphicalIDE:
         
         toFitInside = []
         restaurPos = []
-        all_icons = []        
-
+        all_icons = []
+        
+        #dummy, pos = editor.graphical_area.new_bloq("output", all_sets["convert_"], QtCore.QPoint(), "dummy_block", "dummy_block")
+        #dummy.metadata.self_id = self.serialize_widgets([dummy])[0]
+        
         for block in set_blocks:
             name = block["name"]
             args = ["", ""] + block["constructor"]
@@ -315,18 +360,33 @@ class GraphicalIDE:
             newIcon.metadata.to = block["to"]
             newIcon.metadata.from_ = block["from"]
             newIcon.metadata.inside = block["inside"]
+            #for i in range(newIcon.metadata.inside.count(None)):
+                #newIcon.metadata.inside.remove(None)
             newIcon.metadata.nested = block["nested"]
                 
         self.replace_id_by_widgets()
         
         for block in editor.graphical_area.get_project_blocks():
-            if len(block.metadata.inside) > 0:
+            if block.metadata.inside:
                 toFitInside.append([block, block.metadata.inside])        
-                
+                #self.force_inside(block, block.metadata.inside)
+        
+        all_dummies = []
         for parent, toFit in toFitInside:
             for ins in toFit:
                 wdg = self.get_widget_from_id(ins)
-                wdg.metadata.add_parent([parent, wdg.metadata.widget], force=True)
+                if wdg:
+                    wdg.metadata.add_parent([parent, wdg], force=True)
+                else:
+                    dummy, pos = editor.graphical_area.new_bloq("output", all_sets["convert_"], QtCore.QPoint(), "dummy_block", "dummy_block")
+                    dummy.metadata.self_id = self.serialize_widgets([dummy])[0]
+                    dummy.metadata.add_parent([parent, dummy], force=True)
+                    all_dummies.append(dummy)
+                    #dummy.
+                    
+        for dummy in all_dummies:
+            dummy.metadata.remove_parent()
+            dummy.metadata.destroy_this()
                 
         
         for block in editor.graphical_area.get_project_blocks():
@@ -528,94 +588,94 @@ class GraphicalIDE:
             
 
         
-    #----------------------------------------------------------------------
-    def copy_blocks(self, event=None, nested_=False):
-        MetaData = self.getWorkArea().MetaData
+    ##----------------------------------------------------------------------
+    #def copy_blocks(self, event=None, nested_=False):
+        #MetaData = self.getWorkArea().MetaData
         
-        toSave = []
-        pos2 = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos())
-        self.cursorPosOnCopy = pos2
-        self.areaPosOnCopy = self.getWorkArea().SelectArea.pos()
+        #toSave = []
+        #pos2 = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos())
+        #self.cursorPosOnCopy = pos2
+        #self.areaPosOnCopy = self.getWorkArea().SelectArea.pos()
             
-        if self.getWorkArea().SelectArea.isVisible(): Keys = self.getWorkArea().getUnderSelection()
-        else:
-            self.getWorkArea().Searched = []
-            Keys = self.getWorkArea().getAllRelatedFromID(self.getWorkArea().lastBlockShadown) 
+        #if self.getWorkArea().SelectArea.isVisible(): Keys = self.getWorkArea().getUnderSelection()
+        #else:
+            #self.getWorkArea().Searched = []
+            #Keys = self.getWorkArea().getAllRelatedFromID(self.getWorkArea().lastBlockShadown) 
         
-        for key in Keys:
-            #print MetaData[key]["getConstructor"]()
-            toSave.append([MetaData[key]["baseName"],
-                           #(MetaData[key]["pos"]),
-                           [MetaData[key]["pos"].x()-pos2.x(), MetaData[key]["pos"].y()-pos2.y()],
-                           MetaData[key]["getConstructor"](),
-                           MetaData[key]["name"],
-                           key,
-                           MetaData[key]["to"],
-                           MetaData[key]["from"],
-                           MetaData[key]["inside"],
-                           MetaData[key]["nested"],
-                           #[MetaData[key]["widget"].x(), MetaData[key]["widget"].y()],
-                           ])
+        #for key in Keys:
+            ##print MetaData[key]["getConstructor"]()
+            #toSave.append([MetaData[key]["baseName"],
+                           ##(MetaData[key]["pos"]),
+                           #[MetaData[key]["pos"].x()-pos2.x(), MetaData[key]["pos"].y()-pos2.y()],
+                           #MetaData[key]["getConstructor"](),
+                           #MetaData[key]["name"],
+                           #key,
+                           #MetaData[key]["to"],
+                           #MetaData[key]["from"],
+                           #MetaData[key]["inside"],
+                           #MetaData[key]["nested"],
+                           ##[MetaData[key]["widget"].x(), MetaData[key]["widget"].y()],
+                           #])
             
 
-        self.CopyBlocksRAM = toSave[:]
+        #self.CopyBlocksRAM = toSave[:]
         
         
         
         
-    #----------------------------------------------------------------------
-    def paste_blocks(self, event=None):
-        if not self.CopyBlocksRAM: return
+    ##----------------------------------------------------------------------
+    #def paste_blocks(self, event=None):
+        #if not self.CopyBlocksRAM: return
             
-        space = self.CopyBlocksRAM
+        #space = self.CopyBlocksRAM
         
-        self.newIDs = {}
-        for block in space: self.newIDs[str(block[4])] = self.getWorkArea().getNewID()
+        #self.newIDs = {}
+        #for block in space: self.newIDs[str(block[4])] = self.getWorkArea().getNewID()
         
-        toFitInside = []
-        all_icons = []
-        for block in space:
-            name = block[3]
-            args = ["", ""] + block[2]
+        #toFitInside = []
+        #all_icons = []
+        #for block in space:
+            #name = block[3]
+            #args = ["", ""] + block[2]
             
-            pos = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos()) + QtCore.QPoint(*block[1])
-            
-            
-            baseName = block[0]
-            ID = self.newIDs[str(block[4])]
-            
-            newIcon, pos2, ID2, MetaData_C = self.getWorkArea().new_ploq(name, args, pos, baseName, ID)
+            #pos = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos()) + QtCore.QPoint(*block[1])
             
             
-            fix = lambda lista:map(lambda x:self.newIDs[x], lista)
+            #baseName = block[0]
+            #ID = self.newIDs[str(block[4])]
             
-            MetaData_C[ID]["to"] = fix(block[5])
-            MetaData_C[ID]["from"] = fix(block[6])
-            MetaData_C[ID]["inside"] = fix(block[7])
-            MetaData_C[ID]["nested"] = fix(block[8])
+            #newIcon, pos2, ID2, MetaData_C = self.getWorkArea().new_ploq(name, args, pos, baseName, ID)
             
-            newIcon.move(pos)
-            if len(fix(block[7])) > 0: toFitInside.append([ID, [fix(block[7])]])
+            
+            #fix = lambda lista:map(lambda x:self.newIDs[x], lista)
+            
+            #MetaData_C[ID]["to"] = fix(block[5])
+            #MetaData_C[ID]["from"] = fix(block[6])
+            #MetaData_C[ID]["inside"] = fix(block[7])
+            #MetaData_C[ID]["nested"] = fix(block[8])
+            
+            #newIcon.move(pos)
+            #if len(fix(block[7])) > 0: toFitInside.append([ID, [fix(block[7])]])
             
 
             
-        for toFit in toFitInside:
-            ID = toFit[0]
-            Inside = toFit[1][0]
-            for ins in Inside:             
-                self.getWorkArea().MetaData[ins]["addParent"]([self.getWorkArea().getWidget(ID),self.getWorkArea().getWidget(ins)],
-                                                              force = True)
+        #for toFit in toFitInside:
+            #ID = toFit[0]
+            #Inside = toFit[1][0]
+            #for ins in Inside:             
+                #self.getWorkArea().MetaData[ins]["addParent"]([self.getWorkArea().getWidget(ID), self.getWorkArea().getWidget(ins)],
+                                                              #force = True)
 
 
 
-        pos = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos()) - self.cursorPosOnCopy + self.areaPosOnCopy
+        #pos = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos()) - self.cursorPosOnCopy + self.areaPosOnCopy
             
-        self.getWorkArea().SelectArea.move(pos)          
-        self.getWorkArea().SelectArea.lower()            
-        self.getWorkArea().SelectArea.show()
-        self.getWorkArea().hasSelection = True
+        #self.getWorkArea().SelectArea.move(pos)          
+        #self.getWorkArea().SelectArea.lower()            
+        #self.getWorkArea().SelectArea.show()
+        #self.getWorkArea().hasSelection = True
         
-        self.getWorkArea().SelectionAbs = self.getWorkArea().getUnderSelection()
+        #self.getWorkArea().SelectionAbs = self.getWorkArea().getUnderSelection()
        
     #----------------------------------------------------------------------
     def get_tab(self):
