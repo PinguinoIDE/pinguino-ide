@@ -120,6 +120,11 @@ class Kit(object):
     
     def __init__(self):
         """constructor"""
+        
+    #----------------------------------------------------------------------
+    def addBackSpace(self):
+        """"""
+        self.bloque.append(["back_space"])
 
     #----------------------------------------------------------------------
     def addLabel(self, str_label):

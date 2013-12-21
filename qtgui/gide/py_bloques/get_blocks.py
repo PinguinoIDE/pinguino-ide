@@ -34,3 +34,6 @@ extractBlocks(Editables)
 
 from .communication import Communication
 extractBlocks(Communication)
+
+from .funtions import Functions
+extractBlocks(Functions)

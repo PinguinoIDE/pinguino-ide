@@ -52,19 +52,6 @@ class Control(object):
         pm.addSyntax(")")
         return pm.getBlock()
 
-
-    #----------------------------------------------------------------------
-    def repeat(self):
-        pm = Block.Nested("Control")
-        pm.addSyntax("//")
-        pm.addLabel("Repeat")
-        pm.addSyntax("\n")
-        pm.addSyntax("for(__i__=0;__i__<")
-        pm.addSpace()
-        pm.addSyntax(";__i__=__i__+1)")
-        pm.fillWith(["spin-int"])
-        return pm.getBlock()
-    
     #----------------------------------------------------------------------
     def switch(self):
         pm = Block.Nested("Control")
