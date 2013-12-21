@@ -23,6 +23,7 @@ TEMPLATES = {"and": {"python":"and", "pinguino":"&&",},
              "or": {"python":"or", "pinguino":"||",},
              }
 
+exclude_auto_open = ["button_pressed", "button_released"]
 
 ########################################################################
 class Metadata(object):
@@ -704,8 +705,9 @@ class WorkArea(QtGui.QWidget):
         
         global_ = ""
         if pinguino_code.find("__i__") > 0: global_ += "int __i__ = 0;\n"
+        if pinguino_code.find("__j__") > 0: global_ += "int __j__ = 0;\n"
         
-        if global_: global_ = "\n//  blocks variables, don't edit this\n" + global_
+        if global_: global_ = "\n//  blocks variables, don't edit this\n" + global_ + "\n"
         
         pinguino_code = INTRO_CODE() + global_ + pinguino_code
         
@@ -724,7 +726,7 @@ class WorkArea(QtGui.QWidget):
 
 
     #----------------------------------------------------------------------
-    def get_code_from(self, ID):
+    def get_code_from(self, ID, auto_open=True):
         """"""
         code = ""
         incrementar = False
@@ -773,10 +775,16 @@ class WorkArea(QtGui.QWidget):
         
         if len(ID.metadata.nested) > 0:
             bloque = ID.metadata.nested[0]
+            
+            #if auto_open: code += "{"
+            auto_open = not ID.metadata.basename in exclude_auto_open
+            #print bloque.metadata.basename, exclude_auto_open
+            if auto_open: code += "{"
+
             if not incrementar:
-                code += "{\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque).split("\n"))) + "}\n\n"
+                code += "\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque, auto_open=auto_open).split("\n"))) + "}\n\n"
             else:
-                code += "{\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque).split("\n"))) + "%s;}\n\n" % line[2]               
+                code += "\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque, auto_open=auto_open).split("\n"))) + "%s;}\n\n" % line[2]               
                 
             
         if len(ID.metadata.to) > 0:
