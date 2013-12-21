@@ -332,9 +332,6 @@ class EventMethods(SearchReplace):
         self.__save_file__(editor=editor)
         return True
         
-                
-        
-        
     #----------------------------------------------------------------------
     def undo(self):
         """"""
@@ -406,6 +403,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def highligh_line(self, line=None, color="#ff0000", text_cursor=None):
         """"""
         editor = self.main.tabWidget_files.currentWidget()
