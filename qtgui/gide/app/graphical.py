@@ -77,6 +77,7 @@ class GraphicalIDE:
             
         
         self.constant_update()
+        self.constant_auto_raise()
         
     
     #----------------------------------------------------------------------
@@ -262,6 +263,7 @@ class GraphicalIDE:
     def sort_inside(self, block):
         """"""
         layout = block.metadata.object_.layout
+        if layout is None: return []
         bloque = block.ARGS[2:]
         layout_pos = []
         empty = block.metadata.object_.layoutsPos
@@ -389,11 +391,11 @@ class GraphicalIDE:
             dummy.metadata.destroy_this()
                 
         
-        for block in editor.graphical_area.get_project_blocks():
-            if block.metadata.type_ in "tipo9 tipo7".split(): block.lower()                
+        #for block in editor.graphical_area.get_project_blocks():
+            #if block.metadata.type_ in "tipo9 tipo7".split(): block.lower()                
                 
-        for block in editor.graphical_area.get_project_blocks():
-            if block.metadata.type_ in "tipo4".split(): block.lower()
+        #for block in editor.graphical_area.get_project_blocks():
+            #if block.metadata.type_ in "tipo4".split(): block.lower()
             
                 
                 
@@ -702,4 +704,16 @@ class GraphicalIDE:
         """"""
         editor = self.main.tabWidget_graphical.currentWidget()
         editor.graphical_area.constant_update()
+        
+        
+    #----------------------------------------------------------------------
+    @Decorator.timer(500)
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_main_focus()
+    @Decorator.requiere_graphical_mode()
+    def constant_auto_raise(self):
+        """"""
+        editor = self.main.tabWidget_graphical.currentWidget()
+        if not editor.graphical_area.isDragging:
+            editor.graphical_area.auto_raise()
         

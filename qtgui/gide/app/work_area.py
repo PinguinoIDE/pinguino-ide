@@ -226,12 +226,14 @@ class WorkArea(QtGui.QWidget):
     def fill_widget_with(self, parent, content):
         """"""
         for block in content:
-            name = all_sets[block.replace("-", "_")][:]
+            name = all_sets.get(block.replace("-", "_"), None)
+            if name is None: return
+            else: name = name[:]
             NAME = name[0]
             ARGS = name     
             BASENAME = block 
             child, pos2 = self.new_bloq(NAME, ARGS, QtCore.QPoint(), BASENAME)
-            child.metadata.add_parent([parent.metadata.widget, child.metadata.widget])
+            child.metadata.add_parent([parent.metadata.widget, child.metadata.widget], force=True)
             child.metadata.from_.append(parent)
 
         
@@ -239,6 +241,7 @@ class WorkArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     def mouseMoveEvent(self, event=None, eventPos=None, child=None, pos = QtCore.QPoint(0, 0)):
         """"""
+        self.isDragging = True
         if event != None:
             eventPos = event.pos()
             self.selFin = eventPos
@@ -500,8 +503,8 @@ class WorkArea(QtGui.QWidget):
                 return
             
 
-            if not child.metadata.type_ in "tipo4 tipo9 tipo7".split():                
-                child.raise_()
+            #if not child.metadata.type_ in "tipo4 tipo9 tipo7".split():                
+                #child.raise_()
                 
             
             pos = child.pos()
@@ -537,6 +540,7 @@ class WorkArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     def mouseReleaseEvent(self, event):
         """"""
+        self.isDragging = False
             
         if self.CHILD != None:
             if self.CHILD.childAt(self.CHILD.mapFromGlobal(event.globalPos())):
@@ -573,11 +577,27 @@ class WorkArea(QtGui.QWidget):
         return self.CHILD, self.POS
 
     #----------------------------------------------------------------------
+    #@Decorator.requiere_no_dragging()
     def constant_update(self):
         """"""
         for block in self.get_project_blocks():
             block.metadata.widget.adjustSize()
         self.expand_all()
+        
+            
+    #----------------------------------------------------------------------
+    #@Decorator.requiere_no_dragging()
+    def auto_raise(self):
+        """"""
+        on_sort = []
+        for block in self.get_project_blocks():
+            on_sort.append((block.metadata.object_.widget.size().height(), block))
+            
+        on_sort.sort(key=lambda li: li[0])
+        for h, block in on_sort:
+            block.lower()
+    
+        
         
     #----------------------------------------------------------------------
     def paintEvent(self, event=None):
