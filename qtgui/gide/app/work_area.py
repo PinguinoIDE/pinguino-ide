@@ -9,7 +9,7 @@ import time
 from PySide import QtGui, QtCore
 
 from .blocks import Blocks
-from .constant import INTRO_CODE, GLOBAL_CODE
+from .constant import INTRO_CODE
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
 from ..py_bloques.get_blocks import all_sets
@@ -157,7 +157,7 @@ class WorkArea(QtGui.QWidget):
             if p[1] < h2:
                 h2 = p[1]
                 poin = p[0]
-                ID = p[2]
+                #ID = p[2]
             
         return poin, True, p[2]
         
@@ -198,6 +198,8 @@ class WorkArea(QtGui.QWidget):
         newIcon.metadata.expand = nuevo.f_expand
         
         newIcon.metadata.add_parent = nuevo.addParent
+        newIcon.metadata.remove_parent = nuevo.removeParent
+        
         newIcon.metadata.size = nuevo.size
         
         newIcon.metadata.line_code = nuevo.getLine
@@ -229,7 +231,7 @@ class WorkArea(QtGui.QWidget):
             ARGS = name     
             BASENAME = block 
             child, pos2 = self.new_bloq(NAME, ARGS, QtCore.QPoint(), BASENAME)
-            child.metadata.add_parent([parent.metadata.widget, child.metadata.widget], force=True)
+            child.metadata.add_parent([parent.metadata.widget, child.metadata.widget])
             child.metadata.from_.append(parent)
 
         
@@ -625,23 +627,16 @@ class WorkArea(QtGui.QWidget):
     def update_code(self):
         """"""
         self.allVars = []
-        self.PinguinoCode = INTRO_CODE() + GLOBAL_CODE()
-        self.PyCode = ""
+        pinguino_code = ""
                
         pi, py = self.get_code_start()
-        self.PinguinoCode += pi
-        self.PyCode += py
+        pinguino_code += pi
         
-        #for key in self.MetaData.keys():
         for block in self.get_project_blocks():
-            if block.metadata.basename in ["global-vars", "global-Vars", "global_Vars", "global_vars"]:
-                self.PinguinoCode += "//"                
-                self.PinguinoCode += self.get_code_from(key).replace("{\n", "").replace("}\n", "")
-                self.PyCode += "#"                                
-                self.PyCode += self.get_code_from(key).replace("\n{\n", ":\n").replace("}\n", "").replace("    ", "")
-        self.PinguinoCode += "\n\n"
-        self.PyCode += "\n\n"
-        
+            if block.metadata.basename == "global_vars":
+                pinguino_code += "\n//  "                
+                pinguino_code += self.get_code_from(block).replace("{\n", "").replace("}\n", "").replace("    ", "")
+                
         gloval_vars = ""
         if len(self.allVars) > 0: gloval_vars = "global " + ", ".join(self.allVars)
         
@@ -654,7 +649,7 @@ class WorkArea(QtGui.QWidget):
                     funcs.append(section)
                     
                     self.listTypeVars = {}                    
-                    code = self.get_code_from(key)
+                    code = self.get_code_from(key).replace("\n{\n", "{\n")
                     
                     if code == section + "()\n": code = section + "(){}\n"
                     
@@ -665,67 +660,36 @@ class WorkArea(QtGui.QWidget):
                         
                         if not typeVar:
                             ret = ret.replace("\"", "").replace("'", "").replace(" ", "")
-                            #print ret, ret.isalpha() and len(ret) == 1
                             if ret.isdigit(): typeVar = "int"
                             elif ret.count(".") == 1 and ret.replace(".", "").isdigit(): typeVar = "float"
                             elif ret.isalpha() and len(ret) == 1: typeVar = "char"
                             elif ret.isalpha(): typeVar = "char*"
                             
-                        self.PinguinoCode += typeVar + " "
+                        pinguino_code += typeVar + " "
                         self.dicTypes[code[:code.find("(")]] = typeVar
                         
-                    self.PinguinoCode += code.replace("(%s)", "()")
+                    pinguino_code += code.replace("(%s)", "()")
                         
-                    
-                    ##tempCode = self.getCodeFrom(key).replace("}\n", "")
-                    ##for i in range(10):  #10 nested max
-                        ##if i != 0: gloval_vars = ""
-                        ##indent = "".join([" "] * 4 * i)
-                        ##tempCode = tempCode.replace("\n%s{\n"%indent, ":\n    "+gloval_vars+"\n")
-                    
-                    ##if tempCode.count("\n") == 1: tempCode = tempCode.replace('\n',':\n    """"""')
-                    ##self.PyCode += "#" + "-" * 70 + "\n"
-                    ##self.PyCode += "def " + tempCode
-                    self.PinguinoCode += "\n\n"
-                    ##self.PyCode += "\n\n"
+                    #pinguino_code += "\n"
         
-        ExtraCodePinguino, ExtraCodePynguino = "", ""
+        pinguino_code_extra = ""
         for f in ["loop", "setup"]:
             if not f in funcs:
-                ExtraCodePinguino += "\n\n" + f + "(){}\n"
-                ##ExtraCodePynguino += "\n\ndef " + f + "(): pass\n"
-                    
-        ##plots = re.findall("\s(__update_plot__[\w]*)\(", self.PyCode)
-        ##for plot in plots: self.PyCode = self.PyCode.replace(plot, "__update_plot__")
-        
-        ##increm = re.findall("(.*[\w]+[+-]{2}.*)", self.PyCode)
-        ##increm_ = re.findall("([\w]+[+-]{2})", self.PyCode)
-        ##increm__ = map( lambda x:(x[:-2], x[-1]), increm_)
-        ##syntax = map(None, increm, increm_, increm__)
-        ##for incremento in syntax:
-            ##linea, incr, part = incremento
-            ##linea_post = linea.replace(incr, part[0]) + "\n" + self.count_indent(linea) + part[0] + part[1] + "=1"
-            ##self.PyCode = self.PyCode.replace(linea, linea_post)
-            
-        ##decrem = re.findall("(.*[+-]{2}[\w]+.*)", self.PyCode)
-        ##decrem_ = re.findall("([+-]{2}[\w]+)", self.PyCode)
-        ##decrem__ = map( lambda x:(x[2:], x[0]), decrem_)
-        ##syntax = map(None, decrem, decrem_, decrem__)
-        ##for decremento in syntax:
-            ##linea, incr, part = decremento
-            ##linea_post = self.count_indent(linea) + part[0] + part[1] + "=1\n" + linea.replace(incr, part[0])
-            ##self.PyCode = self.PyCode.replace(linea, linea_post)
-        
+                pinguino_code_extra += "\n" + f + "(){\n    }\n"
         
         for key in TEMPLATES.keys():
-            self.PinguinoCode = self.PinguinoCode.replace("@"+key+"@", TEMPLATES[key]["pinguino"])
-            ##self.PyCode = self.PyCode.replace("@"+key+"@", TEMPLATES[key]["python"])
-        
+            pinguino_code = pinguino_code.replace("@"+key+"@", TEMPLATES[key]["pinguino"])
     
-        self.PinguinoCode += ExtraCodePinguino
-        #self.PynguinoCode = INTRO_CODE_PY() + GLOBAL_CODE_PYNGUINO() + self.PyCode + ExtraCodePynguino
-        #self.PythonCode = INTRO_CODE_PY() + GLOBAL_CODE_PYTHON() + self.PyCode    
+        pinguino_code += pinguino_code_extra
         
+        global_ = ""
+        if pinguino_code.find("__i__") > 0: global_ += "int __i__ = 0;\n"
+        
+        if global_: global_ = "\n//  blocks variables, don't edit this\n" + global_
+        
+        pinguino_code = INTRO_CODE() + global_ + pinguino_code
+        
+        return pinguino_code
         
 
 
@@ -782,15 +746,7 @@ class WorkArea(QtGui.QWidget):
                     
             else:
                 code += ID.metadata.line_code()
-                    
-        elif ID.metadata.basename in ["repeat", "for"]:
-            line = ID.metadata.line_code()
-            line = line.replace("\n", "")
-            line = line[line.find("(")+1:-1].split(";")
-            code += line[0] + ";\n"
-            code += "while (%s)\n" % line[1]
-            incrementar = True
-        
+
         
             	
         else: code += ID.metadata.line_code()
@@ -941,53 +897,53 @@ class WorkArea(QtGui.QWidget):
             
         return IDs
     
-    #----------------------------------------------------------------------
-    def getAllRelatedFromID(self, IDs):
-        """"""
+    ##----------------------------------------------------------------------
+    #def getAllRelatedFromID(self, IDs):
+        #""""""
         
-        all_ = []
+        #all_ = []
         
-        def getNear(Id):
-            allo = []
-            for ID in self.MetaData.keys():
-                colection = self.MetaData[ID]["nested"] + self.MetaData[ID]["inside"] + self.MetaData[ID]["to"] + self.MetaData[ID]["from"]
-                if Id in colection:
-                    if ID in self.Searched:
-                        allo.extend([ID]+colection)
-                    else:
-                        self.Searched.append(ID)
-                        allo.extend(getNear(ID)+colection)
+        #def getNear(Id):
+            #allo = []
+            #for ID in self.MetaData.keys():
+                #colection = self.MetaData[ID]["nested"] + self.MetaData[ID]["inside"] + self.MetaData[ID]["to"] + self.MetaData[ID]["from"]
+                #if Id in colection:
+                    #if ID in self.Searched:
+                        #allo.extend([ID]+colection)
+                    #else:
+                        #self.Searched.append(ID)
+                        #allo.extend(getNear(ID)+colection)
                     
-            return allo
+            #return allo
         
         
-        for IDD in IDs:
-            all_.extend(getNear(IDD))
+        #for IDD in IDs:
+            #all_.extend(getNear(IDD))
                     
-        all_ = list(set(all_))
+        #all_ = list(set(all_))
         
-        return all_
+        #return all_
         
-    #----------------------------------------------------------------------
-    def remove_block(self, key):
-        """"""
-        self.MetaData[key]["object"].destroy_this()
+    ##----------------------------------------------------------------------
+    #def remove_block(self, key):
+        #""""""
+        #self.MetaData[key]["object"].destroy_this()
         
-        try:
-            for ins in self.MetaData[key]["inside"]:
-                self.MetaData[ins]["object"].DeletLater = True
-        except KeyError: 
-            pass
+        #try:
+            #for ins in self.MetaData[key]["inside"]:
+                #self.MetaData[ins]["object"].DeletLater = True
+        #except KeyError: 
+            #pass
         
-        for key_ in self.MetaData.keys():
-            if key in self.MetaData[key_]["to"]: self.MetaData[key_]["to"].remove(key)
-            if key in self.MetaData[key_]["inside"]: self.MetaData[key_]["inside"].remove(key)
-            if key == self.MetaData[key_]["from"]: self.MetaData[key_]["from"] = []     
-            if key in self.MetaData[key_]["nested"]: self.MetaData[key_]["nested"].remove(key)               
+        #for key_ in self.MetaData.keys():
+            #if key in self.MetaData[key_]["to"]: self.MetaData[key_]["to"].remove(key)
+            #if key in self.MetaData[key_]["inside"]: self.MetaData[key_]["inside"].remove(key)
+            #if key == self.MetaData[key_]["from"]: self.MetaData[key_]["from"] = []     
+            #if key in self.MetaData[key_]["nested"]: self.MetaData[key_]["nested"].remove(key)               
         
-        b = self.MetaData.pop(key)
-        del b
-        #self.saveHistorial()
+        #b = self.MetaData.pop(key)
+        #del b
+        ##self.saveHistorial()
 
 
         
