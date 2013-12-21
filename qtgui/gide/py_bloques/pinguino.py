@@ -55,7 +55,7 @@ class Pinguino(object):
     def global_vars(self):
         st = Block.Function("Pinguino")
         st.addLabel("global")
-        st.addSyntax("vars")
+        st.addSyntax(" variables")
         return st.getBlock()
     
 
