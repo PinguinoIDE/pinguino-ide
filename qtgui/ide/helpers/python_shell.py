@@ -7,11 +7,9 @@ import traceback
 import types
 from cStringIO import StringIO
 
-
 ########################################################################
 class PythonShell(object):
     """"""
-
     #----------------------------------------------------------------------
     def __init__(self):
         """Constructor"""
@@ -20,9 +18,7 @@ class PythonShell(object):
 
         sys.modules['__main__'] = self.statement_module
         self.statement_module.__name__ = '__main__'
-
-          
-
+        
     #----------------------------------------------------------------------
     def run(self, command):
         """"""
