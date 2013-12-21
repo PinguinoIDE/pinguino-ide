@@ -8,5 +8,6 @@ Blocks = {"linear": "BlockLinear",
           "output-bool": "BlockSpaceBool",
           "nested-second": "BlockNestedSecond",
           "frame-edit": "BlockFrameEdit",
-          "frame-plot": "BlockFramePlot",
-          "frame-debug": "BlockFrameDebug",}
+          #"frame-plot": "BlockFramePlot",
+          #"frame-debug": "BlockFrameDebug",
+          }
