@@ -25,6 +25,11 @@ class Stdout(QtGui.QMainWindow):
         self.stdout.setupUi(self)
         self.main = parent
         
+        font = self.stdout.plainTextEdit.font()
+        font.setFamily("mono")
+        font.setPointSize(font.pointSize()-1)
+        self.stdout.plainTextEdit.setFont(font)
+        
         self.setWindowTitle(TAB_NAME+" - "+title)
         
         self.connect(self.stdout.buttonBox, QtCore.SIGNAL("clicked(QAbstractButton*)"), self.getButton)
