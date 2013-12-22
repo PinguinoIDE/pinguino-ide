@@ -14,6 +14,8 @@ from .widgets import Name
 from .inside import Inside, Inside2
 from .inside import InsideBool, Inside2Bool
 
+FIX_SYNTAX = ", ; = > < >= <= + -".split()
+
 FONT_SIZE = 15
 ADJ = 10  #space at end
 ADJ2 = -5  #space on expand
@@ -629,14 +631,11 @@ class Constructor(object):
         self.layout_adds_b.append(toInsideBool)
         self.layout_adds_all.append(toInsideBool)        
         self.constructorCode.append(lambda :["space_bool"])        
-
-    #def addSyntax(self, inside):
-        #self.LineCode.append(lambda :inside)
-        #self.constructorCode.append(lambda :["syntax", inside])
         
     def addSyntax(self, widget, text):
-        #if text == " ": tosh = " "
-        #else: tosh = ""
+        for char in FIX_SYNTAX:
+            if text == char: text += " "
+            
         widgetLabel, Label = self.buildLabel(widget, "")
         self.layout.addWidget(widgetLabel)
         
