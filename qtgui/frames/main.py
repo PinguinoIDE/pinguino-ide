@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Wed Dec 18 19:49:05 2013
+# Created: Sun Dec 22 08:31:36 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(962, 629)
+        PinguinoIDE.resize(966, 633)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         PinguinoIDE.setWindowIcon(icon)
@@ -54,7 +54,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 962, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 966, 24))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -554,6 +554,10 @@ class Ui_PinguinoIDE(object):
         self.actionBlocks.setCheckable(True)
         self.actionBlocks.setChecked(True)
         self.actionBlocks.setObjectName("actionBlocks")
+        self.actionColor_theme = QtGui.QAction(PinguinoIDE)
+        self.actionColor_theme.setCheckable(True)
+        self.actionColor_theme.setChecked(True)
+        self.actionColor_theme.setObjectName("actionColor_theme")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.menuRecents.menuAction())
@@ -599,6 +603,7 @@ class Ui_PinguinoIDE(object):
         self.menuCompilers.addAction(self.actionUse_system_compilers)
         self.menuConfiguration.addAction(self.menuCompilers.menuAction())
         self.menuConfiguration.addAction(self.actionAutocomplete)
+        self.menuConfiguration.addAction(self.actionColor_theme)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuSource.menuAction())
@@ -705,7 +710,7 @@ class Ui_PinguinoIDE(object):
         self.comboBox_filesg.setItemText(3, QtGui.QApplication.translate("PinguinoIDE", "Other...", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_blocks_tools.setTabText(self.tabWidget_blocks_tools.indexOf(self.tab_2), QtGui.QApplication.translate("PinguinoIDE", "Files", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_graphical.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical mode", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolBar_switch.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "toolBar", None, QtGui.QApplication.UnicodeUTF8))
+        self.toolBar_switch.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Mode", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New file", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+N", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Open file", None, QtGui.QApplication.UnicodeUTF8))
@@ -762,7 +767,7 @@ class Ui_PinguinoIDE(object):
         self.actionShop.setText(QtGui.QApplication.translate("PinguinoIDE", "Shop", None, QtGui.QApplication.UnicodeUTF8))
         self.actionGitHub.setText(QtGui.QApplication.translate("PinguinoIDE", "GitHub", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_as.setText(QtGui.QApplication.translate("PinguinoIDE", "Save as", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionCurrent_Board.setText(QtGui.QApplication.translate("PinguinoIDE", "Current Board", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCurrent_Board.setText(QtGui.QApplication.translate("PinguinoIDE", "Current board", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCurrent_Board.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F12", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUse_system_compilers.setText(QtGui.QApplication.translate("PinguinoIDE", "Use system compilers", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUse_system_compilers.setToolTip(QtGui.QApplication.translate("PinguinoIDE", "Use system compilers", None, QtGui.QApplication.UnicodeUTF8))
@@ -773,6 +778,6 @@ class Ui_PinguinoIDE(object):
         self.actionTools.setText(QtGui.QApplication.translate("PinguinoIDE", "Tools", None, QtGui.QApplication.UnicodeUTF8))
         self.actionShell.setText(QtGui.QApplication.translate("PinguinoIDE", "Shell", None, QtGui.QApplication.UnicodeUTF8))
         self.actionBlocks.setText(QtGui.QApplication.translate("PinguinoIDE", "Blocks", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionColor_theme.setText(QtGui.QApplication.translate("PinguinoIDE", "Color theme", None, QtGui.QApplication.UnicodeUTF8))
 
-import resources_rc
 import resources_rc

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>965</width>
-    <height>629</height>
+    <width>966</width>
+    <height>633</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -115,8 +115,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>965</width>
-     <height>23</height>
+     <width>966</width>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -213,6 +213,7 @@
     </widget>
     <addaction name="menuCompilers"/>
     <addaction name="actionAutocomplete"/>
+    <addaction name="actionColor_theme"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1406,7 +1407,7 @@
   </action>
   <action name="actionCurrent_Board">
    <property name="text">
-    <string>Current Board</string>
+    <string>Current board</string>
    </property>
    <property name="shortcut">
     <string>F12</string>
@@ -1489,6 +1490,17 @@
     <string>Blocks</string>
    </property>
   </action>
+  <action name="actionColor_theme">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Color theme</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>tabWidget_files</tabstop>
@@ -1508,7 +1520,6 @@
   <tabstop>pushButton_replace_all</tabstop>
  </tabstops>
  <resources>
-  <include location="../resources/resources.qrc"/>
   <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
