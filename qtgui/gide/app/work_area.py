@@ -91,7 +91,8 @@ class WorkArea(QtGui.QWidget):
         """"""
         menu = QtGui.QMenu()
         if self.isSelecting:
-            menu.addAction("Delete selected blocks", self.dele_blocks)
+            if self.getUnderSelection():
+                menu.addAction("Delete selected blocks", self.dele_blocks)
             menu.addAction("Take Screenshot from selected area", self.screen_shot_area)
             menu.addAction("Export code to pinguino editor", self.export_code_to_pinguino_editor)
         menu.exec_(event.globalPos())
@@ -100,8 +101,7 @@ class WorkArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     def export_code_to_pinguino_editor(self):
         """"""
-        self.update_code()
-        code = self.PinguinoCode
+        code = self.update_code()
         
         self.ide.switch_ide_mode(False)        
         self.ide.new_file()
@@ -598,6 +598,7 @@ class WorkArea(QtGui.QWidget):
         for h, block in on_sort:
             block.lower()
     
+        self.SelectArea.lower()
         
         
     #----------------------------------------------------------------------
@@ -655,7 +656,7 @@ class WorkArea(QtGui.QWidget):
         
         for block in self.get_project_blocks():
             if block.metadata.basename == "global_vars":
-                pinguino_code += "\n//  "                
+                pinguino_code += "//  "                
                 pinguino_code += self.get_code_from(block).replace("{\n", "").replace("}\n", "").replace("    ", "")
                 
         gloval_vars = ""
@@ -707,7 +708,7 @@ class WorkArea(QtGui.QWidget):
         if pinguino_code.find("__i__") > 0: global_ += "int __i__ = 0;\n"
         if pinguino_code.find("__j__") > 0: global_ += "int __j__ = 0;\n"
         
-        if global_: global_ = "\n//  blocks variables, don't edit this\n" + global_ + "\n"
+        if global_: global_ = "//  blocks variables, don't edit this\n" + global_ + "\n"
         
         pinguino_code = INTRO_CODE() + global_ + pinguino_code
         
@@ -760,18 +761,18 @@ class WorkArea(QtGui.QWidget):
                         nameVar = tempCode[tempCode.find("=")+1:tempCode.find(" ")]
                     
                     code += typeVar + " "
-                    code += ID.metadata.line_code()
+                    code += ID.metadata.line_code().replace("=", " = ", 1)
                    
                 try: self.listTypeVars[tempCode[:tempCode.find("=")]] = typeVar
                 except: pass
                     
                     
             else:
-                code += ID.metadata.line_code()
+                code += ID.metadata.line_code().replace("=", " = ", 1)
 
         
             	
-        else: code += ID.metadata.line_code()
+        else: code += self.fix_syntax_code(ID, ID.metadata.line_code())
         
         if len(ID.metadata.nested) > 0:
             bloque = ID.metadata.nested[0]
@@ -792,6 +793,15 @@ class WorkArea(QtGui.QWidget):
             code += self.get_code_from(bloque)
         
         return code
+    
+    #----------------------------------------------------------------------
+    def fix_syntax_code(self, bloque, code):
+        """"""
+        fix_syntax = "> < >= <= = ".split()
+        for char in fix_syntax:
+            code = code.replace(char, " "+char+" ")
+        return code
+        
     
     #----------------------------------------------------------------------
     def get_name_function(self, ID):
