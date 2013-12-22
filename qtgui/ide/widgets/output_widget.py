@@ -42,6 +42,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.set_last_line()
         
         if event.key() in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Enter-1):
+            self.moveCursor(QtGui.QTextCursor.End)
             self.index_historial = 0
             super(PinguinoTerminal, self).keyPressEvent(event)
             command = self.get_command()
@@ -67,7 +68,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                 tc = self.textCursor()
                 tc.movePosition(tc.StartOfLine, tc.KeepAnchor)
                 tc.removeSelectedText()
-                tc.insertText(">>> ")
+                tc.insertText(START)
                 
                 tc.insertText(self.historial[-self.index_historial])
                 
@@ -82,10 +83,13 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                 tc = self.textCursor()
                 tc.movePosition(tc.StartOfLine, tc.KeepAnchor)
                 tc.removeSelectedText()
-                tc.insertText(">>> ")
+                tc.insertText(START)
                 
                 tc.insertText(self.historial[-self.index_historial])
             
+        elif event.key() == QtCore.Qt.Key_Left:
+            if self.no_overwrite_start():
+                super(PinguinoTerminal, self).keyPressEvent(event)
         
         else:
             super(PinguinoTerminal, self).keyPressEvent(event)
@@ -129,8 +133,19 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         position = cursor.position()
         plain = self.toPlainText()
         index = plain.rfind("\n")
-        if position < index: self.moveCursor(QtGui.QTextCursor.End)
+        if position < (index + len(START) + 1): self.moveCursor(QtGui.QTextCursor.End)
         
+                          
+    #----------------------------------------------------------------------
+    def no_overwrite_start(self):
+        """"""
+        cursor = self.textCursor()
+        position = cursor.position()
+        plain = self.toPlainText()
+        index = plain.rfind("\n")
+        if position > index:
+            return (position - index) > len(START) + 1
+        #if position < index: self.moveCursor(QtGui.QTextCursor.End)
         
         
     #----------------------------------------------------------------------
