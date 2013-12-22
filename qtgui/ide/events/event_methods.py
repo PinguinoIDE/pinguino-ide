@@ -689,7 +689,7 @@ class EventMethods(SearchReplace):
     def __show_pinguino_code__(self):
         """"""
         self.frame_pinguino_code = Stdout(self, "Pinguino code")
-        self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code())
+        self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
         self.frame_pinguino_code.show()
                 
                 
