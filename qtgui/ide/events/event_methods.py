@@ -293,7 +293,6 @@ class EventMethods(SearchReplace):
         #editor = self.main.tabWidget_files.currentWidget()
         #index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)
-        self.update_recents(filename)
         save_path = getattr(editor, "path", None)
         
         if not save_path:
@@ -302,7 +301,9 @@ class EventMethods(SearchReplace):
             setattr(editor, "path", save_path)
             self.main.tabWidget_files.setTabText(index, filename)
             self.main.tabWidget_files.setTabToolTip(index, save_path)    
-            self.setWindowTitle(Constants.TAB_NAME+" - "+save_path)        
+            self.setWindowTitle(Constants.TAB_NAME+" - "+save_path)
+            
+            self.update_recents(save_path)            
         
         self.__save_file__(editor=editor)
         return True
@@ -958,4 +959,28 @@ class EventMethods(SearchReplace):
         return menu
             
         
-    
+    #----------------------------------------------------------------------
+    def switch_color_theme(self, pinguino_color=True):
+        """"""
+        default_pallete = ["toolBar_edit", "toolBar_files", "toolBar_search_replace",
+                           "toolBar_undo_redo", "toolBar_pinguino", "toolBar_pinguino",
+                           "toolBar_graphical", "toolBar_switch"]
+        
+        pinguino_pallete = ["dockWidget_output", "dockWidget_tools", "dockWidget_blocks",
+                            "toolBar_board"]
+        
+        if pinguino_color:
+            for element in pinguino_pallete:
+                self.PinguinoPallete.set_background_pinguino(getattr(self.main, element))
+            for element in default_pallete:
+                self.PinguinoPallete.set_default_palette(getattr(self.main, element))
+            self.PinguinoPallete.set_background_pinguino(self.main.centralwidget.parent())
+            self.main.label_logo.setPixmap(QtGui.QPixmap(":/logo/art/banner.png"))
+        else:
+            for element in default_pallete + pinguino_pallete:
+                self.PinguinoPallete.set_default_palette(getattr(self.main, element))
+            self.PinguinoPallete.set_default_palette(self.main.centralwidget.parent())
+            self.main.label_logo.setPixmap(QtGui.QPixmap(":/logo/art/banner_blue.png"))
+        
+        self.configIDE.set("Main", "color_theme", pinguino_color)
+        self.main.actionColor_theme.setChecked(pinguino_color)
