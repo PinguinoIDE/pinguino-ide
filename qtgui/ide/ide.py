@@ -31,8 +31,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.pinguinoAPI = Pinguino()
         self.configIDE = Config()
         self.ICONS = CompleteIcons()
+        self.PinguinoPallete = BackgroundPallete()
+        self.PinguinoPallete.save_palette(self.main.centralwidget.parent())   
         
-        self.fix_palettes()
+        self.switch_color_theme(self.configIDE.config("Main", "color_theme", True))
         self.__initialize_features__()
         
         self.connect_events()
@@ -59,6 +61,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.load_main_config()
         
         #self.update_namespaces()
+             
         
         
     #----------------------------------------------------------------------
@@ -148,24 +151,3 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     
     
 
-    #----------------------------------------------------------------------
-    def fix_palettes(self):
-        """"""
-        pallete = BackgroundPallete()
-        pallete.save_palette(self.main.centralwidget.parent())
-
-        pallete.set_background_pinguino(self.main.dockWidget_output)
-        pallete.set_background_pinguino(self.main.dockWidget_tools)
-        pallete.set_background_pinguino(self.main.dockWidget_blocks)  
-        pallete.set_background_pinguino(self.main.toolBar_board)
-        pallete.set_background_pinguino(self.main.centralwidget.parent())
-        
-        pallete.set_default_palette(self.main.toolBar_edit)
-        pallete.set_default_palette(self.main.toolBar_files)
-        pallete.set_default_palette(self.main.toolBar_search_replace)
-        pallete.set_default_palette(self.main.toolBar_undo_redo)
-        pallete.set_default_palette(self.main.toolBar_pinguino)
-        pallete.set_default_palette(self.main.toolBar_graphical)
-        pallete.set_default_palette(self.main.toolBar_switch)
-        
-        del pallete
