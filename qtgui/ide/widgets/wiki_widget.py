@@ -36,46 +36,53 @@ class WikiWidget(QtGui.QWidget):
         self.build_title()
         
 
-        libs = self.get_libraries()
+        self.set_home()
+        
+        
+        #self.connect(self.main_widget.textBrowser_doc, QtCore.SIGNAL("sourceChanged(QUrl)"), self.open_tab_doc)
+        self.connect(self.main_widget.textBrowser_doc, QtCore.SIGNAL("anchorClicked(QUrl)"), self.open_tab_doc)
+
+    #----------------------------------------------------------------------
+    def set_home(self, libs=None):
+        """"""
+        if not libs: libs = self.get_libraries()
+        
         libs_html = ""
         self.index_html = ""
         for lib in libs:
             libs_html += self.build_library(**lib)
         
-        
         self.html_doc += self.index_html + "<hr>"
         self.html_doc += libs_html
         
-        
         self.html_doc += "</body></html>"        
     
-        #self.main_widget.textEdit_doc.insertHtml(self.html_doc)
         self.main_widget.textBrowser_doc.insertHtml(self.html_doc)
         self.main_widget.textBrowser_doc.moveCursor(QtGui.QTextCursor.Start)
-        
-        
-        self.connect(self.main_widget.textBrowser_doc, QtCore.SIGNAL("sourceChanged(QUrl)"), self.open_tab_doc)
-        #self.connect(self.main_widget.textBrowser_doc, QtCore.SIGNAL("anchorClicked(QUrl)"), self.open_tab_doc)
+
         
     #----------------------------------------------------------------------
     def open_tab_doc(self, url):
         """"""
         url = url.toString()
         if url == "__update__":
-            Dialogs.info_message(self.main, "This will take a long time.")
-            self.update_from_wiki()
-            return
+            reply = Dialogs.confirm(self.main, "Sure?", "This will take a long time.")
+            if reply:
+                libs = self.update_from_wiki()
+                if libs:
+                    libs = self.update_from_wiki()
+                    pickle.dump(libs, file(IDE_WIKI_DOCS, "w"))
+                else:
+                    Dialogs.info_message(self.main, "Imposible read Wiki page.\n"+"http://wiki.pinguino.cc") 
+                self.set_home(libs=libs)
+                return
+            else:
+                self.set_home()
+                return
         
         if not "http" in url: return
         
-            
-        #print url[1:]
-        self.main.set_url_wiki_docs(url[1:])
-        #self.replace_with_url(url[1:])
-        #wiki_widget = WikiWidget(self.main)
-        #setattr(wiki_widget, "is_widget", True)
-        #self.replace_with_url(url)
-        #self.main.tabWidget_files.addTab(wiki_widget, "Docs - Wiki")        
+        self.main.set_url_wiki_docs(url[1:])    
         
         
         
