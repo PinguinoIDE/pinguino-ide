@@ -27,6 +27,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.main= Ui_PinguinoIDE()          
         self.main.setupUi(self)
         self.setWindowTitle(Constants.TAB_NAME)
+        self.build_statusbar()
         
         self.pinguinoAPI = Pinguino()
         self.configIDE = Config()
@@ -62,6 +63,11 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         
         #self.update_namespaces()
              
+    #----------------------------------------------------------------------
+    def build_statusbar(self):
+        """"""
+        self.status_info = QtGui.QLabel()
+        self.main.statusBar.addPermanentWidget(self.status_info, 1)    
         
         
     #----------------------------------------------------------------------
@@ -96,8 +102,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     #----------------------------------------------------------------------
     def statusbar_ide(self, status):
         """"""
-        self.main.actionBoard_info.setText(status)
-
+        self.status_info.setText(status)
+        
         
     #----------------------------------------------------------------------
     def set_board(self):

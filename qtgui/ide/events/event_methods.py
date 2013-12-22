@@ -966,8 +966,7 @@ class EventMethods(SearchReplace):
                            "toolBar_undo_redo", "toolBar_pinguino", "toolBar_pinguino",
                            "toolBar_graphical", "toolBar_switch"]
         
-        pinguino_pallete = ["dockWidget_output", "dockWidget_tools", "dockWidget_blocks",
-                            "toolBar_board"]
+        pinguino_pallete = ["dockWidget_output", "dockWidget_tools", "dockWidget_blocks"]
         
         if pinguino_color:
             for element in pinguino_pallete:

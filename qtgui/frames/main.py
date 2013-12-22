@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sun Dec 22 08:31:36 2013
+# Created: Sun Dec 22 10:37:13 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(966, 633)
+        PinguinoIDE.resize(966, 655)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         PinguinoIDE.setWindowIcon(icon)
@@ -310,26 +310,6 @@ class Ui_PinguinoIDE(object):
         self.toolBar_pinguino.setIconSize(QtCore.QSize(32, 32))
         self.toolBar_pinguino.setObjectName("toolBar_pinguino")
         PinguinoIDE.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar_pinguino)
-        self.toolBar_board = QtGui.QToolBar(PinguinoIDE)
-        self.toolBar_board.setEnabled(True)
-        self.toolBar_board.setMaximumSize(QtCore.QSize(16777215, 22))
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(76, 76, 76))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(76, 76, 76))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(76, 76, 76))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
-        self.toolBar_board.setPalette(palette)
-        self.toolBar_board.setMovable(False)
-        self.toolBar_board.setAllowedAreas(QtCore.Qt.BottomToolBarArea|QtCore.Qt.TopToolBarArea)
-        self.toolBar_board.setToolButtonStyle(QtCore.Qt.ToolButtonTextOnly)
-        self.toolBar_board.setFloatable(False)
-        self.toolBar_board.setObjectName("toolBar_board")
-        PinguinoIDE.addToolBar(QtCore.Qt.BottomToolBarArea, self.toolBar_board)
         self.dockWidget_blocks = QtGui.QDockWidget(PinguinoIDE)
         self.dockWidget_blocks.setFeatures(QtGui.QDockWidget.AllDockWidgetFeatures)
         self.dockWidget_blocks.setObjectName("dockWidget_blocks")
@@ -392,6 +372,9 @@ class Ui_PinguinoIDE(object):
         self.toolBar_switch.setIconSize(QtCore.QSize(32, 32))
         self.toolBar_switch.setObjectName("toolBar_switch")
         PinguinoIDE.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar_switch)
+        self.statusBar = QtGui.QStatusBar(PinguinoIDE)
+        self.statusBar.setObjectName("statusBar")
+        PinguinoIDE.setStatusBar(self.statusBar)
         self.actionNew_file = QtGui.QAction(PinguinoIDE)
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/new_file.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -629,7 +612,6 @@ class Ui_PinguinoIDE(object):
         self.toolBar_pinguino.addAction(self.actionCompile)
         self.toolBar_pinguino.addAction(self.actionUpload)
         self.toolBar_pinguino.addSeparator()
-        self.toolBar_board.addAction(self.actionBoard_info)
         self.toolBar_graphical.addAction(self.actionSave_image)
         self.toolBar_switch.addAction(self.actionSwitch_ide)
 
@@ -700,7 +682,6 @@ class Ui_PinguinoIDE(object):
         self.toolBar_edit.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_search_replace.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Search Replace", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_pinguino.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Pinguino", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolBar_board.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Board info", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_blocks.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Blocks", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_blocks_tools.setTabText(self.tabWidget_blocks_tools.indexOf(self.tab), QtGui.QApplication.translate("PinguinoIDE", "Blocks", None, QtGui.QApplication.UnicodeUTF8))
         self.label_pathg.setText(QtGui.QApplication.translate("PinguinoIDE", "../", None, QtGui.QApplication.UnicodeUTF8))

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>966</width>
-    <height>633</height>
+    <height>655</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -826,76 +826,6 @@
    <addaction name="actionUpload"/>
    <addaction name="separator"/>
   </widget>
-  <widget class="QToolBar" name="toolBar_board">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>16777215</width>
-     <height>22</height>
-    </size>
-   </property>
-   <property name="palette">
-    <palette>
-     <active>
-      <colorrole role="ButtonText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>76</red>
-         <green>76</green>
-         <blue>76</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </active>
-     <inactive>
-      <colorrole role="ButtonText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>76</red>
-         <green>76</green>
-         <blue>76</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </inactive>
-     <disabled>
-      <colorrole role="ButtonText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>76</red>
-         <green>76</green>
-         <blue>76</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </disabled>
-    </palette>
-   </property>
-   <property name="windowTitle">
-    <string>Board info</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="allowedAreas">
-    <set>Qt::BottomToolBarArea|Qt::TopToolBarArea</set>
-   </property>
-   <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonTextOnly</enum>
-   </property>
-   <property name="floatable">
-    <bool>false</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>BottomToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="actionBoard_info"/>
-  </widget>
   <widget class="QDockWidget" name="dockWidget_blocks">
    <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
@@ -1056,6 +986,7 @@
    </attribute>
    <addaction name="actionSwitch_ide"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew_file">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
