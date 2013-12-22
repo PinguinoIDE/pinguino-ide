@@ -8,7 +8,7 @@ from PySide import QtGui, QtCore
 from ..helpers.constants import TAB_NAME
 from ..helpers.constants import PINGUINO_STDOUT_FILE
 from ...frames.stdout import Ui_Stdout
-
+from ..code_editor.syntaxhighlighter import Highlighter
 
 ########################################################################
 class Stdout(QtGui.QMainWindow):
@@ -25,10 +25,10 @@ class Stdout(QtGui.QMainWindow):
         self.stdout.setupUi(self)
         self.main = parent
         
-        font = self.stdout.plainTextEdit.font()
+        font = self.stdout.textEdit.font()
         font.setFamily("mono")
         font.setPointSize(font.pointSize()-1)
-        self.stdout.plainTextEdit.setFont(font)
+        self.stdout.textEdit.setFont(font)
         
         self.setWindowTitle(TAB_NAME+" - "+title)
         
@@ -59,8 +59,7 @@ class Stdout(QtGui.QMainWindow):
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
         
     #----------------------------------------------------------------------
-    def show_text(self, text):
+    def show_text(self, text, pde=False):
         """"""
-        self.stdout.plainTextEdit.setPlainText(text)
-        
-        
+        if pde: Highlighter(self.stdout.textEdit)
+        self.stdout.textEdit.setPlainText(text)
