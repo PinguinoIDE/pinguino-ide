@@ -16,7 +16,7 @@
    width="770.85559"
    height="191.04579"
    sodipodi:docname="banner.svg"
-   inkscape:export-filename="/home/yeison/Documentos/python/dev/developing/Pinguino11/qtgui/resources/arte/banner.png"
+   inkscape:export-filename="/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/resources/art/banner.png"
    inkscape:export-xdpi="81.727371"
    inkscape:export-ydpi="81.727371">
   <metadata
@@ -27,7 +27,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -674,6 +674,38 @@
        y1="-5012.1797"
        x2="-1409.3917"
        y2="-4952.3037" />
+    <filter
+       id="filter3192"
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow">
+      <feFlood
+         id="feFlood3194"
+         flood-opacity="0.05"
+         flood-color="rgb(0,0,0)"
+         result="flood" />
+      <feComposite
+         id="feComposite3196"
+         in2="SourceGraphic"
+         in="flood"
+         operator="in"
+         result="composite1" />
+      <feGaussianBlur
+         id="feGaussianBlur3198"
+         in="composite"
+         stdDeviation="2"
+         result="blur" />
+      <feOffset
+         id="feOffset3200"
+         dx="4"
+         dy="4"
+         result="offset" />
+      <feComposite
+         id="feComposite3202"
+         in2="offset"
+         in="SourceGraphic"
+         operator="over"
+         result="composite2" />
+    </filter>
   </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -689,8 +721,8 @@
      id="namedview4"
      showgrid="false"
      inkscape:zoom="1.2402857"
-     inkscape:cx="410.05328"
-     inkscape:cy="117.69875"
+     inkscape:cx="389.32893"
+     inkscape:cy="32.524575"
      inkscape:window-x="49"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
@@ -724,7 +756,7 @@
        id="guide4816" />
   </sodipodi:namedview>
   <g
-     transform="matrix(1.8190252,0,0,1.8190252,473.73629,-34.538326)"
+     transform="matrix(0.7492098,0,0,0.7492098,547.87727,90.713592)"
      id="g3917-3">
     <g
        id="g3904-1"
@@ -808,15 +840,15 @@
      id="g3264-2" />
   <text
      xml:space="preserve"
-     style="font-size:23.74656487px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
-     x="663.43787"
-     y="211.78911"
+     style="font-size:17.06480408px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#4d4d4d;fill-opacity:1;stroke:none;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
+     x="677.72681"
+     y="207.05174"
      id="text3249"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan3251"
-       x="663.43787"
-       y="211.78911">CC BY 3.0</tspan></text>
+       x="677.72681"
+       y="207.05174">CC BY 3.0</tspan></text>
   <g
      id="g3264"
      transform="translate(-1075.8224,277.23227)" />
