@@ -1,6 +1,6 @@
-gplink-0.13.7 beta
-Copyright (c) 1998-2005 gputils project
-Listing File Generated: 12-20-2013  11:30:45
+gplink-1.2.0 #983 (Jul 12 2013)
+Copyright (c) 1998-2013 gputils project
+Listing File Generated: 12-24-2013  09:53:39
  
  
 Address  Value    Disassembly              Source
@@ -8,7 +8,7 @@ Address  Value    Disassembly              Source
                                            ;--------------------------------------------------------
                                            ; File Created by SDCC : free open source ANSI-C Compiler
                                            ; Version 3.2.1 #8447 (Jul 12 2013) (Linux)
-                                           ; This file was generated Fri Dec 20 11:30:45 2013
+                                           ; This file was generated Tue Dec 24 09:53:39 2013
                                            ;--------------------------------------------------------
                                            ; PIC16 port for the Microchip 16-bit core micros
                                            ;--------------------------------------------------------
@@ -19,13 +19,6 @@ Address  Value    Disassembly              Source
                                            ;--------------------------------------------------------
                                            ; public variables in this module
                                            ;--------------------------------------------------------
-                                           	global	___i__
-                                           	global	_Delayms
-                                           	global	_Delayus
-                                           	global	_digitalwrite
-                                           	global	_digitalread
-                                           	global	_pinmode
-                                           	global	_toggle
                                            	global	_IO_init
                                            	global	_IO_digital
                                            	global	_setup
@@ -35,8 +28,6 @@ Address  Value    Disassembly              Source
                                            	global	_epapin_init
                                            	global	_epapout_init
                                            	global	_pinguino_main
-                                           	global	_mask
-                                           	global	_port
                                            
                                            ;--------------------------------------------------------
                                            ; extern variables in this module
@@ -268,39 +259,14 @@ Address  Value    Disassembly              Source
                                            	extern	_TOSL
                                            	extern	_TOSH
                                            	extern	_TOSU
-                                           	extern	_delay1ktcy
                                            
                                            ;--------------------------------------------------------
                                            ;	Equates to used internal registers
                                            ;--------------------------------------------------------
-                                           STATUS	equ	0xfd8
-                                           PCL	equ	0xff9
-                                           PCLATH	equ	0xffa
-                                           PCLATU	equ	0xffb
-                                           WREG	equ	0xfe8
-                                           TBLPTRL	equ	0xff6
-                                           TBLPTRH	equ	0xff7
-                                           TBLPTRU	equ	0xff8
-                                           TABLAT	equ	0xff5
                                            FSR1L	equ	0xfe1
                                            FSR2L	equ	0xfd9
-                                           POSTINC1	equ	0xfe6
                                            POSTDEC1	equ	0xfe5
                                            PREINC1	equ	0xfe4
-                                           PLUSW2	equ	0xfdb
-                                           
-                                           
-                                           	idata
-                                           ___i__	db	0x00, 0x00
-                                           
-                                           
-                                           ; Internal registers
-                                           .registers	udata_ovr	0x0000
-                                           r0x00	res	1
-                                           r0x01	res	1
-                                           r0x02	res	1
-                                           r0x03	res	1
-                                           r0x04	res	1
                                            
                                            ;--------------------------------------------------------
                                            ; global & static initialisations
@@ -310,983 +276,118 @@ Address  Value    Disassembly              Source
                                            S_main__pinguino_main	code
                                            _pinguino_main:
                                            ;	.line	112; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	if (RCONbits.NOT_POR == 0)
-002990   b2d0     btfsc	0xd0, 0x1, 0       	BTFSC	_RCONbits, 1
-002992   d002     bra	0x2998               	BRA	_00297_DS_
+0023ce   b2d0     btfsc   0xd0, 0x1, 0     	BTFSC	_RCONbits, 1
+0023d0   d002     bra     0x23d6           	BRA	_00146_DS_
                                            ;	.line	114; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	RCON |= 0b10010011;     // set all reset flag
-002994   0e93     movlw	0x93               	MOVLW	0x93
-002996   12d0     iorwf	0xd0, 0x1, 0       	IORWF	_RCON, F
-                                           _00297_DS_:
+0023d2   0e93     movlw   0x93             	MOVLW	0x93
+0023d4   12d0     iorwf   0xd0, 0x1, 0     	IORWF	_RCON, F
+                                           _00146_DS_:
                                            ;	.line	160; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	INTCONbits.GIEH     = 0;        // Disables all HP interrupts
-002998   9ef2     bcf	0xf2, 0x7, 0         	BCF	_INTCONbits, 7
+0023d6   9ef2     bcf     0xf2, 0x7, 0     	BCF	_INTCONbits, 7
                                            ;	.line	161; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	INTCONbits.GIEL     = 0;        // Disables all LP interrupts
-00299a   9cf2     bcf	0xf2, 0x6, 0         	BCF	_INTCONbits, 6
+0023d8   9cf2     bcf     0xf2, 0x6, 0     	BCF	_INTCONbits, 6
                                            ;	.line	206; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	IO_init();
-00299c   ecd8     call	0x29b0, 0           	CALL	_IO_init
-00299e   f014
+0023da   ecf7     call    0x23ee, 0        	CALL	_IO_init
+0023dc   f011
                                            ;	.line	207; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	IO_digital();
-0029a0   ec02     call	0x2a04, 0           	CALL	_IO_digital
-0029a2   f015
+0023de   ec19     call    0x2432, 0        	CALL	_IO_digital
+0023e0   f012
                                            ;	.line	254; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	setup();
-0029a4   ecf3     call	0x29e6, 0           	CALL	_setup
-0029a6   f014
-                                           _00299_DS_:
+0023e2   ec27     call    0x244e, 0        	CALL	_setup
+0023e4   f012
+                                           _00148_DS_:
                                            ;	.line	275; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	loop();
-0029a8   ec83     call	0x2906, 0           	CALL	_loop
-0029aa   f014
-0029ac   d7fd     bra	0x29a8               	BRA	_00299_DS_
-0029ae   0012     return	0                 	RETURN	
+0023e6   ec26     call    0x244c, 0        	CALL	_loop
+0023e8   f012
+0023ea   d7fd     bra     0x23e6           	BRA	_00148_DS_
+0023ec   0012     return  0                	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_main__epapout_init	code
                                            _epapout_init:
                                            ;	.line	84; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	void epapout_init() { return; }
-002a18   0012     return	0                 	RETURN	
+002444   0012     return  0                	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_main__epapin_init	code
                                            _epapin_init:
                                            ;	.line	83; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	void epapin_init()  { return; }
-002a1a   0012     return	0                 	RETURN	
+002446   0012     return  0                	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_main__epap_out	code
                                            _epap_out:
                                            ;	.line	82; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	void epap_out()     { return; }
-002a1c   0012     return	0                 	RETURN	
+002448   0012     return  0                	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_main__epap_in	code
                                            _epap_in:
                                            ;	.line	81; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/main.c	void epap_in()      { return; }
-002a1e   0012     return	0                 	RETURN	
+00244a   0012     return  0                	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_main__loop	code
                                            _loop:
-002906   0102     movlb	0x2                	BANKSEL	___i__
-                                           ;	.line	17; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/user.c	for(__i__=0;__i__<10;__i__=__i__+1)
-002908   6b01     clrf	0x1, 0x1            	CLRF	___i__, B
-                                           ; removed redundant BANKSEL
-00290a   6b02     clrf	0x2, 0x1            	CLRF	(___i__ + 1), B
-                                           _00261_DS_:
-                                           ;	.line	19; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/user.c	toggle(13);
-00290c   0e0d     movlw	0xd                	MOVLW	0x0d
-00290e   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-002910   eca7     call	0x294e, 0           	CALL	_toggle
-002912   f014
-002914   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-                                           ;	.line	20; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/user.c	Delayms(100);
-002916   6ae5     clrf	0xe5, 0             	CLRF	POSTDEC1
-002918   0e64     movlw	0x64               	MOVLW	0x64
-00291a   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-00291c   ec30     call	0x2860, 0           	CALL	_Delayms
-00291e   f014
-002920   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-002922   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-002924   0102     movlb	0x2                	BANKSEL	___i__
-                                           ;	.line	17; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/user.c	for(__i__=0;__i__<10;__i__=__i__+1)
-002926   3f01     incfsz	0x1, 0x1, 0x1     	INCFSZ	___i__, F, B
-002928   d001     bra	0x292c               	BRA	_10296_DS_
-                                           ; removed redundant BANKSEL
-00292a   2b02     incf	0x2, 0x1, 0x1       	INCF	(___i__ + 1), F, B
-                                           _10296_DS_:
-00292c   0102     movlb	0x2                	BANKSEL	(___i__ + 1)
-00292e   5102     movf	0x2, 0, 0x1         	MOVF	(___i__ + 1), W, B
-002930   0f80     addlw	0x80               	ADDLW	0x80
-002932   0f80     addlw	0x80               	ADDLW	0x80
-002934   e102     bnz	0x293a               	BNZ	_00271_DS_
-002936   0e0a     movlw	0xa                	MOVLW	0x0a
-                                           ; removed redundant BANKSEL
-002938   5d01     subwf	0x1, 0, 0x1        	SUBWF	___i__, W, B
-                                           _00271_DS_:
-00293a   e3e8     bnc	0x290c               	BNC	_00261_DS_
-                                           ;	.line	22; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/user.c	Delayms(1000);
-00293c   0e03     movlw	0x3                	MOVLW	0x03
-00293e   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-002940   0ee8     movlw	0xe8               	MOVLW	0xe8
-002942   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-002944   ec30     call	0x2860, 0           	CALL	_Delayms
-002946   f014
-002948   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-00294a   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-00294c   0012     return	0                 	RETURN	
+                                           ;	.line	16; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/user.c	}
+00244c   0012     return  0                	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_main__setup	code
                                            _setup:
-                                           ;	.line	13; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/user.c	pinmode(13,OUTPUT);
-0029e6   6ae5     clrf	0xe5, 0             	CLRF	POSTDEC1
-0029e8   0e0d     movlw	0xd                	MOVLW	0x0d
-0029ea   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-0029ec   ecaf     call	0x235e, 0           	CALL	_pinmode
-0029ee   f011
-0029f0   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-0029f2   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-0029f4   0012     return	0                 	RETURN	
+                                           ;	.line	11; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/source/user.c	}
+00244e   0012     return  0                	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_main__IO_digital	code
                                            _IO_digital:
                                            ;	.line	109; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	ADCON1 = 0x0F;				// AN0 to AN12 Digital I/O
-002a04   0e0f     movlw	0xf                	MOVLW	0x0f
-002a06   6ec1     movwf	0xc1, 0            	MOVWF	_ADCON1
+002432   0e0f     movlw   0xf              	MOVLW	0x0f
+002434   6ec1     movwf   0xc1, 0          	MOVWF	_ADCON1
                                            ;	.line	110; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	CMCON = 0x07;               // Comparators as Digital I/O
-002a08   0e07     movlw	0x7                	MOVLW	0x07
-002a0a   6eb4     movwf	0xb4, 0            	MOVWF	_CMCON
-002a0c   0012     return	0                 	RETURN	
+002436   0e07     movlw   0x7              	MOVLW	0x07
+002438   6eb4     movwf   0xb4, 0          	MOVWF	_CMCON
+00243a   0012     return  0                	RETURN	
                                            
                                            ; ; Starting pCode block
                                            S_main__IO_init	code
                                            _IO_init:
                                            ;	.line	46; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	LATA  = 0x00;
-0029b0   6a89     clrf	0x89, 0             	CLRF	_LATA
+0023ee   6a89     clrf    0x89, 0          	CLRF	_LATA
                                            ;	.line	47; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	LATB  = 0x00;
-0029b2   6a8a     clrf	0x8a, 0             	CLRF	_LATB
+0023f0   6a8a     clrf    0x8a, 0          	CLRF	_LATB
                                            ;	.line	64; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	LATC  = 0x40;	
-0029b4   0e40     movlw	0x40               	MOVLW	0x40
-0029b6   6e8b     movwf	0x8b, 0            	MOVWF	_LATC
+0023f2   0e40     movlw   0x40             	MOVLW	0x40
+0023f4   6e8b     movwf   0x8b, 0          	MOVWF	_LATC
                                            ;	.line	75; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	TRISA = 0x00;
-0029b8   6a92     clrf	0x92, 0             	CLRF	_TRISA
+0023f6   6a92     clrf    0x92, 0          	CLRF	_TRISA
                                            ;	.line	77; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	TRISB = 0x00;
-0029ba   6a93     clrf	0x93, 0             	CLRF	_TRISB
+0023f8   6a93     clrf    0x93, 0          	CLRF	_TRISB
                                            ;	.line	79; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	TRISCbits.TRISC0 = 0x00;
-0029bc   9094     bcf	0x94, 0, 0           	BCF	_TRISCbits, 0
+0023fa   9094     bcf     0x94, 0, 0       	BCF	_TRISCbits, 0
                                            ;	.line	80; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	TRISCbits.TRISC1 = 0x00;
-0029be   9294     bcf	0x94, 0x1, 0         	BCF	_TRISCbits, 1
+0023fc   9294     bcf     0x94, 0x1, 0     	BCF	_TRISCbits, 1
                                            ;	.line	81; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	TRISCbits.TRISC2 = 0x00;
-0029c0   9494     bcf	0x94, 0x2, 0         	BCF	_TRISCbits, 2
+0023fe   9494     bcf     0x94, 0x2, 0     	BCF	_TRISCbits, 2
                                            ;	.line	82; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	TRISCbits.TRISC6 = 0x00;
-0029c2   9c94     bcf	0x94, 0x6, 0         	BCF	_TRISCbits, 6
+002400   9c94     bcf     0x94, 0x6, 0     	BCF	_TRISCbits, 6
                                            ;	.line	83; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	TRISCbits.TRISC7 = 0x00;
-0029c4   9e94     bcf	0x94, 0x7, 0         	BCF	_TRISCbits, 7
+002402   9e94     bcf     0x94, 0x7, 0     	BCF	_TRISCbits, 7
                                            ;	.line	92; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	PORTA  = 0x00;
-0029c6   6a80     clrf	0x80, 0             	CLRF	_PORTA
+002404   6a80     clrf    0x80, 0          	CLRF	_PORTA
                                            ;	.line	93; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	PORTB  = 0x00;
-0029c8   6a81     clrf	0x81, 0             	CLRF	_PORTB
+002406   6a81     clrf    0x81, 0          	CLRF	_PORTB
                                            ;	.line	94; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/io.c	PORTC  = 0x00;
-0029ca   6a82     clrf	0x82, 0             	CLRF	_PORTC
-0029cc   0012     return	0                 	RETURN	
+002408   6a82     clrf    0x82, 0          	CLRF	_PORTC
+00240a   0012     return  0                	RETURN	
                                            
-                                           ; ; Starting pCode block
-                                           S_main__toggle	code
-                                           _toggle:
-                                           ;	.line	333; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	void toggle(unsigned char pin)
-00294e   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-002950   ffe5
-002952   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-002954   ffd9
-002956   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
-002958   ffe5
-00295a   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
-00295c   ffe5
-00295e   0e02     movlw	0x2                	MOVLW	0x02
-002960   cfdb     movff	0xfdb, 0           	MOVFF	PLUSW2, r0x00
-002962   f000
-                                           ;	.line	344; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	state = digitalread(pin);
-002964   5000     movf	0, 0, 0             	MOVF	r0x00, W
-002966   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-002968   ec51     call	0x26a2, 0           	CALL	_digitalread
-00296a   f013
-00296c   6e01     movwf	0x1, 0             	MOVWF	r0x01
-00296e   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-                                           ;	.line	345; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	digitalwrite(pin, state^1);
-002970   7001     btg	0x1, 0, 0            	BTG	r0x01, 0
-002972   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-002974   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-002976   5000     movf	0, 0, 0             	MOVF	r0x00, W
-002978   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-00297a   ec80     call	0x2500, 0           	CALL	_digitalwrite
-00297c   f012
-00297e   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-002980   52e6     movf	0xe6, 0x1, 0        	MOVF	POSTINC1, F
-002982   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
-002984   f001
-002986   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
-002988   f000
-00298a   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-00298c   ffd9
-00298e   0012     return	0                 	RETURN	
-                                           
-                                           ; ; Starting pCode block
-                                           S_main__pinmode	code
-                                           _pinmode:
-                                           ;	.line	289; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	void pinmode(unsigned char pin, unsigned char state)
-00235e   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-002360   ffe5
-002362   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-002364   ffd9
-002366   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
-002368   ffe5
-00236a   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
-00236c   ffe5
-00236e   c002     movff	0x2, 0xfe5         	MOVFF	r0x02, POSTDEC1
-002370   ffe5
-002372   c003     movff	0x3, 0xfe5         	MOVFF	r0x03, POSTDEC1
-002374   ffe5
-002376   c004     movff	0x4, 0xfe5         	MOVFF	r0x04, POSTDEC1
-002378   ffe5
-00237a   0e02     movlw	0x2                	MOVLW	0x02
-00237c   cfdb     movff	0xfdb, 0           	MOVFF	PLUSW2, r0x00
-00237e   f000
-002380   0e03     movlw	0x3                	MOVLW	0x03
-002382   cfdb     movff	0xfdb, 0x1         	MOVFF	PLUSW2, r0x01
-002384   f001
-                                           ;	.line	291; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	switch (port[pin])
-002386   0e4a     movlw	0x4a               	MOVLW	LOW(_port)
-002388   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-00238a   6e02     movwf	0x2, 0             	MOVWF	r0x02
-00238c   6a03     clrf	0x3, 0              	CLRF	r0x03
-00238e   0e23     movlw	0x23               	MOVLW	HIGH(_port)
-002390   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-002392   6a04     clrf	0x4, 0              	CLRF	r0x04
-002394   0e00     movlw	0                  	MOVLW	UPPER(_port)
-002396   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-002398   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-00239a   fff6
-00239c   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-00239e   fff7
-0023a0   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-0023a2   fff8
-0023a4   0009     tblrd	*+                 	TBLRD*+	
-0023a6   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-0023a8   f002
-0023aa   0e03     movlw	0x3                	MOVLW	0x03
-0023ac   5c02     subwf	0x2, 0, 0          	SUBWF	r0x02, W
-0023ae   b0d8     btfsc	0xd8, 0, 0         	BTFSC	STATUS, 0
-0023b0   d09a     bra	0x24e6               	BRA	_00220_DS_
-0023b2   6afa     clrf	0xfa, 0             	CLRF	PCLATH
-0023b4   6afb     clrf	0xfb, 0             	CLRF	PCLATU
-0023b6   3402     rlcf	0x2, 0, 0           	RLCF	r0x02, W
-0023b8   36fa     rlcf	0xfa, 0x1, 0        	RLCF	PCLATH, F
-0023ba   34e8     rlcf	0xe8, 0, 0          	RLCF	WREG, W
-0023bc   36fa     rlcf	0xfa, 0x1, 0        	RLCF	PCLATH, F
-0023be   0bfc     andlw	0xfc               	ANDLW	0xfc
-0023c0   0fd0     addlw	0xd0               	ADDLW	LOW(_00235_DS_)
-0023c2   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-0023c4   0e23     movlw	0x23               	MOVLW	HIGH(_00235_DS_)
-0023c6   22fa     addwfc	0xfa, 0x1, 0      	ADDWFC	PCLATH, F
-0023c8   0e00     movlw	0                  	MOVLW	UPPER(_00235_DS_)
-0023ca   22fb     addwfc	0xfb, 0x1, 0      	ADDWFC	PCLATU, F
-0023cc   50e4     movf	0xe4, 0, 0          	MOVF	PREINC1, W
-0023ce   6ef9     movwf	0xf9, 0            	MOVWF	PCL
-                                           _00235_DS_:
-0023d0   efee     goto	0x23dc              	GOTO	_00207_DS_
-0023d2   f011
-0023d4   ef1b     goto	0x2436              	GOTO	_00211_DS_
-0023d6   f012
-0023d8   ef48     goto	0x2490              	GOTO	_00215_DS_
-0023da   f012
-                                           _00207_DS_:
-                                           ;	.line	293; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pA: if (state) TRISA=TRISA | mask[pin];
-0023dc   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-0023de   e015     bz	0x240a                	BZ	_00209_DS_
-0023e0   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-0023e2   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-0023e4   6e02     movwf	0x2, 0             	MOVWF	r0x02
-0023e6   6a03     clrf	0x3, 0              	CLRF	r0x03
-0023e8   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-0023ea   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-0023ec   6a04     clrf	0x4, 0              	CLRF	r0x04
-0023ee   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-0023f0   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-0023f2   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-0023f4   fff6
-0023f6   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-0023f8   fff7
-0023fa   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-0023fc   fff8
-0023fe   0009     tblrd	*+                 	TBLRD*+	
-002400   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-002402   f002
-002404   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-002406   1292     iorwf	0x92, 0x1, 0       	IORWF	_TRISA, F
-002408   d06e     bra	0x24e6               	BRA	_00220_DS_
-                                           _00209_DS_:
-                                           ;	.line	294; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else TRISA=TRISA & (255-mask[pin]);
-00240a   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-00240c   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-00240e   6e02     movwf	0x2, 0             	MOVWF	r0x02
-002410   6a03     clrf	0x3, 0              	CLRF	r0x03
-002412   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-002414   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-002416   6a04     clrf	0x4, 0              	CLRF	r0x04
-002418   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-00241a   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-00241c   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-00241e   fff6
-002420   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-002422   fff7
-002424   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-002426   fff8
-002428   0009     tblrd	*+                 	TBLRD*+	
-00242a   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-00242c   f002
-00242e   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-002430   08ff     sublw	0xff               	SUBLW	0xff
-                                           ; #	MOVWF	r0x02
-                                           ; #	MOVF	r0x02, W
-002432   1692     andwf	0x92, 0x1, 0       	ANDWF	_TRISA, F
-                                           ;	.line	295; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	break;
-002434   d058     bra	0x24e6               	BRA	_00220_DS_
-                                           _00211_DS_:
-                                           ;	.line	296; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pB: if (state) TRISB=TRISB | mask[pin];
-002436   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-002438   e015     bz	0x2464                	BZ	_00213_DS_
-00243a   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-00243c   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-00243e   6e02     movwf	0x2, 0             	MOVWF	r0x02
-002440   6a03     clrf	0x3, 0              	CLRF	r0x03
-002442   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-002444   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-002446   6a04     clrf	0x4, 0              	CLRF	r0x04
-002448   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-00244a   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-00244c   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-00244e   fff6
-002450   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-002452   fff7
-002454   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-002456   fff8
-002458   0009     tblrd	*+                 	TBLRD*+	
-00245a   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-00245c   f002
-00245e   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-002460   1293     iorwf	0x93, 0x1, 0       	IORWF	_TRISB, F
-002462   d041     bra	0x24e6               	BRA	_00220_DS_
-                                           _00213_DS_:
-                                           ;	.line	297; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else TRISB=TRISB & (255-mask[pin]);
-002464   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-002466   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-002468   6e02     movwf	0x2, 0             	MOVWF	r0x02
-00246a   6a03     clrf	0x3, 0              	CLRF	r0x03
-00246c   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-00246e   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-002470   6a04     clrf	0x4, 0              	CLRF	r0x04
-002472   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-002474   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-002476   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-002478   fff6
-00247a   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-00247c   fff7
-00247e   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-002480   fff8
-002482   0009     tblrd	*+                 	TBLRD*+	
-002484   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-002486   f002
-002488   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-00248a   08ff     sublw	0xff               	SUBLW	0xff
-                                           ; #	MOVWF	r0x02
-                                           ; #	MOVF	r0x02, W
-00248c   1693     andwf	0x93, 0x1, 0       	ANDWF	_TRISB, F
-                                           ;	.line	298; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	break;
-00248e   d02b     bra	0x24e6               	BRA	_00220_DS_
-                                           _00215_DS_:
-                                           ;	.line	299; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pC: if (state) TRISC=TRISC | mask[pin];
-002490   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-002492   e015     bz	0x24be                	BZ	_00217_DS_
-002494   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-002496   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-002498   6e01     movwf	0x1, 0             	MOVWF	r0x01
-00249a   6a02     clrf	0x2, 0              	CLRF	r0x02
-00249c   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-00249e   2202     addwfc	0x2, 0x1, 0       	ADDWFC	r0x02, F
-0024a0   6a03     clrf	0x3, 0              	CLRF	r0x03
-0024a2   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-0024a4   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-0024a6   c001     movff	0x1, 0xff6         	MOVFF	r0x01, TBLPTRL
-0024a8   fff6
-0024aa   c002     movff	0x2, 0xff7         	MOVFF	r0x02, TBLPTRH
-0024ac   fff7
-0024ae   c003     movff	0x3, 0xff8         	MOVFF	r0x03, TBLPTRU
-0024b0   fff8
-0024b2   0009     tblrd	*+                 	TBLRD*+	
-0024b4   cff5     movff	0xff5, 0x1         	MOVFF	TABLAT, r0x01
-0024b6   f001
-0024b8   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-0024ba   1294     iorwf	0x94, 0x1, 0       	IORWF	_TRISC, F
-0024bc   d014     bra	0x24e6               	BRA	_00220_DS_
-                                           _00217_DS_:
-                                           ;	.line	300; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else TRISC=TRISC & (255-mask[pin]);
-0024be   6a01     clrf	0x1, 0              	CLRF	r0x01
-0024c0   6a02     clrf	0x2, 0              	CLRF	r0x02
-0024c2   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-0024c4   2600     addwf	0, 0x1, 0          	ADDWF	r0x00, F
-0024c6   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-0024c8   2201     addwfc	0x1, 0x1, 0       	ADDWFC	r0x01, F
-0024ca   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-0024cc   2202     addwfc	0x2, 0x1, 0       	ADDWFC	r0x02, F
-0024ce   c000     movff	0, 0xff6           	MOVFF	r0x00, TBLPTRL
-0024d0   fff6
-0024d2   c001     movff	0x1, 0xff7         	MOVFF	r0x01, TBLPTRH
-0024d4   fff7
-0024d6   c002     movff	0x2, 0xff8         	MOVFF	r0x02, TBLPTRU
-0024d8   fff8
-0024da   0009     tblrd	*+                 	TBLRD*+	
-0024dc   cff5     movff	0xff5, 0           	MOVFF	TABLAT, r0x00
-0024de   f000
-0024e0   5000     movf	0, 0, 0             	MOVF	r0x00, W
-0024e2   08ff     sublw	0xff               	SUBLW	0xff
-                                           ; #	MOVWF	r0x00
-                                           ; #	MOVF	r0x00, W
-0024e4   1694     andwf	0x94, 0x1, 0       	ANDWF	_TRISC, F
-                                           _00220_DS_:
-                                           ;	.line	312; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	}
-0024e6   cfe4     movff	0xfe4, 0x4         	MOVFF	PREINC1, r0x04
-0024e8   f004
-0024ea   cfe4     movff	0xfe4, 0x3         	MOVFF	PREINC1, r0x03
-0024ec   f003
-0024ee   cfe4     movff	0xfe4, 0x2         	MOVFF	PREINC1, r0x02
-0024f0   f002
-0024f2   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
-0024f4   f001
-0024f6   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
-0024f8   f000
-0024fa   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-0024fc   ffd9
-0024fe   0012     return	0                 	RETURN	
-                                           
-                                           ; ; Starting pCode block
-                                           S_main__digitalread	code
-                                           _digitalread:
-                                           ;	.line	246; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	unsigned char digitalread(unsigned char pin)
-0026a2   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-0026a4   ffe5
-0026a6   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-0026a8   ffd9
-0026aa   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
-0026ac   ffe5
-0026ae   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
-0026b0   ffe5
-0026b2   c002     movff	0x2, 0xfe5         	MOVFF	r0x02, POSTDEC1
-0026b4   ffe5
-0026b6   c003     movff	0x3, 0xfe5         	MOVFF	r0x03, POSTDEC1
-0026b8   ffe5
-0026ba   0e02     movlw	0x2                	MOVLW	0x02
-0026bc   cfdb     movff	0xfdb, 0           	MOVFF	PLUSW2, r0x00
-0026be   f000
-                                           ;	.line	248; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	switch (port[pin])
-0026c0   0e4a     movlw	0x4a               	MOVLW	LOW(_port)
-0026c2   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-0026c4   6e01     movwf	0x1, 0             	MOVWF	r0x01
-0026c6   6a02     clrf	0x2, 0              	CLRF	r0x02
-0026c8   0e23     movlw	0x23               	MOVLW	HIGH(_port)
-0026ca   2202     addwfc	0x2, 0x1, 0       	ADDWFC	r0x02, F
-0026cc   6a03     clrf	0x3, 0              	CLRF	r0x03
-0026ce   0e00     movlw	0                  	MOVLW	UPPER(_port)
-0026d0   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-0026d2   c001     movff	0x1, 0xff6         	MOVFF	r0x01, TBLPTRL
-0026d4   fff6
-0026d6   c002     movff	0x2, 0xff7         	MOVFF	r0x02, TBLPTRH
-0026d8   fff7
-0026da   c003     movff	0x3, 0xff8         	MOVFF	r0x03, TBLPTRU
-0026dc   fff8
-0026de   0009     tblrd	*+                 	TBLRD*+	
-0026e0   cff5     movff	0xff5, 0x1         	MOVFF	TABLAT, r0x01
-0026e2   f001
-0026e4   0e03     movlw	0x3                	MOVLW	0x03
-0026e6   5c01     subwf	0x1, 0, 0          	SUBWF	r0x01, W
-0026e8   b0d8     btfsc	0xd8, 0, 0         	BTFSC	STATUS, 0
-0026ea   d062     bra	0x27b0               	BRA	_00186_DS_
-0026ec   6afa     clrf	0xfa, 0             	CLRF	PCLATH
-0026ee   6afb     clrf	0xfb, 0             	CLRF	PCLATU
-0026f0   3401     rlcf	0x1, 0, 0           	RLCF	r0x01, W
-0026f2   36fa     rlcf	0xfa, 0x1, 0        	RLCF	PCLATH, F
-0026f4   34e8     rlcf	0xe8, 0, 0          	RLCF	WREG, W
-0026f6   36fa     rlcf	0xfa, 0x1, 0        	RLCF	PCLATH, F
-0026f8   0bfc     andlw	0xfc               	ANDLW	0xfc
-0026fa   0f0a     addlw	0xa                	ADDLW	LOW(_00202_DS_)
-0026fc   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-0026fe   0e27     movlw	0x27               	MOVLW	HIGH(_00202_DS_)
-002700   22fa     addwfc	0xfa, 0x1, 0      	ADDWFC	PCLATH, F
-002702   0e00     movlw	0                  	MOVLW	UPPER(_00202_DS_)
-002704   22fb     addwfc	0xfb, 0x1, 0      	ADDWFC	PCLATU, F
-002706   50e4     movf	0xe4, 0, 0          	MOVF	PREINC1, W
-002708   6ef9     movwf	0xf9, 0            	MOVWF	PCL
-                                           _00202_DS_:
-00270a   ef8b     goto	0x2716              	GOTO	_00174_DS_
-00270c   f013
-00270e   efa5     goto	0x274a              	GOTO	_00178_DS_
-002710   f013
-002712   efbf     goto	0x277e              	GOTO	_00182_DS_
-002714   f013
-                                           _00174_DS_:
-                                           ;	.line	250; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pA: if ((PORTA & mask[pin])!=0) return (1);
-002716   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-002718   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-00271a   6e01     movwf	0x1, 0             	MOVWF	r0x01
-00271c   6a02     clrf	0x2, 0              	CLRF	r0x02
-00271e   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-002720   2202     addwfc	0x2, 0x1, 0       	ADDWFC	r0x02, F
-002722   6a03     clrf	0x3, 0              	CLRF	r0x03
-002724   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-002726   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-002728   c001     movff	0x1, 0xff6         	MOVFF	r0x01, TBLPTRL
-00272a   fff6
-00272c   c002     movff	0x2, 0xff7         	MOVFF	r0x02, TBLPTRH
-00272e   fff7
-002730   c003     movff	0x3, 0xff8         	MOVFF	r0x03, TBLPTRU
-002732   fff8
-002734   0009     tblrd	*+                 	TBLRD*+	
-002736   cff5     movff	0xff5, 0x1         	MOVFF	TABLAT, r0x01
-002738   f001
-00273a   5080     movf	0x80, 0, 0          	MOVF	_PORTA, W
-00273c   1601     andwf	0x1, 0x1, 0        	ANDWF	r0x01, F
-00273e   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-002740   e002     bz	0x2746                	BZ	_00176_DS_
-002742   0e01     movlw	0x1                	MOVLW	0x01
-002744   d036     bra	0x27b2               	BRA	_00187_DS_
-                                           _00176_DS_:
-                                           ;	.line	251; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else return (0);
-002746   6ae8     clrf	0xe8, 0             	CLRF	WREG
-002748   d034     bra	0x27b2               	BRA	_00187_DS_
-                                           _00178_DS_:
-                                           ;	.line	253; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pB: if ((PORTB & mask[pin])!=0) return (1);
-00274a   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-00274c   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-00274e   6e01     movwf	0x1, 0             	MOVWF	r0x01
-002750   6a02     clrf	0x2, 0              	CLRF	r0x02
-002752   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-002754   2202     addwfc	0x2, 0x1, 0       	ADDWFC	r0x02, F
-002756   6a03     clrf	0x3, 0              	CLRF	r0x03
-002758   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-00275a   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-00275c   c001     movff	0x1, 0xff6         	MOVFF	r0x01, TBLPTRL
-00275e   fff6
-002760   c002     movff	0x2, 0xff7         	MOVFF	r0x02, TBLPTRH
-002762   fff7
-002764   c003     movff	0x3, 0xff8         	MOVFF	r0x03, TBLPTRU
-002766   fff8
-002768   0009     tblrd	*+                 	TBLRD*+	
-00276a   cff5     movff	0xff5, 0x1         	MOVFF	TABLAT, r0x01
-00276c   f001
-00276e   5081     movf	0x81, 0, 0          	MOVF	_PORTB, W
-002770   1601     andwf	0x1, 0x1, 0        	ANDWF	r0x01, F
-002772   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-002774   e002     bz	0x277a                	BZ	_00180_DS_
-002776   0e01     movlw	0x1                	MOVLW	0x01
-002778   d01c     bra	0x27b2               	BRA	_00187_DS_
-                                           _00180_DS_:
-                                           ;	.line	254; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else return (0);
-00277a   6ae8     clrf	0xe8, 0             	CLRF	WREG
-00277c   d01a     bra	0x27b2               	BRA	_00187_DS_
-                                           _00182_DS_:
-                                           ;	.line	256; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pC: if ((PORTC & mask[pin])!=0) return (1);
-00277e   6a01     clrf	0x1, 0              	CLRF	r0x01
-002780   6a02     clrf	0x2, 0              	CLRF	r0x02
-002782   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-002784   2600     addwf	0, 0x1, 0          	ADDWF	r0x00, F
-002786   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-002788   2201     addwfc	0x1, 0x1, 0       	ADDWFC	r0x01, F
-00278a   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-00278c   2202     addwfc	0x2, 0x1, 0       	ADDWFC	r0x02, F
-00278e   c000     movff	0, 0xff6           	MOVFF	r0x00, TBLPTRL
-002790   fff6
-002792   c001     movff	0x1, 0xff7         	MOVFF	r0x01, TBLPTRH
-002794   fff7
-002796   c002     movff	0x2, 0xff8         	MOVFF	r0x02, TBLPTRU
-002798   fff8
-00279a   0009     tblrd	*+                 	TBLRD*+	
-00279c   cff5     movff	0xff5, 0           	MOVFF	TABLAT, r0x00
-00279e   f000
-0027a0   5082     movf	0x82, 0, 0          	MOVF	_PORTC, W
-0027a2   1600     andwf	0, 0x1, 0          	ANDWF	r0x00, F
-0027a4   5000     movf	0, 0, 0             	MOVF	r0x00, W
-0027a6   e002     bz	0x27ac                	BZ	_00184_DS_
-0027a8   0e01     movlw	0x1                	MOVLW	0x01
-0027aa   d003     bra	0x27b2               	BRA	_00187_DS_
-                                           _00184_DS_:
-                                           ;	.line	257; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else return (0);
-0027ac   6ae8     clrf	0xe8, 0             	CLRF	WREG
-0027ae   d001     bra	0x27b2               	BRA	_00187_DS_
-                                           _00186_DS_:
-                                           ;	.line	270; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	return (0);
-0027b0   6ae8     clrf	0xe8, 0             	CLRF	WREG
-                                           _00187_DS_:
-0027b2   cfe4     movff	0xfe4, 0x3         	MOVFF	PREINC1, r0x03
-0027b4   f003
-0027b6   cfe4     movff	0xfe4, 0x2         	MOVFF	PREINC1, r0x02
-0027b8   f002
-0027ba   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
-0027bc   f001
-0027be   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
-0027c0   f000
-0027c2   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-0027c4   ffd9
-0027c6   0012     return	0                 	RETURN	
-                                           
-                                           ; ; Starting pCode block
-                                           S_main__digitalwrite	code
-                                           _digitalwrite:
-                                           ;	.line	204; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	void digitalwrite(unsigned char pin, unsigned char state)
-002500   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-002502   ffe5
-002504   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-002506   ffd9
-002508   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
-00250a   ffe5
-00250c   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
-00250e   ffe5
-002510   c002     movff	0x2, 0xfe5         	MOVFF	r0x02, POSTDEC1
-002512   ffe5
-002514   c003     movff	0x3, 0xfe5         	MOVFF	r0x03, POSTDEC1
-002516   ffe5
-002518   c004     movff	0x4, 0xfe5         	MOVFF	r0x04, POSTDEC1
-00251a   ffe5
-00251c   0e02     movlw	0x2                	MOVLW	0x02
-00251e   cfdb     movff	0xfdb, 0           	MOVFF	PLUSW2, r0x00
-002520   f000
-002522   0e03     movlw	0x3                	MOVLW	0x03
-002524   cfdb     movff	0xfdb, 0x1         	MOVFF	PLUSW2, r0x01
-002526   f001
-                                           ;	.line	206; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	switch (port[pin])
-002528   0e4a     movlw	0x4a               	MOVLW	LOW(_port)
-00252a   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-00252c   6e02     movwf	0x2, 0             	MOVWF	r0x02
-00252e   6a03     clrf	0x3, 0              	CLRF	r0x03
-002530   0e23     movlw	0x23               	MOVLW	HIGH(_port)
-002532   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-002534   6a04     clrf	0x4, 0              	CLRF	r0x04
-002536   0e00     movlw	0                  	MOVLW	UPPER(_port)
-002538   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-00253a   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-00253c   fff6
-00253e   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-002540   fff7
-002542   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-002544   fff8
-002546   0009     tblrd	*+                 	TBLRD*+	
-002548   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-00254a   f002
-00254c   0e03     movlw	0x3                	MOVLW	0x03
-00254e   5c02     subwf	0x2, 0, 0          	SUBWF	r0x02, W
-002550   b0d8     btfsc	0xd8, 0, 0         	BTFSC	STATUS, 0
-002552   d09a     bra	0x2688               	BRA	_00154_DS_
-002554   6afa     clrf	0xfa, 0             	CLRF	PCLATH
-002556   6afb     clrf	0xfb, 0             	CLRF	PCLATU
-002558   3402     rlcf	0x2, 0, 0           	RLCF	r0x02, W
-00255a   36fa     rlcf	0xfa, 0x1, 0        	RLCF	PCLATH, F
-00255c   34e8     rlcf	0xe8, 0, 0          	RLCF	WREG, W
-00255e   36fa     rlcf	0xfa, 0x1, 0        	RLCF	PCLATH, F
-002560   0bfc     andlw	0xfc               	ANDLW	0xfc
-002562   0f72     addlw	0x72               	ADDLW	LOW(_00169_DS_)
-002564   6ee5     movwf	0xe5, 0            	MOVWF	POSTDEC1
-002566   0e25     movlw	0x25               	MOVLW	HIGH(_00169_DS_)
-002568   22fa     addwfc	0xfa, 0x1, 0      	ADDWFC	PCLATH, F
-00256a   0e00     movlw	0                  	MOVLW	UPPER(_00169_DS_)
-00256c   22fb     addwfc	0xfb, 0x1, 0      	ADDWFC	PCLATU, F
-00256e   50e4     movf	0xe4, 0, 0          	MOVF	PREINC1, W
-002570   6ef9     movwf	0xf9, 0            	MOVWF	PCL
-                                           _00169_DS_:
-002572   efbf     goto	0x257e              	GOTO	_00141_DS_
-002574   f012
-002576   efec     goto	0x25d8              	GOTO	_00145_DS_
-002578   f012
-00257a   ef19     goto	0x2632              	GOTO	_00149_DS_
-00257c   f013
-                                           _00141_DS_:
-                                           ;	.line	208; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pA: if (state) LATA=LATA | mask[pin];
-00257e   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-002580   e015     bz	0x25ac                	BZ	_00143_DS_
-002582   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-002584   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-002586   6e02     movwf	0x2, 0             	MOVWF	r0x02
-002588   6a03     clrf	0x3, 0              	CLRF	r0x03
-00258a   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-00258c   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-00258e   6a04     clrf	0x4, 0              	CLRF	r0x04
-002590   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-002592   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-002594   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-002596   fff6
-002598   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-00259a   fff7
-00259c   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-00259e   fff8
-0025a0   0009     tblrd	*+                 	TBLRD*+	
-0025a2   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-0025a4   f002
-0025a6   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0025a8   1289     iorwf	0x89, 0x1, 0       	IORWF	_LATA, F
-0025aa   d06e     bra	0x2688               	BRA	_00154_DS_
-                                           _00143_DS_:
-                                           ;	.line	209; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else LATA=LATA & (255-mask[pin]);
-0025ac   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-0025ae   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-0025b0   6e02     movwf	0x2, 0             	MOVWF	r0x02
-0025b2   6a03     clrf	0x3, 0              	CLRF	r0x03
-0025b4   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-0025b6   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-0025b8   6a04     clrf	0x4, 0              	CLRF	r0x04
-0025ba   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-0025bc   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-0025be   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-0025c0   fff6
-0025c2   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-0025c4   fff7
-0025c6   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-0025c8   fff8
-0025ca   0009     tblrd	*+                 	TBLRD*+	
-0025cc   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-0025ce   f002
-0025d0   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-0025d2   08ff     sublw	0xff               	SUBLW	0xff
-                                           ; #	MOVWF	r0x02
-                                           ; #	MOVF	r0x02, W
-0025d4   1689     andwf	0x89, 0x1, 0       	ANDWF	_LATA, F
-                                           ;	.line	210; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	break;
-0025d6   d058     bra	0x2688               	BRA	_00154_DS_
-                                           _00145_DS_:
-                                           ;	.line	211; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pB: if (state) LATB=LATB | mask[pin]; 
-0025d8   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-0025da   e015     bz	0x2606                	BZ	_00147_DS_
-0025dc   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-0025de   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-0025e0   6e02     movwf	0x2, 0             	MOVWF	r0x02
-0025e2   6a03     clrf	0x3, 0              	CLRF	r0x03
-0025e4   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-0025e6   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-0025e8   6a04     clrf	0x4, 0              	CLRF	r0x04
-0025ea   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-0025ec   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-0025ee   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-0025f0   fff6
-0025f2   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-0025f4   fff7
-0025f6   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-0025f8   fff8
-0025fa   0009     tblrd	*+                 	TBLRD*+	
-0025fc   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-0025fe   f002
-002600   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-002602   128a     iorwf	0x8a, 0x1, 0       	IORWF	_LATB, F
-002604   d041     bra	0x2688               	BRA	_00154_DS_
-                                           _00147_DS_:
-                                           ;	.line	212; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else LATB=LATB & (255-mask[pin]);
-002606   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-002608   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-00260a   6e02     movwf	0x2, 0             	MOVWF	r0x02
-00260c   6a03     clrf	0x3, 0              	CLRF	r0x03
-00260e   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-002610   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-002612   6a04     clrf	0x4, 0              	CLRF	r0x04
-002614   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-002616   2204     addwfc	0x4, 0x1, 0       	ADDWFC	r0x04, F
-002618   c002     movff	0x2, 0xff6         	MOVFF	r0x02, TBLPTRL
-00261a   fff6
-00261c   c003     movff	0x3, 0xff7         	MOVFF	r0x03, TBLPTRH
-00261e   fff7
-002620   c004     movff	0x4, 0xff8         	MOVFF	r0x04, TBLPTRU
-002622   fff8
-002624   0009     tblrd	*+                 	TBLRD*+	
-002626   cff5     movff	0xff5, 0x2         	MOVFF	TABLAT, r0x02
-002628   f002
-00262a   5002     movf	0x2, 0, 0           	MOVF	r0x02, W
-00262c   08ff     sublw	0xff               	SUBLW	0xff
-                                           ; #	MOVWF	r0x02
-                                           ; #	MOVF	r0x02, W
-00262e   168a     andwf	0x8a, 0x1, 0       	ANDWF	_LATB, F
-                                           ;	.line	213; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	break;
-002630   d02b     bra	0x2688               	BRA	_00154_DS_
-                                           _00149_DS_:
-                                           ;	.line	214; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	case pC: if (state) LATC=LATC | mask[pin];
-002632   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-002634   e015     bz	0x2660                	BZ	_00151_DS_
-002636   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-002638   2400     addwf	0, 0, 0            	ADDWF	r0x00, W
-00263a   6e01     movwf	0x1, 0             	MOVWF	r0x01
-00263c   6a02     clrf	0x2, 0              	CLRF	r0x02
-00263e   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-002640   2202     addwfc	0x2, 0x1, 0       	ADDWFC	r0x02, F
-002642   6a03     clrf	0x3, 0              	CLRF	r0x03
-002644   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-002646   2203     addwfc	0x3, 0x1, 0       	ADDWFC	r0x03, F
-002648   c001     movff	0x1, 0xff6         	MOVFF	r0x01, TBLPTRL
-00264a   fff6
-00264c   c002     movff	0x2, 0xff7         	MOVFF	r0x02, TBLPTRH
-00264e   fff7
-002650   c003     movff	0x3, 0xff8         	MOVFF	r0x03, TBLPTRU
-002652   fff8
-002654   0009     tblrd	*+                 	TBLRD*+	
-002656   cff5     movff	0xff5, 0x1         	MOVFF	TABLAT, r0x01
-002658   f001
-00265a   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-00265c   128b     iorwf	0x8b, 0x1, 0       	IORWF	_LATC, F
-00265e   d014     bra	0x2688               	BRA	_00154_DS_
-                                           _00151_DS_:
-                                           ;	.line	215; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	else LATC=LATC & (255-mask[pin]);
-002660   6a01     clrf	0x1, 0              	CLRF	r0x01
-002662   6a02     clrf	0x2, 0              	CLRF	r0x02
-002664   0e36     movlw	0x36               	MOVLW	LOW(_mask)
-002666   2600     addwf	0, 0x1, 0          	ADDWF	r0x00, F
-002668   0e23     movlw	0x23               	MOVLW	HIGH(_mask)
-00266a   2201     addwfc	0x1, 0x1, 0       	ADDWFC	r0x01, F
-00266c   0e00     movlw	0                  	MOVLW	UPPER(_mask)
-00266e   2202     addwfc	0x2, 0x1, 0       	ADDWFC	r0x02, F
-002670   c000     movff	0, 0xff6           	MOVFF	r0x00, TBLPTRL
-002672   fff6
-002674   c001     movff	0x1, 0xff7         	MOVFF	r0x01, TBLPTRH
-002676   fff7
-002678   c002     movff	0x2, 0xff8         	MOVFF	r0x02, TBLPTRU
-00267a   fff8
-00267c   0009     tblrd	*+                 	TBLRD*+	
-00267e   cff5     movff	0xff5, 0           	MOVFF	TABLAT, r0x00
-002680   f000
-002682   5000     movf	0, 0, 0             	MOVF	r0x00, W
-002684   08ff     sublw	0xff               	SUBLW	0xff
-                                           ; #	MOVWF	r0x00
-                                           ; #	MOVF	r0x00, W
-002686   168b     andwf	0x8b, 0x1, 0       	ANDWF	_LATC, F
-                                           _00154_DS_:
-                                           ;	.line	227; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/digitalw.c	}
-002688   cfe4     movff	0xfe4, 0x4         	MOVFF	PREINC1, r0x04
-00268a   f004
-00268c   cfe4     movff	0xfe4, 0x3         	MOVFF	PREINC1, r0x03
-00268e   f003
-002690   cfe4     movff	0xfe4, 0x2         	MOVFF	PREINC1, r0x02
-002692   f002
-002694   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
-002696   f001
-002698   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
-00269a   f000
-00269c   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-00269e   ffd9
-0026a0   0012     return	0                 	RETURN	
-                                           
-                                           ; ; Starting pCode block
-                                           S_main__Delayus	code
-                                           _Delayus:
-                                           ;	.line	86; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/delay.c	void Delayus(unsigned int microseconds)
-0028b6   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-0028b8   ffe5
-0028ba   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-0028bc   ffd9
-0028be   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
-0028c0   ffe5
-0028c2   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
-0028c4   ffe5
-0028c6   c002     movff	0x2, 0xfe5         	MOVFF	r0x02, POSTDEC1
-0028c8   ffe5
-0028ca   c003     movff	0x3, 0xfe5         	MOVFF	r0x03, POSTDEC1
-0028cc   ffe5
-0028ce   0e02     movlw	0x2                	MOVLW	0x02
-0028d0   cfdb     movff	0xfdb, 0           	MOVFF	PLUSW2, r0x00
-0028d2   f000
-0028d4   0e03     movlw	0x3                	MOVLW	0x03
-0028d6   cfdb     movff	0xfdb, 0x1         	MOVFF	PLUSW2, r0x01
-0028d8   f001
-                                           ;	.line	90; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/delay.c	for (i=0; i<microseconds; i++)
-0028da   6a02     clrf	0x2, 0              	CLRF	r0x02
-0028dc   6a03     clrf	0x3, 0              	CLRF	r0x03
-                                           _00125_DS_:
-0028de   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-0028e0   5c03     subwf	0x3, 0, 0          	SUBWF	r0x03, W
-0028e2   e102     bnz	0x28e8               	BNZ	_00136_DS_
-0028e4   5000     movf	0, 0, 0             	MOVF	r0x00, W
-0028e6   5c02     subwf	0x2, 0, 0          	SUBWF	r0x02, W
-                                           _00136_DS_:
-0028e8   e203     bc	0x28f0                	BC	_00127_DS_
-0028ea   4a02     infsnz	0x2, 0x1, 0       	INFSNZ	r0x02, F
-0028ec   2a03     incf	0x3, 0x1, 0         	INCF	r0x03, F
-0028ee   d7f7     bra	0x28de               	BRA	_00125_DS_
-                                           _00127_DS_:
-0028f0   cfe4     movff	0xfe4, 0x3         	MOVFF	PREINC1, r0x03
-0028f2   f003
-0028f4   cfe4     movff	0xfe4, 0x2         	MOVFF	PREINC1, r0x02
-0028f6   f002
-0028f8   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
-0028fa   f001
-0028fc   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
-0028fe   f000
-002900   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-002902   ffd9
-002904   0012     return	0                 	RETURN	
-                                           
-                                           ; ; Starting pCode block
-                                           S_main__Delayms	code
-                                           _Delayms:
-                                           ;	.line	78; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/delay.c	void Delayms(unsigned int milliseconds)
-002860   cfd9     movff	0xfd9, 0xfe5       	MOVFF	FSR2L, POSTDEC1
-002862   ffe5
-002864   cfe1     movff	0xfe1, 0xfd9       	MOVFF	FSR1L, FSR2L
-002866   ffd9
-002868   c000     movff	0, 0xfe5           	MOVFF	r0x00, POSTDEC1
-00286a   ffe5
-00286c   c001     movff	0x1, 0xfe5         	MOVFF	r0x01, POSTDEC1
-00286e   ffe5
-002870   c002     movff	0x2, 0xfe5         	MOVFF	r0x02, POSTDEC1
-002872   ffe5
-002874   c003     movff	0x3, 0xfe5         	MOVFF	r0x03, POSTDEC1
-002876   ffe5
-002878   0e02     movlw	0x2                	MOVLW	0x02
-00287a   cfdb     movff	0xfdb, 0           	MOVFF	PLUSW2, r0x00
-00287c   f000
-00287e   0e03     movlw	0x3                	MOVLW	0x03
-002880   cfdb     movff	0xfdb, 0x1         	MOVFF	PLUSW2, r0x01
-002882   f001
-                                           ;	.line	82; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/delay.c	for (i=0; i<milliseconds; i++)
-002884   6a02     clrf	0x2, 0              	CLRF	r0x02
-002886   6a03     clrf	0x3, 0              	CLRF	r0x03
-                                           _00107_DS_:
-002888   5001     movf	0x1, 0, 0           	MOVF	r0x01, W
-00288a   5c03     subwf	0x3, 0, 0          	SUBWF	r0x03, W
-00288c   e102     bnz	0x2892               	BNZ	_00118_DS_
-00288e   5000     movf	0, 0, 0             	MOVF	r0x00, W
-002890   5c02     subwf	0x2, 0, 0          	SUBWF	r0x02, W
-                                           _00118_DS_:
-002892   e206     bc	0x28a0                	BC	_00109_DS_
-                                           ;	.line	83; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/delay.c	delay1ktcy(12);
-002894   0e0c     movlw	0xc                	MOVLW	0x0c
-002896   ec39     call	0x72, 0             	CALL	_delay1ktcy
-002898   f000
-                                           ;	.line	82; /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/p8/pinguino/core/delay.c	for (i=0; i<milliseconds; i++)
-00289a   4a02     infsnz	0x2, 0x1, 0       	INFSNZ	r0x02, F
-00289c   2a03     incf	0x3, 0x1, 0         	INCF	r0x03, F
-00289e   d7f4     bra	0x2888               	BRA	_00107_DS_
-                                           _00109_DS_:
-0028a0   cfe4     movff	0xfe4, 0x3         	MOVFF	PREINC1, r0x03
-0028a2   f003
-0028a4   cfe4     movff	0xfe4, 0x2         	MOVFF	PREINC1, r0x02
-0028a6   f002
-0028a8   cfe4     movff	0xfe4, 0x1         	MOVFF	PREINC1, r0x01
-0028aa   f001
-0028ac   cfe4     movff	0xfe4, 0           	MOVFF	PREINC1, r0x00
-0028ae   f000
-0028b0   cfe4     movff	0xfe4, 0xfd9       	MOVFF	PREINC1, FSR2L
-0028b2   ffd9
-0028b4   0012     return	0                 	RETURN	
-                                           
-                                           ; ; Starting pCode block for Ival
-                                           	code
-                                           _mask:
-002336   0201     mulwf	0x1, 0             	DB	0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x40, 0x80, 0x01, 0x02
-002338   0804     sublw	0x4                
-00233a   2010     addwfc	0x10, 0, 0        
-00233c   8040     bsf	0x40, 0, 0           
-00233e   8040     bsf	0x40, 0, 0           
-002340   0201     mulwf	0x1, 0             
-002342   0104     movlb	0x4                	DB	0x04, 0x01, 0x02, 0x04, 0x08, 0x20, 0x10
-002344   0402     decf	0x2, 0, 0           
-002346   2008     addwfc	0x8, 0, 0         
-002348   0010     retfie	0                 
-                                           ; ; Starting pCode block for Ival
-                                           _port:
-00234a   0101     movlb	0x1                	DB	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x02, 0x02, 0x02
-00234c   0101     movlb	0x1                
-00234e   0101     movlb	0x1                
-002350   0101     movlb	0x1                
-002352   0202     mulwf	0x2, 0             
-002354   0202     mulwf	0x2, 0             
-002356   0002     dw	0x2  ;unknown opcode  	DB	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-002358   0000     nop                      
-00235a   0000     nop                      
-00235c   0000     nop                      
                                            
                                            
                                            ; Statistics:
-                                           ; code size:	 1540 (0x0604) bytes ( 1.17%)
-                                           ;           	  770 (0x0302) words
+                                           ; code size:	   84 (0x0054) bytes ( 0.06%)
+                                           ;           	   42 (0x002a) words
                                            ; udata size:	    0 (0x0000) bytes ( 0.00%)
-                                           ; access size:	    5 (0x0005) bytes
+                                           ; access size:	    0 (0x0000) bytes
                                            
                                            
                                            	end

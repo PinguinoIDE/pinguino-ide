@@ -1,223 +1,225 @@
 Archive member included because of file (symbol)
 
-/home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
-                              /tmp/ccpjroJT.o (__truncdfsf2)
-/home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
-                              /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o) (__make_fp)
-/home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
-                              /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o) (__unpack_d)
-/home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
-                              /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o) (__pack_f)
-/home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
-                              /tmp/ccpjroJT.o (strcmp)
+/home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+                              /tmp/ccOoUgSP.o (__truncdfsf2)
+/home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+                              /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o) (__make_fp)
+/home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+                              /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o) (__unpack_d)
+/home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+                              /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o) (__pack_f)
+/home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+                              /tmp/ccOoUgSP.o (strcmp)
 
 Allocating common symbols
 Common symbol       size              file
 
-UART2rpointer       0x4               /tmp/ccpjroJT.o
-heap_ptr            0x4               /tmp/ccpjroJT.o
-UART2wpointer       0x4               /tmp/ccpjroJT.o
-UART2SerialBuffer   0x80              /tmp/ccpjroJT.o
-UART1rpointer       0x4               /tmp/ccpjroJT.o
-UART1SerialBuffer   0x80              /tmp/ccpjroJT.o
-UART1wpointer       0x4               /tmp/ccpjroJT.o
+UART2rpointer       0x4               /tmp/ccOoUgSP.o
+heap_ptr            0x4               /tmp/ccOoUgSP.o
+UART2wpointer       0x4               /tmp/ccOoUgSP.o
+UART2SerialBuffer   0x80              /tmp/ccOoUgSP.o
+UART1rpointer       0x4               /tmp/ccOoUgSP.o
+UART1SerialBuffer   0x80              /tmp/ccOoUgSP.o
+UART1wpointer       0x4               /tmp/ccOoUgSP.o
 
 Discarded input sections
 
- .text          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .bss           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .init          0x0000000000000000        0x8 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .fini          0x0000000000000000        0x8 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .text          0x0000000000000000      0x124 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .bss           0x0000000000000000       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .ctors         0x0000000000000000        0x4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .dtors         0x0000000000000000        0x4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .jcr           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .sdata         0x0000000000000000        0x4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .fini          0x0000000000000000       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .init          0x0000000000000000       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .text          0x0000000000000000        0x0 /tmp/ccpjroJT.o
- .data          0x0000000000000000        0x0 /tmp/ccpjroJT.o
- .bss           0x0000000000000000        0x0 /tmp/ccpjroJT.o
- .reginfo       0x0000000000000000       0x18 /tmp/ccpjroJT.o
- .pdr           0x0000000000000000      0xaa0 /tmp/ccpjroJT.o
- .text.pprintc  0x0000000000000000       0x28 /tmp/ccpjroJT.o
- .text.pprints  0x0000000000000000      0x110 /tmp/ccpjroJT.o
+ .text          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .init          0x0000000000000000        0x8 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .fini          0x0000000000000000        0x8 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .text          0x0000000000000000      0x124 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .bss           0x0000000000000000       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .ctors         0x0000000000000000        0x4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .dtors         0x0000000000000000        0x4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .jcr           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .sdata         0x0000000000000000        0x4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .fini          0x0000000000000000       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .init          0x0000000000000000       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .text          0x0000000000000000        0x0 /tmp/ccOoUgSP.o
+ .data          0x0000000000000000        0x0 /tmp/ccOoUgSP.o
+ .bss           0x0000000000000000        0x0 /tmp/ccOoUgSP.o
+ .reginfo       0x0000000000000000       0x18 /tmp/ccOoUgSP.o
+ .pdr           0x0000000000000000      0xa60 /tmp/ccOoUgSP.o
+ .text.pprintc  0x0000000000000000       0x28 /tmp/ccOoUgSP.o
+ .text.pprints  0x0000000000000000      0x110 /tmp/ccOoUgSP.o
  .text.SerialUART1WriteChar
-                0x0000000000000000       0x28 /tmp/ccpjroJT.o
+                0x0000000000000000       0x28 /tmp/ccOoUgSP.o
  .text.SerialUART2WriteChar
-                0x0000000000000000       0x28 /tmp/ccpjroJT.o
+                0x0000000000000000       0x28 /tmp/ccOoUgSP.o
  .text.pprinti.clone.0
-                0x0000000000000000      0x13c /tmp/ccpjroJT.o
+                0x0000000000000000      0x13c /tmp/ccOoUgSP.o
  .rodata.str1.4
-                0x0000000000000000       0x1c /tmp/ccpjroJT.o
- .text.pprint   0x0000000000000000      0x538 /tmp/ccpjroJT.o
+                0x0000000000000000       0x1c /tmp/ccOoUgSP.o
+ .text.pprint   0x0000000000000000      0x538 /tmp/ccOoUgSP.o
  .text.SystemLock
-                0x0000000000000000       0x18 /tmp/ccpjroJT.o
+                0x0000000000000000       0x18 /tmp/ccOoUgSP.o
  .text.SystemReset
-                0x0000000000000000       0x2c /tmp/ccpjroJT.o
+                0x0000000000000000       0x2c /tmp/ccOoUgSP.o
  .text.SystemClocksGetPeripheralFrequency
-                0x0000000000000000       0x48 /tmp/ccpjroJT.o
+                0x0000000000000000       0x48 /tmp/ccOoUgSP.o
+ .text.GetSystemClock
+                0x0000000000000000       0x30 /tmp/ccOoUgSP.o
  .text.GetPeripheralClock
-                0x0000000000000000       0x30 /tmp/ccpjroJT.o
+                0x0000000000000000       0x30 /tmp/ccOoUgSP.o
  .text.SetFlashWaitStates_old
-                0x0000000000000000       0x54 /tmp/ccpjroJT.o
+                0x0000000000000000       0x54 /tmp/ccOoUgSP.o
  .text.SystemSetSystemClock
-                0x0000000000000000       0x44 /tmp/ccpjroJT.o
+                0x0000000000000000       0x44 /tmp/ccOoUgSP.o
  .text.SystemSetPeripheralClock
-                0x0000000000000000       0x44 /tmp/ccpjroJT.o
+                0x0000000000000000       0x44 /tmp/ccOoUgSP.o
+ .text.GetCP0Count
+                0x0000000000000000        0x8 /tmp/ccOoUgSP.o
  .text.SetCP0Count
-                0x0000000000000000       0x10 /tmp/ccpjroJT.o
- .text.pinread  0x0000000000000000       0xb8 /tmp/ccpjroJT.o
+                0x0000000000000000       0x10 /tmp/ccOoUgSP.o
+ .text.pinread  0x0000000000000000       0xb8 /tmp/ccOoUgSP.o
  .rodata.pinread
-                0x0000000000000000       0x18 /tmp/ccpjroJT.o
- .text.digitalwrite
-                0x0000000000000000      0x1c0 /tmp/ccpjroJT.o
- .rodata.digitalwrite
-                0x0000000000000000       0x18 /tmp/ccpjroJT.o
- .text.digitalread
-                0x0000000000000000       0xc0 /tmp/ccpjroJT.o
- .rodata.digitalread
-                0x0000000000000000       0x18 /tmp/ccpjroJT.o
+                0x0000000000000000       0x18 /tmp/ccOoUgSP.o
+ .text.toggle   0x0000000000000000       0xd4 /tmp/ccOoUgSP.o
+ .rodata.toggle
+                0x0000000000000000       0x18 /tmp/ccOoUgSP.o
  .text.IOsetDigital
-                0x0000000000000000       0x14 /tmp/ccpjroJT.o
+                0x0000000000000000       0x14 /tmp/ccOoUgSP.o
  .text.IOsetRemap
-                0x0000000000000000        0x8 /tmp/ccpjroJT.o
+                0x0000000000000000        0x8 /tmp/ccOoUgSP.o
  .text.IntSetVectorPriority
-                0x0000000000000000      0x1e4 /tmp/ccpjroJT.o
+                0x0000000000000000      0x1e4 /tmp/ccOoUgSP.o
  .text.IntGetVectorPriority
-                0x0000000000000000       0x80 /tmp/ccpjroJT.o
+                0x0000000000000000       0x80 /tmp/ccOoUgSP.o
  .text.IntGetVectorSubPriority
-                0x0000000000000000       0x80 /tmp/ccpjroJT.o
+                0x0000000000000000       0x80 /tmp/ccOoUgSP.o
  .text.IntEnable
-                0x0000000000000000       0x4c /tmp/ccpjroJT.o
+                0x0000000000000000       0x4c /tmp/ccOoUgSP.o
  .text.IntDisable
-                0x0000000000000000       0x54 /tmp/ccpjroJT.o
+                0x0000000000000000       0x54 /tmp/ccOoUgSP.o
  .text.IntGetInterruptVectorNumber
-                0x0000000000000000       0x10 /tmp/ccpjroJT.o
+                0x0000000000000000       0x10 /tmp/ccOoUgSP.o
  .text.IntGetInterruptVectorPriority
-                0x0000000000000000       0x10 /tmp/ccpjroJT.o
+                0x0000000000000000       0x10 /tmp/ccOoUgSP.o
  .text.IntDisableInterrupts
-                0x0000000000000000        0xc /tmp/ccpjroJT.o
+                0x0000000000000000        0xc /tmp/ccOoUgSP.o
  .text.IntEnableInterrupts
-                0x0000000000000000        0xc /tmp/ccpjroJT.o
+                0x0000000000000000        0xc /tmp/ccOoUgSP.o
  .text.IntRestoreInterrupts
-                0x0000000000000000       0x10 /tmp/ccpjroJT.o
+                0x0000000000000000       0x10 /tmp/ccOoUgSP.o
  .text.IntSetEBASE
-                0x0000000000000000       0x10 /tmp/ccpjroJT.o
+                0x0000000000000000       0x10 /tmp/ccOoUgSP.o
  .text.IntConfigureSystem
-                0x0000000000000000       0x9c /tmp/ccpjroJT.o
- .text.pprintf  0x0000000000000000        0xc /tmp/ccpjroJT.o
+                0x0000000000000000       0x9c /tmp/ccOoUgSP.o
+ .text.pprintf  0x0000000000000000        0xc /tmp/ccOoUgSP.o
  .text.psprintf2
-                0x0000000000000000       0x20 /tmp/ccpjroJT.o
+                0x0000000000000000       0x20 /tmp/ccOoUgSP.o
  .text.psprintf
-                0x0000000000000000       0x30 /tmp/ccpjroJT.o
+                0x0000000000000000       0x30 /tmp/ccOoUgSP.o
  .text.SerialSetDataRate
-                0x0000000000000000       0xc0 /tmp/ccpjroJT.o
+                0x0000000000000000       0xc0 /tmp/ccOoUgSP.o
  .text.SerialGetDataRate
-                0x0000000000000000       0xd0 /tmp/ccpjroJT.o
+                0x0000000000000000       0xd0 /tmp/ccOoUgSP.o
  .text.SerialEnable
-                0x0000000000000000       0x3c /tmp/ccpjroJT.o
+                0x0000000000000000       0x3c /tmp/ccOoUgSP.o
  .text.SerialSetLineControl
-                0x0000000000000000       0x3c /tmp/ccpjroJT.o
+                0x0000000000000000       0x3c /tmp/ccOoUgSP.o
  .text.SerialFlush
-                0x0000000000000000       0x40 /tmp/ccpjroJT.o
+                0x0000000000000000       0x40 /tmp/ccOoUgSP.o
  .text.SerialPinConfigure
-                0x0000000000000000       0x64 /tmp/ccpjroJT.o
+                0x0000000000000000       0x64 /tmp/ccOoUgSP.o
  .text.SerialIntConfigure
-                0x0000000000000000       0x84 /tmp/ccpjroJT.o
+                0x0000000000000000       0x84 /tmp/ccOoUgSP.o
  .text.SerialConfigure
-                0x0000000000000000       0x78 /tmp/ccpjroJT.o
+                0x0000000000000000       0x78 /tmp/ccOoUgSP.o
  .text.SerialPrintf
-                0x0000000000000000       0x5c /tmp/ccpjroJT.o
+                0x0000000000000000       0x5c /tmp/ccOoUgSP.o
  .text.SerialAvailable
-                0x0000000000000000       0x4c /tmp/ccpjroJT.o
+                0x0000000000000000       0x4c /tmp/ccOoUgSP.o
  .text.SerialRead
-                0x0000000000000000       0xb8 /tmp/ccpjroJT.o
+                0x0000000000000000       0xb8 /tmp/ccOoUgSP.o
  .text.SerialGetKey
-                0x0000000000000000       0x4c /tmp/ccpjroJT.o
+                0x0000000000000000       0x4c /tmp/ccOoUgSP.o
  .text.SerialGetString
-                0x0000000000000000       0x98 /tmp/ccpjroJT.o
+                0x0000000000000000       0x98 /tmp/ccOoUgSP.o
  .text.ClearRxError
-                0x0000000000000000       0x78 /tmp/ccpjroJT.o
- .text.sbrk     0x0000000000000000       0x24 /tmp/ccpjroJT.o
- .text.open     0x0000000000000000       0x80 /tmp/ccpjroJT.o
- .text.close    0x0000000000000000        0x8 /tmp/ccpjroJT.o
- .text.fstat    0x0000000000000000        0x8 /tmp/ccpjroJT.o
- .text.isatty   0x0000000000000000        0x8 /tmp/ccpjroJT.o
- .text.lseek    0x0000000000000000        0x8 /tmp/ccpjroJT.o
- .text.read     0x0000000000000000       0x68 /tmp/ccpjroJT.o
- .text.write    0x0000000000000000       0xa4 /tmp/ccpjroJT.o
+                0x0000000000000000       0x78 /tmp/ccOoUgSP.o
+ .text.sbrk     0x0000000000000000       0x24 /tmp/ccOoUgSP.o
+ .text.open     0x0000000000000000       0x80 /tmp/ccOoUgSP.o
+ .text.close    0x0000000000000000        0x8 /tmp/ccOoUgSP.o
+ .text.fstat    0x0000000000000000        0x8 /tmp/ccOoUgSP.o
+ .text.isatty   0x0000000000000000        0x8 /tmp/ccOoUgSP.o
+ .text.lseek    0x0000000000000000        0x8 /tmp/ccOoUgSP.o
+ .text.read     0x0000000000000000       0x68 /tmp/ccOoUgSP.o
+ .text.write    0x0000000000000000       0xa4 /tmp/ccOoUgSP.o
  .text.Serial3Interrupt
-                0x0000000000000000        0xc /tmp/ccpjroJT.o
+                0x0000000000000000        0xc /tmp/ccOoUgSP.o
  .text.Serial4Interrupt
-                0x0000000000000000        0xc /tmp/ccpjroJT.o
+                0x0000000000000000        0xc /tmp/ccOoUgSP.o
  .text.Serial5Interrupt
-                0x0000000000000000        0xc /tmp/ccpjroJT.o
+                0x0000000000000000        0xc /tmp/ccOoUgSP.o
  .text.Serial6Interrupt
-                0x0000000000000000        0xc /tmp/ccpjroJT.o
+                0x0000000000000000        0xc /tmp/ccOoUgSP.o
  .text.SPIxInterrupt
-                0x0000000000000000        0xc /tmp/ccpjroJT.o
- .bss.buffer.5658
-                0x0000000000000000       0x50 /tmp/ccpjroJT.o
+                0x0000000000000000        0xc /tmp/ccOoUgSP.o
+ .sdata.buttonPin
+                0x0000000000000000        0x4 /tmp/ccOoUgSP.o
+ .sdata.ledPin  0x0000000000000000        0x4 /tmp/ccOoUgSP.o
+ .bss.buffer.5641
+                0x0000000000000000       0x50 /tmp/ccOoUgSP.o
  .sbss.pputchar
-                0x0000000000000000        0x4 /tmp/ccpjroJT.o
+                0x0000000000000000        0x4 /tmp/ccOoUgSP.o
  .rodata.pbDivs
-                0x0000000000000000       0x10 /tmp/ccpjroJT.o
- .data          0x0000000000000000        0x0 /tmp/ccCg4D9v.o
- .bss           0x0000000000000000        0x0 /tmp/ccCg4D9v.o
- .reginfo       0x0000000000000000       0x18 /tmp/ccCg4D9v.o
- .pdr           0x0000000000000000       0xa0 /tmp/ccCg4D9v.o
- .text          0x0000000000000000        0x0 /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o
- .data          0x0000000000000000        0x0 /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o
- .bss           0x0000000000000000        0x0 /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o
- .reginfo       0x0000000000000000       0x18 /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o
- .data          0x0000000000000000        0x0 /tmp/ccDHG1B8.o
- .bss           0x0000000000000000        0x0 /tmp/ccDHG1B8.o
- .reginfo       0x0000000000000000       0x18 /tmp/ccDHG1B8.o
- .pdr           0x0000000000000000       0x80 /tmp/ccDHG1B8.o
- .text          0x0000000000000000       0x68 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .bss           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .text          0x0000000000000000       0x30 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .bss           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .text          0x0000000000000000      0x100 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .bss           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .text          0x0000000000000000      0x18c /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .bss           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .text          0x0000000000000000       0x88 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .bss           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .pdr           0x0000000000000000       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .text          0x0000000000000000       0x58 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .bss           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .ctors         0x0000000000000000        0x4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .dtors         0x0000000000000000        0x4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .jcr           0x0000000000000000        0x4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .init          0x0000000000000000       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .text          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
- .data          0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
- .bss           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
- .init          0x0000000000000000       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
- .fini          0x0000000000000000       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+                0x0000000000000000       0x10 /tmp/ccOoUgSP.o
+ .data          0x0000000000000000        0x0 /tmp/ccRzzVJ7.o
+ .bss           0x0000000000000000        0x0 /tmp/ccRzzVJ7.o
+ .reginfo       0x0000000000000000       0x18 /tmp/ccRzzVJ7.o
+ .pdr           0x0000000000000000       0xa0 /tmp/ccRzzVJ7.o
+ .text          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/p32/obj/non-free/processor.o
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/p32/obj/non-free/processor.o
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/p32/obj/non-free/processor.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/p32/obj/non-free/processor.o
+ .data          0x0000000000000000        0x0 /tmp/ccDIQcDp.o
+ .bss           0x0000000000000000        0x0 /tmp/ccDIQcDp.o
+ .reginfo       0x0000000000000000       0x18 /tmp/ccDIQcDp.o
+ .pdr           0x0000000000000000       0x80 /tmp/ccDIQcDp.o
+ .text          0x0000000000000000       0x68 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .text          0x0000000000000000       0x30 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .text          0x0000000000000000      0x100 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .text          0x0000000000000000      0x18c /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .text          0x0000000000000000       0x88 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .pdr           0x0000000000000000       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .text          0x0000000000000000       0x58 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .ctors         0x0000000000000000        0x4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .dtors         0x0000000000000000        0x4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .jcr           0x0000000000000000        0x4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .init          0x0000000000000000       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .text          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .data          0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .bss           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .init          0x0000000000000000       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .fini          0x0000000000000000       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
 
 Memory Configuration
 
@@ -238,25 +240,25 @@ sfrs             0x00000000bf800000 0x0000000000100000
 
 Linker script and memory map
 
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
                 0x0000000000004000                _min_heap_size = 0x4000
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libm.a
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a
-LOAD /tmp/ccpjroJT.o
-LOAD /tmp/ccCg4D9v.o
-LOAD /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o
-LOAD /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/usb/libcdc.a
-LOAD /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/usb/libadb.a
-LOAD /tmp/ccDHG1B8.o
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libm.a
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
-LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libm.a
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a
+LOAD /tmp/ccOoUgSP.o
+LOAD /tmp/ccRzzVJ7.o
+LOAD /home/yeison/pinguino-ide/pinguino/p32/obj/non-free/processor.o
+LOAD /home/yeison/pinguino-ide/pinguino/p32/obj/non-free/usb/libcdc.a
+LOAD /home/yeison/pinguino-ide/pinguino/p32/obj/non-free/usb/libadb.a
+LOAD /tmp/ccDIQcDp.o
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libm.a
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+LOAD /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
                 0x00000000bf882030                BMXDUPBA = 0xbf882030
                 0x00000000bf882010                BMXDKPBA = 0xbf882010
                 0x00000000bf882020                BMXDUDBA = 0xbf882020
@@ -287,12 +289,12 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 .reset          0x000000009d006000       0x10
  *(.reset)
- .reset         0x000000009d006000       0x10 /tmp/ccCg4D9v.o
+ .reset         0x000000009d006000       0x10 /tmp/ccRzzVJ7.o
                 0x000000009d006000                _reset
 
 .bev_excpt      0x000000009d006380        0x4
  *(.bev_handler)
- .bev_handler   0x000000009d006380        0x4 /tmp/ccCg4D9v.o
+ .bev_handler   0x000000009d006380        0x4 /tmp/ccRzzVJ7.o
 
 .dbg_excpt      0x000000009d006480        0x0
                 0x000000009d006480                . = (. + DEFINED (_DEBUGGER)?0x8:0x0)
@@ -302,7 +304,7 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 .app_excpt      0x000000009d005180        0x4
  *(.gen_handler)
- .gen_handler   0x000000009d005180        0x4 /tmp/ccCg4D9v.o
+ .gen_handler   0x000000009d005180        0x4 /tmp/ccRzzVJ7.o
 
 .vector_0       0x000000009d005200        0x0
  *(.vector_0)
@@ -338,7 +340,7 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 .vector_8       0x000000009d005300        0xc
  *(.vector_8)
- .vector_8      0x000000009d005300        0xc /tmp/ccDHG1B8.o
+ .vector_8      0x000000009d005300        0xc /tmp/ccDIQcDp.o
                 0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_8) <= (_vector_spacing << 0x5))), function at exception vector 8 too large)
 
 .vector_9       0x000000009d005320        0x0
@@ -403,7 +405,7 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 .vector_24      0x000000009d005500        0xc
  *(.vector_24)
- .vector_24     0x000000009d005500        0xc /tmp/ccDHG1B8.o
+ .vector_24     0x000000009d005500        0xc /tmp/ccDIQcDp.o
                 0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_24) <= (_vector_spacing << 0x5))), function at exception vector 24 too large)
 
 .vector_25      0x000000009d005520        0x0
@@ -436,7 +438,7 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 .vector_32      0x000000009d005600        0xc
  *(.vector_32)
- .vector_32     0x000000009d005600        0xc /tmp/ccDHG1B8.o
+ .vector_32     0x000000009d005600        0xc /tmp/ccDIQcDp.o
                 0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_32) <= (_vector_spacing << 0x5))), function at exception vector 32 too large)
 
 .vector_33      0x000000009d005620        0x0
@@ -449,7 +451,7 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 .vector_35      0x000000009d005660        0xc
  *(.vector_35)
- .vector_35     0x000000009d005660        0xc /tmp/ccDHG1B8.o
+ .vector_35     0x000000009d005660        0xc /tmp/ccDIQcDp.o
                 0x0000000000000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_35) <= (_vector_spacing << 0x5))), function at exception vector 35 too large)
 
 .vector_36      0x000000009d005680        0x0
@@ -566,134 +568,130 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 .startup        0x000000009d006490      0x1bc
  *(.startup)
- .startup       0x000000009d006490      0x1bc /tmp/ccCg4D9v.o
+ .startup       0x000000009d006490      0x1bc /tmp/ccRzzVJ7.o
 
-.text           0x000000009d006a00      0xf78
+.text           0x000000009d006a00      0xff4
                 0x000000009d006a00                _text_begin = .
  *(.text .stub .text.* .gnu.linkonce.t.*)
  .text.SystemUnlock
-                0x000000009d006a00       0x28 /tmp/ccpjroJT.o
+                0x000000009d006a00       0x28 /tmp/ccOoUgSP.o
                 0x000000009d006a00                SystemUnlock
  .text.SystemClocksReadSettings
-                0x000000009d006a28       0x3c /tmp/ccpjroJT.o
+                0x000000009d006a28       0x3c /tmp/ccOoUgSP.o
                 0x000000009d006a28                SystemClocksReadSettings
  .text.SystemClocksGetCpuFrequency
-                0x000000009d006a64       0x70 /tmp/ccpjroJT.o
+                0x000000009d006a64       0x70 /tmp/ccOoUgSP.o
                 0x000000009d006a64                SystemClocksGetCpuFrequency
  .text.SystemClocksCalcCpuClockSettings
-                0x000000009d006ad4       0xbc /tmp/ccpjroJT.o
+                0x000000009d006ad4       0xbc /tmp/ccOoUgSP.o
                 0x000000009d006ad4                SystemClocksCalcCpuClockSettings
  .text.SystemClocksCalcPeripheralClockSettings
-                0x000000009d006b90       0x84 /tmp/ccpjroJT.o
+                0x000000009d006b90       0x84 /tmp/ccOoUgSP.o
                 0x000000009d006b90                SystemClocksCalcPeripheralClockSettings
  .text.SystemClocksWriteSettings
-                0x000000009d006c14       0xc0 /tmp/ccpjroJT.o
+                0x000000009d006c14       0xc0 /tmp/ccOoUgSP.o
                 0x000000009d006c14                SystemClocksWriteSettings
- .text.GetSystemClock
-                0x000000009d006cd4       0x30 /tmp/ccpjroJT.o
-                0x000000009d006cd4                GetSystemClock
  .text.SystemConfig
-                0x000000009d006d04       0x64 /tmp/ccpjroJT.o
-                0x000000009d006d04                SystemConfig
- .text.GetCP0Count
-                0x000000009d006d68        0x8 /tmp/ccpjroJT.o
-                0x000000009d006d68                GetCP0Count
- .text.Delayus  0x000000009d006d70       0xb4 /tmp/ccpjroJT.o
-                0x000000009d006d70                Delayus
- .text.Delayms  0x000000009d006e24       0x38 /tmp/ccpjroJT.o
-                0x000000009d006e24                Delayms
- .text.pinmode  0x000000009d006e5c      0x1c0 /tmp/ccpjroJT.o
-                0x000000009d006e5c                pinmode
- .text.toggle   0x000000009d00701c       0xd4 /tmp/ccpjroJT.o
-                0x000000009d00701c                toggle
+                0x000000009d006cd4       0x64 /tmp/ccOoUgSP.o
+                0x000000009d006cd4                SystemConfig
+ .text.pinmode  0x000000009d006d38      0x1c0 /tmp/ccOoUgSP.o
+                0x000000009d006d38                pinmode
+ .text.digitalwrite
+                0x000000009d006ef8      0x1c0 /tmp/ccOoUgSP.o
+                0x000000009d006ef8                digitalwrite
+ .text.digitalread
+                0x000000009d0070b8       0xc0 /tmp/ccOoUgSP.o
+                0x000000009d0070b8                digitalread
  .text.IOsetSpecial
-                0x000000009d0070f0       0x28 /tmp/ccpjroJT.o
-                0x000000009d0070f0                IOsetSpecial
+                0x000000009d007178       0x28 /tmp/ccOoUgSP.o
+                0x000000009d007178                IOsetSpecial
  .text.IntClearFlag
-                0x000000009d007118       0x54 /tmp/ccpjroJT.o
-                0x000000009d007118                IntClearFlag
+                0x000000009d0071a0       0x54 /tmp/ccOoUgSP.o
+                0x000000009d0071a0                IntClearFlag
  .text.IntGetFlag
-                0x000000009d00716c       0x4c /tmp/ccpjroJT.o
-                0x000000009d00716c                IntGetFlag
+                0x000000009d0071f4       0x4c /tmp/ccOoUgSP.o
+                0x000000009d0071f4                IntGetFlag
  .text.SerialGetDataBuffer
-                0x000000009d0071b8       0xf4 /tmp/ccpjroJT.o
-                0x000000009d0071b8                SerialGetDataBuffer
+                0x000000009d007240       0xf4 /tmp/ccOoUgSP.o
+                0x000000009d007240                SerialGetDataBuffer
  .text.Serial1Interrupt
-                0x000000009d0072ac       0xe0 /tmp/ccpjroJT.o
-                0x000000009d0072ac                Serial1Interrupt
+                0x000000009d007334       0xe0 /tmp/ccOoUgSP.o
+                0x000000009d007334                Serial1Interrupt
  .text.Serial2Interrupt
-                0x000000009d00738c       0xe0 /tmp/ccpjroJT.o
-                0x000000009d00738c                Serial2Interrupt
- .text.setup    0x000000009d00746c       0x20 /tmp/ccpjroJT.o
-                0x000000009d00746c                setup
- .text.loop     0x000000009d00748c       0x50 /tmp/ccpjroJT.o
-                0x000000009d00748c                loop
- .text.main     0x000000009d0074dc       0x40 /tmp/ccpjroJT.o
-                0x000000009d0074dc                main
+                0x000000009d007414       0xe0 /tmp/ccOoUgSP.o
+                0x000000009d007414                Serial2Interrupt
+ .text.setup    0x000000009d0074f4       0x28 /tmp/ccOoUgSP.o
+                0x000000009d0074f4                setup
+ .text.loop     0x000000009d00751c       0x3c /tmp/ccOoUgSP.o
+                0x000000009d00751c                loop
+ .text.main     0x000000009d007558       0x40 /tmp/ccOoUgSP.o
+                0x000000009d007558                main
  .text.Tmr2Interrupt
-                0x000000009d00751c        0xc /tmp/ccpjroJT.o
-                0x000000009d00751c                Tmr2Interrupt
+                0x000000009d007598        0xc /tmp/ccOoUgSP.o
+                0x000000009d007598                Tmr2Interrupt
  .text.RTCCInterrupt
-                0x000000009d007528        0xc /tmp/ccpjroJT.o
-                0x000000009d007528                RTCCInterrupt
- .text          0x000000009d007534       0x14 /tmp/ccCg4D9v.o
- .text          0x000000009d007548      0x430 /tmp/ccDHG1B8.o
-                0x000000009d007548                vector_8_ISR_wrapper
-                0x000000009d007654                vector_24_ISR_wrapper
-                0x000000009d007760                vector_32_ISR_wrapper
-                0x000000009d00786c                vector_35_ISR_wrapper
+                0x000000009d0075a4        0xc /tmp/ccOoUgSP.o
+                0x000000009d0075a4                RTCCInterrupt
+ .text          0x000000009d0075b0       0x14 /tmp/ccRzzVJ7.o
+ .text          0x000000009d0075c4      0x430 /tmp/ccDIQcDp.o
+                0x000000009d0075c4                vector_8_ISR_wrapper
+                0x000000009d0076d0                vector_24_ISR_wrapper
+                0x000000009d0077dc                vector_32_ISR_wrapper
+                0x000000009d0078e8                vector_35_ISR_wrapper
  *(.text.*personality*)
  *(.gnu.warning)
  *(.mips16.fn.*)
  *(.mips16.call.*)
-                0x000000009d007978                _text_end = .
+                0x000000009d0079f4                _text_end = .
 
-.rodata         0x000000009d007978      0x198
+.rodata         0x000000009d0079f4      0x1b0
  *(.rodata .rodata.* .gnu.linkonce.r.*)
  .rodata.pinmode
-                0x000000009d007978       0x18 /tmp/ccpjroJT.o
- .rodata.toggle
-                0x000000009d007990       0x18 /tmp/ccpjroJT.o
+                0x000000009d0079f4       0x18 /tmp/ccOoUgSP.o
+ .rodata.digitalwrite
+                0x000000009d007a0c       0x18 /tmp/ccOoUgSP.o
+ .rodata.digitalread
+                0x000000009d007a24       0x18 /tmp/ccOoUgSP.o
  .rodata.portmask
-                0x000000009d0079a8       0x84 /tmp/ccpjroJT.o
-                0x000000009d0079a8                portmask
+                0x000000009d007a3c       0x84 /tmp/ccOoUgSP.o
+                0x000000009d007a3c                portmask
  .rodata.pinmask
-                0x000000009d007a2c       0x84 /tmp/ccpjroJT.o
-                0x000000009d007a2c                pinmask
+                0x000000009d007ac0       0x84 /tmp/ccOoUgSP.o
+                0x000000009d007ac0                pinmask
  .rodata.pllInputDivs
-                0x000000009d007ab0       0x20 /tmp/ccpjroJT.o
+                0x000000009d007b44       0x20 /tmp/ccOoUgSP.o
  .rodata.pllOutputDivs
-                0x000000009d007ad0       0x20 /tmp/ccpjroJT.o
+                0x000000009d007b64       0x20 /tmp/ccOoUgSP.o
  .rodata.pllMuls
-                0x000000009d007af0       0x20 /tmp/ccpjroJT.o
+                0x000000009d007b84       0x20 /tmp/ccOoUgSP.o
  *(.rodata1)
-                0x000000009d007b10                . = ALIGN (0x4)
+                0x000000009d007ba4                . = ALIGN (0x4)
 
-.sdata2         0x000000009d007b10        0x0
+.sdata2         0x000000009d007ba4        0x0
  *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
-                0x000000009d007b10                . = ALIGN (0x4)
+                0x000000009d007ba4                . = ALIGN (0x4)
 
-.sbss2          0x000000009d007b10        0x0
+.sbss2          0x000000009d007ba4        0x0
  *(.sbss2 .sbss2.* .gnu.linkonce.sb2.*)
-                0x000000009d007b10                . = ALIGN (0x4)
+                0x000000009d007ba4                . = ALIGN (0x4)
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
 
-.eh_frame       0x000000009d007b10        0x4
+.eh_frame       0x000000009d007ba4        0x4
  *(.eh_frame)
- .eh_frame      0x000000009d007b10        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .eh_frame      0x000000009d007b10        0x4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .eh_frame      0x000000009d007ba4        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .eh_frame      0x000000009d007ba4        0x4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
 
 .dbg_data       0x00000000a0000004        0x0
                 0x00000000a0000004                . = (. + DEFINED (_DEBUGGER)?0x200:0x0)
 
-.data           0x00000000a0000004        0x0 load address 0x000000009d007b14
+.data           0x00000000a0000004        0x0 load address 0x000000009d007ba8
                 0x00000000a0000004                _data_begin = .
  *(.data .data.* .gnu.linkonce.d.*)
  *(.gnu.linkonce.d.*personality*)
  *(.data1)
-                0x000000009d007b14                _data_image_begin = LOADADDR (.data)
+                0x000000009d007ba8                _data_image_begin = LOADADDR (.data)
 
 .eh_frame
  *(.eh_frame)
@@ -703,7 +701,7 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
  *(.got.plt)
  *(.got)
 
-.sdata          0x00000000a0000004        0x0 load address 0x000000009d007b14
+.sdata          0x00000000a0000004        0x0 load address 0x000000009d007ba8
                 0x00000000a0000004                _sdata_begin = .
  *(.sdata .sdata.* .gnu.linkonce.s.*)
                 0x00000000a0000004                _sdata_end = .
@@ -717,14 +715,15 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
                 0x00000000a0000004                _data_end = .
                 0x00000000a0000004                _bss_begin = .
 
-.sbss           0x00000000a0000004       0x18 load address 0x000000009d007b14
+.sbss           0x00000000a0000004       0x18 load address 0x000000009d007ba8
                 0x00000000a0000004                _sbss_begin = .
  *(.dynsbss)
  *(.sbss .sbss.* .gnu.linkonce.sb.*)
- .sbss.__i__    0x00000000a0000004        0x4 /tmp/ccpjroJT.o
-                0x00000000a0000004                __i__
+ .sbss.buttonState
+                0x00000000a0000004        0x4 /tmp/ccOoUgSP.o
+                0x00000000a0000004                buttonState
  *(.scommon)
- .scommon       0x00000000a0000008       0x14 /tmp/ccpjroJT.o
+ .scommon       0x00000000a0000008       0x14 /tmp/ccOoUgSP.o
                 0x00000000a0000008                UART2rpointer
                 0x00000000a000000c                heap_ptr
                 0x00000000a0000010                UART2wpointer
@@ -732,11 +731,11 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
                 0x00000000a0000018                UART1wpointer
                 0x00000000a000001c                _sbss_end = .
 
-.bss            0x00000000a000001c      0x100 load address 0x000000009d007b14
+.bss            0x00000000a000001c      0x100 load address 0x000000009d007ba8
  *(.dynbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
  *(COMMON)
- COMMON         0x00000000a000001c      0x100 /tmp/ccpjroJT.o
+ COMMON         0x00000000a000001c      0x100 /tmp/ccOoUgSP.o
                 0x00000000a000001c                UART2SerialBuffer
                 0x00000000a000009c                UART1SerialBuffer
                 0x00000000a000011c                . = ALIGN (0x4)
@@ -744,23 +743,23 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
                 0x00000000a000011c                _end = .
                 0x00000000a000011c                _bss_end = .
 
-.heap           0x00000000a000011c     0x4000 load address 0x000000009d007b14
+.heap           0x00000000a000011c     0x4000 load address 0x000000009d007ba8
                 0x00000000a000011c                _heap = .
                 0x00000000a000411c                . = (. + _min_heap_size)
  *fill*         0x00000000a000011c     0x4000 00
 
-.stack          0x00000000a000411c      0x400 load address 0x000000009d007b14
+.stack          0x00000000a000411c      0x400 load address 0x000000009d007ba8
                 0x00000000a000411c                _splim = .
                 0x00000000a000411c                _SPLIM = .
                 0x00000000a000451c                . = (. + _min_stack_size)
  *fill*         0x00000000a000411c      0x400 00
 
-.ramfunc        0x00000000a0004800        0x0 load address 0x000000009d007b14
+.ramfunc        0x00000000a0004800        0x0 load address 0x000000009d007ba8
                 0x00000000a0004800                _ramfunc_begin = .
  *(.ramfunc .ramfunc.*)
                 0x00000000a0004800                . = ALIGN (0x4)
                 0x00000000a0004800                _ramfunc_end = .
-                0x000000009d007b14                _ramfunc_image_begin = LOADADDR (.ramfunc)
+                0x000000009d007ba8                _ramfunc_image_begin = LOADADDR (.ramfunc)
                 0x0000000000000000                _ramfunc_length = SIZEOF (.ramfunc)
                 0x00000000000047fc                _bmxdkpba_address = (_ramfunc_begin - ORIGIN (kseg1_data_mem))
                 0x0000000000007ffc                _bmxdudba_address = 0x7ffc
@@ -770,15 +769,15 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 .pdr            0x0000000000000000        0x0
  *(.pdr)
- .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .pdr           0x0000000000000000        0x0 /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o
- .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
- .pdr           0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/p32/obj/non-free/processor.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .pdr           0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
 
 .reginfo        0x0000000000000000       0x18
  *(.reginfo)
- .reginfo       0x0000000000000000       0x18 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .reginfo       0x0000000000000000       0x18 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
 
 .stab
  *(.stab)
@@ -799,45 +798,45 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
  *(.stab.indexstr)
 
 .mdebug.abi32   0x0000000000000000        0x0
- .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
- .mdebug.abi32  0x0000000000000000        0x0 /tmp/ccpjroJT.o
- .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .mdebug.abi32  0x0000000000000000        0x0 /tmp/ccOoUgSP.o
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .mdebug.abi32  0x0000000000000000        0x0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
 
 .gnu.attributes
                 0x0000000000000000       0x10
  .gnu.attributes
-                0x0000000000000000       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+                0x0000000000000000       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
  .gnu.attributes
-                0x0000000000000010       0x10 /tmp/ccpjroJT.o
+                0x0000000000000010       0x10 /tmp/ccOoUgSP.o
  .gnu.attributes
-                0x0000000000000020       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+                0x0000000000000020       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
  .gnu.attributes
-                0x0000000000000030       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+                0x0000000000000030       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
  .gnu.attributes
-                0x0000000000000040       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+                0x0000000000000040       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
  .gnu.attributes
-                0x0000000000000050       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+                0x0000000000000050       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
  .gnu.attributes
-                0x0000000000000060       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+                0x0000000000000060       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
  .gnu.attributes
-                0x0000000000000070       0x10 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+                0x0000000000000070       0x10 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
 
 .comment        0x0000000000000000       0x3d
  *(.comment)
- .comment       0x0000000000000000       0x2b /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
+ .comment       0x0000000000000000       0x2b /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtbegin.o
                                          0x2c (size before relaxing)
- .comment       0x0000000000000000       0x2c /tmp/ccpjroJT.o
- .comment       0x0000000000000000       0x2c /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .comment       0x0000000000000000       0x2c /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .comment       0x0000000000000000       0x2c /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .comment       0x0000000000000000       0x2c /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .comment       0x000000000000002b       0x12 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .comment       0x0000000000000000       0x2c /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
+ .comment       0x0000000000000000       0x2c /tmp/ccOoUgSP.o
+ .comment       0x0000000000000000       0x2c /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .comment       0x0000000000000000       0x2c /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .comment       0x0000000000000000       0x2c /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .comment       0x0000000000000000       0x2c /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .comment       0x000000000000002b       0x12 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .comment       0x0000000000000000       0x2c /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtend.o
 
 .debug
  *(.debug)
@@ -854,92 +853,92 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 .debug_aranges  0x0000000000000000       0xf0
  *(.debug_aranges)
  .debug_aranges
-                0x0000000000000000       0x28 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+                0x0000000000000000       0x28 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
  .debug_aranges
-                0x0000000000000028       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+                0x0000000000000028       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
  .debug_aranges
-                0x0000000000000048       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+                0x0000000000000048       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
  .debug_aranges
-                0x0000000000000068       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+                0x0000000000000068       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
  .debug_aranges
-                0x0000000000000088       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+                0x0000000000000088       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
  .debug_aranges
-                0x00000000000000a8       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+                0x00000000000000a8       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
  .debug_aranges
-                0x00000000000000c8       0x28 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+                0x00000000000000c8       0x28 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
 
 .debug_pubnames
                 0x0000000000000000       0xa0
  *(.debug_pubnames)
  .debug_pubnames
-                0x0000000000000000       0x23 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+                0x0000000000000000       0x23 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
  .debug_pubnames
-                0x0000000000000023       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+                0x0000000000000023       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
  .debug_pubnames
-                0x0000000000000043       0x21 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+                0x0000000000000043       0x21 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
  .debug_pubnames
-                0x0000000000000064       0x1f /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+                0x0000000000000064       0x1f /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
  .debug_pubnames
-                0x0000000000000083       0x1d /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+                0x0000000000000083       0x1d /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
 
 .debug_info     0x0000000000000000      0xc20
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x0000000000000000       0xb0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .debug_info    0x00000000000000b0      0x267 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .debug_info    0x0000000000000317      0x1dd /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .debug_info    0x00000000000004f4      0x271 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .debug_info    0x0000000000000765      0x2e4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .debug_info    0x0000000000000a49      0x127 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .debug_info    0x0000000000000b70       0xb0 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .debug_info    0x0000000000000000       0xb0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_info    0x00000000000000b0      0x267 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_info    0x0000000000000317      0x1dd /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_info    0x00000000000004f4      0x271 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_info    0x0000000000000765      0x2e4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_info    0x0000000000000a49      0x127 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_info    0x0000000000000b70       0xb0 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
 
 .debug_abbrev   0x0000000000000000      0x5e0
  *(.debug_abbrev)
- .debug_abbrev  0x0000000000000000       0x12 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .debug_abbrev  0x0000000000000012      0x137 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .debug_abbrev  0x0000000000000149      0x100 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .debug_abbrev  0x0000000000000249      0x15a /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .debug_abbrev  0x00000000000003a3      0x185 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .debug_abbrev  0x0000000000000528       0xa6 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .debug_abbrev  0x00000000000005ce       0x12 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .debug_abbrev  0x0000000000000000       0x12 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_abbrev  0x0000000000000012      0x137 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_abbrev  0x0000000000000149      0x100 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_abbrev  0x0000000000000249      0x15a /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_abbrev  0x00000000000003a3      0x185 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_abbrev  0x0000000000000528       0xa6 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_abbrev  0x00000000000005ce       0x12 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
 
 .debug_line     0x0000000000000000      0x420
  *(.debug_line)
- .debug_line    0x0000000000000000       0x69 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .debug_line    0x0000000000000069       0x93 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .debug_line    0x00000000000000fc       0x8e /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .debug_line    0x000000000000018a       0xb9 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .debug_line    0x0000000000000243       0xe4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .debug_line    0x0000000000000327       0x8e /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
- .debug_line    0x00000000000003b5       0x6b /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .debug_line    0x0000000000000000       0x69 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_line    0x0000000000000069       0x93 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_line    0x00000000000000fc       0x8e /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_line    0x000000000000018a       0xb9 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_line    0x0000000000000243       0xe4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_line    0x0000000000000327       0x8e /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_line    0x00000000000003b5       0x6b /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
 
 .debug_frame    0x0000000000000000       0xb0
  *(.debug_frame)
- .debug_frame   0x0000000000000000       0x28 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .debug_frame   0x0000000000000028       0x28 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .debug_frame   0x0000000000000050       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .debug_frame   0x0000000000000070       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .debug_frame   0x0000000000000090       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_frame   0x0000000000000000       0x28 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_frame   0x0000000000000028       0x28 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_frame   0x0000000000000050       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_frame   0x0000000000000070       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_frame   0x0000000000000090       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
 
 .debug_str      0x0000000000000000      0x313
  *(.debug_str)
- .debug_str     0x0000000000000000      0x1f2 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_str     0x0000000000000000      0x1f2 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
                                         0x20d (size before relaxing)
- .debug_str     0x00000000000001f2       0x39 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_str     0x00000000000001f2       0x39 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
                                         0x1c8 (size before relaxing)
- .debug_str     0x000000000000022b        0xb /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_str     0x000000000000022b        0xb /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
                                         0x1f7 (size before relaxing)
- .debug_str     0x0000000000000236       0x29 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_str     0x0000000000000236       0x29 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
                                         0x20f (size before relaxing)
- .debug_str     0x000000000000025f       0xb4 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_str     0x000000000000025f       0xb4 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
                                         0x12f (size before relaxing)
 
 .debug_loc      0x0000000000000000      0x473
  *(.debug_loc)
- .debug_loc     0x0000000000000000       0x56 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
- .debug_loc     0x0000000000000056       0x78 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
- .debug_loc     0x00000000000000ce       0xd3 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
- .debug_loc     0x00000000000001a1      0x1dc /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
- .debug_loc     0x000000000000037d       0xf6 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
+ .debug_loc     0x0000000000000000       0x56 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+ .debug_loc     0x0000000000000056       0x78 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+ .debug_loc     0x00000000000000ce       0xd3 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+ .debug_loc     0x00000000000001a1      0x1dc /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+ .debug_loc     0x000000000000037d       0xf6 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/../../../../mips-elf/lib/libc.a(lib_a-strcmp.o)
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -958,19 +957,19 @@ LOAD /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib
 
 /DISCARD/
  *(.note.GNU-stack)
-OUTPUT(/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.elf elf32-littlemips)
+OUTPUT(/home/yeison/pinguino-ide/pinguino/source/main32.elf elf32-littlemips)
 
 .debug_ranges   0x0000000000000000       0x40
- .debug_ranges  0x0000000000000000       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
- .debug_ranges  0x0000000000000020       0x20 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
+ .debug_ranges  0x0000000000000000       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crti.o
+ .debug_ranges  0x0000000000000020       0x20 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/crtn.o
 
 .debug_pubtypes
                 0x0000000000000000      0x24b
  .debug_pubtypes
-                0x0000000000000000       0xa3 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
+                0x0000000000000000       0xa3 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_df_to_sf.o)
  .debug_pubtypes
-                0x00000000000000a3       0x78 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
+                0x00000000000000a3       0x78 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_make_sf.o)
  .debug_pubtypes
-                0x000000000000011b       0x98 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
+                0x000000000000011b       0x98 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_unpack_df.o)
  .debug_pubtypes
-                0x00000000000001b3       0x98 /home/yeison/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
+                0x00000000000001b3       0x98 /home/yeison/pinguino-ide/pinguino/linux/p32/bin/../lib/gcc/mips-elf/4.5.2/soft-float/el/libgcc.a(_pack_sf.o)
