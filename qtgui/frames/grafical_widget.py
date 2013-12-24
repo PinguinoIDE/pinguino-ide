@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/grafical_widget.ui'
+# Form implementation generated from reading ui file '/home/yeisonarch/Documentos/Pinguino/pinguino-ide/qtgui/frames/grafical_widget.ui'
 #
-# Created: Sun Dec 22 10:55:15 2013
-#      by: pyside-uic 0.2.14 running on PySide 1.1.2
+# Created: Mon Dec 23 18:58:16 2013
+#      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
 

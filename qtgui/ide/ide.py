@@ -57,7 +57,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.set_board()
         self.statusbar_ide(self.get_status_board())
         
-        self.install_error_redirect()
+        #self.install_error_redirect()
         
         self.load_main_config()
         

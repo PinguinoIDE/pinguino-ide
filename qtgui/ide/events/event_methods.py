@@ -964,7 +964,7 @@ class EventMethods(SearchReplace):
         """"""
         default_pallete = ["toolBar_edit", "toolBar_files", "toolBar_search_replace",
                            "toolBar_undo_redo", "toolBar_pinguino", "toolBar_pinguino",
-                           "toolBar_graphical", "toolBar_switch"]
+                           "toolBar_graphical", "toolBar_switch", "statusBar"]
         
         pinguino_pallete = ["dockWidget_output", "dockWidget_tools", "dockWidget_blocks"]
         

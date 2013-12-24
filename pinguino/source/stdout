@@ -1,33 +1,33 @@
 #----------------------------------------------------------------------------
 #	clean
 #----------------------------------------------------------------------------
-rm -f -v /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.o
-rm -f -v /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.elf
-«/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.elf» borrado
-rm -f -v /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.hex
-rm -f -v /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o
-«/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o» borrado
+rm -f -v /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.o
+rm -f -v /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.elf
+«/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.elf» borrado
+rm -f -v /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.hex
+rm -f -v /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o
+«/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o» borrado
 #----------------------------------------------------------------------------
 #	copy
 #----------------------------------------------------------------------------
-cp /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/32MX440F256H.o /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o
+cp /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/32MX440F256H.o /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o
 #----------------------------------------------------------------------------
 #	compile and link
 #----------------------------------------------------------------------------
-/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/mips-elf-gcc -EL -O3 -ffunction-sections -fdata-sections -Wl,--gc-sections -march=24kc -msoft-float -Wl,--defsym,_min_heap_size=16384 -Wl,-Map=/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/output.map -Wl,-L/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/ -D __PIC32MX__ -D __32MX440F256H__ -D PIC32_PINGUINO -T/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/lkr/PIC32_PINGUINO/procdefs.ld -T/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/lkr/PIC32_PINGUINO/elf32pic32mx.x -L/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/usb -lm -lgcc -lc -fdollars-in-identifiers -I/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/include/non-free -I/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/include/pinguino/core -I/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/include/pinguino/libraries -I/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/lkr/PIC32_PINGUINO -I/home/yeison/Desktop -I/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free -o /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.elf /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.c\
-		/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/crt0.S\
-		/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/processor.o\
-		/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/usb/libcdc.a\
-		/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/obj/non-free/usb/libadb.a\
-		/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/lkr/PIC32_PINGUINO/ISRwrapper.S\
-		/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/p32/include/non-free/p32xxxx.h\
-		-lm -lgcc -lc
+/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/mips-elf-gcc -EL -Os -ffunction-sections -fdata-sections -Wl,--gc-sections -march=24kc -msoft-float -minterlink-mips16 -Wl,--defsym,_min_heap_size=16384 -Wl,-Map=/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/output.map -Wl,-L/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/ -D __PIC32MX__ -D __32MX440F256H__ -D PIC32_PINGUINO_OTG -T/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/lkr/PIC32_PINGUINO_OTG/procdefs.ld -T/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/lkr/PIC32_PINGUINO_OTG/elf32pic32mx.x -L/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/usb -lm -lgcc -lc -fdollars-in-identifiers -I/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/include/non-free -I/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/include/pinguino/core -I/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/include/pinguino/libraries -I/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/lkr/PIC32_PINGUINO_OTG -I/home/yeisonarch/Documentos/Pinguino/pinguino-ide/qtgui/gide/examples/02-Functions -I/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free -o /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.elf /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.c\
+	/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/crt0.S\
+	/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/processor.o\
+	/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/usb/libcdc.a\
+	/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/obj/non-free/usb/libadb.a\
+	/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/lkr/PIC32_PINGUINO_OTG/ISRwrapper.S\
+	/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/p32/include/non-free/p32xxxx.h\
+	-lm -lgcc -lc
 #----------------------------------------------------------------------------
 #	exec
 #----------------------------------------------------------------------------
-/home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/linux/p32/bin/mips-elf-objcopy -O ihex /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.elf /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.hex
+/home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/linux/p32/bin/mips-elf-objcopy -O ihex /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.elf /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.hex
 #----------------------------------------------------------------------------
 #	correct
 #----------------------------------------------------------------------------
-grep --binary --invert-match '^:040000059D006000FA' /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.hex > /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/temp.hex
-mv /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/temp.hex /home/yeison/Documentos/python/dev/developing/Pinguino11/pinguino/source/main32.hex      
+grep --binary --invert-match '^:040000059D006000FA' /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.hex > /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/temp.hex
+mv /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/temp.hex /home/yeisonarch/Documentos/Pinguino/pinguino-ide/pinguino/source/main32.hex      

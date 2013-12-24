@@ -30,8 +30,7 @@ import time
 
 from .boards import boardlist as BoardList
 from .uploader.uploader import Uploader
-from .constants import  HOME_DIR, P8_DIR, P32_DIR, TEMP_DIR, SOURCE_DIR
-
+from .constants import  HOME_DIR, P8_DIR, P32_DIR, TEMP_DIR, SOURCE_DIR, COMPILERS_DIR
 
 if sys.platform == 'win32':
     os.environ['PATH'] = os.environ['PATH'] + ';' + os.path.join(HOME_DIR,'win32','p8','bin') 
@@ -59,7 +58,7 @@ class PinguinoTools(object):
                           "no": self.NoBoot,}
         
     #----------------------------------------------------------------------
-    def set_os_variables(self):
+    def set_os_variables(self, local_compilers=True):
         
         if sys.platform == 'darwin':
             self.osdir = 'macosx'
@@ -84,10 +83,23 @@ class PinguinoTools(object):
             self.u32 = 'ubw32'
             self.make = 'make'
 
-        #self.P8_BIN_DIR = os.path.join(HOME_DIR, self.osdir, 'p8', 'bin' + OSarch)
-        #self.P32_BIN_DIR = os.path.join(HOME_DIR, self.osdir, 'p32', 'bin' + OSarch)
-        self.P8_BIN_DIR = os.path.join(HOME_DIR, self.osdir, 'p8', 'bin')
-        self.P32_BIN_DIR = os.path.join(HOME_DIR, self.osdir, 'p32', 'bin')
+        ##self.P8_BIN_DIR = os.path.join(HOME_DIR, self.osdir, 'p8', 'bin' + OSarch)
+        ##self.P32_BIN_DIR = os.path.join(HOME_DIR, self.osdir, 'p32', 'bin' + OSarch)
+        #self.P8_BIN_DIR = os.path.join(HOME_DIR, self.osdir, 'p8', 'bin')
+        #self.P32_BIN_DIR = os.path.join(HOME_DIR, self.osdir, 'p32', 'bin')
+        
+        
+        if local_compilers:
+            self.P8_BIN_DIR = os.path.join(COMPILERS_DIR, self.osdir, "p8", "bin")
+            self.P32_BIN_DIR = os.path.join(COMPILERS_DIR, self.osdir, "p32", "bin")
+            
+            if not os.path.isdir(self.P8_BIN_DIR): self.P8_BIN_DIR = ""
+            if not os.path.isdir(self.P32_BIN_DIR): self.P32_BIN_DIR = ""
+            
+        else:
+            self.P8_BIN_DIR = ""
+            self.P32_BIN_DIR = ""        
+        
 
     #----------------------------------------------------------------------
     def set_board(self, board):
@@ -255,11 +267,13 @@ class PinguinoTools(object):
                 
                 reg = re.match(regex_pdl, line)
                 instruction, cnvinstruction, include, define = reg.groups()
+                if not cnvinstruction: cnvinstruction = instruction
                 include = "" if include is None else include
                 define = "" if define is None else define
                 libinstructions.append([instruction, cnvinstruction, include, define])
                 
                 if not instruction: continue
+                
                 
                 #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])"+str(instruction))+"[ ]*\(")
                 #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])"+str(instruction)+r"([' ']|['=']|['}']|[',']|[';']|[\t]|[')'].*)")
@@ -430,32 +444,35 @@ class PinguinoTools(object):
         fichier = open(os.path.join(SOURCE_DIR, "stdout"), "w+")
 
         if board.bldr == 'boot2':
-            sortie = Popen([os.path.join(self.P8_BIN_DIR, self.c8),\
-                "--verbose",\
-                "-mpic16",\
-                "--denable-peeps",\
-                "--obanksel=9",\
-                "--optimize-cmp",\
-                "--optimize-df",\
-                "-p" + board.proc,\
-                "-D" + board.board,\
-                "-D" + board.bldr,\
-                "-DBOARD=\"" + board.board + "\"",\
-                "-DPROC=\"" + board.proc + "\"",\
-                "-DBOOT_VER=2",\
-                "-I" + os.path.join(P8_DIR, 'sdcc', 'include', 'pic16'),\
-                "-I" + os.path.join(P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
-                "-I" + os.path.join(P8_DIR, 'pinguino', 'core'),\
-                "-I" + os.path.join(P8_DIR, 'pinguino', 'libraries'),\
-                "-I" + os.path.dirname(filename),\
-                "--compile-only",\
-                "-o" + os.path.join(SOURCE_DIR, 'main.o'),\
-                os.path.join(SOURCE_DIR, 'main.c')],\
+            sortie = Popen(executable=os.path.join(self.P8_BIN_DIR, self.c8),
+            #sortie = Popen(executable="sdcc", 
+                args=[
+                "--verbose",
+                "-mpic16",
+                "--denable-peeps",
+                "--obanksel=9",
+                "--optimize-cmp",
+                "--optimize-df",
+                "-p" + board.proc,
+                "-D" + board.board,
+                "-D" + board.bldr,
+                "-DBOARD=\"" + board.board + "\"",
+                "-DPROC=\"" + board.proc + "\"",
+                "-DBOOT_VER=2",
+                "-I" + os.path.join(P8_DIR, 'sdcc', 'include', 'pic16'),
+                "-I" + os.path.join(P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),
+                "-I" + os.path.join(P8_DIR, 'pinguino', 'core'),
+                "-I" + os.path.join(P8_DIR, 'pinguino', 'libraries'),
+                "-I" + os.path.dirname(filename),
+                "--compile-only",
+                "-o" + os.path.join(SOURCE_DIR, 'main.o'),
+                os.path.join(SOURCE_DIR, 'main.c')],
                 stdout=fichier, stderr=STDOUT)
             
                            
         elif board.bldr == 'boot4':
-            sortie = Popen([os.path.join(self.P8_BIN_DIR, self.c8),\
+            sortie = Popen(executable=os.path.join(self.P8_BIN_DIR, self.c8),\
+                args=[
                 "--verbose",\
                 "-mpic16",\
                 "--denable-peeps",\
@@ -559,7 +576,9 @@ class PinguinoTools(object):
         if board.arch == 8:
             
             if board.bldr == 'boot2':
-                sortie = Popen([os.path.join(self.P8_BIN_DIR, self.c8),\
+                sortie = Popen(executable=os.path.join(self.P8_BIN_DIR, self.c8),\
+                #sortie = Popen(executable="sdcc", 
+                    args=[
                     "--verbose",\
                     "-mpic16",\
                     "--denable-peeps",\
@@ -668,11 +687,13 @@ class PinguinoTools(object):
             # "PDEDIR=" + os.path.dirname(self.GetPath()),\
             # can't be used with Command Line version since editor isn't used
             sortie=Popen([self.make,\
-                          "--makefile=" + os.path.join(SOURCE_DIR, 'Makefile32.'+self.osdir),\
-                          "HOME=" + HOME_DIR,\
-                          "PDEDIR=" + os.path.dirname(filename),\
-                          "PROC=" + board.proc,\
-                          "BOARD=" + board.board],\
+            #sortie=Popen(executable=self.make, 
+                         #args=[                          
+                          "--makefile=" + os.path.join(SOURCE_DIR, 'Makefile32.'+self.osdir),
+                          "HOME=" + HOME_DIR,
+                          "PDEDIR=" + os.path.dirname(filename),
+                          "PROC=" + board.proc,
+                          "BOARD=" + board.board],
                          stdout=fichier, stderr=STDOUT)
                          
         sortie.communicate()
