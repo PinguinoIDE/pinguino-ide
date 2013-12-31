@@ -34,8 +34,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.ICONS = CompleteIcons()
         self.PinguinoPallete = BackgroundPallete()
         self.PinguinoPallete.save_palette(self.main.centralwidget.parent())   
-        
         self.switch_color_theme(self.configIDE.config("Main", "color_theme", True))
+        
         self.__initialize_features__()
         
         self.connect_events()
@@ -57,12 +57,19 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.set_board()
         self.statusbar_ide(self.get_status_board())
         
-        #self.install_error_redirect()
-        
         self.load_main_config()
         
-        #self.update_namespaces()
-             
+        bg_color = self.configIDE.config("Styles", "background_color", "#FFFFFF")
+        alternate_bg_color = self.configIDE.config("Styles", "alternate_background_color", "#DDE8FF")
+        
+        self.main.tableWidget_functions.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
+        self.main.tableWidget_directives.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
+        self.main.tableWidget_variables.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
+                
+                
+        
+        
+        
     #----------------------------------------------------------------------
     def build_statusbar(self):
         """"""

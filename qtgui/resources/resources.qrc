@@ -17,6 +17,9 @@
     <file>toolbar/compile.png</file>
     <file>toolbar/save_file.png</file>
   </qresource>
+  <qresource prefix="bg">
+    <file>bg/box.png</file>
+  </qresource>
   <qresource prefix="icons">
     <file>icons/icon_down.png</file>
     <file>icons/icon_up.png</file>

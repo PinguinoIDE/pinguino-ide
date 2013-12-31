@@ -34,6 +34,12 @@ class Stdout(QtGui.QMainWindow):
         
         self.connect(self.stdout.buttonBox, QtCore.SIGNAL("clicked(QAbstractButton*)"), self.getButton)
         
+        
+        
+        palette = QtGui.QPalette(self.palette())
+        self.setAutoFillBackground(True)
+        palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
+        self.setPalette(palette)  
 
         
         stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")

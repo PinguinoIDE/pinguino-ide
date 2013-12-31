@@ -36,12 +36,12 @@ class PinguinoCodeEditor(QWidget):
         palette = QtGui.QPalette(self.widget.palette())
         self.widget.setAutoFillBackground(True)
         palette.setColor(QtGui.QPalette.Window, QtGui.QColor("#E7E7E7"))
-        self.widget.setPalette(palette)        
+        self.widget.setPalette(palette)   
         
-        #self.widget.setStyleSheet("background-color: rgb(231, 231, 231);")
-        #self.widget.setStyleSheet("background-color: rgb(255, 0, 0);")
-        
-        
+        palette = QtGui.QPalette(self.palette())
+        self.setAutoFillBackground(True)
+        palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
+        self.setPalette(palette)        
         
         self.line_number.setTextEdit(self.text_edit)    
         self.text_edit.viewport().installEventFilter(self)

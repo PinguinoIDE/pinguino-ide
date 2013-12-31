@@ -4,6 +4,7 @@
 import sys
 
 from PySide import QtCore, QtGui
+import git
 
 from ..helpers import constants as Constants
 from ..helpers.python_shell import PythonShell
@@ -24,7 +25,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.setStyleSheet("background-color: rgb(0, 0, 0);"\
                            "color: rgb(255, 255, 255);"\
                            "font-family: mono;"\
-                           "font-size: 12px;")        
+                           "font-size: 12px;")
         
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)

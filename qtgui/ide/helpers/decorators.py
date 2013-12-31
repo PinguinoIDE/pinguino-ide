@@ -57,6 +57,16 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
+    def call_later(self):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                QtCore.QTimer.singleShot(100, lambda :fn(Pinguino, *args, **kwargs))
+            return wrapped
+        return actualdecorator
+    
+    #----------------------------------------------------------------------
+    @classmethod
     def requiere_browser_tab(self, name):
         def actualdecorator(fn):
             @functools.wraps(fn)

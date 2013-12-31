@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeisonarch/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/widgets/control_spin.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/widgets/control_spin.ui'
 #
-# Created: Mon Dec 23 18:58:15 2013
+# Created: Tue Dec 31 12:23:57 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,8 +32,8 @@ class Ui_Frame(object):
         self.frame_4 = QtGui.QFrame(Frame)
         self.frame_4.setObjectName("frame_4")
         self.gridLayout_4 = QtGui.QGridLayout(self.frame_4)
-        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_4.setSpacing(0)
+        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.verticalLayout_2 = QtGui.QVBoxLayout()
         self.verticalLayout_2.setSpacing(0)

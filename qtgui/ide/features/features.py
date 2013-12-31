@@ -23,11 +23,13 @@ class PinguinoFeatures(PinguinoEvents):
         
         self.recent_files = self.configIDE.get_recents()
         self.update_recents_menu()
+        self.open_last_files()
         
         #self.main.dockWidget_output.add
         self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
         self.main.plainTextEdit_output.shell.statement_module.pinguino_main = self
         self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
+        
         
         
     #----------------------------------------------------------------------

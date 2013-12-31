@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeisonarch/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Mon Dec 23 18:58:16 2013
+# Created: Tue Dec 31 12:23:58 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(966, 655)
+        PinguinoIDE.resize(968, 636)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         PinguinoIDE.setWindowIcon(icon)
@@ -54,7 +54,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 966, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 968, 20))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -542,6 +542,10 @@ class Ui_PinguinoIDE(object):
         self.actionColor_theme.setCheckable(True)
         self.actionColor_theme.setChecked(True)
         self.actionColor_theme.setObjectName("actionColor_theme")
+        self.actionLibrary_manager = QtGui.QAction(PinguinoIDE)
+        self.actionLibrary_manager.setObjectName("actionLibrary_manager")
+        self.actionHex_code = QtGui.QAction(PinguinoIDE)
+        self.actionHex_code.setObjectName("actionHex_code")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.menuRecents.menuAction())
@@ -565,9 +569,12 @@ class Ui_PinguinoIDE(object):
         self.menuEdit.addAction(self.actionSearch_and_replace)
         self.menuEdit.addSeparator()
         self.menuView.addAction(self.actionView_Pinguino_code)
+        self.menuView.addAction(self.actionHex_code)
         self.menuView.addAction(self.actionStdout)
         self.menuView.addAction(self.actionCurrent_Board)
+        self.menuPinguino.addAction(self.actionLibrary_manager)
         self.menuPinguino.addAction(self.actionSelect_board)
+        self.menuPinguino.addSeparator()
         self.menuPinguino.addAction(self.actionCompile)
         self.menuPinguino.addAction(self.actionUpload)
         self.menuLinks.addAction(self.actionGitHub)
@@ -618,7 +625,7 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(0)
+        self.tabWidget_tools.setCurrentIndex(1)
         self.tabWidget_browser.setCurrentIndex(1)
         self.tabWidget_blocks_tools.setCurrentIndex(0)
         self.tabWidget_blocks.setCurrentIndex(-1)
@@ -761,5 +768,7 @@ class Ui_PinguinoIDE(object):
         self.actionShell.setText(QtGui.QApplication.translate("PinguinoIDE", "Shell", None, QtGui.QApplication.UnicodeUTF8))
         self.actionBlocks.setText(QtGui.QApplication.translate("PinguinoIDE", "Blocks", None, QtGui.QApplication.UnicodeUTF8))
         self.actionColor_theme.setText(QtGui.QApplication.translate("PinguinoIDE", "Color theme", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionLibrary_manager.setText(QtGui.QApplication.translate("PinguinoIDE", "Library manager", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionHex_code.setText(QtGui.QApplication.translate("PinguinoIDE", "Hex code", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

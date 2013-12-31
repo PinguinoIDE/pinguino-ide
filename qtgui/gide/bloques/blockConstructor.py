@@ -13,12 +13,17 @@ from .inside import Floatable, FloatableBool
 from .frame_edit import FrameEdit
 from .constructor import Constructor, FONT_SIZE, changeFontSize
 
-     
-
+#----------------------------------------------------------------------
+def setPartOfBlock(blocks):
+    """"""
+    for block in blocks:
+        block.setObjectName("Block")
+        block.setCursor(QtCore.Qt.OpenHandCursor) 
+    
+   
 ########################################################################
 class Properties(object):
     """"""
-
     #----------------------------------------------------------------------
     def build_menu(self, event):
         
@@ -97,20 +102,13 @@ class Properties(object):
         #self.menuRemoveBlock()
             
     #----------------------------------------------------------------------
-    def sendBack(self): self.widget.lower()
+    def sendBack(self):
+        self.widget.lower()
     
     #----------------------------------------------------------------------
-    def sendFront(self): self.widget.raise_()
-        
-
-#----------------------------------------------------------------------
-def setPartOfBlock(blocks):
-    """"""
-    for block in blocks:
-        block.setObjectName("Block")
-        block.setCursor(QtCore.Qt.OpenHandCursor) 
-    
-    
+    def sendFront(self):
+        self.widget.raise_()
+         
         
 
 ########################################################################
@@ -833,6 +831,7 @@ class BlockFrameEdit(Constructor, Properties):
         
         changeFontSize(NestSec.plainTextEdit, -3)
         
+        NestSec.plainTextEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(90, 90, 90);")
 
         self.widget = widget
         self.buildBlock(widget, [bloque], (40, 2))

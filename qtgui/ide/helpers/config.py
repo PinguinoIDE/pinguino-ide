@@ -78,6 +78,21 @@ class Config(RawConfigParser, object):
         options = self.options("Recents")
         
         files = []
-        for option in options: files.append(self.get("Recents", option))
+        for option in options:
+            if option.startswith("recent_"):
+                files.append(self.get("Recents", option))
+        
+        return files
+    
+    #----------------------------------------------------------------------
+    def get_recents_open(self):
+        """"""
+        if not self.has_section("Recents"): self.add_section("Recents")
+        options = self.options("Recents")
+        
+        files = []
+        for option in options:
+            if option.startswith("open_"):
+                files.append(self.get("Recents", option))
         
         return files

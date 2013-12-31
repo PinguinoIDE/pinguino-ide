@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeisonarch/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/widgets/label.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/widgets/label.ui'
 #
-# Created: Mon Dec 23 18:58:15 2013
+# Created: Tue Dec 31 12:23:57 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,8 +14,8 @@ class Ui_Frame(object):
         Frame.setObjectName("Frame")
         Frame.resize(94, 23)
         self.gridLayout = QtGui.QGridLayout(Frame)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.label = QtGui.QLabel(Frame)
         font = QtGui.QFont()

@@ -12,13 +12,14 @@ from ..helpers.syntax import Snippet
 from ..helpers.dialogs import Dialogs
 from ..helpers.decorators import Decorator
 from ..helpers import constants as Constants
-from ..tools.code_navigator import CodeNavigator
+#from ..tools.code_navigator import CodeNavigator
 from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
 from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
 from ..child_windows.stdout import Stdout
-from ..widgets.wiki_widget import WikiWidget
+from ..child_windows.libraries import LibManager
+from ..widgets.wiki_widget import WikiDock
 
 
 ########################################################################
@@ -116,6 +117,18 @@ class EventMethods(SearchReplace):
         self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])       
         self.tab_changed()
+        
+        
+    #----------------------------------------------------------------------
+    @Decorator.call_later()
+    def open_last_files(self):
+        """"""
+        opens = self.configIDE.get_recents_open()
+        for file_ in opens:
+            self.open_file_from_path(filename=file_)
+            
+        #self.main.tabWidget_files.setVisible(self.main.tabWidget_files.count() > 0)
+        #self.main.frame_logo.setVisible(not self.main.tabWidget_files.count() > 0)
         
         
     #----------------------------------------------------------------------
@@ -389,6 +402,7 @@ class EventMethods(SearchReplace):
         
         #self.update_tool_bar(editor)
         self.__update_current_dir_on_files__()
+        #self.__update_menu_view_hex_code__()
         
         
     #----------------------------------------------------------------------
@@ -686,11 +700,28 @@ class EventMethods(SearchReplace):
         self.frame_stdout.show()
         
     #----------------------------------------------------------------------
+    def __show_libmanager__(self):
+        """"""
+        self.frame_stdout = LibManager(self)
+        self.frame_stdout.show()
+        
+    #----------------------------------------------------------------------
     def __show_pinguino_code__(self):
         """"""
+        name = getattr(self.get_tab().currentWidget(), "path", "")
+        if name: name = " - " + name
         self.frame_pinguino_code = Stdout(self, "Pinguino code")
         self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
         self.frame_pinguino_code.show()
+        
+    #----------------------------------------------------------------------
+    def __show_hex_code__(self):
+        """"""
+        code, file_= self.get_hex_code()
+        if code:
+            self.frame_hex_code = Stdout(self, "Hex code - "+file_)
+            self.frame_hex_code.show_text(code)
+            self.frame_hex_code.show()
                 
                 
     #----------------------------------------------------------------------
@@ -700,27 +731,40 @@ class EventMethods(SearchReplace):
             self.__show_board_config__()
             
     #----------------------------------------------------------------------
-    @Decorator.files_tab_on_focus()
     def show_wiki_docs(self):
         """"""
-        wiki_widget = WikiWidget(self)
-        setattr(wiki_widget, "is_widget", True)
-        self.main.tabWidget_files.addTab(wiki_widget, "Docs - Pinguino Libraries")
-        self.main.tabWidget_files.setCurrentIndex(self.main.tabWidget_files.count()-1)
+        self.frame_wiki_dock = WikiDock()
+        self.frame_wiki_dock.show()
+        
+        
+    ##----------------------------------------------------------------------
+    #@Decorator.files_tab_on_focus()
+    #def set_url_wiki_docs(self, url):
+        #""""""
+        #wiki_widget = WikiWidget(self)
+        #setattr(wiki_widget, "is_widget", True)
+        #title = wiki_widget.replace_with_url(url)
+        #self.main.tabWidget_files.addTab(wiki_widget, "Docs - " + title)
+        #self.main.tabWidget_files.setCurrentIndex(self.main.tabWidget_files.count()-1)
+
         
     #----------------------------------------------------------------------
-    @Decorator.files_tab_on_focus()
-    def set_url_wiki_docs(self, url):
+    def get_hex_code(self):
         """"""
-        wiki_widget = WikiWidget(self)
-        setattr(wiki_widget, "is_widget", True)
-        title = wiki_widget.replace_with_url(url)
-        self.main.tabWidget_files.addTab(wiki_widget, "Docs - " + title)
-        self.main.tabWidget_files.setCurrentIndex(self.main.tabWidget_files.count()-1)
-        
-        
-        
-        
+        if getattr(self.get_tab().currentWidget(), "path", False):
+            hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
+        else:
+            hex_filename = ""
+
+        if os.path.isfile(hex_filename):
+            hex_ = file(hex_filename, "r")
+            content = "".join(hex_.readlines())
+            hex_.close()
+            return content, hex_filename
+        else:
+            Dialogs.error_message(self, "You must compile before.")
+        return False, None
+    
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
@@ -869,12 +913,23 @@ class EventMethods(SearchReplace):
         
         count = 1
         for file_ in self.recent_files:
-            self.configIDE.set("Recents", str(count), file_)
+            self.configIDE.set("Recents", "rencent_"+str(count), file_)
             count += 1
-        
+            
+        count = 1
+        for file_ in self.get_all_open_files():
+            self.configIDE.set("Recents", "open_"+str(count), file_)
+            count += 1
+            
+            
+            
+            
         self.configIDE.save_config()
         
         self.close()
+        
+
+    
         
     #----------------------------------------------------------------------
     def load_main_config(self):
@@ -906,7 +961,23 @@ class EventMethods(SearchReplace):
         widgets = map(lambda index:tab.widget(index), range(tab.count()))
         for widget in widgets:
             self.close_file(editor=widget)
-        
+            
+    
+    #----------------------------------------------------------------------
+    def get_all_open_files(self):
+        """"""
+        opens = []
+        tab = self.main.tabWidget_files
+        widgets = map(lambda index:tab.widget(index), range(tab.count()))
+        for widget in widgets:
+            path = getattr(widget, "path", False)
+            if path: opens.append(path)
+        tab = self.main.tabWidget_graphical
+        widgets = map(lambda index:tab.widget(index), range(tab.count()))
+        for widget in widgets:
+            path = getattr(widget, "path", False)
+            if path: opens.append(path)
+        return opens
         
     #----------------------------------------------------------------------
     def open_web_site(self, url):
@@ -943,11 +1014,12 @@ class EventMethods(SearchReplace):
                 file_path = file_path_1 + "..." + file_path_2
             else: file_path = file_
             
-            action.setText(filename+" ("+file_path+")")
-            self.connect(action, QtCore.SIGNAL("triggered()"), self.menu_recent_event(file_))
-            action.ActionEvent = self.menu_recent_event
-            
-            self.main.menuRecents.addAction(action)
+            if os.path.isfile(file_path):
+                action.setText(filename+" ("+file_path+")")
+                self.connect(action, QtCore.SIGNAL("triggered()"), self.menu_recent_event(file_))
+                action.ActionEvent = self.menu_recent_event
+                
+                self.main.menuRecents.addAction(action)
         
         
     #----------------------------------------------------------------------

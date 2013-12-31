@@ -10,22 +10,19 @@ from bs4 import BeautifulSoup
 
 from ..helpers.constants import IDE_WIKI_DOCS
 from ..helpers.dialogs import Dialogs
-from ...frames.wiki_doc_widget import Ui_Form_wiki
-
+from ...frames.wiki_doc_widget import Ui_WikiDocs
 
 ########################################################################
-class WikiWidget(QtGui.QWidget):
+class WikiDock(QtGui.QMainWindow):
     """"""
 
     #----------------------------------------------------------------------
-    def __init__(self, parent):
-        super(WikiWidget, self).__init__()
+    def __init__(self):
+        super(WikiDock, self).__init__()
         
-        self.main_widget = Ui_Form_wiki()
+        self.main_widget = Ui_WikiDocs()
         self.main_widget.setupUi(self)
-        
-        self.main = parent
-        
+
         self.to_ignore = ["Examples"]
         
         self.count_lib = 1
@@ -38,9 +35,31 @@ class WikiWidget(QtGui.QWidget):
 
         self.set_home()
         
+        self.main_widget.textBrowser_doc.setStyleSheet("QTextBrowser {background-color: white;}")
         
-        #self.connect(self.main_widget.textBrowser_doc, QtCore.SIGNAL("sourceChanged(QUrl)"), self.open_tab_doc)
+        
         self.connect(self.main_widget.textBrowser_doc, QtCore.SIGNAL("anchorClicked(QUrl)"), self.open_tab_doc)
+        
+
+        self.connect(self.main_widget.tabWidget, QtCore.SIGNAL("tabCloseRequested(int)"), self.tab_close)        
+        
+        
+        self.centrar()
+        
+    #----------------------------------------------------------------------
+    def tab_close(self, index):
+        """"""
+        if index == 0: return
+        else: self.main_widget.tabWidget.removeTab(index)
+        
+
+    #----------------------------------------------------------------------
+    def centrar(self):
+        """"""
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size =  self.geometry()
+        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)        
+        
 
     #----------------------------------------------------------------------
     def set_home(self, libs=None):
@@ -66,14 +85,14 @@ class WikiWidget(QtGui.QWidget):
         """"""
         url = url.toString()
         if url == "__update__":
-            reply = Dialogs.confirm_message(self.main, "Sure?", "This will take a long time.")
+            reply = Dialogs.confirm_message(self, "Sure?", "This will take a long time.")
             if reply:
                 libs = self.update_from_wiki()
                 if libs:
                     libs = self.update_from_wiki()
                     pickle.dump(libs, file(IDE_WIKI_DOCS, "w"))
                 else:
-                    Dialogs.info_message(self.main, "Imposible read Wiki page.\n"+"http://wiki.pinguino.cc") 
+                    Dialogs.info_message(self, "Impossible read Wiki page.\n"+"http://wiki.pinguino.cc") 
                 self.set_home(libs=libs)
                 return
             else:
@@ -82,19 +101,63 @@ class WikiWidget(QtGui.QWidget):
         
         if not "http" in url: return
         
-        self.main.set_url_wiki_docs(url[1:])    
+        #self.main.set_url_wiki_docs(url[1:])
+        
+        #QtGui.q
+        
+        #self.main_widget.tabWidget.addTab()
+        
+        self.add_tab()
+        self.replace_with_url(url[1:])
+        
+        
+    #----------------------------------------------------------------------
+    def add_tab(self):
+        """"""
+        
+        tab = QtGui.QWidget()
+        #tab.setObjectName("tab")
+        gridLayout = QtGui.QGridLayout(tab)
+        gridLayout.setSpacing(0)
+        gridLayout.setContentsMargins(0, 0, 0, 0)
+        gridLayout.setObjectName("gridLayout")
+        textBrowser_doc = QtGui.QTextBrowser(tab)
+        textBrowser_doc.setFrameShape(QtGui.QFrame.NoFrame)
+        textBrowser_doc.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextBrowserInteraction|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
+        textBrowser_doc.setOpenExternalLinks(True)
+        #textBrowser_doc.setObjectName("textBrowser_doc")
+        
+        textBrowser_doc.setStyleSheet("QTextBrowser {background-color: white;}")
+        
+        setattr(tab, "textBrowser", textBrowser_doc)
+        
+        gridLayout.addWidget(textBrowser_doc, 0, 0, 1, 1)
+        self.main_widget.tabWidget.addTab(tab, "")
+        
+        self.main_widget.tabWidget.setCurrentWidget(tab)
         
         
         
     #----------------------------------------------------------------------
     def replace_with_url(self, url):
         """"""
+        index = self.main_widget.tabWidget.currentIndex()
+        tab = self.main_widget.tabWidget.currentWidget()
+        
+        
         html = self.get_html_from_url(url)
         soup = BeautifulSoup(html)
-        title = soup.find_all("h1", attrs={"id":"firstHeading"})[0].text
+        
+        try:
+            title = soup.find_all("h1", attrs={"id":"firstHeading"})[0].text
+        except:            
+            self.main_widget.tabWidget.removeTab(self.main_widget.tabWidget.currentIndex())            
+            Dialogs.error_message(self, "Impossible read Wiki docs.\n"+url)
+            return 
+        
+        
         content = soup.find_all("div", attrs={"id": "content"})[0]
-        #content = soup.
-        self.main_widget.textBrowser_doc.clear()
+        tab.textBrowser.clear()
         
         
         
@@ -123,10 +186,10 @@ class WikiWidget(QtGui.QWidget):
             </body>
         </html>"""% (self.stylesheet(), content)
         
-        self.main_widget.textBrowser_doc.insertHtml(html)
-        self.main_widget.textBrowser_doc.moveCursor(QtGui.QTextCursor.Start)
+        tab.textBrowser.insertHtml(html)
+        tab.textBrowser.moveCursor(QtGui.QTextCursor.Start)
         
-        return title
+        self.main_widget.tabWidget.setTabText(index, title)
         
         
     #----------------------------------------------------------------------
@@ -197,7 +260,11 @@ class WikiWidget(QtGui.QWidget):
         page = urllib2.urlopen(url)
         html = page.readlines()
         page.close()
-        return "".join(html)
+        return "".join(html).replace("&nbsp;", "")
+    
+    
+    
+    
         
     
     #----------------------------------------------------------------------

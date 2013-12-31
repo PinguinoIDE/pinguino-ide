@@ -41,9 +41,12 @@ class CustomTextEdit(QtGui.QTextEdit):
         namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
         self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)
         
-        Highlighter(self)
+        #palette = QtGui.QPalette(self.palette())
+        #self.setAutoFillBackground(True)
+        #palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
+        #self.setPalette(palette)          
         
-        
+        Highlighter(self)        
 
     
     ##----------------------------------------------------------------------

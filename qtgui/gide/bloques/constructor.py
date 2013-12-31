@@ -137,7 +137,7 @@ class Constructor(object):
         
         
         edit = spin.lineEdit
-        edit.setStyleSheet("background-image: url(:/general/arte/box.png);\ncolor: rgb(90, 90, 90);")
+        edit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(90, 90, 90);")
         
         b_up = spin.frame
         b_down = spin.frame_2
@@ -178,7 +178,7 @@ class Constructor(object):
         spin = ControlSpin()
         spin.setupUi(widgetSpin)
         
-        spin.lineEdit.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png);color: rgb(90,90,90)"%sys.path[0])
+        spin.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);color: rgb(90,90,90)")
         
         #icon = QtGui.QIcon()
         #icon.addPixmap(QtGui.QPixmap("%sup.svg"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -237,11 +237,11 @@ class Constructor(object):
         changeFontSize(name.lineEdit)
         
         if background == "white" and color != None:
-            name.lineEdit.setStyleSheet("background-image: url(:/general/arte/box.png);\ncolor: rgb(%d, %d, %d);" %color)
+            name.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(%d, %d, %d);" %color)
             name.lineEdit.h = name.lineEdit.size().height() - 5
     
         elif background == "white" and color == None:
-            name.lineEdit.setStyleSheet("background-image: url(:/general/arte/box.png);")
+            name.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);")
             name.lineEdit.h = name.lineEdit.size().height() - 5
             
         elif background == None and color != None:
@@ -261,7 +261,7 @@ class Constructor(object):
         choice.lineEdit.setReadOnly(True)
         #choice.lineEdit.sele(True)
         
-        choice.lineEdit.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png); color: rgb(90,90,90);"%sys.path[0])
+        choice.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png); color: rgb(90,90,90);")
         
         #icon = QtGui.QIcon()
         #icon.addPixmap(QtGui.QPixmap("%sup.svg"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -335,42 +335,42 @@ class Constructor(object):
     
     
     
-    #----------------------------------------------------------------------
-    def buildButton(self, widget, text, checkeable=False, start=False, loop=False):
-        """"""
-        widgetButton = QtGui.QWidget(widget)
-        button = ControlButton()
-        button.setupUi(widgetButton)
+    ##----------------------------------------------------------------------
+    #def buildButton(self, widget, text, checkeable=False, start=False, loop=False):
+        #""""""
+        #widgetButton = QtGui.QWidget(widget)
+        #button = ControlButton()
+        #button.setupUi(widgetButton)
         
         
-        button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png);"%sys.path[0])        
+        #button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png);"%sys.path[0])        
         
-        def down():
-            if button.pushButton.isChecked():
-                button.pushButton.setText("OFF")
-                button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box2.png);"%sys.path[0])
-            else:
-                button.pushButton.setText("ON")
-                button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png);"%sys.path[0])
+        #def down():
+            #if button.pushButton.isChecked():
+                #button.pushButton.setText("OFF")
+                #button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box2.png);"%sys.path[0])
+            #else:
+                #button.pushButton.setText("ON")
+                #button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png);"%sys.path[0])
                 
-        def activate():
-            """"""
-            if self.IDE: self.IDE.frame.startPython(self.getLine(), "pynguino_code")
+        #def activate():
+            #""""""
+            #if self.IDE: self.IDE.frame.startPython(self.getLine(), "pynguino_code")
     
             
                 
-        if checkeable:
-            button.pushButton.setCheckable(True)
-            button.pushButton.setChecked(start)
-            QtCore.QObject.connect(button.pushButton, QtCore.SIGNAL("clicked()"), down)
-            down()
-        else:
-            QtCore.QObject.connect(button.pushButton, QtCore.SIGNAL("clicked()"), activate)
+        #if checkeable:
+            #button.pushButton.setCheckable(True)
+            #button.pushButton.setChecked(start)
+            #QtCore.QObject.connect(button.pushButton, QtCore.SIGNAL("clicked()"), down)
+            #down()
+        #else:
+            #QtCore.QObject.connect(button.pushButton, QtCore.SIGNAL("clicked()"), activate)
             
             
             
-        button.pushButton.setText(text)     
-        return widgetButton, button.pushButton
+        #button.pushButton.setText(text)     
+        #return widgetButton, button.pushButton
         
     
     

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeisonarch/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/widgets/name.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/widgets/name.ui'
 #
-# Created: Mon Dec 23 18:58:15 2013
+# Created: Tue Dec 31 12:23:58 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,8 +14,8 @@ class Ui_Frame(object):
         Frame.setObjectName("Frame")
         Frame.resize(94, 33)
         self.gridLayout = QtGui.QGridLayout(Frame)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.lineEdit = QtGui.QLineEdit(Frame)
         font = QtGui.QFont()
@@ -24,7 +24,6 @@ class Ui_Frame(object):
         font.setWeight(75)
         font.setBold(True)
         self.lineEdit.setFont(font)
-        self.lineEdit.setStyleSheet("color: rgb(90, 90, 90);")
         self.lineEdit.setFrame(False)
         self.lineEdit.setObjectName("lineEdit")
         self.gridLayout.addWidget(self.lineEdit, 0, 0, 1, 1)

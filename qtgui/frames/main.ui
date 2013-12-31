@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>966</width>
-    <height>655</height>
+    <width>968</width>
+    <height>636</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -124,7 +124,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>966</width>
+     <width>968</width>
      <height>20</height>
     </rect>
    </property>
@@ -170,6 +170,7 @@
      <string>View</string>
     </property>
     <addaction name="actionView_Pinguino_code"/>
+    <addaction name="actionHex_code"/>
     <addaction name="actionStdout"/>
     <addaction name="actionCurrent_Board"/>
    </widget>
@@ -177,7 +178,9 @@
     <property name="title">
      <string>Pinguino</string>
     </property>
+    <addaction name="actionLibrary_manager"/>
     <addaction name="actionSelect_board"/>
+    <addaction name="separator"/>
     <addaction name="actionCompile"/>
     <addaction name="actionUpload"/>
    </widget>
@@ -268,7 +271,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_5">
         <attribute name="title">
@@ -1514,6 +1517,16 @@
    </property>
    <property name="text">
     <string>Color theme</string>
+   </property>
+  </action>
+  <action name="actionLibrary_manager">
+   <property name="text">
+    <string>Library manager</string>
+   </property>
+  </action>
+  <action name="actionHex_code">
+   <property name="text">
+    <string>Hex code</string>
    </property>
   </action>
  </widget>

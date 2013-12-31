@@ -14,7 +14,7 @@
    <string>Stdout</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../resources/resources.qrc">
+   <iconset>
     <normaloff>:/logo/art/windowIcon.svg</normaloff>:/logo/art/windowIcon.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">

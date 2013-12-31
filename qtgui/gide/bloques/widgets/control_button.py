@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeisonarch/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/widgets/control_button.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/gide/bloques/widgets/control_button.ui'
 #
-# Created: Mon Dec 23 18:58:17 2013
+# Created: Tue Dec 31 12:23:57 2013
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,8 +14,8 @@ class Ui_Form(object):
         Form.setObjectName("Form")
         Form.resize(98, 31)
         self.gridLayout = QtGui.QGridLayout(Form)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.pushButton = QtGui.QPushButton(Form)
         font = QtGui.QFont()
