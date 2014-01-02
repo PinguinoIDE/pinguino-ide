@@ -16,9 +16,9 @@ class HexViewer(QtGui.QMainWindow):
     def __init__(self, parent, file_path):
         #QtGui.QMainWindow.__init__(self)
         super(HexViewer, self).__init__()
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
-                            QtCore.Qt.WindowSystemMenuHint |
-                            QtCore.Qt.WindowStaysOnTopHint)        
+        #self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
+                            #QtCore.Qt.WindowSystemMenuHint |
+                            #QtCore.Qt.WindowStaysOnTopHint)        
         
         self.hex_viewer = Ui_HexViewer()
         self.hex_viewer.setupUi(self)
