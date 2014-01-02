@@ -722,6 +722,9 @@ class EventMethods(SearchReplace):
         """"""
         if getattr(self.get_tab().currentWidget(), "path", False):
             hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
+        else:
+            Dialogs.error_message(self, "You must compile before.")
+            return
 
         if os.path.isfile(hex_filename):
             self.frame_hex_viewer = HexViewer(self, hex_filename)
