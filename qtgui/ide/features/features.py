@@ -16,20 +16,19 @@ class PinguinoFeatures(PinguinoEvents):
         self.PinguinoKIT = GraphicalIDE(self)
         self.__preconfig_kit__()
         
-        self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
-        
-        self.main.actionSwitch_ide.setChecked(self.configIDE.config("Features", "graphical", False))
-        self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
-        
         self.recent_files = self.configIDE.get_recents()
         self.update_recents_menu()
         self.open_last_files()
         
-        #self.main.dockWidget_output.add
-        self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
-        self.main.plainTextEdit_output.shell.statement_module.pinguino_main = self
-        self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
+        self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
         
+        #self.main.actionSwitch_ide.setChecked(self.configIDE.config("Features", "graphical", False))
+        #self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
+        
+        self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
+        #self.main.plainTextEdit_output.shell.statement_module.pinguino_main = self
+        self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self})
+        self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
         
         
     #----------------------------------------------------------------------
@@ -39,7 +38,7 @@ class PinguinoFeatures(PinguinoEvents):
         self.main.dockWidget_blocks.setVisible(False)        
         
     #----------------------------------------------------------------------
-    def switch_ide_mode(self, toggle):
+    def switch_ide_mode(self, toggle):  #toggle means graphical
         """"""
         self.main.actionSwitch_ide.setChecked(toggle)
         self.main.tabWidget_graphical.setVisible(toggle and self.main.tabWidget_graphical.count()>0)
@@ -53,11 +52,7 @@ class PinguinoFeatures(PinguinoEvents):
         self.main.toolBar_undo_redo.setVisible(not toggle)
         self.main.actionView_Pinguino_code.setEnabled(toggle)
                                                       
-        self.main.dockWidget_output.setVisible(not toggle)
-        
-        
-        self.configIDE.set("Features", "graphical", toggle)
-        self.configIDE.save_config()         
+        #self.main.dockWidget_output.setVisible(not toggle)
         
         self.tab_changed()
         

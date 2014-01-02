@@ -13,7 +13,8 @@ def main(args):
     app=QApplication(args)
     frame=PinguinoIDE()
     frame.show()
-    sys.exit(app.exec_())
+    #sys.exit(app.exec_())
+    app.exec_()
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Tue Dec 31 12:23:56 2013
+# Created: Thu Jan  2 12:14:45 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -19,8 +19,8 @@ class Ui_About(object):
         self.centralwidget = QtGui.QWidget(About)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtGui.QGridLayout(self.centralwidget)
-        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setSpacing(0)
+        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.stackedWidget = QtGui.QStackedWidget(self.centralwidget)
         self.stackedWidget.setObjectName("stackedWidget")
@@ -168,7 +168,7 @@ class Ui_About(object):
         About.setWindowTitle(QtGui.QApplication.translate("About", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">Pinguino is an Open Software and Open Hardware<br>Arduino-like project. Boards are based on 8 or 32-bit USB built-in<br>Microchip microcontrollers. The main goal is to build a real<br>USB system without USB to serial converter.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_credits.setText(QtGui.QApplication.translate("About", "Credits", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_close.setText(QtGui.QApplication.translate("About", "Cerrar", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_close.setText(QtGui.QApplication.translate("About", "Close", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("About", "Pinguino 11.0", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("About", "<html><head/><body><p><a href=\"http://pinguino.cc/\"><span style=\" text-decoration: underline; color:#6299e1;\">http://pinguino.cc/</span></a></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("About", "Credits", None, QtGui.QApplication.UnicodeUTF8))
@@ -181,8 +181,8 @@ class Ui_About(object):
         self.label_7.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">France Cadet</p><p align=\"center\">Laurent Costes</p><p align=\"center\">Daniel Rodrí­guez</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QtGui.QApplication.translate("About", "Art by", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_license.setText(QtGui.QApplication.translate("About", "License", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_close_2.setText(QtGui.QApplication.translate("About", "Cerrar", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_close_3.setText(QtGui.QApplication.translate("About", "Cerrar", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_close_2.setText(QtGui.QApplication.translate("About", "Close", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_close_3.setText(QtGui.QApplication.translate("About", "Close", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_about.setText(QtGui.QApplication.translate("About", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("About", "License", None, QtGui.QApplication.UnicodeUTF8))
         self.plainTextEdit.setPlainText(QtGui.QApplication.translate("About", "Pinguino is free software; you can redistribute it and/or modify it\n"

@@ -31,6 +31,8 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.appendPlainText(HELP)
         self.appendPlainText(START)
         
+        self.extra_args = {}
+        
         self.shell = PythonShell()
         
         self.historial = []
@@ -128,6 +130,16 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                           
                           
     #----------------------------------------------------------------------
+    def set_extra_args(self, *args, **kwargs):
+        """"""
+        for key in kwargs:
+            setattr(self.shell.statement_module, key, kwargs[key])
+            
+            
+        self.extra_args.update(kwargs)
+        
+                          
+    #----------------------------------------------------------------------
     def set_last_line(self):
         """"""
         cursor = self.textCursor()
@@ -172,4 +184,5 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.clear()
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
-        #self.appendPlainText(START)
+        self.set_extra_args(**self.extra_args)
+        #self.main.plainTextEdit_output.shell.statement_module.pinguino_main = self       

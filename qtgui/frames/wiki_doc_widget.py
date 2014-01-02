@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/wiki_doc_widget.ui'
 #
-# Created: Tue Dec 31 12:23:55 2013
+# Created: Thu Jan  2 12:14:44 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -41,6 +41,6 @@ class Ui_WikiDocs(object):
         QtCore.QMetaObject.connectSlotsByName(WikiDocs)
 
     def retranslateUi(self, WikiDocs):
-        WikiDocs.setWindowTitle(QtGui.QApplication.translate("WikiDocs", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        WikiDocs.setWindowTitle(QtGui.QApplication.translate("WikiDocs", "Wiki docs", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("WikiDocs", "Wiki docs", None, QtGui.QApplication.UnicodeUTF8))
 

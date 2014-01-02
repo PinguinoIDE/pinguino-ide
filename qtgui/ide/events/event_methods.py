@@ -19,6 +19,7 @@ from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
 from ..child_windows.stdout import Stdout
 from ..child_windows.libraries import LibManager
+from ..child_windows.hex_viewer import HexViewer
 from ..widgets.wiki_widget import WikiDock
 
 
@@ -125,10 +126,12 @@ class EventMethods(SearchReplace):
         """"""
         opens = self.configIDE.get_recents_open()
         for file_ in opens:
-            self.open_file_from_path(filename=file_)
+            if os.path.exists(file_):
+                self.open_file_from_path(filename=file_)
             
-        #self.main.tabWidget_files.setVisible(self.main.tabWidget_files.count() > 0)
-        #self.main.frame_logo.setVisible(not self.main.tabWidget_files.count() > 0)
+        self.main.actionSwitch_ide.setChecked(self.configIDE.config("Features", "graphical", False))
+        self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))        
+        
         
         
     #----------------------------------------------------------------------
@@ -717,11 +720,16 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     def __show_hex_code__(self):
         """"""
-        code, file_= self.get_hex_code()
-        if code:
-            self.frame_hex_code = Stdout(self, "Hex code - "+file_)
-            self.frame_hex_code.show_text(code)
-            self.frame_hex_code.show()
+        if getattr(self.get_tab().currentWidget(), "path", False):
+            hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
+
+        if os.path.isfile(hex_filename):
+            self.frame_hex_viewer = HexViewer(self, hex_filename)
+            self.frame_hex_viewer.show()            
+            
+        else:
+            Dialogs.error_message(self, "You must compile before.")
+                    
                 
                 
     #----------------------------------------------------------------------
@@ -747,24 +755,6 @@ class EventMethods(SearchReplace):
         #self.main.tabWidget_files.addTab(wiki_widget, "Docs - " + title)
         #self.main.tabWidget_files.setCurrentIndex(self.main.tabWidget_files.count()-1)
 
-        
-    #----------------------------------------------------------------------
-    def get_hex_code(self):
-        """"""
-        if getattr(self.get_tab().currentWidget(), "path", False):
-            hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
-        else:
-            hex_filename = ""
-
-        if os.path.isfile(hex_filename):
-            hex_ = file(hex_filename, "r")
-            content = "".join(hex_.readlines())
-            hex_.close()
-            return content, hex_filename
-        else:
-            Dialogs.error_message(self, "You must compile before.")
-        return False, None
-    
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
@@ -921,7 +911,7 @@ class EventMethods(SearchReplace):
             self.configIDE.set("Recents", "open_"+str(count), file_)
             count += 1
             
-            
+        self.configIDE.set("Features", "graphical", self.is_graphical())
             
             
         self.configIDE.save_config()
