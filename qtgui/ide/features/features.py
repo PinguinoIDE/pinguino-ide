@@ -38,21 +38,17 @@ class PinguinoFeatures(PinguinoEvents):
         self.main.dockWidget_blocks.setVisible(False)        
         
     #----------------------------------------------------------------------
-    def switch_ide_mode(self, toggle):  #toggle means graphical
+    def switch_ide_mode(self, graphical):
         """"""
-        self.main.actionSwitch_ide.setChecked(toggle)
-        self.main.tabWidget_graphical.setVisible(toggle and self.main.tabWidget_graphical.count()>0)
-        self.main.tabWidget_files.setVisible(not toggle and self.main.tabWidget_files.count()>0)
+        self.main.actionSwitch_ide.setChecked(graphical)
+        self.main.tabWidget_graphical.setVisible(graphical and self.main.tabWidget_graphical.count()>0)
+        self.main.tabWidget_files.setVisible(not graphical and self.main.tabWidget_files.count()>0)
         
-        self.main.dockWidget_blocks.setVisible(toggle)  
-        self.main.dockWidget_tools.setVisible(not toggle)  
-        self.main.toolBar_search_replace.setVisible(not toggle)
-        self.main.toolBar_edit.setVisible(not toggle)
-        self.main.toolBar_graphical.setVisible(toggle)
-        self.main.toolBar_undo_redo.setVisible(not toggle)
-        self.main.actionView_Pinguino_code.setEnabled(toggle)
-                                                      
-        #self.main.dockWidget_output.setVisible(not toggle)
+        if graphical:
+            self.update_actions_for_graphical()
+        else:
+            self.update_actions_for_text()
+        
         
         self.tab_changed()
         
@@ -80,4 +76,60 @@ class PinguinoFeatures(PinguinoEvents):
         enable = self.main.actionAutocomplete.isChecked()
         self.configIDE.set("Features", "autocomplete", enable)
         self.configIDE.save_config()        
+        
+        
+    #----------------------------------------------------------------------
+    def update_actions_for_text(self):
+        """"""
+        normal = False
+        
+        self.main.actionView_Pinguino_code.setEnabled(normal)   
+        self.main.actionComment_out_region.setEnabled(normal)   
+        self.main.actionComment_Uncomment_region.setEnabled(normal) 
+        self.main.actionRedo.setEnabled(not normal)         
+        self.main.actionUndo.setEnabled(not normal)         
+        self.main.actionCut.setEnabled(not normal)         
+        self.main.actionCopy.setEnabled(not normal)         
+        self.main.actionPaste.setEnabled(not normal)         
+        self.main.actionSearch.setEnabled(not normal)        
+        self.main.actionSearch_and_replace.setEnabled(not normal)   
+        self.main.dockWidget_blocks.setVisible(normal)
+        self.main.dockWidget_tools.setVisible(not normal)  
+        self.main.toolBar_search_replace.setVisible(not normal)
+        self.main.toolBar_edit.setVisible(not normal)
+        self.main.toolBar_graphical.setVisible(normal)
+        self.main.toolBar_undo_redo.setVisible(not normal)
+        
+        
+        self.configIDE.set("Features", "terminal_on_graphical", self.main.dockWidget_output.isVisible())         
+        self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_text", True))
+        self.configIDE.save_config()
+        
+        
+    #----------------------------------------------------------------------
+    def update_actions_for_graphical(self):
+        """"""
+        normal = True
+        
+        self.main.actionView_Pinguino_code.setEnabled(normal)   
+        self.main.actionRedo.setEnabled(not normal)          
+        self.main.actionComment_out_region.setEnabled(not normal)   
+        self.main.actionComment_Uncomment_region.setEnabled(not normal)         
+        self.main.actionUndo.setEnabled(not normal)         
+        self.main.actionCut.setEnabled(not normal)         
+        self.main.actionCopy.setEnabled(not normal)         
+        self.main.actionPaste.setEnabled(not normal)         
+        self.main.actionSearch.setEnabled(not normal)        
+        self.main.actionSearch_and_replace.setEnabled(not normal)   
+        self.main.dockWidget_blocks.setVisible(normal)
+        self.main.dockWidget_tools.setVisible(not normal)  
+        self.main.toolBar_search_replace.setVisible(not normal)
+        self.main.toolBar_edit.setVisible(not normal)
+        self.main.toolBar_graphical.setVisible(normal)
+        self.main.toolBar_undo_redo.setVisible(not normal)       
+        
+        self.configIDE.set("Features", "terminal_on_text", self.main.dockWidget_output.isVisible())        
+        self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
+        self.configIDE.save_config()
+        
         
