@@ -7,7 +7,7 @@ import shutil
 import git
 
 from ..helpers.constants import IDE_LIBRARY_INSTALLED
-from ..helpers.config_libs import ConfigLibs
+from ..helpers.config_libs import ConfigLibsGroup
 
 ########################################################################
 class GitRepo(object):
@@ -25,11 +25,11 @@ class GitRepo(object):
     def install_library(self, lib):
         """"""
         name = lib
-        config = ConfigLibs()        
+        config = ConfigLibsGroup()        
         lib = config.get_all_sources()[lib]
         repository = lib["repository"]
         
-        git.Repo.clone_from(repository, os.path.join(IDE_LIBRARY_INSTALLED, name))
+        git.Repo.clone_from(repository, os.path.join(IDE_LIBRARY_INSTALLED, name, "lib"))
             
             
     #----------------------------------------------------------------------
@@ -37,11 +37,11 @@ class GitRepo(object):
     def update_library(self, lib):
         """"""
         name = lib
-        config = ConfigLibs()        
+        config = ConfigLibsGroup()        
         lib = config.get_all_sources()[lib]
         repository = lib["repository"]
         
-        repo = git.Repo(os.path.join(IDE_LIBRARY_INSTALLED, name))
+        repo = git.Repo(os.path.join(IDE_LIBRARY_INSTALLED, name, "lib"))
         repo.config_writer()
         remo = repo.remote()
         remo.pull()
@@ -52,17 +52,18 @@ class GitRepo(object):
     def check_library(self, lib):
         """"""
         name = lib
-        config = ConfigLibs()        
+        config = ConfigLibsGroup()       
         lib = config.get_all_sources()[lib]
         
-        if os.path.exists(os.path.join(IDE_LIBRARY_INSTALLED, name)):
-            if not os.path.exists(os.path.join(IDE_LIBRARY_INSTALLED, name, ".git")):
-                shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, name))
+        if os.path.exists(os.path.join(IDE_LIBRARY_INSTALLED, name, "lib")):
+            if not os.path.exists(os.path.join(IDE_LIBRARY_INSTALLED, name, "lib", ".git")):
+                shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, name, "lib"))
                 return False
             else:
-                if os.path.exists(os.path.join(IDE_LIBRARY_INSTALLED, name, ".git", "config.lock")):
-                    os.remove(os.path.join(IDE_LIBRARY_INSTALLED, name, ".git", "config.lock")) 
+                if os.path.exists(os.path.join(IDE_LIBRARY_INSTALLED, name, "lib", ".git", "config.lock")):
+                    os.remove(os.path.join(IDE_LIBRARY_INSTALLED, name, "lib", ".git", "config.lock")) 
                 return True
+                
         return False
         
         
