@@ -328,6 +328,7 @@ class EventMethods(SearchReplace):
             
             
     #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
     @Decorator.connect_features()
     def save_as(self, *args, **kwargs):
         """"""

@@ -5,16 +5,89 @@ import os
 import re
 from ConfigParser import RawConfigParser
 
-from .constants import IDE_CONFIGLIBS_FILE
+from .constants import IDE_CONFIGLIBS_FILE, IDE_LIBRARY_INSTALLED
+
+
+########################################################################
+class ConfigLibsGroup(object):
+    """"""
+    
+    #----------------------------------------------------------------------
+    def __init__(self):
+        """"""
+        libs = os.listdir(IDE_LIBRARY_INSTALLED)
+    
+        self.all_libs = {}
+        for lib in libs:
+            config = os.path.join(IDE_LIBRARY_INSTALLED, lib, "config")
+            self.all_libs[lib] = ConfigLibs(config)
+            
+    #----------------------------------------------------------------------
+    def update_libs(self):
+        """"""
+        self.__init__()
+            
+    #----------------------------------------------------------------------
+    def new(self, name):
+        """"""
+        return ConfigLibs(name)
+            
+    #----------------------------------------------------------------------
+    def get_all_sources(self):
+        """"""
+        self.update_libs()
+        sources = {}
+        for lib_key in self.all_libs.keys():
+            sources[lib_key] = {"repository": self.all_libs[lib_key].config("LIB", "repository", ""),
+                                "description": self.all_libs[lib_key].config("LIB", "description", ""),
+                                "author": self.all_libs[lib_key].config("LIB", "author", ""),
+                                "arch": self.all_libs[lib_key].config("LIB", "arch", ""),
+                                "active": self.all_libs[lib_key].config("LIB", "active", False),
+                                "installed": self.all_libs[lib_key].config("LIB", "installed", False)}
+                
+        return sources
+    
+    
+                
+    #----------------------------------------------------------------------
+    def check_duplicated(self, source):
+        """"""
+        #self.load_config()
+        sources = self.get_all_sources()
+        
+        return source in sources.keys()
+        
+            
+                
+    
+    
+    #----------------------------------------------------------------------
+    def save_config(self):
+        """"""
+        for lib_key in self.all_libs.keys():
+            #if os.path.isdir(os.path.join(IDE_CONFIGLIBS_FILE, lib_key)):
+            self.all_libs[lib_key].save_config()
+            #else:
+                #self.all_libs.pop(lib_key)
+            
+    #----------------------------------------------------------------------
+    def load_config(self):
+        """"""
+        for lib_key in self.all_libs.keys():
+            self.all_libs[lib_key].load_config()
+
+
+
 
 ########################################################################
 class ConfigLibs(RawConfigParser, object):
     """"""
     
     #----------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self, filename):
         super(ConfigLibs, self).__init__()
         
+        self.config_filename = filename
         self.verify_config_file()
         self.load_config()
         #self.readfp(file(IDE_CONFIG_FILE, "r")) 
@@ -57,55 +130,17 @@ class ConfigLibs(RawConfigParser, object):
     #----------------------------------------------------------------------
     def verify_config_file(self):
         """"""
-        if not os.path.isfile(IDE_CONFIGLIBS_FILE):
-            file(IDE_CONFIGLIBS_FILE, "w").close()
+        if not os.path.isfile(self.config_filename):
+            file(self.config_filename, "w").close()
         
     #----------------------------------------------------------------------
     def save_config(self):
         """"""
-        self.write(file(IDE_CONFIGLIBS_FILE, "w"))
+        self.write(file(self.config_filename, "w"))
         
     #----------------------------------------------------------------------
     def load_config(self):
         """"""
-        self.readfp(file(IDE_CONFIGLIBS_FILE, "r")) 
-        
-        
-    #----------------------------------------------------------------------
-    def get_recents(self):
-        """"""
-        if not self.has_section("Recents"): self.add_section("Recents")
-        options = self.options("Recents")
-        
-        files = []
-        for option in options: files.append(self.get("Recents", option))
-        
-        return files
-    
-    #----------------------------------------------------------------------
-    def get_all_sources(self):
-        """"""
-        sources = {}
-        for section in self.sections():
-            sources[section] = {"repository": self.get(section, "repository"),
-                                "description": self.config(section, "description", ""),
-                                "author": self.config(section, "author", ""),
-                                "arch": self.config(section, "arch", ""),
-                                "active": self.config(section, "active", False),
-                                "installed": self.config(section, "installed", False)}
-                
-        return sources
-            
-                
-    #----------------------------------------------------------------------
-    def check_duplicated(self, source):
-        """"""
-        self.load_config()
-        sources = self.get_all_sources()
-        
-        return source in [sources[key]["repository"] for key in sources.keys()]
-        
-            
-            
+        self.readfp(file(self.config_filename, "r")) 
         
         

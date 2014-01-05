@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeison/Documentos/Pinguino/pinguino-ide/qtgui/frames/libraries_widget.ui'
+# Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/libraries_widget.ui'
 #
-# Created: Thu Jan  2 12:14:44 2014
+# Created: Sat Jan  4 20:01:50 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -107,7 +107,7 @@ class Ui_LibraryManager(object):
         self.tableWidget_sources.horizontalHeader().setHighlightSections(False)
         self.tableWidget_sources.horizontalHeader().setStretchLastSection(True)
         self.tableWidget_sources.verticalHeader().setVisible(False)
-        self.tableWidget_sources.verticalHeader().setHighlightSections(False)
+        self.tableWidget_sources.verticalHeader().setHighlightSections(True)
         self.tableWidget_sources.verticalHeader().setStretchLastSection(False)
         self.gridLayout_3.addWidget(self.tableWidget_sources, 1, 0, 1, 2)
         self.pushButton_add = QtGui.QPushButton(self.tab_2)
@@ -127,7 +127,7 @@ class Ui_LibraryManager(object):
         LibraryManager.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(LibraryManager)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(LibraryManager)
 
     def retranslateUi(self, LibraryManager):
