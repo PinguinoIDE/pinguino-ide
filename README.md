@@ -2,9 +2,15 @@ pinguino-ide
 ===========
 Open source integrated development enviroment (IDE).
 
+
+  * [Dependences] (#dependences)
   * [IDE](#ide)
   * [Command line](#command-line)
   * [Python API](#python-api)
+
+## Dependences
+  * [PySide] (http://qt-project.org/wiki/PySide)
+  * [Git] (http://git-scm.com/)
 
 
 ## IDE
