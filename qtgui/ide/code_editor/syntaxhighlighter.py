@@ -29,7 +29,7 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         
         reservadas=QtGui.QTextCharFormat()
         reservadas.setForeground(color("#0000ff"))     
-        all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] + namespaces["all"]
+        all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] + namespaces["all"] + namespaces["arch8"] + namespaces["arch32"]
         self.highlightingRules.append(("\\b("+"|".join(all_reservadas)+")\\b", reservadas))
 
         #funtions=QtGui.QTextCharFormat()
