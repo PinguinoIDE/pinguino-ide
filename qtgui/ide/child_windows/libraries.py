@@ -8,7 +8,7 @@ from ConfigParser import RawConfigParser
 
 from PySide import QtGui, QtCore
 
-from ..helpers.config_libs import ConfigLibs
+from ..helpers.config_libs import ConfigLibsGroup
 from ..helpers.constants import TAB_NAME, IDE_LIBRARY_INSTALLED
 from ..helpers.widgets_features import PrettyFeatures
 from ..helpers.dialogs import Dialogs
@@ -21,20 +21,13 @@ class LibManager(QtGui.QMainWindow):
     """"""
     def __init__(self, IDE):
         super(LibManager, self).__init__()
-        #self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
-                            #QtCore.Qt.WindowSystemMenuHint |
-                            #QtCore.Qt.WindowStaysOnTopHint)        
         
-    
         self.libframe = Ui_LibraryManager()
         self.libframe.setupUi(self)
         
-        #self.libframe.progressBar_install.setVisible(False)
+        if not os.path.isdir(IDE_LIBRARY_INSTALLED): os.mkdir(IDE_LIBRARY_INSTALLED)
         
-        self.ConfigLibs = ConfigLibs()
-        
-
-        #self.GitRepo = GitRepo()       
+        self.ConfigLibs = ConfigLibsGroup()
         
         self.setWindowTitle(TAB_NAME+" - Library manager")
         
@@ -43,9 +36,8 @@ class LibManager(QtGui.QMainWindow):
         self.connect(self.libframe.tableWidget_sources, QtCore.SIGNAL("itemClicked(QTableWidgetItem*)"), self.handleItemClicked_source)
         self.connect(self.libframe.tableWidget_libs, QtCore.SIGNAL("itemClicked(QTableWidgetItem*)"), self.handleItemClicked_libs)
         
-        
-        #self.connect(self.libframe.pushButton_apply, QtCore.SIGNAL("clicked()"), self.remove_libs)   
-        self.connect(self.libframe.pushButton_update, QtCore.SIGNAL("clicked()"), self.update_install_libs)
+        self.connect(self.libframe.pushButton_apply, QtCore.SIGNAL("clicked()"), self.update_changes_install_libs)   
+        self.connect(self.libframe.pushButton_update, QtCore.SIGNAL("clicked()"), self.update_instaled_libraries)
         self.connect(self.libframe.pushButton_close, QtCore.SIGNAL("clicked()"), self.close_manager)
             
                 
@@ -55,13 +47,8 @@ class LibManager(QtGui.QMainWindow):
         
         bg_color = IDE.configIDE.config("Styles", "background_color", "#FFFFFF")
         alternate_bg_color = IDE.configIDE.config("Styles", "alternate_background_color", "#DDE8FF")        
-        self.libframe.tableWidget_libs.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color %s);}"%(bg_color, alternate_bg_color))
+        self.libframe.tableWidget_libs.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
         self.libframe.tableWidget_sources.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
-        
-        
-        
-        #self.libframe.tableWidget_libs.setStyleSheet("QTableWidget {background-color: rgb(255, 255, 222);\nalternate-background-color: rgb(255, 255, 191);}")
-        #self.libframe.tableWidget_sources.setStyleSheet("QTableWidget {background-color: rgb(255, 255, 222);\nalternate-background-color: rgb(255, 255, 191);}")
         
         self.handleItemClicked_source_count = 0
         
@@ -69,7 +56,6 @@ class LibManager(QtGui.QMainWindow):
         self.update_libraries_view()
         self.centrar()
         
-        if not os.path.isdir(IDE_LIBRARY_INSTALLED): os.mkdir(IDE_LIBRARY_INSTALLED)
         
 
     #----------------------------------------------------------------------
@@ -100,9 +86,19 @@ class LibManager(QtGui.QMainWindow):
         name= self.get_name_from_source(source)
         if not name: return
         
-        self.ConfigLibs.set(name, "repository", source)
-        self.ConfigLibs.set(name, "name", name)
-        self.ConfigLibs.save_config()
+        name_config = os.path.join(IDE_LIBRARY_INSTALLED, name, "config")
+        
+        if os.path.exists(os.path.join(IDE_LIBRARY_INSTALLED, name)):
+            Dialogs.error_message(self, "Library duplicated (name conflict)")
+            return
+        
+        os.mkdir(os.path.join(IDE_LIBRARY_INSTALLED, name))
+        
+        new_lib = self.ConfigLibs.new(name_config)
+        
+        new_lib.set("LIB", "repository", source)
+        new_lib.set("LIB", "name", name)
+        new_lib.save_config()
         
         index = self.libframe.tableWidget_sources.rowCount()
         self.libframe.tableWidget_sources.setRowCount(index+1)
@@ -120,6 +116,8 @@ class LibManager(QtGui.QMainWindow):
         self.libframe.tableWidget_sources.item(index, 1).setText(source)
         
         self.libframe.pushButton_update.setEnabled(True)
+        
+        self.ConfigLibs.load_config()
         
         
     #----------------------------------------------------------------------
@@ -143,12 +141,12 @@ class LibManager(QtGui.QMainWindow):
             self.libframe.tableWidget_sources.setVerticalHeaderItem(index, item)             
             
             checkable = QtGui.QTableWidgetItem()
-            checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable)
+            checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsSelectable)
             checkable.setCheckState(QtCore.Qt.Unchecked)
             self.libframe.tableWidget_sources.setItem(index, 0, checkable)
             
             repository = QtGui.QTableWidgetItem()
-            repository.setFlags(QtCore.Qt.ItemIsEnabled)
+            repository.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
             self.libframe.tableWidget_sources.setItem(index, 1, repository)
             
             self.libframe.tableWidget_sources.item(index, 0).setText(name)
@@ -181,20 +179,24 @@ class LibManager(QtGui.QMainWindow):
             self.libframe.tableWidget_libs.setRowCount(self.libframe.tableWidget_libs.rowCount()+1)
                 
             checkable = QtGui.QTableWidgetItem()
-            checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable)
-            checkable.setCheckState(QtCore.Qt.Unchecked)
+            checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsSelectable)
+            if active:
+                checkable.setCheckState(QtCore.Qt.Checked)
+            else:
+                checkable.setCheckState(QtCore.Qt.Unchecked)
+                
             self.libframe.tableWidget_libs.setItem(index, 0, checkable)
             
             arch_ = QtGui.QTableWidgetItem()
-            arch_.setFlags(QtCore.Qt.ItemIsEnabled)            
+            arch_.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)            
             self.libframe.tableWidget_libs.setItem(index, 1, arch_)
             
             auth = QtGui.QTableWidgetItem()
-            auth.setFlags(QtCore.Qt.ItemIsEnabled)            
+            auth.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)            
             self.libframe.tableWidget_libs.setItem(index, 2, auth)
 
             desc = QtGui.QTableWidgetItem()
-            desc.setFlags(QtCore.Qt.ItemIsEnabled)      
+            desc.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)      
             self.libframe.tableWidget_libs.setItem(index, 3, desc)
             
             self.libframe.tableWidget_libs.item(index, 0).setText(name)
@@ -221,19 +223,6 @@ class LibManager(QtGui.QMainWindow):
         
         
     #----------------------------------------------------------------------
-    def build_menu(self, event):
-        """"""
-        menu = QtGui.QMenu()
-        if self.isSelecting:
-            if self.getUnderSelection():
-                menu.addAction("Delete selected blocks", self.dele_blocks)
-            menu.addAction("Take Screenshot from selected area", lambda :None)
-            menu.addAction("Export code to pinguino editor", lambda :None)
-        menu.exec_(event.globalPos())
-        
-        
-        
-    #----------------------------------------------------------------------
     def handleItemClicked_source(self, item):
         """"""
         for index in range(self.libframe.tableWidget_sources.rowCount()):
@@ -246,16 +235,12 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def handleItemClicked_libs(self, item):
         """"""
-        #for index in range(self.libframe.tableWidget_libs.rowCount()):
-            #if self.libframe.tableWidget_libs.item(index, 0).checkState() == QtCore.Qt.Checked:
         self.libframe.pushButton_apply.setEnabled(True)
-                #return
-        #self.libframe.pushButton_uninstall.setEnabled(False)
         
         
         
     #----------------------------------------------------------------------
-    def update_install_libs(self):
+    def update_instaled_libraries(self):
         """"""
         self.setCursor(QtCore.Qt.WaitCursor)
         
@@ -266,31 +251,31 @@ class LibManager(QtGui.QMainWindow):
             if self.libframe.tableWidget_sources.item(index, 0).checkState() == QtCore.Qt.Checked:
                 selected.append(self.libframe.tableWidget_sources.item(index, 0).text())
                 
-        
         work = []
         for sel in selected:
             if GitRepo.check_library(sel):
                 try:
                     GitRepo.update_library(sel)
                 except:
-                    if Dialogs.confirm_message(self, "Error", "Problems with "+sel+".\nTry again?"):
-                        shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, sel))
+                    #if Dialogs.confirm_message(self, "Error", "Problems with "+sel+".\nTry again?"):
+                    shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, sel, "lib"))
                     try:
                         GitRepo.install_library(sel)
                     except:
-                        Dialogs.info_message(self, "Problems with "+sel+".")
+                        Dialogs.error_message(self, "Problems with "+sel+".")
                 work.append(sel + ": Updated")
                 
             else:
                 try:
                     GitRepo.install_library(sel)
                 except:
-                    if Dialogs.confirm_message(self, "Error", "Problems with "+sel+".\nTry again?"):
-                        shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, sel))
+                    #if Dialogs.confirm_message(self, "Error", "Problems with "+sel+".\nTry again?"):
+                    if os.path.isdir(os.path.join(IDE_LIBRARY_INSTALLED, sel, "lib")):
+                        shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, sel, "lib"))
                     try:
                         GitRepo.install_library(sel)
                     except:
-                        Dialogs.info_message(self, "Problems with "+sel+".")
+                        Dialogs.error_message(self, "Problems with "+sel+".")
                 work.append(sel + ": Installed")
                 
                 
@@ -309,17 +294,41 @@ class LibManager(QtGui.QMainWindow):
     def update_lib_config(self, lib):
         """"""
         lib_data = RawConfigParser()
-        filename = os.path.join(IDE_LIBRARY_INSTALLED, lib, "PINGUINO")
+        filename = os.path.join(IDE_LIBRARY_INSTALLED, lib, "lib", "PINGUINO")
+
+        sources = self.ConfigLibs.all_libs
         
         if os.path.exists(filename):
             lib_data.readfp(file(filename, "r"))
             for arg in "arch author description url repository name".split():
-                self.ConfigLibs.set(lib, arg, lib_data.get("library", arg))
-            self.ConfigLibs.set(lib, "installed", True)
-            self.ConfigLibs.set(lib, "active", False)
-            self.ConfigLibs.save_config()
+                sources[lib].set("LIB", arg, lib_data.get("library", arg))
+            sources[lib].set("LIB", "installed", True)
+            sources[lib].set("LIB", "active", False)
+            sources[lib].save_config()
             return True
         else:
-            Dialogs.info_message(self, lib+" has no valid configuration file.\n\nmissing "+filename)
-            shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, lib))
+            #Dialogs.info_message(self, lib+" has no valid configuration file.\n\nmissing "+filename)
+            #if os.path.isdir(os.path.join(IDE_LIBRARY_INSTALLED, lib)):
+                #shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, lib))
             return False
+        
+        
+    #----------------------------------------------------------------------
+    def update_changes_install_libs(self):
+        """"""
+        selected = []
+        for index in range(self.libframe.tableWidget_libs.rowCount()):
+            selected.append((self.libframe.tableWidget_libs.item(index, 0).text(), self.libframe.tableWidget_libs.item(index, 0).checkState() == QtCore.Qt.Checked))
+            
+            
+        message = ""            
+            
+        sources = self.ConfigLibs.all_libs
+        for sel, state in selected:
+            sources[sel].set("LIB", "active", state)
+            message += sel + ": " + "Actived" if state else "Deactived\n"
+        
+        Dialogs.info_message(self, message)
+        
+            
+        self.ConfigLibs.save_config()
