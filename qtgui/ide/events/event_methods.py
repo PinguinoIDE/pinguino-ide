@@ -17,7 +17,7 @@ from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
 from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
-from ..child_windows.stdout import Stdout
+from ..child_windows.plain_text_out import PlainOut
 from ..child_windows.libraries import LibManager
 from ..child_windows.hex_viewer import HexViewer
 from ..widgets.wiki_widget import WikiDock
@@ -45,13 +45,13 @@ class EventMethods(SearchReplace):
         editor.text_edit.redoAvailable.connect(self.__text_can_redo__)
         editor.text_edit.copyAvailable.connect(self.__text_can_copy__)
         editor.text_edit.dropEvent = self.__drop__
-        editor.text_edit.keyPressEvent = self.__key_pess__
+        editor.text_edit.keyPressEvent = self.__key_press__
         
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), filename[:-1])
         
         
     #----------------------------------------------------------------------
-    def __key_pess__(self, event):
+    def __key_press__(self, event):
         """"""
         editor = self.main.tabWidget_files.currentWidget()
         if self.is_autocomplete_enable():
@@ -700,7 +700,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     def __show_stdout__(self):
         """"""
-        self.frame_stdout = Stdout(self, "Stdout")
+        self.frame_stdout = PlainOut(self, "Stdout")
         self.frame_stdout.show()
         
     #----------------------------------------------------------------------
@@ -714,7 +714,7 @@ class EventMethods(SearchReplace):
         """"""
         name = getattr(self.get_tab().currentWidget(), "path", "")
         if name: name = " - " + name
-        self.frame_pinguino_code = Stdout(self, "Pinguino code")
+        self.frame_pinguino_code = PlainOut(self, "Pinguino code")
         self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
         self.frame_pinguino_code.show()
         
