@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 import codecs
+import os
 
 from PySide import QtGui, QtCore
 
@@ -11,50 +12,47 @@ from ...frames.stdout import Ui_Stdout
 from ..code_editor.syntaxhighlighter import Highlighter
 
 ########################################################################
-class Stdout(QtGui.QMainWindow):
+class PlainOut(QtGui.QMainWindow):
     """"""
     def __init__(self, parent, title):
         #QtGui.QMainWindow.__init__(self)
-        super(Stdout, self).__init__()
+        super(PlainOut, self).__init__()
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
                             QtCore.Qt.WindowSystemMenuHint |
                             QtCore.Qt.WindowStaysOnTopHint)        
         
     
-        self.stdout = Ui_Stdout()
-        self.stdout.setupUi(self)
+        self.plain_out = Ui_Stdout()
+        self.plain_out.setupUi(self)
         self.main = parent
         
-        font = self.stdout.textEdit.font()
+        font = self.plain_out.textEdit.font()
         font.setFamily("mono")
         font.setPointSize(font.pointSize()-1)
-        self.stdout.textEdit.setFont(font)
+        self.plain_out.textEdit.setFont(font)
         
         self.setWindowTitle(TAB_NAME+" - "+title)
         
-        self.connect(self.stdout.buttonBox, QtCore.SIGNAL("clicked(QAbstractButton*)"), self.getButton)
-        
-        
+        self.connect(self.plain_out.buttonBox, QtCore.SIGNAL("clicked(QAbstractButton*)"), self.getButton)
         
         palette = QtGui.QPalette(self.palette())
         self.setAutoFillBackground(True)
         palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
         self.setPalette(palette)  
 
-        
-        stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")
-        content = stdout.readlines()
-        stdout.close()
-        self.show_text("".join(content))
-        
-        self.stdout.buttonBox.setFocus()
-        
+        if os.path.exists(PINGUINO_STDOUT_FILE):
+            stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")
+            content = stdout.readlines()
+            stdout.close()
+            self.show_text("".join(content))
+            
+        self.plain_out.buttonBox.setFocus()
         self.centrar()
         
         
     #----------------------------------------------------------------------
     def getButton(self, button):
-        if self.stdout.buttonBox.standardButton(button) == self.stdout.buttonBox.Close: self.close()
+        if self.plain_out.buttonBox.standardButton(button) == self.plain_out.buttonBox.Close: self.close()
         #elif  self.ventana.buttonBox.standardButton(button) == self.ventana.buttonBox.Cancel: self.close()
                     
 
@@ -67,5 +65,5 @@ class Stdout(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def show_text(self, text, pde=False):
         """"""
-        if pde: Highlighter(self.stdout.textEdit)
-        self.stdout.textEdit.setPlainText(text)
+        if pde: Highlighter(self.plain_out.textEdit)
+        self.plain_out.textEdit.setPlainText(text)
