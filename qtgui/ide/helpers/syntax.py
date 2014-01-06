@@ -12,7 +12,7 @@ Autocompleter["reserved"] = ["TRUE", "FALSE", "HIGH", "LOW", "INPUT", "OUTPUT", 
               "PROGBUTTON", "USERBUTTON", "RUNLED", "USERLED", "A4", 
               "PORTA", "PORTB", "PORTC", "PORTD", "PORTE", "PORTF", "PORTG",
               "if", "switch", "for", "while", "do", "continue", "break", "else", "return", "case", "default",
-              "void", "const", "bool", "BOOL", "char", "unsigned", "short", "int", "long", "float", "double", "byte", "word",
+              "void", "const", "BOOL", "char", "unsigned", "short", "int", "long", "float", "double", "byte", "word",
               "u8", "s8", "u16", "s16", "u32", "s32", "u64", "s64",
               "struct", "union", "typedef", "enum", "register",  "static", "extern", "volatile",
               "loop", "setup", "INT_MILLISEC", "INT_MICROSEC", "INT_FALLING_EDGE"]
