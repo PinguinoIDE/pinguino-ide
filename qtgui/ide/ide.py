@@ -15,7 +15,7 @@ from .helpers.config import Config
 from ..frames.main import Ui_PinguinoIDE
 from pinguino.pinguino import Pinguino, AllBoards
 
-from .helpers.namespaces import Namespaces
+
 
 from .code_editor.autocomplete_icons import CompleteIcons
 
@@ -28,6 +28,11 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.main.setupUi(self)
         self.setWindowTitle(Constants.TAB_NAME)
         self.build_statusbar()
+        
+        ## Update Syntax Highlighter
+        #from .helpers.namespaces import Namespaces
+        #namespaces = Namespaces()
+        #namespaces.save_namespaces()
         
         self.pinguinoAPI = Pinguino()
         self.configIDE = Config()
