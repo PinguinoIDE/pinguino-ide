@@ -166,7 +166,7 @@ class CustomTextEdit(QtGui.QTextEdit):
             QtCore.Qt.Key_Escape,
             QtCore.Qt.Key_Space,
             QtCore.Qt.Key_Control,
-            QtCore.Qt.Key_Shift,
+            #QtCore.Qt.Key_Shift,
             QtCore.Qt.Key_Alt,
             QtCore.Qt.Key_Backtab,
             QtCore.Qt.Key_Up,
@@ -175,7 +175,7 @@ class CustomTextEdit(QtGui.QTextEdit):
             QtCore.Qt.Key_Left,
             ) or event.modifiers() in (
             QtCore.Qt.ControlModifier,
-            QtCore.Qt.ShiftModifier, 
+            #QtCore.Qt.ShiftModifier, 
             QtCore.Qt.AltModifier, 
             ):
             self.completer.hide()

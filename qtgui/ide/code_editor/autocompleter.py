@@ -171,7 +171,7 @@ class PinguinoAutoCompleter(QListWidget):
         cont = 0
         for item in self.itemsList:
             if start:
-                if item.text().lower().startswith(name): return cont
+                if item.text().lower().startswith(name.lower()): return cont
             else:
                 if item.text() == name: return cont
             cont += 1
