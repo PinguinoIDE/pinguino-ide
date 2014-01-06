@@ -245,7 +245,7 @@ class PinguinoTools(object):
             lines = lib_file.readlines()
             lib_file.close()
             
-            regex_pdl = "[\s]*([.\w]*)[\s]*([\w]*)[\s]*(#.*)*(#.*)*[\s]*"
+            regex_pdl = "[\s]*([.\w]*)[\s]*([\w]*)[\s]*(#include[\w\s\.\<\>]*)*(#define.*)*[\s]*"
             
             for line in lines:
                 line = line[:line.find('//')] 
