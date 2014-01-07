@@ -84,8 +84,8 @@ class PinguinoFeatures(PinguinoEvents):
         normal = False
         
         self.main.actionView_Pinguino_code.setEnabled(normal)   
-        self.main.actionComment_out_region.setEnabled(normal)   
-        self.main.actionComment_Uncomment_region.setEnabled(normal) 
+        self.main.actionComment_out_region.setEnabled(not normal)   
+        self.main.actionComment_Uncomment_region.setEnabled(not normal) 
         self.main.actionRedo.setEnabled(not normal)         
         self.main.actionUndo.setEnabled(not normal)         
         self.main.actionCut.setEnabled(not normal)         

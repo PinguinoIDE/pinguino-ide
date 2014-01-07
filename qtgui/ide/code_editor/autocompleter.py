@@ -12,7 +12,6 @@ from ..helpers import constants as Constants
 
 class PinguinoAutoCompleter(QListWidget):
     
-    
     #----------------------------------------------------------------------
     def __init__(self):
         super(PinguinoAutoCompleter, self).__init__(None)
@@ -24,7 +23,6 @@ class PinguinoAutoCompleter(QListWidget):
         self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
 
-        #self.itemHeight=10
         self.setIconSize(QtCore.QSize(14, 14))
         self.set_height(200)
         
@@ -40,7 +38,9 @@ class PinguinoAutoCompleter(QListWidget):
         
         self.namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
         
-        
+        icons = CompleteIcons()
+        self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
+        del icons
         
     #----------------------------------------------------------------------
     def set_arch_autocompleter(self):
@@ -60,7 +60,6 @@ class PinguinoAutoCompleter(QListWidget):
                 self.addTemporalItem("arch32", item, icons.iconLibrary)
             self.removeTemporalItems("arch8")
                 
-            
         del config
         del icons
         
@@ -75,7 +74,6 @@ class PinguinoAutoCompleter(QListWidget):
         self.set_arch_autocompleter()
         super(PinguinoAutoCompleter, self).show(*args)
         
-        
     #----------------------------------------------------------------------
     def focusOutEvent (self, event):
         self.hide()
@@ -88,7 +86,6 @@ class PinguinoAutoCompleter(QListWidget):
     #----------------------------------------------------------------------
     def set_height(self, visisble):   
         self.resize(200, visisble)
-        #self.visibleItems = visisble
         
     #----------------------------------------------------------------------
     def ajustWidth(self):
@@ -97,8 +94,7 @@ class PinguinoAutoCompleter(QListWidget):
         while hs.isVisible() :
             self.resize(self.width()+5, self.height())
             cont += 1
-            if cont > 100: self.destroy() # :)
-            
+            if cont > 100: return # :)
             
     #----------------------------------------------------------------------
     def ajustPos(self):
@@ -118,8 +114,6 @@ class PinguinoAutoCompleter(QListWidget):
             if cont > 100: self.destroy()  
         
         
-        
-        
     #----------------------------------------------------------------------
     def setSpell(self, int):
         self.spell = int
@@ -129,13 +123,11 @@ class PinguinoAutoCompleter(QListWidget):
         current = self.currentRow()
         self.setCurrentRow(current+1)
         
-            
     #----------------------------------------------------------------------
     def up(self):
         current = self.currentRow()
         self.setCurrentRow(current-1)    
         
-    
     #----------------------------------------------------------------------    
     def addNewItem(self, name, icon=None):
         if not name in self.itemsListName:
@@ -146,7 +138,6 @@ class PinguinoAutoCompleter(QListWidget):
             self.itemsList.append(item)
             self.itemsListName.append(name)
             return item
-        
         
     #----------------------------------------------------------------------
     def addTemporalItem(self, llave, name, icon=None):
@@ -202,7 +193,6 @@ class PinguinoAutoCompleter(QListWidget):
             self.ajustPos()
             return
             
-
         cont = self.getIndex(index, True)
         if not cont:
             self.hide()

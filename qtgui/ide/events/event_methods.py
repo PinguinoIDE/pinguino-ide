@@ -140,13 +140,39 @@ class EventMethods(SearchReplace):
         """"""
         editor = self.main.tabWidget_files.currentWidget()
         cursor = editor.text_edit.textCursor()
-        #prevCursor = editor.text_edit.textCursor()
+        prevCursor = editor.text_edit.textCursor()
         
         text = cursor.selectedText()
+        selected = bool(text)
+        
+        if text == "":  #no selected, single line
+            start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+            startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()    
+            endPosition = editor.text_edit.document().findBlockByLineNumber(start+1).position() - 1        
+            
+            cursor.setPosition(startPosition)            
+            cursor.setPosition(endPosition, QtGui.QTextCursor.KeepAnchor)
+            editor.text_edit.setTextCursor(cursor)
+            
+        else:
+            start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+            startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()
+            
+            end = editor.text_edit.document().findBlock(cursor.selectionEnd()).firstLineNumber()            
+            
+            endPosition = editor.text_edit.document().findBlockByLineNumber(end+1).position() - 1        
+            
+            cursor.setPosition(startPosition)            
+            cursor.setPosition(endPosition, QtGui.QTextCursor.KeepAnchor)
+            editor.text_edit.setTextCursor(cursor)
+            
+            
+        text = cursor.selectedText()
+            
         lines = text.split(u'\u2029')
         firstLine = False
         for line in lines:
-            if not str(line).isspace() and not str(line)=="":
+            if not line.isspace() and not line=="":
                 firstLine = line
                 break
 
@@ -154,16 +180,47 @@ class EventMethods(SearchReplace):
             if firstLine.startswith("//"): self.uncommentregion()
             else: self.commentregion()
             
+        if not selected:
+            cursor.clearSelection()
+            editor.text_edit.setTextCursor(prevCursor) 
+            
+            
             
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def commentregion(self):
         """"""     
-
         editor = self.main.tabWidget_files.currentWidget()
         comment_wildcard = "// "
         
         #cursor is a COPY all changes do not affect the QPlainTextEdit's cursor!!!
+        cursor = editor.text_edit.textCursor()
+        
+        text = cursor.selectedText()
+        
+        if text == "":  #no selected, single line
+            start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+            startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()    
+            endPosition = editor.text_edit.document().findBlockByLineNumber(start+1).position() - 1        
+            
+            cursor.setPosition(startPosition)            
+            cursor.setPosition(endPosition, QtGui.QTextCursor.KeepAnchor)
+            editor.text_edit.setTextCursor(cursor)
+            
+        else:
+            start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+            startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()
+            
+            
+            end = editor.text_edit.document().findBlock(cursor.selectionEnd()).firstLineNumber()            
+            
+            endPosition = editor.text_edit.document().findBlockByLineNumber(end+1).position() - 1        
+            
+            cursor.setPosition(startPosition)            
+            cursor.setPosition(endPosition, QtGui.QTextCursor.KeepAnchor)
+            editor.text_edit.setTextCursor(cursor)        
+        
+        
         cursor = editor.text_edit.textCursor()
         
         start_ = cursor.selectionStart()
@@ -183,15 +240,11 @@ class EventMethods(SearchReplace):
         #Move the QPlainTextEdit Cursor where the COPY cursor IS!
         editor.text_edit.setTextCursor(cursor)
         editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
-        #editor.tex
         
         for i in comment_wildcard:
             editor.text_edit.moveCursor(QtGui.QTextCursor.Right, QtGui.QTextCursor.KeepAnchor)
-            
         
         start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
-        
-        
         
         editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
         s = editor.text_edit.cursor()
@@ -204,22 +257,19 @@ class EventMethods(SearchReplace):
             
         editor.text_edit.moveCursor(QtGui.QTextCursor.EndOfLine)
         
-        
         end_ += (end + 1 - start) * 3
         cursor.setPosition(start_)
         cursor.setPosition(end_, QtGui.QTextCursor.KeepAnchor)
         editor.text_edit.setTextCursor(cursor)        
         
-        
-        
         #End a undo block
         cursor.endEditBlock()
+        
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def uncommentregion(self):
         """"""
-        
         editor = self.main.tabWidget_files.currentWidget()
         comment_wildcard = "// "
     
@@ -671,6 +721,8 @@ class EventMethods(SearchReplace):
         state = not self.main.actionCopy.isEnabled()
         self.main.actionCopy.setEnabled(state)
         self.main.actionCut.setEnabled(state)
+        #self.main.actionComment_out_region.setEnabled(state)
+        #self.main.actionComment_Uncomment_region.setEnabled(state)
         editor = self.main.tabWidget_files.currentWidget()
         editor.tool_bar_state["copy"] = state
         
@@ -683,7 +735,6 @@ class EventMethods(SearchReplace):
             self.get_tab().setCurrentIndex(filenames.index(filename))
             return True
         return False
-    
     
     #----------------------------------------------------------------------
     def __show_about__(self):

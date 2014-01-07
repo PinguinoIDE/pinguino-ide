@@ -38,8 +38,8 @@ class CustomTextEdit(QtGui.QTextEdit):
         
         self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
         
-        namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
-        self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)
+        #namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
+        #self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)
         
         #palette = QtGui.QPalette(self.palette())
         #self.setAutoFillBackground(True)
