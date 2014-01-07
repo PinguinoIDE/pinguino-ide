@@ -3,6 +3,7 @@
 
 from ..events.events import PinguinoEvents
 from ..widgets.output_widget import PinguinoTerminal
+from ..helpers.dev_tools import DevTools
 from ...gide.app.graphical import GraphicalIDE
 
 
@@ -27,7 +28,7 @@ class PinguinoFeatures(PinguinoEvents):
         
         self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
         #self.main.plainTextEdit_output.shell.statement_module.pinguino_main = self
-        self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self})
+        self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self, "devmode": DevTools(),})
         self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
         
         

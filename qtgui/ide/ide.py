@@ -29,11 +29,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.setWindowTitle(Constants.TAB_NAME)
         self.build_statusbar()
         
-        ## Update Syntax Highlighter
-        #from .helpers.namespaces import Namespaces
-        #namespaces = Namespaces()
-        #namespaces.save_namespaces()
-        
         self.pinguinoAPI = Pinguino()
         self.configIDE = Config()
         self.ICONS = CompleteIcons()
