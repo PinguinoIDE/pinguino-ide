@@ -5,7 +5,7 @@ import os
 import re
 from ConfigParser import RawConfigParser
 
-from .constants import IDE_CONFIG_FILE
+IDE_CONFIG_FILE = file("config", "r").read()
 
 ########################################################################
 class Config(RawConfigParser, object):
@@ -69,6 +69,18 @@ class Config(RawConfigParser, object):
     def load_config(self):
         """"""
         self.readfp(file(IDE_CONFIG_FILE, "r")) 
+        
+    #----------------------------------------------------------------------
+    def get_filename(self, name):
+        """"""
+        parent_dir = self.get("Paths", "pinguino_writeable_path")
+        filename = self.get("Filenames", name)
+        return os.path.join(parent_dir, filename)
+    
+    #----------------------------------------------------------------------
+    def get_path(self, name):
+        """"""
+        return self.get("Paths", name)
         
         
     #----------------------------------------------------------------------

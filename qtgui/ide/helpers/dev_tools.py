@@ -5,11 +5,7 @@ import os
 import re
 import pickle
 
-from . import constants as Constants
-
-P32_DIR = os.path.join(Constants.IDE_HOME_DIR, "pinguino", "p32")
-P8_DIR = os.path.join(Constants.IDE_HOME_DIR, "pinguino", "p8")
-
+from .config import Config
 
 ########################################################################
 class DevTools(object):
@@ -20,12 +16,14 @@ class DevTools(object):
         """"""
         namespaces = []
         
+        self.config = Config()
+        
         if arch == "8":
             libext = ".pdl"
-            libdir = P8_DIR
+            libdir = self.config.get_path("pinguino_8_libs")
         elif arch == "32":
             libext = ".pdl32"
-            libdir = P32_DIR
+            libdir = self.config.get_path("pinguino_32_libs")
             
         print("Searching %s in %s" % (libext, libdir))
             
@@ -71,7 +69,7 @@ class DevTools(object):
                 name_spaces_commun.append(name)
         
         namespaces = {"arch8": name_spaces_8, "arch32": name_spaces_32, "all": name_spaces_commun,}   
-        pickle.dump(namespaces, file(Constants.IDE_NAMESPACES_FILE, "w"))
+        pickle.dump(namespaces, file(self.config.get_filename("pinguino_ide_reserved"), "w"))
         
-        print("Write on %s" % Constants.IDE_NAMESPACES_FILE)
+        print("Write on %s" % self.config.get_filename("pinguino_ide_reserved"))
     

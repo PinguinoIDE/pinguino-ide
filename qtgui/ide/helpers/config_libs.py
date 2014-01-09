@@ -5,7 +5,8 @@ import os
 import re
 from ConfigParser import RawConfigParser
 
-from .constants import IDE_CONFIGLIBS_FILE, IDE_LIBRARY_INSTALLED
+from ..helpers.config import Config
+#from .constants import IDE_CONFIGLIBS_FILE, IDE_LIBRARY_INSTALLED
 
 
 ########################################################################
@@ -15,6 +16,8 @@ class ConfigLibsGroup(object):
     #----------------------------------------------------------------------
     def __init__(self):
         """"""
+        config = Config()
+        IDE_LIBRARY_INSTALLED = config.get_path("pinguino_user_libs")
         libs = os.listdir(IDE_LIBRARY_INSTALLED)
     
         self.all_libs = {}

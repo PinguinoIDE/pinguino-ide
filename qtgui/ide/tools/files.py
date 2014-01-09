@@ -33,15 +33,20 @@ class Files(object):
         
         icon_dir = QtGui.QIcon()
         icon_dir.addPixmap(QtGui.QPixmap(":/icons/icons/icon_dir.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon_dir = QtGui.QIcon.fromTheme("folder")
+        
         
         icon_file = QtGui.QIcon()
         icon_file.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon_file = QtGui.QIcon.fromTheme("text-x-generic")
         
         icon_file_pde = QtGui.QIcon()
         icon_file_pde.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file_pde.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon_file_pde = QtGui.QIcon.fromTheme("text-x-generic")
         
         icon_file_py = QtGui.QIcon()
         icon_file_py.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file_py.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon_file_py = QtGui.QIcon.fromTheme("text-x-generic")
         
         
         item = QtGui.QListWidgetItem(listWidget)

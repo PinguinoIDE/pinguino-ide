@@ -19,6 +19,7 @@ from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
 from ..child_windows.plain_text_out import PlainOut
 from ..child_windows.libraries import LibManager
+from ..child_windows.paths import Paths
 from ..child_windows.hex_viewer import HexViewer
 from ..widgets.wiki_widget import WikiDock
 
@@ -760,6 +761,12 @@ class EventMethods(SearchReplace):
         self.frame_stdout = LibManager(self)
         self.frame_stdout.show()
         
+    #----------------------------------------------------------------------
+    def __config_paths__(self):
+        """"""
+        self.frame_paths = Paths(self)
+        self.frame_paths.show()     
+
     #----------------------------------------------------------------------
     def __show_pinguino_code__(self):
         """"""

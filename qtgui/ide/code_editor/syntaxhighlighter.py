@@ -10,9 +10,7 @@ from PySide import QtGui, QtCore
 
 from ..helpers.syntax import Autocompleter
 from ..helpers import constants as Constants
-
-
-archivo_configuracion=sys.path[0]+"/qtgui/ide/config.conf"
+from ..helpers.config import Config
 
 ########################################################################
 class Highlighter(QtGui.QSyntaxHighlighter):
@@ -24,7 +22,8 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         self.highlightingRules=[]
         self.highlightingRulesMatch=[]
         
-        namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
+        config = Config()
+        namespaces = pickle.load(file(config.get_filename("pinguino_ide_reserved"), "r"))
         #self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)         
         
         reservadas=QtGui.QTextCharFormat()

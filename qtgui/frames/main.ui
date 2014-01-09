@@ -179,6 +179,7 @@
      <string>Pinguino</string>
     </property>
     <addaction name="actionLibrary_manager"/>
+    <addaction name="actionSet_paths"/>
     <addaction name="actionSelect_board"/>
     <addaction name="separator"/>
     <addaction name="actionCompile"/>
@@ -1527,6 +1528,14 @@
   <action name="actionHex_code">
    <property name="text">
     <string>Hex code</string>
+   </property>
+  </action>
+  <action name="actionSet_paths">
+   <property name="text">
+    <string>Set paths</string>
+   </property>
+   <property name="toolTip">
+    <string>Set paths</string>
    </property>
   </action>
  </widget>

@@ -44,6 +44,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         
         # Pinguino
         self.connect(self.main.actionLibrary_manager, QtCore.SIGNAL("triggered()"), self.__show_libmanager__)
+        self.connect(self.main.actionSet_paths, QtCore.SIGNAL("triggered()"), self.__config_paths__)
         self.connect(self.main.actionSelect_board, QtCore.SIGNAL("triggered()"), self.__show_board_config__)
         self.connect(self.main.actionCompile, QtCore.SIGNAL("triggered()"), self.pinguino_compile)   
         self.connect(self.main.actionUpload, QtCore.SIGNAL("triggered()"), self.pinguino_upload)

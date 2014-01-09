@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Mon Jan  6 18:01:14 2014
+# Created: Wed Jan  8 21:17:44 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -546,6 +546,8 @@ class Ui_PinguinoIDE(object):
         self.actionLibrary_manager.setObjectName("actionLibrary_manager")
         self.actionHex_code = QtGui.QAction(PinguinoIDE)
         self.actionHex_code.setObjectName("actionHex_code")
+        self.actionSet_paths = QtGui.QAction(PinguinoIDE)
+        self.actionSet_paths.setObjectName("actionSet_paths")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.menuRecents.menuAction())
@@ -573,6 +575,7 @@ class Ui_PinguinoIDE(object):
         self.menuView.addAction(self.actionStdout)
         self.menuView.addAction(self.actionCurrent_Board)
         self.menuPinguino.addAction(self.actionLibrary_manager)
+        self.menuPinguino.addAction(self.actionSet_paths)
         self.menuPinguino.addAction(self.actionSelect_board)
         self.menuPinguino.addSeparator()
         self.menuPinguino.addAction(self.actionCompile)
@@ -770,5 +773,7 @@ class Ui_PinguinoIDE(object):
         self.actionColor_theme.setText(QtGui.QApplication.translate("PinguinoIDE", "Color theme", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLibrary_manager.setText(QtGui.QApplication.translate("PinguinoIDE", "Library manager", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHex_code.setText(QtGui.QApplication.translate("PinguinoIDE", "Hex code", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSet_paths.setText(QtGui.QApplication.translate("PinguinoIDE", "Set paths", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSet_paths.setToolTip(QtGui.QApplication.translate("PinguinoIDE", "Set paths", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

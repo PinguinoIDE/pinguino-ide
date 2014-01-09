@@ -1,6 +1,0 @@
-author  : rblanchot@gmail.com
-script  : build-sdcc-v3.sh
-host    : Linux (3.2.0-4-amd64)
-build   : 12-07-13
-version : gpasm-1.2.0 #983 (Jul 12 2013)
-          SDCC : pic16 3.2.1 #8447 (Jul 12 2013) (Linux)
