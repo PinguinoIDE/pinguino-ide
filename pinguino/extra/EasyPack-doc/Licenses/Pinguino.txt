@@ -1,5 +1,0 @@
-Refer to:
-  http://pinguino.cc
-
-Pinguino is Free Open Source software released under the terms of the GNU GPLv2
-(General Public License version 2).
