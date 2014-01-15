@@ -882,21 +882,21 @@ u8 OnTimer0(callback func, u8 timediv, u16 delay)
         switch(timediv)
         {
             case INT_MICROSEC:
-                // 1 us = 1.000 ns = 12 cy
+                // 1 us = 1.000 ns = 12 cy @ Fosc = 48 MHz
                 _cycles_ = System_getPeripheralFrequency() / 1000 / 1000;
                 preloadH[INT_TMR0] = high8(0xFFFF - _cycles_);
                 preloadL[INT_TMR0] =  low8(0xFFFF - _cycles_);
                 _t0con = T0_OFF | T0_16BIT | T0_SOURCE_INT | T0_PS_OFF;
                 break;
             case INT_MILLISEC:
-                // 1 ms = 1.000.000 ns = 12.000 cy
+                // 1 ms = 1.000.000 ns = 12.000 cy @ Fosc = 48 MHz
                 _cycles_ = System_getPeripheralFrequency() / 1000 ;
                 preloadH[INT_TMR0] = high8(0xFFFF - _cycles_);
                 preloadL[INT_TMR0] =  low8(0xFFFF - _cycles_);
                 _t0con = T0_OFF | T0_16BIT | T0_SOURCE_INT | T0_PS_OFF;
                 break;
             case INT_SEC:
-                // 1 sec = 1.000.000.000 ns = 12.000.000 cy
+                // 1 sec = 1.000.000.000 ns = 12.000.000 cy @ Fosc = 48 MHz
                 // 12.000.000 / 256 = 46875
                 _cycles_ = System_getPeripheralFrequency() >> 8;
                 preloadH[INT_TMR0] = high8(0xFFFF - _cycles_);

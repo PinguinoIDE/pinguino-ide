@@ -11,8 +11,6 @@ toggle toggle#include <digitalw.c>#define TOGGLE
 analogRead analogread#include <analog.c>#define ANALOGREAD
 analogReference analogreference#include <analog.c>#define ANALOGREFERENCE
 analogWrite analogwrite#include <analog.c>#define ANALOGWRITE
-analogReadResolution analog_read_resolution#include <analog.c>#define ANALOGREADRESOLUTION
-analogWriteResolution analog_write_resolution#include <analog.c>#define ANALOGWRITERESOLUTION
 
 min min#include <macro.h>
 max max#include <macro.h>

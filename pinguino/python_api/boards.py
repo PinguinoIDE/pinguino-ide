@@ -4,7 +4,7 @@
 """---------------------------------------------------------------------
     Pinguino Boards List
 
-    author:              Regis Blanchot
+    author:			Regis Blanchot
     contact:		rblanchot@gmail.com 
     first release:	2011-10-23
     last release:	2012-05-04
@@ -226,6 +226,34 @@ class Pinguino47J53A:
     32-bit Boards
 ---------------------------------------------------------------------"""
 
+class Pinguino32MX220:
+    name='Pinguino 32MX220'
+    arch=32
+    bldr='microchip'
+    proc='32MX220F032B'
+    board='PINGUINO32MX220'
+    vendor=MICROCHIP_ID
+    product=P32_ID
+    ebase = 0x9D003000
+    memstart=ebase+0x00000
+    memend=ebase+0x08000
+    shortarg='-p32mx220'
+    longarg='--pinguino32mx220'
+
+class Pinguino32MX250:
+    name='Pinguino 32MX250'
+    arch=32
+    bldr='microchip'
+    proc='32MX250F128B'
+    board='PINGUINO32MX250'
+    vendor=MICROCHIP_ID
+    product=P32_ID
+    ebase = 0x9D003000
+    memstart=ebase+0x00000
+    memend=ebase+0x20000
+    shortarg='-p32mx250'
+    longarg='--pinguino32mx250'
+
 class PIC32_Pinguino:
     name='PIC32 Pinguino'
     arch=32
@@ -279,43 +307,18 @@ class PIC32_Pinguino_T795:
     longarg='--olimexT795'
 
 class PIC32_Pinguino_220:
-    name='PIC32 Pinguino 220'
+    name='PIC32 Pinguino MX220'
     arch=32
     bldr='microchip'
     proc='32MX220F032D'
     board='PIC32_PINGUINO_220'
     vendor=MICROCHIP_ID
     product=P32_ID
-    memstart=0x00000
-    memend=0x07FFF
+    ebase = 0x9D003000
+    memstart=ebase + 0x00000
+    memend=ebase + 0x08000
     shortarg='-m'
     longarg='--olimex220'
-
-class GENERIC32MX250F128:
-    name='GENERIC32MX250F128'
-    arch=32
-    bldr='microchip'
-    proc='32MX250F128B'
-    board='GENERIC32MX250F128'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x20000
-    shortarg='-N'
-    longarg='--generic250'
-
-class GENERIC32MX220F032:
-    name='GENERIC32MX220F032'
-    arch=32
-    bldr='microchip'
-    proc='32MX220F032B'
-    board='GENERIC32MX220F032'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x07FFF
-    shortarg='-n'
-    longarg='--generic220'
 
 class Emperor_460:
     name='Emperor 460'
@@ -373,18 +376,19 @@ class UBW32_795:
     Board list
 ---------------------------------------------------------------------"""
 
-# RB 17/09/2013
-#PinguinoNoBoot,
+    # RB 17/09/2013
+    #PinguinoNoBoot,
 boardlist = [
     Pinguino2455,  Pinguino4455,
     Pinguino2550,  Pinguino4550,
-    FreeJALduino,  PICuno_Equo,   
+    FreeJALduino,  PICuno_Equo, CHRP3,  
     Pinguino25k50, Pinguino45k50,
     Pinguino26J50, Pinguino46J50,
     Pinguino27J53, Pinguino47J53A,
+    Pinguino32MX220, Pinguino32MX250,
     PIC32_Pinguino, PIC32_Pinguino_OTG,
-    PIC32_Pinguino_Micro, PIC32_Pinguino_T795, PIC32_Pinguino_220,
-    GENERIC32MX250F128, GENERIC32MX220F032,
+    PIC32_Pinguino_Micro, PIC32_Pinguino_T795,
+    PIC32_Pinguino_220,
     Emperor_460, Emperor_795,
     UBW32_460, UBW32_795
 ]

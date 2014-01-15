@@ -95,7 +95,6 @@
 #endif
 
 {
-    /*
     #if defined(__18f25k50) || defined(__18f45k50) || \
         defined(__18f26j50) || defined(__18f46j50) || \
         defined(__18f26j53) || defined(__18f46j53) || \
@@ -104,7 +103,7 @@
         u16 pll_startup_counter = 600;
 
     #endif
-    */
+
     /// ----------------------------------------------------------------
     /// If we start from a Power-on reset, set NOT_POR bit to 1
     /// ----------------------------------------------------------------
@@ -115,7 +114,6 @@
                                 // enable priority levels on interrupts
     }
     
-/*  ALREADY DONE IN THE BOOTLOADER CODE
     /// ----------------------------------------------------------------
     /// Perform a loop for some processors until their frequency is stable
     /// ----------------------------------------------------------------
@@ -152,7 +150,7 @@
         while (pll_startup_counter--);
 
     #endif
-*/
+
     /// ----------------------------------------------------------------
     /// Init. all flag/interrupt
     /// ----------------------------------------------------------------

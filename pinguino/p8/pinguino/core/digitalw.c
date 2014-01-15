@@ -91,6 +91,24 @@ const unsigned char port[19]={
                     pA, pA, pA, pC, pC, pC, pB, pB, pB }; // 9 - 17
 
 /**********************************************************************/
+#elif defined(__18f4685)				// Added by Andrej Golac
+/**********************************************************************/
+const unsigned char mask[36] = {
+			_0, _1, _2, _3, _4, _5, _6, _7,	// PORT A pins
+			_0, _1, _2, _3, _4, _5, _6, _7,	// PORT B pins
+			_0, _1, _2, _3, _4, _5, _6, _7,	// PORT C pins
+			_0, _1, _2, _3, _4, _5, _6, _7,	// PORT D pins
+			_0, _1, _2, _3			// PORT E pins
+			};
+const unsigned char port[36] = {
+			pA, pA, pA, pA, pA, pA, pA, pA,	// PORT A
+			pB, pB, pB, pB, pB, pB, pB, pB,	// PORT B
+			pC, pC, pC, pC, pC, pC, pC, pC,	// PORT C
+			pD, pD, pD, pD, pD, pD, pD, pD,	// PORT D
+			pE, pE, pE, pE			// PORT E
+			};
+
+/**********************************************************************/
 #elif defined(PINGUINO2455) || defined(PINGUINO2550) || defined(PINGUINO25K50)
 /**********************************************************************/
                                                     // Pinguino pin number
@@ -134,7 +152,7 @@ const unsigned char port[18]={
                     pA, pA, pA, pA, pA};            // 13 - 17
 
 /**********************************************************************/
-#elif defined(PINGUINO47J53A) || defined(PINGUINO47J53B)
+#elif defined(PINGUINO46J50) || defined(PINGUINO47J53A) || defined(PINGUINO47J53B)
 /**********************************************************************/
                                                     // Pinguino pin number
 const unsigned char mask[32]={

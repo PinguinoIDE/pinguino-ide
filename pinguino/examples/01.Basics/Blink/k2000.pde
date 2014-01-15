@@ -21,6 +21,6 @@ void loop(void)
 			digitalWrite(7,LOW);				// si led courante=0 eteindre la led 7
 		else
 			digitalWrite(compteur-1,LOW);		// sinon eteindre la led d'indice -1
-		delay(500);								// attendre 500 milli-Secondes
+		delay(50);								// attendre 50 milli-Secondes
 	}
 }

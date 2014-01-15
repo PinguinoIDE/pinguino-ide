@@ -1,13 +1,45 @@
 /*-------------------------------------------------------------------------
- * MPLAB-Cxx  PIC32MXGENERIC processor header
+ * PIC32MXGENERIC processor header
  *
- * (c) Copyright 1999-2010 Microchip Technology, All rights reserved
+ * This software is developed by Microchip Technology Inc. and its
+ * subsidiaries ("Microchip").
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are 
+ * met:
+ * 
+ * 1.      Redistributions of source code must retain the above copyright
+ *         notice, this list of conditions and the following disclaimer.
+ * 2.      Redistributions in binary form must reproduce the above 
+ *         copyright notice, this list of conditions and the following 
+ *         disclaimer in the documentation and/or other materials provided 
+ *         with the distribution.
+ * 3.      Microchip's name may not be used to endorse or promote products
+ *         derived from this software without specific prior written 
+ *         permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR PURPOSE ARE DISCLAIMED. IN NO EVENT 
+ * SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
  *-------------------------------------------------------------------------*/
 
 #ifndef __32MXGENERIC_H
 #define __32MXGENERIC_H
 
-#if defined (__LANGUAGE_C__) || defined(__cplusplus)
+#if defined (__LANGUAGE_C__) || defined (__LANGUAGE_C_PLUS_PLUS)
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern volatile unsigned int        WDTCON __attribute__((section("sfrs")));
 typedef union {
   struct {
@@ -987,7 +1019,7 @@ typedef union {
     unsigned WAKE:1;
     unsigned UEN0:1;
     unsigned UEN1:1;
-    unsigned ALTIO:1;
+    unsigned :1;
     unsigned RTSMD:1;
     unsigned IREN:1;
     unsigned SIDL:1;
@@ -1067,7 +1099,7 @@ typedef union {
     unsigned WAKE:1;
     unsigned UEN0:1;
     unsigned UEN1:1;
-    unsigned ALTIO:1;
+    unsigned :1;
     unsigned RTSMD:1;
     unsigned IREN:1;
     unsigned SIDL:1;
@@ -1579,11 +1611,7 @@ typedef union {
   struct {
     unsigned C1OUT:1;
     unsigned C2OUT:1;
-    unsigned C3OUT:1;
-    unsigned C4OUT:1;
-    unsigned C5OUT:1;
-    unsigned C6OUT:1;
-    unsigned :7;
+    unsigned :11;
     unsigned SIDL:1;
     unsigned FRZ:1;
   };
@@ -1803,7 +1831,8 @@ extern volatile unsigned int        INTCONSET __attribute__((section("sfrs")));
 extern volatile unsigned int        INTCONINV __attribute__((section("sfrs")));
 extern volatile unsigned int        INTSTAT __attribute__((section("sfrs")));
 typedef struct {
-  unsigned VEC:8;
+  unsigned VEC:6;
+  unsigned :2;
   unsigned SRIPL:3;
 } __INTSTATbits_t;
 extern volatile __INTSTATbits_t INTSTATbits __asm__ ("INTSTAT") __attribute__((section("sfrs")));
@@ -3746,8 +3775,7 @@ typedef union {
     unsigned TRISF3:1;
     unsigned TRISF4:1;
     unsigned TRISF5:1;
-    unsigned TRISF6:1;
-    unsigned TRISF7:1;
+    unsigned :2;
     unsigned TRISF8:1;
     unsigned :3;
     unsigned TRISF12:1;
@@ -3770,8 +3798,7 @@ typedef union {
     unsigned RF3:1;
     unsigned RF4:1;
     unsigned RF5:1;
-    unsigned RF6:1;
-    unsigned RF7:1;
+    unsigned :2;
     unsigned RF8:1;
     unsigned :3;
     unsigned RF12:1;
@@ -3794,8 +3821,7 @@ typedef union {
     unsigned LATF3:1;
     unsigned LATF4:1;
     unsigned LATF5:1;
-    unsigned LATF6:1;
-    unsigned LATF7:1;
+    unsigned :2;
     unsigned LATF8:1;
     unsigned :3;
     unsigned LATF12:1;
@@ -3818,8 +3844,7 @@ typedef union {
     unsigned ODCF3:1;
     unsigned ODCF4:1;
     unsigned ODCF5:1;
-    unsigned ODCF6:1;
-    unsigned ODCF7:1;
+    unsigned :2;
     unsigned ODCF8:1;
     unsigned :3;
     unsigned ODCF12:1;
@@ -4021,6 +4046,10 @@ extern volatile __CNPUEbits_t CNPUEbits __asm__ ("CNPUE") __attribute__((section
 extern volatile unsigned int        CNPUECLR __attribute__((section("sfrs")));
 extern volatile unsigned int        CNPUESET __attribute__((section("sfrs")));
 extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
+#ifdef __cplusplus
+}
+#endif
+
 #elif defined (__LANGUAGE_ASSEMBLY__)
   .extern WDTCON           /* 0xBF800000 */
   .extern WDTCONCLR        /* 0xBF800004 */
@@ -6479,10 +6508,6 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _U1MODE_UEN1_MASK                        0x00000200
 #define _U1MODE_UEN1_LENGTH                      0x00000001
 
-#define _U1MODE_ALTIO_POSITION                   0x0000000A
-#define _U1MODE_ALTIO_MASK                       0x00000400
-#define _U1MODE_ALTIO_LENGTH                     0x00000001
-
 #define _U1MODE_RTSMD_POSITION                   0x0000000B
 #define _U1MODE_RTSMD_MASK                       0x00000800
 #define _U1MODE_RTSMD_LENGTH                     0x00000001
@@ -6646,10 +6671,6 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _U2MODE_UEN1_POSITION                    0x00000009
 #define _U2MODE_UEN1_MASK                        0x00000200
 #define _U2MODE_UEN1_LENGTH                      0x00000001
-
-#define _U2MODE_ALTIO_POSITION                   0x0000000A
-#define _U2MODE_ALTIO_MASK                       0x00000400
-#define _U2MODE_ALTIO_LENGTH                     0x00000001
 
 #define _U2MODE_RTSMD_POSITION                   0x0000000B
 #define _U2MODE_RTSMD_MASK                       0x00000800
@@ -7619,22 +7640,6 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _CMSTAT_C2OUT_MASK                       0x00000002
 #define _CMSTAT_C2OUT_LENGTH                     0x00000001
 
-#define _CMSTAT_C3OUT_POSITION                   0x00000002
-#define _CMSTAT_C3OUT_MASK                       0x00000004
-#define _CMSTAT_C3OUT_LENGTH                     0x00000001
-
-#define _CMSTAT_C4OUT_POSITION                   0x00000003
-#define _CMSTAT_C4OUT_MASK                       0x00000008
-#define _CMSTAT_C4OUT_LENGTH                     0x00000001
-
-#define _CMSTAT_C5OUT_POSITION                   0x00000004
-#define _CMSTAT_C5OUT_MASK                       0x00000010
-#define _CMSTAT_C5OUT_LENGTH                     0x00000001
-
-#define _CMSTAT_C6OUT_POSITION                   0x00000005
-#define _CMSTAT_C6OUT_MASK                       0x00000020
-#define _CMSTAT_C6OUT_LENGTH                     0x00000001
-
 #define _CMSTAT_SIDL_POSITION                    0x0000000D
 #define _CMSTAT_SIDL_MASK                        0x00002000
 #define _CMSTAT_SIDL_LENGTH                      0x00000001
@@ -7996,8 +8001,8 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _INTCON_w_LENGTH                         0x00000020
 
 #define _INTSTAT_VEC_POSITION                    0x00000000
-#define _INTSTAT_VEC_MASK                        0x000000FF
-#define _INTSTAT_VEC_LENGTH                      0x00000008
+#define _INTSTAT_VEC_MASK                        0x0000003F
+#define _INTSTAT_VEC_LENGTH                      0x00000006
 
 #define _INTSTAT_SRIPL_POSITION                  0x00000008
 #define _INTSTAT_SRIPL_MASK                      0x00000700
@@ -11455,14 +11460,6 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _TRISF_TRISF5_MASK                       0x00000020
 #define _TRISF_TRISF5_LENGTH                     0x00000001
 
-#define _TRISF_TRISF6_POSITION                   0x00000006
-#define _TRISF_TRISF6_MASK                       0x00000040
-#define _TRISF_TRISF6_LENGTH                     0x00000001
-
-#define _TRISF_TRISF7_POSITION                   0x00000007
-#define _TRISF_TRISF7_MASK                       0x00000080
-#define _TRISF_TRISF7_LENGTH                     0x00000001
-
 #define _TRISF_TRISF8_POSITION                   0x00000008
 #define _TRISF_TRISF8_MASK                       0x00000100
 #define _TRISF_TRISF8_LENGTH                     0x00000001
@@ -11502,14 +11499,6 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _PORTF_RF5_POSITION                      0x00000005
 #define _PORTF_RF5_MASK                          0x00000020
 #define _PORTF_RF5_LENGTH                        0x00000001
-
-#define _PORTF_RF6_POSITION                      0x00000006
-#define _PORTF_RF6_MASK                          0x00000040
-#define _PORTF_RF6_LENGTH                        0x00000001
-
-#define _PORTF_RF7_POSITION                      0x00000007
-#define _PORTF_RF7_MASK                          0x00000080
-#define _PORTF_RF7_LENGTH                        0x00000001
 
 #define _PORTF_RF8_POSITION                      0x00000008
 #define _PORTF_RF8_MASK                          0x00000100
@@ -11551,14 +11540,6 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _LATF_LATF5_MASK                         0x00000020
 #define _LATF_LATF5_LENGTH                       0x00000001
 
-#define _LATF_LATF6_POSITION                     0x00000006
-#define _LATF_LATF6_MASK                         0x00000040
-#define _LATF_LATF6_LENGTH                       0x00000001
-
-#define _LATF_LATF7_POSITION                     0x00000007
-#define _LATF_LATF7_MASK                         0x00000080
-#define _LATF_LATF7_LENGTH                       0x00000001
-
 #define _LATF_LATF8_POSITION                     0x00000008
 #define _LATF_LATF8_MASK                         0x00000100
 #define _LATF_LATF8_LENGTH                       0x00000001
@@ -11598,14 +11579,6 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _ODCF_ODCF5_POSITION                     0x00000005
 #define _ODCF_ODCF5_MASK                         0x00000020
 #define _ODCF_ODCF5_LENGTH                       0x00000001
-
-#define _ODCF_ODCF6_POSITION                     0x00000006
-#define _ODCF_ODCF6_MASK                         0x00000040
-#define _ODCF_ODCF6_LENGTH                       0x00000001
-
-#define _ODCF_ODCF7_POSITION                     0x00000007
-#define _ODCF_ODCF7_MASK                         0x00000080
-#define _ODCF_ODCF7_LENGTH                       0x00000001
 
 #define _ODCF_ODCF8_POSITION                     0x00000008
 #define _ODCF_ODCF8_MASK                         0x00000100
@@ -12237,7 +12210,7 @@ extern volatile unsigned int        CNPUEINV __attribute__((section("sfrs")));
 #define _USB_BASE_ADDRESS                        0xBF885000
 #define _WDT_BASE_ADDRESS                        0xBF800000
 
-/* include generic header file */
+/* include generic header file for backwards compatibility with old C32 v1.xx code */
 #include "ppic32mx.h"
 
 

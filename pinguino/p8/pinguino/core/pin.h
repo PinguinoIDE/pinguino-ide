@@ -27,7 +27,121 @@
 #ifndef __PIN_H
 #define __PIN_H
 
-#if defined(PICUNO_EQUO)
+#if defined(__18f4685)		// Added by Andrej Golac
+	#define RA0	0		/*-----------*/
+	#define AN0	0		/*           */
+	#define CVREF	0		/*           */
+	#define RA1		1	/*           */
+	#define AN1		1	/*           */
+	#define RA2	2		/*           */
+	#define AN2	2		/*     P     */
+	#define VREFL	2		/*           */
+	#define RA3		3	/*     O     */
+	#define AN3		3	/*           */
+	#define VREFH		3	/*     R     */
+	#define RA4	4		/*           */
+	#define T0CKI	4		/*     T     */
+	#define RA5		5	/*     _     */
+	#define AN4		5	/*           */
+	#define SS		5	/*     A     */
+	#define HLVDIN		5	/*           */
+	#define OSC2	6		/*           */
+	#define CLKO	6		/*           */
+	#define RA6	6		/*           */
+	#define OSC1		7	/*           */
+	#define CLKI		7	/*           */	
+	#define RA7		7	/*-----------*/
+
+	#define RB0	8		/*-----------*/
+	#define INT0	8		/*           */
+	#define FLT0	8		/*           */
+	#define AN10	8		/*           */
+	#define RB1		9	/*           */
+	#define INT1		9	/*           */
+	#define AN8		9	/*     P     */
+	#define RB2	10		/*           */
+	#define INT2	10		/*     O     */
+	#define CANTX	10		/*           */
+	#define RB3		11	/*     R     */
+	#define CANRX		11	/*           */
+	#define RB4	12		/*     T     */
+	#define KBI0	12		/*     _     */
+	#define AN9	12		/*           */
+	#define RB5		13	/*     B     */
+	#define KBI1		13	/*           */
+	#define PGM		13	/*           */
+	#define RB6	14		/*           */
+	#define KBI2	14		/*           */
+	#define PGC	14		/*           */
+	#define RB7		15	/*           */
+	#define KBI3		15	/*           */
+	#define PGD		15	/*-----------*/
+
+	#define RC0	16		/*-----------*/
+	#define T1OSO	16		/*           */
+	#define T13CKI	16		/*           */
+	#define RC1		17	/*           */
+	#define T1OSI		17	/*           */
+	#define RC2	18		/*     P     */
+	#define CCP1	18		/*           */
+	#define RC3		19	/*     O     */
+	#define SCK		19	/*           */
+	#define SCL		19	/*     R     */
+	#define RC4	20		/*           */
+	#define SDI	20		/*     T     */
+	#define SDA	20		/*     _     */
+	#define RC5		21	/*           */
+	#define SDO		21	/*     C     */
+	#define RC6	22		/*           */
+	#define TX	22		/*           */
+	#define CK	22		/*           */
+	#define RC7		23	/*           */
+	#define RX		23	/*           */
+	#define DT		23	/*-----------*/
+
+	#define RD0	24		/*-----------*/
+	#define PSP0	24		/*           */
+	#define C1INH	24		/*           */
+	#define RD1		25	/*           */
+	#define PSP1		25	/*           */
+	#define C1INL		25	/*           */
+	#define RD2	26		/*           */
+	#define PSP2	26		/*     p     */
+	#define C2INH	26		/*           */
+	#define RD3		27	/*     O     */
+	#define PSP3		27	/*           */
+	#define C2INL		27	/*     R     */
+	#define RD4	28		/*           */
+	#define PSP4	28		/*     T     */
+	#define ECCP1	28		/*     _     */
+	#define P1A	28		/*           */
+	#define RD5		29	/*     D     */
+	#define PSP5		29	/*           */
+	#define P1B		29	/*           */
+	#define RD6	30		/*           */
+	#define PSP6	30		/*           */
+	#define P1C	30		/*           */
+	#define RD7		31	/*           */
+	#define PSP7		31	/*           */
+	#define P1D		31	/*-----------*/
+
+	#define RE0	32		/*-----------*/
+	#define RD	32		/*           */
+	#define AN5	32		/*           */
+	#define RE1		33	/*           */
+	#define WR		33      /*     P     */
+	#define AN6		33	/*     O     */
+	#define C1OUT		33	/*     R     */
+	#define RE2	34		/*     T     */
+	#define CS	34		/*     -     */
+	#define AN7	34		/*     E     */
+	#define C2OUT	34		/*           */
+	#define MCLR		35	/*           */
+	#define VPP		35	/*           */
+	#define RE3		35	/*-----------*/
+
+/*****************************************************/
+#elif defined(PICUNO_EQUO)
 
 	#define C7 		0
 //	#define RC7 	0
