@@ -14,7 +14,7 @@ from .helpers.pyhton_debug import Stderr
 from .helpers.config import Config
 from .code_editor.autocomplete_icons import CompleteIcons
 from ..frames.main import Ui_PinguinoIDE
-from pinguino.pinguino import Pinguino, AllBoards
+from ..pinguino_api.pinguino import Pinguino, AllBoards
 
 
 ########################################################################

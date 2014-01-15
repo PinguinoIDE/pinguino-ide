@@ -24,7 +24,7 @@ class ConfigFirstTimePinguino(object):
     def init_filenames(self):
         """Initialize filename for firts pinguino.conf"""
         filenames = {
-            "pinguino_stdout": "stdout",     
+            "pinguino_stdout": os.path.join("source", "stdout"),     
             "pinguino_ide_stdout": "pinguino.out", 
             "pinguino_ide_stderr": "pinguino.err", 
             "pinguino_ide_configlibs": "config_libs.conf", 
