@@ -1,4 +1,2 @@
 Stepper.init Stepper_init#include <stepper.c>
-Stepper.setSpeed Stepper_setSpeed#include <stepper.c>
-Stepper.setMicrostep Stepper_setMicrostep#include <stepper.c>#define __MICROSTEPPING__
 Stepper.step Stepper_step#include <stepper.c>

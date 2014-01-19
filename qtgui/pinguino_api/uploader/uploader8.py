@@ -334,7 +334,7 @@ class uploader8(baseUploader):
         # --------------------------------------------------------------
 
         # Pinguino x6j50 or x7j53, erased blocks are 1024-byte long
-        if "j" in board.proc :
+        if "j" or "J" in board.proc :
             erasedBlockSize = 1024
 
         # Pinguino x455, x550 or x5k50, erased blocks are 64-byte long
@@ -469,7 +469,8 @@ class uploader8(baseUploader):
         self.device = self.getDevice()
         if self.device == self.ERR_DEVICE_NOT_FOUND:
             self.add_report("Pinguino not found")
-            self.add_report("Is your device connected and/or in bootloader mode?")
+            self.add_report("If your device is connected,")
+            self.add_report("press the Reset button to switch to bootloader mode.")
             return
         else:
             self.add_report("Pinguino found ...")

@@ -185,7 +185,7 @@ void SystemLock()
     assume the device is locked
     --------------------------------------------------------------------------*/
 
-#ifndef __32MX220F032D__
+#ifdef SYSTEMRESET
 void SystemReset()
 {
     u16 dummy;

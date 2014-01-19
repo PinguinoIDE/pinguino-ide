@@ -75,7 +75,7 @@ void setup()
     I2C.write(lowByte(MemoryAddr));              // LSB second
     for (i=0; i<8; i++)
     {
-        I2C.send(wBuffer[i]);                   // Page write (32 bytes max, auto. inc.)
+        I2C.write(wBuffer[i]);                   // Page write (32 bytes max, auto. inc.)
         CDC.write(wBuffer[i]);
     }
     CDC.printf("\n\r");

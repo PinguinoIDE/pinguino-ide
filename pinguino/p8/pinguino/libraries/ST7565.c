@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 //#include <avr/pgmspace.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "ST7565.h"
+#include <ST7565.h>
 #include <string.h>
 
 #include <digitalw.c>

@@ -1,6 +1,6 @@
 System.unlock SystemUnlock#include <system.c>
 System.lock SystemLock#include <system.c>
-System.reset SystemReset#include <system.c>
+System.reset SystemReset#include <system.c>#SYSTEMRESET
 
 System.getCpuFrequency GetSystemClock#include <system.c>
 System.getPeripheralFrequency GetPeripheralClock#include <system.c>

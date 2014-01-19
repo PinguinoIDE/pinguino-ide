@@ -265,7 +265,8 @@ class uploaderVSC(baseUploader):
 		self.device = self.getDevice()
 		if self.device is self.ERR_DEVICE_NOT_FOUND:
 			self.add_report("Pinguino not found")
-			self.add_report("Is your device connected and/or in bootloader mode?")
+			self.add_report("If your device is connected,")
+			self.add_report("press the Reset button to switch to bootloader mode.")
 			return
 		else:
 			self.add_report("Pinguino found")
