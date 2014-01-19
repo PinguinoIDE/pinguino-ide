@@ -11,7 +11,7 @@ from PySide import QtGui, QtCore
 from .blocks import Blocks
 from .work_area import WorkArea
 from .tool_area import ToolArea
-from .constant import FONTS_DIR, INTRO_CODE, TAB_NAME
+from .constant import INTRO_CODE, TAB_NAME
 from ..bloques.color import setColor
 from ..py_bloques.get_blocks import all_sets
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
@@ -21,6 +21,7 @@ from ...ide.helpers.decorators import Decorator
 from ...frames.blocks_widget import Ui_widgetBlock
 from ...frames.grafical_widget import Ui_Form_graphical
 from ...ide.helpers.dialogs import Dialogs
+from ...ide.helpers.config import Config
 
 
 ########################################################################
@@ -425,9 +426,11 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def load_fonts(self):
-        for dir_font in os.listdir(FONTS_DIR):
-            for ttf in filter(lambda file:file.endswith(".ttf") or file.endswith(".otf"), os.listdir(os.path.join(FONTS_DIR, dir_font))):
-                QtGui.QFontDatabase.addApplicationFont(os.path.join(FONTS_DIR, dir_font, ttf))
+        config = Config()
+        fonts_dir = os.path.join(config.get_path("pinguino_resources"), "fonts")
+        for dir_font in os.listdir(fonts_dir):
+            for ttf in filter(lambda file:file.endswith(".ttf") or file.endswith(".otf"), os.listdir(os.path.join(fonts_dir, dir_font))):
+                QtGui.QFontDatabase.addApplicationFont(os.path.join(fonts_dir, dir_font, ttf))
         
         
     #----------------------------------------------------------------------

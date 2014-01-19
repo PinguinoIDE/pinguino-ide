@@ -8,7 +8,7 @@ import urllib2
 from PySide import QtCore, QtGui
 from bs4 import BeautifulSoup
 
-from ..helpers.constants import IDE_WIKI_DOCS
+#from ..helpers.constants import IDE_WIKI_DOCS
 from ..helpers.dialogs import Dialogs
 from ...frames.wiki_doc_widget import Ui_WikiDocs
 
@@ -85,7 +85,7 @@ class WikiDock(QtGui.QMainWindow):
         """"""
         url = url.toString()
         if url == "__update__":
-            reply = Dialogs.confirm_message(self, "Sure?", "This will take a long time.")
+            reply = Dialogs.confirm_message(self, "This will take a long time.", "Sure?")
             if reply:
                 libs = self.update_from_wiki()
                 if libs:

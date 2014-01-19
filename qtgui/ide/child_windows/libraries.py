@@ -9,7 +9,7 @@ from ConfigParser import RawConfigParser
 from PySide import QtGui, QtCore
 
 from ..helpers.config_libs import ConfigLibsGroup
-from ..helpers.constants import TAB_NAME, IDE_LIBRARY_INSTALLED
+from ..helpers.constants import TAB_NAME
 from ..helpers.widgets_features import PrettyFeatures
 from ..helpers.dialogs import Dialogs
 from ...frames.libraries_widget import Ui_LibraryManager
@@ -25,7 +25,10 @@ class LibManager(QtGui.QMainWindow):
         self.libframe = Ui_LibraryManager()
         self.libframe.setupUi(self)
         
-        if not os.path.isdir(IDE_LIBRARY_INSTALLED): os.mkdir(IDE_LIBRARY_INSTALLED)
+        
+        self.user_libraries_dir = IDE.confiIDE.get_path("pinguino_user_libs")        
+        
+        if not os.path.isdir(self.user_libraries_dir): os.mkdir(self.user_libraries_dir)
         
         self.ConfigLibs = ConfigLibsGroup()
         
@@ -86,13 +89,13 @@ class LibManager(QtGui.QMainWindow):
         name= self.get_name_from_source(source)
         if not name: return
         
-        name_config = os.path.join(IDE_LIBRARY_INSTALLED, name, "config")
+        name_config = os.path.join(self.user_libraries_dir, name, "config")
         
-        if os.path.exists(os.path.join(IDE_LIBRARY_INSTALLED, name)):
+        if os.path.exists(os.path.join(self.user_libraries_dir, name)):
             Dialogs.error_message(self, "Library duplicated (name conflict)")
             return
         
-        os.mkdir(os.path.join(IDE_LIBRARY_INSTALLED, name))
+        os.mkdir(os.path.join(self.user_libraries_dir, name))
         
         new_lib = self.ConfigLibs.new(name_config)
         
@@ -258,7 +261,7 @@ class LibManager(QtGui.QMainWindow):
                     GitRepo.update_library(sel)
                 except:
                     #if Dialogs.confirm_message(self, "Error", "Problems with "+sel+".\nTry again?"):
-                    shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, sel, "lib"))
+                    shutil.rmtree(os.path.join(self.user_libraries_dir, sel, "lib"))
                     try:
                         GitRepo.install_library(sel)
                     except:
@@ -270,8 +273,8 @@ class LibManager(QtGui.QMainWindow):
                     GitRepo.install_library(sel)
                 except:
                     #if Dialogs.confirm_message(self, "Error", "Problems with "+sel+".\nTry again?"):
-                    if os.path.isdir(os.path.join(IDE_LIBRARY_INSTALLED, sel, "lib")):
-                        shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, sel, "lib"))
+                    if os.path.isdir(os.path.join(self.user_libraries_dir, sel, "lib")):
+                        shutil.rmtree(os.path.join(self.user_libraries_dir, sel, "lib"))
                     try:
                         GitRepo.install_library(sel)
                     except:
@@ -294,7 +297,7 @@ class LibManager(QtGui.QMainWindow):
     def update_lib_config(self, lib):
         """"""
         lib_data = RawConfigParser()
-        filename = os.path.join(IDE_LIBRARY_INSTALLED, lib, "lib", "PINGUINO")
+        filename = os.path.join(self.user_libraries_dir, lib, "lib", "PINGUINO")
 
         sources = self.ConfigLibs.all_libs
         
@@ -308,8 +311,8 @@ class LibManager(QtGui.QMainWindow):
             return True
         else:
             #Dialogs.info_message(self, lib+" has no valid configuration file.\n\nmissing "+filename)
-            #if os.path.isdir(os.path.join(IDE_LIBRARY_INSTALLED, lib)):
-                #shutil.rmtree(os.path.join(IDE_LIBRARY_INSTALLED, lib))
+            #if os.path.isdir(os.path.join(self.user_libraries_dir, lib)):
+                #shutil.rmtree(os.path.join(self.user_libraries_dir, lib))
             return False
         
         

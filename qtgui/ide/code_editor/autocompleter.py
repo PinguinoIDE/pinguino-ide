@@ -9,6 +9,7 @@ from PySide import QtCore, QtGui
 from .autocomplete_icons import CompleteIcons	
 from ..helpers.config import Config 
 from ..helpers import constants as Constants
+from ..helpers.config import Config
 
 class PinguinoAutoCompleter(QListWidget):
     
@@ -36,7 +37,9 @@ class PinguinoAutoCompleter(QListWidget):
                        "arch8": [],
                        "arch32": [],}
         
-        self.namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
+        config = Config()
+        self.namespaces = pickle.load(file(config.get_filename("pinguino_ide_reserved"), "r"))
+        del config            
         
         icons = CompleteIcons()
         self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
