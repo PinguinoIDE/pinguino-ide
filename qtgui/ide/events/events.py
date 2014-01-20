@@ -40,7 +40,6 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)
         self.connect(self.main.actionHex_code, QtCore.SIGNAL("triggered()"), self.__show_hex_code__)
         self.connect(self.main.actionStdout, QtCore.SIGNAL("triggered()"), self.__show_stdout__)
-        self.connect(self.main.actionCurrent_Board, QtCore.SIGNAL("triggered()"), self.__show_current_board_info__)
         
         # Pinguino
         self.connect(self.main.actionLibrary_manager, QtCore.SIGNAL("triggered()"), self.__show_libmanager__)

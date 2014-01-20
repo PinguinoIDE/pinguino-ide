@@ -172,7 +172,6 @@
     <addaction name="actionView_Pinguino_code"/>
     <addaction name="actionHex_code"/>
     <addaction name="actionStdout"/>
-    <addaction name="actionCurrent_Board"/>
    </widget>
    <widget class="QMenu" name="menuPinguino">
     <property name="title">
@@ -1422,14 +1421,6 @@
   <action name="actionSave_as">
    <property name="text">
     <string>Save as</string>
-   </property>
-  </action>
-  <action name="actionCurrent_Board">
-   <property name="text">
-    <string>Current board</string>
-   </property>
-   <property name="shortcut">
-    <string>F12</string>
    </property>
   </action>
   <action name="actionUse_system_compilers">

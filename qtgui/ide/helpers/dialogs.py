@@ -110,33 +110,7 @@ class Dialogs(object):
                 NAME+" - "+title,
                 message)
         return True
-    
-    #----------------------------------------------------------------------
-    @classmethod
-    def info_board(self, parent):
-        """"""
-        board_config = parent.get_description_board()
-        
-        msg_box = QtGui.QMessageBox()
-        msg_box.setIcon(QtGui.QMessageBox.Question)
-        msg_box.setWindowTitle(NAME+" - Board info")
-        msg_box.setText(board_config+"\n\nUse this board config?")
-        
-        accept = QtGui.QPushButton()
-        accept.setText("Ok")
-        change = QtGui.QPushButton()
-        change.setText("Change board")
-        
-        msg_box.addButton(accept, QtGui.QMessageBox.AcceptRole)        
-        msg_box.addButton(change, QtGui.QMessageBox.ApplyRole)
-        
-        
-        msg_box.setDefaultButton(accept)
-        
-        reply = msg_box.exec_()    
-        if reply == 1: return True
-        elif reply == 0: return False
-        
+            
     #----------------------------------------------------------------------
     @classmethod
     def save_before_compile(self, parent):

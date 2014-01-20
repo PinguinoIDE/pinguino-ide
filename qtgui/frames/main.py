@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Wed Jan  8 21:17:44 2014
-#      by: pyside-uic 0.2.14 running on PySide 1.2.1
+# Created: Mon Jan 20 06:09:35 2014
+#      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -510,8 +510,6 @@ class Ui_PinguinoIDE(object):
         self.actionGitHub.setObjectName("actionGitHub")
         self.actionSave_as = QtGui.QAction(PinguinoIDE)
         self.actionSave_as.setObjectName("actionSave_as")
-        self.actionCurrent_Board = QtGui.QAction(PinguinoIDE)
-        self.actionCurrent_Board.setObjectName("actionCurrent_Board")
         self.actionUse_system_compilers = QtGui.QAction(PinguinoIDE)
         self.actionUse_system_compilers.setCheckable(True)
         self.actionUse_system_compilers.setChecked(False)
@@ -573,7 +571,6 @@ class Ui_PinguinoIDE(object):
         self.menuView.addAction(self.actionView_Pinguino_code)
         self.menuView.addAction(self.actionHex_code)
         self.menuView.addAction(self.actionStdout)
-        self.menuView.addAction(self.actionCurrent_Board)
         self.menuPinguino.addAction(self.actionLibrary_manager)
         self.menuPinguino.addAction(self.actionSet_paths)
         self.menuPinguino.addAction(self.actionSelect_board)
@@ -759,8 +756,6 @@ class Ui_PinguinoIDE(object):
         self.actionShop.setText(QtGui.QApplication.translate("PinguinoIDE", "Shop", None, QtGui.QApplication.UnicodeUTF8))
         self.actionGitHub.setText(QtGui.QApplication.translate("PinguinoIDE", "GitHub", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_as.setText(QtGui.QApplication.translate("PinguinoIDE", "Save as", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionCurrent_Board.setText(QtGui.QApplication.translate("PinguinoIDE", "Current board", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionCurrent_Board.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F12", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUse_system_compilers.setText(QtGui.QApplication.translate("PinguinoIDE", "Use system compilers", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUse_system_compilers.setToolTip(QtGui.QApplication.translate("PinguinoIDE", "Use system compilers", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUse_local_compilers.setText(QtGui.QApplication.translate("PinguinoIDE", "Use local compilers", None, QtGui.QApplication.UnicodeUTF8))

@@ -28,7 +28,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.ICONS = CompleteIcons()
         self.update_pinguino_paths()
         
-            
         
         #self.load_theme()        
         

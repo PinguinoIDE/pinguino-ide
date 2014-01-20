@@ -793,13 +793,6 @@ class EventMethods(SearchReplace):
             Dialogs.error_message(self, "You must compile before.")
                     
                 
-                
-    #----------------------------------------------------------------------
-    def __show_current_board_info__(self):
-        """"""
-        if Dialogs.info_board(self):
-            self.__show_board_config__()
-            
     #----------------------------------------------------------------------
     def show_wiki_docs(self):
         """"""
