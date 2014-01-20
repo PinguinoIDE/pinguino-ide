@@ -46,7 +46,6 @@ compiled to: ~/Desktop/test.hex
 <br>
 **Compiling ~/Desktop/test.pde for PIC32 Pinguino OTG**
 ```shell
-$ cd pinguinoide/pinguino
 $ python pinguino.py -f ~/Desktop/test.pde -O
 using PIC32 Pinguino OTG board
 using microchip bootloader
@@ -58,7 +57,6 @@ compiled to: ~/Desktop/test.pde
 <br>
 **Compiling ~/Desktop/test.pde for PIC32 Pinguino OTG and upload code**
 ```shell
-$ cd pinguinoide/pinguino
 $ python pinguino.py -f ~/Desktop/test.pde -O -x
 using PIC32 Pinguino OTG board
 using microchip bootloader
@@ -76,7 +74,6 @@ Resetting device...
 <br>
 **Compiling ~/Desktop/test.pde for Generic 2550, bootloader version 4 and print hex file**
 ```shell
-$ cd pinguinoide/pinguino
 $ python pinguino.py -f ~/Desktop/test.pde -l v4 -p2550 --hex
 using Pinguino 2550 board
 using boot4 bootloader
@@ -144,7 +141,7 @@ UBW32 795             -U        --ubw795
 Python module for compile and upload *.pde files to Pinguino boards.
 ```python
 >>> import sys
->>> sys.path.append("[PATH_TO_PINGUINOIDE]/pinguinoide/pinguino")
+>>> sys.path.append("[PATH_TO_PINGUINOIDE]/qtgui/pinguino_api")
 >>> from pinguino import Pinguino, Board
 >>> project = Pinguino()
 >>> project.set_board(Board.PIC32_Pinguino_OTG)
@@ -166,7 +163,7 @@ time: 1.189
 
 ```python
 >>> import sys
->>> sys.path.append("[PATH_TO_PINGUINOIDE]/pinguinoide/pinguino")
+>>> sys.path.append("[PATH_TO_PINGUINOIDE]/qtgui/pinguino_api")
 >>> from pinguino import Pinguino, Board
 >>> project = Pinguino()
 >>> project.set_board(Board.PIC32_Pinguino_OTG)
