@@ -1,3 +1,0 @@
-ModBusSlave.Configure modbuss_configure#include <SimpleModbusSlave.c>
-ModBusSlave.Update modbuss_update#include <SimpleModbusSlave.c>
-

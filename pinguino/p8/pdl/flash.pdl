@@ -1,3 +1,0 @@
-Flash.erase EraseFlash#include <flash.c>
-Flash.read ReadFlash#include <flash.c>
-Flash.write WriteFlash#include <flash.c>
