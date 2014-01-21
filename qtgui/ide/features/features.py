@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+from PySide.QtGui import QIcon
+
 from ..events.events import PinguinoEvents
 from ..widgets.output_widget import PinguinoTerminal
 from ..helpers.dev_tools import DevTools
@@ -30,6 +32,11 @@ class PinguinoFeatures(PinguinoEvents):
         #self.main.plainTextEdit_output.shell.statement_module.pinguino_main = self
         self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self, "devmode": DevTools(),})
         self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
+        
+    ##----------------------------------------------------------------------
+    #def load_theme(self):
+        #""""""
+        #QIcon.setThemeName(self.configIDE.config("THEME", "theme_name", QIcon.themeName()))
         
         
     #----------------------------------------------------------------------

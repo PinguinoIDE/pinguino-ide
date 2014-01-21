@@ -12,26 +12,31 @@ from .helpers import constants as Constants
 from .helpers.dialogs import Dialogs
 from .helpers.pyhton_debug import Stderr
 from .helpers.config import Config
-from ..frames.main import Ui_PinguinoIDE
-from pinguino.pinguino import Pinguino, AllBoards
-
-
-
 from .code_editor.autocomplete_icons import CompleteIcons
+from ..frames.main import Ui_PinguinoIDE
+from ..pinguino_api.pinguino import Pinguino, AllBoards
+
 
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     def __init__(self):
         super(PinguinoIDE, self).__init__()
         
-        self.main= Ui_PinguinoIDE()          
+
+        self.pinguinoAPI = Pinguino()
+        self.configIDE = Config()
+        self.ICONS = CompleteIcons()
+        self.update_pinguino_paths()
+        
+            
+        
+        #self.load_theme()        
+        
+        self.main = Ui_PinguinoIDE()          
         self.main.setupUi(self)
         self.setWindowTitle(Constants.TAB_NAME)
         self.build_statusbar()
         
-        self.pinguinoAPI = Pinguino()
-        self.configIDE = Config()
-        self.ICONS = CompleteIcons()
         self.PinguinoPallete = BackgroundPallete()
         self.PinguinoPallete.save_palette(self.main.centralwidget.parent())   
         self.switch_color_theme(self.configIDE.config("Main", "color_theme", True))
@@ -51,8 +56,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.update_directives()
         self.update_variables()
         self.update_autocompleter()
-        self.__update_path_files__(Constants.PINGUINO_EXAMPLES_DIR)
-        self.__update_graphical_path_files__(Constants.PINGUINOG_EXAMPLES_DIR)
+        self.__update_path_files__(self.configIDE.get_path("pinguino_examples"))
+        self.__update_graphical_path_files__(self.configIDE.get_path("pinguino_examples_graphical"))
         
         self.set_board()
         self.statusbar_ide(self.get_status_board())
@@ -65,10 +70,26 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.main.tableWidget_functions.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
         self.main.tableWidget_directives.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
         self.main.tableWidget_variables.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
+
+    #----------------------------------------------------------------------
+    def update_pinguino_paths(self):
+        """"""
+        user_sdcc_bin = self.configIDE.get_path("sdcc_bin")
+        if user_sdcc_bin: self.pinguinoAPI.P8_BIN = user_sdcc_bin
+        
+        user_gcc_bin = self.configIDE.get_path("gcc_bin")
+        if user_gcc_bin: self.pinguinoAPI.P32_BIN = user_gcc_bin
+        
+        pinguino_source = self.configIDE.get_path("source")
+        if pinguino_source: self.pinguinoAPI.SOURCE_DIR = pinguino_source
+        
+        pinguino_8_libs = self.configIDE.get_path("pinguino_8_libs")
+        if pinguino_8_libs: self.pinguinoAPI.P8_DIR = pinguino_8_libs
+        
+        pinguino_32_libs = self.configIDE.get_path("pinguino_32_libs")
+        if pinguino_32_libs: self.pinguinoAPI.P32_DIR = pinguino_32_libs
                 
                 
-        
-        
         
     #----------------------------------------------------------------------
     def build_statusbar(self):

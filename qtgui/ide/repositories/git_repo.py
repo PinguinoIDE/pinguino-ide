@@ -6,7 +6,7 @@ import shutil
 
 import git
 
-from ..helpers.constants import IDE_LIBRARY_INSTALLED
+#from ..helpers.constants import IDE_LIBRARY_INSTALLED
 from ..helpers.config_libs import ConfigLibsGroup
 
 ########################################################################

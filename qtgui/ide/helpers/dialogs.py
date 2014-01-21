@@ -80,7 +80,7 @@ class Dialogs(object):
         
     #----------------------------------------------------------------------
     @classmethod
-    def confirm_message(self, parent, title, message):
+    def confirm_message(self, parent, message, title="confirm"):
         """"""
         options = QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel
         reply = QtGui.QMessageBox.question(parent,
@@ -99,6 +99,15 @@ class Dialogs(object):
         """"""
         QtGui.QMessageBox.information(parent,
                 NAME+" - Info",
+                message)
+        return True
+    
+    #----------------------------------------------------------------------
+    @classmethod
+    def warning_message(self, parent, message, title="warning"):
+        """"""
+        QtGui.QMessageBox.warning(parent,
+                NAME+" - "+title,
                 message)
         return True
     

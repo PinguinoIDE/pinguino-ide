@@ -5,7 +5,10 @@ import os
 import re
 from ConfigParser import RawConfigParser
 
-from .constants import IDE_CONFIG_FILE
+if os.path.exists("config"):
+    IDE_CONFIG_FILE = file("config", "r").read()
+else:
+    IDE_CONFIG_FILE = os.path.join("qtgui", "config", "pinguino.conf")
 
 ########################################################################
 class Config(RawConfigParser, object):
@@ -69,6 +72,22 @@ class Config(RawConfigParser, object):
     def load_config(self):
         """"""
         self.readfp(file(IDE_CONFIG_FILE, "r")) 
+        
+    #----------------------------------------------------------------------
+    def get_filename(self, name, path=False):
+        """"""
+        if not path:
+            parent_dir = self.get("Paths", "pinguino_writeable_path")
+        else:
+            parent_dir = self.get("Paths", path)
+        filename = self.get("Filenames", name)
+
+        return os.path.join(parent_dir, filename)
+    
+    #----------------------------------------------------------------------
+    def get_path(self, name):
+        """"""
+        return self.get("Paths", name)
         
         
     #----------------------------------------------------------------------

@@ -7,7 +7,7 @@ import os
 from PySide import QtGui, QtCore
 
 from ..helpers.constants import TAB_NAME
-from ..helpers.constants import PINGUINO_STDOUT_FILE
+#from ..helpers.constants import PINGUINO_STDOUT_FILE
 from ...frames.stdout import Ui_Stdout
 from ..code_editor.syntaxhighlighter import Highlighter
 
@@ -38,7 +38,9 @@ class PlainOut(QtGui.QMainWindow):
         palette = QtGui.QPalette(self.palette())
         self.setAutoFillBackground(True)
         palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
-        self.setPalette(palette)  
+        self.setPalette(palette)
+        
+        PINGUINO_STDOUT_FILE = self.main.configIDE.get_filename("pinguino_stdout", path="source")
 
         if os.path.exists(PINGUINO_STDOUT_FILE):
             stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")

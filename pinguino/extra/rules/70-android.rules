@@ -1,1 +1,0 @@
-SUBSYSTEMS=="usb", ATTRS{idVendor}=="04e8",ATTRS{idProduct}=="685e", MODE="0666", OWNER="yourusername",GROUP="yourusergroupname", SYMLINK+="android%n"
