@@ -120,14 +120,6 @@
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>968</width>
-     <height>20</height>
-    </rect>
-   </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
@@ -1050,9 +1042,6 @@
    <addaction name="actionSave_image"/>
   </widget>
   <widget class="QToolBar" name="toolBar_switch">
-   <property name="windowTitle">
-    <string>Mode</string>
-   </property>
    <property name="layoutDirection">
     <enum>Qt::RightToLeft</enum>
    </property>

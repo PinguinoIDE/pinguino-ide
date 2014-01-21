@@ -1,5 +1,0 @@
-ZIG.init init_zigbee#include <__zigbee.c>
-ZIG.send ZIGputs#include <__zigbee.c>
-ZIG.read ZIGgets#include <__zigbee.c>
-
-

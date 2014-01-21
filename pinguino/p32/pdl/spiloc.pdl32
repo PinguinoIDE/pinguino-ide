@@ -1,5 +1,0 @@
-SPILOC.init SPILoc_Init#include <SpiLoc.c>
-SPILOC.begin SPILoc_Init#include <SpiLoc.c>
-SPILOC.write SPILoc_Write#include <SpiLoc.c>
-SPILOC.transfer SPILoc_Write#include <SpiLoc.c>
-SPILOC.read SPILoc_Read#include <SpiLoc.c>
