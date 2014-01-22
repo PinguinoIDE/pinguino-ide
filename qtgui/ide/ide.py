@@ -57,8 +57,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.update_directives()
         self.update_variables()
         self.update_autocompleter()
-        self.__update_path_files__(self.configIDE.get_path("pinguino_examples"))
-        self.__update_graphical_path_files__(self.configIDE.get_path("pinguino_examples_graphical"))
+        #self.__update_path_files__(self.configIDE.get_path("pinguino_examples"))
+        self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_DIR"), "examples"))
+        #self.__update_graphical_path_files__(self.configIDE.get_path("pinguino_examples_graphical"))
+        self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_DIR"), "graphical_examples"))
         
         self.set_board()
         self.statusbar_ide(self.get_status_board())
@@ -81,7 +83,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         user_gcc_bin = self.configIDE.get_path("gcc_bin")
         if user_gcc_bin: self.pinguinoAPI.P32_BIN = user_gcc_bin
         
-        pinguino_source = self.configIDE.get_path("source")
+        #pinguino_source = self.configIDE.get_path("source")
+        pinguino_source = os.path.join(os.getenv("PINGUINO_USER_DIR"), "source")
         if pinguino_source: self.pinguinoAPI.SOURCE_DIR = pinguino_source
         
         pinguino_8_libs = self.configIDE.get_path("pinguino_8_libs")
@@ -214,38 +217,51 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     def check_examples_dirs(self):
         """"""
         self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "examples"),
-                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "examples"),
+                                    dst=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "examples"),
                                     default_dir=True)
         
         self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "graphical_examples"),
-                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "graphical_examples"),
+                                    dst=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "graphical_examples"),
                                     default_dir=True)
         
         
     #----------------------------------------------------------------------
     def check_config_files(self):
         """"""
-        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "pinguino.%s.conf"%os.environ.get("PINGUINO_OS_NAME")),
-                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "pinguino.conf"))
+        #self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "pinguino.%s.conf"%os.environ.get("PINGUINO_OS_NAME")),
+                                    #cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "pinguino.conf"))
         
-        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "reserved.pickle"),
-                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "reserved.pickle"))
+        #self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "reserved.pickle"),
+                                    #cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "reserved.pickle"))
         
-        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "wikidocks.pickle"),
-                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "wikidocks.pickle"))
+        #self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "wikidocks.pickle"),
+                                    #cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "wikidocks.pickle"))
+        
+
+        self.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "pinguino.%s.conf"%os.environ.get("PINGUINO_OS_NAME")),
+                                    dst=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "pinguino.conf"))
+        
+        self.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "reserved.pickle"),
+                                    dst=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "reserved.pickle"))
+        
+        self.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "wikidocks.pickle"),
+                                    dst=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "wikidocks.pickle"))
         
         
         
     #----------------------------------------------------------------------
-    def if_not_exist_then_copy(self, src, cp, default_dir=False):
+    def if_not_exist_then_copy(self, src, dst, default_dir=False):
         """"""
         if not os.path.exists(src):
             #raise Exception, "Missing files, try installing Pinguino IDE again.\n missing file: %s" % src
             logging.warning("Missing: " + src)
-            if not os.path.exists(cp) and default_dir:
-                os.mkdir(cp)
+            if not os.path.exists(dst) and default_dir:
+                os.mkdir(dst)
             return
         
-        if not os.path.exists(cp):
-            shutil.copytree(src, cp)
+        if not os.path.exists(dst):
+            if os.path.isdir(src):
+                shutil.copytree(src, dst)
+            else:
+                shutil.copy(src, dst)
         
