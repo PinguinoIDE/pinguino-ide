@@ -116,24 +116,29 @@ compiled to: ~/Desktop/test.hex
       Board name     Short arg     Long arg
 
 Pinguino 2455         -p2455    --pinguino2455
-Pinguino 4455         -p4455    --pinguino4455
 Pinguino 2550         -p2550    --pinguino2550
+Pinguino 25k50        -p25k50   --pinguino25k50
+Pinguino 26J50        -p26j50   --pinguino26j50
+Pinguino 27J53        -p27j53   --pinguino27j53
+
+Pinguino 4455         -p4455    --pinguino4455
 Pinguino 4550         -p4550    --pinguino4550
+Pinguino 45k50        -p45k50   --pinguino45k50
+Pinguino 46J50        -p46j50   --pinguino46j50
+Pinguino 47J53-A      -p47j53A  --pinguino47j53a
+
+Pinguino 32MX250      -p32mx250 --pinguino32mx250
+Pinguino 32MX220      -p32mx220 --pinguino32mx220
+
+      Other boards supported
+     
 FreeJALduino          -J        --freejalduino
 PICuno Equo           -eq       --picunoequo
-Pinguino 25k50        -p25k50   --pinguino25k50
-Pinguino 45k50        -p45k50   --pinguino45k50
-Pinguino 26J50        -p26j50   --pinguino26j50
-Pinguino 46J50        -p46j50   --pinguino46j50
-Pinguino 27J53        -p27j53   --pinguino27j53
-Pinguino 47J53-A      -p47j53A  --pinguino47j53a
 PIC32 Pinguino        -o        --olimex440
 PIC32 Pinguino OTG    -O        --olimex440OTG
 PIC32 Pinguino Micro  -M        --olimex440Micro
 PIC32 Pinguino T795   -T        --olimexT795
 PIC32 Pinguino 220    -m        --olimex220
-GENERIC32MX250F128    -N        --generic250
-GENERIC32MX220F032    -n        --generic220
 Emperor 460           -e        --emperor460
 Emperor 795           -E        --emperor795
 UBW32 460             -u        --ubw460
