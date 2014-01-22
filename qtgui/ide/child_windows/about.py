@@ -10,7 +10,7 @@ from PySide import QtGui, QtCore
 
 ########################################################################
 class About(QtGui.QMainWindow):
-    """"""
+    
     def __init__(self, IDE):
         super(About, self).__init__()
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |

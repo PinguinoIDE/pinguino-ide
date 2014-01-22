@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Mon Jan 20 06:09:35 2014
+# Created: Wed Jan 22 12:27:10 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -48,6 +48,7 @@ class Ui_About(object):
         font.setWeight(75)
         font.setBold(True)
         self.label_2.setFont(font)
+        self.label_2.setText("Pinguino 11.0")
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label_2.setObjectName("label_2")
         self.gridLayout.addWidget(self.label_2, 0, 1, 1, 1)
@@ -63,6 +64,7 @@ class Ui_About(object):
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 1, 1, 1, 1)
         self.label_10 = QtGui.QLabel(self.page)
+        self.label_10.setText("<html><head/><body><p><a href=\"http://pinguino.cc/\"><span style=\" text-decoration: underline; color:#6299e1;\">http://pinguino.cc/</span></a></p></body></html>")
         self.label_10.setAlignment(QtCore.Qt.AlignCenter)
         self.label_10.setOpenExternalLinks(True)
         self.label_10.setObjectName("label_10")
@@ -87,6 +89,7 @@ class Ui_About(object):
         self.gridLayout_8 = QtGui.QGridLayout(self.tab)
         self.gridLayout_8.setObjectName("gridLayout_8")
         self.label_4 = QtGui.QLabel(self.tab)
+        self.label_4.setText("<html><head/><body><p align=\"center\">Jean-Pierre Mandon</p><p align=\"center\">Régis Blanchot</p><p align=\"center\">Marcus Fazzi</p><p align=\"center\">Jesus Carmona Esteban</p><p align=\"center\">Alfred Broda</p><p align=\"center\">Yeison Cardona</p><p align=\"center\">Henk Van Beek</p><p align=\"center\">Björn Pfeiffer</p><p align=\"center\">Alexis Sánchez</p></body></html>")
         self.label_4.setObjectName("label_4")
         self.gridLayout_8.addWidget(self.label_4, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab, "")
@@ -95,6 +98,7 @@ class Ui_About(object):
         self.gridLayout_9 = QtGui.QGridLayout(self.tab_2)
         self.gridLayout_9.setObjectName("gridLayout_9")
         self.label_5 = QtGui.QLabel(self.tab_2)
+        self.label_5.setText("<html><head/><body><p align=\"center\">Benoit Espinola</p><p align=\"center\">Sebastien Koechlin</p><p align=\"center\">Ivan Ricondo</p><p align=\"center\">Jesus Carmona Esteban</p><p align=\"center\">Marcus Fazzi</p><p align=\"center\">Régis Blanchot</p></body></html>")
         self.label_5.setObjectName("label_5")
         self.gridLayout_9.addWidget(self.label_5, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_2, "")
@@ -103,6 +107,7 @@ class Ui_About(object):
         self.gridLayout_10 = QtGui.QGridLayout(self.tab_3)
         self.gridLayout_10.setObjectName("gridLayout_10")
         self.label_6 = QtGui.QLabel(self.tab_3)
+        self.label_6.setText("<html><head/><body><p align=\"center\">Joan Espinoza</p><p align=\"center\">Alexis Sánchez</p><p align=\"center\">Régis Blanchot</p><p align=\"center\">Moreno Manzini </p><p align=\"center\"><br/></p></body></html>")
         self.label_6.setObjectName("label_6")
         self.gridLayout_10.addWidget(self.label_6, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_3, "")
@@ -111,6 +116,7 @@ class Ui_About(object):
         self.gridLayout_11 = QtGui.QGridLayout(self.tab_4)
         self.gridLayout_11.setObjectName("gridLayout_11")
         self.label_7 = QtGui.QLabel(self.tab_4)
+        self.label_7.setText("<html><head/><body><p align=\"center\">France Cadet</p><p align=\"center\">Laurent Costes</p><p align=\"center\">Daniel Rodrí­guez</p></body></html>")
         self.label_7.setObjectName("label_7")
         self.gridLayout_11.addWidget(self.label_7, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_4, "")
@@ -151,6 +157,15 @@ class Ui_About(object):
         self.plainTextEdit.setStyleSheet("background-color: rgba(255, 255, 255,0);")
         self.plainTextEdit.setFrameShape(QtGui.QFrame.NoFrame)
         self.plainTextEdit.setReadOnly(True)
+        self.plainTextEdit.setPlainText("Pinguino is free software; you can redistribute it and/or modify it\n"
+"under the terms of the GNU General Public License as published by the Free Software Foundation;\n"
+"either version 2 of the License, or (at your option) any later version.\n"
+"\n"
+"Pinguino is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;\n"
+"without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"See the GNU General Public License for more details. You should have received a copy of\n"
+"the GNU General Public License along with File Hunter; if not, write to\n"
+"the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA")
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.gridLayout_13.addWidget(self.plainTextEdit, 2, 0, 1, 1)
         spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
@@ -160,8 +175,8 @@ class Ui_About(object):
         About.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(About)
-        self.stackedWidget.setCurrentIndex(0)
-        self.tabWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(About)
 
     def retranslateUi(self, About):
@@ -169,30 +184,15 @@ class Ui_About(object):
         self.label_3.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">Pinguino is an Open Software and Open Hardware<br>Arduino-like project. Boards are based on 8 or 32-bit USB built-in<br>Microchip microcontrollers. The main goal is to build a real<br>USB system without USB to serial converter.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_credits.setText(QtGui.QApplication.translate("About", "Credits", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("About", "Close", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("About", "Pinguino 11.0", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_10.setText(QtGui.QApplication.translate("About", "<html><head/><body><p><a href=\"http://pinguino.cc/\"><span style=\" text-decoration: underline; color:#6299e1;\">http://pinguino.cc/</span></a></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("About", "Credits", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_4.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">Jean-Pierre Mandon</p><p align=\"center\">Régis Blanchot</p><p align=\"center\">Marcus Fazzi</p><p align=\"center\">Jesus Carmona Esteban</p><p align=\"center\">Alfred Broda</p><p align=\"center\">Yeison Cardona</p><p align=\"center\">Henk Van Beek</p><p align=\"center\">Björn Pfeiffer</p><p align=\"center\">Alexis Sánchez</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("About", "Write by", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_5.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">Benoit Espinola</p><p align=\"center\">Sebastien Koechlin</p><p align=\"center\">Ivan Ricondo</p><p align=\"center\">Jesus Carmona Esteban</p><p align=\"center\">Marcus Fazzi</p><p align=\"center\">Régis Blanchot</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("About", "Docummented by", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_6.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">Joan Espinoza</p><p align=\"center\">Alexis Sánchez</p><p align=\"center\">Régis Blanchot</p><p align=\"center\">Moreno Manzini </p><p align=\"center\"><br/></p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("About", "Translated by", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_7.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">France Cadet</p><p align=\"center\">Laurent Costes</p><p align=\"center\">Daniel Rodrí­guez</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QtGui.QApplication.translate("About", "Art by", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_license.setText(QtGui.QApplication.translate("About", "License", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close_2.setText(QtGui.QApplication.translate("About", "Close", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close_3.setText(QtGui.QApplication.translate("About", "Close", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_about.setText(QtGui.QApplication.translate("About", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("About", "License", None, QtGui.QApplication.UnicodeUTF8))
-        self.plainTextEdit.setPlainText(QtGui.QApplication.translate("About", "Pinguino is free software; you can redistribute it and/or modify it\n"
-"under the terms of the GNU General Public License as published by the Free Software Foundation;\n"
-"either version 2 of the License, or (at your option) any later version.\n"
-"\n"
-"Pinguino is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;\n"
-"without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-"See the GNU General Public License for more details. You should have received a copy of\n"
-"the GNU General Public License along with File Hunter; if not, write to\n"
-"the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

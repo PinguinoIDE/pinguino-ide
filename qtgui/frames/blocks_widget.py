@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/blocks_widget.ui'
 #
-# Created: Mon Jan 20 06:09:34 2014
+# Created: Wed Jan 22 12:27:09 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,9 +13,10 @@ class Ui_widgetBlock(object):
     def setupUi(self, widgetBlock):
         widgetBlock.setObjectName("widgetBlock")
         widgetBlock.resize(306, 360)
+        widgetBlock.setWindowTitle("Tool Area")
         self.gridLayout = QtGui.QGridLayout(widgetBlock)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.scrollArea = QtGui.QScrollArea(widgetBlock)
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
@@ -26,8 +27,8 @@ class Ui_widgetBlock(object):
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 304, 358))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.gridLayout_3 = QtGui.QGridLayout(self.scrollAreaWidgetContents)
-        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_3.setSpacing(0)
+        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.gridLayout_2 = QtGui.QGridLayout()
         self.gridLayout_2.setSpacing(0)
@@ -44,5 +45,5 @@ class Ui_widgetBlock(object):
         QtCore.QMetaObject.connectSlotsByName(widgetBlock)
 
     def retranslateUi(self, widgetBlock):
-        widgetBlock.setWindowTitle(QtGui.QApplication.translate("widgetBlock", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        pass
 

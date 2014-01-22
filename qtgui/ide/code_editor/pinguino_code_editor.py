@@ -9,7 +9,7 @@ from ..code_editor.editor import CustomTextEdit
 
 ########################################################################
 class PinguinoCodeEditor(QWidget):
-    """"""
+    
 
     #----------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
@@ -58,7 +58,7 @@ class PinguinoCodeEditor(QWidget):
         
     #----------------------------------------------------------------------
     def initialize(self):
-        """"""
+        
         self.set_font_size(12)
         self.set_font_family("Ubuntu Mono")
         

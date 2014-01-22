@@ -14,7 +14,7 @@ from ...frames.wiki_doc_widget import Ui_WikiDocs
 
 ########################################################################
 class WikiDock(QtGui.QMainWindow):
-    """"""
+    
 
     #----------------------------------------------------------------------
     def __init__(self):
@@ -46,14 +46,14 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def tab_close(self, index):
-        """"""
+        
         if index == 0: return
         else: self.main_widget.tabWidget.removeTab(index)
         
 
     #----------------------------------------------------------------------
     def centrar(self):
-        """"""
+        
         screen = QtGui.QDesktopWidget().screenGeometry()
         size =  self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)        
@@ -61,7 +61,7 @@ class WikiDock(QtGui.QMainWindow):
 
     #----------------------------------------------------------------------
     def set_home(self, libs=None):
-        """"""
+        
         if not libs: libs = self.get_libraries()
         
         libs_html = ""
@@ -80,7 +80,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def open_tab_doc(self, url):
-        """"""
+        
         url = url.toString()
         if url == "__update__":
             reply = Dialogs.confirm_message(self, "This will take a long time.", "Sure?")
@@ -111,7 +111,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def add_tab(self):
-        """"""
+        
         
         tab = QtGui.QWidget()
         #tab.setObjectName("tab")
@@ -138,7 +138,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def replace_with_url(self, url):
-        """"""
+        
         index = self.main_widget.tabWidget.currentIndex()
         tab = self.main_widget.tabWidget.currentWidget()
         
@@ -192,7 +192,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def get_libraries(self):
-        """"""
+        
         if not os.path.isfile(self.ide_wiki_docs):
             libs = self.update_from_wiki()
             pickle.dump(libs, file(self.ide_wiki_docs, "w"))
@@ -204,7 +204,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def update_from_wiki(self):
-        """"""
+        
         url = "http://wiki.pinguino.cc"
         html = self.get_html_from_url(url+"/index.php/Category:Libraries")
         soup = BeautifulSoup(html)
@@ -226,7 +226,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def get_functions(self, url):
-        """"""
+        
         html = self.get_html_from_url(url)
         soup = BeautifulSoup(html)
         
@@ -254,7 +254,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def get_html_from_url(self, url):
-        """"""
+        
         page = urllib2.urlopen(url)
         html = page.readlines()
         page.close()
@@ -267,7 +267,7 @@ class WikiDock(QtGui.QMainWindow):
     
     #----------------------------------------------------------------------
     def build_header(self):
-        """"""
+        
         html = """
         <head>
         
@@ -344,7 +344,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def stylesheet(self):
-        """"""
+        
         
                 
         return """
@@ -424,7 +424,7 @@ class WikiDock(QtGui.QMainWindow):
     
     #----------------------------------------------------------------------
     def build_library(self, href, name, description, functions):
-        """"""
+        
         if name in self.to_ignore: return ""
         
         name = name.replace("Library", "")
@@ -450,7 +450,7 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def build_functions(self, functions, number):
-        """"""
+        
         
         html = ""
         count = 1
@@ -466,7 +466,7 @@ class WikiDock(QtGui.QMainWindow):
     
     #----------------------------------------------------------------------
     def build_title(self):
-        """"""
+        
         html = """
         <body>
         <p id="update" align="right"><a href="__update__">Update libraries</a></p>

@@ -61,7 +61,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         
     #----------------------------------------------------------------------
     def wheelEvent(self, event):
-        """"""
+        
         if event.modifiers() == QtCore.Qt.ControlModifier:
             self.step_font_size(event.delta())
         else:
@@ -70,7 +70,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         
     #----------------------------------------------------------------------
     def step_font_size(self, delta):
-        """"""
+        
         font = self.font()
         size = font.pointSize()
         if delta > 0: font.setPointSize(size+1)
@@ -136,7 +136,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
     def keyPressEvent_autocompleter(self, event):
-        """"""
+        
         #desplazar
         if event.key() in (QtCore.Qt.Key_Up, QtCore.Qt.Key_Down):
             self.completer.setFocus()
@@ -154,7 +154,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         
     #----------------------------------------------------------------------
     def force_keyPressEvent(self, event):
-        """"""
+        
         super(CustomTextEdit, self).keyPressEvent(event)
             
     #----------------------------------------------------------------------
@@ -166,7 +166,7 @@ class CustomTextEdit(QtGui.QTextEdit):
             QtCore.Qt.Key_Escape,
             QtCore.Qt.Key_Space,
             QtCore.Qt.Key_Control,
-            #QtCore.Qt.Key_Shift,
+            QtCore.Qt.Key_Shift,
             QtCore.Qt.Key_Alt,
             QtCore.Qt.Key_Backtab,
             QtCore.Qt.Key_Up,
@@ -196,7 +196,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         
     #----------------------------------------------------------------------
     def show_autocomplete_if_conditions(self):
-        """"""
+        
         tc = self.textCursor()
         #tc.select(QtGui.QTextCursor.WordUnderCursor)
         tc.select(QtGui.QTextCursor.BlockUnderCursor)

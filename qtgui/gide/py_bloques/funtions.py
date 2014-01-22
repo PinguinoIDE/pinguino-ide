@@ -23,7 +23,7 @@ class Functions(object):
     
     #----------------------------------------------------------------------
     def button_pressed(self):
-        """"""
+        
         pm = Block.Nested("Functions")
         pm.addSyntax("//")
         pm.addLabel("Button Pressed")
@@ -41,7 +41,7 @@ class Functions(object):
     
     #----------------------------------------------------------------------
     def button_released(self):
-        """"""
+        
         pm = Block.Nested("Functions")
         pm.addSyntax("//")
         pm.addLabel("Button Released")

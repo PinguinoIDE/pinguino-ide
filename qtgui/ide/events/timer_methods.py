@@ -11,7 +11,7 @@ from ..code_editor.autocomplete_icons import CompleteIcons
 
 ########################################################################
 class TimerMethods(object):
-    """"""
+    
 
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
@@ -21,7 +21,7 @@ class TimerMethods(object):
     @Decorator.requiere_browser_tab("Functions")
     @Decorator.requiere_tools_tab("Source Browser")
     def update_functions(self):
-        """"""
+        
         #print("Source Browser: Functions")
         editor = self.main.tabWidget_files.currentWidget()
         functions_parse = CodeNavigator.get_functions(editor)
@@ -55,7 +55,7 @@ class TimerMethods(object):
     @Decorator.requiere_browser_tab("Directives")
     @Decorator.requiere_tools_tab("Source Browser")
     def update_directives(self):
-        """"""
+        
         #print("Source Browser: Directives.")
         editor = self.main.tabWidget_files.currentWidget()
         directives_parse = CodeNavigator.get_directives(editor)
@@ -88,7 +88,7 @@ class TimerMethods(object):
     @Decorator.requiere_browser_tab("Variables")
     @Decorator.requiere_tools_tab("Source Browser")
     def update_variables(self):
-        """"""
+        
         #print("Source Browser: Variables.")
         editor = self.main.tabWidget_files.currentWidget()
         variables_parse = CodeNavigator.get_variables(editor)

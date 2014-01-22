@@ -27,13 +27,13 @@ exclude_auto_open = ["button_pressed", "button_released"]
 
 ########################################################################
 class Metadata(object):
-    """"""
+    pass
     
 ########################################################################
 class WorkArea(QtGui.QWidget):
 
     def __init__(self, parent, scroll, widget, frame, ide):
-        """"""
+        
         super(WorkArea, self).__init__(parent)
         
         self.main = ide.main
@@ -88,7 +88,7 @@ class WorkArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def build_menu(self, event):
-        """"""
+        
         menu = QtGui.QMenu()
         if self.isSelecting:
             if self.getUnderSelection():
@@ -100,7 +100,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def export_code_to_pinguino_editor(self):
-        """"""
+        
         code = self.update_code()
         
         self.ide.switch_ide_mode(False)        
@@ -113,7 +113,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def get_type_magnetic(self, child):
-        """"""
+        
         pos = []
         localType = child.metadata.type_
         for blk in self.get_project_blocks():
@@ -140,7 +140,7 @@ class WorkArea(QtGui.QWidget):
     
     #----------------------------------------------------------------------
     def get_better_pos(self, posList, pos):
-        """"""
+        
         distancia = lambda pa, pb:sqrt((pa.x()-pb.x())**2+(pa.y()-pb.y())**2)
         
         newPosList = []
@@ -167,7 +167,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def new_bloq(self, name, args, pos, baseName, IDuser=None, full=None):
-        """"""
+        
         newIcon = QtGui.QWidget(self)
         
         newIcon.NAME = name
@@ -225,7 +225,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def fill_widget_with(self, parent, content):
-        """"""
+        
         for block in content:
             name = all_sets.get(block.replace("-", "_"), None)
             if name is None: return
@@ -241,7 +241,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def mouseMoveEvent(self, event=None, eventPos=None, child=None, pos = QtCore.QPoint(0, 0)):
-        """"""
+        
         self.isDragging = True
         if event != None:
             eventPos = event.pos()
@@ -334,7 +334,7 @@ class WorkArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def set_selection(self):
-        """"""
+        
         if self.isSelecting:
             s = self.selFin-self.selInicio
             x = s.x()
@@ -355,7 +355,7 @@ class WorkArea(QtGui.QWidget):
             
     #----------------------------------------------------------------------
     def accept_move(self, accept, child, _ID, point):
-        """"""
+        
         if accept:
             #print "Accept"
             child.metadata.from_.append(_ID)
@@ -402,7 +402,7 @@ class WorkArea(QtGui.QWidget):
                 
     #----------------------------------------------------------------------
     def expand_all(self, release=False):
-        """"""
+        
         for block in self.get_project_blocks():
             if block.metadata.expandible:
                 size1 = block.metadata.widget.size().height()
@@ -419,7 +419,7 @@ class WorkArea(QtGui.QWidget):
                 
     #----------------------------------------------------------------------
     def get_height(self, block, func, func2=None):
-        """"""
+        
         size = 0
         #listIDs = self.getNested(ID)
         listIDs = func(block)
@@ -441,7 +441,7 @@ class WorkArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def move_group(self, child, point, ignore_nested=False):
-        """"""
+        
         if not ignore_nested:
             IDs = self.get_metadata_to(child) + self.get_metadata_nested(child)
         else:
@@ -478,7 +478,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------    
     def mousePressEvent(self, event):
-        """"""
+        
         if event.button() == QtCore.Qt.RightButton: return
         self.hasSelection = False
         if len(self.getUnderSelection()) == 0:
@@ -540,7 +540,7 @@ class WorkArea(QtGui.QWidget):
             
     #----------------------------------------------------------------------
     def mouseReleaseEvent(self, event):
-        """"""
+        
         self.isDragging = False
             
         if self.CHILD != None:
@@ -568,19 +568,19 @@ class WorkArea(QtGui.QWidget):
             
     #----------------------------------------------------------------------
     def set_child_drag(self, child, pos):
-        """"""
+        
         self.CHILD = child
         self.POS = pos
         
     #----------------------------------------------------------------------
     def get_child_drag(self):
-        """"""
+        
         return self.CHILD, self.POS
 
     #----------------------------------------------------------------------
     #@Decorator.requiere_no_dragging()
     def constant_update(self):
-        """"""
+        
         for block in self.get_project_blocks():
             block.metadata.widget.adjustSize()
         self.expand_all()
@@ -589,7 +589,7 @@ class WorkArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     #@Decorator.requiere_no_dragging()
     def auto_raise(self):
-        """"""
+        
         on_sort = []
         for block in self.get_project_blocks():
             on_sort.append((block.metadata.object_.widget.size().height(), block))
@@ -603,7 +603,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def paintEvent(self, event=None):
-        """"""
+        
         painter = QtGui.QPainter()
         painter.begin(self)
         painter.fillRect(self.rect(), QtCore.Qt.white)
@@ -615,7 +615,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def draw_grid(self, color, painter, space):
-        """"""
+        
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtGui.QColor(color)), 1, QtCore.Qt.DashLine))        
         
         j = 0
@@ -631,7 +631,7 @@ class WorkArea(QtGui.QWidget):
                 
     #----------------------------------------------------------------------
     def get_code_start(self):
-        """"""
+        
         codepi = ""
         codepy = ""
         for block in self.get_project_blocks():
@@ -647,7 +647,7 @@ class WorkArea(QtGui.QWidget):
                 
     #----------------------------------------------------------------------
     def update_code(self):
-        """"""
+        
         self.allVars = []
         pinguino_code = ""
                
@@ -718,7 +718,7 @@ class WorkArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def count_indent(self, linea):
-        """"""
+        
         indent = 0
         for letra in linea:
             if letra != " ": return indent * " "
@@ -728,7 +728,7 @@ class WorkArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def get_code_from(self, ID, auto_open=True):
-        """"""
+        
         code = ""
         incrementar = False
         if ID.metadata.basename == "asign":
@@ -796,7 +796,7 @@ class WorkArea(QtGui.QWidget):
     
     #----------------------------------------------------------------------
     def fix_syntax_code(self, bloque, code):
-        """"""
+        
         fix_syntax = "> < >= <= = ".split()
         for char in fix_syntax:
             code = code.replace(char, " "+char+" ")
@@ -805,25 +805,25 @@ class WorkArea(QtGui.QWidget):
     
     #----------------------------------------------------------------------
     def get_name_function(self, ID):
-        """"""
+        
         code = ID.metadata.get_contructor()
         return code[0][1]
     
     #----------------------------------------------------------------------
     def get_name_var(self, ID):
-        """"""
+        
         code = ID.metadata.line_code()
         return code[:code.find("=")]
     
     #----------------------------------------------------------------------
     def get_count_vars_function(self, ID):
-        """"""
+        
         code = ID.metadata.get_contructor()
         return code.count(["space"])
           
     #----------------------------------------------------------------------
     def function_has_return(self, ID, ret=False):
-        """"""
+        
         code = self.get_code_from(ID).split("\n")
         for line in code:
             if bool(re.match(" *return", line)):
@@ -834,7 +834,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def add_function(self, name, countVars, _return, tab="User", prename="", ID__=None):
-        """"""
+        
         if _return: tipo = "output"
         else: tipo = "linear"
         
@@ -858,13 +858,13 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def expand_size(self, child):
-        """"""
+        
         if child.metadata.type_ == "tipo8":
             child.metadata.object_.setSmallSize()
         
     #----------------------------------------------------------------------
     def add_variable(self, name):
-        """"""
+        
         tmp = constructor.Output("User")
         tmp.addEdit(name, None, (255, 255, 255))
         
@@ -872,7 +872,7 @@ class WorkArea(QtGui.QWidget):
     
     #----------------------------------------------------------------------
     def update_user(self):
-        """"""
+        
         self.clearArea("User")
         
         new_blocks = []
@@ -894,7 +894,7 @@ class WorkArea(QtGui.QWidget):
                 
     #----------------------------------------------------------------------
     def dele_blocks(self):
-        """"""
+        
         IDs = self.getUnderSelection()
         for Id in IDs:
             Id.metadata.destroy_this()
@@ -905,7 +905,7 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def getUnderSelection(self, inside=True, nested=False):
-        """"""
+        
         IDs = []
         
         if self.SelectArea.isVisible():
@@ -937,7 +937,7 @@ class WorkArea(QtGui.QWidget):
     
     ##----------------------------------------------------------------------
     #def getAllRelatedFromID(self, IDs):
-        #""""""
+        #
         
         #all_ = []
         
@@ -964,7 +964,7 @@ class WorkArea(QtGui.QWidget):
         
     ##----------------------------------------------------------------------
     #def remove_block(self, key):
-        #""""""
+        #
         #self.MetaData[key]["object"].destroy_this()
         
         #try:
@@ -1002,20 +1002,20 @@ class WorkArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def build_block(self, name, widget, parent, instructions):
-        """"""
+        
         return eval(Blocks[name])(widget, instructions[2:], parent)
         
         
     #----------------------------------------------------------------------
     def get_project_blocks(self):
-        """"""
+        
         all_ = self.get_recursive_project_blocks(self.children())
         #print "%$%", len(all_)
         return all_
         
     #----------------------------------------------------------------------
     def get_recursive_project_blocks(self, children):
-        """"""
+        
         childs = []
         for child in filter(lambda obj:getattr(obj, "metadata", False), children):
             childs.append(child)
@@ -1024,7 +1024,7 @@ class WorkArea(QtGui.QWidget):
     
     #----------------------------------------------------------------------
     def get_widgets_from_layout(self, layout):
-        """"""
+        
         if layout is None: return []
         widgets = []
         for index in range(layout.count()):

@@ -11,9 +11,9 @@ from ...ide.helpers.decorators import Decorator
 
 ########################################################################
 class ToolArea(QtGui.QWidget):
-    """"""
+    
     def __init__(self, parent=None, workArea=None, ide=None):
-        """"""
+        
         super(ToolArea, self).__init__(parent)
 
         self.ide = ide
@@ -43,7 +43,7 @@ class ToolArea(QtGui.QWidget):
  
     #----------------------------------------------------------------------
     def mouse_move_event(self, event):
-        """"""
+        
         
         onBlock, pos = self.get_child_drag()
         
@@ -97,13 +97,13 @@ class ToolArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def get_tab(self):
-        """"""
+        
         return self.ide.get_tab()
             
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def mouse_press_event(self, event):
-        """"""
+        
         self.workArea().forExpand = True
         child = self.widget_parent.childAt(event.pos())
         if child:
@@ -120,7 +120,7 @@ class ToolArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def mouse_release_event(self, event):
-        """"""
+        
         self.workArea().forExpand = False
         child, pos = self.get_child_drag()
         
@@ -167,11 +167,11 @@ class ToolArea(QtGui.QWidget):
             
     #----------------------------------------------------------------------
     def set_child_drag(self, child, pos):
-        """"""
+        
         self.CHILD = child
         self.POS = pos
         
     #----------------------------------------------------------------------
     def get_child_drag(self):
-        """"""
+        
         return self.CHILD, self.POS

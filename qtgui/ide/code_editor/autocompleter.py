@@ -45,7 +45,7 @@ class PinguinoAutoCompleter(QListWidget):
         
     #----------------------------------------------------------------------
     def set_arch_autocompleter(self):
-        """"""
+        
         arch = os.environ.get("PINGUINO_BOARD_ARCH")
         
         icons = CompleteIcons()
@@ -69,7 +69,7 @@ class PinguinoAutoCompleter(QListWidget):
         
     #----------------------------------------------------------------------
     def show(self, *args):
-        """"""
+        
         self.set_arch_autocompleter()
         super(PinguinoAutoCompleter, self).show(*args)
         

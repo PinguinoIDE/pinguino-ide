@@ -28,7 +28,7 @@ ADJ2 = -5  #space on expand
 
 #----------------------------------------------------------------------
 def changeFontSize(widget, adj=0):
-    """"""
+    
     font = widget.font()
     font.setFamily("Ubuntu mono")
     font.setPointSize(FONT_SIZE+adj)    
@@ -38,7 +38,7 @@ def changeFontSize(widget, adj=0):
 
 ########################################################################
 class Constructor(object):
-    """"""
+    
     DeletLater = False
         
         
@@ -337,7 +337,7 @@ class Constructor(object):
     
     ##----------------------------------------------------------------------
     #def buildButton(self, widget, text, checkeable=False, start=False, loop=False):
-        #""""""
+        #
         #widgetButton = QtGui.QWidget(widget)
         #button = ControlButton()
         #button.setupUi(widgetButton)
@@ -354,7 +354,7 @@ class Constructor(object):
                 #button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png);"%sys.path[0])
                 
         #def activate():
-            #""""""
+            #
             #if self.IDE: self.IDE.frame.startPython(self.getLine(), "pynguino_code")
     
             
@@ -436,7 +436,7 @@ class Constructor(object):
     
     #----------------------------------------------------------------------
     def addParent(self, widget, force=False):
-        """"""
+        
         #self.primo = widget
         widgetMove = widget[1]
         self.widgetMove = widgetMove
@@ -651,7 +651,7 @@ class Constructor(object):
     
     ##----------------------------------------------------------------------
     #def fullWidgetWith(self, content):
-        #""""""
+        #
         #self.IDE.ge
         #self.addParent([self.getWorkArea().getWidget("0"),self.getWorkArea().getWidget("1")],
                        #force = True, position = 1)        
@@ -661,7 +661,7 @@ class Constructor(object):
         
     #----------------------------------------------------------------------
     def getLine(self):
-        """"""
+        
         code = map(lambda x:str(x()), self.LineCode)
         
         complete = []
@@ -682,7 +682,7 @@ class Constructor(object):
     
     #----------------------------------------------------------------------
     def getConstructor(self):
-        """"""
+        
         constr = []
         for code in self.constructorCode:
             constr.append(code())

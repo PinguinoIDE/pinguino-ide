@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>BoardConfig</class>
+ <widget class="QMainWindow" name="BoardConfig">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Board config</string>
+   <string notr="true">Board Config</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/resources.qrc">
@@ -84,14 +84,14 @@
        <item row="0" column="0">
         <widget class="QRadioButton" name="radioButton_bootloader_v1_v2">
          <property name="text">
-          <string>v1.x or v2.x</string>
+          <string notr="true">v1.x or v2.x</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
         <widget class="QRadioButton" name="radioButton_bootloader_v4">
          <property name="text">
-          <string>v4.x</string>
+          <string notr="true">v4.x</string>
          </property>
         </widget>
        </item>
@@ -187,7 +187,7 @@
        <item row="0" column="0">
         <widget class="QRadioButton" name="radioButton_mode_icsp">
          <property name="text">
-          <string>ICSP</string>
+          <string notr="true">ICSP</string>
          </property>
         </widget>
        </item>

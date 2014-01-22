@@ -26,12 +26,12 @@ from ..widgets.wiki_widget import WikiDock
 
 ########################################################################
 class EventMethods(SearchReplace):
-    """"""
+    
     
     #----------------------------------------------------------------------
     @Decorator.connect_features()
     def new_file(self, *args, **kwargs):
-        """"""
+        
         path = kwargs.get("filename", self.__get_name__())
         filename = os.path.split(path)[1]         
 
@@ -53,7 +53,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def __key_press__(self, event):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         if self.is_autocomplete_enable():
             editor.text_edit.__keyPressEvent__(event)
@@ -64,7 +64,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     #@Decorator.connect_features()
     def open_files(self):
-        """"""
+        
         filenames = Dialogs.set_open_file(self)
         for filename in filenames:
             if self.__check_duplicate_file__(filename): continue
@@ -95,7 +95,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     #@Decorator.connect_features()
     def open_file_from_path(self, *args, **kwargs):
-        """"""
+        
         filename = kwargs["filename"]
         if self.__check_duplicate_file__(filename): return
 
@@ -124,7 +124,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.call_later()
     def open_last_files(self):
-        """"""
+        
         opens = self.configIDE.get_recents_open()
         for file_ in opens:
             if os.path.exists(file_):
@@ -138,7 +138,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def comment_uncomment(self):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         cursor = editor.text_edit.textCursor()
         prevCursor = editor.text_edit.textCursor()
@@ -190,7 +190,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def commentregion(self):
-        """"""     
+             
         editor = self.main.tabWidget_files.currentWidget()
         comment_wildcard = "// "
         
@@ -270,7 +270,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def uncommentregion(self):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         comment_wildcard = "// "
     
@@ -320,7 +320,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def close_file(self, *args, **kwargs):
-        """"""
+        
         editor = kwargs.get("editor", None)
         if not editor: editor = self.get_tab().currentWidget()
         index = self.get_tab().indexOf(editor)
@@ -353,7 +353,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.connect_features()
     def save_file(self, *args, **kwargs):
-        """"""
+        
         editor = kwargs.get("editor", None)
         if not editor: editor = self.get_tab().currentWidget()
         index = self.get_tab().indexOf(editor)
@@ -382,7 +382,7 @@ class EventMethods(SearchReplace):
     @Decorator.requiere_open_files()
     @Decorator.connect_features()
     def save_as(self, *args, **kwargs):
-        """"""
+        
         editor = kwargs.get("editor", None)
         if not editor: editor = self.get_tab().currentWidget()
         index = self.get_tab().indexOf(editor)
@@ -403,35 +403,35 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def undo(self):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.undo()
         
     #----------------------------------------------------------------------
     def redo(self):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.redo()
         
     #----------------------------------------------------------------------
     def cut(self):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.cut()
         
     #----------------------------------------------------------------------
     def copy(self):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.copy()
         
     #----------------------------------------------------------------------
     def paste(self):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.paste()
@@ -441,7 +441,7 @@ class EventMethods(SearchReplace):
     @Decorator.update_toolbar()
     @Decorator.connect_features()
     def tab_changed(self, *args, **kwargs):
-        """"""
+        
         self.main.tabWidget_files.setVisible(self.main.tabWidget_files.count() > 0)
         self.main.frame_logo.setVisible(not self.main.tabWidget_files.count() > 0)
         self.main.actionClose_file.setEnabled(self.main.tabWidget_files.count() > 0)
@@ -462,20 +462,20 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def tab_close(self, index):
-        """"""
+        
         editor = self.get_tab().widget(index)
         self.close_file(editor=editor)
         
     #----------------------------------------------------------------------
     def jump_to_line(self, line):
-        """"""
+        
         self.highligh_line(line,  "#DBFFE3")
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     def highligh_line(self, line=None, color="#ff0000", text_cursor=None):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         
         if line:
@@ -506,21 +506,21 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def clear_highlighs(self):
-        """"""
+        
         editor = self.main.tabWidget_files.currentWidget()
         editor.text_edit.setExtraSelections([])
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def set_tab_search(self):
-        """"""
+        
         self.main.tabWidget_tools.setCurrentIndex(2)
         self.main.lineEdit_search.setFocus()
         
         
     #----------------------------------------------------------------------
     def jump_function(self, model_index):
-        """"""
+        
         column = model_index.column()
         item = self.main.tableWidget_functions.itemFromIndex(model_index).text()
         if column == 2:
@@ -529,14 +529,14 @@ class EventMethods(SearchReplace):
 
     #----------------------------------------------------------------------
     def jump_function_header(self, row):
-        """"""
+        
         item = self.main.tableWidget_functions.item(row, 2).text()
         line = item[:item.find("-")]
         self.jump_to_line(int(line))
 
     #----------------------------------------------------------------------
     def jump_variable(self, model_index):
-        """"""
+        
         column = model_index.column()
         item = self.main.tableWidget_variables.itemFromIndex(model_index).text()
         if column == 1:
@@ -545,14 +545,14 @@ class EventMethods(SearchReplace):
             
     #----------------------------------------------------------------------
     def jump_variable_header(self, row):
-        """"""
+        
         item = self.main.tableWidget_variables.item(row, 1).text()
         line = item
         self.jump_to_line(int(line))
 
     #----------------------------------------------------------------------
     def jump_directive(self, model_index):
-        """"""
+        
         column = model_index.column()
         item = self.main.tableWidget_directives.itemFromIndex(model_index).text()
         if column == 2:
@@ -561,14 +561,14 @@ class EventMethods(SearchReplace):
 
     #----------------------------------------------------------------------
     def jump_directive_header(self, row):
-        """"""
+        
         item = self.main.tableWidget_directives.item(row, 2).text()
         line = item
         self.jump_to_line(int(line))
                     
     #----------------------------------------------------------------------
     def change_dir_files(self, to_dir):
-        """"""
+        
         if to_dir == "Examples":
             self.__update_path_files__(Constants.PINGUINO_EXAMPLES_DIR)
             
@@ -588,7 +588,7 @@ class EventMethods(SearchReplace):
                     
     #----------------------------------------------------------------------
     def change_dir_filesg(self, to_dir):
-        """"""
+        
         if to_dir == "Examples":
             self.__update_graphical_path_files__(Constants.PINGUINOG_EXAMPLES_DIR)
             
@@ -608,7 +608,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def jump_dir_files(self, list_widget_item):
-        """"""
+        
         if getattr(list_widget_item, "type_file") == "dir":
             self.__update_path_files__(getattr(list_widget_item, "path_file"))
         if getattr(list_widget_item, "type_file") == "file":
@@ -617,7 +617,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def jump_dir_filesg(self, list_widget_item):
-        """"""
+        
         if getattr(list_widget_item, "type_file") == "dir":
             self.__update_graphical_path_files__(getattr(list_widget_item, "path_file"))
         if getattr(list_widget_item, "type_file") == "file":
@@ -626,18 +626,18 @@ class EventMethods(SearchReplace):
                 
     #----------------------------------------------------------------------
     def get_tab(self):
-        """"""
+        
         if self.main.actionSwitch_ide.isChecked(): return self.main.tabWidget_graphical
         else: return self.main.tabWidget_files
             
     #----------------------------------------------------------------------
     def __update_path_files__(self, path):
-        """"""
+        
         Files.update_path_files(path, self.main.listWidget_files, self.main.label_path)
         
     #----------------------------------------------------------------------
     def __update_graphical_path_files__(self, path):
-        """"""
+        
         Files.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg)
         
         
@@ -659,7 +659,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.connect_features()
     def __save_file__(self, *args, **kwargs):
-        """"""
+        
         editor = kwargs.get("editor", self.get_tab())
         content = editor.text_edit.toPlainText()
         #pde_file = file(editor.path, mode="w")
@@ -670,7 +670,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def __get_name__(self, ext=".pde"):
-        """"""
+        
         index = 1
         name = "untitled-%d" % index + ext
         #filenames = [self.main.tabWidget_files.tabText(i) for i in range(self.main.tabWidget_files.count())]
@@ -682,7 +682,7 @@ class EventMethods(SearchReplace):
     
     #----------------------------------------------------------------------
     def __text_changed__(self, *args, **kwargs):
-        """"""
+        
         index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)
         if not filename.endswith("*"):
@@ -693,7 +693,7 @@ class EventMethods(SearchReplace):
     
     #----------------------------------------------------------------------
     def __text_saved__(self, *args, **kwargs):
-        """"""
+        
         index = self.get_tab().currentIndex()
         filename = self.get_tab().tabText(index)
         if filename.endswith("*"):
@@ -702,7 +702,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def __text_can_undo__(self, *args, **kwargs):
-        """"""
+        
         state = not self.main.actionUndo.isEnabled()
         self.main.actionUndo.setEnabled(state)
         editor = self.main.tabWidget_files.currentWidget()
@@ -710,7 +710,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def __text_can_redo__(self, *args, **kwargs):
-        """"""
+        
         state = not self.main.actionRedo.isEnabled()
         self.main.actionRedo.setEnabled(state)
         editor = self.main.tabWidget_files.currentWidget()
@@ -718,7 +718,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def __text_can_copy__(self, *args, **kwargs):
-        """"""
+        
         state = not self.main.actionCopy.isEnabled()
         self.main.actionCopy.setEnabled(state)
         self.main.actionCut.setEnabled(state)
@@ -729,7 +729,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def __check_duplicate_file__(self, filename):
-        """"""
+        
         filenames = [getattr(self.get_tab().widget(i), "path", None) for i in range(self.get_tab().count())]
         if filename in filenames:
             Dialogs.file_duplicated(self, filename)
@@ -739,37 +739,37 @@ class EventMethods(SearchReplace):
     
     #----------------------------------------------------------------------
     def __show_about__(self):
-        """"""
+        
         self.frame_about = About(self)
         self.frame_about.show()
         
     #----------------------------------------------------------------------
     def __show_board_config__(self):
-        """"""
+        
         self.frame_board = BoardConfig(self)
         self.frame_board.show()
         
     #----------------------------------------------------------------------
     def __show_stdout__(self):
-        """"""
+        
         self.frame_stdout = PlainOut("Stdout")
         self.frame_stdout.show()
         
     #----------------------------------------------------------------------
     def __show_libmanager__(self):
-        """"""
+        
         self.frame_stdout = LibManager(self)
         self.frame_stdout.show()
         
     #----------------------------------------------------------------------
     def __config_paths__(self):
-        """"""
+        
         self.frame_paths = Paths(self)
         self.frame_paths.show()     
 
     #----------------------------------------------------------------------
     def __show_pinguino_code__(self):
-        """"""
+        
         name = getattr(self.get_tab().currentWidget(), "path", "")
         if name: name = " - " + name
         self.frame_pinguino_code = PlainOut("Pinguino code")
@@ -778,7 +778,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def __show_hex_code__(self):
-        """"""
+        
         if getattr(self.get_tab().currentWidget(), "path", False):
             hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
         else:
@@ -795,7 +795,7 @@ class EventMethods(SearchReplace):
                 
     #----------------------------------------------------------------------
     def show_wiki_docs(self):
-        """"""
+        
         self.frame_wiki_dock = WikiDock()
         self.frame_wiki_dock.show()
         
@@ -803,7 +803,7 @@ class EventMethods(SearchReplace):
     ##----------------------------------------------------------------------
     #@Decorator.files_tab_on_focus()
     #def set_url_wiki_docs(self, url):
-        #""""""
+        #
         #wiki_widget = WikiWidget(self)
         #setattr(wiki_widget, "is_widget", True)
         #title = wiki_widget.replace_with_url(url)
@@ -815,7 +815,7 @@ class EventMethods(SearchReplace):
     @Decorator.requiere_open_files()
     @Decorator.requiere_file_saved()
     def pinguino_compile(self):
-        """"""
+        
         if not self.is_graphical():
             filename = self.get_tab().currentWidget().path
         else:
@@ -891,7 +891,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def pinguino_upload(self):
-        """"""
+        
         uploaded, result = self.pinguinoAPI.upload()
         self.output_ide(result)
         
@@ -901,7 +901,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def pinguino_use_local_compilers(self):
-        """"""
+        
         Dialogs.info_message(self, "No implemented yet.")
         #self.pinguinoAPI.set_os_variables(local_compilers=True)
         self.main.actionUse_local_compilers.setChecked(True)
@@ -909,7 +909,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def pinguino_use_system_compilers(self):
-        """"""
+        
         Dialogs.info_message(self, "No implemented yet.")
         ##self.pinguinoAPI.set_os_variables(local_compilers=False)
         #self.main.actionUse_local_compilers.setChecked(False)
@@ -931,7 +931,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def save_screen_image(self):
-        """"""
+        
         editor = self.get_tab().currentWidget()
         scroll_area = editor.scroll_area
         image = QtGui.QPixmap.grabWidget(scroll_area,
@@ -947,7 +947,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def __close_ide__(self, *args, **kwargs):
-        """"""
+        
         size = self.size()
         self.configIDE.set("Main", "size", size.toTuple())
         
@@ -978,7 +978,7 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def load_main_config(self):
-        """"""
+        
         if self.configIDE.config("Main", "maximized", True):
             self.showMaximized()
         
@@ -993,7 +993,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def save_all(self):
-        """"""
+        
         tab = self.get_tab()
         for index in range(tab.count()):
             self.save_file(editor=tab.widget(index))
@@ -1001,7 +1001,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def close_all(self):
-        """"""
+        
         tab = self.get_tab()
         widgets = map(lambda index:tab.widget(index), range(tab.count()))
         for widget in widgets:
@@ -1010,7 +1010,7 @@ class EventMethods(SearchReplace):
     
     #----------------------------------------------------------------------
     def get_all_open_files(self):
-        """"""
+        
         opens = []
         tab = self.main.tabWidget_files
         widgets = map(lambda index:tab.widget(index), range(tab.count()))
@@ -1026,13 +1026,13 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def open_web_site(self, url):
-        """"""
+        
         webbrowser.open_new_tab(url)
         
         
     #----------------------------------------------------------------------
     def update_recents(self, filename):
-        """"""
+        
         if filename in self.recent_files:
             self.recent_files.remove(filename)
         self.recent_files.insert(0, filename)
@@ -1043,11 +1043,11 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def update_recents_menu(self):
-        """"""
+        
         
         self.main.menuRecents.clear()
         for file_ in self.recent_files:
-            """"""
+            
             action = QtGui.QAction(self)
             
             filename = os.path.split(file_)[1]
@@ -1069,16 +1069,16 @@ class EventMethods(SearchReplace):
         
     #----------------------------------------------------------------------
     def menu_recent_event(self, file_):
-        """"""
+        
         def menu():
-            """"""
+            
             self.open_file_from_path(filename=file_)
         return menu
             
         
     #----------------------------------------------------------------------
     def switch_color_theme(self, pinguino_color=True):
-        """"""
+        
         default_pallete = ["toolBar_edit", "toolBar_files", "toolBar_search_replace",
                            "toolBar_undo_redo", "toolBar_pinguino", "toolBar_pinguino",
                            "toolBar_graphical", "toolBar_switch", "statusBar"]

@@ -78,10 +78,10 @@ class Uploader(object):
 
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
-        """"""
+        
 
         if board.bldr == "noboot":
-            """"""
+            
             # TODO : interface here something like PICpgm (http://www.members.aon.at/electronics/pic/picpgm/)
             #self.logwindow("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board", 1)
             raise Exception, "You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board"
@@ -101,6 +101,6 @@ class Uploader(object):
 
     #----------------------------------------------------------------------
     def write_hex(self):
-        """"""
+        
         self.uploader.writeHex()
         return self.uploader.report

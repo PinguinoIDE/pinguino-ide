@@ -12,11 +12,11 @@ P8_DIR = os.path.join(Constants.IDE_HOME_DIR, "pinguino", "p8")
 
 ########################################################################
 class Namespaces(object):
-    """"""
+    
 
     #----------------------------------------------------------------------
     def get_pinguino_namespaces(self, arch):
-        """"""
+        
         namespaces = []
         
         if arch == "8":
@@ -53,7 +53,7 @@ class Namespaces(object):
 
     #----------------------------------------------------------------------
     def save_namespaces(self):
-        """"""
+        
         name_spaces_8 = self.get_pinguino_namespaces("8")
         name_spaces_32 = self.get_pinguino_namespaces("32")
         

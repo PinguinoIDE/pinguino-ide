@@ -8,7 +8,7 @@ preprocessor_commands = ["define", "include", "error", "undef", "if", "else", "i
 
 ########################################################################
 class CodeNavigator(object):
-    """"""
+    
 
     #----------------------------------------------------------------------
     def __init__(self):
@@ -18,7 +18,7 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     @classmethod
     def remove_comments(self, content):
-        """"""
+        
          #Code for remove comments here
         
         return content
@@ -27,7 +27,7 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     @classmethod
     def get_functions(self, editor):
-        """"""
+        
         regex_function = "[\s]*(unsigned|signed|long)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
         regex_function_content = "[\s]*%s[\s]*\{[\s\S]*\}[\s]*"
         
@@ -76,7 +76,7 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     @classmethod
     def get_directives(self, editor):
-        """"""
+        
         regex_directive = "[\s]*#(" + "|".join(preprocessor_commands)+ ")[\s]+<?[\s]*([\w.]*)[\s]*>?[\s]*([\S]*)"
         
         directives = []
@@ -99,7 +99,7 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     @classmethod
     def get_variables(self, editor):
-        """"""
+        
         regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*([*])*[\s]*([ \w\[\]=,{}\"'\*]*);"
         
         variables = []

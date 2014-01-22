@@ -9,7 +9,7 @@ from .constants import NAME
 
 ########################################################################
 class Dialogs(object):
-    """"""
+    
 
     #----------------------------------------------------------------------
     @classmethod
@@ -37,7 +37,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def set_no_saved_file(self, parent, filename):
-        """"""
+        
         options = QtGui.QMessageBox.Yes | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
         reply = QtGui.QMessageBox.question(parent,
                 NAME+" - Save?",
@@ -52,7 +52,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def set_open_dir(self, parent):
-        """"""
+        
         open_dir = QtGui.QFileDialog.getExistingDirectory(parent,
                 NAME+" - Open directory",
                 QtCore.QDir.home().path())
@@ -63,7 +63,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def file_duplicated(self, parent, filename):
-        """"""
+        
         QtGui.QMessageBox.information(parent,
                 NAME+" - File already open.",
                 "This file is already open in other tab.\n%s"%filename)
@@ -72,7 +72,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def error_message(self, parent, message):
-        """"""
+        
         QtGui.QMessageBox.warning(parent,
                 NAME+" - Error",
                 message)
@@ -81,7 +81,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def confirm_message(self, parent, message, title="confirm"):
-        """"""
+        
         options = QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel
         reply = QtGui.QMessageBox.question(parent,
                 NAME+" - "+title,
@@ -96,7 +96,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def info_message(self, parent, message):
-        """"""
+        
         QtGui.QMessageBox.information(parent,
                 NAME+" - Info",
                 message)
@@ -105,7 +105,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def warning_message(self, parent, message, title="warning"):
-        """"""
+        
         QtGui.QMessageBox.warning(parent,
                 NAME+" - "+title,
                 message)
@@ -114,7 +114,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def save_before_compile(self, parent):
-        """"""
+        
         QtGui.QMessageBox.information(parent,
                 NAME+" - must save file.",
                 "You must save the file before compiling.")
@@ -123,7 +123,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def confirm_board(self, parent):
-        """"""
+        
         parent.set_board()
         board_config = parent.get_description_board()
         
@@ -157,7 +157,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def error_while_compiling(self, parent):
-        """"""
+        
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
         msg_box.setWindowTitle(NAME+" - Error")
@@ -182,7 +182,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def error_while_linking(self, parent):
-        """"""
+        
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
         msg_box.setWindowTitle(NAME+" - Error")
@@ -208,7 +208,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def error_while_preprocess(self, parent):
-        """"""
+        
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
         msg_box.setWindowTitle(NAME+" - Error")
@@ -235,7 +235,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def error_while_unknow(self, parent):
-        """"""
+        
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
         msg_box.setWindowTitle(NAME+" - Error")
@@ -262,7 +262,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def compilation_done(self, parent):
-        """"""
+        
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Information)
         msg_box.setWindowTitle(NAME+" - Compiled")
@@ -287,7 +287,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def upload_done(self, parent):
-        """"""
+        
         QtGui.QMessageBox.information(parent,
                 NAME+" - Upload done",
                 "File sucessfully uploaded to pinguino.")
@@ -297,7 +297,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def upload_fail(self, parent, message):
-        """"""
+        
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Information)
         msg_box.setWindowTitle(NAME+" - Upload fail")
@@ -323,7 +323,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def set_save_image(self, parent, filename):
-        """"""
+        
         file_name = QtGui.QFileDialog.getSaveFileName(parent,
                 NAME+" - Save image",
                 filename,

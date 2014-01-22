@@ -11,7 +11,7 @@ from ...frames.paths import Ui_Paths
 
 ########################################################################
 class Paths(QtGui.QMainWindow):
-    """"""
+    
     def __init__(self, parent):
         #QtGui.QMainWindow.__init__(self)
         super(Paths, self).__init__()
@@ -62,7 +62,7 @@ class Paths(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def close(self):
-        """"""
+        
         if Dialogs.confirm_message(self, "Do you really want save these paths?."):
             for lineEdit, pushButton, keyWord in self.dialog_file + self.dialog_dirs:
                 content = lineEdit.text()
@@ -77,7 +77,7 @@ class Paths(QtGui.QMainWindow):
 
     #----------------------------------------------------------------------
     def set_file_dialog(self, lineEdit, KeyWord):
-        """"""
+        
         def dummy_func():
             path = lineEdit.text()
             if not os.path.isfile(path):
@@ -98,7 +98,7 @@ class Paths(QtGui.QMainWindow):
                 
     #----------------------------------------------------------------------
     def set_dir_dialog(self, lineEdit, KeyWord):
-        """"""
+        
         def dummy_func():
             path = lineEdit.text()
             if not os.path.isdir(path):
@@ -121,7 +121,7 @@ class Paths(QtGui.QMainWindow):
         
     ##----------------------------------------------------------------------
     #def change_theme(self, index):
-        #""""""
+        #
         #items = self.all_themes.keys()
         #items.sort()
         
@@ -131,7 +131,7 @@ class Paths(QtGui.QMainWindow):
         
     ##----------------------------------------------------------------------
     #def update_comobox_theme(self):
-        #""""""
+        #
         #current_theme = QtGui.QIcon.themeName()
         #theme_dirs = QtGui.QIcon.themeSearchPaths()
         #self.all_themes = {}

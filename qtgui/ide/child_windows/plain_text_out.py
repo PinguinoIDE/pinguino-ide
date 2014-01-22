@@ -13,7 +13,7 @@ from ..code_editor.syntaxhighlighter import Highlighter
 
 ########################################################################
 class PlainOut(QtGui.QMainWindow):
-    """"""
+    
     def __init__(self, title):
         #QtGui.QMainWindow.__init__(self)
         super(PlainOut, self).__init__()
@@ -65,6 +65,6 @@ class PlainOut(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def show_text(self, text, pde=False):
-        """"""
+        
         if pde: Highlighter(self.plain_out.textEdit)
         self.plain_out.textEdit.setPlainText(text)

@@ -30,7 +30,7 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def __init__(self, ide):
-        """"""
+        
         self.main = ide.main
         self.ide = ide
         
@@ -84,7 +84,7 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def new_file(self, *args, **kwargs):
-        """"""
+        
         path = kwargs.get("filename", self.ide.__get_name__(ext=".gpde"))
         filename = os.path.split(path)[1]        
         
@@ -118,7 +118,7 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def tab_changed(self, *args, **kwargs):
-        """"""
+        
         self.main.tabWidget_graphical.setVisible(self.main.tabWidget_graphical.count() > 0)
         self.main.frame_logo.setVisible(not self.main.tabWidget_graphical.count() > 0)
         self.main.actionClose_file.setEnabled(self.main.tabWidget_graphical.count() > 0)
@@ -133,7 +133,7 @@ class GraphicalIDE:
 
     #----------------------------------------------------------------------
     def save_file(self, *args, **kwargs):
-        """"""
+        
         editor = kwargs.get("editor", None)
         if not editor: editor = self.ide.get_tab().currentWidget()
         index = self.ide.get_tab().indexOf(editor)
@@ -156,7 +156,7 @@ class GraphicalIDE:
 
     #----------------------------------------------------------------------
     def save_as(self, *args, **kwargs):
-        """"""
+        
         editor = kwargs.get("editor", None)
         if not editor: editor = self.ide.get_tab().currentWidget()
         index = self.ide.get_tab().indexOf(editor)
@@ -180,7 +180,7 @@ class GraphicalIDE:
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def get_pinguino_source_code(self):
-        """"""
+        
         editor = self.main.tabWidget_graphical.currentWidget()
         #editor.graphical_area.update_code()
         return editor.graphical_area.update_code()
@@ -188,7 +188,7 @@ class GraphicalIDE:
                 
     #----------------------------------------------------------------------
     def __save_file__(self, *args, **kwargs):
-        """"""
+        
         editor = kwargs.get("editor", self.ide.get_tab())
         content = self.get_gpde()
         self.save_raw_parser(content, editor.path)
@@ -197,7 +197,7 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def save_raw_parser(self, content, filename):
-        """"""
+        
         file_parser = RawConfigParser()
         count = 0
         for block in content:
@@ -211,7 +211,7 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def read_raw_parser(self, filename):
-        """"""
+        
         blocks_set = []
         
         file_parser = RawConfigParser()
@@ -238,7 +238,7 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def get_gpde(self):
-        """"""
+        
         editor = self.main.tabWidget_graphical.currentWidget()
         blocks = editor.graphical_area.get_project_blocks()
         
@@ -263,7 +263,7 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def sort_inside(self, block):
-        """"""
+        
         layout = block.metadata.object_.layout
         if layout is None: return []
         bloque = block.ARGS[2:]
@@ -294,13 +294,13 @@ class GraphicalIDE:
         
     ##----------------------------------------------------------------------
     #def force_inside(self, block, inside):
-        #""""""
+        #
         
         
       
     #----------------------------------------------------------------------
     def serialize_widgets(self, widgets):
-        """"""
+        
         ser = []
         for widget in widgets:
             name = widget.__str__()
@@ -315,7 +315,7 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def open_files(self, *args, **kwargs):
-        """"""
+        
         #filenames = Dialogs.set_open_file(self.ide, ".gpde")
         #for filename in filenames:
         
@@ -337,7 +337,7 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def load_blocks(self, set_blocks):
-        """"""
+        
         editor = self.main.tabWidget_graphical.currentWidget()
         editor.graphical_area.isOpening = True
         
@@ -405,7 +405,7 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def replace_id_by_widgets(self):
-        """"""
+        
         editor = self.main.tabWidget_graphical.currentWidget()
         for block in editor.graphical_area.get_project_blocks():
             block.metadata.to = map(self.get_widget_from_id, block.metadata.to)
@@ -415,7 +415,7 @@ class GraphicalIDE:
 
     #----------------------------------------------------------------------
     def get_widget_from_id(self, id_):
-        """"""
+        
         if type(id_) != type(""): return id_
         editor = self.main.tabWidget_graphical.currentWidget()
         blocks = editor.graphical_area.get_project_blocks()
@@ -439,7 +439,7 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def open_file_from_path(self, *args, **kwargs):
-        """"""
+        
         filename = kwargs["filename"]
 
         if self.ide.__check_duplicate_file__(filename): return
@@ -464,7 +464,7 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def save_as_pde(self):
-        """"""
+        
         editor = self.main.tabWidget_graphical.currentWidget()
         filename = editor.path.replace(".gpde", ".pde")
         file_pde = file(filename, "w")
@@ -479,7 +479,7 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def setup_bloques(self):
-        """"""
+        
         self.StartBlocks = all_sets.copy()
         self.allTabs = {}
         
@@ -497,7 +497,7 @@ class GraphicalIDE:
                 
     #----------------------------------------------------------------------
     def get_tab_set(self, tab_name):
-        """"""
+        
         tab_set = []
         for key in all_sets.keys():
             if all_sets[key][1] == tab_name:
@@ -507,7 +507,7 @@ class GraphicalIDE:
             
     #----------------------------------------------------------------------
     def get_block_tabs(self):
-        """"""
+        
         tabs = []
         for key in all_sets.keys(): tabs.append(all_sets[key][1])
         tabs = list(set(tabs))
@@ -517,7 +517,7 @@ class GraphicalIDE:
             
     #----------------------------------------------------------------------
     def build_block_tabs(self):
-        """"""
+        
         tabs = self.get_block_tabs()
         for tab in tabs:
             widget = QtGui.QWidget()
@@ -547,7 +547,7 @@ class GraphicalIDE:
             
     #----------------------------------------------------------------------
     def get_widget(self, tab_name):
-        """"""
+        
         for index in range(self.main.tabWidget_blocks.count()):
             if self.main.tabWidget_blocks.tabText(index) == tab_name:
                 widget = self.main.tabWidget_blocks.widget(index)
@@ -555,7 +555,7 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def add_blocks(self, tab, tab_set, count=0, side=0, ignore_jump=False):
-        """"""
+        
         widget = self.get_widget(tab)
         grid_layout = widget.grid_layout
         tool_area = widget.tool_area
@@ -578,14 +578,14 @@ class GraphicalIDE:
 
     #----------------------------------------------------------------------
     def add_group_blocks(self, name, new_set):
-        """"""
+        
         tab_set = self.get_tab_set(name)
         new_set = map(lambda x: [x[0], x[2]], new_set)
         self.add_blocks(name, tab_set + new_set)
                 
     #----------------------------------------------------------------------
     def clear_area(self, area):
-        """"""
+        
         widget = self.get_widget(area)
         
         for wid in widget.content_widgets:
@@ -688,17 +688,17 @@ class GraphicalIDE:
        
     #----------------------------------------------------------------------
     def get_tab(self):
-        """"""
+        
         return self.ide.get_tab()
        
     #----------------------------------------------------------------------
     def isActiveWindow(self):
-        """"""
+        
         return self.ide.isActiveWindow()
     
     #----------------------------------------------------------------------
     def is_graphical(self):
-        """"""
+        
         return self.ide.is_graphical()        
         
         
@@ -708,7 +708,7 @@ class GraphicalIDE:
     @Decorator.requiere_main_focus()
     @Decorator.requiere_graphical_mode()
     def constant_update(self):
-        """"""
+        
         editor = self.main.tabWidget_graphical.currentWidget()
         editor.graphical_area.constant_update()
         
@@ -719,7 +719,7 @@ class GraphicalIDE:
     @Decorator.requiere_main_focus()
     @Decorator.requiere_graphical_mode()
     def constant_auto_raise(self):
-        """"""
+        
         editor = self.main.tabWidget_graphical.currentWidget()
         if not editor.graphical_area.isDragging:
             editor.graphical_area.auto_raise()

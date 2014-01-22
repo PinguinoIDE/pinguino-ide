@@ -8,7 +8,7 @@ from PySide import QtGui, QtCore
 
 ########################################################################
 class BoardConfig(QtGui.QMainWindow):
-    """"""
+    
     def __init__(self, parent):
         super(BoardConfig, self).__init__()
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
@@ -37,21 +37,21 @@ class BoardConfig(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def terminate_config(self, *args):
-        """"""
+        
         self.main.configIDE.load_config()
         self.close()
         
         
     #----------------------------------------------------------------------
     def get_button(self, button):
-        """"""
+        
         if self.board_config.buttonBox.standardButton(button) == self.board_config.buttonBox.Ok: self.accept_config()
         elif  self.board_config.buttonBox.standardButton(button) == self.board_config.buttonBox.Cancel: self.terminate_config()
             
         
     #----------------------------------------------------------------------
     def accept_config(self):
-        """"""
+        
         self.save_config()
         self.main.configIDE.save_config()
         
@@ -62,7 +62,7 @@ class BoardConfig(QtGui.QMainWindow):
 
     #----------------------------------------------------------------------
     def centrar(self):
-        """"""
+        
         screen = QtGui.QDesktopWidget().screenGeometry()
         size =  self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
@@ -70,7 +70,7 @@ class BoardConfig(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def load_config(self):
-        """"""
+        
         self.main.configIDE.load_config()
         
         arch = self.main.configIDE.config("Board", "arch", 8)
@@ -90,7 +90,7 @@ class BoardConfig(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def save_config(self):
-        """"""
+        
         if self.board_config.radioButton_arch_8.isChecked(): arch = 8
         else: arch = 32
         self.main.configIDE.set("Board", "arch", arch)
@@ -109,7 +109,7 @@ class BoardConfig(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def update_mode(self):
-        """"""
+        
         mode_boot = self.board_config.radioButton_mode_bootloader.isChecked()
         arch_8 = self.board_config.radioButton_arch_8.isChecked()
         self.board_config.groupBox_bootloader.setVisible(mode_boot and arch_8)
@@ -121,7 +121,7 @@ class BoardConfig(QtGui.QMainWindow):
             
     #----------------------------------------------------------------------
     def update_arch(self):
-        """"""
+        
         arch_8 = self.board_config.radioButton_arch_8.isChecked()
         if arch_8:
             self.board_config.groupBox_devices_32.setVisible(False)
@@ -135,7 +135,7 @@ class BoardConfig(QtGui.QMainWindow):
             
     #----------------------------------------------------------------------
     def set_board_name(self, name, arch):
-        """"""
+        
         def dummy():
             self.main.configIDE.set("Board", "board_"+arch, name)
         return dummy
@@ -143,7 +143,7 @@ class BoardConfig(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def build_devices_arch(self):
-        """"""
+        
         
         #8bits
         name_checked = self.main.configIDE.config("Board", "board_8", "Pinguino 2550")

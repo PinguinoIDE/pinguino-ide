@@ -9,7 +9,7 @@ from cStringIO import StringIO
 
 ########################################################################
 class PythonShell(object):
-    """"""
+    
     #----------------------------------------------------------------------
     def __init__(self):
         """Constructor"""
@@ -21,7 +21,7 @@ class PythonShell(object):
         
     #----------------------------------------------------------------------
     def run(self, command):
-        """"""
+        
         log = StringIO()
         sys.stdout = log
         sys.stderr = log        
@@ -35,5 +35,5 @@ class PythonShell(object):
 
     #----------------------------------------------------------------------
     def restart(self):
-        """"""
+        
         self.__init__()

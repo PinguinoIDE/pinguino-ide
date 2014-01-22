@@ -11,17 +11,17 @@ from ..ide.helpers.constants import NAME
 
 ########################################################################
 class Pinguino(PinguinoTools):
-    """"""
+    
     
     #----------------------------------------------------------------------
     def __init__(self):
-        """"""
+        
         super(Pinguino, self).__init__()
         
         
     #----------------------------------------------------------------------
     def compile_file(self, file_name):
-        """"""
+        
         if os.path.isfile(file_name):
             data = self.verify(file_name)
             self.__compiled__ = data["verified"]
@@ -31,7 +31,7 @@ class Pinguino(PinguinoTools):
         
     #----------------------------------------------------------------------
     def upload(self):
-        """"""
+        
         data = self.__upload__()
         data = "\n".join(data)
         if data.find("Pinguino not found") != -1 or data.find("Error") != -1:
@@ -41,7 +41,7 @@ class Pinguino(PinguinoTools):
         
     #----------------------------------------------------------------------
     def set_bootloader(self, boot):
-        """"""
+        
         if self.__current_board__.arch == 8:
             self.__current_board__.bldr = boot[0]
             self.__current_board__.memstart = boot[1]
@@ -50,12 +50,12 @@ class Pinguino(PinguinoTools):
             
     #----------------------------------------------------------------------
     def compiled(self):
-        """"""
+        
         return self.__compiled__
        
     #----------------------------------------------------------------------
     def get_errors(self):
-        """"""
+        
         errors = {}
         errors["preprocess"] = self.__data__["preprocess"]
         errors["compiling"] = self.__data__["compiling"]
@@ -64,7 +64,7 @@ class Pinguino(PinguinoTools):
     
     #----------------------------------------------------------------------
     def get_errors_preprocess(self):
-        """"""
+        
         errors = self.__data__["preprocess"]
         if not errors: return None
 
@@ -74,7 +74,7 @@ class Pinguino(PinguinoTools):
     
     #----------------------------------------------------------------------
     def get_errors_linking(self):
-        """"""
+        
         errors = self.__data__["linking"]
         if not errors: return None
 
@@ -85,7 +85,7 @@ class Pinguino(PinguinoTools):
         
     #----------------------------------------------------------------------
     def get_errors_compiling_c(self):
-        """"""
+        
         errors = self.__data__["compiling"]["c"]
         if not errors: return None
         
@@ -102,7 +102,7 @@ class Pinguino(PinguinoTools):
     
     #----------------------------------------------------------------------
     def get_errors_compiling_asm(self):
-        """"""
+        
         errors = self.__data__["compiling"]["asm"]
         if not errors: return None
         
@@ -112,7 +112,7 @@ class Pinguino(PinguinoTools):
     
     #----------------------------------------------------------------------
     def get_result(self):
-        """"""
+        
         assert self.__compiled__
         result = {}
         result["time"] = self.__data__["time"]
@@ -122,7 +122,7 @@ class Pinguino(PinguinoTools):
         
     #----------------------------------------------------------------------
     def get_hex(self):
-        """"""
+        
         assert self.__compiled__
         hex_file = file(self.__data__["hex_file"], "r")
         content = hex_file.readlines()
@@ -131,7 +131,7 @@ class Pinguino(PinguinoTools):
     
     #----------------------------------------------------------------------
     def build_argparse(self):
-        """"""
+        
         parser = argparse.ArgumentParser(description="*** %s ***"%NAME)
         parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%NAME)
         parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%NAME)

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/select_area.ui'
 #
-# Created: Mon Jan 20 06:09:32 2014
+# Created: Wed Jan 22 12:27:11 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,11 +12,11 @@ from PySide import QtCore, QtGui
 class Ui_Selection(object):
     def setupUi(self, Selection):
         Selection.setObjectName("Selection")
-        Selection.resize(223, 182)
-        Selection.setWindowTitle("Form")
+        Selection.resize(360, 145)
+        Selection.setWindowTitle("SelectArea")
         self.gridLayout = QtGui.QGridLayout(Selection)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.border_w = QtGui.QFrame(Selection)
         self.border_w.setMinimumSize(QtCore.QSize(1, 0))

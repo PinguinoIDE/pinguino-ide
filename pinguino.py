@@ -18,16 +18,16 @@ from PySide import QtCore
 locale = QtCore.QLocale.system().name()
 translator = QtCore.QTranslator()
 
-translations_path = os.path.abspath("translations")
+translations_path = os.path.abspath("multilanguage")
 translations_file = "pinguino_" + locale
 
 if translations_file in os.listdir(translations_path):
-    translator.load(os.path.join(os.path.abspath("translations", "pinguino_" + locale)))
+    translator.load(os.path.join(os.path.abspath("multilanguage", "pinguino_" + locale)))
     
 elif "_" in locale:
     locale = locale[:locale.find("_")]
     if translations_file in os.listdir(translations_path):
-        translator.load(os.path.join(os.path.abspath("translations", "pinguino_" + locale)))
+        translator.load(os.path.join(os.path.abspath("multilanguage", "pinguino_" + locale)))
 
 #load intern dialogs translations
 qtTranslator = QtCore.QTranslator()

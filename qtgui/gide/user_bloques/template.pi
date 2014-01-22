@@ -8,7 +8,7 @@ from py_blocks.constructor import *
 class KitBlocks():
     
     def __init__(self):
-        """"""
+        
 
     #----------------------------------------------------------------------
     def myBlock1(self):

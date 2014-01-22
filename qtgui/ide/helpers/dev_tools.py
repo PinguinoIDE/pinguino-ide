@@ -9,11 +9,11 @@ from .config import Config
 
 ########################################################################
 class DevTools(object):
-    """"""
+    
     
     #----------------------------------------------------------------------
     def __get_pinguino_namespaces__(self, arch):
-        """"""
+        
         namespaces = []
         
         self.config = Config()
@@ -55,7 +55,7 @@ class DevTools(object):
 
     #----------------------------------------------------------------------
     def update_reserved_words(self):
-        """"""
+        
         name_spaces_8 = self.__get_pinguino_namespaces__("8")
         name_spaces_32 = self.__get_pinguino_namespaces__("32")
         

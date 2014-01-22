@@ -11,11 +11,11 @@ from ...gide.app.graphical import GraphicalIDE
 
 ########################################################################
 class PinguinoFeatures(PinguinoEvents):
-    """"""
+    
 
     #----------------------------------------------------------------------
     def __initialize_features__(self):
-        """"""
+        
         self.PinguinoKIT = GraphicalIDE(self)
         self.__preconfig_kit__()
         
@@ -35,19 +35,19 @@ class PinguinoFeatures(PinguinoEvents):
         
     ##----------------------------------------------------------------------
     #def load_theme(self):
-        #""""""
+        #
         #QIcon.setThemeName(self.configIDE.config("THEME", "theme_name", QIcon.themeName()))
         
         
     #----------------------------------------------------------------------
     def __preconfig_kit__(self):
-        """"""
+        
         self.main.tabWidget_graphical.setVisible(False)
         self.main.dockWidget_blocks.setVisible(False)        
         
     #----------------------------------------------------------------------
     def switch_ide_mode(self, graphical):
-        """"""
+        
         self.main.actionSwitch_ide.setChecked(graphical)
         self.main.tabWidget_graphical.setVisible(graphical and self.main.tabWidget_graphical.count()>0)
         self.main.tabWidget_files.setVisible(not graphical and self.main.tabWidget_files.count()>0)
@@ -62,12 +62,12 @@ class PinguinoFeatures(PinguinoEvents):
         
     #----------------------------------------------------------------------
     def is_graphical(self):
-        """"""
+        
         return self.main.actionSwitch_ide.isChecked()
     
     #----------------------------------------------------------------------
     def is_widget(self):
-        """"""
+        
         tab = self.get_tab()
         editor = tab.currentWidget()
         if editor is None: return False
@@ -75,12 +75,12 @@ class PinguinoFeatures(PinguinoEvents):
     
     #----------------------------------------------------------------------
     def is_autocomplete_enable(self):
-        """"""
+        
         return self.main.actionAutocomplete.isChecked()
     
     #----------------------------------------------------------------------
     def switch_autocomplete(self):
-        """"""
+        
         enable = self.main.actionAutocomplete.isChecked()
         self.configIDE.set("Features", "autocomplete", enable)
         self.configIDE.save_config()        
@@ -88,7 +88,7 @@ class PinguinoFeatures(PinguinoEvents):
         
     #----------------------------------------------------------------------
     def update_actions_for_text(self):
-        """"""
+        
         normal = False
         
         self.main.actionView_Pinguino_code.setEnabled(normal)   
@@ -116,7 +116,7 @@ class PinguinoFeatures(PinguinoEvents):
         
     #----------------------------------------------------------------------
     def update_actions_for_graphical(self):
-        """"""
+        
         normal = True
         
         self.main.actionView_Pinguino_code.setEnabled(normal)   

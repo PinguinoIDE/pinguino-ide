@@ -8,7 +8,7 @@ from .timer_methods import TimerMethods
 
 ########################################################################
 class PinguinoEvents(EventMethods, TimerMethods):
-    """"""
+
     
     #----------------------------------------------------------------------
     def connect_events(self):

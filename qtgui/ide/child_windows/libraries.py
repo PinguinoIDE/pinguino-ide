@@ -18,7 +18,7 @@ from ..repositories.git_repo import GitRepo
 
 ########################################################################
 class LibManager(QtGui.QMainWindow):
-    """"""
+    
     def __init__(self, IDE):
         super(LibManager, self).__init__()
         
@@ -70,14 +70,14 @@ class LibManager(QtGui.QMainWindow):
 
     #----------------------------------------------------------------------
     def close_manager(self):
-        """"""
+        
         self.ConfigLibs.save_config()
         self.close()
         
         
     #----------------------------------------------------------------------
     def add_source(self, source=None):
-        """"""
+        
         if not source:
             source = self.libframe.lineEdit_source.text()
             if source == self.default_line_edit_source: return
@@ -125,7 +125,7 @@ class LibManager(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def update_sources_view(self):
-        """"""
+        
         sources = self.ConfigLibs.get_all_sources()
         
         index = 0
@@ -160,7 +160,7 @@ class LibManager(QtGui.QMainWindow):
             
     #----------------------------------------------------------------------
     def update_libraries_view(self):
-        """"""
+        
         self.ConfigLibs.save_config()
         self.ConfigLibs.load_config()
         sources = self.ConfigLibs.get_all_sources()
@@ -213,7 +213,7 @@ class LibManager(QtGui.QMainWindow):
 
     #----------------------------------------------------------------------
     def get_name_from_source(self, source):
-        """"""
+        
         match = re.match(".*/([\w-]*)(.git)", source)
         
         if match:
@@ -227,7 +227,7 @@ class LibManager(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def handleItemClicked_source(self, item):
-        """"""
+        
         for index in range(self.libframe.tableWidget_sources.rowCount()):
             if self.libframe.tableWidget_sources.item(index, 0).checkState() == QtCore.Qt.Checked:
                 self.libframe.pushButton_update.setEnabled(True)
@@ -237,14 +237,14 @@ class LibManager(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def handleItemClicked_libs(self, item):
-        """"""
+        
         self.libframe.pushButton_apply.setEnabled(True)
         
         
         
     #----------------------------------------------------------------------
     def update_instaled_libraries(self):
-        """"""
+        
         self.setCursor(QtCore.Qt.WaitCursor)
         
         sources = self.ConfigLibs.get_all_sources()
@@ -295,7 +295,7 @@ class LibManager(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def update_lib_config(self, lib):
-        """"""
+        
         lib_data = RawConfigParser()
         filename = os.path.join(self.user_libraries_dir, lib, "lib", "PINGUINO")
 
@@ -318,7 +318,7 @@ class LibManager(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def update_changes_install_libs(self):
-        """"""
+        
         selected = []
         for index in range(self.libframe.tableWidget_libs.rowCount()):
             selected.append((self.libframe.tableWidget_libs.item(index, 0).text(), self.libframe.tableWidget_libs.item(index, 0).checkState() == QtCore.Qt.Checked))

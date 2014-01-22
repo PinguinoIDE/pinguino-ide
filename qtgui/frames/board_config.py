@@ -2,21 +2,22 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/board_config.ui'
 #
-# Created: Mon Jan 20 06:09:34 2014
+# Created: Wed Jan 22 12:27:08 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(342, 272)
+class Ui_BoardConfig(object):
+    def setupUi(self, BoardConfig):
+        BoardConfig.setObjectName("BoardConfig")
+        BoardConfig.resize(342, 272)
+        BoardConfig.setWindowTitle("Board Config")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
-        self.centralwidget = QtGui.QWidget(MainWindow)
+        BoardConfig.setWindowIcon(icon)
+        self.centralwidget = QtGui.QWidget(BoardConfig)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_5 = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout_5.setObjectName("gridLayout_5")
@@ -41,9 +42,11 @@ class Ui_MainWindow(object):
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.radioButton_bootloader_v1_v2 = QtGui.QRadioButton(self.groupBox_bootloader)
+        self.radioButton_bootloader_v1_v2.setText("v1.x or v2.x")
         self.radioButton_bootloader_v1_v2.setObjectName("radioButton_bootloader_v1_v2")
         self.gridLayout_3.addWidget(self.radioButton_bootloader_v1_v2, 0, 0, 1, 1)
         self.radioButton_bootloader_v4 = QtGui.QRadioButton(self.groupBox_bootloader)
+        self.radioButton_bootloader_v4.setText("v4.x")
         self.radioButton_bootloader_v4.setObjectName("radioButton_bootloader_v4")
         self.gridLayout_3.addWidget(self.radioButton_bootloader_v4, 0, 1, 1, 1)
         self.gridLayout_5.addWidget(self.groupBox_bootloader, 2, 0, 1, 2)
@@ -82,6 +85,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.radioButton_mode_icsp = QtGui.QRadioButton(self.groupBox_mode)
+        self.radioButton_mode_icsp.setText("ICSP")
         self.radioButton_mode_icsp.setObjectName("radioButton_mode_icsp")
         self.gridLayout_2.addWidget(self.radioButton_mode_icsp, 0, 0, 1, 1)
         self.radioButton_mode_bootloader = QtGui.QRadioButton(self.groupBox_mode)
@@ -90,24 +94,20 @@ class Ui_MainWindow(object):
         self.gridLayout_5.addWidget(self.groupBox_mode, 1, 0, 1, 2)
         spacerItem = QtGui.QSpacerItem(318, 2, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_5.addItem(spacerItem, 6, 0, 1, 1)
-        MainWindow.setCentralWidget(self.centralwidget)
+        BoardConfig.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(BoardConfig)
+        QtCore.QMetaObject.connectSlotsByName(BoardConfig)
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Board config", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_arch.setTitle(QtGui.QApplication.translate("MainWindow", "Architecture", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_arch_8.setText(QtGui.QApplication.translate("MainWindow", "8-bit", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_arch_32.setText(QtGui.QApplication.translate("MainWindow", "32-bit", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_bootloader.setTitle(QtGui.QApplication.translate("MainWindow", "Bootloader", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_bootloader_v1_v2.setText(QtGui.QApplication.translate("MainWindow", "v1.x or v2.x", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_bootloader_v4.setText(QtGui.QApplication.translate("MainWindow", "v4.x", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_devices_8.setTitle(QtGui.QApplication.translate("MainWindow", "Devices", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_warning.setText(QtGui.QApplication.translate("MainWindow", "warning!", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_devices_32.setTitle(QtGui.QApplication.translate("MainWindow", "Devices", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_mode.setTitle(QtGui.QApplication.translate("MainWindow", "Progamming Mode", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_mode_icsp.setText(QtGui.QApplication.translate("MainWindow", "ICSP", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_mode_bootloader.setText(QtGui.QApplication.translate("MainWindow", "USB Bootloader", None, QtGui.QApplication.UnicodeUTF8))
+    def retranslateUi(self, BoardConfig):
+        self.groupBox_arch.setTitle(QtGui.QApplication.translate("BoardConfig", "Architecture", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioButton_arch_8.setText(QtGui.QApplication.translate("BoardConfig", "8-bit", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioButton_arch_32.setText(QtGui.QApplication.translate("BoardConfig", "32-bit", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_bootloader.setTitle(QtGui.QApplication.translate("BoardConfig", "Bootloader", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_devices_8.setTitle(QtGui.QApplication.translate("BoardConfig", "Devices", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_warning.setText(QtGui.QApplication.translate("BoardConfig", "warning!", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_devices_32.setTitle(QtGui.QApplication.translate("BoardConfig", "Devices", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_mode.setTitle(QtGui.QApplication.translate("BoardConfig", "Progamming Mode", None, QtGui.QApplication.UnicodeUTF8))
+        self.radioButton_mode_bootloader.setText(QtGui.QApplication.translate("BoardConfig", "USB Bootloader", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

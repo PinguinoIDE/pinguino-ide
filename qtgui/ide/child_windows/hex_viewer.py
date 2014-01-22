@@ -12,7 +12,7 @@ from ...frames.hex_viewer_widget import Ui_HexViewer
 
 ########################################################################
 class HexViewer(QtGui.QMainWindow):
-    """"""
+    
     def __init__(self, parent, file_path):
         #QtGui.QMainWindow.__init__(self)
         super(HexViewer, self).__init__()
@@ -45,7 +45,7 @@ class HexViewer(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def save_changes(self):
-        """"""
+        
         new_hex = IntelHex()
         new_hex.fromdict(self.get_table_dict())
         
@@ -59,7 +59,7 @@ class HexViewer(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def get_table_dict(self):
-        """"""
+        
         dict_ = {}
         rows = self.hex_viewer.tableWidget_viewer.rowCount()
         
@@ -78,7 +78,7 @@ class HexViewer(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def update_viewer(self, format_=None):
-        """"""
+        
         hex_dict = self.hex_obj.todict()
         rows = int(ceil(max(hex_dict.keys()) / float(0x18)))
         self.hex_viewer.tableWidget_viewer.setRowCount(rows)
@@ -117,7 +117,7 @@ class HexViewer(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def update_width(self):
-        """"""
+        
         value = self.hex_viewer.tableWidget_viewer.item(0, 0).text()
         self.hex_viewer.tableWidget_viewer.horizontalHeader().setDefaultSectionSize(len(value)*12)
         self.hex_viewer.tableWidget_viewer.verticalHeader().setDefaultSectionSize(20)
@@ -125,7 +125,7 @@ class HexViewer(QtGui.QMainWindow):
                 
     #----------------------------------------------------------------------
     def get_representation(self, value, format_):
-        """"""
+        
         if value is None:
             value = 255
         
@@ -148,7 +148,7 @@ class HexViewer(QtGui.QMainWindow):
     
     #----------------------------------------------------------------------
     def get_dec_item(self, value):
-        """"""
+        
         value = value.replace(" ", "")
         if not value: return None
             

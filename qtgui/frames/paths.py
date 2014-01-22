@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/paths.ui'
 #
-# Created: Mon Jan 20 06:09:31 2014
+# Created: Wed Jan 22 12:27:07 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -83,12 +83,12 @@ class Ui_Paths(object):
 
     def retranslateUi(self, Paths):
         Paths.setWindowTitle(QtGui.QApplication.translate("Paths", "Pinguino Paths", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox.setTitle(QtGui.QApplication.translate("Paths", "8bit", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox.setTitle(QtGui.QApplication.translate("Paths", "8-bit", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_sdcc_bin.setText(QtGui.QApplication.translate("Paths", "Change...", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("Paths", "SDCC compiler:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("Paths", "Libraries:", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_pinguino_8_libs.setText(QtGui.QApplication.translate("Paths", "Change...", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_2.setTitle(QtGui.QApplication.translate("Paths", "32bit", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_2.setTitle(QtGui.QApplication.translate("Paths", "32-bit", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_gcc_bin.setText(QtGui.QApplication.translate("Paths", "Change...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Paths", "GCC compiler:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("Paths", "Libraries:", None, QtGui.QApplication.UnicodeUTF8))

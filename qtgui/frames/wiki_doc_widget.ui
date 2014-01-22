@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Wiki docs</string>
+   <string notr="true">Wiki docs</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -25,7 +25,7 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Wiki docs</string>
+        <string>Libraries</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
         <property name="leftMargin">

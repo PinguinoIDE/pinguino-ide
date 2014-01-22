@@ -2,21 +2,22 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/stdout.ui'
 #
-# Created: Mon Jan 20 06:09:32 2014
+# Created: Wed Jan 22 12:27:11 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PySide import QtCore, QtGui
 
-class Ui_Stdout(object):
-    def setupUi(self, Stdout):
-        Stdout.setObjectName("Stdout")
-        Stdout.resize(606, 432)
+class Ui_PlainOut(object):
+    def setupUi(self, PlainOut):
+        PlainOut.setObjectName("PlainOut")
+        PlainOut.resize(606, 432)
+        PlainOut.setWindowTitle("Plain Out")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        Stdout.setWindowIcon(icon)
-        self.centralwidget = QtGui.QWidget(Stdout)
+        PlainOut.setWindowIcon(icon)
+        self.centralwidget = QtGui.QWidget(PlainOut)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
@@ -28,12 +29,12 @@ class Ui_Stdout(object):
         self.textEdit.setReadOnly(True)
         self.textEdit.setObjectName("textEdit")
         self.gridLayout.addWidget(self.textEdit, 1, 0, 1, 1)
-        Stdout.setCentralWidget(self.centralwidget)
+        PlainOut.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(Stdout)
-        QtCore.QMetaObject.connectSlotsByName(Stdout)
+        self.retranslateUi(PlainOut)
+        QtCore.QMetaObject.connectSlotsByName(PlainOut)
 
-    def retranslateUi(self, Stdout):
-        Stdout.setWindowTitle(QtGui.QApplication.translate("Stdout", "Stdout", None, QtGui.QApplication.UnicodeUTF8))
+    def retranslateUi(self, PlainOut):
+        pass
 
 import resources_rc

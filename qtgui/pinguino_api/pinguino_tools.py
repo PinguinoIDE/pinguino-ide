@@ -46,7 +46,7 @@ class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def __init__(self):
-        """"""
+        
         self.set_os_variables()
         
         self.NoBoot = ("noboot", 0)
@@ -95,23 +95,23 @@ class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def set_board(self, board):
-        """"""
+        
         self.__current_board__ = board
         #self.get_regobject_libinstructions(board.arch)
         
     #----------------------------------------------------------------------
     def get_board(self):
-        """"""
+        
         return self.__current_board__
     
     #----------------------------------------------------------------------
     def get_filename(self):
-        """"""
+        
         return self.__filename__
 
     #----------------------------------------------------------------------
     def get_hex_file(self):
-        """"""
+        
         return self.__hex_file__
         
 
@@ -714,7 +714,7 @@ class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def get_code_size(self):
-        """"""
+        
         board = self.get_board()
         filename = self.get_hex_file()
         

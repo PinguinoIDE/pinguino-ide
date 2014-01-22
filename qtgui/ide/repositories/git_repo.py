@@ -11,11 +11,10 @@ from ..helpers.config_libs import ConfigLibsGroup
 
 ########################################################################
 class GitRepo(object):
-    """"""
+    
 
-    #----------------------------------------------------------------------
-    def __init__(self):
-        """"""
+    ##----------------------------------------------------------------------
+    #def __init__(self):
         #super(GitRepo, self).__init__()
         
         
@@ -23,7 +22,7 @@ class GitRepo(object):
     #----------------------------------------------------------------------
     @classmethod
     def install_library(self, lib):
-        """"""
+        
         name = lib
         config = ConfigLibsGroup()        
         lib = config.get_all_sources()[lib]
@@ -35,7 +34,7 @@ class GitRepo(object):
     #----------------------------------------------------------------------
     @classmethod
     def update_library(self, lib):
-        """"""
+        
         name = lib
         config = ConfigLibsGroup()        
         lib = config.get_all_sources()[lib]
@@ -50,7 +49,7 @@ class GitRepo(object):
     #----------------------------------------------------------------------
     @classmethod
     def check_library(self, lib):
-        """"""
+        
         name = lib
         config = ConfigLibsGroup()       
         lib = config.get_all_sources()[lib]

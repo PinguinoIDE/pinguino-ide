@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>968</width>
+    <width>1088</width>
     <height>636</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Pinguino 11</string>
+   <string notr="true">Pinguino 11</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/resources.qrc">
@@ -120,6 +120,14 @@
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1088</width>
+     <height>20</height>
+    </rect>
+   </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
@@ -167,7 +175,7 @@
    </widget>
    <widget class="QMenu" name="menuPinguino">
     <property name="title">
-     <string>Pinguino</string>
+     <string notr="true">Pinguino</string>
     </property>
     <addaction name="actionLibrary_manager"/>
     <addaction name="actionSet_paths"/>
@@ -263,7 +271,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_5">
         <attribute name="title">
@@ -320,7 +328,7 @@
            <item>
             <widget class="QLabel" name="label_path">
              <property name="text">
-              <string>../</string>
+              <string notr="true">../</string>
              </property>
              <property name="margin">
               <number>0</number>
@@ -355,7 +363,7 @@
             <enum>QTabWidget::South</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="tab_7">
             <attribute name="title">
@@ -561,12 +569,12 @@
                </attribute>
                <column>
                 <property name="text">
-                 <string>type</string>
+                 <string>Type</string>
                 </property>
                </column>
                <column>
                 <property name="text">
-                 <string>value</string>
+                 <string>Value</string>
                 </property>
                </column>
                <column>
@@ -920,7 +928,7 @@
         <enum>QTabWidget::South</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -967,7 +975,7 @@
            <item>
             <widget class="QLabel" name="label_pathg">
              <property name="text">
-              <string>../</string>
+              <string notr="true">../</string>
              </property>
              <property name="margin">
               <number>0</number>

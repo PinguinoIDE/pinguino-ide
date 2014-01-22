@@ -15,7 +15,7 @@ from .constructor import Constructor, FONT_SIZE, changeFontSize
 
 #----------------------------------------------------------------------
 def setPartOfBlock(blocks):
-    """"""
+    
     for block in blocks:
         block.setObjectName("Block")
         block.setCursor(QtCore.Qt.OpenHandCursor) 
@@ -23,7 +23,7 @@ def setPartOfBlock(blocks):
    
 ########################################################################
 class Properties(object):
-    """"""
+    
     #----------------------------------------------------------------------
     def build_menu(self, event):
         
@@ -125,7 +125,7 @@ class BlockLinear(Constructor, Properties):
     
     
     def __str__(self):
-        """"""
+        
         return "BlockLinear"
 
     #----------------------------------------------------------------------
@@ -171,7 +171,7 @@ class BlockLinear(Constructor, Properties):
         
     ##----------------------------------------------------------------------
     #def resizeAll(self, factor):
-        #""""""
+        #
         #self.delay.widget
         #self.delay.frame_3
         
@@ -182,11 +182,11 @@ class BlockLinear(Constructor, Properties):
         
     #----------------------------------------------------------------------
     def removeParent(self):
-        """"""
+        pass
 
     #----------------------------------------------------------------------
     def addParent(self, widget, force=False):
-        """"""
+        pass
 
 
         
@@ -268,15 +268,15 @@ class BlockFunction(Constructor, Properties):
         
     #----------------------------------------------------------------------
     def addParent(self, widget, force=False):
-        """"""
+        pass
         
     #----------------------------------------------------------------------
     def removeParent(self):
-        """"""
+        pass
         
     #----------------------------------------------------------------------
     def updatePoints(self):
-        """"""
+        
         poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
         self.toType["tipo5"] = poits
         
@@ -291,7 +291,7 @@ class BlockFunction(Constructor, Properties):
         
     #----------------------------------------------------------------------
     def addSubs(self, widget):
-        """"""
+        
         widgetMove = widget[1]
         self.widgetMove = widgetMove
         WidgetStatic = widget[0]
@@ -428,11 +428,11 @@ class BlockNested(Constructor, Properties):
         
     ##----------------------------------------------------------------------
     #def getLine(self):
-        #""""""
+        #
 
     #----------------------------------------------------------------------
     def addSubs(self, widget):
-        """"""
+        
         widgetMove = widget[1]
         self.widgetMove = widgetMove
         WidgetStatic = widget[0]
@@ -465,15 +465,15 @@ class BlockNested(Constructor, Properties):
         
     #----------------------------------------------------------------------
     def addParent(self, widget, force=False):
-        """"""
+        pass
         
     #----------------------------------------------------------------------
     def removeParent(self):
-        """"""
+        pass
         
     #----------------------------------------------------------------------
     def updatePoints(self):
-        """"""
+        
         poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
         self.toType["tipo5"] = poits
         
@@ -552,14 +552,14 @@ class BlockSpace(Constructor, Properties):
         
         
     def updateSize(self):
-        """"""
+        
         if self.w_parent != None:
             self.w_parent.adjustSize()
         
         
     ##----------------------------------------------------------------------
     #def getLine(self):
-        #""""""
+        #
 
 
 
@@ -621,14 +621,14 @@ class BlockSpaceBool(Constructor, Properties):
         
         
     def updateSize(self):
-        """"""
+        
         if self.w_parent != None:
             self.w_parent.adjustSize()
         
         
     ##----------------------------------------------------------------------
     #def getLine(self):
-        #""""""
+        #
 
 
 
@@ -694,11 +694,11 @@ class BlockNestedSecond(Constructor, Properties):
         
     ##----------------------------------------------------------------------
     #def getLine(self):
-        #""""""
+        #
 
     #----------------------------------------------------------------------
     def addSubs(self, widget):
-        """"""
+        
         widgetMove = widget[1]
         self.widgetMove = widgetMove
         WidgetStatic = widget[0]
@@ -735,15 +735,15 @@ class BlockNestedSecond(Constructor, Properties):
         
     #----------------------------------------------------------------------
     def addParent(self, widget, force=False):
-        """"""
+        pass
         
     #----------------------------------------------------------------------
     def removeParent(self):
-        """"""
+        pass
         
     #----------------------------------------------------------------------
     def updatePoints(self):
-        """"""
+        
         poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
         self.toType["tipo5"] = poits
         
@@ -992,7 +992,7 @@ class BlockFrameEdit(Constructor, Properties):
         
     ##----------------------------------------------------------------------
     #def addPlot(self, value):
-        #""""""
+        #
         #self.valores_plot = self.valores_plot[1:]
         #self.valores_plot.append(value)
         #table = DataTable()
@@ -1112,7 +1112,7 @@ class BlockFrameEdit(Constructor, Properties):
         
     ##----------------------------------------------------------------------
     #def addDebug(self, value):
-        #""""""
+        #
         #self.NestSec.plainTextEdit.insertPlainText(str(value))
         #cursor = self.NestSec.plainTextEdit.textCursor()
         #cursor.movePosition(cursor.End)

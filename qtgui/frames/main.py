@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Mon Jan 20 06:09:35 2014
+# Created: Wed Jan 22 12:27:02 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,8 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(968, 636)
+        PinguinoIDE.resize(1088, 636)
+        PinguinoIDE.setWindowTitle("Pinguino 11")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         PinguinoIDE.setWindowIcon(icon)
@@ -54,7 +55,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 968, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 20))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -65,6 +66,7 @@ class Ui_PinguinoIDE(object):
         self.menuView = QtGui.QMenu(self.menubar)
         self.menuView.setObjectName("menuView")
         self.menuPinguino = QtGui.QMenu(self.menubar)
+        self.menuPinguino.setTitle("Pinguino")
         self.menuPinguino.setObjectName("menuPinguino")
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
@@ -108,6 +110,7 @@ class Ui_PinguinoIDE(object):
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label_path = QtGui.QLabel(self.tab_5)
+        self.label_path.setText("../")
         self.label_path.setMargin(0)
         self.label_path.setIndent(27)
         self.label_path.setObjectName("label_path")
@@ -342,6 +345,7 @@ class Ui_PinguinoIDE(object):
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label_pathg = QtGui.QLabel(self.tab_2)
+        self.label_pathg.setText("../")
         self.label_pathg.setMargin(0)
         self.label_pathg.setIndent(27)
         self.label_pathg.setObjectName("label_pathg")
@@ -478,8 +482,8 @@ class Ui_PinguinoIDE(object):
         self.actionSwitch_ide = QtGui.QAction(PinguinoIDE)
         self.actionSwitch_ide.setCheckable(True)
         icon16 = QtGui.QIcon()
-        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionSwitch_ide.setIcon(icon16)
         self.actionSwitch_ide.setObjectName("actionSwitch_ide")
         self.actionSave_image = QtGui.QAction(PinguinoIDE)
@@ -625,9 +629,9 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(1)
-        self.tabWidget_browser.setCurrentIndex(1)
-        self.tabWidget_blocks_tools.setCurrentIndex(0)
+        self.tabWidget_tools.setCurrentIndex(0)
+        self.tabWidget_browser.setCurrentIndex(2)
+        self.tabWidget_blocks_tools.setCurrentIndex(1)
         self.tabWidget_blocks.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)
         PinguinoIDE.setTabOrder(self.tabWidget_files, self.tabWidget_tools)
@@ -646,12 +650,10 @@ class Ui_PinguinoIDE(object):
         PinguinoIDE.setTabOrder(self.pushButton_replace, self.pushButton_replace_all)
 
     def retranslateUi(self, PinguinoIDE):
-        PinguinoIDE.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Pinguino 11", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("PinguinoIDE", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuRecents.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Recents", None, QtGui.QApplication.UnicodeUTF8))
         self.menuEdit.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.menuView.setTitle(QtGui.QApplication.translate("PinguinoIDE", "View", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuPinguino.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Pinguino", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Help", None, QtGui.QApplication.UnicodeUTF8))
         self.menuLinks.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Links", None, QtGui.QApplication.UnicodeUTF8))
         self.menuSource.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Source", None, QtGui.QApplication.UnicodeUTF8))
@@ -662,7 +664,6 @@ class Ui_PinguinoIDE(object):
         self.comboBox_files.setItemText(1, QtGui.QApplication.translate("PinguinoIDE", "Current file dir", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(2, QtGui.QApplication.translate("PinguinoIDE", "Home", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(3, QtGui.QApplication.translate("PinguinoIDE", "Other...", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_path.setText(QtGui.QApplication.translate("PinguinoIDE", "../", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.tab_5), QtGui.QApplication.translate("PinguinoIDE", "Files", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_variables.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("PinguinoIDE", "Type", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_variables.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("PinguinoIDE", "Line", None, QtGui.QApplication.UnicodeUTF8))
@@ -671,8 +672,8 @@ class Ui_PinguinoIDE(object):
         self.tableWidget_functions.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("PinguinoIDE", "Args", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_functions.horizontalHeaderItem(2).setText(QtGui.QApplication.translate("PinguinoIDE", "Line", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_browser.setTabText(self.tabWidget_browser.indexOf(self.tab_6), QtGui.QApplication.translate("PinguinoIDE", "Functions", None, QtGui.QApplication.UnicodeUTF8))
-        self.tableWidget_directives.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("PinguinoIDE", "type", None, QtGui.QApplication.UnicodeUTF8))
-        self.tableWidget_directives.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("PinguinoIDE", "value", None, QtGui.QApplication.UnicodeUTF8))
+        self.tableWidget_directives.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("PinguinoIDE", "Type", None, QtGui.QApplication.UnicodeUTF8))
+        self.tableWidget_directives.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("PinguinoIDE", "Value", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_directives.horizontalHeaderItem(2).setText(QtGui.QApplication.translate("PinguinoIDE", "Line", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_browser.setTabText(self.tabWidget_browser.indexOf(self.tab_8), QtGui.QApplication.translate("PinguinoIDE", "Directives", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.tab_3), QtGui.QApplication.translate("PinguinoIDE", "Source Browser", None, QtGui.QApplication.UnicodeUTF8))
@@ -692,14 +693,12 @@ class Ui_PinguinoIDE(object):
         self.toolBar_pinguino.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Pinguino", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_blocks.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Blocks", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_blocks_tools.setTabText(self.tabWidget_blocks_tools.indexOf(self.tab), QtGui.QApplication.translate("PinguinoIDE", "Blocks", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_pathg.setText(QtGui.QApplication.translate("PinguinoIDE", "../", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_filesg.setItemText(0, QtGui.QApplication.translate("PinguinoIDE", "Examples", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_filesg.setItemText(1, QtGui.QApplication.translate("PinguinoIDE", "Current file dir", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_filesg.setItemText(2, QtGui.QApplication.translate("PinguinoIDE", "Home", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_filesg.setItemText(3, QtGui.QApplication.translate("PinguinoIDE", "Other...", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_blocks_tools.setTabText(self.tabWidget_blocks_tools.indexOf(self.tab_2), QtGui.QApplication.translate("PinguinoIDE", "Files", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_graphical.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical mode", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolBar_switch.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Mode", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New file", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+N", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Open file", None, QtGui.QApplication.UnicodeUTF8))

@@ -5,7 +5,7 @@ all_sets = {}
 
 #----------------------------------------------------------------------
 def extractBlocks(model):
-    """"""
+    
     blocks = filter(lambda x:not x.startswith("__"), model.__dict__.keys())
     instanced = model()
     for key in blocks: all_sets[key] = getattr(instanced, key)()

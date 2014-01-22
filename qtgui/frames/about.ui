@@ -37,7 +37,7 @@
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QGridLayout" name="gridLayout">
@@ -92,7 +92,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Pinguino 11.0</string>
+           <string notr="true">Pinguino 11.0</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -146,7 +146,7 @@
         <item row="4" column="0" colspan="3">
          <widget class="QLabel" name="label_10">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://pinguino.cc/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#6299e1;&quot;&gt;http://pinguino.cc/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://pinguino.cc/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#6299e1;&quot;&gt;http://pinguino.cc/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -181,7 +181,7 @@
            <enum>QTabWidget::North</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>3</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -191,7 +191,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_4">
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Jean-Pierre Mandon&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Marcus Fazzi&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Jesus Carmona Esteban&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alfred Broda&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Yeison Cardona&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Henk Van Beek&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Björn Pfeiffer&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alexis Sánchez&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Jean-Pierre Mandon&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Marcus Fazzi&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Jesus Carmona Esteban&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alfred Broda&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Yeison Cardona&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Henk Van Beek&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Björn Pfeiffer&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alexis Sánchez&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -205,7 +205,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_5">
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Benoit Espinola&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Sebastien Koechlin&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Ivan Ricondo&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Jesus Carmona Esteban&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Marcus Fazzi&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Benoit Espinola&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Sebastien Koechlin&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Ivan Ricondo&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Jesus Carmona Esteban&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Marcus Fazzi&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -219,7 +219,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_6">
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Joan Espinoza&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alexis Sánchez&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Moreno Manzini &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Joan Espinoza&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alexis Sánchez&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Moreno Manzini &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -233,7 +233,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_7">
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;France Cadet&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Laurent Costes&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Daniel Rodrí­guez&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;France Cadet&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Laurent Costes&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Daniel Rodrí­guez&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -321,7 +321,7 @@
            <bool>true</bool>
           </property>
           <property name="plainText">
-           <string>Pinguino is free software; you can redistribute it and/or modify it
+           <string notr="true">Pinguino is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free Software Foundation;
 either version 2 of the License, or (at your option) any later version.
 

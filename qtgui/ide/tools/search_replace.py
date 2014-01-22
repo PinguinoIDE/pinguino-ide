@@ -5,7 +5,7 @@ from ..helpers.decorators import Decorator
 
 ########################################################################
 class SearchReplace(object):
-    """"""
+    
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()

@@ -76,7 +76,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
 
     #----------------------------------------------------------------------
     def update_pinguino_paths(self):
-        """"""
+        
         user_sdcc_bin = self.configIDE.get_path("sdcc_bin")
         if user_sdcc_bin: self.pinguinoAPI.P8_BIN = user_sdcc_bin
         
@@ -97,26 +97,26 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         
     #----------------------------------------------------------------------
     def build_statusbar(self):
-        """"""
+        
         self.status_info = QtGui.QLabel()
         self.main.statusBar.addPermanentWidget(self.status_info, 1)    
         
         
     #----------------------------------------------------------------------
     def update_namespaces(self):
-        """"""
+        
         names = Namespaces()
         names.save_namespaces()        
         
     #----------------------------------------------------------------------
     def install_error_redirect(self):
-        """"""
+        
         sys.stderr = Stderr
         sys.stderr.plainTextEdit_output = self.main.plainTextEdit_output
 
     #----------------------------------------------------------------------
     def output_ide(self, *args, **kwargs):
-        """"""
+        
         for line in args:
             self.main.plainTextEdit_output.appendPlainText(line)
             
@@ -128,18 +128,18 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         
     ##----------------------------------------------------------------------
     #def clear_output_ide(self):
-        #""""""
+        #
         #self.main.plainTextEdit_output.setPlainText("")
         
     #----------------------------------------------------------------------
     def statusbar_ide(self, status):
-        """"""
+        
         self.status_info.setText(status)
         
         
     #----------------------------------------------------------------------
     def set_board(self):
-        """"""
+        
         board_name = self.configIDE.config("Board", "board", "Pinguino 2550")
         for board in self.pinguinoAPI._boards_:
             if board.name == board_name:
@@ -158,7 +158,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
                 
     #----------------------------------------------------------------------
     def get_description_board(self):
-        """"""
+        
         board = self.pinguinoAPI.get_board()
         board_config = "Board: %s\n" % board.name
         board_config += "Proc: %s\n" % board.proc
@@ -175,7 +175,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
                 
     #----------------------------------------------------------------------
     def get_status_board(self):
-        """"""
+        
         self.set_board()
         board = self.pinguinoAPI.get_board()
         board_config = "Board: %s" % board.name
@@ -193,7 +193,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     
     #----------------------------------------------------------------------
     def check_user_files(self):
-        """"""
+        
         config_paths = RawConfigParser()
         config_paths.readfp(open("paths.conf", "r"))
         
@@ -214,7 +214,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
             
     #----------------------------------------------------------------------
     def check_examples_dirs(self):
-        """"""
+        
         self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "examples"),
                                     dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "examples"),
                                     default_dir=True)
@@ -226,7 +226,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         
     #----------------------------------------------------------------------
     def check_config_files(self):
-        """"""
+        
         self.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "pinguino.%s.conf"%os.environ.get("PINGUINO_OS_NAME")),
                                     dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "pinguino.conf"))
         
@@ -240,7 +240,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         
     #----------------------------------------------------------------------
     def if_not_exist_then_copy(self, src, dst, default_dir=False):
-        """"""
+        
         if not os.path.exists(src):
             #raise Exception, "Missing files, try installing Pinguino IDE again.\n missing file: %s" % src
             logging.warning("Missing: " + src)

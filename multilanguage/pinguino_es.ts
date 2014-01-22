@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="es" sourcelanguage="en">
-<context encoding="UTF-8">
+<!DOCTYPE TS><TS version="1.1" language="es">
+<context>
     <name>About</name>
     <message>
         <location filename="about.ui" line="278"/>
@@ -20,16 +20,6 @@
     <message>
         <location filename="about.ui" line="271"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="about.ui" line="95"/>
-        <source>Pinguino 11.0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="about.ui" line="149"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://pinguino.cc/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#6299e1;&quot;&gt;http://pinguino.cc/&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -57,86 +47,47 @@
         <source>License</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="about.ui" line="324"/>
-        <source>Pinguino is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the Free Software Foundation;
-either version 2 of the License, or (at your option) any later version.
-
-Pinguino is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU General Public License for more details. You should have received a copy of
-the GNU General Public License along with File Hunter; if not, write to
-the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="about.ui" line="194"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Jean-Pierre Mandon&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Marcus Fazzi&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Jesus Carmona Esteban&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alfred Broda&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Yeison Cardona&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Henk Van Beek&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Björn Pfeiffer&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alexis Sánchez&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="about.ui" line="208"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Benoit Espinola&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Sebastien Koechlin&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Ivan Ricondo&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Jesus Carmona Esteban&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Marcus Fazzi&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="about.ui" line="222"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Joan Espinoza&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alexis Sánchez&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Moreno Manzini &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message encoding="UTF-8">
-        <location filename="about.ui" line="236"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;France Cadet&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Laurent Costes&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Daniel Rodrí­guez&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
-    <name>Form</name>
+    <name>BoardConfig</name>
     <message>
-        <location filename="inside.py" line="35"/>
-        <source>Form</source>
+        <location filename="board_config.py" line="103"/>
+        <source>Architecture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="control_button.ui" line="49"/>
-        <source>ON</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Form_graphical</name>
-    <message>
-        <location filename="grafical_widget.py" line="43"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Frame</name>
-    <message>
-        <location filename="control_slider.py" line="49"/>
-        <source>Frame</source>
+        <location filename="board_config.py" line="104"/>
+        <source>8-bit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="control_progress.ui" line="38"/>
-        <source>%v/%m</source>
+        <location filename="board_config.py" line="105"/>
+        <source>32-bit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="name.ui" line="43"/>
-        <source>Bloq</source>
+        <location filename="board_config.py" line="106"/>
+        <source>Bootloader</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="label.ui" line="46"/>
-        <source>TextLabel</source>
+        <location filename="board_config.py" line="109"/>
+        <source>Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="control_slider.py" line="50"/>
-        <source>0000</source>
+        <location filename="board_config.py" line="108"/>
+        <source>warning!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="board_config.py" line="110"/>
+        <source>Progamming Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="board_config.py" line="111"/>
+        <source>USB Bootloader</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -148,157 +99,12 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="hex_viewer_widget.ui" line="30"/>
-        <source>HEX (FF)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="35"/>
-        <source>HEX (0xFF)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="40"/>
-        <source>DEC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="70"/>
-        <source>000000</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="75"/>
-        <source>00</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="80"/>
-        <source>01</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="85"/>
-        <source>02</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="90"/>
-        <source>03</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="95"/>
-        <source>04</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="100"/>
-        <source>05</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="105"/>
-        <source>06</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="110"/>
-        <source>07</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="115"/>
-        <source>08</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="120"/>
-        <source>09</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="125"/>
-        <source>0A</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="130"/>
-        <source>0B</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="135"/>
-        <source>0C</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="140"/>
-        <source>0D</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="145"/>
-        <source>0E</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="150"/>
-        <source>0F</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="155"/>
-        <source>10</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="160"/>
-        <source>11</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="165"/>
-        <source>12</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="170"/>
-        <source>13</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="175"/>
-        <source>14</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="180"/>
-        <source>15</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="185"/>
-        <source>16</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="190"/>
-        <source>17</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="195"/>
-        <source>FF</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="hex_viewer_widget.ui" line="220"/>
+        <location filename="hex_viewer_widget.ui" line="207"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="hex_viewer_widget.ui" line="255"/>
+        <location filename="hex_viewer_widget.ui" line="242"/>
         <source>Save changes as...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -377,78 +183,10 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
     </message>
 </context>
 <context>
-    <name>MainWindow</name>
-    <message>
-        <location filename="board_config.py" line="99"/>
-        <source>Board config</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="100"/>
-        <source>Architecture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="101"/>
-        <source>8-bit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="102"/>
-        <source>32-bit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="103"/>
-        <source>Bootloader</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="104"/>
-        <source>v1.x or v2.x</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="105"/>
-        <source>v4.x</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="108"/>
-        <source>Devices</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="107"/>
-        <source>warning!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="109"/>
-        <source>Progamming Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="110"/>
-        <source>ICSP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="board_config.py" line="111"/>
-        <source>USB Bootloader</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>Paths</name>
     <message>
         <location filename="paths.ui" line="14"/>
         <source>Pinguino Paths</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="paths.ui" line="21"/>
-        <source>8bit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -467,11 +205,6 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="paths.ui" line="64"/>
-        <source>32bit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="paths.ui" line="80"/>
         <source>GCC compiler:</source>
         <translation type="unfinished"></translation>
@@ -481,530 +214,512 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="paths.ui" line="21"/>
+        <source>8-bit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="paths.ui" line="64"/>
+        <source>32-bit</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PinguinoIDE</name>
     <message>
-        <location filename="main.ui" line="14"/>
-        <source>Pinguino 11</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main.ui" line="774"/>
+        <location filename="main.ui" line="782"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="129"/>
+        <location filename="main.ui" line="137"/>
         <source>Recents</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="821"/>
+        <location filename="main.ui" line="829"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="162"/>
+        <location filename="main.ui" line="170"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="868"/>
+        <location filename="main.ui" line="876"/>
         <source>Pinguino</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="181"/>
+        <location filename="main.ui" line="189"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="185"/>
+        <location filename="main.ui" line="193"/>
         <source>Links</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="202"/>
+        <location filename="main.ui" line="210"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="209"/>
+        <location filename="main.ui" line="217"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="216"/>
+        <location filename="main.ui" line="224"/>
         <source>Compilers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1467"/>
+        <location filename="main.ui" line="1475"/>
         <source>Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="996"/>
+        <location filename="main.ui" line="1004"/>
         <source>Examples</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1001"/>
+        <location filename="main.ui" line="1009"/>
         <source>Current file dir</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1006"/>
+        <location filename="main.ui" line="1014"/>
         <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1011"/>
+        <location filename="main.ui" line="1019"/>
         <source>Other...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="970"/>
-        <source>../</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main.ui" line="944"/>
+        <location filename="main.ui" line="952"/>
         <source>Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="405"/>
+        <location filename="main.ui" line="572"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="574"/>
+        <location filename="main.ui" line="582"/>
         <source>Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="362"/>
+        <location filename="main.ui" line="370"/>
         <source>Variables</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="465"/>
+        <location filename="main.ui" line="473"/>
         <source>Return</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="470"/>
+        <location filename="main.ui" line="478"/>
         <source>Args</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="419"/>
+        <location filename="main.ui" line="427"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="564"/>
-        <source>type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main.ui" line="569"/>
-        <source>value</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main.ui" line="484"/>
+        <location filename="main.ui" line="492"/>
         <source>Directives</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="349"/>
+        <location filename="main.ui" line="357"/>
         <source>Source Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="623"/>
+        <location filename="main.ui" line="631"/>
         <source>Replace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="630"/>
+        <location filename="main.ui" line="638"/>
         <source>Replace all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1213"/>
+        <location filename="main.ui" line="1221"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="681"/>
+        <location filename="main.ui" line="689"/>
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="692"/>
+        <location filename="main.ui" line="700"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="703"/>
+        <location filename="main.ui" line="711"/>
         <source>Case sensitive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="845"/>
+        <location filename="main.ui" line="853"/>
         <source>Search Replace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="747"/>
+        <location filename="main.ui" line="755"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="798"/>
+        <location filename="main.ui" line="806"/>
         <source>Undo Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1489"/>
+        <location filename="main.ui" line="1497"/>
         <source>Blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1025"/>
+        <location filename="main.ui" line="1033"/>
         <source>Graphical mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.py" line="702"/>
-        <source>Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="main.ui" line="1072"/>
+        <location filename="main.ui" line="1080"/>
         <source>New file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1075"/>
+        <location filename="main.ui" line="1083"/>
         <source>Ctrl+N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1084"/>
+        <location filename="main.ui" line="1092"/>
         <source>Open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1087"/>
+        <location filename="main.ui" line="1095"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1099"/>
+        <location filename="main.ui" line="1107"/>
         <source>Save file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1102"/>
+        <location filename="main.ui" line="1110"/>
         <source>Ctrl+S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1113"/>
+        <location filename="main.ui" line="1121"/>
         <source>Close file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1116"/>
+        <location filename="main.ui" line="1124"/>
         <source>Ctrl+W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1128"/>
+        <location filename="main.ui" line="1136"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1131"/>
+        <location filename="main.ui" line="1139"/>
         <source>Ctrl+Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1143"/>
+        <location filename="main.ui" line="1151"/>
         <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1146"/>
+        <location filename="main.ui" line="1154"/>
         <source>Ctrl+Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1158"/>
+        <location filename="main.ui" line="1166"/>
         <source>Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1161"/>
+        <location filename="main.ui" line="1169"/>
         <source>Ctrl+X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1173"/>
+        <location filename="main.ui" line="1181"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1176"/>
+        <location filename="main.ui" line="1184"/>
         <source>Ctrl+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1188"/>
+        <location filename="main.ui" line="1196"/>
         <source>Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1191"/>
+        <location filename="main.ui" line="1199"/>
         <source>Ctrl+V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1196"/>
+        <location filename="main.ui" line="1204"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1201"/>
+        <location filename="main.ui" line="1209"/>
         <source>Select</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1216"/>
+        <location filename="main.ui" line="1224"/>
         <source>Ctrl+F</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1228"/>
+        <location filename="main.ui" line="1236"/>
         <source>Search and replace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1231"/>
+        <location filename="main.ui" line="1239"/>
         <source>Ctrl+R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1240"/>
+        <location filename="main.ui" line="1248"/>
         <source>Select board</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1252"/>
+        <location filename="main.ui" line="1260"/>
         <source>Compile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1255"/>
+        <location filename="main.ui" line="1263"/>
         <source>F5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1267"/>
+        <location filename="main.ui" line="1275"/>
         <source>Upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1270"/>
+        <location filename="main.ui" line="1278"/>
         <source>F6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1275"/>
+        <location filename="main.ui" line="1283"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1278"/>
+        <location filename="main.ui" line="1286"/>
         <source>Ctrl+P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1283"/>
+        <location filename="main.ui" line="1291"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1288"/>
+        <location filename="main.ui" line="1296"/>
         <source>About...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1296"/>
+        <location filename="main.ui" line="1304"/>
         <source>Comment/Uncomment region</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1299"/>
+        <location filename="main.ui" line="1307"/>
         <source>Ctrl+.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1304"/>
+        <location filename="main.ui" line="1312"/>
         <source>Comment out region</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1307"/>
+        <location filename="main.ui" line="1315"/>
         <source>Ctrl+/</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1315"/>
+        <location filename="main.ui" line="1323"/>
         <source>Board info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1326"/>
+        <location filename="main.ui" line="1334"/>
         <source>Stdout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1329"/>
+        <location filename="main.ui" line="1337"/>
         <source>F9</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1342"/>
+        <location filename="main.ui" line="1350"/>
         <source>Switch ide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1345"/>
+        <location filename="main.ui" line="1353"/>
         <source>F10</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1354"/>
+        <location filename="main.ui" line="1362"/>
         <source>Save image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1362"/>
+        <location filename="main.ui" line="1370"/>
         <source>View Pinguino code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1367"/>
+        <location filename="main.ui" line="1375"/>
         <source>Save all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1372"/>
+        <location filename="main.ui" line="1380"/>
         <source>Close all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1377"/>
+        <location filename="main.ui" line="1385"/>
         <source>Website</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1382"/>
+        <location filename="main.ui" line="1390"/>
         <source>Wiki</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1387"/>
+        <location filename="main.ui" line="1395"/>
         <source>Forum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1392"/>
+        <location filename="main.ui" line="1400"/>
         <source>Blog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1397"/>
+        <location filename="main.ui" line="1405"/>
         <source>Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1402"/>
+        <location filename="main.ui" line="1410"/>
         <source>Shop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1407"/>
+        <location filename="main.ui" line="1415"/>
         <source>GitHub</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1412"/>
+        <location filename="main.ui" line="1420"/>
         <source>Save as</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1426"/>
+        <location filename="main.ui" line="1434"/>
         <source>Use system compilers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1437"/>
+        <location filename="main.ui" line="1445"/>
         <source>Use local compilers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1442"/>
+        <location filename="main.ui" line="1450"/>
         <source>Wiki docs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1445"/>
+        <location filename="main.ui" line="1453"/>
         <source>F1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1456"/>
+        <location filename="main.ui" line="1464"/>
         <source>Autocomplete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1478"/>
+        <location filename="main.ui" line="1486"/>
         <source>Shell</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1500"/>
+        <location filename="main.ui" line="1508"/>
         <source>Color theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1505"/>
+        <location filename="main.ui" line="1513"/>
         <source>Library manager</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1510"/>
+        <location filename="main.ui" line="1518"/>
         <source>Hex code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.ui" line="1518"/>
+        <location filename="main.ui" line="1526"/>
         <source>Set paths</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>Stdout</name>
     <message>
-        <location filename="stdout.ui" line="14"/>
-        <source>Stdout</source>
+        <location filename="main.ui" line="577"/>
+        <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1012,15 +727,7 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
     <name>WikiDocs</name>
     <message>
         <location filename="wiki_doc_widget.py" line="45"/>
-        <source>Wiki docs</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>widgetBlock</name>
-    <message>
-        <location filename="blocks_widget.ui" line="14"/>
-        <source>Form</source>
+        <source>Libraries</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

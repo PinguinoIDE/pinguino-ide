@@ -7,7 +7,7 @@ from ConfigParser import RawConfigParser
 
 ########################################################################
 class Config(RawConfigParser, object):
-    """"""
+    
     
     #----------------------------------------------------------------------
     def __init__(self):
@@ -19,7 +19,7 @@ class Config(RawConfigParser, object):
         
     #----------------------------------------------------------------------
     def get_format_config(self, section, option):
-        """"""
+        
         value = self.get(section, option)
         if type(value) != type(""): return value
         
@@ -39,7 +39,7 @@ class Config(RawConfigParser, object):
             
     #---------------------------------------------------------------------- 
     def config(self, section, option, default):
-        """"""
+        
         if self.has_section(section) and self.has_option(section, option):
             return self.get_format_config(section, option)
         else:
@@ -48,36 +48,36 @@ class Config(RawConfigParser, object):
         
     #----------------------------------------------------------------------
     def set(self, section, option, value):
-        """"""
+        
         if not self.has_section(section): self.add_section(section)
         super(Config, self).set(section, option, value)
     
     #----------------------------------------------------------------------
     def verify_config_file(self):
-        """"""
+        
         if not os.path.isfile(self.ide_config_file):
             open(self.ide_config_file, "w").close()
         
     #----------------------------------------------------------------------
     def save_config(self):
-        """"""
+        
         self.write(open(self.ide_config_file, "w"))
         
     #----------------------------------------------------------------------
     def load_config(self):
-        """"""
+        
         self.readfp(open(self.ide_config_file, "r")) 
         
     
     #----------------------------------------------------------------------
     def get_path(self, name):
-        """"""
+        
         return self.get("paths", name)
         
         
     #----------------------------------------------------------------------
     def get_recents(self):
-        """"""
+        
         if not self.has_section("Recents"): self.add_section("Recents")
         options = self.options("Recents")
         
@@ -90,7 +90,7 @@ class Config(RawConfigParser, object):
     
     #----------------------------------------------------------------------
     def get_recents_open(self):
-        """"""
+        
         if not self.has_section("Recents"): self.add_section("Recents")
         options = self.options("Recents")
         

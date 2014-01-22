@@ -17,7 +17,7 @@ START = ">>> "
 
 ########################################################################
 class PinguinoTerminal(QtGui.QPlainTextEdit):
-    """"""
+    
     #----------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
         super(PinguinoTerminal, self).__init__(*args, **kwargs)
@@ -41,7 +41,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
     def keyPressEvent(self, event):
-        """"""
+        
         self.set_last_line()
         
         if event.key() in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Enter-1):
@@ -100,7 +100,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             
     #----------------------------------------------------------------------
     def get_command(self):
-        """"""
+        
         plain = self.toPlainText()
         comand = plain[plain.rfind(START):]
         return comand[len(START):]
@@ -108,7 +108,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
     def wheelEvent(self, event):
-        """"""
+        
         if event.modifiers() == QtCore.Qt.ControlModifier:
             self.step_font_size(event.delta())
             
@@ -117,11 +117,11 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                 
     #----------------------------------------------------------------------
     def contextMenuEvent(self, event):
-        """"""
+        pass
                 
     #----------------------------------------------------------------------
     def step_font_size(self, delta):
-        """"""
+        
         font = self.font()
         size = font.pointSize()
         if delta > 0: font.setPointSize(size+1)
@@ -131,7 +131,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                           
     #----------------------------------------------------------------------
     def set_extra_args(self, *args, **kwargs):
-        """"""
+        
         for key in kwargs:
             setattr(self.shell.statement_module, key, kwargs[key])
             
@@ -141,7 +141,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                           
     #----------------------------------------------------------------------
     def set_last_line(self):
-        """"""
+        
         cursor = self.textCursor()
         position = cursor.position()
         plain = self.toPlainText()
@@ -151,7 +151,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                           
     #----------------------------------------------------------------------
     def no_overwrite_start(self):
-        """"""
+        
         cursor = self.textCursor()
         position = cursor.position()
         plain = self.toPlainText()
@@ -163,7 +163,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         
     #----------------------------------------------------------------------
     def run_default_command(self, command):
-        """"""
+        
         command = command.replace("\n", "")
         run = getattr(self, "command_"+command, None)
         if run: run()
@@ -173,13 +173,13 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         
     #----------------------------------------------------------------------
     def command_clear(self):
-        """"""
+        
         self.clear()
         
         
     #----------------------------------------------------------------------
     def command_restart(self):
-        """"""
+        
         self.shell.restart()
         self.clear()
         self.appendPlainText(HEAD)

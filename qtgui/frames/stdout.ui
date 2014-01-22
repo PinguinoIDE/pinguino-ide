@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Stdout</class>
- <widget class="QMainWindow" name="Stdout">
+ <class>PlainOut</class>
+ <widget class="QMainWindow" name="PlainOut">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Stdout</string>
+   <string notr="true">Plain Out</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../resources/resources.qrc">
     <normaloff>:/logo/art/windowIcon.svg</normaloff>:/logo/art/windowIcon.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">

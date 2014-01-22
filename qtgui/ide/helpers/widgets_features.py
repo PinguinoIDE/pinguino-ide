@@ -5,14 +5,14 @@ from PySide import QtGui, QtCore
 
 ########################################################################
 class PrettyFeatures(object):
-    """"""
+    
 
         
         
     #----------------------------------------------------------------------
     @classmethod
     def LineEdit_default_text(self, parent, lineEdit, default_text):
-        """"""
+        
         
         def set_focus_out_color():
             lineEdit.setStyleSheet("color: #aaa;")    
