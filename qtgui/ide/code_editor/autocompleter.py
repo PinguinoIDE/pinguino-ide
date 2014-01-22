@@ -2,14 +2,13 @@
 #-*- coding: utf-8 -*-
 
 import pickle
+import os
 
 from PySide.QtGui import QListWidget, QListWidgetItem
 from PySide import QtCore, QtGui
 
 from .autocomplete_icons import CompleteIcons	
-from ..helpers.config import Config 
 from ..helpers import constants as Constants
-from ..helpers.config import Config
 
 class PinguinoAutoCompleter(QListWidget):
     
@@ -37,9 +36,8 @@ class PinguinoAutoCompleter(QListWidget):
                        "arch8": [],
                        "arch32": [],}
         
-        config = Config()
-        self.namespaces = pickle.load(file(config.get_filename("pinguino_ide_reserved"), "r"))
-        del config            
+        
+        self.namespaces = pickle.load(file(os.path.join(os.environ.get("PINGUINO_USER_DIR"), "reserved.pickle"), "r"))          
         
         icons = CompleteIcons()
         self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
@@ -48,8 +46,7 @@ class PinguinoAutoCompleter(QListWidget):
     #----------------------------------------------------------------------
     def set_arch_autocompleter(self):
         """"""
-        config = Config()
-        arch = config.config("Board", "arch", 8)
+        arch = os.environ.get("PINGUINO_BOARD_ARCH")
         
         icons = CompleteIcons()
         
@@ -63,7 +60,6 @@ class PinguinoAutoCompleter(QListWidget):
                 self.addTemporalItem("arch32", item, icons.iconLibrary)
             self.removeTemporalItems("arch8")
                 
-        del config
         del icons
         
     #----------------------------------------------------------------------

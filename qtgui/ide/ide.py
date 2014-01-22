@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
 import sys
 import codecs
+import shutil
+import logging
+
 
 from PySide import QtGui, QtCore
 
@@ -16,20 +20,18 @@ from .code_editor.autocomplete_icons import CompleteIcons
 from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
 
-
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
     def __init__(self):
         super(PinguinoIDE, self).__init__()
+        
+        self.check_user_files()
         
 
         self.pinguinoAPI = Pinguino()
         self.configIDE = Config()
         self.ICONS = CompleteIcons()
         self.update_pinguino_paths()
-        
-        
-        #self.load_theme()        
         
         self.main = Ui_PinguinoIDE()          
         self.main.setupUi(self)
@@ -148,6 +150,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
             else:
                 self.pinguinoAPI.set_bootloader(self.pinguinoAPI.Boot4)
                 
+        os.environ["PINGUINO_BOARD_ARCH"] = str(arch)
+                
                 
     #----------------------------------------------------------------------
     def get_description_board(self):
@@ -183,4 +187,65 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         return board_config
     
     
+    
+    #----------------------------------------------------------------------
+    def check_user_files(self):
+        """"""
+        if os.name == "posix": #GNU/Linux
+            os.environ["PINGUINO_USER_DIR"] = os.path.join(os.path.expanduser(QtCore.QDir().homePath()), ".pinguino")
+            os.environ["PINGUINO_INSTALL_DIR"] = os.path.join(QtCore.QDir().rootPath(), "usr", "share", "pinguino-11.0")
+            os.environ["PINGUINO_OS_NAME"] = "linux"
+            
+            #self.USER_DIR = os.path.join(QtCore.QDir().homePath(), ".pinguino")
+            #self.INSTALL_DIR = os.path.join(QtCore.QDir().rootPath(), "usr", "share", "pinguino-11.0")
+            #self.OS_NAME = "linux"
+        
+        #elif os.name == "nt":  #Windows
+            
+            
+            
+        self.check_examples_dirs()
+        self.check_config_files()
+            
+    
 
+        
+    #----------------------------------------------------------------------
+    def check_examples_dirs(self):
+        """"""
+        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "examples"),
+                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "examples"),
+                                    default_dir=True)
+        
+        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "graphical_examples"),
+                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "graphical_examples"),
+                                    default_dir=True)
+        
+        
+    #----------------------------------------------------------------------
+    def check_config_files(self):
+        """"""
+        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "pinguino.%s.conf"%os.environ.get("PINGUINO_OS_NAME")),
+                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "pinguino.conf"))
+        
+        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "reserved.pickle"),
+                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "reserved.pickle"))
+        
+        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "config", "wikidocks.pickle"),
+                                    cp=os.path.join(os.environ.get("PINGUINO_USER_DIR"), "wikidocks.pickle"))
+        
+        
+        
+    #----------------------------------------------------------------------
+    def if_not_exist_then_copy(self, src, cp, default_dir=False):
+        """"""
+        if not os.path.exists(src):
+            #raise Exception, "Missing files, try installing Pinguino IDE again.\n missing file: %s" % src
+            logging.warning("Missing: " + src)
+            if not os.path.exists(cp) and default_dir:
+                os.mkdir(cp)
+            return
+        
+        if not os.path.exists(cp):
+            shutil.copytree(src, cp)
+        

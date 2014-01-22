@@ -752,7 +752,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     def __show_stdout__(self):
         """"""
-        self.frame_stdout = PlainOut(self, "Stdout")
+        self.frame_stdout = PlainOut("Stdout")
         self.frame_stdout.show()
         
     #----------------------------------------------------------------------
@@ -772,7 +772,7 @@ class EventMethods(SearchReplace):
         """"""
         name = getattr(self.get_tab().currentWidget(), "path", "")
         if name: name = " - " + name
-        self.frame_pinguino_code = PlainOut(self, "Pinguino code")
+        self.frame_pinguino_code = PlainOut("Pinguino code")
         self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
         self.frame_pinguino_code.show()
         

@@ -9,11 +9,11 @@ from PySide import QtGui, QtCore
 class Files(object):
     """"""
     
-    
     #----------------------------------------------------------------------
     @classmethod
     def update_path_files(self, path, listWidget, label):
         """"""
+        path = os.path.expanduser(path)
         paths = filter(lambda child: not child.startswith("."), os.listdir(path))
         parent = os.path.split(path)[0]
         

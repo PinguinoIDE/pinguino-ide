@@ -30,7 +30,7 @@ import time
 
 from .boards import boardlist as BoardList
 from .uploader.uploader import Uploader
-#from .constants import  HOME_DIR, self.P8_DIR, self.P32_DIR, TEMP_DIR, self.SOURCE_DIR
+#from .constants import  HOME_DIR, self.P8_DIR, self.P32_DIR, TEMP_DIR, os.path.expanduser(self.SOURCE_DIR)
 
 #import os
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
@@ -58,11 +58,9 @@ class PinguinoTools(object):
                           "no": self.NoBoot,
                           }
         
-        self.P32_DIR = "p32"
-        self.P8_DIR = "p8"
+        #self.P32_DIR = "p32"
+        #self.P8_DIR = "p8"
     
-        self.SOURCE_DIR = "source"
-        
         
     #----------------------------------------------------------------------
     def set_os_variables(self):
@@ -131,7 +129,7 @@ class PinguinoTools(object):
         
         filename, extension = os.path.splitext(filename)
         if os.path.exists(filename + ".hex"): os.remove(filename + ".hex")
-        if os.path.exists(os.path.join(self.SOURCE_DIR, "user.c")): os.remove(os.path.join(self.SOURCE_DIR, "user.c"))
+        if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c")): os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"))
         
         cur_board = self.get_board()
         retour, error_preprocess = self.preprocess(filename, cur_board)
@@ -157,19 +155,19 @@ class PinguinoTools(object):
             #self.displaymsg(_("You can review the file stdout (F8) for more information."),0)
         else:
             retour, error_link = self.link(filename)
-            if os.path.exists(os.path.join(self.SOURCE_DIR, MAIN_FILE)) != True:
+            if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE)) != True:
                 DATA_RETURN["verified"] = False
                 DATA_RETURN["linking"] = error_link
                 #self.displaymsg(_("error while linking")+" "+filename+".o",0)
                 #self.displaymsg(_("You can review the file stdout (F8) for more information."),0)
                 return DATA_RETURN
             else:
-                shutil.copy(os.path.join(self.SOURCE_DIR, MAIN_FILE), filename+".hex")
+                shutil.copy(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE), filename+".hex")
                 #self.displaymsg(_("compilation done"),0)
                 #self.displaymsg(self.__get_code_size__(filename, self.curBoard),0)
                 #t = "%.1f" % ( time.time() - t0 )
                 #self.displaymsg( t + " "+_("seconds process time"),0)
-                os.remove(os.path.join(self.SOURCE_DIR, MAIN_FILE))
+                os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE))
                 self.__hex_file__ = filename+".hex"
 
                 DATA_RETURN["verified"] = True
@@ -193,7 +191,7 @@ class PinguinoTools(object):
             result = uploader.write_hex()
     
         elif board.arch == 32:
-            fichier = open(os.path.join(self.SOURCE_DIR, 'stdout'), 'w+')
+            fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), 'stdout'), 'w+')
             sortie=Popen([os.path.join(HOME_DIR, self.os_name, 'p32', 'bin', self.u32),
                           "-w",
                           hex_file,
@@ -287,19 +285,19 @@ class PinguinoTools(object):
         index = 0
         
         # delete old define.h and create a new one
-        if os.path.exists(os.path.join(self.SOURCE_DIR, "define.h")):
-            os.remove(os.path.join(self.SOURCE_DIR, "define.h"))
-        fichier = file(os.path.join(self.SOURCE_DIR, "define.h"), "a")
+        if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h")):
+            os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"))
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
         fichier.close()
 
         # rename .pde in user.c
         path, name = os.path.split(filename)
-        shutil.copy(filename + ".pde", os.path.join(self.SOURCE_DIR, "user.c"))
-        fichier = file(os.path.join(self.SOURCE_DIR, "user.c"), "a")
+        shutil.copy(filename + ".pde", os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"))
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "a")
         fichier.close()
         
 
-        fichier = file(os.path.join(self.SOURCE_DIR, "user.c"), "r")
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
         i=0
         file_line = {}
         for line in fichier.readlines():
@@ -314,13 +312,13 @@ class PinguinoTools(object):
         fichier.close()
 
         # rewrite file user.c without #include and #define
-        fichier = file(os.path.join(self.SOURCE_DIR, "user.c"), "w")
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
         for cpt in range(i):
             fichier.write(file_line[cpt])
         fichier.close()
 
         # search and replace arduino keywords in file
-        fichier = file(os.path.join(self.SOURCE_DIR, "user.c"), "r")
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
         content = fichier.read()
         content = self.remove_comments(content)
         content = content.split('\n')
@@ -340,20 +338,20 @@ class PinguinoTools(object):
 
 
         # save new tmp file
-        fichier = file(os.path.join(self.SOURCE_DIR, "user.c"), "w")
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
         for i in range(0, nblines):
             fichier.writelines(file_line[i])
         fichier.writelines("\r\n")
         fichier.close()
 
         # sort define.h
-        fichier = file(os.path.join(self.SOURCE_DIR, "define.h"), "r")
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
         lignes = fichier.readlines()
         lignes.sort()
         fichier.close()
 
         # save sorted lines
-        fichier = file(os.path.join(self.SOURCE_DIR, "define.h"), "w")
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "w")
         fichier.writelines(lignes)
         fichier.close()
         
@@ -363,7 +361,7 @@ class PinguinoTools(object):
     #----------------------------------------------------------------------
     def add_define(self, chaine):
         """ add #define in define.h file """
-        fichier = file(os.path.join(self.SOURCE_DIR, "define.h"), "a")
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
         fichier.writelines(chaine)
         fichier.writelines("\r\n")
         fichier.close()
@@ -371,7 +369,7 @@ class PinguinoTools(object):
     #----------------------------------------------------------------------
     def not_in_define(self, chaine):
         """ verify if #define exists in define.h file """
-        fichier = file(os.path.join(self.SOURCE_DIR, "define.h"), "r")
+        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
         for line in fichier.readlines():
             # chaine has been found ?
             if line.find(chaine) != -1:
@@ -433,7 +431,7 @@ class PinguinoTools(object):
 
         if board.arch == 32: return 0, None
             
-        fichier = open(os.path.join(self.SOURCE_DIR, "stdout"), "w+")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
 
         if board.bldr == 'boot2':
             sortie = Popen(executable=self.COMPILER_8BIT,\
@@ -456,8 +454,8 @@ class PinguinoTools(object):
                 "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
-                "-o" + os.path.join(self.SOURCE_DIR, 'main.o'),\
-                os.path.join(self.SOURCE_DIR, 'main.c')],\
+                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
+                os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c')],\
                 stdout=fichier, stderr=STDOUT)
             
                            
@@ -484,8 +482,8 @@ class PinguinoTools(object):
                 "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
-                os.path.join(self.SOURCE_DIR, 'main.c'),\
-                "-o" + os.path.join(self.SOURCE_DIR, 'main.o')],\
+                os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
+                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')],\
                 stdout=fichier, stderr=STDOUT)
                            
         elif board.bldr == 'noboot':
@@ -509,8 +507,8 @@ class PinguinoTools(object):
                 "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
-                os.path.join(self.SOURCE_DIR, 'main.c'),\
-                "-o" + os.path.join(self.SOURCE_DIR, 'main.o')],\
+                os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
+                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')],\
                 stdout=fichier, stderr=STDOUT)
                            
         sortie.communicate()
@@ -563,7 +561,7 @@ class PinguinoTools(object):
         
         error = []
         board = self.get_board()
-        fichier = open(os.path.join(self.SOURCE_DIR, "stdout"), "w+")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
 
         if board.arch == 8:
             
@@ -595,12 +593,12 @@ class PinguinoTools(object):
                     'libc18f.lib',\
                     'libm18f.lib',\
                     'libsdcc.lib',\
-                    "-o" + os.path.join(self.SOURCE_DIR, 'main.hex'),\
+                    "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
                     os.path.join(self.P8_DIR, 'obj', 'application_iface.o'),\
                     os.path.join(self.P8_DIR, 'obj', 'boot_iface.o'),\
                     os.path.join(self.P8_DIR, 'obj', 'usb_descriptors.o'),\
                     os.path.join(self.P8_DIR, 'obj', 'crt0ipinguino.o'),\
-                    os.path.join(self.SOURCE_DIR, 'main.o')],\
+                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')],\
                     stdout=fichier, stderr=STDOUT)
                     
             elif board.bldr == 'boot4':
@@ -631,7 +629,7 @@ class PinguinoTools(object):
                     "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
                     "-L" + os.path.join(self.P8_DIR, 'sdcc', 'lib', 'pic16'),\
                     "-L" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'lib', 'pic16'),\
-                    os.path.join(self.SOURCE_DIR, 'main.o'),\
+                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
                     'libio' + board.proc + '.lib',\
                     'libdev' + board.proc + '.lib',\
                     'libc18f.lib',\
@@ -639,7 +637,7 @@ class PinguinoTools(object):
                     # link the default run-time module (crt0i.o)
                     # except when "-no-crt" option is used
                     'libsdcc.lib',\
-                    "-o" + os.path.join(self.SOURCE_DIR, 'main.hex'),\
+                    "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
                     ],\
                     stdout=fichier, stderr=STDOUT)
                     
@@ -672,15 +670,15 @@ class PinguinoTools(object):
                     'libm18f.lib',\
                     # link the default run-time module
                     'libsdcc.lib',\
-                    "-o" + os.path.join(self.SOURCE_DIR, 'main.hex'),\
-                    os.path.join(self.SOURCE_DIR, 'main.o')],\
+                    "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
+                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')],\
                     stdout=fichier, stderr=STDOUT)
                     
         else:#if board.arch == 32:
             # "PDEDIR=" + os.path.dirname(self.GetPath()),\
             # can't be used with Command Line version since editor isn't used
             sortie=Popen([self.make,\
-                          "--makefile=" + os.path.join(self.SOURCE_DIR, 'Makefile32.'+self.os_name),\
+                          "--makefile=" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'Makefile32.'+self.os_name),\
                           "HOME=" + HOME_DIR,\
                           "PDEDIR=" + os.path.dirname(filename),\
                           "PROC=" + board.proc,\
@@ -701,15 +699,15 @@ class PinguinoTools(object):
                 badrecord = ":040000059D0040001A\n"
             else:
                 badrecord = ":040000059D006000FA\n"                
-            if os.path.exists(os.path.join(self.SOURCE_DIR, "main32tmp.hex")):
-                fichiersource = open(os.path.join(self.SOURCE_DIR, "main32tmp.hex"), "r")
-                fichierdest = open(os.path.join(self.SOURCE_DIR, "main32.hex"), "w+")
+            if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32tmp.hex")):
+                fichiersource = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32tmp.hex"), "r")
+                fichierdest = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32.hex"), "w+")
                 for line in fichiersource:
                     if line != badrecord:
                         fichierdest.writelines(line)
                 fichiersource.close()
                 fichierdest.close()
-                os.remove(os.path.join(self.SOURCE_DIR, "main32tmp.hex"))
+                os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32tmp.hex"))
 
         return sortie.poll(), error
 

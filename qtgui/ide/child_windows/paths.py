@@ -34,14 +34,11 @@ class Paths(QtGui.QMainWindow):
                             (self.set_paths.lineEdit_pinguino_32_libs, self.set_paths.pushButton_pinguino_32_libs, "PINGUINO_32_LIBS"),
                             )
         
-        default_paths = {"SDCC_BIN": "/usr/bin/sdcc",
-                         #"SDCC_LIBS": "/usr/share/sdcc",
-                         "GCC_BIN": "",
-                         #"GCC_LIBS": "",
-                         #"PINGUINO_CONFIG": "~/.local/share/pinguino_ide/",
-                         "PINGUINO_8_LIBS": "pinguino/p8",
-                         "PINGUINO_32_LIBS": "pinguino/p32",
-                         "PINGUINO_RESOURCES": "qtgui/resources",
+        default_paths = {"SDCC_BIN": self.main.configIDE.get_path("sdcc_bin"),
+                         "GCC_BIN": self.main.configIDE.get_path("gcc_bin"),
+                         "PINGUINO_8_LIBS": self.main.configIDE.get_path("pinguino_8_libs"),
+                         "PINGUINO_32_LIBS": self.main.configIDE.get_path("pinguino_32_libs"),
+                         "PINGUINO_RESOURCES": self.main.configIDE.get_path("source"),
                          }
         
         for lineEdit, pushButton, keyWord in self.dialog_file:

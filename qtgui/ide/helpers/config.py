@@ -5,11 +5,6 @@ import os
 import re
 from ConfigParser import RawConfigParser
 
-if os.path.exists("config"):
-    IDE_CONFIG_FILE = file("config", "r").read()
-else:
-    IDE_CONFIG_FILE = os.path.join("qtgui", "config", "pinguino.conf")
-
 ########################################################################
 class Config(RawConfigParser, object):
     """"""
@@ -18,9 +13,9 @@ class Config(RawConfigParser, object):
     def __init__(self):
         super(Config, self).__init__()
         
+        self.ide_config_file = os.path.join(os.environ.get("PINGUINO_USER_DIR"), "pinguino.conf")
         self.verify_config_file()
-        self.load_config()
-        #self.readfp(file(IDE_CONFIG_FILE, "r")) 
+        self.load_config() 
         
     #----------------------------------------------------------------------
     def get_format_config(self, section, option):
@@ -60,34 +55,24 @@ class Config(RawConfigParser, object):
     #----------------------------------------------------------------------
     def verify_config_file(self):
         """"""
-        if not os.path.isfile(IDE_CONFIG_FILE):
-            file(IDE_CONFIG_FILE, "w").close()
+        if not os.path.isfile(self.ide_config_file):
+            file(self.ide_config_file, "w").close()
         
     #----------------------------------------------------------------------
     def save_config(self):
         """"""
-        self.write(file(IDE_CONFIG_FILE, "w"))
+        self.write(file(self.ide_config_file, "w"))
         
     #----------------------------------------------------------------------
     def load_config(self):
         """"""
-        self.readfp(file(IDE_CONFIG_FILE, "r")) 
+        self.readfp(file(self.ide_config_file, "r")) 
         
-    #----------------------------------------------------------------------
-    def get_filename(self, name, path=False):
-        """"""
-        if not path:
-            parent_dir = self.get("Paths", "pinguino_writeable_path")
-        else:
-            parent_dir = self.get("Paths", path)
-        filename = self.get("Filenames", name)
-
-        return os.path.join(parent_dir, filename)
     
     #----------------------------------------------------------------------
     def get_path(self, name):
         """"""
-        return self.get("Paths", name)
+        return self.get("paths", name)
         
         
     #----------------------------------------------------------------------

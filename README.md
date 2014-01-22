@@ -8,9 +8,13 @@ Open source integrated development enviroment (IDE).
   * [Command line](#command-line)
   * [Python API](#python-api)
 
-## Dependences
-  * [PySide] (http://qt-project.org/wiki/PySide)
-  * [Git] (http://git-scm.com/)
+## Dependencies
+  * pyside
+  * gitpython
+  * intelhex
+  * beautifulsoup4
+  * pyusb==1.0.0b1
+  
 
 
 ## IDE

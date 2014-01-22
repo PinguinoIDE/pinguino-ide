@@ -14,7 +14,7 @@ from ..code_editor.syntaxhighlighter import Highlighter
 ########################################################################
 class PlainOut(QtGui.QMainWindow):
     """"""
-    def __init__(self, parent, title):
+    def __init__(self, title):
         #QtGui.QMainWindow.__init__(self)
         super(PlainOut, self).__init__()
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
@@ -24,7 +24,6 @@ class PlainOut(QtGui.QMainWindow):
     
         self.plain_out = Ui_Stdout()
         self.plain_out.setupUi(self)
-        self.main = parent
         
         font = self.plain_out.textEdit.font()
         font.setFamily("mono")
@@ -40,7 +39,7 @@ class PlainOut(QtGui.QMainWindow):
         palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
         self.setPalette(palette)
         
-        PINGUINO_STDOUT_FILE = self.main.configIDE.get_filename("pinguino_stdout", path="source")
+        PINGUINO_STDOUT_FILE = os.path.join(os.environ.get("PINGUINO_USER_DIR"), "source", "stdout")
 
         if os.path.exists(PINGUINO_STDOUT_FILE):
             stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")

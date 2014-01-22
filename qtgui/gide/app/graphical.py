@@ -5,6 +5,7 @@ import codecs
 import os
 import re
 from ConfigParser import RawConfigParser
+import logging
 
 from PySide import QtGui, QtCore
 
@@ -12,7 +13,7 @@ from .blocks import Blocks
 from .work_area import WorkArea
 from .tool_area import ToolArea
 from .constant import INTRO_CODE, TAB_NAME
-from ..bloques.color import setColor
+#from ..bloques.color import setColor
 from ..py_bloques.get_blocks import all_sets
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
@@ -47,8 +48,8 @@ class GraphicalIDE:
                                "inside": self.colorTheme[4],
                                "frame": self.colorTheme[5],}
         
-        for key in self.colorEspecific.keys():
-            setColor(self.colorEspecific[key], key)
+        #for key in self.colorEspecific.keys():
+            #setColor(self.colorEspecific[key], key)
             
         self.colorEspecific["output"] = self.colorTheme[4]
         self.colorEspecific["output-bool"] = self.colorTheme[3]
@@ -426,8 +427,11 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def load_fonts(self):
-        config = Config()
-        fonts_dir = os.path.join(config.get_path("pinguino_resources"), "fonts")
+        fonts_dir = os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "resources", "fonts")
+        if not os.path.exists(fonts_dir):
+            logging.warning("Missing: "+fonts_dir)
+            return
+            
         for dir_font in os.listdir(fonts_dir):
             for ttf in filter(lambda file:file.endswith(".ttf") or file.endswith(".otf"), os.listdir(os.path.join(fonts_dir, dir_font))):
                 QtGui.QFontDatabase.addApplicationFont(os.path.join(fonts_dir, dir_font, ttf))

@@ -12,9 +12,32 @@ if os.path.isdir(python_path_modules):
 
 from qtgui.ide import PinguinoIDE
 from PySide.QtGui import QApplication
+from PySide import QtCore
+
+#load translations
+locale = QtCore.QLocale.system().name()
+translator = QtCore.QTranslator()
+
+translations_path = os.path.abspath("translations")
+translations_file = "pinguino_" + locale
+
+if translations_file in os.listdir(translations_path):
+    translator.load(os.path.join(os.path.abspath("translations", "pinguino_" + locale)))
+    
+elif "_" in locale:
+    locale = locale[:locale.find("_")]
+    if translations_file in os.listdir(translations_path):
+        translator.load(os.path.join(os.path.abspath("translations", "pinguino_" + locale)))
+
+#load intern dialogs translations
+qtTranslator = QtCore.QTranslator()
+qtTranslator.load("qt_" + locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
+
 
 def main(argv):
     app = QApplication(argv)
+    app.installTranslator(translator)
+    app.installTranslator(qtTranslator)
     frame = PinguinoIDE()
     frame.show()
     app.exec_()

@@ -22,8 +22,8 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
     def __init__(self, *args, **kwargs):
         super(PinguinoTerminal, self).__init__(*args, **kwargs)
         
-        self.setStyleSheet("background-color: rgb(0, 0, 0);"\
-                           "color: #333;"\
+        self.setStyleSheet("background-color: #333;"\
+                           "color: #fff;"\
                            "font-family: mono;"\
                            "font-size: 12px;")
         

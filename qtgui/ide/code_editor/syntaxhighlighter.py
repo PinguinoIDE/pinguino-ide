@@ -4,6 +4,7 @@
 import pickle
 import sys
 import re
+import os
 from ConfigParser import RawConfigParser
 
 from PySide import QtGui, QtCore
@@ -22,19 +23,12 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         self.highlightingRules=[]
         self.highlightingRulesMatch=[]
         
-        config = Config()
-        namespaces = pickle.load(file(config.get_filename("pinguino_ide_reserved"), "r"))
-        #self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)         
         
+        namespaces = pickle.load(file(os.path.join(os.environ.get("PINGUINO_USER_DIR"), "reserved.pickle"), "r"))  
         reservadas=QtGui.QTextCharFormat()
         reservadas.setForeground(color("#0000ff"))     
         all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] + namespaces["all"] + namespaces["arch8"] + namespaces["arch32"]
         self.highlightingRules.append(("\\b("+"|".join(all_reservadas)+")\\b", reservadas))
-
-        #funtions=QtGui.QTextCharFormat()
-        #funtions.setForeground(color("#0000ff"))
-        #all_functions = syntax.librerias
-        #self.highlightingRules.append(("\\b("+"|".join(all_functions)+")\\b", funtions))
 
         dotFuntions=QtGui.QTextCharFormat()
         dotFuntions.setForeground(color("#0000ff"))
