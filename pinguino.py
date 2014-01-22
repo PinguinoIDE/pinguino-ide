@@ -21,13 +21,14 @@ translator = QtCore.QTranslator()
 translations_path = os.path.abspath("multilanguage")
 translations_file = "pinguino_" + locale
 
-if translations_file in os.listdir(translations_path):
-    translator.load(os.path.join(os.path.abspath("multilanguage", "pinguino_" + locale)))
+if translations_file + ".qm" in os.listdir(translations_path):
+    translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm"%locale))
     
 elif "_" in locale:
     locale = locale[:locale.find("_")]
-    if translations_file in os.listdir(translations_path):
-        translator.load(os.path.join(os.path.abspath("multilanguage", "pinguino_" + locale)))
+    translations_file = "pinguino_" + locale
+    if translations_file + ".qm" in os.listdir(translations_path):
+        translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm"%locale))
 
 #load intern dialogs translations
 qtTranslator = QtCore.QTranslator()
