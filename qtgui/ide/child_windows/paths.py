@@ -38,7 +38,6 @@ class Paths(QtGui.QMainWindow):
                          "GCC_BIN": self.main.configIDE.get_path("gcc_bin"),
                          "PINGUINO_8_LIBS": self.main.configIDE.get_path("pinguino_8_libs"),
                          "PINGUINO_32_LIBS": self.main.configIDE.get_path("pinguino_32_libs"),
-                         "PINGUINO_RESOURCES": self.main.configIDE.get_path("source"),
                          }
         
         for lineEdit, pushButton, keyWord in self.dialog_file:

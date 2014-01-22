@@ -427,7 +427,7 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def load_fonts(self):
-        fonts_dir = os.path.join(os.environ.get("PINGUINO_INSTALL_DIR"), "qtgui", "resources", "fonts")
+        fonts_dir = os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "ide", "qtgui", "resources", "fonts")
         if not os.path.exists(fonts_dir):
             logging.warning("Missing: "+fonts_dir)
             return

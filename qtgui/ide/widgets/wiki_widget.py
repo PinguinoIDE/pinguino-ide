@@ -8,7 +8,7 @@ import urllib2
 from PySide import QtCore, QtGui
 from bs4 import BeautifulSoup
 
-#from ..helpers.constants import IDE_WIKI_DOCS
+#from ..helpers.constants import self.ide_wiki_docs
 from ..helpers.dialogs import Dialogs
 from ...frames.wiki_doc_widget import Ui_WikiDocs
 
@@ -22,6 +22,8 @@ class WikiDock(QtGui.QMainWindow):
         
         self.main_widget = Ui_WikiDocs()
         self.main_widget.setupUi(self)
+        
+        self.ide_wiki_docs = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "wikidocs.pickle")
 
         self.to_ignore = ["Examples"]
         
@@ -36,11 +38,7 @@ class WikiDock(QtGui.QMainWindow):
         self.set_home()
         
         self.main_widget.textBrowser_doc.setStyleSheet("QTextBrowser {background-color: white;}")
-        
-        
         self.connect(self.main_widget.textBrowser_doc, QtCore.SIGNAL("anchorClicked(QUrl)"), self.open_tab_doc)
-        
-
         self.connect(self.main_widget.tabWidget, QtCore.SIGNAL("tabCloseRequested(int)"), self.tab_close)        
         
         
@@ -90,7 +88,7 @@ class WikiDock(QtGui.QMainWindow):
                 libs = self.update_from_wiki()
                 if libs:
                     libs = self.update_from_wiki()
-                    pickle.dump(libs, file(IDE_WIKI_DOCS, "w"))
+                    pickle.dump(libs, file(self.ide_wiki_docs, "w"))
                 else:
                     Dialogs.info_message(self, "Impossible read Wiki page.\n"+"http://wiki.pinguino.cc") 
                 self.set_home(libs=libs)
@@ -195,13 +193,13 @@ class WikiDock(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def get_libraries(self):
         """"""
-        if not os.path.isfile(IDE_WIKI_DOCS):
+        if not os.path.isfile(self.ide_wiki_docs):
             libs = self.update_from_wiki()
-            pickle.dump(libs, file(IDE_WIKI_DOCS, "w"))
+            pickle.dump(libs, file(self.ide_wiki_docs, "w"))
             return libs
             
         else:
-            return pickle.load(file(IDE_WIKI_DOCS, "r"))
+            return pickle.load(file(self.ide_wiki_docs, "r"))
             
         
     #----------------------------------------------------------------------

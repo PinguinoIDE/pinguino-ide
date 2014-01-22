@@ -39,7 +39,7 @@ class PlainOut(QtGui.QMainWindow):
         palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
         self.setPalette(palette)
         
-        PINGUINO_STDOUT_FILE = os.path.join(os.environ.get("PINGUINO_USER_DIR"), "source", "stdout")
+        PINGUINO_STDOUT_FILE = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "source", "stdout")
 
         if os.path.exists(PINGUINO_STDOUT_FILE):
             stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")

@@ -24,7 +24,7 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         self.highlightingRulesMatch=[]
         
         
-        namespaces = pickle.load(file(os.path.join(os.environ.get("PINGUINO_USER_DIR"), "reserved.pickle"), "r"))  
+        namespaces = pickle.load(file(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))  
         reservadas=QtGui.QTextCharFormat()
         reservadas.setForeground(color("#0000ff"))     
         all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] + namespaces["all"] + namespaces["arch8"] + namespaces["arch32"]
