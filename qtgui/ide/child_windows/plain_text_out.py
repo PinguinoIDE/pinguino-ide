@@ -8,7 +8,7 @@ from PySide import QtGui, QtCore
 
 from ..helpers.constants import TAB_NAME
 #from ..helpers.constants import PINGUINO_STDOUT_FILE
-from ...frames.stdout import Ui_Stdout
+from ...frames.stdout import Ui_PlainOut
 from ..code_editor.syntaxhighlighter import Highlighter
 
 ########################################################################
@@ -22,7 +22,7 @@ class PlainOut(QtGui.QMainWindow):
                             QtCore.Qt.WindowStaysOnTopHint)        
         
     
-        self.plain_out = Ui_Stdout()
+        self.plain_out = Ui_PlainOut()
         self.plain_out.setupUi(self)
         
         font = self.plain_out.textEdit.font()

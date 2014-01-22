@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from ...frames.board_config import Ui_MainWindow
+from ...frames.board_config import Ui_BoardConfig
 from ..helpers.constants import TAB_NAME
 from PySide import QtGui, QtCore
 
@@ -15,7 +15,7 @@ class BoardConfig(QtGui.QMainWindow):
                             QtCore.Qt.WindowSystemMenuHint |
                             QtCore.Qt.WindowStaysOnTopHint)    
         
-        self.board_config = Ui_MainWindow()
+        self.board_config = Ui_BoardConfig()
         self.board_config.setupUi(self)
         self.main = parent
         
