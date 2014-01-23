@@ -8,8 +8,8 @@ import urllib2
 from PySide import QtCore, QtGui
 from bs4 import BeautifulSoup
 
-#from ..helpers.constants import self.ide_wiki_docs
-from ..helpers.dialogs import Dialogs
+#from ..methods.constants import self.ide_wiki_docs
+from ..methods.dialogs import Dialogs
 from ...frames.wiki_doc_widget import Ui_WikiDocs
 
 ########################################################################

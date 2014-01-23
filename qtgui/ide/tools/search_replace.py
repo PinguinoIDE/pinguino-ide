@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from ..helpers.decorators import Decorator
+from ..methods.decorators import Decorator
 
 ########################################################################
 class SearchReplace(object):

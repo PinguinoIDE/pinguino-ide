@@ -3,7 +3,7 @@
 
 from PySide import QtGui
 
-from ..helpers.decorators import Decorator
+from ..methods.decorators import Decorator
 from ..tools.code_navigator import CodeNavigator
 from ..tools.files import Files
 

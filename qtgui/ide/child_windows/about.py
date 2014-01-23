@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-
-from ...frames.about import Ui_About
-
-from ..helpers.constants import TAB_NAME
-
 from PySide import QtGui, QtCore
+
+from ..methods.constants import TAB_NAME
+from ...frames.about import Ui_About
 
 ########################################################################
 class About(QtGui.QMainWindow):
@@ -21,7 +19,7 @@ class About(QtGui.QMainWindow):
         self.about = Ui_About()
         self.about.setupUi(self)
         
-        self.setWindowTitle(TAB_NAME+" - About")
+        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
         
         
         self.connect(self.about.pushButton_credits, QtCore.SIGNAL("clicked()"), lambda :self.about.stackedWidget.setCurrentIndex(1))
@@ -31,8 +29,8 @@ class About(QtGui.QMainWindow):
         self.connect(self.about.pushButton_close_2, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.about.pushButton_close_3, QtCore.SIGNAL("clicked()"), self.close)
         
-        
-    
+        self.about.stackedWidget.setCurrentIndex(0)
+        self.about.tabWidget.setCurrentIndex(0)
         
         self.centrar()
 

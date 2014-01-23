@@ -5,9 +5,11 @@ import os
 
 from PySide import QtGui, QtCore
 
-from ..helpers.widgets_features import PrettyFeatures
-from ..helpers.dialogs import Dialogs
+from ..methods.widgets_features import PrettyFeatures
+from ..methods.dialogs import Dialogs
+from ..methods.constants import TAB_NAME
 from ...frames.paths import Ui_Paths
+
 
 ########################################################################
 class Paths(QtGui.QMainWindow):
@@ -22,6 +24,8 @@ class Paths(QtGui.QMainWindow):
         self.set_paths = Ui_Paths()
         self.set_paths.setupUi(self)
         self.main = parent
+        
+        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
         
         self.dialog_file = ((self.set_paths.lineEdit_gcc_bin, self.set_paths.pushButton_gcc_bin, "GCC_BIN"),
                             (self.set_paths.lineEdit_sdcc_bin, self.set_paths.pushButton_sdcc_bin, "SDCC_BIN"),

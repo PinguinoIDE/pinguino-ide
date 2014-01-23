@@ -15,8 +15,8 @@ from ..bloques import BlockLinear, BlockFunction, BlockNested, \
 from ..py_bloques.get_blocks import all_sets
 from ..py_bloques import constructor
 from ...frames.select_area import Ui_Selection
-from ...ide.helpers.dialogs import Dialogs
-from ...ide.helpers.decorators import Decorator
+from ...ide.methods.dialogs import Dialogs
+from ...ide.methods.decorators import Decorator
 
 TEMPLATES = {"and": {"python":"and", "pinguino":"&&",},
              "not": {"python":"not", "pinguino":"!",},

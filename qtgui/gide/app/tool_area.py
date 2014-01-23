@@ -6,7 +6,7 @@ from PySide import QtGui, QtCore
 from .blocks import Blocks
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
-from ...ide.helpers.decorators import Decorator
+from ...ide.methods.decorators import Decorator
 
 
 ########################################################################

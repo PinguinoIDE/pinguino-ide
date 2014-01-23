@@ -7,7 +7,7 @@ from math import ceil
 from intelhex import IntelHex
 from PySide import QtGui, QtCore
 
-from ..helpers.constants import NAME
+from ..methods.constants import NAME, TAB_NAME
 from ...frames.hex_viewer_widget import Ui_HexViewer
 
 ########################################################################
@@ -23,6 +23,8 @@ class HexViewer(QtGui.QMainWindow):
         self.hex_viewer = Ui_HexViewer()
         self.hex_viewer.setupUi(self)
         self.main = parent
+        
+        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
         
         self.original_filename = file_path
         

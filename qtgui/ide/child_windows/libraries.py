@@ -8,10 +8,10 @@ from ConfigParser import RawConfigParser
 
 from PySide import QtGui, QtCore
 
-from ..helpers.config_libs import ConfigLibsGroup
-from ..helpers.constants import TAB_NAME
-from ..helpers.widgets_features import PrettyFeatures
-from ..helpers.dialogs import Dialogs
+from ..methods.config_libs import ConfigLibsGroup
+from ..methods.constants import TAB_NAME
+from ..methods.widgets_features import PrettyFeatures
+from ..methods.dialogs import Dialogs
 from ...frames.libraries_widget import Ui_LibraryManager
 
 from ..repositories.git_repo import GitRepo
@@ -32,7 +32,7 @@ class LibManager(QtGui.QMainWindow):
         
         self.ConfigLibs = ConfigLibsGroup()
         
-        self.setWindowTitle(TAB_NAME+" - Library manager")
+        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
         
         self.connect(self.libframe.pushButton_add, QtCore.SIGNAL("clicked()"), self.add_source)
         self.connect(self.libframe.lineEdit_source, QtCore.SIGNAL("editingFinished()"), self.add_source)

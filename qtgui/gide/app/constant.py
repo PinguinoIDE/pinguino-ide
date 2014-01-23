@@ -4,7 +4,7 @@
 import time
 import os
 
-from ...ide.helpers.constants import TAB_NAME, NAME, VERSION
+from ...ide.methods.constants import TAB_NAME, NAME, VERSION
 
 #FONTS_DIR = os.path.join(IDE_HOME_DIR, "qtgui", "resources", "fonts")
 

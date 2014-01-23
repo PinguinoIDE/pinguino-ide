@@ -10,8 +10,8 @@ from PySide.QtCore import QPoint
 from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons	
 from .syntaxhighlighter import Highlighter        
-from ..helpers.syntax import Autocompleter, Snippet
-from ..helpers import constants as Constants
+from ..methods.syntax import Autocompleter, Snippet
+from ..methods import constants as Constants
         
  
 ########################################################################

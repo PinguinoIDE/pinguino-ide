@@ -17,12 +17,12 @@ from .constant import INTRO_CODE, TAB_NAME
 from ..py_bloques.get_blocks import all_sets
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
-from ...ide.helpers.backgrounds import BackgroundPallete
-from ...ide.helpers.decorators import Decorator
+from ...ide.methods.backgrounds import BackgroundPallete
+from ...ide.methods.decorators import Decorator
 from ...frames.blocks_widget import Ui_widgetBlock
 from ...frames.grafical_widget import Ui_Form_graphical
-from ...ide.helpers.dialogs import Dialogs
-from ...ide.helpers.config import Config
+from ...ide.methods.dialogs import Dialogs
+from ...ide.methods.config import Config
 
 
 ########################################################################

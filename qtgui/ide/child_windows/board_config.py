@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 from ...frames.board_config import Ui_BoardConfig
-from ..helpers.constants import TAB_NAME
+from ..methods.constants import TAB_NAME
 from PySide import QtGui, QtCore
 
 
@@ -19,7 +19,7 @@ class BoardConfig(QtGui.QMainWindow):
         self.board_config.setupUi(self)
         self.main = parent
         
-        self.setWindowTitle(TAB_NAME+" - Board config")
+        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
         
         self.build_devices_arch()        
         self.load_config()

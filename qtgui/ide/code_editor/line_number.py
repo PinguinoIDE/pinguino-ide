@@ -5,7 +5,7 @@ from PySide.QtGui import QWidget
 from PySide.QtGui import QPainter
 from PySide import QtCore, QtGui
 
-from ..helpers.backgrounds import BackgroundPallete
+from ..methods.backgrounds import BackgroundPallete
 
 class LineNumber(QWidget):
 

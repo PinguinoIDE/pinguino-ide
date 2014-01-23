@@ -22,13 +22,13 @@ translations_path = os.path.abspath("multilanguage")
 translations_file = "pinguino_" + locale
 
 if translations_file + ".qm" in os.listdir(translations_path):
-    translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm"%locale))
+    translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm" % locale))
     
 elif "_" in locale:
     locale = locale[:locale.find("_")]
     translations_file = "pinguino_" + locale
     if translations_file + ".qm" in os.listdir(translations_path):
-        translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm"%locale))
+        translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm" % locale))
 
 #load intern dialogs translations
 qtTranslator = QtCore.QTranslator()
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     else:  #command line
         
         from qtgui.pinguino_api.pinguino import Pinguino
-        from qtgui.ide.helpers.constants import VERSION
+        from qtgui.ide.methods.constants import VERSION
         
         pinguino = Pinguino()
         parser = pinguino.build_argparse()
@@ -124,7 +124,6 @@ if __name__ == "__main__":
                         print("*" * 70)
                         for line in content_hex: print(line), 
                         print("*" * 70 + "\n")
-            
             
                 if parser.upload:
                     try:

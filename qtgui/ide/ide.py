@@ -10,25 +10,34 @@ from ConfigParser import RawConfigParser
 
 from PySide import QtGui, QtCore
 
-from .helpers.backgrounds import BackgroundPallete
-from .features.features import PinguinoFeatures
-from .helpers import constants as Constants
-from .helpers.dialogs import Dialogs
-from .helpers.pyhton_debug import Stderr
-from .helpers.config import Config
+from .methods.backgrounds import BackgroundPallete
+from .events.events import PinguinoEvents
+from .methods import constants as Constants
+from .methods.dialogs import Dialogs
+from .methods.pyhton_debug import Stderr
+from .methods.config import Config
 from .code_editor.autocomplete_icons import CompleteIcons
+from .widgets.output_widget import PinguinoTerminal
+from .methods.dev_tools import DevTools
+from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
 
+
 ########################################################################
-class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
+class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
+    
     def __init__(self):
         super(PinguinoIDE, self).__init__()
         
-        self.check_user_files()
         
-
+        QtCore.QTextCodec.setCodecForCStrings(QtCore.QTextCodec.codecForName("UTF-8"))
+        QtCore.QTextCodec.setCodecForLocale(QtCore.QTextCodec.codecForName("UTF-8"))
+        QtCore.QTextCodec.setCodecForTr(QtCore.QTextCodec.codecForName("UTF-8"))
+        
+        self.check_user_files()
         self.pinguinoAPI = Pinguino()
+        self.pinguinoAPI._boards_ = AllBoards
         self.configIDE = Config()
         self.ICONS = CompleteIcons()
         self.update_pinguino_paths()
@@ -37,35 +46,40 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.main.setupUi(self)
         self.setWindowTitle(Constants.TAB_NAME)
         self.build_statusbar()
-        
-        self.PinguinoPallete = BackgroundPallete()
-        self.PinguinoPallete.save_palette(self.main.centralwidget.parent())   
-        self.switch_color_theme(self.configIDE.config("Main", "color_theme", True))
-        
-        self.__initialize_features__()
+        self.fix_styles()
+        self.init_graphical_mode()
         
         self.connect_events()
-        self.main.tabWidget_files.setVisible(False)
+        self.init_widgets()
         
-        setattr(self.pinguinoAPI, "_boards_", AllBoards)
-        
-        self.redirect_this = None
-
-        self.main.toolBar_graphical.setVisible(False)
     
         self.update_functions()
         self.update_directives()
         self.update_variables()
         self.update_autocompleter()
-        #self.__update_path_files__(self.configIDE.get_path("pinguino_examples"))
         self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
-        #self.__update_graphical_path_files__(self.configIDE.get_path("pinguino_examples_graphical"))
         self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
         
         self.set_board()
         self.statusbar_ide(self.get_status_board())
         
         self.load_main_config()
+        
+        
+    #----------------------------------------------------------------------
+    def init_widgets(self):
+        self.main.tabWidget_files.setVisible(False)
+        self.main.toolBar_graphical.setVisible(False)
+        
+        self.main.tabWidget_tools.setCurrentIndex(0)
+        self.main.tabWidget_blocks_tools.setCurrentIndex(0)
+        
+        
+    #----------------------------------------------------------------------
+    def fix_styles(self):
+        self.PinguinoPallete = BackgroundPallete()
+        self.PinguinoPallete.save_palette(self.main.centralwidget.parent())   
+        self.switch_color_theme(self.configIDE.config("Main", "color_theme", True))
         
         bg_color = self.configIDE.config("Styles", "background_color", "#FFFFFF")
         alternate_bg_color = self.configIDE.config("Styles", "alternate_background_color", "#DDE8FF")
@@ -74,122 +88,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
         self.main.tableWidget_directives.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
         self.main.tableWidget_variables.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
 
-    #----------------------------------------------------------------------
-    def update_pinguino_paths(self):
-        
-        user_sdcc_bin = self.configIDE.get_path("sdcc_bin")
-        if user_sdcc_bin: self.pinguinoAPI.P8_BIN = user_sdcc_bin
-        
-        user_gcc_bin = self.configIDE.get_path("gcc_bin")
-        if user_gcc_bin: self.pinguinoAPI.P32_BIN = user_gcc_bin
-        
-        #pinguino_source = self.configIDE.get_path("source")
-        pinguino_source = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")
-        if pinguino_source: self.pinguinoAPI.SOURCE_DIR = pinguino_source
-        
-        pinguino_8_libs = self.configIDE.get_path("pinguino_8_libs")
-        if pinguino_8_libs: self.pinguinoAPI.P8_DIR = pinguino_8_libs
-        
-        pinguino_32_libs = self.configIDE.get_path("pinguino_32_libs")
-        if pinguino_32_libs: self.pinguinoAPI.P32_DIR = pinguino_32_libs
-                
-                
-        
-    #----------------------------------------------------------------------
-    def build_statusbar(self):
-        
-        self.status_info = QtGui.QLabel()
-        self.main.statusBar.addPermanentWidget(self.status_info, 1)    
-        
-        
-    #----------------------------------------------------------------------
-    def update_namespaces(self):
-        
-        names = Namespaces()
-        names.save_namespaces()        
-        
-    #----------------------------------------------------------------------
-    def install_error_redirect(self):
-        
-        sys.stderr = Stderr
-        sys.stderr.plainTextEdit_output = self.main.plainTextEdit_output
-
-    #----------------------------------------------------------------------
-    def output_ide(self, *args, **kwargs):
-        
-        for line in args:
-            self.main.plainTextEdit_output.appendPlainText(line)
-            
-        for key in kwargs.keys():
-            line = key + ": " + kwargs[key]
-            self.main.plainTextEdit_output.appendPlainText(line)
-            
-        #self.main.plainTextEdit_output.appendPlainText(">>> ")
-        
-    ##----------------------------------------------------------------------
-    #def clear_output_ide(self):
-        #
-        #self.main.plainTextEdit_output.setPlainText("")
-        
-    #----------------------------------------------------------------------
-    def statusbar_ide(self, status):
-        
-        self.status_info.setText(status)
-        
-        
-    #----------------------------------------------------------------------
-    def set_board(self):
-        
-        board_name = self.configIDE.config("Board", "board", "Pinguino 2550")
-        for board in self.pinguinoAPI._boards_:
-            if board.name == board_name:
-                self.pinguinoAPI.set_board(board)
-        
-        arch = self.configIDE.config("Board", "arch", 8)
-        if arch == 8:
-            bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
-            if bootloader == "v1_v2":
-                self.pinguinoAPI.set_bootloader(self.pinguinoAPI.Boot2)
-            else:
-                self.pinguinoAPI.set_bootloader(self.pinguinoAPI.Boot4)
-                
-        os.environ["PINGUINO_BOARD_ARCH"] = str(arch)
-                
-                
-    #----------------------------------------------------------------------
-    def get_description_board(self):
-        
-        board = self.pinguinoAPI.get_board()
-        board_config = "Board: %s\n" % board.name
-        board_config += "Proc: %s\n" % board.proc
-        board_config += "Arch: %s\n" % board.arch
-        
-        if board.arch == 8 and board.bldr == "boot4":
-            board_config += "Boootloader: v4\n"
-        if board.arch == 8 and board.bldr == "boot2":
-            board_config += "Boootloader: v1 & v2\n"
-            
-        return board_config
-    
-                
-                
-    #----------------------------------------------------------------------
-    def get_status_board(self):
-        
-        self.set_board()
-        board = self.pinguinoAPI.get_board()
-        board_config = "Board: %s" % board.name
-        #board_config += "Proc: %s\n" % board.proc
-        #board_config += "Arch: %s\n" % board.arch
-        
-        if board.arch == 8 and board.bldr == "boot4":
-            board_config += " - Boootloader: v4"
-        if board.arch == 8 and board.bldr == "boot2":
-            board_config += " - Boootloader: v1 & v2"
-            
-        return board_config
-    
-    
     
     #----------------------------------------------------------------------
     def check_user_files(self):
@@ -253,4 +151,86 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoFeatures):
                 shutil.copytree(src, dst)
             else:
                 shutil.copy(src, dst)
+        
+    #----------------------------------------------------------------------
+    def init_graphical_mode(self):
+        self.PinguinoKIT = GraphicalIDE(self)
+        self.main.tabWidget_graphical.setVisible(False)
+        self.main.dockWidget_blocks.setVisible(False) 
+        
+        self.recent_files = self.configIDE.get_recents()
+        self.update_recents_menu()
+        self.open_last_files()
+        
+        self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
+        self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
+        self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self, "devmode": DevTools(),})
+        self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
+        
+        
+    #----------------------------------------------------------------------
+    def is_graphical(self):
+        return self.main.actionSwitch_ide.isChecked()
+    
+    #----------------------------------------------------------------------
+    def is_widget(self):
+        tab = self.get_tab()
+        editor = tab.currentWidget()
+        if editor is None: return False
+        return getattr(editor, "is_widget", False)
+    
+    #----------------------------------------------------------------------
+    def is_autocomplete_enable(self):
+        return self.main.actionAutocomplete.isChecked()
+    
+        
+    #----------------------------------------------------------------------
+    def update_actions_for_text(self):
+        normal = False
+        self.main.actionView_Pinguino_code.setEnabled(normal)   
+        self.main.actionComment_out_region.setEnabled(not normal)   
+        self.main.actionComment_Uncomment_region.setEnabled(not normal) 
+        self.main.actionRedo.setEnabled(not normal)         
+        self.main.actionUndo.setEnabled(not normal)         
+        self.main.actionCut.setEnabled(not normal)         
+        self.main.actionCopy.setEnabled(not normal)         
+        self.main.actionPaste.setEnabled(not normal)         
+        self.main.actionSearch.setEnabled(not normal)        
+        self.main.actionSearch_and_replace.setEnabled(not normal)   
+        self.main.dockWidget_blocks.setVisible(normal)
+        self.main.dockWidget_tools.setVisible(not normal)  
+        self.main.toolBar_search_replace.setVisible(not normal)
+        self.main.toolBar_edit.setVisible(not normal)
+        self.main.toolBar_graphical.setVisible(normal)
+        self.main.toolBar_undo_redo.setVisible(not normal)
+        
+        self.configIDE.set("Features", "terminal_on_graphical", self.main.dockWidget_output.isVisible())         
+        self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_text", True))
+        self.configIDE.save_config()
+        
+        
+    #----------------------------------------------------------------------
+    def update_actions_for_graphical(self):
+        normal = True
+        self.main.actionView_Pinguino_code.setEnabled(normal)   
+        self.main.actionRedo.setEnabled(not normal)          
+        self.main.actionComment_out_region.setEnabled(not normal)   
+        self.main.actionComment_Uncomment_region.setEnabled(not normal)         
+        self.main.actionUndo.setEnabled(not normal)         
+        self.main.actionCut.setEnabled(not normal)         
+        self.main.actionCopy.setEnabled(not normal)         
+        self.main.actionPaste.setEnabled(not normal)         
+        self.main.actionSearch.setEnabled(not normal)        
+        self.main.actionSearch_and_replace.setEnabled(not normal)   
+        self.main.dockWidget_blocks.setVisible(normal)
+        self.main.dockWidget_tools.setVisible(not normal)  
+        self.main.toolBar_search_replace.setVisible(not normal)
+        self.main.toolBar_edit.setVisible(not normal)
+        self.main.toolBar_graphical.setVisible(normal)
+        self.main.toolBar_undo_redo.setVisible(not normal)       
+        
+        self.configIDE.set("Features", "terminal_on_text", self.main.dockWidget_output.isVisible())        
+        self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
+        self.configIDE.save_config()
+        
         

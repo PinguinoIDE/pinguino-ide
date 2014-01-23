@@ -6,8 +6,8 @@ import os
 
 from PySide import QtGui, QtCore
 
-from ..helpers.constants import TAB_NAME
-#from ..helpers.constants import PINGUINO_STDOUT_FILE
+from ..methods.constants import TAB_NAME
+#from ..methods.constants import PINGUINO_STDOUT_FILE
 from ...frames.stdout import Ui_PlainOut
 from ..code_editor.syntaxhighlighter import Highlighter
 

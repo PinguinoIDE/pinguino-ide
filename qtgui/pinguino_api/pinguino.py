@@ -7,7 +7,7 @@ import argparse
 
 from .pinguino_tools import PinguinoTools
 from .boards import boardlist as AllBoards
-from ..ide.helpers.constants import NAME
+from ..ide.methods.constants import NAME
 
 ########################################################################
 class Pinguino(PinguinoTools):

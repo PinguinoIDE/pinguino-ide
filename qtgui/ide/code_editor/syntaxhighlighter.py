@@ -9,9 +9,9 @@ from ConfigParser import RawConfigParser
 
 from PySide import QtGui, QtCore
 
-from ..helpers.syntax import Autocompleter
-from ..helpers import constants as Constants
-from ..helpers.config import Config
+from ..methods.syntax import Autocompleter
+from ..methods import constants as Constants
+from ..methods.config import Config
 
 ########################################################################
 class Highlighter(QtGui.QSyntaxHighlighter):

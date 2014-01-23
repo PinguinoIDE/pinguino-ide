@@ -9,7 +9,6 @@ from .timer_methods import TimerMethods
 ########################################################################
 class PinguinoEvents(EventMethods, TimerMethods):
 
-    
     #----------------------------------------------------------------------
     def connect_events(self):
         
@@ -49,8 +48,6 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionUpload, QtCore.SIGNAL("triggered()"), self.pinguino_upload)
         
         # Options
-        self.connect(self.main.actionUse_local_compilers, QtCore.SIGNAL("triggered()"), self.pinguino_use_local_compilers)   
-        self.connect(self.main.actionUse_system_compilers, QtCore.SIGNAL("triggered()"), self.pinguino_use_system_compilers)   
         self.connect(self.main.actionAutocomplete, QtCore.SIGNAL("triggered()"), self.switch_autocomplete)
         self.connect(self.main.actionColor_theme, QtCore.SIGNAL("toggled(bool)"), self.switch_color_theme)
         
@@ -67,11 +64,11 @@ class PinguinoEvents(EventMethods, TimerMethods):
         
         # Tools Files
         self.connect(self.main.listWidget_files, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.jump_dir_files) 
-        self.connect(self.main.comboBox_files, QtCore.SIGNAL("currentIndexChanged(QString)"), self.change_dir_files)
         self.connect(self.main.listWidget_filesg, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.jump_dir_filesg) 
+        self.connect(self.main.comboBox_files, QtCore.SIGNAL("currentIndexChanged(QString)"), self.change_dir_files)
         self.connect(self.main.comboBox_filesg, QtCore.SIGNAL("currentIndexChanged(QString)"), self.change_dir_filesg)  
         
-        # Tools Sources
+        # Tools Source
         self.connect(self.main.tableWidget_functions, QtCore.SIGNAL("doubleClicked(QModelIndex)"), self.jump_function)
         self.connect(self.main.tableWidget_directives, QtCore.SIGNAL("doubleClicked(QModelIndex)"), self.jump_directive) 
         self.connect(self.main.tableWidget_variables, QtCore.SIGNAL("doubleClicked(QModelIndex)"), self.jump_variable)

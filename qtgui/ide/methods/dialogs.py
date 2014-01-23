@@ -10,7 +10,6 @@ from .constants import NAME
 ########################################################################
 class Dialogs(object):
     
-
     #----------------------------------------------------------------------
     @classmethod
     def set_save_file(self, parent, filename):

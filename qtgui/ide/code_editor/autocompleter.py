@@ -8,7 +8,7 @@ from PySide.QtGui import QListWidget, QListWidgetItem
 from PySide import QtCore, QtGui
 
 from .autocomplete_icons import CompleteIcons	
-from ..helpers import constants as Constants
+from ..methods import constants as Constants
 
 class PinguinoAutoCompleter(QListWidget):
     

@@ -6,8 +6,8 @@ import shutil
 
 import git
 
-#from ..helpers.constants import IDE_LIBRARY_INSTALLED
-from ..helpers.config_libs import ConfigLibsGroup
+#from ..methods.constants import IDE_LIBRARY_INSTALLED
+from ..methods.config_libs import ConfigLibsGroup
 
 ########################################################################
 class GitRepo(object):
