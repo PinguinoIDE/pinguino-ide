@@ -17,9 +17,9 @@ class Dialogs(object):
         if filename.endswith("*"): filename = filename[:-1]
         ext = os.path.splitext(os.path.split(filename)[1])[1]
         save_filename = QtGui.QFileDialog.getSaveFileName(parent,
-                NAME+" - Save",
+                NAME+QtGui.QApplication.translate("Dialogs", " - Save"), 
                 os.path.join(QtCore.QDir.home().path(), filename),
-                "Pinguino files (*%s);;All Files (*)"%ext)
+                QtGui.QApplication.translate("Dialogs", "Pinguino files (*%s);;All Files (*)")%ext) 
         if save_filename: return save_filename[0], os.path.split(save_filename[0])[1]
         else: return None
         
@@ -27,9 +27,9 @@ class Dialogs(object):
     @classmethod
     def set_open_file(self, parent):
         open_files = QtGui.QFileDialog.getOpenFileNames(parent,
-                NAME+" - Open",
-                QtCore.QDir.home().path(), 
-                "Pinguino Files (*.pde *.gpde);;All Files (*)")
+                NAME+QtGui.QApplication.translate("Dialogs", " - Open"),
+                QtCore.QDir.home().path(),
+                QtGui.QApplication.translate("Dialogs", "Pinguino Files (*.pde *.gpde);;All Files (*)"))
         if open_files: return open_files[0]
         else: return None
             
@@ -40,8 +40,8 @@ class Dialogs(object):
         
         options = QtGui.QMessageBox.Yes | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
         reply = QtGui.QMessageBox.question(parent,
-                NAME+" - Save?",
-                "this file has not been saved,\nWould you like to do?\n\n"+filename,
+                NAME+QtGui.QApplication.translate("Dialogs", " - Save"),
+                QtGui.QApplication.translate("Dialogs", "This file has not been saved,\nWould you like to do?\n\n")+filename,
                 options)
         
         if reply == QtGui.QMessageBox.Yes: return True
@@ -54,7 +54,7 @@ class Dialogs(object):
     def set_open_dir(self, parent):
         
         open_dir = QtGui.QFileDialog.getExistingDirectory(parent,
-                NAME+" - Open directory",
+                NAME+QtGui.QApplication.translate("Dialogs", " - Open directory"),
                 QtCore.QDir.home().path())
         
         if open_dir: return open_dir
@@ -65,8 +65,8 @@ class Dialogs(object):
     def file_duplicated(self, parent, filename):
         
         QtGui.QMessageBox.information(parent,
-                NAME+" - File already open.",
-                "This file is already open in other tab.\n%s"%filename)
+                NAME+QtGui.QApplication.translate("Dialogs", " - File already open"),
+                QtGui.QApplication.translate("Dialogs", "This file is already open in other tab.\n%s")%filename)
         return True
     
     #----------------------------------------------------------------------
@@ -74,17 +74,17 @@ class Dialogs(object):
     def error_message(self, parent, message):
         
         QtGui.QMessageBox.warning(parent,
-                NAME+" - Error",
+                NAME+QtGui.QApplication.translate("Dialogs", " - Error"),
                 message)
         return True
         
     #----------------------------------------------------------------------
     @classmethod
-    def confirm_message(self, parent, message, title="confirm"):
+    def confirm_message(self, parent, message):
         
         options = QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel
         reply = QtGui.QMessageBox.question(parent,
-                NAME+" - "+title,
+                NAME+QtGui.QApplication.translate("Dialogs", " - Confirmation"),
                 message,
                 options)
         
@@ -98,16 +98,16 @@ class Dialogs(object):
     def info_message(self, parent, message):
         
         QtGui.QMessageBox.information(parent,
-                NAME+" - Info",
+                NAME+QtGui.QApplication.translate("Dialogs", " - Information"),
                 message)
         return True
     
     #----------------------------------------------------------------------
     @classmethod
-    def warning_message(self, parent, message, title="warning"):
+    def warning_message(self, parent, message):
         
         QtGui.QMessageBox.warning(parent,
-                NAME+" - "+title,
+                NAME+QtGui.QApplication.translate( "Dialogs", " - Warning"),
                 message)
         return True
             
@@ -116,8 +116,8 @@ class Dialogs(object):
     def save_before_compile(self, parent):
         
         QtGui.QMessageBox.information(parent,
-                NAME+" - must save file.",
-                "You must save the file before compiling.")
+                NAME+QtGui.QApplication.translate("Dialogs", " - Save file first."),
+                QtGui.QApplication.translate("Dialogs", "You must save the file before compiling."))
         return True
     
     #----------------------------------------------------------------------
@@ -129,17 +129,17 @@ class Dialogs(object):
         
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Question)
-        msg_box.setWindowTitle(NAME+" - Config board")
-        msg_box.setText(board_config+"\n\nUse this board config?")
+        msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Config board"))
+        msg_box.setText(board_config+QtGui.QApplication.translate("Dialogs", "\n\nUse this board config?"))
         
         cancel = QtGui.QPushButton()
-        cancel.setText("Cancel")
+        cancel.setText(QtGui.QApplication.translate("Dialogs", "Cancel"))
         
         change = QtGui.QPushButton()
-        change.setText("Change board")
+        change.setText(QtGui.QApplication.translate("Dialogs", "Change board"))
         
         compile_ = QtGui.QPushButton()
-        compile_.setText("Compile")
+        compile_.setText(QtGui.QApplication.translate("Dialogs", "Compile"))
         
         msg_box.addButton(cancel, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(change, QtGui.QMessageBox.NoRole)
@@ -160,14 +160,14 @@ class Dialogs(object):
         
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(NAME+" - Error")
-        msg_box.setText("Error while compiling.")
+        msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while compiling."))
         
         stdout = QtGui.QPushButton()
-        stdout.setText("View stdout")
+        stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
         
         ok = QtGui.QPushButton()
-        ok.setText("Ok")
+        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
         
         msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
@@ -185,14 +185,14 @@ class Dialogs(object):
         
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(NAME+" - Error")
-        msg_box.setText("Error while linking.")
+        msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while linking."))
         
         stdout = QtGui.QPushButton()
-        stdout.setText("View stdout")
+        stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
         
         ok = QtGui.QPushButton()
-        ok.setText("Ok")
+        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
         
         msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
@@ -211,14 +211,14 @@ class Dialogs(object):
         
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(NAME+" - Error")
-        msg_box.setText("Error while preprocess.")
+        msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while preprocess."))
         
         stdout = QtGui.QPushButton()
-        stdout.setText("View stdout")
+        stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
         
         ok = QtGui.QPushButton()
-        ok.setText("Ok")
+        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
         
         msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
@@ -238,14 +238,14 @@ class Dialogs(object):
         
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(NAME+" - Error")
-        msg_box.setText("Unknow error.")
+        msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Unknow error."))
         
         stdout = QtGui.QPushButton()
-        stdout.setText("View stdout")
+        stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
         
         ok = QtGui.QPushButton()
-        ok.setText("Ok")
+        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
         
         msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
@@ -265,14 +265,14 @@ class Dialogs(object):
         
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Information)
-        msg_box.setWindowTitle(NAME+" - Compiled")
-        msg_box.setText("Compilation done!")
+        msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Compiled"))
+        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Compilation done!"))
         
         upload = QtGui.QPushButton()
-        upload.setText("Upload now!")
+        upload.setText(QtGui.QApplication.translate("Dialogs", "Upload now!"))
         
         ok = QtGui.QPushButton()
-        ok.setText("Ok")
+        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
         
         msg_box.addButton(upload, QtGui.QMessageBox.AcceptRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
@@ -289,8 +289,8 @@ class Dialogs(object):
     def upload_done(self, parent):
         
         QtGui.QMessageBox.information(parent,
-                NAME+" - Upload done",
-                "File sucessfully uploaded to pinguino.")
+                NAME+QtGui.QApplication.translate("Dialogs", " - Upload done"),
+                QtGui.QApplication.translate("Dialogs", "File sucessfully uploaded to pinguino."))
         return True
     
         
@@ -300,14 +300,14 @@ class Dialogs(object):
         
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Information)
-        msg_box.setWindowTitle(NAME+" - Upload fail")
+        msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Upload fail"))
         msg_box.setText(message)
         
         upload = QtGui.QPushButton()
-        upload.setText("Try again!!")
+        upload.setText(QtGui.QApplication.translate("Dialogs", "Try again!!"))
         
         ok = QtGui.QPushButton()
-        ok.setText("Cancel")
+        ok.setText(QtGui.QApplication.translate("Dialogs", "Cancel"))
         
         msg_box.addButton(upload, QtGui.QMessageBox.AcceptRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
@@ -325,9 +325,9 @@ class Dialogs(object):
     def set_save_image(self, parent, filename):
         
         file_name = QtGui.QFileDialog.getSaveFileName(parent,
-                NAME+" - Save image",
+                NAME+QtGui.QApplication.translate("Dialogs", " - Save image"),
                 filename,
-                "Png files (*.png);;All Files (*)")
+                QtGui.QApplication.translate("Dialogs", "Png files (*.png);;All Files (*)"))
         
         if file_name: return file_name[0]
         else: return None

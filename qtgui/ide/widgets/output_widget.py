@@ -10,7 +10,7 @@ from ..helpers import constants as Constants
 from ..helpers.python_shell import PythonShell
 
 HEAD = Constants.TAB_NAME + "\n" + "Python " + sys.version + " on " + sys.platform
-HELP = 'can also use the commands: "clear", "restart"'
+HELP = QtGui.QApplication.translate("PythonShell", "can also use the commands:") + '"clear", "restart"'
 
 START = ">>> "
 

@@ -83,7 +83,7 @@ class WikiDock(QtGui.QMainWindow):
         
         url = url.toString()
         if url == "__update__":
-            reply = Dialogs.confirm_message(self, "This will take a long time.", "Sure?")
+            reply = Dialogs.confirm_message(self, "This will take a long time.")
             if reply:
                 libs = self.update_from_wiki()
                 if libs:

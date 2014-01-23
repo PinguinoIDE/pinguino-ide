@@ -772,7 +772,7 @@ class EventMethods(SearchReplace):
         
         name = getattr(self.get_tab().currentWidget(), "path", "")
         if name: name = " - " + name
-        self.frame_pinguino_code = PlainOut("Pinguino code")
+        self.frame_pinguino_code = PlainOut(QtGui.QApplication.translate("Dialogs", "Pinguino code"))
         self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
         self.frame_pinguino_code.show()
         
@@ -782,7 +782,7 @@ class EventMethods(SearchReplace):
         if getattr(self.get_tab().currentWidget(), "path", False):
             hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
         else:
-            Dialogs.error_message(self, "You must compile before.")
+            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
             return
 
         if os.path.isfile(hex_filename):
@@ -790,7 +790,7 @@ class EventMethods(SearchReplace):
             self.frame_hex_viewer.show()            
             
         else:
-            Dialogs.error_message(self, "You must compile before.")
+            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
                     
                 
     #----------------------------------------------------------------------
@@ -833,7 +833,7 @@ class EventMethods(SearchReplace):
             
         
         #self.clear_output_ide()
-        self.output_ide("compilling: %s"%filename)
+        self.output_ide(QtGui.QApplication.translate("Frame", "compilling: %s")%filename)
         self.output_ide(self.get_description_board())
         
         self.pinguinoAPI.compile_file(filename)
@@ -877,9 +877,9 @@ class EventMethods(SearchReplace):
                 
         else:
             result = self.pinguinoAPI.get_result()
-            self.output_ide("compilation done")
+            self.output_ide(QtGui.QApplication.translate("Frame", "compilation done"))
             self.output_ide(result["code_size"])
-            self.output_ide("%s seconds process time"%result["time"])
+            self.output_ide(QtGui.QApplication.translate("Frame", "%s seconds process time")%result["time"])
             
             if Dialogs.compilation_done(self): self.pinguino_upload()
             
@@ -902,7 +902,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     def pinguino_use_local_compilers(self):
         
-        Dialogs.info_message(self, "No implemented yet.")
+        Dialogs.info_message(self, QtGui.QApplication.translate("Dialogs", "No implemented yet."))
         #self.pinguinoAPI.set_os_variables(local_compilers=True)
         self.main.actionUse_local_compilers.setChecked(True)
         self.main.actionUse_system_compilers.setChecked(False)
@@ -910,7 +910,7 @@ class EventMethods(SearchReplace):
     #----------------------------------------------------------------------
     def pinguino_use_system_compilers(self):
         
-        Dialogs.info_message(self, "No implemented yet.")
+        Dialogs.info_message(self, QtGui.QApplication.translate("Dialogs", "No implemented yet."))
         ##self.pinguinoAPI.set_os_variables(local_compilers=False)
         #self.main.actionUse_local_compilers.setChecked(False)
         #self.main.actionUse_system_compilers.setChecked(True)
