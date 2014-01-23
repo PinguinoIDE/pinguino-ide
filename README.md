@@ -3,7 +3,7 @@ pinguino-ide
 Open source integrated development enviroment (IDE).
 
 
-  * [Dependences] (#dependences)
+  * [Dependencies] (#dependencies)
   * [IDE](#ide)
   * [Command line](#command-line)
   * [Python API](#python-api)
