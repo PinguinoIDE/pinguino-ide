@@ -26,7 +26,7 @@ class LibManager(QtGui.QMainWindow):
         self.libframe.setupUi(self)
         
         
-        self.user_libraries_dir = IDE.confiIDE.get_path("pinguino_user_libs")        
+        self.user_libraries_dir = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries")        
         
         if not os.path.isdir(self.user_libraries_dir): os.mkdir(self.user_libraries_dir)
         
