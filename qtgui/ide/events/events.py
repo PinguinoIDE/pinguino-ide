@@ -36,7 +36,6 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionComment_Uncomment_region, QtCore.SIGNAL("triggered()"), self.comment_uncomment)
         
         # Menu View
-        self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)
         self.connect(self.main.actionHex_code, QtCore.SIGNAL("triggered()"), self.__show_hex_code__)
         self.connect(self.main.actionStdout, QtCore.SIGNAL("triggered()"), self.__show_stdout__)
         
@@ -46,6 +45,10 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionSelect_board, QtCore.SIGNAL("triggered()"), self.__show_board_config__)
         self.connect(self.main.actionCompile, QtCore.SIGNAL("triggered()"), self.pinguino_compile)   
         self.connect(self.main.actionUpload, QtCore.SIGNAL("triggered()"), self.pinguino_upload)
+        
+        # Graphical
+        self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)
+        self.connect(self.main.actionExport_code_to_editor, QtCore.SIGNAL("triggered()"), self.__export_pinguino_code__)        
         
         # Options
         self.connect(self.main.actionAutocomplete, QtCore.SIGNAL("triggered()"), self.switch_autocomplete)
@@ -82,6 +85,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.pushButton_replace, QtCore.SIGNAL("clicked()"), self.replace)
         self.connect(self.main.pushButton_replace_all, QtCore.SIGNAL("clicked()"), self.replaceall) 
         self.connect(self.main.lineEdit_search, QtCore.SIGNAL("textChanged(QString)"), self.search_instantaneous)
+        self.connect(self.main.lineEdit_replace, QtCore.SIGNAL("textChanged(QString)"), self.replace_instantaneous)
         
         # Widgets
         self.connect(self.main.tabWidget_files, QtCore.SIGNAL("currentChanged(int)"), self.tab_changed)

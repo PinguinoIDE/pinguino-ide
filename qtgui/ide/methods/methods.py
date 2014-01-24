@@ -11,10 +11,12 @@ from .dialogs import Dialogs
 from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
 
+
 ########################################################################
 class Methods(SearchReplace):
 
     #----------------------------------------------------------------------
+    @Decorator.debug_time()
     def open_file_from_path(self, *args, **kwargs):
         filename = kwargs["filename"]
         if self.__check_duplicate_file__(filename): return
@@ -27,6 +29,7 @@ class Methods(SearchReplace):
             return
         elif filename.endswith(".pde"):
             self.switch_ide_mode(False)
+            
         
         self.new_file(filename=filename)
         editor = self.main.tabWidget_files.currentWidget()
@@ -41,17 +44,44 @@ class Methods(SearchReplace):
         self.tab_changed()
         
         
+        
     #----------------------------------------------------------------------
-    @Decorator.call_later()
+    @Decorator.call_later(100)
+    #@Decorator.debug_time()
     def open_last_files(self):
         opens = self.configIDE.get_recents_open()
+        
+        if not opens: return
+        
+        files = "\n".join(opens)
+        dialogtext = QtGui.QApplication.translate("Dialogs", "Do you want open files of last sesion?")
+        if not Dialogs.confirm_message(self, dialogtext+"\n"+files):
+            return
+    
+        self.setCursor(QtCore.Qt.WaitCursor)
         for file_ in opens:
             if os.path.exists(file_):
                 self.open_file_from_path(filename=file_)
-            
-        self.main.actionSwitch_ide.setChecked(self.configIDE.config("Features", "graphical", False))
-        self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))        
+                #self.open_file_from_path_later(file_)
+                
+        self.main.actionSwitch_ide.setChecked(file_.endswith(".pdeg"))
+        self.switch_ide_mode(file_.endswith(".pdeg"))
+        self.setCursor(QtCore.Qt.ArrowCursor)
         
+    ##----------------------------------------------------------------------
+    #@Decorator.call_later(1)
+    #@Decorator.degug_time()
+    #def open_file_from_path_later(self, file_):
+        #print "start: ",
+        #print file_
+        #self.open_file_from_path(filename=file_)
+        #print "End: ",
+        #print file_
+        ##self.main.actionSwitch_ide.setChecked(file_.endswith(".pdeg"))
+        ##self.switch_ide_mode(file_.endswith(".pdeg"))        
+        
+        
+
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()

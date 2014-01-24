@@ -10,24 +10,25 @@ from ConfigParser import RawConfigParser
 from PySide import QtGui, QtCore
 
 from ..methods.syntax import Autocompleter
-from ..methods import constants as Constants
-from ..methods.config import Config
 
 ########################################################################
 class Highlighter(QtGui.QSyntaxHighlighter):
+    
     #----------------------------------------------------------------------
     def __init__(self, parent):
         super(Highlighter, self).__init__(parent)
-        color=QtGui.QColor
+        color = QtGui.QColor
         
-        self.highlightingRules=[]
-        self.highlightingRulesMatch=[]
+        self.highlightingRules = []
+        self.highlightingRulesMatch = []
         
-        
-        namespaces = pickle.load(file(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))  
+        #namespaces = pickle.load(file(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))  
         reservadas=QtGui.QTextCharFormat()
         reservadas.setForeground(color("#0000ff"))     
-        all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] + namespaces["all"] + namespaces["arch8"] + namespaces["arch32"]
+        #all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] + namespaces["all"] + namespaces["arch8"] + namespaces["arch32"]
+        all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"]
+        #all_reservadas = filter(lambda e:e.count(".")<=0, all_reservadas)
+        #all_reservadas = filter(lambda e:e.isupper(), all_reservadas)
         self.highlightingRules.append(("\\b("+"|".join(all_reservadas)+")\\b", reservadas))
 
         dotFuntions=QtGui.QTextCharFormat()
@@ -56,7 +57,7 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         
         directives=QtGui.QTextCharFormat()
         directives.setForeground(color("#d36820"))
-        self.highlightingRules.append(("#[ ]*[define|include|ifndef|endif][ ]*.*", directives))
+        self.highlightingRules.append(("#[ ]*[define|include|ifndef|endif|pragma][ ]*.*", directives))
 
         doubleQuotation=QtGui.QTextCharFormat() 
         doubleQuotation.setForeground(color("#7f0000"))
@@ -71,16 +72,10 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         self.highlightingRules.append((r'//[^\n]*', singleComment)) 
 
         self.multiComment=QtGui.QTextCharFormat()
-        self.multiComment.setForeground(color("#c81818"))
-        #self.multiComment.setFontItalic(self.fontsTypes("Multi line comment")[2])      
+        self.multiComment.setForeground(color("#c81818"))   
         
         self.commentStartExpression = QtCore.QRegExp("/\\*")
         self.commentEndExpression = QtCore.QRegExp("\\*/")         
-        
-        user=QtGui.QTextCharFormat()
-        user.setForeground(QtCore.Qt.darkMagenta)    
-        #for word in syntax.user:
-            #self.highlightingRules.append((QtCore.QRegExp(word),user))
             
     #----------------------------------------------------------------------
     def highlightBlock(self, text): 

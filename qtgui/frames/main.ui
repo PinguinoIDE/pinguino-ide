@@ -169,7 +169,6 @@
     <property name="title">
      <string>View</string>
     </property>
-    <addaction name="actionView_Pinguino_code"/>
     <addaction name="actionHex_code"/>
     <addaction name="actionStdout"/>
    </widget>
@@ -230,11 +229,19 @@
     <addaction name="actionAutocomplete"/>
     <addaction name="actionColor_theme"/>
    </widget>
+   <widget class="QMenu" name="menuGraphical">
+    <property name="title">
+     <string>Graphical</string>
+    </property>
+    <addaction name="actionView_Pinguino_code"/>
+    <addaction name="actionExport_code_to_editor"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuSource"/>
    <addaction name="menuView"/>
    <addaction name="menuPinguino"/>
+   <addaction name="menuGraphical"/>
    <addaction name="menuConfiguration"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -271,7 +278,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_5">
         <attribute name="title">
@@ -627,6 +634,9 @@
             </item>
             <item row="1" column="0">
              <widget class="QPushButton" name="pushButton_replace">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>Replace</string>
               </property>
@@ -634,6 +644,9 @@
             </item>
             <item row="1" column="1">
              <widget class="QPushButton" name="pushButton_replace_all">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>Replace all</string>
               </property>
@@ -685,6 +698,9 @@
             </item>
             <item row="1" column="0">
              <widget class="QPushButton" name="pushButton_search_previous">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>Previous</string>
               </property>
@@ -696,6 +712,9 @@
             </item>
             <item row="1" column="1">
              <widget class="QPushButton" name="pushButton_search_next">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>Next</string>
               </property>
@@ -1364,7 +1383,7 @@
   </action>
   <action name="actionView_Pinguino_code">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>View Pinguino code</string>
@@ -1524,6 +1543,11 @@
    </property>
    <property name="toolTip">
     <string>Set paths</string>
+   </property>
+  </action>
+  <action name="actionExport_code_to_editor">
+   <property name="text">
+    <string>Export code to editor</string>
    </property>
   </action>
  </widget>

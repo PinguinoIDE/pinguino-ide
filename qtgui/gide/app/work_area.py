@@ -84,23 +84,31 @@ class WorkArea(QtGui.QWidget):
         self.SelectArea.hide()
         
         self.contextMenuEvent = self.build_menu
+        
+        
+        
+
+        
 
 
     #----------------------------------------------------------------------
     def build_menu(self, event):
-        
         menu = QtGui.QMenu()
-        if self.isSelecting:
-            if self.getUnderSelection():
-                menu.addAction("Delete selected blocks", self.dele_blocks)
-            menu.addAction("Take Screenshot from selected area", self.screen_shot_area)
-            menu.addAction("Export code to pinguino editor", self.export_code_to_pinguino_editor)
+        
+        if self.isSelecting:  
+            #on selection
+            menu.addAction(QtGui.QApplication.translate("Graphical", "Delete selected blocks"), self.dele_blocks)
+            menu.addAction(QtGui.QApplication.translate("Graphical", "Take Screenshot from selected area"), self.screen_shot_area)
+            
+        else:
+            #normal menu
+            menu.addAction(QtGui.QApplication.translate("Graphical", "Export code to pinguino editor"), self.export_code_to_pinguino_editor)
+            
         menu.exec_(event.globalPos())
         
         
     #----------------------------------------------------------------------
     def export_code_to_pinguino_editor(self):
-        
         code = self.update_code()
         
         self.ide.switch_ide_mode(False)        

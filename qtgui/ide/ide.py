@@ -19,6 +19,7 @@ from .methods.config import Config
 from .code_editor.autocomplete_icons import CompleteIcons
 from .widgets.output_widget import PinguinoTerminal
 from .methods.dev_tools import DevTools
+from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
@@ -51,7 +52,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         
         self.connect_events()
         self.init_widgets()
-        
     
         self.update_functions()
         self.update_directives()
@@ -64,6 +64,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.statusbar_ide(self.get_status_board())
         
         self.load_main_config()
+
         
         
     #----------------------------------------------------------------------
@@ -73,6 +74,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         
         self.main.tabWidget_tools.setCurrentIndex(0)
         self.main.tabWidget_blocks_tools.setCurrentIndex(0)
+        
+        PrettyFeatures.LineEdit_default_text(self, self.main.lineEdit_search, QtGui.QApplication.translate("Frame", "Search..."))
+        PrettyFeatures.LineEdit_default_text(self, self.main.lineEdit_replace, QtGui.QApplication.translate("Frame", "Replace..."))
         
         
     #----------------------------------------------------------------------
@@ -187,7 +191,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     #----------------------------------------------------------------------
     def update_actions_for_text(self):
         normal = False
-        self.main.actionView_Pinguino_code.setEnabled(normal)   
+        #self.main.menuGraphical.setEnabled(normal)
+        self.main.actionExport_code_to_editor.setEnabled(normal)
+        self.main.actionView_Pinguino_code.setEnabled(normal)
+        
         self.main.actionComment_out_region.setEnabled(not normal)   
         self.main.actionComment_Uncomment_region.setEnabled(not normal) 
         self.main.actionRedo.setEnabled(not normal)         
@@ -212,7 +219,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     #----------------------------------------------------------------------
     def update_actions_for_graphical(self):
         normal = True
-        self.main.actionView_Pinguino_code.setEnabled(normal)   
+        #self.main.menuGraphical.setEnabled(normal)
+        self.main.actionExport_code_to_editor.setEnabled(normal)
+        self.main.actionView_Pinguino_code.setEnabled(normal)
+        
         self.main.actionRedo.setEnabled(not normal)          
         self.main.actionComment_out_region.setEnabled(not normal)   
         self.main.actionComment_Uncomment_region.setEnabled(not normal)         

@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 import functools
+import time
 
 from PySide import QtCore
 
@@ -57,11 +58,11 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def call_later(self):
+    def call_later(self, time=100):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                QtCore.QTimer.singleShot(100, lambda :fn(Pinguino, *args, **kwargs))
+                QtCore.QTimer.singleShot(time, lambda :fn(Pinguino, *args, **kwargs))
             return wrapped
         return actualdecorator
     
@@ -226,3 +227,18 @@ class Decorator(object):
                 #else: return None
             return wrapped
         return actualdecorator
+    
+    #----------------------------------------------------------------------
+    @classmethod
+    def debug_time(self):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                inicio = time.time()
+                retorno = fn(Pinguino, *args, **kwargs)
+                fin = time.time()
+                Pinguino.output_ide("debug: " + fn.__name__ + "\nTime: %.7fs\n" %(fin - inicio))
+                return retorno
+            return wrapped
+        return actualdecorator        
+        

@@ -1,17 +1,34 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+from PySide import QtGui
+
 from ..methods.decorators import Decorator
 
 ########################################################################
 class SearchReplace(object):
     
+    #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_line_edit_content("main.lineEdit_replace")
+    @Decorator.requiere_text_mode()
+    def replace_instantaneous(self, text_to_replace):
+        empty = not text_to_replace == QtGui.QApplication.translate("Frame", "Replace...")
+        self.main.pushButton_replace.setEnabled(empty)
+        self.main.pushButton_replace_all.setEnabled(empty)
+        if empty: return
+        
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_text_mode()
     def search_instantaneous(self, text_to_search):
+        empty = not text_to_search == QtGui.QApplication.translate("Frame", "Search...")
+        self.main.pushButton_search_previous.setEnabled(empty)
+        self.main.pushButton_search_next.setEnabled(empty)
+        if empty: return
+        
         editor = self.main.tabWidget_files.currentWidget()
         text_cur = editor.text_edit.textCursor()
         editor.text_edit.moveCursor(text_cur.Start)
@@ -32,6 +49,9 @@ class SearchReplace(object):
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")  
     def __search__(self, text_to_search):
+        if text_to_search == QtGui.QApplication.translate("Frame", "Search..."): return
+
+
         self.find_match(word=text_to_search,
                         back=False,
                         sensitive=self.main.checkBox_case_sensitive.isChecked(),

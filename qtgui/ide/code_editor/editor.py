@@ -12,6 +12,7 @@ from .autocomplete_icons import CompleteIcons
 from .syntaxhighlighter import Highlighter        
 from ..methods.syntax import Autocompleter, Snippet
 from ..methods import constants as Constants
+from ..methods.decorators import Decorator
         
  
 ########################################################################
@@ -46,7 +47,18 @@ class CustomTextEdit(QtGui.QTextEdit):
         #palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
         #self.setPalette(palette)          
         
-        Highlighter(self)        
+        #Highlighter(self)
+        
+        Highlighter(self.document())
+        
+        #self.set_highlighter()
+        
+        
+    ##----------------------------------------------------------------------
+    #@Decorator.call_later()
+    #def set_highlighter(self):
+        #""""""
+        #Highlighter(self)
 
     
     ##----------------------------------------------------------------------

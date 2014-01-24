@@ -2,9 +2,6 @@
 #-*- coding: utf-8 -*-
 
 from . import constructor as Block
-from .constructor import Kit
-
-Kit = Kit()
 
 ########################################################################
 class Functions(object):

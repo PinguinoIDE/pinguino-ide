@@ -84,7 +84,6 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def new_file(self, *args, **kwargs):
-        
         path = kwargs.get("filename", self.ide.__get_name__(ext=".gpde"))
         filename = os.path.split(path)[1]        
         
@@ -109,16 +108,32 @@ class GraphicalIDE:
         editor.graphical_area = area
         
         self.main.tabWidget_graphical.addTab(editor, filename)
+        
+        editor.keyPressEvent = self.__keyPressEvent__
               
         self.main.tabWidget_graphical.setCurrentWidget(editor) 
         index = self.main.tabWidget_graphical.currentIndex()  
         self.main.tabWidget_graphical.setTabText(index, filename[:-1])
         
     
+    #----------------------------------------------------------------------
+    def __keyPressEvent__(self, event):
+        
+        editor = self.main.tabWidget_graphical.currentWidget()
+        #editor.graphical_area
+        
+        if not editor.graphical_area.SelectArea.isVisible(): return
+            
+        
+        if event.key() == QtCore.Qt.Key_Delete:
+            editor.graphical_area.dele_blocks()
+            
+            
+            
+    
     
     #----------------------------------------------------------------------
     def tab_changed(self, *args, **kwargs):
-        
         self.main.tabWidget_graphical.setVisible(self.main.tabWidget_graphical.count() > 0)
         self.main.frame_logo.setVisible(not self.main.tabWidget_graphical.count() > 0)
         self.main.actionClose_file.setEnabled(self.main.tabWidget_graphical.count() > 0)

@@ -61,7 +61,12 @@ class Properties(object):
         
             
         menu.addAction("Send to back", self.sendBack)    
-        menu.addAction("Bring to front", self.sendFront)        
+        menu.addAction("Bring to front", self.sendFront)
+        
+        #menu.addSeparator()
+        #menu.addAction("Clone with sublocks", )    
+        #menu.addAction("Clone", )
+        
         menu.exec_(event.globalPos())
     
     

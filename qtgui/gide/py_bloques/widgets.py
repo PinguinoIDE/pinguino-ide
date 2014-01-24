@@ -12,7 +12,6 @@ class Widgets(object):
         pm.addSpinInt(0, -100, 100)
         return pm.getBlock()
         
-        
     #----------------------------------------------------------------------
     def spin_float(self):
         pm = Block.Output("Output")

@@ -71,7 +71,7 @@ class EventMethods(Methods):
             setattr(editor, "path", filename)
             self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
             self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1]) 
-            self.update_recents(filename)
+            #self.update_recents(filename)
             
         self.tab_changed()
     
@@ -132,7 +132,6 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     @Decorator.connect_features()
     def save_as(self, *args, **kwargs):
-        
         editor = kwargs.get("editor", None)
         if not editor: editor = self.get_tab().currentWidget()
         index = self.get_tab().indexOf(editor)
@@ -370,17 +369,8 @@ class EventMethods(Methods):
         #End a undo block
         cursor.endEditBlock()
         
-    
+
     # Menu View
-    
-    #----------------------------------------------------------------------
-    def __show_pinguino_code__(self):
-        name = getattr(self.get_tab().currentWidget(), "path", "")
-        if name: name = " - " + name
-        self.frame_pinguino_code = PlainOut(QtGui.QApplication.translate("Dialogs", "Pinguino code"))
-        self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
-        self.frame_pinguino_code.show()
-        
         
     #----------------------------------------------------------------------
     def __show_hex_code__(self):
@@ -507,6 +497,22 @@ class EventMethods(Methods):
             Dialogs.upload_done(self)
         elif Dialogs.upload_fail(self, result):
             self.pinguino_upload()
+            
+
+    # Graphical
+    
+    #----------------------------------------------------------------------
+    def __show_pinguino_code__(self):
+        name = getattr(self.get_tab().currentWidget(), "path", "")
+        if name: name = " - " + name
+        self.frame_pinguino_code = PlainOut(QtGui.QApplication.translate("Dialogs", "Pinguino code"))
+        self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
+        self.frame_pinguino_code.show()    
+        
+    #----------------------------------------------------------------------
+    def __export_pinguino_code__(self):
+        area = self.PinguinoKIT.get_work_area()
+        area.export_code_to_pinguino_editor()
                 
                 
     # Options
@@ -585,10 +591,10 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     def change_dir_files(self, to_dir):
         if to_dir == "Examples":
-            self.__update_path_files__(Constants.PINGUINO_EXAMPLES_DIR)
+            self.__update_path_files__(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "examples"))
             
         elif to_dir == "Home":
-            self.__update_path_files__(Constants.HOME_DIR)
+            self.__update_path_files__(QtCore.QDir.home().path())
             
         elif to_dir == "Current file dir":
             editor = self.main.tabWidget_files.currentWidget()
@@ -604,10 +610,10 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     def change_dir_filesg(self, to_dir):
         if to_dir == "Examples":
-            self.__update_graphical_path_files__(Constants.PINGUINOG_EXAMPLES_DIR)
+            self.__update_graphical_path_files__(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "graphical_examples"))
             
         elif to_dir == "Home":
-            self.__update_graphical_path_files__(Constants.HOME_DIR)
+            self.__update_graphical_path_files__(QtCore.QDir.home().path())
             
         elif to_dir == "Current file dir":
             editor = self.main.tabWidget_files.currentWidget()
