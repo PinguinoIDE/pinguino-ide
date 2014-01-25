@@ -78,7 +78,6 @@ class Config(RawConfigParser, object):
         
     #----------------------------------------------------------------------
     def get_recents(self):
-        
         if not self.has_section("Recents"): self.add_section("Recents")
         options = self.options("Recents")
         
@@ -91,7 +90,6 @@ class Config(RawConfigParser, object):
     
     #----------------------------------------------------------------------
     def get_recents_open(self):
-        
         if not self.has_section("Recents"): self.add_section("Recents")
         options = self.options("Recents")
         
@@ -101,3 +99,16 @@ class Config(RawConfigParser, object):
                 files.append(self.get("Recents", option))
         
         return files
+    
+    #----------------------------------------------------------------------
+    def clear_recents_open(self):
+        if not self.has_section("Recents"): self.add_section("Recents")
+        options = self.options("Recents")
+        
+        files = []
+        for option in options:
+            if option.startswith("open_"):
+                files.append(self.set("Recents", option, ""))
+        
+        return files
+        

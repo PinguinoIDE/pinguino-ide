@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/hex_viewer_widget.ui'
 #
-# Created: Fri Jan 24 12:27:28 2014
+# Created: Sat Jan 25 12:22:29 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_HexViewer(object):
     def setupUi(self, HexViewer):
         HexViewer.setObjectName("HexViewer")
-        HexViewer.resize(722, 418)
+        HexViewer.resize(722, 390)
         self.centralwidget = QtGui.QWidget(HexViewer)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
@@ -114,16 +114,10 @@ class Ui_HexViewer(object):
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.pushButton_close = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_close.setMinimumSize(QtCore.QSize(101, 0))
-        self.pushButton_close.setMaximumSize(QtCore.QSize(101, 16777215))
         self.pushButton_close.setObjectName("pushButton_close")
         self.horizontalLayout_2.addWidget(self.pushButton_close)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem1)
         self.pushButton_save_changes = QtGui.QPushButton(self.centralwidget)
         self.pushButton_save_changes.setEnabled(False)
-        self.pushButton_save_changes.setMinimumSize(QtCore.QSize(211, 0))
-        self.pushButton_save_changes.setMaximumSize(QtCore.QSize(281, 16777215))
         self.pushButton_save_changes.setObjectName("pushButton_save_changes")
         self.horizontalLayout_2.addWidget(self.pushButton_save_changes)
         self.gridLayout.addLayout(self.horizontalLayout_2, 2, 0, 1, 1)

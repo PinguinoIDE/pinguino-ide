@@ -12,14 +12,10 @@ from ...frames.paths import Ui_Paths
 
 
 ########################################################################
-class Paths(QtGui.QMainWindow):
+class Paths(QtGui.QDialog):
     
     def __init__(self, parent):
-        #QtGui.QMainWindow.__init__(self)
-        super(Paths, self).__init__()
-        #self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
-                            #QtCore.Qt.WindowSystemMenuHint |
-                            #QtCore.Qt.WindowStaysOnTopHint)        
+        super(Paths, self).__init__()   
         
         self.set_paths = Ui_Paths()
         self.set_paths.setupUi(self)
@@ -60,7 +56,6 @@ class Paths(QtGui.QMainWindow):
         #self.connect(self.set_paths.comboBox, QtCore.SIGNAL("currentIndexChanged(int)"), self.change_theme)
         
         self.set_paths.pushButton_close.setFocus()
-        self.centrar()
         
         Dialogs.warning_message(self, "This paths are very important don't try to edit it if you don't know what are you doing.")
         
@@ -115,12 +110,6 @@ class Paths(QtGui.QMainWindow):
                 lineEdit.setText(dirname)
                 lineEdit.setStyleSheet("")     
         return dummy_func    
-        
-    #----------------------------------------------------------------------
-    def centrar(self):
-        screen = QtGui.QDesktopWidget().screenGeometry()
-        size =  self.geometry()
-        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
         
         
     ##----------------------------------------------------------------------

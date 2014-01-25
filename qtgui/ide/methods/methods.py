@@ -50,40 +50,28 @@ class Methods(SearchReplace):
     @Decorator.call_later(100)
     #@Decorator.debug_time()
     def open_last_files(self):
-        opens = self.configIDE.get_recents_open()
+        self.recent_files = self.configIDE.get_recents()
+        self.update_recents_menu()
         
+        opens = self.configIDE.get_recents_open()
         if not opens: return
         
-        files = "\n".join(opens)
-        dialogtext = QtGui.QApplication.translate("Dialogs", "Do you want open files of last sesion?")
-        if not Dialogs.confirm_message(self, dialogtext+"\n"+files):
-            return
+        #files = "\n".join(opens)
+        #dialogtext = QtGui.QApplication.translate("Dialogs", "Do you want open files of last sesion?")
+        #if not Dialogs.confirm_message(self, dialogtext+"\n"+files):
+            #return
     
         self.setCursor(QtCore.Qt.WaitCursor)
         for file_ in opens:
             if os.path.exists(file_):
                 self.open_file_from_path(filename=file_)
-                #self.open_file_from_path_later(file_)
                 
         self.main.actionSwitch_ide.setChecked(file_.endswith(".pdeg"))
         self.switch_ide_mode(file_.endswith(".pdeg"))
         self.setCursor(QtCore.Qt.ArrowCursor)
         
-    ##----------------------------------------------------------------------
-    #@Decorator.call_later(1)
-    #@Decorator.degug_time()
-    #def open_file_from_path_later(self, file_):
-        #print "start: ",
-        #print file_
-        #self.open_file_from_path(filename=file_)
-        #print "End: ",
-        #print file_
-        ##self.main.actionSwitch_ide.setChecked(file_.endswith(".pdeg"))
-        ##self.switch_ide_mode(file_.endswith(".pdeg"))        
-        
         
 
-        
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def comment_uncomment(self):
@@ -340,12 +328,22 @@ class Methods(SearchReplace):
                 file_path = file_path_1 + "..." + file_path_2
             else: file_path = file_
             
-            if os.path.isfile(file_path):
+            if os.path.isfile(file_):
                 action.setText(filename+" ("+file_path+")")
                 self.connect(action, QtCore.SIGNAL("triggered()"), self.menu_recent_event(file_))
                 action.ActionEvent = self.menu_recent_event
                 
                 self.main.menuRecents.addAction(action)
+                
+        self.main.menuRecents.addSeparator()      
+        self.main.menuRecents.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_menu)
+        
+    #----------------------------------------------------------------------
+    def clear_recents_menu(self):
+        """"""
+        self.main.menuRecents.clear()
+        self.main.menuRecents.addSeparator()      
+        self.main.menuRecents.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_menu)
         
         
     #----------------------------------------------------------------------

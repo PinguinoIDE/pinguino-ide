@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/libraries_widget.ui'
 #
-# Created: Fri Jan 24 12:27:29 2014
+# Created: Sat Jan 25 12:22:29 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -18,6 +18,8 @@ class Ui_LibraryManager(object):
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
         self.pushButton_close = QtGui.QPushButton(self.centralwidget)
+        self.pushButton_close.setMinimumSize(QtCore.QSize(165, 0))
+        self.pushButton_close.setMaximumSize(QtCore.QSize(165, 16777215))
         self.pushButton_close.setObjectName("pushButton_close")
         self.gridLayout.addWidget(self.pushButton_close, 1, 1, 1, 1)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -64,8 +66,8 @@ class Ui_LibraryManager(object):
         self.gridLayout_2.addWidget(self.tableWidget_libs, 0, 0, 1, 1)
         self.pushButton_apply = QtGui.QPushButton(self.tab)
         self.pushButton_apply.setEnabled(False)
-        self.pushButton_apply.setMinimumSize(QtCore.QSize(241, 0))
-        self.pushButton_apply.setMaximumSize(QtCore.QSize(241, 16777215))
+        self.pushButton_apply.setMinimumSize(QtCore.QSize(265, 0))
+        self.pushButton_apply.setMaximumSize(QtCore.QSize(265, 16777215))
         self.pushButton_apply.setObjectName("pushButton_apply")
         self.gridLayout_2.addWidget(self.pushButton_apply, 1, 0, 1, 1)
         self.tabWidget.addTab(self.tab, "")
@@ -73,6 +75,12 @@ class Ui_LibraryManager(object):
         self.tab_2.setObjectName("tab_2")
         self.gridLayout_3 = QtGui.QGridLayout(self.tab_2)
         self.gridLayout_3.setObjectName("gridLayout_3")
+        self.lineEdit_source = QtGui.QLineEdit(self.tab_2)
+        self.lineEdit_source.setObjectName("lineEdit_source")
+        self.gridLayout_3.addWidget(self.lineEdit_source, 0, 0, 1, 1)
+        self.pushButton_add = QtGui.QPushButton(self.tab_2)
+        self.pushButton_add.setObjectName("pushButton_add")
+        self.gridLayout_3.addWidget(self.pushButton_add, 0, 1, 1, 1)
         self.tableWidget_sources = QtGui.QTableWidget(self.tab_2)
         self.tableWidget_sources.setAutoFillBackground(True)
         self.tableWidget_sources.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
@@ -110,24 +118,23 @@ class Ui_LibraryManager(object):
         self.tableWidget_sources.verticalHeader().setHighlightSections(True)
         self.tableWidget_sources.verticalHeader().setStretchLastSection(False)
         self.gridLayout_3.addWidget(self.tableWidget_sources, 1, 0, 1, 2)
-        self.pushButton_add = QtGui.QPushButton(self.tab_2)
-        self.pushButton_add.setObjectName("pushButton_add")
-        self.gridLayout_3.addWidget(self.pushButton_add, 0, 1, 1, 1)
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.pushButton_update = QtGui.QPushButton(self.tab_2)
         self.pushButton_update.setEnabled(False)
-        self.pushButton_update.setMinimumSize(QtCore.QSize(241, 0))
-        self.pushButton_update.setMaximumSize(QtCore.QSize(241, 16777215))
         self.pushButton_update.setObjectName("pushButton_update")
-        self.gridLayout_3.addWidget(self.pushButton_update, 2, 0, 1, 1)
-        self.lineEdit_source = QtGui.QLineEdit(self.tab_2)
-        self.lineEdit_source.setObjectName("lineEdit_source")
-        self.gridLayout_3.addWidget(self.lineEdit_source, 0, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.pushButton_update)
+        self.pushButton = QtGui.QPushButton(self.tab_2)
+        self.pushButton.setEnabled(False)
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout.addWidget(self.pushButton)
+        self.gridLayout_3.addLayout(self.horizontalLayout, 2, 0, 1, 2)
         self.tabWidget.addTab(self.tab_2, "")
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 3)
         LibraryManager.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(LibraryManager)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(LibraryManager)
 
     def retranslateUi(self, LibraryManager):
@@ -145,6 +152,7 @@ class Ui_LibraryManager(object):
         self.tableWidget_libs.horizontalHeaderItem(3).setText(QtGui.QApplication.translate("LibraryManager", "Description", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_apply.setText(QtGui.QApplication.translate("LibraryManager", "Apply", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("LibraryManager", "Installed", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_add.setText(QtGui.QApplication.translate("LibraryManager", "Add", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_sources.verticalHeaderItem(0).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_sources.verticalHeaderItem(1).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_sources.verticalHeaderItem(2).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
@@ -156,7 +164,7 @@ class Ui_LibraryManager(object):
         __sortingEnabled = self.tableWidget_sources.isSortingEnabled()
         self.tableWidget_sources.setSortingEnabled(False)
         self.tableWidget_sources.setSortingEnabled(__sortingEnabled)
-        self.pushButton_add.setText(QtGui.QApplication.translate("LibraryManager", "Add", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_update.setText(QtGui.QApplication.translate("LibraryManager", "Update or Install selected", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton.setText(QtGui.QApplication.translate("LibraryManager", "Remove/Uninstall selected", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("LibraryManager", "Sources", None, QtGui.QApplication.UnicodeUTF8))
 

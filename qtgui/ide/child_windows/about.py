@@ -7,14 +7,10 @@ from ..methods.constants import TAB_NAME
 from ...frames.about import Ui_About
 
 ########################################################################
-class About(QtGui.QMainWindow):
+class About(QtGui.QDialog):
     
     def __init__(self, IDE):
-        super(About, self).__init__()
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
-                            QtCore.Qt.WindowSystemMenuHint |
-                            QtCore.Qt.WindowStaysOnTopHint)        
-        
+        super(About, self).__init__()     
     
         self.about = Ui_About()
         self.about.setupUi(self)
@@ -31,12 +27,3 @@ class About(QtGui.QMainWindow):
         
         self.about.stackedWidget.setCurrentIndex(0)
         self.about.tabWidget.setCurrentIndex(0)
-        
-        self.centrar()
-
-    #----------------------------------------------------------------------
-    def centrar(self):
-        screen = QtGui.QDesktopWidget().screenGeometry()
-        size =  self.geometry()
-        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
-        

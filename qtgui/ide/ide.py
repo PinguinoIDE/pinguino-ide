@@ -50,6 +50,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.build_statusbar()
         self.fix_styles()
         self.init_graphical_mode()
+        self.open_last_files()
         
         self.connect_events()
         self.init_widgets()
@@ -65,6 +66,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.statusbar_ide(self.get_status_board())
         
         self.load_main_config()
+        
+    
 
         
     #----------------------------------------------------------------------
@@ -156,15 +159,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             else:
                 shutil.copy(src, dst)
         
+        
     #----------------------------------------------------------------------
     def init_graphical_mode(self):
         self.PinguinoKIT = GraphicalIDE(self)
         self.main.tabWidget_graphical.setVisible(False)
         self.main.dockWidget_blocks.setVisible(False) 
-        
-        self.recent_files = self.configIDE.get_recents()
-        self.update_recents_menu()
-        self.open_last_files()
         
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
         self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
@@ -175,6 +175,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     #----------------------------------------------------------------------
     def is_graphical(self):
         return self.main.actionSwitch_ide.isChecked()
+    
     
     #----------------------------------------------------------------------
     def is_widget(self):

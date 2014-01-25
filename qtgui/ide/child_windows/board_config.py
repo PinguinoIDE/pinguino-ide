@@ -7,13 +7,10 @@ from PySide import QtGui, QtCore
 
 
 ########################################################################
-class BoardConfig(QtGui.QMainWindow):
+class BoardConfig(QtGui.QDialog):
     
     def __init__(self, parent):
-        super(BoardConfig, self).__init__()
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
-                            QtCore.Qt.WindowSystemMenuHint |
-                            QtCore.Qt.WindowStaysOnTopHint)    
+        super(BoardConfig, self).__init__()   
         
         self.board_config = Ui_BoardConfig()
         self.board_config.setupUi(self)
@@ -23,16 +20,16 @@ class BoardConfig(QtGui.QMainWindow):
         
         self.build_devices_arch()        
         self.load_config()
-        self.centrar()
         
         self.connect(self.board_config.radioButton_mode_bootloader, QtCore.SIGNAL("clicked()"), self.update_mode)  
         self.connect(self.board_config.radioButton_mode_icsp, QtCore.SIGNAL("clicked()"), self.update_mode)
         
         self.connect(self.board_config.radioButton_arch_8, QtCore.SIGNAL("clicked()"), self.update_arch)
         self.connect(self.board_config.radioButton_arch_32, QtCore.SIGNAL("clicked()"), self.update_arch)
+
+        self.connect(self.board_config.pushButton_ok, QtCore.SIGNAL("clicked()"), self.accept_config)  
+        self.connect(self.board_config.pushButton_cancel, QtCore.SIGNAL("clicked()"), self.terminate_config)        
         
-        
-        self.connect(self.board_config.buttonBox, QtCore.SIGNAL("clicked(QAbstractButton*)"), self.get_button)
         self.closeEvent = self.terminate_config
         
     #----------------------------------------------------------------------
@@ -42,12 +39,6 @@ class BoardConfig(QtGui.QMainWindow):
         self.close()
         
         
-    #----------------------------------------------------------------------
-    def get_button(self, button):
-        
-        if self.board_config.buttonBox.standardButton(button) == self.board_config.buttonBox.Ok: self.accept_config()
-        elif  self.board_config.buttonBox.standardButton(button) == self.board_config.buttonBox.Cancel: self.terminate_config()
-            
         
     #----------------------------------------------------------------------
     def accept_config(self):
@@ -58,14 +49,6 @@ class BoardConfig(QtGui.QMainWindow):
         self.main.statusbar_ide(self.main.get_status_board())
         
         self.close()
-
-
-    #----------------------------------------------------------------------
-    def centrar(self):
-        
-        screen = QtGui.QDesktopWidget().screenGeometry()
-        size =  self.geometry()
-        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
         
         
     #----------------------------------------------------------------------

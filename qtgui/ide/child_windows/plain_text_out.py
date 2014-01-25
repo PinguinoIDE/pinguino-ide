@@ -12,14 +12,10 @@ from ...frames.stdout import Ui_PlainOut
 from ..code_editor.syntaxhighlighter import Highlighter
 
 ########################################################################
-class PlainOut(QtGui.QMainWindow):
+class PlainOut(QtGui.QDialog):
     
     def __init__(self, title):
-        #QtGui.QMainWindow.__init__(self)
-        super(PlainOut, self).__init__()
-        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
-                            QtCore.Qt.WindowSystemMenuHint |
-                            QtCore.Qt.WindowStaysOnTopHint)        
+        super(PlainOut, self).__init__()     
         
     
         self.plain_out = Ui_PlainOut()
@@ -32,7 +28,7 @@ class PlainOut(QtGui.QMainWindow):
         
         self.setWindowTitle(TAB_NAME+" - "+title)
         
-        self.connect(self.plain_out.buttonBox, QtCore.SIGNAL("clicked(QAbstractButton*)"), self.getButton)
+        self.connect(self.plain_out.pushButton_close, QtCore.SIGNAL("clicked()"), self.close)
         
         palette = QtGui.QPalette(self.palette())
         self.setAutoFillBackground(True)
@@ -47,21 +43,8 @@ class PlainOut(QtGui.QMainWindow):
             stdout.close()
             self.show_text("".join(content))
             
-        self.plain_out.buttonBox.setFocus()
-        self.centrar()
+        self.plain_out.pushButton_close.setFocus()
         
-        
-    #----------------------------------------------------------------------
-    def getButton(self, button):
-        if self.plain_out.buttonBox.standardButton(button) == self.plain_out.buttonBox.Close: self.close()
-        #elif  self.ventana.buttonBox.standardButton(button) == self.ventana.buttonBox.Cancel: self.close()
-                    
-
-    #----------------------------------------------------------------------
-    def centrar(self):
-        screen = QtGui.QDesktopWidget().screenGeometry()
-        size =  self.geometry()
-        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
         
     #----------------------------------------------------------------------
     def show_text(self, text, pde=False):

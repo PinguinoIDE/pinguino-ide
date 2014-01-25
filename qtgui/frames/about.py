@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Fri Jan 24 12:27:30 2014
+# Created: Sat Jan 25 12:22:36 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,17 +12,10 @@ from PySide import QtCore, QtGui
 class Ui_About(object):
     def setupUi(self, About):
         About.setObjectName("About")
-        About.resize(641, 482)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/logo/arte/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        About.setWindowIcon(icon)
-        self.centralwidget = QtGui.QWidget(About)
-        self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout_2 = QtGui.QGridLayout(self.centralwidget)
-        self.gridLayout_2.setSpacing(0)
-        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
+        About.resize(656, 491)
+        self.gridLayout_2 = QtGui.QGridLayout(About)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.stackedWidget = QtGui.QStackedWidget(self.centralwidget)
+        self.stackedWidget = QtGui.QStackedWidget(About)
         self.stackedWidget.setObjectName("stackedWidget")
         self.page = QtGui.QWidget()
         self.page.setObjectName("page")
@@ -171,12 +164,11 @@ class Ui_About(object):
         spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout_13.addItem(spacerItem3, 3, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_3)
-        self.gridLayout_2.addWidget(self.stackedWidget, 0, 1, 1, 1)
-        About.setCentralWidget(self.centralwidget)
+        self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(About)
-        self.stackedWidget.setCurrentIndex(1)
-        self.tabWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(About)
 
     def retranslateUi(self, About):
@@ -195,4 +187,5 @@ class Ui_About(object):
         self.pushButton_about.setText(QtGui.QApplication.translate("About", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("About", "License", None, QtGui.QApplication.UnicodeUTF8))
 
+import resources_rc
 import resources_rc
