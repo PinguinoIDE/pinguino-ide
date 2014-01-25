@@ -212,6 +212,8 @@ class EventMethods(Methods):
         
         
     #----------------------------------------------------------------------
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_open_files()
     def cut(self):
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()
@@ -219,6 +221,8 @@ class EventMethods(Methods):
         
         
     #----------------------------------------------------------------------
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_open_files()
     def copy(self):
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()
@@ -226,6 +230,8 @@ class EventMethods(Methods):
         
         
     #----------------------------------------------------------------------
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_open_files()
     def paste(self):
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sat Jan 25 12:22:36 2014
+# Created: Sat Jan 25 17:07:48 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -76,9 +76,6 @@ class Ui_PinguinoIDE(object):
         self.menuSource.setObjectName("menuSource")
         self.menuConfiguration = QtGui.QMenu(self.menubar)
         self.menuConfiguration.setObjectName("menuConfiguration")
-        self.menuCompilers = QtGui.QMenu(self.menuConfiguration)
-        self.menuCompilers.setEnabled(False)
-        self.menuCompilers.setObjectName("menuCompilers")
         self.menuGraphical = QtGui.QMenu(self.menubar)
         self.menuGraphical.setObjectName("menuGraphical")
         PinguinoIDE.setMenuBar(self.menubar)
@@ -488,8 +485,8 @@ class Ui_PinguinoIDE(object):
         self.actionSwitch_ide = QtGui.QAction(PinguinoIDE)
         self.actionSwitch_ide.setCheckable(True)
         icon16 = QtGui.QIcon()
-        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.actionSwitch_ide.setIcon(icon16)
         self.actionSwitch_ide.setObjectName("actionSwitch_ide")
         self.actionSave_image = QtGui.QAction(PinguinoIDE)
@@ -601,9 +598,6 @@ class Ui_PinguinoIDE(object):
         self.menuHelp.addAction(self.actionAbout)
         self.menuSource.addAction(self.actionComment_out_region)
         self.menuSource.addAction(self.actionComment_Uncomment_region)
-        self.menuCompilers.addAction(self.actionUse_local_compilers)
-        self.menuCompilers.addAction(self.actionUse_system_compilers)
-        self.menuConfiguration.addAction(self.menuCompilers.menuAction())
         self.menuConfiguration.addAction(self.actionAutocomplete)
         self.menuConfiguration.addAction(self.actionColor_theme)
         self.menuGraphical.addAction(self.actionView_Pinguino_code)
@@ -668,7 +662,6 @@ class Ui_PinguinoIDE(object):
         self.menuLinks.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Links", None, QtGui.QApplication.UnicodeUTF8))
         self.menuSource.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Source", None, QtGui.QApplication.UnicodeUTF8))
         self.menuConfiguration.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Options", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuCompilers.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Compilers", None, QtGui.QApplication.UnicodeUTF8))
         self.menuGraphical.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_tools.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Tools", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(0, QtGui.QApplication.translate("PinguinoIDE", "Examples", None, QtGui.QApplication.UnicodeUTF8))

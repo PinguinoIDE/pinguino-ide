@@ -118,20 +118,15 @@ class GraphicalIDE:
     
     #----------------------------------------------------------------------
     def __keyPressEvent__(self, event):
-        
         editor = self.main.tabWidget_graphical.currentWidget()
         #editor.graphical_area
         
         if not editor.graphical_area.SelectArea.isVisible(): return
             
-        
         if event.key() == QtCore.Qt.Key_Delete:
             editor.graphical_area.dele_blocks()
             
             
-            
-    
-    
     #----------------------------------------------------------------------
     def tab_changed(self, *args, **kwargs):
         self.main.tabWidget_graphical.setVisible(self.main.tabWidget_graphical.count() > 0)
@@ -473,9 +468,8 @@ class GraphicalIDE:
         self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
         self.ide.setWindowTitle(TAB_NAME+" - "+filename)      
         
-        
-            
         self.ide.tab_changed()
+        
         
     #----------------------------------------------------------------------
     def save_as_pde(self):
@@ -487,14 +481,14 @@ class GraphicalIDE:
         file_pde.close()
         
         
-        
     #----------------------------------------------------------------------
+    @Decorator.requiere_graphical_mode()
     def get_work_area(self):
         return self.main.tabWidget_graphical.currentWidget().graphical_area
     
+    
     #----------------------------------------------------------------------
     def setup_bloques(self):
-        
         self.StartBlocks = all_sets.copy()
         self.allTabs = {}
         
@@ -512,7 +506,6 @@ class GraphicalIDE:
                 
     #----------------------------------------------------------------------
     def get_tab_set(self, tab_name):
-        
         tab_set = []
         for key in all_sets.keys():
             if all_sets[key][1] == tab_name:
@@ -522,7 +515,6 @@ class GraphicalIDE:
             
     #----------------------------------------------------------------------
     def get_block_tabs(self):
-        
         tabs = []
         for key in all_sets.keys(): tabs.append(all_sets[key][1])
         tabs = list(set(tabs))
@@ -532,7 +524,6 @@ class GraphicalIDE:
             
     #----------------------------------------------------------------------
     def build_block_tabs(self):
-        
         tabs = self.get_block_tabs()
         for tab in tabs:
             widget = QtGui.QWidget()
@@ -562,7 +553,6 @@ class GraphicalIDE:
             
     #----------------------------------------------------------------------
     def get_widget(self, tab_name):
-        
         for index in range(self.main.tabWidget_blocks.count()):
             if self.main.tabWidget_blocks.tabText(index) == tab_name:
                 widget = self.main.tabWidget_blocks.widget(index)
@@ -570,7 +560,6 @@ class GraphicalIDE:
         
     #----------------------------------------------------------------------
     def add_blocks(self, tab, tab_set, count=0, side=0, ignore_jump=False):
-        
         widget = self.get_widget(tab)
         grid_layout = widget.grid_layout
         tool_area = widget.tool_area
@@ -593,14 +582,12 @@ class GraphicalIDE:
 
     #----------------------------------------------------------------------
     def add_group_blocks(self, name, new_set):
-        
         tab_set = self.get_tab_set(name)
         new_set = map(lambda x: [x[0], x[2]], new_set)
         self.add_blocks(name, tab_set + new_set)
                 
     #----------------------------------------------------------------------
     def clear_area(self, area):
-        
         widget = self.get_widget(area)
         
         for wid in widget.content_widgets:
@@ -608,9 +595,6 @@ class GraphicalIDE:
             wid.destroy()
             widget.content_widgets.remove(wid)
         
-        
-            
-
         
     ##----------------------------------------------------------------------
     #def copy_blocks(self, event=None, nested_=False):

@@ -215,17 +215,6 @@
     <property name="title">
      <string>Options</string>
     </property>
-    <widget class="QMenu" name="menuCompilers">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="title">
-      <string>Compilers</string>
-     </property>
-     <addaction name="actionUse_local_compilers"/>
-     <addaction name="actionUse_system_compilers"/>
-    </widget>
-    <addaction name="menuCompilers"/>
     <addaction name="actionAutocomplete"/>
     <addaction name="actionColor_theme"/>
    </widget>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/wiki_doc_widget.ui'
 #
-# Created: Sat Jan 25 12:22:37 2014
+# Created: Sat Jan 25 17:07:45 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,7 +13,7 @@ class Ui_WikiDocs(object):
     def setupUi(self, WikiDocs):
         WikiDocs.setObjectName("WikiDocs")
         WikiDocs.resize(817, 454)
-        WikiDocs.setWindowTitle("Wiki docs")
+        WikiDocs.setWindowTitle("Wiki documentation")
         self.centralwidget = QtGui.QWidget(WikiDocs)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtGui.QGridLayout(self.centralwidget)

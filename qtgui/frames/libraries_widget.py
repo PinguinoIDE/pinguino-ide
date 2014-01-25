@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/libraries_widget.ui'
 #
-# Created: Sat Jan 25 12:22:29 2014
+# Created: Sat Jan 25 17:07:44 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_LibraryManager(object):
     def setupUi(self, LibraryManager):
         LibraryManager.setObjectName("LibraryManager")
-        LibraryManager.resize(839, 368)
+        LibraryManager.resize(839, 382)
         self.centralwidget = QtGui.QWidget(LibraryManager)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
@@ -21,9 +21,13 @@ class Ui_LibraryManager(object):
         self.pushButton_close.setMinimumSize(QtCore.QSize(165, 0))
         self.pushButton_close.setMaximumSize(QtCore.QSize(165, 16777215))
         self.pushButton_close.setObjectName("pushButton_close")
-        self.gridLayout.addWidget(self.pushButton_close, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_close, 1, 2, 1, 1)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 1, 0, 1, 1)
+        self.gridLayout.addItem(spacerItem, 1, 1, 1, 1)
+        self.commandLinkButton_how = QtGui.QCommandLinkButton(self.centralwidget)
+        self.commandLinkButton_how.setCursor(QtCore.Qt.WhatsThisCursor)
+        self.commandLinkButton_how.setObjectName("commandLinkButton_how")
+        self.gridLayout.addWidget(self.commandLinkButton_how, 1, 0, 1, 1)
         self.tabWidget = QtGui.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtGui.QWidget()
@@ -81,6 +85,9 @@ class Ui_LibraryManager(object):
         self.pushButton_add = QtGui.QPushButton(self.tab_2)
         self.pushButton_add.setObjectName("pushButton_add")
         self.gridLayout_3.addWidget(self.pushButton_add, 0, 1, 1, 1)
+        self.pushButton_from_zip = QtGui.QPushButton(self.tab_2)
+        self.pushButton_from_zip.setObjectName("pushButton_from_zip")
+        self.gridLayout_3.addWidget(self.pushButton_from_zip, 0, 2, 1, 1)
         self.tableWidget_sources = QtGui.QTableWidget(self.tab_2)
         self.tableWidget_sources.setAutoFillBackground(True)
         self.tableWidget_sources.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
@@ -117,20 +124,20 @@ class Ui_LibraryManager(object):
         self.tableWidget_sources.verticalHeader().setVisible(False)
         self.tableWidget_sources.verticalHeader().setHighlightSections(True)
         self.tableWidget_sources.verticalHeader().setStretchLastSection(False)
-        self.gridLayout_3.addWidget(self.tableWidget_sources, 1, 0, 1, 2)
+        self.gridLayout_3.addWidget(self.tableWidget_sources, 1, 0, 1, 3)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.pushButton_update = QtGui.QPushButton(self.tab_2)
         self.pushButton_update.setEnabled(False)
         self.pushButton_update.setObjectName("pushButton_update")
         self.horizontalLayout.addWidget(self.pushButton_update)
-        self.pushButton = QtGui.QPushButton(self.tab_2)
-        self.pushButton.setEnabled(False)
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout.addWidget(self.pushButton)
-        self.gridLayout_3.addLayout(self.horizontalLayout, 2, 0, 1, 2)
+        self.pushButton_remove = QtGui.QPushButton(self.tab_2)
+        self.pushButton_remove.setEnabled(False)
+        self.pushButton_remove.setObjectName("pushButton_remove")
+        self.horizontalLayout.addWidget(self.pushButton_remove)
+        self.gridLayout_3.addLayout(self.horizontalLayout, 2, 0, 1, 3)
         self.tabWidget.addTab(self.tab_2, "")
-        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 3)
+        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 4)
         LibraryManager.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(LibraryManager)
@@ -138,8 +145,9 @@ class Ui_LibraryManager(object):
         QtCore.QMetaObject.connectSlotsByName(LibraryManager)
 
     def retranslateUi(self, LibraryManager):
-        LibraryManager.setWindowTitle(QtGui.QApplication.translate("LibraryManager", "LibraryManager", None, QtGui.QApplication.UnicodeUTF8))
+        LibraryManager.setWindowTitle(QtGui.QApplication.translate("LibraryManager", "Library Manager", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("LibraryManager", "Close", None, QtGui.QApplication.UnicodeUTF8))
+        self.commandLinkButton_how.setText(QtGui.QApplication.translate("LibraryManager", "How develop libraries", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_libs.verticalHeaderItem(0).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_libs.verticalHeaderItem(1).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_libs.verticalHeaderItem(2).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
@@ -153,6 +161,7 @@ class Ui_LibraryManager(object):
         self.pushButton_apply.setText(QtGui.QApplication.translate("LibraryManager", "Apply", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("LibraryManager", "Installed", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_add.setText(QtGui.QApplication.translate("LibraryManager", "Add", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_from_zip.setText(QtGui.QApplication.translate("LibraryManager", "From .zip", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_sources.verticalHeaderItem(0).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_sources.verticalHeaderItem(1).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_sources.verticalHeaderItem(2).setText(QtGui.QApplication.translate("LibraryManager", "New Row", None, QtGui.QApplication.UnicodeUTF8))
@@ -165,6 +174,6 @@ class Ui_LibraryManager(object):
         self.tableWidget_sources.setSortingEnabled(False)
         self.tableWidget_sources.setSortingEnabled(__sortingEnabled)
         self.pushButton_update.setText(QtGui.QApplication.translate("LibraryManager", "Update or Install selected", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("LibraryManager", "Remove/Uninstall selected", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_remove.setText(QtGui.QApplication.translate("LibraryManager", "Remove/Uninstall selected", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtGui.QApplication.translate("LibraryManager", "Sources", None, QtGui.QApplication.UnicodeUTF8))
 

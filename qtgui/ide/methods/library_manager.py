@@ -25,7 +25,7 @@ class Librarymanager(object):
             if os.path.isdir(os.path.join(path, dir_)):
                 dict_ = self.parser_to_dict(os.path.join(path, dir_, "config"))
                 
-                if dict_["active"] == "False": continue
+                if dict_.get("active", "False") == "False": continue
                 
                 dict_["pdl"] = os.path.join(path, dir_, "lib", "pdl")
                 
