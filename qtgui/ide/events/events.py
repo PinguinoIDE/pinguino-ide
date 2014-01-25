@@ -96,7 +96,6 @@ class PinguinoEvents(EventMethods, TimerMethods):
         # Graphical Tool Bar
         self.connect(self.main.actionSave_image, QtCore.SIGNAL("triggered()"), self.save_screen_image)   
         self.connect(self.main.actionSwitch_ide, QtCore.SIGNAL("toggled(bool)"), self.switch_ide_mode) 
-        self.connect(self.main.actionSwitch_ide, QtCore.SIGNAL("toggled(bool)"), self.show_graphical_dialog)
         
         # Events
         self.closeEvent = self.__close_ide__

@@ -19,7 +19,6 @@ from ..child_windows.plain_text_out import PlainOut
 from ..child_windows.libraries import LibManager
 from ..child_windows.paths import Paths
 from ..child_windows.hex_viewer import HexViewer
-from ..child_windows.dialog_check import DialogCheck
 from ..widgets.wiki_widget import WikiDock
 
 
@@ -739,39 +738,6 @@ class EventMethods(Methods):
             self.update_actions_for_text()
         
         self.tab_changed()
-        
-        
-    ##----------------------------------------------------------------------
-    #def show_graphical_dialog(self, graphical):
-        #condition = getattr(self, "check_graphical", False)
-        #condition_txt = getattr(self, "check_welcome", False)
-        
-        #if graphical and not condition:
-            #self.check_graphical = DialogCheck(self, "graphical")
-            #message = QtGui.QApplication.translate("CheckDialogs", "This is a new feature of Pinguino IDE<br>"
-                                                   #"now you can build your code with drag and drop actions."
-                                                   #)
-            #condition = self.check_graphical.show_message(message)
-            
-        #elif condition_txt:
-            #self.check_welcome = DialogCheck(self, "welcome")
-            #info = {"name": Constants.NAME,
-                    #"version": Constants.VERSION,
-                    #"forum_url": "#",
-                    #"web_url": "#",
-                    #"github_url": "#",}
-            
-            #welcome_message = QtGui.QApplication.translate("CheckDialogs", "<b>Welcome to %(name)s %(version)s</b><br>"
-                              #"Pinguino is an Open Software and Open Hardware Arduino-like project. "
-                              #"Boards are based on 8 or 32-bit USB built-in Microchip microcontrollers.")
-            
-            #welcome_message_urls = ["<a href='%(web_url)s'>Web page</a><br>",
-                                    #"<a href='%(forum_url)s'>Forum</a><br>",
-                                    #"<a href='%(github_url)s'>Repository</a><br>"]
-            
-            #welcome_message += "<br><br>" + " ".join(welcome_message_urls)
-            
-            #self.check_welcome.show_message(welcome_message%info)            
         
         
     # Events
