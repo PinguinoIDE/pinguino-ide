@@ -254,29 +254,34 @@ class LibManager(QtGui.QMainWindow):
             if self.libframe.tableWidget_sources.item(index, 0).checkState() == QtCore.Qt.Checked:
                 selected.append(self.libframe.tableWidget_sources.item(index, 0).text())
                 
+        Repository = GitRepo()
+                
         work = []
         for sel in selected:
-            if GitRepo.check_library(sel):
+            if Repository.check_library(sel):
+                print("Updating...")
                 try:
-                    GitRepo.update_library(sel)
+                    Repository.update_library(sel)
                 except:
                     #if Dialogs.confirm_message(self, "Error", "Problems with "+sel+".\nTry again?"):
-                    shutil.rmtree(os.path.join(self.user_libraries_dir, sel, "lib"))
+                    if os.path.exists(os.path.join(self.user_libraries_dir, sel, "lib")):
+                        shutil.rmtree(os.path.join(self.user_libraries_dir, sel, "lib"))
                     try:
-                        GitRepo.install_library(sel)
+                        Repository.install_library(sel)
                     except:
                         Dialogs.error_message(self, "Problems with "+sel+".")
                 work.append(sel + ": Updated")
                 
             else:
+                print("Installing...")
                 try:
-                    GitRepo.install_library(sel)
+                    Repository.install_library(sel)
                 except:
                     #if Dialogs.confirm_message(self, "Error", "Problems with "+sel+".\nTry again?"):
                     if os.path.isdir(os.path.join(self.user_libraries_dir, sel, "lib")):
                         shutil.rmtree(os.path.join(self.user_libraries_dir, sel, "lib"))
                     try:
-                        GitRepo.install_library(sel)
+                        Repository.install_library(sel)
                     except:
                         Dialogs.error_message(self, "Problems with "+sel+".")
                 work.append(sel + ": Installed")

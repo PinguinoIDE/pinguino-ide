@@ -42,6 +42,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.configIDE = Config()
         self.ICONS = CompleteIcons()
         self.update_pinguino_paths()
+        self.update_user_libs()        
         
         self.main = Ui_PinguinoIDE()          
         self.main.setupUi(self)
@@ -65,7 +66,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         
         self.load_main_config()
 
-        
         
     #----------------------------------------------------------------------
     def init_widgets(self):
@@ -243,4 +243,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.configIDE.save_config()
         
+        
+
         

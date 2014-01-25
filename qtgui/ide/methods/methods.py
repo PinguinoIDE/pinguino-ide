@@ -10,13 +10,14 @@ from .decorators import Decorator
 from .dialogs import Dialogs
 from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
+from ..methods.library_manager import Librarymanager
 
 
 ########################################################################
 class Methods(SearchReplace):
 
     #----------------------------------------------------------------------
-    @Decorator.debug_time()
+    #@Decorator.debug_time()
     def open_file_from_path(self, *args, **kwargs):
         filename = kwargs["filename"]
         if self.__check_duplicate_file__(filename): return
@@ -452,3 +453,16 @@ class Methods(SearchReplace):
         return board_config
     
     
+    #----------------------------------------------------------------------
+    def update_user_libs(self):
+        libs = Librarymanager()
+        
+        all_p8 = libs.get_p8_libraries()
+        all_p8 = map(lambda lib:lib["p8"], all_p8)
+        self.pinguinoAPI.USER_P8_LIBS = all_p8   
+        
+        all_p32 = libs.get_p32_libraries()
+        all_p32 = map(lambda lib:lib["p8"], all_p32)
+        self.pinguinoAPI.USER_P32_LIBS = all_p32  
+        
+        self.pinguinoAPI.USER_PDL = libs.get_pdls()

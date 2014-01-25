@@ -39,7 +39,11 @@ if sys.platform == 'win32':
     os.environ['PATH'] = os.environ['PATH'] + ';' + os.path.join(HOME_DIR,'win32','p8','bin') 
 else:
     os.environ["LD_LIBRARY_PATH"]="/usr/lib32:%s/linux/p32/bin:/usr/lib:/usr/lib64" % HOME_DIR
-   
+    
+    
+#FIXME: add user libraries to 32bit
+#FIXME: compiler 32 bit
+
 
 ########################################################################
 class PinguinoTools(object):
@@ -240,12 +244,16 @@ class PinguinoTools(object):
             libext = ".pdl32"
             libdir = self.P32_DIR
             
+        all_pdls = self.USER_PDL
             
-        all_libdir_pdls = filter(lambda name:name.endswith(libext), os.listdir(os.path.join(libdir, 'pdl')))
-        for fichier in all_libdir_pdls:
+        all_pdls.extend(map(lambda pdl:os.path.join(libdir, "pdl", pdl), os.listdir(os.path.join(libdir, "pdl"))))
+        all_pdls = filter(lambda name:name.endswith(libext), all_pdls)
+            
+            
+        for fichier in all_pdls:
             
             # check content of the PDL file
-            lib_file = file(os.path.join(libdir, "pdl", fichier), "r")
+            lib_file = open(fichier, "r")
             lines = lib_file.readlines()
             lib_file.close()
             
@@ -254,8 +262,6 @@ class PinguinoTools(object):
             for line in lines:
                 line = line[:line.find('//')] 
                 if line.isspace() or not line: continue
-                
-                #print line
                 
                 reg = re.match(regex_pdl, line)
                 instruction, cnvinstruction, include, define = reg.groups()
@@ -432,6 +438,10 @@ class PinguinoTools(object):
         if board.arch == 32: return 0, None
             
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
+        
+        user_imports = []
+        for lib_dir in self.USER_P8_LIBS:
+            user_imports.append("-I" + lib_dir)
 
         if board.bldr == 'boot2':
             sortie = Popen(executable=self.COMPILER_8BIT,\
@@ -455,7 +465,7 @@ class PinguinoTools(object):
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
-                os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c')],\
+                os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c')] + user_imports,\
                 stdout=fichier, stderr=STDOUT)
             
                            
@@ -483,7 +493,7 @@ class PinguinoTools(object):
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
-                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')],\
+                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
                 stdout=fichier, stderr=STDOUT)
                            
         elif board.bldr == 'noboot':
@@ -508,7 +518,7 @@ class PinguinoTools(object):
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
-                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')],\
+                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
                 stdout=fichier, stderr=STDOUT)
                            
         sortie.communicate()
@@ -562,6 +572,10 @@ class PinguinoTools(object):
         error = []
         board = self.get_board()
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
+                
+        user_imports = []
+        for lib_dir in self.USER_P8_LIBS:
+            user_imports.append("-I" + lib_dir)    
 
         if board.arch == 8:
             
@@ -598,7 +612,7 @@ class PinguinoTools(object):
                     os.path.join(self.P8_DIR, 'obj', 'boot_iface.o'),\
                     os.path.join(self.P8_DIR, 'obj', 'usb_descriptors.o'),\
                     os.path.join(self.P8_DIR, 'obj', 'crt0ipinguino.o'),\
-                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')],\
+                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
                     stdout=fichier, stderr=STDOUT)
                     
             elif board.bldr == 'boot4':
@@ -638,7 +652,7 @@ class PinguinoTools(object):
                     # except when "-no-crt" option is used
                     'libsdcc.lib',\
                     "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
-                    ],\
+                    ] + user_imports,\
                     stdout=fichier, stderr=STDOUT)
                     
             elif board.bldr == 'noboot':
@@ -671,7 +685,7 @@ class PinguinoTools(object):
                     # link the default run-time module
                     'libsdcc.lib',\
                     "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
-                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')],\
+                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
                     stdout=fichier, stderr=STDOUT)
                     
         else:#if board.arch == 32:

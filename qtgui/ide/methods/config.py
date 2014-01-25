@@ -15,7 +15,8 @@ class Config(RawConfigParser, object):
         
         self.ide_config_file = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "pinguino.conf")
         self.verify_config_file()
-        self.load_config() 
+        self.load_config()
+        
         
     #----------------------------------------------------------------------
     def get_format_config(self, section, option):
