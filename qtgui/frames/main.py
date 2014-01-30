@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Mon Jan 27 18:23:25 2014
+# Created: Thu Jan 30 18:04:39 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -139,7 +139,7 @@ class Ui_PinguinoIDE(object):
         self.tableWidget_variables.setAlternatingRowColors(True)
         self.tableWidget_variables.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
         self.tableWidget_variables.setHorizontalScrollMode(QtGui.QAbstractItemView.ScrollPerPixel)
-        self.tableWidget_variables.setGridStyle(QtCore.Qt.DotLine)
+        self.tableWidget_variables.setGridStyle(QtCore.Qt.NoPen)
         self.tableWidget_variables.setObjectName("tableWidget_variables")
         self.tableWidget_variables.setColumnCount(2)
         self.tableWidget_variables.setRowCount(0)
@@ -163,7 +163,7 @@ class Ui_PinguinoIDE(object):
         self.tableWidget_functions.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
         self.tableWidget_functions.setHorizontalScrollMode(QtGui.QAbstractItemView.ScrollPerPixel)
         self.tableWidget_functions.setShowGrid(True)
-        self.tableWidget_functions.setGridStyle(QtCore.Qt.DotLine)
+        self.tableWidget_functions.setGridStyle(QtCore.Qt.NoPen)
         self.tableWidget_functions.setObjectName("tableWidget_functions")
         self.tableWidget_functions.setColumnCount(3)
         self.tableWidget_functions.setRowCount(0)
@@ -199,7 +199,7 @@ class Ui_PinguinoIDE(object):
         self.tableWidget_directives.setAlternatingRowColors(True)
         self.tableWidget_directives.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
         self.tableWidget_directives.setHorizontalScrollMode(QtGui.QAbstractItemView.ScrollPerPixel)
-        self.tableWidget_directives.setGridStyle(QtCore.Qt.DotLine)
+        self.tableWidget_directives.setGridStyle(QtCore.Qt.NoPen)
         self.tableWidget_directives.setObjectName("tableWidget_directives")
         self.tableWidget_directives.setColumnCount(3)
         self.tableWidget_directives.setRowCount(0)
@@ -633,8 +633,8 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(2)
-        self.tabWidget_browser.setCurrentIndex(2)
+        self.tabWidget_tools.setCurrentIndex(1)
+        self.tabWidget_browser.setCurrentIndex(0)
         self.tabWidget_blocks_tools.setCurrentIndex(1)
         self.tabWidget_blocks.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)

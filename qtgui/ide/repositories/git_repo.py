@@ -26,8 +26,8 @@ class GitRepo(object):
              
         lib = self.config.get_all_sources()[lib]
         repository = lib["repository"]
-        
-        git.Repo.clone_from(repository, os.path.join(self.ide_library_installed, name, "lib"))
+        if repository:
+            git.Repo.clone_from(repository, os.path.join(self.ide_library_installed, name, "lib"))
             
             
     #----------------------------------------------------------------------
@@ -36,10 +36,11 @@ class GitRepo(object):
         lib = self.config.get_all_sources()[lib]
         repository = lib["repository"]
         
-        repo = git.Repo(os.path.join(self.ide_library_installed, name, "lib"))
-        repo.config_writer()
-        remo = repo.remote()
-        remo.pull()
+        if repository:
+            repo = git.Repo(os.path.join(self.ide_library_installed, name, "lib"))
+            repo.config_writer()
+            remo = repo.remote()
+            remo.pull()
         
         
     #----------------------------------------------------------------------

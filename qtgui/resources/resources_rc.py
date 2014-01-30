@@ -2,7 +2,7 @@
 
 # Resource object code
 #
-# Created: lun ene 27 18:23:20 2014
+# Created: jue ene 30 18:04:38 2014
 #      by: The Resource Compiler for PySide (Qt v4.8.5)
 #
 # WARNING! All changes made in this file will be lost!

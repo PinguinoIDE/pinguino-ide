@@ -3,6 +3,7 @@
 
 import os
 from ConfigParser import RawConfigParser
+import logging
 
 
 ########################################################################
@@ -50,11 +51,19 @@ class Librarymanager(object):
     
     #----------------------------------------------------------------------
     def get_pdls(self):
-        list_pdls = map(lambda lib:map(lambda pdl_file:os.path.join(lib["pdl"], pdl_file) , os.listdir(lib["pdl"])), self.libraries)
-        pdl = []
-        for list_pdl in list_pdls:
-            pdl.extend(list_pdl)
-        return pdl
+        #_list_pdls = map(lambda lib:map(lambda pdl_file:os.path.join(lib["pdl"], pdl_file) , os.listdir(lib["pdl"])), self.libraries)
+        
+        list_pdls = []
+        for lib in self.libraries:
+            if os.path.exists(lib["pdl"]):
+                list_pdls.extend(map(lambda pdl_file:os.path.join(lib["pdl"], pdl_file) , os.listdir(lib["pdl"])))
+            else:
+                logging.warning("Missing: "+lib["pdl"])
+        
+        #pdl = []
+        #for list_pdl in list_pdls:
+            #pdl.extend(list_pdl)
+        return list_pdls
     
     #----------------------------------------------------------------------
     def parser_to_dict(self, filename):
