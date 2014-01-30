@@ -10,7 +10,6 @@ class Librarymanager(object):
     
     #----------------------------------------------------------------------
     def __init__(self):
-        """"""
         self.libraries = self.get_libraries()
         
     

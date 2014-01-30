@@ -21,6 +21,8 @@ translator = QtCore.QTranslator()
 translations_path = os.path.abspath("multilanguage")
 translations_file = "pinguino_" + locale
 
+if not os.path.exists(translations_path): os.mkdir(translations_path)
+
 if translations_file + ".qm" in os.listdir(translations_path):
     translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm" % locale))
     

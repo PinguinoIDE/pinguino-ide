@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/gide/bloques/inside/inside.ui'
 #
-# Created: Sat Jan 25 17:07:50 2014
+# Created: Mon Jan 27 18:23:27 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,7 +13,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(94, 38)
-        Form.setWindowTitle("Form")
+        Form.setWindowTitle("")
         self.gridLayout = QtGui.QGridLayout(Form)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)

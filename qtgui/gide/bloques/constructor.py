@@ -9,7 +9,7 @@ from PySide import QtGui, QtCore
 from .widgets import Label
 from .widgets import ControlSpin
 from .widgets import ControlSlider
-from .widgets import ControlButton
+#from .widgets import ControlButton
 from .widgets import Name
 from .inside import Inside, Inside2
 from .inside import InsideBool, Inside2Bool

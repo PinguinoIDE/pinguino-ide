@@ -340,7 +340,6 @@ class Methods(SearchReplace):
         
     #----------------------------------------------------------------------
     def clear_recents_menu(self):
-        """"""
         self.main.menuRecents.clear()
         self.main.menuRecents.addSeparator()      
         self.main.menuRecents.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_menu)

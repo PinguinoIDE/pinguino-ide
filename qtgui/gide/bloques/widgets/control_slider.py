@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/gide/bloques/widgets/control_slider.ui'
 #
-# Created: Sat Jan 25 17:07:51 2014
+# Created: Mon Jan 27 18:23:28 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,9 +13,10 @@ class Ui_Frame(object):
     def setupUi(self, Frame):
         Frame.setObjectName("Frame")
         Frame.resize(237, 36)
+        Frame.setWindowTitle("")
         self.gridLayout = QtGui.QGridLayout(Frame)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.lineEdit_2 = QtGui.QLineEdit(Frame)
         self.lineEdit_2.setMaximumSize(QtCore.QSize(46, 16777215))
@@ -27,6 +28,7 @@ class Ui_Frame(object):
         self.lineEdit_2.setFont(font)
         self.lineEdit_2.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgba(255, 255, 255, 0);")
+        self.lineEdit_2.setText("0000")
         self.lineEdit_2.setFrame(False)
         self.lineEdit_2.setReadOnly(True)
         self.lineEdit_2.setObjectName("lineEdit_2")
@@ -46,6 +48,5 @@ class Ui_Frame(object):
         QtCore.QMetaObject.connectSlotsByName(Frame)
 
     def retranslateUi(self, Frame):
-        Frame.setWindowTitle(QtGui.QApplication.translate("Frame", "Frame", None, QtGui.QApplication.UnicodeUTF8))
-        self.lineEdit_2.setText(QtGui.QApplication.translate("Frame", "0000", None, QtGui.QApplication.UnicodeUTF8))
+        pass
 

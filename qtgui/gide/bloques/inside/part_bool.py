@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/gide/bloques/inside/part_bool.ui'
 #
-# Created: Sat Jan 25 17:07:49 2014
+# Created: Mon Jan 27 18:23:26 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,9 +13,10 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(94, 34)
+        Form.setWindowTitle("")
         self.gridLayout = QtGui.QGridLayout(Form)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.frame = QtGui.QFrame(Form)
         self.frame.setMinimumSize(QtCore.QSize(10, 34))
@@ -27,8 +28,8 @@ class Ui_Form(object):
         self.frame_2.setMaximumSize(QtCore.QSize(16777215, 34))
         self.frame_2.setObjectName("frame_2")
         self.gridLayout_2 = QtGui.QGridLayout(self.frame_2)
-        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setSpacing(0)
+        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setSpacing(0)
@@ -46,5 +47,5 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        pass
 

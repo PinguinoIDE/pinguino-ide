@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/gide/bloques/widgets/label.ui'
 #
-# Created: Sat Jan 25 17:07:51 2014
+# Created: Mon Jan 27 18:23:27 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,6 +13,7 @@ class Ui_Frame(object):
     def setupUi(self, Frame):
         Frame.setObjectName("Frame")
         Frame.resize(94, 23)
+        Frame.setWindowTitle("")
         self.gridLayout = QtGui.QGridLayout(Frame)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
@@ -25,6 +26,7 @@ class Ui_Frame(object):
         font.setBold(True)
         self.label.setFont(font)
         self.label.setStyleSheet("color: rgb(255, 255, 255);")
+        self.label.setText("TextLabel")
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
@@ -32,6 +34,5 @@ class Ui_Frame(object):
         QtCore.QMetaObject.connectSlotsByName(Frame)
 
     def retranslateUi(self, Frame):
-        Frame.setWindowTitle(QtGui.QApplication.translate("Frame", "Frame", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("Frame", "TextLabel", None, QtGui.QApplication.UnicodeUTF8))
+        pass
 

@@ -444,8 +444,7 @@ class PinguinoTools(object):
             user_imports.append("-I" + lib_dir)
 
         if board.bldr == 'boot2':
-            sortie = Popen(executable=self.COMPILER_8BIT,\
-                args=[
+            sortie = Popen([self.COMPILER_8BIT,
                 "--verbose",\
                 "-mpic16",\
                 "--denable-peeps",\
@@ -470,8 +469,7 @@ class PinguinoTools(object):
             
                            
         elif board.bldr == 'boot4':
-            sortie = Popen(executable=self.COMPILER_8BIT,\
-                args=[
+            sortie = Popen([self.COMPILER_8BIT,
                 "--verbose",\
                 "-mpic16",\
                 "--denable-peeps",\
@@ -497,8 +495,7 @@ class PinguinoTools(object):
                 stdout=fichier, stderr=STDOUT)
                            
         elif board.bldr == 'noboot':
-            sortie = Popen(executable=self.COMPILER_8BIT,\
-                args=[
+            sortie = Popen([self.COMPILER_8BIT,
                 "--verbose",\
                 "-mpic16",\
                 "--denable-peeps",\
@@ -580,8 +577,7 @@ class PinguinoTools(object):
         if board.arch == 8:
             
             if board.bldr == 'boot2':
-                sortie = Popen(executable=self.COMPILER_8BIT,\
-                args=[
+                sortie = Popen([self.COMPILER_8BIT,
                     "--verbose",\
                     "-mpic16",\
                     "--denable-peeps",\
@@ -616,8 +612,7 @@ class PinguinoTools(object):
                     stdout=fichier, stderr=STDOUT)
                     
             elif board.bldr == 'boot4':
-                sortie = Popen(executable=self.COMPILER_8BIT,\
-                args=[
+                sortie = Popen([self.COMPILER_8BIT,
                     "--verbose", "-V",\
                     "-mpic16",\
                     # optimization
@@ -656,8 +651,7 @@ class PinguinoTools(object):
                     stdout=fichier, stderr=STDOUT)
                     
             elif board.bldr == 'noboot':
-                sortie = Popen(executable=self.COMPILER_8BIT,\
-                args=[
+                sortie = Popen([self.COMPILER_8BIT, 
                     "--verbose",\
                     "-mpic16",\
                     "--denable-peeps",\
@@ -689,17 +683,23 @@ class PinguinoTools(object):
                     stdout=fichier, stderr=STDOUT)
                     
         else:#if board.arch == 32:
-            # "PDEDIR=" + os.path.dirname(self.GetPath()),\
-            # can't be used with Command Line version since editor isn't used
-            sortie=Popen([self.make,\
-                          "--makefile=" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'Makefile32.'+self.os_name),\
-                          "HOME=" + HOME_DIR,\
-                          "PDEDIR=" + os.path.dirname(filename),\
-                          "PROC=" + board.proc,\
-                          "BOARD=" + board.board],\
+            
+            makefile = os.path.join(os.path.expanduser(self.SOURCE_DIR), 'Makefile32.'+self.os_name)
+               
+            sortie = Popen([self.make, 
+                            "--makefile=" + makefile,
+                            "PDEDIR=" + os.path.dirname(filename),
+                            "PROC=" + board.proc,
+                            "BOARD=" + board.board,
+                            "BINDIR=" + os.path.dirname(self.P32_BIN),  #default /usr/bin
+                            "P32DIR=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
+                            "SRCDIR=" + self.SOURCE_DIR, 
+                         ], 
+                          
                          stdout=fichier, stderr=STDOUT)
                          
         sortie.communicate()
+        
         fichier.seek(0)
         # Check if child process has terminated
         if sortie.poll() != 0:

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/gide/bloques/widgets/name.ui'
 #
-# Created: Sat Jan 25 17:07:49 2014
+# Created: Mon Jan 27 18:23:22 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,6 +13,7 @@ class Ui_Frame(object):
     def setupUi(self, Frame):
         Frame.setObjectName("Frame")
         Frame.resize(94, 33)
+        Frame.setWindowTitle("")
         self.gridLayout = QtGui.QGridLayout(Frame)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
@@ -24,6 +25,7 @@ class Ui_Frame(object):
         font.setWeight(75)
         font.setBold(True)
         self.lineEdit.setFont(font)
+        self.lineEdit.setText("Bloq")
         self.lineEdit.setFrame(False)
         self.lineEdit.setObjectName("lineEdit")
         self.gridLayout.addWidget(self.lineEdit, 0, 0, 1, 1)
@@ -32,6 +34,5 @@ class Ui_Frame(object):
         QtCore.QMetaObject.connectSlotsByName(Frame)
 
     def retranslateUi(self, Frame):
-        Frame.setWindowTitle(QtGui.QApplication.translate("Frame", "Frame", None, QtGui.QApplication.UnicodeUTF8))
-        self.lineEdit.setText(QtGui.QApplication.translate("Frame", "Bloq", None, QtGui.QApplication.UnicodeUTF8))
+        pass
 

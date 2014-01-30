@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/gide/bloques/nested_in_code_next/nested_second.ui'
 #
-# Created: Sat Jan 25 17:07:51 2014
+# Created: Mon Jan 27 18:23:28 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,9 +13,10 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(109, 89)
+        Form.setWindowTitle("")
         self.gridLayout = QtGui.QGridLayout(Form)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         self.frame_5 = QtGui.QFrame(Form)
         self.frame_5.setMinimumSize(QtCore.QSize(42, 24))
@@ -103,5 +104,5 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        pass
 

@@ -73,7 +73,7 @@ class Config(RawConfigParser, object):
     #----------------------------------------------------------------------
     def get_path(self, name):
         
-        return self.get("paths", name)
+        return self.get("Paths", name)
         
         
     #----------------------------------------------------------------------
