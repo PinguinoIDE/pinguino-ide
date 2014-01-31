@@ -165,6 +165,12 @@ class Kit(object):
         self.bloque.append(["decorator", str_label])
         
     #----------------------------------------------------------------------
+    def addArg(self, arg, space=True):
+        self.addDecorator("%s="%arg)
+        if space: self.addSpace()
+        else: self.addSpaceBool()
+        
+    #----------------------------------------------------------------------
     def addContextHelp(self, str_help):
         self.bloque.append(["help", str_help])
         
@@ -189,7 +195,7 @@ class Kit(object):
     
 
     #----------------------------------------------------------------------
-    def addFunct(self, tab, name, nvars, t="linear", fill=[]):
+    def addFunct(self, tab, name, nvars, t="linear", fill=[], str_help=None):
         
         pm = self.getType(t, tab)
         
@@ -202,7 +208,8 @@ class Kit(object):
         pm.addSyntax(")")
         
         if fill: pm.fillWith(fill)
-        
+        if str_help: pm.addContextHelp(str_help)
+            
         return pm.getBlock()                      
                       
                  
