@@ -93,7 +93,8 @@ class LibManager(QtGui.QMainWindow):
             name, ext = os.path.splitext(name)
             
             path_dirlib = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name)
-            path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name, "lib")
+            #path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name, "lib")
+            path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name)
             path_PINGUINO = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name, "lib", "PINGUINO")
             path_config = os.path.join(self.user_libraries_dir, name, "config")
             
@@ -104,6 +105,8 @@ class LibManager(QtGui.QMainWindow):
             libZip = ZipFile(lib)
             os.mkdir(path_dirlib)
             libZip.extractall(path_dirlib_source)
+            
+            os.rename(os.path.join(path_dirlib_source, name), os.path.join(path_dirlib_source, "lib"))
             
             file_config = open(path_PINGUINO)
             content = "".join(file_config.readlines())
@@ -213,7 +216,7 @@ class LibManager(QtGui.QMainWindow):
             
             #if repo:
             checkable = QtGui.QTableWidgetItem()
-            checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsSelectable)
+            checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable)
             checkable.setCheckState(QtCore.Qt.Unchecked)
             self.libframe.tableWidget_sources.setItem(index, 0, checkable)
             #else:
@@ -222,7 +225,7 @@ class LibManager(QtGui.QMainWindow):
                 #self.libframe.tableWidget_sources.setItem(index, 0, checkable)
                 
             repository = QtGui.QTableWidgetItem()
-            repository.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
+            repository.setFlags(QtCore.Qt.ItemIsEnabled)
             self.libframe.tableWidget_sources.setItem(index, 1, repository)
             
             #installed = QtGui.QTableWidgetItem()
@@ -262,7 +265,7 @@ class LibManager(QtGui.QMainWindow):
             self.libframe.tableWidget_libs.setRowCount(self.libframe.tableWidget_libs.rowCount()+1)
                 
             checkable = QtGui.QTableWidgetItem()
-            checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsSelectable)
+            checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable)
             if active:
                 checkable.setCheckState(QtCore.Qt.Checked)
             else:
@@ -271,15 +274,15 @@ class LibManager(QtGui.QMainWindow):
             self.libframe.tableWidget_libs.setItem(index, 0, checkable)
             
             arch_ = QtGui.QTableWidgetItem()
-            arch_.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)            
+            arch_.setFlags(QtCore.Qt.ItemIsEnabled)            
             self.libframe.tableWidget_libs.setItem(index, 1, arch_)
             
             auth = QtGui.QTableWidgetItem()
-            auth.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)            
+            auth.setFlags(QtCore.Qt.ItemIsEnabled)            
             self.libframe.tableWidget_libs.setItem(index, 2, auth)
 
             desc = QtGui.QTableWidgetItem()
-            desc.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)      
+            desc.setFlags(QtCore.Qt.ItemIsEnabled)      
             self.libframe.tableWidget_libs.setItem(index, 3, desc)
             
             self.libframe.tableWidget_libs.item(index, 0).setText(name)
