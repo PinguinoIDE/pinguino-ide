@@ -31,29 +31,34 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def __init__(self):
         super(PinguinoIDE, self).__init__()
         
-        
         QtCore.QTextCodec.setCodecForCStrings(QtCore.QTextCodec.codecForName("UTF-8"))
         QtCore.QTextCodec.setCodecForLocale(QtCore.QTextCodec.codecForName("UTF-8"))
         QtCore.QTextCodec.setCodecForTr(QtCore.QTextCodec.codecForName("UTF-8"))
         
+        self.main = Ui_PinguinoIDE()          
+        self.main.setupUi(self)    
+        
         self.check_user_files()
+        
         self.pinguinoAPI = Pinguino()
         self.pinguinoAPI._boards_ = AllBoards
         self.configIDE = Config()
+        self.PinguinoKIT = GraphicalIDE(self)
+        self.main.tabWidget_graphical.setVisible(False)
+        self.main.dockWidget_blocks.setVisible(False) 
         self.ICONS = CompleteIcons()
+        
         self.update_pinguino_paths()
         self.update_user_libs()        
         
-        self.main = Ui_PinguinoIDE()          
-        self.main.setupUi(self)
         self.setWindowTitle(Constants.TAB_NAME)
-        self.build_statusbar()
         self.fix_styles()
-        self.init_graphical_mode()
+        
         self.open_last_files()
         
-        #self.connect_events()
         self.init_widgets()
+        self.build_statusbar()
+        self.build_output()        
     
         self.update_functions()
         self.update_directives()
@@ -100,7 +105,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     
     #----------------------------------------------------------------------
     def check_user_files(self):
-        
         config_paths = RawConfigParser()
         config_paths.readfp(open("paths.conf", "r"))
         
@@ -110,13 +114,20 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         elif os.name == "nt":  #Windows
             os.environ["PINGUINO_OS_NAME"] = "windows"
         
+        #load path from paths.conf
         os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ["PINGUINO_OS_NAME"], "user_path"))
         os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ["PINGUINO_OS_NAME"], "install_path"))        
+            
+        #check instalation path
+        if not os.path.exists(os.environ.get("PINGUINO_INSTALL_PATH")):
+            logging.warning("Missing Pinguino libraries instalation. "
+                            "Make sure the paths in %s are correct."%os.path.abspath("paths.conf"))
             
         #create ~/.pinguino
         if not os.path.exists(os.environ.get("PINGUINO_USER_PATH")):
             os.mkdir(os.environ.get("PINGUINO_USER_PATH"))
             
+        #Check files
         self.check_examples_dirs()
         self.check_config_files()
             
@@ -135,7 +146,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         
     #----------------------------------------------------------------------
     def check_config_files(self):
-        
         self.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "pinguino.%s.conf"%os.environ.get("PINGUINO_OS_NAME")),
                                     dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "pinguino.conf"))
         
@@ -163,21 +173,15 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         
         
     #----------------------------------------------------------------------
-    def init_graphical_mode(self):
-        self.PinguinoKIT = GraphicalIDE(self)
-        self.main.tabWidget_graphical.setVisible(False)
-        self.main.dockWidget_blocks.setVisible(False) 
-        
+    def build_output(self):
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
         self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
         self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self, "devmode": DevTools(),})
         self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
         
-        
     #----------------------------------------------------------------------
     def is_graphical(self):
         return self.main.actionSwitch_ide.isChecked()
-    
     
     #----------------------------------------------------------------------
     def is_widget(self):
@@ -190,7 +194,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def is_autocomplete_enable(self):
         return self.main.actionAutocomplete.isChecked()
     
-        
     #----------------------------------------------------------------------
     def update_actions_for_text(self):
         normal = False

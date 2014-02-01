@@ -382,10 +382,10 @@ class Methods(SearchReplace):
         names.save_namespaces()        
         
         
-    #----------------------------------------------------------------------
-    def install_error_redirect(self):
-        sys.stderr = Stderr
-        sys.stderr.plainTextEdit_output = self.main.plainTextEdit_output
+    ##----------------------------------------------------------------------
+    #def install_error_redirect(self):
+        #sys.stderr = Stderr
+        #sys.stderr.plainTextEdit_output = self.main.plainTextEdit_output
 
 
     #----------------------------------------------------------------------

@@ -17,7 +17,7 @@ class Librarymanager(object):
     #----------------------------------------------------------------------
     def get_libraries(self):
         path = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries")
-    
+        if not os.path.exists(path): return []
         dirs = os.listdir(path)
         
         libraries = []
