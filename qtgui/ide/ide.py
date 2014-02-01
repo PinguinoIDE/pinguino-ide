@@ -110,10 +110,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         elif os.name == "nt":  #Windows
             os.environ["PINGUINO_OS_NAME"] = "windows"
         
-            
         os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ["PINGUINO_OS_NAME"], "user_path"))
         os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ["PINGUINO_OS_NAME"], "install_path"))        
             
+        #create ~/.pinguino
+        if not os.path.exists(os.environ.get("PINGUINO_USER_PATH")):
+            os.mkdir(os.environ.get("PINGUINO_USER_PATH"))
             
         self.check_examples_dirs()
         self.check_config_files()
@@ -147,9 +149,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         
     #----------------------------------------------------------------------
     def if_not_exist_then_copy(self, src, dst, default_dir=False):
-        
         if not os.path.exists(src):
-            #raise Exception, "Missing files, try installing Pinguino IDE again.\n missing file: %s" % src
             logging.warning("Missing: " + src)
             if not os.path.exists(dst) and default_dir:
                 os.mkdir(dst)
