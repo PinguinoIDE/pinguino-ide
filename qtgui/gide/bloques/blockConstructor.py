@@ -156,9 +156,11 @@ class BlockLinear(Constructor, Properties):
                         delay.frame_3])
         
         self.layout = delay.horizontalLayout
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        
+        self.layout.setContentsMargins(0, 0, 0, 0)  
 
         self.buildBlock(widget, bloque)
+    
         
         widget.adjustSize()
         self.widget = widget

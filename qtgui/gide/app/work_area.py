@@ -365,7 +365,7 @@ class WorkArea(QtGui.QWidget):
     def accept_move(self, accept, child, _ID, point):
         
         if accept:
-            #print "Accept"
+            #print point
             child.metadata.from_.append(_ID)
             child.metadata.add_parent([_ID.metadata.widget, child.metadata.widget])
             

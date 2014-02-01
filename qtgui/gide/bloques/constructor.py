@@ -69,13 +69,41 @@ class Constructor(object):
             if add[0] == "code": self.codeStart = add[1]
             
         
-        #print "@@", bloque
-        for i in range(len(bloque)):
-            if bloque[i] in [["space"], ["space_bool"]]:
-                layout_pos.append(i)
+        ###print "@@", bloque
+        ##for i in range(len(bloque)):
+            ##if bloque[i] in [["space"], ["space_bool"]]:
+                ##layout_pos.append(i)
                 
-        self.setFlex(self.layout_adds, layout_pos, insidePos, self.layout_adds_b, self.layout_adds_all)
+        ##if layout_pos == self.get_layout_pos():
+            ##pass
+        ##else:
+            ##pass
+                
+                
+        self.setFlex(self.layout_adds, insidePos, self.layout_adds_b, self.layout_adds_all)
         widget.contextMenuEvent = self.build_menu
+            
+            
+    #----------------------------------------------------------------------
+    def get_widgets_from_layout(self):
+        if self.layout == None: return[]
+        widgets = []
+        for index in range(self.layout.count()):
+            widgets.append((index, self.layout.itemAt(index).widget()))
+            
+        return filter(lambda wid:wid[1].objectName().startswith("BLOCK"), widgets)
+        
+            
+    ##----------------------------------------------------------------------
+    #def get_widgets_from_layout_save(self):
+        #if self.layout == None: return[]
+        #widgets = []
+        #for index in range(self.layout.count()):
+            #widgets.append((index, self.layout.itemAt(index).widget()))
+            
+        #return filter(lambda wid:wid[1].objectName().startswith("BLOCK"), widgets)
+        
+            
             
 
     #----------------------------------------------------------------------
@@ -434,99 +462,54 @@ class Constructor(object):
         self.LineCode.append(lambda :"%s")
         return widgetInside
     
+    
     #----------------------------------------------------------------------
-    def addParent(self, widget, force=False):
+    def addParent(self, widget, force=False, point=None):
+        """"""
+        static, move = widget
+        static_layout = static.metadata.object_.layout
         
-        #self.primo = widget
-        widgetMove = widget[1]
-        self.widgetMove = widgetMove
-        WidgetStatic = widget[0]
+        inside_pos, layout_pos = static.metadata.object_.getInsidePos()
+    
         
-        r = 0
-        #insidePos, layoutPos = WidgetStatic.metadata.object_.getInsidePos()
-        insidePos, layoutPos = WidgetStatic.metadata.object_.getInsidePos()
-        #print layoutPos
-        for po in insidePos:
+        if not force:
+            for ins in inside_pos:
+                c = ins - move.parent().mapToGlobal(move.pos())    
+                if abs(c.x()) < 4 and  abs(c.y()) < 4:
+                    index = inside_pos.index(ins)
+        else:
+            index = 0
             
-            if not force:
-                a = widgetMove.pos()
-                #b = po + WidgetStatic.DATA["pos"] + WidgetStatic.metadata.object_.getInsidePoint()
-                b = po + WidgetStatic.metadata.pos_ + WidgetStatic.metadata.object_.getInsidePoint()
-                poGlobal = po
-                aGlobal = widgetMove.parent().mapToGlobal(a)
-                c = poGlobal - aGlobal
-            else:
-                r = 0
-                c = QtCore.QPoint()
-            
-            #print c.x()
-            if -4 <= c.x() <= 4:
-                
-                
-                if WidgetStatic.metadata.parent == "None":
-                    widgetMove.metadata.parent = WidgetStatic
-                else: widgetMove.metadata.parent = WidgetStatic.metadata.parent
-                
-                if layoutPos[r] == layoutPos[-1]:
-                    WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r]+1, widgetMove)
-                    
-                else:
-                    WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r], widgetMove)
-                
-                WidgetStatic.metadata.inside.append(widgetMove)
-                
-                    
-
-                #widgetMove.getLine = widgetMove.DATA["lineCode"]
-                widgetMove.getLine = widgetMove.metadata.line_code
-                
-                
-                widgetMove.setMinimumHeight(widgetMove.height())
-                widgetMove.setMaximumHeight(widgetMove.height())
-                
-                #pasado = WidgetStatic.metadata.object_.getWidgtes()[r]
-                pasado = WidgetStatic.metadata.object_.getWidgtes()[r]
-
-                pasado.hide()
-                self.pasado = pasado
-                #self.layoutPos = layoutPos[r]
-                #WidgetStatic.metadata.inside[r] = widgetMove.ID
-                self.w_parent = WidgetStatic
-                self.w_move = widgetMove
-                self.R = r
-                self.updateSize()
-                #self.w_parent.adjustSize()
-                
-                #self.toAddPoint = WidgetStatic.metadata.object_.inLayouts_all.pop(r)
-                #self.toAddPos = WidgetStatic.metadata.object_.layoutsPos.pop(r)
-                self.toAddPoint = WidgetStatic.metadata.object_.inLayouts_all.pop(r)
-                self.toAddPos = WidgetStatic.metadata.object_.layoutsPos.pop(r)
-                
-                return
-            
-            r += 1
-            
+        static_layout.itemAt(layout_pos[index]).widget().hide()
+        static_layout.insertWidget(layout_pos[index], move)
+        
+        #fit heigth
+        move.setMinimumHeight(move.height())
+        move.setMaximumHeight(move.height())        
+        
+        self.remove = (
+                       static_layout.itemAt(layout_pos[index]).widget(),
+                       static_layout.itemAt(layout_pos[index]+1).widget(),
+                       static,
+                       move, 
+                       )
+        
+        
  
-            
     #----------------------------------------------------------------------
     def removeParent(self):
-        self.w_move.metadata.parent = "None"
-        self.w_parent.metadata.parent = "None"
+        block, hidden, static, move = self.remove
         
-        self.w_parent.metadata.inside.remove(self.widgetMove)
-        #if self.w_move in self.w_parent.metadata.inside:
-            #self.w_parent.metadata.inside.remove(self.w_move)
+        static.metadata.parent = "None"
+        move.metadata.parent = "None"
         
-        self.w_parent.metadata.object_.inLayouts_all.insert(self.R, self.toAddPoint)
-        self.w_parent.metadata.object_.layoutsPos.insert(self.R, self.toAddPos) 
-        self.pasado.show()
-        self.w_parent.metadata.object_.layout.removeWidget(self.widgetMove)
-        #self.w_parent.metadata.object_.layout.removeWidget(self.w_move)
         
-
-        #self.pasado.show()
-        self.w_parent = None
-        self.first = True
+        #static.metadata.object_.inLayouts_all.insert(self.R, self.toAddPoint)
+        #static.metadata.object_.layoutsPos.insert(self.R, self.toAddPos) 
+        hidden.show()
+        static.metadata.object_.layout.removeWidget(static)        
+        
+        
 
 
     #----------------------------------------------------------------------
@@ -539,17 +522,48 @@ class Constructor(object):
             
     #----------------------------------------------------------------------
     def getInsidePos(self):
-        intros = [map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts_all),
-                  self.layoutsPos]
+        #intros = [map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts_all),
+                  #self.get_layout_pos()]
+        intros = [map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.get_layout_widgets()),
+                  self.get_layout_pos()]
         return intros
           
+    ##----------------------------------------------------------------------
+    #def getWidgtes(self):
+        #return self.inLayouts_all
+        
     #----------------------------------------------------------------------
-    def getWidgtes(self):
-        return self.inLayouts_all
+    def get_layout_pos(self):
+        widgets = self.get_widgets_from_layout()
+        layoutpos = []
+        for index, wid in widgets:
+            if wid.objectName() == "BLOCK_SPACE" and wid.isVisible():
+                layoutpos.append(index)
+        return layoutpos
     
+    #----------------------------------------------------------------------
+    def get_layout_pos_save(self):
+        widgets = self.get_widgets_from_layout()
+        layoutpos = []
+        for index, wid in widgets:
+            if wid.objectName() == "BLOCK_SPACE":
+                layoutpos.append(wid.isHidden())
+            #elif wid.objectName().startswith("BLOCK"):
+                #layoutpos.append
+        return layoutpos
+    
+    #----------------------------------------------------------------------
+    def get_layout_widgets(self):
+        widgets = self.get_widgets_from_layout()
+        layoutpos = []
+        for index, wid in widgets:
+            if wid.objectName() == "BLOCK_SPACE" and wid.isVisible():
+                layoutpos.append(wid)
+        return layoutpos
+        
     #----------------------------------------------------------------------          
-    def setFlex(self, inLayouts, layoutsPos, insidePos, inLayouts_b, inlayouts_all):
-        self.layoutsPos = layoutsPos
+    def setFlex(self, inLayouts, insidePos, inLayouts_b, inlayouts_all):
+        #self.layoutsPos = layoutsPos
         self.inLayouts = inLayouts     
         self.insidePos = QtCore.QPoint(*insidePos)
         
@@ -562,15 +576,16 @@ class Constructor(object):
         try: return self.insidePos
         except: return QtCore.QPoint(27, 2)
             
-            
     def addChoice(self, widget, add):
         widget_choide, lineEdit = self.buildChoice(*[widget] + add[1:])
+        widget_choide.setObjectName("BLOCK_CHOICE")
         self.layout.addWidget(widget_choide)
         lineEdit.contextMenuEvent = self.build_menu
         self.constructorCode.append(lambda :["spin_choice"]+[str(lineEdit.text())]+add[2:])  
 
     def addSpinInt(self, widget, add):
         widgetSpin, lineEdit = self.buildSpinInt(*[widget] + add[1:])
+        widgetSpin.setObjectName("BLOCK_SPININT")
         self.layout.addWidget(widgetSpin)
         lineEdit.h = lineEdit.size().height()
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
@@ -580,6 +595,7 @@ class Constructor(object):
         
     def addSpinFloat(self, widget, add):
         widgetSpin, lineEdit = self.buildSpinFloat(*[widget] + add[1:])
+        widgetSpin.setObjectName("BLOCK_SPINFLOAT")
         self.layout.addWidget(widgetSpin)
         lineEdit.h = lineEdit.size().height()
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
@@ -589,6 +605,7 @@ class Constructor(object):
 
     def addLineEdit(self, widget, add):
         widgetEdit, lineEdit = self.buildName(*[widget] + add[1:])
+        widgetEdit.setObjectName("BLOCK_LINEDIT")
         self.layout.addWidget(widgetEdit)
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
         self.updateLine(lineEdit)
@@ -597,28 +614,33 @@ class Constructor(object):
         
     def addSlider(self, widget, add):
         widgetSlider, lineEdit = self.buildSliderInt(*[widget] + add[1:])
+        widgetSlider.setObjectName("BLOCK_SLIDER")
         self.layout.addWidget(widgetSlider)
         lineEdit.contextMenuEvent = self.build_menu
         self.constructorCode.append(lambda :["slider", str(lineEdit.text())])
         
-    def addButton(self, widget, add):
-        widgetButton, button = self.buildButton(*[widget] + add[1:])
-        self.layout.addWidget(widgetButton)
-        self.constructorCode.append(lambda :["button"]+add[1:])
+    #def addButton(self, widget, add):
+        #widgetButton, button = self.buildButton(*[widget] + add[1:])
+        #widgetButton.setObjectName("BLOCK_BUTOON")
+        #self.layout.addWidget(widgetButton)
+        #self.constructorCode.append(lambda :["button"]+add[1:])
         
     def addLabel(self, widget, text):
         widgetLabel, Label = self.buildLabel(widget, str(text))
+        widgetLabel.setObjectName("BLOCK_LABEL")
         self.layout.addWidget(widgetLabel)
         self.constructorCode.append(lambda :["label", str(text)])           
 
     def addDecorator(self, widget, text):
         widgetLabel, Label = self.buildDecorator(widget, str(text))
+        widgetLabel.setObjectName("BLOCK_DECORATOR")
         self.layout.addWidget(widgetLabel)
         self.constructorCode.append(lambda :["decorator", str(text)])
                 
     def addToInside(self, widget, inside):
         toInside = self.buidToInside(widget, inside)
         setattr(toInside, "in_type", "space")
+        toInside.setObjectName("BLOCK_SPACE")
         self.layout.addWidget(toInside)
         self.layout_adds.append(toInside)
         self.layout_adds_all.append(toInside)
@@ -627,6 +649,7 @@ class Constructor(object):
     def addToInsideBool(self, widget, inside):
         toInsideBool = self.buidToInsideBool(widget, inside)
         setattr(toInsideBool, "in_type", "space")
+        toInsideBool.setObjectName("BLOCK_SPACE")
         self.layout.addWidget(toInsideBool)
         self.layout_adds_b.append(toInsideBool)
         self.layout_adds_all.append(toInsideBool)        
@@ -637,6 +660,7 @@ class Constructor(object):
             if text == char: text += " "
             
         widgetLabel, Label = self.buildLabel(widget, "")
+        widgetLabel.setObjectName("BLOCK_SYNTAX")
         self.layout.addWidget(widgetLabel)
         
         self.LineCode.pop(-1)

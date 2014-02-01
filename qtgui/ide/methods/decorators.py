@@ -242,3 +242,33 @@ class Decorator(object):
             return wrapped
         return actualdecorator        
         
+
+    
+    ##----------------------------------------------------------------------
+    #@classmethod
+    #def call_delay(self, key, delay):
+        #def actualdecorator(fn):
+            #@functools.wraps(fn)
+            #def wrapped(Pinguino, *args, **kwargs):
+                
+                #last_time = getattr(Pinguino, "key_delay_"+key, False)
+                
+                #if last_time:
+                    #if time.time() - last_time >= delay:
+                        #print("tiempo")
+                        #setattr(Pinguino, "key_delay_"+key, time.time())
+                        #return fn(Pinguino, *args, **kwargs)
+                    #else:
+                        #print("no es tiempo")
+                        #print(time.time())
+                        #print(last_time)
+                        #print(time.time() - last_time)
+                        
+                #else:
+                    #print("sin inicializar")
+                    #setattr(Pinguino, "key_delay_"+key, time.time())
+                    #return fn(Pinguino, *args, **kwargs)
+                
+            
+            #return wrapped
+        #return actualdecorator

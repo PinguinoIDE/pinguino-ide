@@ -19,6 +19,7 @@ from ..child_windows.plain_text_out import PlainOut
 from ..child_windows.libraries import LibManager
 from ..child_windows.paths import Paths
 from ..child_windows.hex_viewer import HexViewer
+from ..child_windows.insert_block_dialog import InsertBlock
 from ..widgets.wiki_widget import WikiDock
 
 
@@ -374,9 +375,27 @@ class EventMethods(Methods):
     
         #End a undo block
         cursor.endEditBlock()
-        
 
-    # Menu View
+    
+    # Pinguino
+    
+    #----------------------------------------------------------------------
+    def __show_libmanager__(self):
+        self.frame_stdout = LibManager(self)
+        self.frame_stdout.show()
+        
+        
+    #----------------------------------------------------------------------
+    def __config_paths__(self):
+        self.frame_paths = Paths(self)
+        self.frame_paths.show()
+        
+        
+    #----------------------------------------------------------------------
+    def __show_board_config__(self):
+        self.frame_board = BoardConfig(self)
+        self.frame_board.show()
+        
         
     #----------------------------------------------------------------------
     def __show_hex_code__(self):
@@ -397,25 +416,6 @@ class EventMethods(Methods):
         self.frame_stdout = PlainOut("Stdout")
         self.frame_stdout.show()
     
-    
-    # Pinguino
-    
-    #----------------------------------------------------------------------
-    def __show_libmanager__(self):
-        self.frame_stdout = LibManager(self)
-        self.frame_stdout.show()
-        
-        
-    #----------------------------------------------------------------------
-    def __config_paths__(self):
-        self.frame_paths = Paths(self)
-        self.frame_paths.show()
-        
-        
-    #----------------------------------------------------------------------
-    def __show_board_config__(self):
-        self.frame_board = BoardConfig(self)
-        self.frame_board.show()
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
@@ -519,6 +519,14 @@ class EventMethods(Methods):
     def __export_pinguino_code__(self):
         area = self.PinguinoKIT.get_work_area()
         area.export_code_to_pinguino_editor()
+        
+    #----------------------------------------------------------------------
+    @Decorator.requiere_graphical_mode()
+    @Decorator.requiere_open_files()
+    def __insert_block__(self):
+        self.frame_insert_block = InsertBlock(self.PinguinoKIT)
+        self.frame_insert_block.show()    
+        
                 
                 
     # Options

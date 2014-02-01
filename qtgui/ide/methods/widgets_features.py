@@ -30,7 +30,7 @@ class PrettyFeatures(object):
             if lineEdit.text() == "":
                 lineEdit.setText(default_text)
                 set_focus_out_color()
-            QtGui.QLineEdit.focusInEvent(lineEdit, QtGui.QFocusEvent(QtCore.QEvent.FocusOut))
+            QtGui.QLineEdit.focusOutEvent(lineEdit, QtGui.QFocusEvent(QtCore.QEvent.FocusOut))
             
         lineEdit.focusInEvent = focus_in      
         lineEdit.focusOutEvent = focus_out     

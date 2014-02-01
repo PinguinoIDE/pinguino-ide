@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Thu Jan 30 18:04:39 2014
+# Created: Fri Jan 31 18:35:48 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(1088, 636)
+        PinguinoIDE.resize(1088, 666)
         PinguinoIDE.setWindowTitle("Pinguino 11")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -63,8 +63,6 @@ class Ui_PinguinoIDE(object):
         self.menuRecents.setObjectName("menuRecents")
         self.menuEdit = QtGui.QMenu(self.menubar)
         self.menuEdit.setObjectName("menuEdit")
-        self.menuView = QtGui.QMenu(self.menubar)
-        self.menuView.setObjectName("menuView")
         self.menuPinguino = QtGui.QMenu(self.menubar)
         self.menuPinguino.setTitle("Pinguino")
         self.menuPinguino.setObjectName("menuPinguino")
@@ -336,7 +334,10 @@ class Ui_PinguinoIDE(object):
         self.tabWidget_blocks = QtGui.QTabWidget(self.tab)
         self.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.West)
         self.tabWidget_blocks.setObjectName("tabWidget_blocks")
-        self.gridLayout_2.addWidget(self.tabWidget_blocks, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.tabWidget_blocks, 1, 0, 1, 1)
+        self.lineEdit_blocks_search = QtGui.QLineEdit(self.tab)
+        self.lineEdit_blocks_search.setObjectName("lineEdit_blocks_search")
+        self.gridLayout_2.addWidget(self.lineEdit_blocks_search, 0, 0, 1, 1)
         self.tabWidget_blocks_tools.addTab(self.tab, "")
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -485,8 +486,8 @@ class Ui_PinguinoIDE(object):
         self.actionSwitch_ide = QtGui.QAction(PinguinoIDE)
         self.actionSwitch_ide.setCheckable(True)
         icon16 = QtGui.QIcon()
-        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.actionSwitch_ide.setIcon(icon16)
         self.actionSwitch_ide.setObjectName("actionSwitch_ide")
         self.actionSave_image = QtGui.QAction(PinguinoIDE)
@@ -555,6 +556,8 @@ class Ui_PinguinoIDE(object):
         self.actionSet_paths.setObjectName("actionSet_paths")
         self.actionExport_code_to_editor = QtGui.QAction(PinguinoIDE)
         self.actionExport_code_to_editor.setObjectName("actionExport_code_to_editor")
+        self.actionInsert_Block = QtGui.QAction(PinguinoIDE)
+        self.actionInsert_Block.setObjectName("actionInsert_Block")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.menuRecents.menuAction())
@@ -577,11 +580,11 @@ class Ui_PinguinoIDE(object):
         self.menuEdit.addAction(self.actionSearch)
         self.menuEdit.addAction(self.actionSearch_and_replace)
         self.menuEdit.addSeparator()
-        self.menuView.addAction(self.actionHex_code)
-        self.menuView.addAction(self.actionStdout)
         self.menuPinguino.addAction(self.actionLibrary_manager)
         self.menuPinguino.addAction(self.actionSet_paths)
         self.menuPinguino.addAction(self.actionSelect_board)
+        self.menuPinguino.addAction(self.actionHex_code)
+        self.menuPinguino.addAction(self.actionStdout)
         self.menuPinguino.addSeparator()
         self.menuPinguino.addAction(self.actionCompile)
         self.menuPinguino.addAction(self.actionUpload)
@@ -602,10 +605,10 @@ class Ui_PinguinoIDE(object):
         self.menuConfiguration.addAction(self.actionColor_theme)
         self.menuGraphical.addAction(self.actionView_Pinguino_code)
         self.menuGraphical.addAction(self.actionExport_code_to_editor)
+        self.menuGraphical.addAction(self.actionInsert_Block)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuSource.menuAction())
-        self.menubar.addAction(self.menuView.menuAction())
         self.menubar.addAction(self.menuPinguino.menuAction())
         self.menubar.addAction(self.menuGraphical.menuAction())
         self.menubar.addAction(self.menuConfiguration.menuAction())
@@ -635,7 +638,7 @@ class Ui_PinguinoIDE(object):
         self.tabWidget_files.setCurrentIndex(-1)
         self.tabWidget_tools.setCurrentIndex(1)
         self.tabWidget_browser.setCurrentIndex(0)
-        self.tabWidget_blocks_tools.setCurrentIndex(1)
+        self.tabWidget_blocks_tools.setCurrentIndex(0)
         self.tabWidget_blocks.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)
         PinguinoIDE.setTabOrder(self.tabWidget_files, self.tabWidget_tools)
@@ -657,7 +660,6 @@ class Ui_PinguinoIDE(object):
         self.menuFile.setTitle(QtGui.QApplication.translate("PinguinoIDE", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuRecents.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Recents", None, QtGui.QApplication.UnicodeUTF8))
         self.menuEdit.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Edit", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuView.setTitle(QtGui.QApplication.translate("PinguinoIDE", "View", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Help", None, QtGui.QApplication.UnicodeUTF8))
         self.menuLinks.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Links", None, QtGui.QApplication.UnicodeUTF8))
         self.menuSource.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Source", None, QtGui.QApplication.UnicodeUTF8))
@@ -729,6 +731,7 @@ class Ui_PinguinoIDE(object):
         self.actionSearch_and_replace.setText(QtGui.QApplication.translate("PinguinoIDE", "Search and replace", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSearch_and_replace.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+R", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSelect_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Select board", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSelect_board.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+B", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCompile.setText(QtGui.QApplication.translate("PinguinoIDE", "Compile", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCompile.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F5", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUpload.setText(QtGui.QApplication.translate("PinguinoIDE", "Upload", None, QtGui.QApplication.UnicodeUTF8))
@@ -770,9 +773,14 @@ class Ui_PinguinoIDE(object):
         self.actionBlocks.setText(QtGui.QApplication.translate("PinguinoIDE", "Blocks", None, QtGui.QApplication.UnicodeUTF8))
         self.actionColor_theme.setText(QtGui.QApplication.translate("PinguinoIDE", "Color theme", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLibrary_manager.setText(QtGui.QApplication.translate("PinguinoIDE", "Library manager", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionLibrary_manager.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+L", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHex_code.setText(QtGui.QApplication.translate("PinguinoIDE", "Hex code", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionHex_code.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+H", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSet_paths.setText(QtGui.QApplication.translate("PinguinoIDE", "Set paths", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSet_paths.setToolTip(QtGui.QApplication.translate("PinguinoIDE", "Set paths", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSet_paths.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+P", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport_code_to_editor.setText(QtGui.QApplication.translate("PinguinoIDE", "Export code to editor", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionInsert_Block.setText(QtGui.QApplication.translate("PinguinoIDE", "Insert block", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionInsert_Block.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+I", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

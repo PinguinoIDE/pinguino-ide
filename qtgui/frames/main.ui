@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1088</width>
-    <height>636</height>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -165,13 +165,6 @@
     <addaction name="actionSearch_and_replace"/>
     <addaction name="separator"/>
    </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>View</string>
-    </property>
-    <addaction name="actionHex_code"/>
-    <addaction name="actionStdout"/>
-   </widget>
    <widget class="QMenu" name="menuPinguino">
     <property name="title">
      <string notr="true">Pinguino</string>
@@ -179,6 +172,8 @@
     <addaction name="actionLibrary_manager"/>
     <addaction name="actionSet_paths"/>
     <addaction name="actionSelect_board"/>
+    <addaction name="actionHex_code"/>
+    <addaction name="actionStdout"/>
     <addaction name="separator"/>
     <addaction name="actionCompile"/>
     <addaction name="actionUpload"/>
@@ -224,11 +219,11 @@
     </property>
     <addaction name="actionView_Pinguino_code"/>
     <addaction name="actionExport_code_to_editor"/>
+    <addaction name="actionInsert_Block"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuSource"/>
-   <addaction name="menuView"/>
    <addaction name="menuPinguino"/>
    <addaction name="menuGraphical"/>
    <addaction name="menuConfiguration"/>
@@ -936,14 +931,14 @@
         <enum>QTabWidget::South</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
          <string>Blocks</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_2">
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QTabWidget" name="tabWidget_blocks">
            <property name="tabPosition">
             <enum>QTabWidget::West</enum>
@@ -952,6 +947,9 @@
             <number>-1</number>
            </property>
           </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLineEdit" name="lineEdit_blocks_search"/>
          </item>
         </layout>
        </widget>
@@ -1255,6 +1253,9 @@
    <property name="text">
     <string>Select board</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+B</string>
+   </property>
   </action>
   <action name="actionCompile">
    <property name="enabled">
@@ -1520,10 +1521,16 @@
    <property name="text">
     <string>Library manager</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+L</string>
+   </property>
   </action>
   <action name="actionHex_code">
    <property name="text">
     <string>Hex code</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+H</string>
    </property>
   </action>
   <action name="actionSet_paths">
@@ -1533,10 +1540,21 @@
    <property name="toolTip">
     <string>Set paths</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+P</string>
+   </property>
   </action>
   <action name="actionExport_code_to_editor">
    <property name="text">
     <string>Export code to editor</string>
+   </property>
+  </action>
+  <action name="actionInsert_Block">
+   <property name="text">
+    <string>Insert block</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+I</string>
    </property>
   </action>
  </widget>

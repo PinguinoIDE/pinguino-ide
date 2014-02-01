@@ -52,7 +52,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.init_graphical_mode()
         self.open_last_files()
         
-        self.connect_events()
+        #self.connect_events()
         self.init_widgets()
     
         self.update_functions()
@@ -67,6 +67,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         
         self.load_main_config()
         
+        self.connect_events()
     
 
         
@@ -80,6 +81,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         
         PrettyFeatures.LineEdit_default_text(self, self.main.lineEdit_search, QtGui.QApplication.translate("Frame", "Search..."))
         PrettyFeatures.LineEdit_default_text(self, self.main.lineEdit_replace, QtGui.QApplication.translate("Frame", "Replace..."))
+        PrettyFeatures.LineEdit_default_text(self, self.main.lineEdit_blocks_search, QtGui.QApplication.translate("Frame", "Search block..."))
         
         
     #----------------------------------------------------------------------
@@ -244,6 +246,4 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.configIDE.save_config()
         
-        
-
         

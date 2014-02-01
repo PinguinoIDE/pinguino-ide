@@ -72,14 +72,18 @@ class GraphicalIDE:
         self.main.tabWidget_graphical.setCurrentIndex(0)
         self.main.tabWidget_graphical.setMaximumSize(10000, 10e6)
        
-        for index in range(self.main.tabWidget_blocks.count()):
-            if self.main.tabWidget_blocks.tabText(index) == "Pinguino":
-                self.main.tabWidget_blocks.setCurrentIndex(index)
-                break
+
+        self.set_tab("Pinguino")
             
         
         self.constant_update()
         self.constant_auto_raise()
+
+    def set_tab(self, tab_name):
+        for index in range(self.main.tabWidget_blocks.count()):
+            if self.main.tabWidget_blocks.tabText(index) == tab_name:
+                self.main.tabWidget_blocks.setCurrentIndex(index)
+                break
         
     
     #----------------------------------------------------------------------
@@ -277,14 +281,19 @@ class GraphicalIDE:
         layout = block.metadata.object_.layout
         if layout is None: return []
         bloque = block.ARGS[2:]
-        layout_pos = []
-        empty = block.metadata.object_.layoutsPos
-        for i in range(len(bloque)):
-            if bloque[i] in [["space"], ["space_bool"]]:
-                if i in empty:
-                    layout_pos.append(None)
-                else:
-                    layout_pos.append(True)    
+        #layout_pos = []
+        #empty = block.metadata.object_.get_layout_pos_save()
+        #fix = 0
+        #for i in range(len(bloque)):
+            #if bloque[i] in [["space"], ["space_bool"]]:
+                #if i in empty:
+                    #layout_pos.append(None)
+                #else:
+                    #layout_pos.append(True)
+                    #fix += 1
+                    #empty = map(lambda x:x-fix, empty)
+                    
+        layout_pos = block.metadata.object_.get_layout_pos_save()
     
         widgets = []
         for i in range(layout.count()):
@@ -292,10 +301,13 @@ class GraphicalIDE:
             
         widgets = filter(lambda wdg:getattr(wdg, "metadata", False), widgets)
                          
-        inside = layout_pos
+        inside = layout_pos[:]
             
-        for i in range(len(inside)):
-            if inside[i]: inside[i] = widgets.pop(0)
+        if inside.count(True) == len(widgets):
+            for i in range(len(inside)):
+                if inside[i]: inside[i] = widgets.pop(0)
+        else:
+            raise Exception, "¬¬"
             
         return inside
                          
@@ -313,11 +325,11 @@ class GraphicalIDE:
         
         ser = []
         for widget in widgets:
-            name = widget.__str__()
-            if name == "None":
+            #name = widget.__str__()
+            if not widget:
                 id_ = None
             else:
-                id_ = re.findall("[.]*0x[\dabcdef]*[.]*", name)[0]
+                id_ = re.findall("[.]*0x[\dabcdef]*[.]*", widget.__str__())[0]
             ser.append(id_)
         return ser
         
@@ -515,7 +527,7 @@ class GraphicalIDE:
             
     #----------------------------------------------------------------------
     def get_block_tabs(self):
-        tabs = []
+        tabs = ["Search"]
         for key in all_sets.keys(): tabs.append(all_sets[key][1])
         tabs = list(set(tabs))
         tabs.remove("None")
@@ -523,8 +535,8 @@ class GraphicalIDE:
             
             
     #----------------------------------------------------------------------
-    def build_block_tabs(self):
-        tabs = self.get_block_tabs()
+    def build_block_tabs(self, tabs=None):
+        if tabs is None: tabs = self.get_block_tabs()
         for tab in tabs:
             widget = QtGui.QWidget()
             ui = Ui_widgetBlock()
@@ -552,6 +564,13 @@ class GraphicalIDE:
             widget.content_widgets = []
             
     #----------------------------------------------------------------------
+    def remove_tab(self, tab_name):
+        for index in range(self.main.tabWidget_blocks.count()):
+            if self.main.tabWidget_blocks.tabText(index) == tab_name:
+                self.main.tabWidget_blocks.removeTab(index)
+                break
+            
+    #----------------------------------------------------------------------
     def get_widget(self, tab_name):
         for index in range(self.main.tabWidget_blocks.count()):
             if self.main.tabWidget_blocks.tabText(index) == tab_name:
@@ -559,10 +578,13 @@ class GraphicalIDE:
                 return widget
         
     #----------------------------------------------------------------------
-    def add_blocks(self, tab, tab_set, count=0, side=0, ignore_jump=False):
+    def add_blocks(self, tab, tab_set, count=0, side=0, ignore_jump=False, clear=False):
         widget = self.get_widget(tab)
         grid_layout = widget.grid_layout
         tool_area = widget.tool_area
+        
+        if clear: self.clear_area(tab)
+
     
         for key, tab in tab_set:
             
@@ -576,7 +598,6 @@ class GraphicalIDE:
             newIcon.ARGS = tab     
             newIcon.BASENAME = key 
             
-            
             grid_layout.addWidget(newIcon, count, side, 1, 1)
             count += 1
 
@@ -588,103 +609,23 @@ class GraphicalIDE:
                 
     #----------------------------------------------------------------------
     def clear_area(self, area):
-        widget = self.get_widget(area)
+        self.remove_tab(area)
+        self.build_block_tabs([area])
+        #widget = self.get_widget(area)
+        ##grid_layout = widget.grid_layout
         
-        for wid in widget.content_widgets:
-            wid.close()
-            wid.destroy()
-            widget.content_widgets.remove(wid)
+        ##for index in range(grid_layout.count()):
+            ##item = grid_layout.itemAt(index)
+            ##grid_layout.removeItem(item)
+            
+        #for wid in widget.content_widgets:
+            ##wid.close()
+            ##wid.destroy()
+            #wid.deleteLater()
+            #widget.content_widgets.remove(wid)    
+                            
+            
         
-        
-    ##----------------------------------------------------------------------
-    #def copy_blocks(self, event=None, nested_=False):
-        #MetaData = self.getWorkArea().MetaData
-        
-        #toSave = []
-        #pos2 = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos())
-        #self.cursorPosOnCopy = pos2
-        #self.areaPosOnCopy = self.getWorkArea().SelectArea.pos()
-            
-        #if self.getWorkArea().SelectArea.isVisible(): Keys = self.getWorkArea().getUnderSelection()
-        #else:
-            #self.getWorkArea().Searched = []
-            #Keys = self.getWorkArea().getAllRelatedFromID(self.getWorkArea().lastBlockShadown) 
-        
-        #for key in Keys:
-            ##print MetaData[key]["getConstructor"]()
-            #toSave.append([MetaData[key]["baseName"],
-                           ##(MetaData[key]["pos"]),
-                           #[MetaData[key]["pos"].x()-pos2.x(), MetaData[key]["pos"].y()-pos2.y()],
-                           #MetaData[key]["getConstructor"](),
-                           #MetaData[key]["name"],
-                           #key,
-                           #MetaData[key]["to"],
-                           #MetaData[key]["from"],
-                           #MetaData[key]["inside"],
-                           #MetaData[key]["nested"],
-                           ##[MetaData[key]["widget"].x(), MetaData[key]["widget"].y()],
-                           #])
-            
-
-        #self.CopyBlocksRAM = toSave[:]
-        
-        
-        
-        
-    ##----------------------------------------------------------------------
-    #def paste_blocks(self, event=None):
-        #if not self.CopyBlocksRAM: return
-            
-        #space = self.CopyBlocksRAM
-        
-        #self.newIDs = {}
-        #for block in space: self.newIDs[str(block[4])] = self.getWorkArea().getNewID()
-        
-        #toFitInside = []
-        #all_icons = []
-        #for block in space:
-            #name = block[3]
-            #args = ["", ""] + block[2]
-            
-            #pos = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos()) + QtCore.QPoint(*block[1])
-            
-            
-            #baseName = block[0]
-            #ID = self.newIDs[str(block[4])]
-            
-            #newIcon, pos2, ID2, MetaData_C = self.getWorkArea().new_ploq(name, args, pos, baseName, ID)
-            
-            
-            #fix = lambda lista:map(lambda x:self.newIDs[x], lista)
-            
-            #MetaData_C[ID]["to"] = fix(block[5])
-            #MetaData_C[ID]["from"] = fix(block[6])
-            #MetaData_C[ID]["inside"] = fix(block[7])
-            #MetaData_C[ID]["nested"] = fix(block[8])
-            
-            #newIcon.move(pos)
-            #if len(fix(block[7])) > 0: toFitInside.append([ID, [fix(block[7])]])
-            
-
-            
-        #for toFit in toFitInside:
-            #ID = toFit[0]
-            #Inside = toFit[1][0]
-            #for ins in Inside:             
-                #self.getWorkArea().MetaData[ins]["addParent"]([self.getWorkArea().getWidget(ID), self.getWorkArea().getWidget(ins)],
-                                                              #force = True)
-
-
-
-        #pos = self.getWorkArea().mapFromGlobal(QtGui.QCursor.pos()) - self.cursorPosOnCopy + self.areaPosOnCopy
-            
-        #self.getWorkArea().SelectArea.move(pos)          
-        #self.getWorkArea().SelectArea.lower()            
-        #self.getWorkArea().SelectArea.show()
-        #self.getWorkArea().hasSelection = True
-        
-        #self.getWorkArea().SelectionAbs = self.getWorkArea().getUnderSelection()
-       
     #----------------------------------------------------------------------
     def get_tab(self):
         
@@ -707,7 +648,6 @@ class GraphicalIDE:
     @Decorator.requiere_main_focus()
     @Decorator.requiere_graphical_mode()
     def constant_update(self):
-        
         editor = self.main.tabWidget_graphical.currentWidget()
         editor.graphical_area.constant_update()
         
@@ -718,8 +658,29 @@ class GraphicalIDE:
     @Decorator.requiere_main_focus()
     @Decorator.requiere_graphical_mode()
     def constant_auto_raise(self):
-        
         editor = self.main.tabWidget_graphical.currentWidget()
         if not editor.graphical_area.isDragging:
             editor.graphical_area.auto_raise()
+        
+        
+    #----------------------------------------------------------------------
+    def update_blocks_search_tab(self, text):
+        if len(text) < 2: return
+        if text == QtGui.QApplication.translate("Frame", "Search Block..."): return
+        if not text: return
+        bloques = []
+        for key in all_sets.keys():
+            if all_sets[key][2][0] == "label":
+                label = all_sets[key][2][1]
+                if label.lower().startswith(text.lower()): bloques.append([key, all_sets[key]])
+                
+        if not bloques: return
+        
+        self.clear_area("Search")        
+        self.add_blocks("Search", bloques)
+        self.set_tab("Search")
+        
+    #----------------------------------------------------------------------
+    def get_all_sets(self):
+        return all_sets
         

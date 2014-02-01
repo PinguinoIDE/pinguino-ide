@@ -66,8 +66,8 @@ class Methods(SearchReplace):
             if os.path.exists(file_):
                 self.open_file_from_path(filename=file_)
                 
-        self.main.actionSwitch_ide.setChecked(file_.endswith(".pdeg"))
-        self.switch_ide_mode(file_.endswith(".pdeg"))
+        self.main.actionSwitch_ide.setChecked(file_.endswith(".gpde"))
+        self.switch_ide_mode(file_.endswith(".gpde"))
         self.setCursor(QtCore.Qt.ArrowCursor)
         
         
