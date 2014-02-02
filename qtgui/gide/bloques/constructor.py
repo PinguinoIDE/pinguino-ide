@@ -41,7 +41,6 @@ class Constructor(object):
     
     DeletLater = False
         
-        
     def buildBlock(self, widget, bloque, insidePos=(27, 2), inside=False, bool=False):
         self.layout_adds = []
         self.layout_adds_b = []
@@ -62,23 +61,12 @@ class Constructor(object):
             if add[0] == "spin_float": self.addSpinFloat(widget, add[:])
             if add[0] == "syntax": self.addSyntax(widget, add[1])
             if add[0] == "slider": self.addSlider(widget, add[:])
-            if add[0] == "button": self.addButton(widget, add[:])
+            #if add[0] == "button": self.addButton(widget, add[:])
             if add[0] == "decorator": self.addDecorator(widget, add[1])
             if add[0] == "help": widget.setToolTip(add[1])
             if add[0] == "full": self.fullWidgetWith = add[1]
             if add[0] == "code": self.codeStart = add[1]
             
-        
-        ###print "@@", bloque
-        ##for i in range(len(bloque)):
-            ##if bloque[i] in [["space"], ["space_bool"]]:
-                ##layout_pos.append(i)
-                
-        ##if layout_pos == self.get_layout_pos():
-            ##pass
-        ##else:
-            ##pass
-                
                 
         self.setFlex(self.layout_adds, insidePos, self.layout_adds_b, self.layout_adds_all)
         widget.contextMenuEvent = self.build_menu

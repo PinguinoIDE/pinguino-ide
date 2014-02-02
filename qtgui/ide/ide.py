@@ -36,8 +36,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         QtCore.QTextCodec.setCodecForTr(QtCore.QTextCodec.codecForName("UTF-8"))
         
         self.main = Ui_PinguinoIDE()          
-        self.main.setupUi(self)    
+        self.main.setupUi(self)
         
+        self.set_environ_vars()
         self.check_user_files()
         
         self.pinguinoAPI = Pinguino()
@@ -71,9 +72,14 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.statusbar_ide(self.get_status_board())
         
         self.load_main_config()
-        
         self.connect_events()
     
+        os_name = os.environ.get("PINGUINO_OS_NAME")
+        if os_name == "windows":
+            os.environ['PATH'] = os.environ['PATH'] + ';' + os.path.join(HOME_DIR,'win32','p8','bin') 
+        elif os_name == "linux":
+            os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
+            
 
         
     #----------------------------------------------------------------------
@@ -102,9 +108,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.tableWidget_directives.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
         self.main.tableWidget_variables.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
 
-    
     #----------------------------------------------------------------------
-    def check_user_files(self):
+    def set_environ_vars(self):
         config_paths = RawConfigParser()
         config_paths.readfp(open("paths.conf", "r"))
         
@@ -117,7 +122,11 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         #load path from paths.conf
         os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ["PINGUINO_OS_NAME"], "user_path"))
         os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ["PINGUINO_OS_NAME"], "install_path"))        
-            
+                    
+    
+    #----------------------------------------------------------------------
+    def check_user_files(self):
+
         #check instalation path
         if not os.path.exists(os.environ.get("PINGUINO_INSTALL_PATH")):
             logging.warning("Missing Pinguino libraries instalation. "
@@ -128,12 +137,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             os.mkdir(os.environ.get("PINGUINO_USER_PATH"))
             
         #Check files
-        self.check_examples_dirs()
+        self.check_dirs()
         self.check_config_files()
             
             
     #----------------------------------------------------------------------
-    def check_examples_dirs(self):
+    def check_dirs(self):
         
         self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "examples"),
                                     dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "examples"),
@@ -143,6 +152,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
                                     dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "graphical_examples"),
                                     default_dir=True)
         
+        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "source"),
+                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "source"))
+        
+        #FIXME: wath to do with this dir?
+        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "p32", "obj"),
+                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "source", "obj"))
+
         
     #----------------------------------------------------------------------
     def check_config_files(self):

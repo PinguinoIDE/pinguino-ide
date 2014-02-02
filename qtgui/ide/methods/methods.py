@@ -459,7 +459,7 @@ class Methods(SearchReplace):
         self.pinguinoAPI.USER_P8_LIBS = all_p8   
         
         all_p32 = libs.get_p32_libraries()
-        all_p32 = map(lambda lib:lib["p8"], all_p32)
+        all_p32 = map(lambda lib:lib["p32"], all_p32)
         self.pinguinoAPI.USER_P32_LIBS = all_p32  
         
         self.pinguinoAPI.USER_PDL = libs.get_pdls()

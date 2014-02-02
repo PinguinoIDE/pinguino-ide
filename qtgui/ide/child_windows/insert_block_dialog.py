@@ -22,7 +22,7 @@ class InsertBlock(QtGui.QDialog):
         
         self.connect(self.insert.lineEdit, QtCore.SIGNAL("textChanged(QString)"), self.update_blocks)
         self.connect(self.insert.listWidget, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.insert_block)
-        self.connect(self.insert.listWidget, QtCore.SIGNAL("itemEntered(QListWidgetItem*)"), self.insert_block)
+        #self.connect(self.insert.listWidget, QtCore.SIGNAL("itemEntered(QListWidgetItem*)"), self.insert_block)
         
         self.insert.lineEdit.keyPressEvent = self.line_edit_key
         self.insert.listWidget.keyPressEvent = self.list_key
@@ -80,3 +80,4 @@ class InsertBlock(QtGui.QDialog):
         pos = self.cursor().pos() - QtCore.QPoint(10, 10)
         work_area.new_bloq(name, args, pos, baseName)
         self.close()
+        

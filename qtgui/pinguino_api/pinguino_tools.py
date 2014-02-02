@@ -30,19 +30,11 @@ import time
 
 from .boards import boardlist as BoardList
 from .uploader.uploader import Uploader
-#from .constants import  HOME_DIR, self.P8_DIR, self.P32_DIR, TEMP_DIR, os.path.expanduser(self.SOURCE_DIR)
 
-#import os
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
-if sys.platform == 'win32':
-    os.environ['PATH'] = os.environ['PATH'] + ';' + os.path.join(HOME_DIR,'win32','p8','bin') 
-else:
-    os.environ["LD_LIBRARY_PATH"]="/usr/lib32:%s/linux/p32/bin:/usr/lib:/usr/lib64" % HOME_DIR
-    
     
 #FIXME: add user libraries to 32bit
-#FIXME: compiler 32 bit
 
 
 ########################################################################
@@ -196,7 +188,8 @@ class PinguinoTools(object):
     
         elif board.arch == 32:
             fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), 'stdout'), 'w+')
-            sortie=Popen([os.path.join(HOME_DIR, self.os_name, 'p32', 'bin', self.u32),
+            
+            sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
                           "-w",
                           hex_file,
                           "-r",
@@ -420,6 +413,21 @@ class PinguinoTools(object):
             re.DOTALL | re.MULTILINE
         )
         return re.sub(pattern, replacer, text)
+    
+    
+    #----------------------------------------------------------------------
+    def get_user_imports_p8(self):
+        user_imports = []
+        for lib_dir in self.USER_P8_LIBS:
+            user_imports.append("-I" + lib_dir)
+        return user_imports
+    
+    #----------------------------------------------------------------------
+    def get_user_imports_p32(self):
+        user_imports = []
+        for lib_dir in self.USER_P32_LIBS:
+            user_imports.append("-I" + lib_dir)
+        return " ".join(user_imports)
 
 
     #----------------------------------------------------------------------
@@ -439,9 +447,9 @@ class PinguinoTools(object):
             
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
         
-        user_imports = []
-        for lib_dir in self.USER_P8_LIBS:
-            user_imports.append("-I" + lib_dir)
+        user_imports = self.get_user_imports_p8()
+        #for lib_dir in self.USER_P8_LIBS:
+            #user_imports.append("-I" + lib_dir)
 
         if board.bldr == 'boot2':
             sortie = Popen([self.COMPILER_8BIT,
@@ -570,9 +578,9 @@ class PinguinoTools(object):
         board = self.get_board()
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
                 
-        user_imports = []
-        for lib_dir in self.USER_P8_LIBS:
-            user_imports.append("-I" + lib_dir)    
+        user_imports = self.get_user_imports_p8()
+        #for lib_dir in self.USER_P8_LIBS:
+            #user_imports.append("-I" + lib_dir)    
 
         if board.arch == 8:
             
@@ -685,6 +693,8 @@ class PinguinoTools(object):
         else:#if board.arch == 32:
             
             makefile = os.path.join(os.path.expanduser(self.SOURCE_DIR), 'Makefile32.'+self.os_name)
+            
+            user_imports32 = self.get_user_imports_p32()
                
             sortie = Popen([self.make, 
                             "--makefile=" + makefile,
@@ -693,7 +703,9 @@ class PinguinoTools(object):
                             "BOARD=" + board.board,
                             "BINDIR=" + os.path.dirname(self.P32_BIN),  #default /usr/bin
                             "P32DIR=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
-                            "SRCDIR=" + self.SOURCE_DIR, 
+                            "SRCDIR=" + self.SOURCE_DIR,
+                            
+                            "USERLIBS=" + user_imports32, 
                          ], 
                           
                          stdout=fichier, stderr=STDOUT)
