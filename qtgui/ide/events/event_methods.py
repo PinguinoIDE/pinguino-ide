@@ -46,6 +46,7 @@ class EventMethods(Methods):
         editor.text_edit.dropEvent = self.__drop__
         editor.text_edit.keyPressEvent = self.__key_press__
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), filename[:-1])
+        editor.text_edit.setFocus()
             
     
     #----------------------------------------------------------------------
@@ -318,7 +319,7 @@ class EventMethods(Methods):
             
         editor.text_edit.moveCursor(QtGui.QTextCursor.EndOfLine)
         
-        end_ += (end + 1 - start) * 3
+        end_ += (end + 1 - start) * len(comment_wildcard)
         cursor.setPosition(start_)
         cursor.setPosition(end_, QtGui.QTextCursor.KeepAnchor)
         editor.text_edit.setTextCursor(cursor)        
@@ -368,14 +369,176 @@ class EventMethods(Methods):
             editor.text_edit.moveCursor(QtGui.QTextCursor.Down)
             editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
             
-        end_ -= (end + 1 - start) * 3
+        end_ -= (end + 1 - start) * len(comment_wildcard)
         cursor.setPosition(start_)
         cursor.setPosition(end_, QtGui.QTextCursor.KeepAnchor)
         editor.text_edit.setTextCursor(cursor)              
     
         #End a undo block
         cursor.endEditBlock()
+        
+        
 
+    #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    def comment_uncomment(self):
+        editor, cursor, prevCursor, selected, firstLine = self.select_block_edit()
+
+        if firstLine != False:
+            if firstLine.startswith("//"): self.uncommentregion()
+            else: self.commentregion()
+            
+        if not selected:
+            cursor.clearSelection()
+            editor.text_edit.setTextCursor(prevCursor)         
+        
+        
+    #----------------------------------------------------------------------
+    def indentregion(self):
+        
+        editor, cursor, prevCursor, selected, firstLine = self.select_block_edit()
+        
+        if firstLine != False:
+        
+            editor = self.main.tabWidget_files.currentWidget()
+            comment_wildcard = " " * 4
+            
+            #cursor is a COPY all changes do not affect the QPlainTextEdit's cursor!!!
+            cursor = editor.text_edit.textCursor()
+            
+            text = cursor.selectedText()
+            
+            if text == "":  #no selected, single line
+                start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+                startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()    
+                endPosition = editor.text_edit.document().findBlockByLineNumber(start+1).position() - 1        
+                
+                cursor.setPosition(startPosition)            
+                cursor.setPosition(endPosition, QtGui.QTextCursor.KeepAnchor)
+                editor.text_edit.setTextCursor(cursor)
+                
+            else:
+                start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+                startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()
+                
+                
+                end = editor.text_edit.document().findBlock(cursor.selectionEnd()).firstLineNumber()            
+                
+                endPosition = editor.text_edit.document().findBlockByLineNumber(end+1).position() - 1        
+                
+                cursor.setPosition(startPosition)            
+                cursor.setPosition(endPosition, QtGui.QTextCursor.KeepAnchor)
+                editor.text_edit.setTextCursor(cursor)        
+            
+            
+            cursor = editor.text_edit.textCursor()
+            
+            start_ = cursor.selectionStart()
+            end_ = cursor.selectionEnd()        
+                    
+            selectionEnd = cursor.selectionEnd()
+            start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+            end = editor.text_edit.document().findBlock(cursor.selectionEnd()).firstLineNumber()
+            startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()
+            
+            #init=(start, end)
+            #Start a undo block
+            cursor.beginEditBlock()
+        
+            #Move the COPY cursor
+            cursor.setPosition(startPosition)
+            #Move the QPlainTextEdit Cursor where the COPY cursor IS!
+            editor.text_edit.setTextCursor(cursor)
+            editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
+            
+            for i in comment_wildcard:
+                editor.text_edit.moveCursor(QtGui.QTextCursor.Right, QtGui.QTextCursor.KeepAnchor)
+            
+            start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+            
+            editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
+            s = editor.text_edit.cursor()
+            s.pos()
+            for i in xrange(start, end + 1):
+                editor.text_edit.textCursor().insertText(comment_wildcard)
+                #cursor.insertText(comment_wildcard)
+                editor.text_edit.moveCursor(QtGui.QTextCursor.Down)
+                editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
+                
+            editor.text_edit.moveCursor(QtGui.QTextCursor.EndOfLine)
+            
+            end_ += (end + 1 - start) * len(comment_wildcard)
+            cursor.setPosition(start_)
+            cursor.setPosition(end_, QtGui.QTextCursor.KeepAnchor)
+            editor.text_edit.setTextCursor(cursor)        
+            
+            #End a undo block
+            cursor.endEditBlock()
+        
+        
+        if not selected:
+            cursor.clearSelection()
+            editor.text_edit.setTextCursor(prevCursor)              
+        
+        
+        
+    #----------------------------------------------------------------------
+    def dedentregion(self):
+        
+        editor, cursor, prevCursor, selected, firstLine = self.select_block_edit()
+        
+        if firstLine != False:
+            
+            editor = self.main.tabWidget_files.currentWidget()
+            comment_wildcard = " " * 4
+        
+            #cursor is a COPY all changes do not affect the QPlainTextEdit's cursor!!!
+            cursor = editor.text_edit.textCursor()
+    
+            start_ = cursor.selectionStart()
+            end_ = cursor.selectionEnd()         
+            
+            start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
+            end = editor.text_edit.document().findBlock(cursor.selectionEnd()).firstLineNumber()
+            startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()
+    
+            #Start a undo block
+            cursor.beginEditBlock()
+        
+            #Move the COPY cursor
+            cursor.setPosition(startPosition)
+            #Move the QPlainTextEdit Cursor where the COPY cursor IS!
+            editor.text_edit.setTextCursor(cursor)
+            editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
+            for i in xrange(start, end + 1):
+                
+                for i in comment_wildcard:
+                    editor.text_edit.moveCursor(QtGui.QTextCursor.Right, QtGui.QTextCursor.KeepAnchor)
+                
+                text = editor.text_edit.textCursor().selectedText()
+                if text == comment_wildcard:
+                    editor.text_edit.textCursor().removeSelectedText()
+                elif u'\u2029' in text:
+                    #\u2029 is the unicode char for \n
+                    #if there is a newline, rollback the selection made above.
+                    editor.text_edit.moveCursor(QtGui.QTextCursor.Left, QtGui.QTextCursor.KeepAnchor)
+        
+                editor.text_edit.moveCursor(QtGui.QTextCursor.Down)
+                editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
+                
+            end_ -= (end + 1 - start) * len(comment_wildcard)
+            cursor.setPosition(start_)
+            cursor.setPosition(end_, QtGui.QTextCursor.KeepAnchor)
+            editor.text_edit.setTextCursor(cursor)              
+        
+            #End a undo block
+            cursor.endEditBlock()
+
+        if not selected:
+            cursor.clearSelection()
+            editor.text_edit.setTextCursor(prevCursor)  
+    
+    
     
     # Pinguino
     
