@@ -97,10 +97,12 @@ class CustomTextEdit(QtGui.QTextEdit):
         
     #----------------------------------------------------------------------
     def insert(self, completion):
-        if completion == None: return
+        if not completion: return
         selected = completion
         tc = self.textCursor()
-        tc.select(QtGui.QTextCursor.WordUnderCursor)
+        
+        tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+        if tc.selectedText() == ".": tc.movePosition(tc.WordLeft, tc.KeepAnchor)            
         tc.removeSelectedText()
         
         if completion in Snippet.keys():
@@ -150,14 +152,14 @@ class CustomTextEdit(QtGui.QTextEdit):
     def keyPressEvent_autocompleter(self, event):
         
         #desplazar
-        if event.key() in (QtCore.Qt.Key_Up, QtCore.Qt.Key_Down):
+        if event.key() in (QtCore.Qt.Key_Up, QtCore.Qt.Key_Down) and self.completer.isVisible():
             self.completer.setFocus()
             if event.key() == QtCore.Qt.Key_Up: self.completer.up()
             elif event.key() == QtCore.Qt.Key_Down: self.completer.down()
             return        
         
         #insertar
-        elif event.key() in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Enter-1, QtCore.Qt.Key_Tab):
+        elif event.key() in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Enter-1, QtCore.Qt.Key_Tab) and self.completer.isVisible():
             self.insert(self.completer.currentItem().text())
             self.completer.hide()
             return
@@ -198,7 +200,8 @@ class CustomTextEdit(QtGui.QTextEdit):
         if self.autoInsert(event): return
 
         if event.key() == QtCore.Qt.Key_Tab:
-            self.insert(" "*4)
+            tc = self.textCursor()
+            tc.insertText(" "*4)
             return
         
         super(CustomTextEdit, self).keyPressEvent(event)
