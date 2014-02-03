@@ -61,10 +61,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.build_statusbar()
         self.build_output()        
     
+        #timer events
         self.update_functions()
         self.update_directives()
         self.update_variables()
         self.update_autocompleter()
+        self.check_external_changes()
+        
         self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
         self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
         

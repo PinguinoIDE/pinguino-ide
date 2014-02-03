@@ -115,9 +115,35 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         else: super(PinguinoTerminal, self).wheelEvent(event)
                 
                 
+    ##----------------------------------------------------------------------
+    #def (self):
+        #""""""
+        
+                
     #----------------------------------------------------------------------
     def contextMenuEvent(self, event):
-        pass
+        menu = QtGui.QMenu()
+        
+        if self.historial:
+            sub_menu = QtGui.QMenu(QtGui.QApplication.translate("PythonShell", "Last commands"))
+            rhistorial = self.historial[:]
+                
+            rhistorial.reverse()
+            for command in rhistorial[:10]:
+                sub_menu.addAction(command, lambda :self.insertPlainText(command))
+            menu.addMenu(sub_menu)
+            menu.addSeparator()
+        
+        menu.addAction(QtGui.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
+        menu.addAction(QtGui.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
+        menu.addAction(QtGui.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
+        menu.addAction(QtGui.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
+        menu.addSeparator()
+        #menu.addAction(self.main.actionComment_out_region)
+        
+        menu.exec_(event.globalPos())
+    
+    
                 
     #----------------------------------------------------------------------
     def step_font_size(self, delta):

@@ -40,6 +40,7 @@ class Methods(SearchReplace):
         pde_file.close()
         editor.text_edit.setPlainText(content)
         setattr(editor, "path", filename)
+        setattr(editor, "last_saved", content)
         self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])       
         self.tab_changed()
@@ -71,10 +72,13 @@ class Methods(SearchReplace):
         self.setCursor(QtCore.Qt.ArrowCursor)
         
         
-
     #----------------------------------------------------------------------
-    @Decorator.requiere_open_files()
-    def comment_uncomment(self):
+    def jump_to_line(self, line):
+        self.highligh_line(line,  "#DBFFE3")
+        
+    
+    #----------------------------------------------------------------------
+    def select_block_edit(self):
         editor = self.main.tabWidget_files.currentWidget()
         cursor = editor.text_edit.textCursor()
         prevCursor = editor.text_edit.textCursor()
@@ -112,19 +116,8 @@ class Methods(SearchReplace):
             if not line.isspace() and not line=="":
                 firstLine = line
                 break
-
-        if firstLine != False:
-            if firstLine.startswith("//"): self.uncommentregion()
-            else: self.commentregion()
-            
-        if not selected:
-            cursor.clearSelection()
-            editor.text_edit.setTextCursor(prevCursor) 
-            
-
-    #----------------------------------------------------------------------
-    def jump_to_line(self, line):
-        self.highligh_line(line,  "#DBFFE3")
+        return editor, cursor, prevCursor, selected, firstLine
+        
         
         
     #----------------------------------------------------------------------
@@ -206,6 +199,7 @@ class Methods(SearchReplace):
         pde_file = codecs.open(editor.path, "w", "utf-8")
         pde_file.write(content)
         pde_file.close()
+        setattr(editor, "last_saved", content)        
         self.__text_saved__()
         
         
@@ -463,3 +457,15 @@ class Methods(SearchReplace):
         self.pinguinoAPI.USER_P32_LIBS = all_p32  
         
         self.pinguinoAPI.USER_PDL = libs.get_pdls()
+        
+        
+    #----------------------------------------------------------------------
+    def reload_file(self):
+        editor = self.main.tabWidget_files.currentWidget()
+        filename = getattr(editor, "path", False)   
+        file_ = codecs.open(filename, "r", "utf-8")
+        editor.text_edit.clear()
+        editor.text_edit.insertPlainText("".join(file_.readlines()))
+        self.save_file()
+        
+ 

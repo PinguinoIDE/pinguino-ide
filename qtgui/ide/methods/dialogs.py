@@ -203,6 +203,33 @@ class Dialogs(object):
         if reply == 0: return True
         elif reply == 1: return False
         
+
+    
+    #----------------------------------------------------------------------
+    @classmethod
+    def overwrite_file(self, parent, filename):
+        
+        msg_box = QtGui.QMessageBox()
+        msg_box.setIcon(QtGui.QMessageBox.Warning)
+        msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setText(QtGui.QApplication.translate("Dialogs", "This file has changed on disk.")+"\n"+filename)
+        
+        stdout = QtGui.QPushButton()
+        stdout.setText(QtGui.QApplication.translate("Dialogs", "Overwrite"))
+        
+        ok = QtGui.QPushButton()
+        ok.setText(QtGui.QApplication.translate("Dialogs", "Reload"))
+        
+        msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
+        msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
+        
+        msg_box.setDefaultButton(ok)
+        
+        reply = msg_box.exec_()    
+        
+        if reply == 0: return True
+        elif reply == 1: return False    
+    
     
     #----------------------------------------------------------------------
     @classmethod

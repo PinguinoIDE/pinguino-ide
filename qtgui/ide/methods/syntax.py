@@ -15,7 +15,7 @@ Autocompleter["reserved"] = ["TRUE", "FALSE", "HIGH", "LOW", "INPUT", "OUTPUT", 
               "void", "const", "BOOL", "char", "unsigned", "short", "int", "long", "float", "double", "byte", "word",
               "u8", "s8", "u16", "s16", "u32", "s32", "u64", "s64",
               "struct", "union", "typedef", "enum", "register",  "static", "extern", "volatile",
-              "loop", "setup", "INT_MILLISEC", "INT_MICROSEC", "INT_FALLING_EDGE"]
+              "loop", "setup", "INT_MILLISEC", "INT_MICROSEC", "INT_FALLING_EDGE", "interrupt"]
 
 
 Snippet = {}
@@ -34,7 +34,9 @@ Snippet["typedef ... struct {snippet}"] = [21, "typedef struct {\n\t\n}TYPE;"]
 Snippet["union {snippet}"] = [12, "union {\n\t\n};"]
 Snippet["typedef ... union {snippet}"] = [20, "typedef union {\n\t\n}TYPE;"]
 
-Snippet["Bare minimum {snippet}"] = [35, "void setup() {\n\t//run once:\n\t\n\t}\n\nvoid loop() {\n\t//run repeatedly:\n\n\t}"]
+Snippet["Bare minimum {snippet}"] = [35, "void setup() {\n\t// put your setup code here, to run once:\n\n}\n\nvoid loop() {\n\t// put your main code here, to run repeatedly:\n\n}\n\nvoid interrupt() {\n\t// put your interrupt code here\n\t// this one is optional\n\n}"]
+
+
 Snippet["file {snippet}"] = [65,
 """/*----------------------------------------------------- 
 %s:  --<>
@@ -43,3 +45,5 @@ Snippet["file {snippet}"] = [65,
 
 -----------------------------------------------------*/
 """ %("Author", "Date", today.strftime("%Y-%m-%d"), "Description")]
+
+for key in Snippet.keys(): Snippet[key][1] = Snippet[key][1].replace("\t", " "*4)

@@ -20,6 +20,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionSave_as, QtCore.SIGNAL("triggered()"), self.save_as)
         self.connect(self.main.actionSave_all, QtCore.SIGNAL("triggered()"), self.save_all)
         self.connect(self.main.actionClose_all, QtCore.SIGNAL("triggered()"), self.close_all)
+        self.connect(self.main.actionClose_others, QtCore.SIGNAL("triggered()"), self.close_others)
         self.connect(self.main.actionQuit, QtCore.SIGNAL("triggered()"), self.__close_ide__)
         
         # Menu Edit
@@ -28,12 +29,16 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionCut, QtCore.SIGNAL("triggered()"), self.cut)
         self.connect(self.main.actionCopy, QtCore.SIGNAL("triggered()"), self.copy)
         self.connect(self.main.actionPaste, QtCore.SIGNAL("triggered()"), self.paste)
+        self.connect(self.main.actionDelete, QtCore.SIGNAL("triggered()"), self.delete)
+        self.connect(self.main.actionSelect_all, QtCore.SIGNAL("triggered()"), self.select_all)
         self.connect(self.main.actionSearch, QtCore.SIGNAL("triggered()"), self.set_tab_search)
         self.connect(self.main.actionSearch_and_replace, QtCore.SIGNAL("triggered()"), self.set_tab_search)
                 
         # Menu Source
         self.connect(self.main.actionComment_out_region, QtCore.SIGNAL("triggered()"), self.commentregion)
         self.connect(self.main.actionComment_Uncomment_region, QtCore.SIGNAL("triggered()"), self.comment_uncomment)
+        self.connect(self.main.actionIndent, QtCore.SIGNAL("triggered()"), self.indentregion)
+        self.connect(self.main.actionDedent, QtCore.SIGNAL("triggered()"), self.dedentregion)
         
         # Pinguino
         self.connect(self.main.actionLibrary_manager, QtCore.SIGNAL("triggered()"), self.__show_libmanager__)
@@ -99,3 +104,9 @@ class PinguinoEvents(EventMethods, TimerMethods):
         # Events
         self.closeEvent = self.__close_ide__
         self.connect(self.main.lineEdit_blocks_search, QtCore.SIGNAL("textChanged(QString)"), self.PinguinoKIT.update_blocks_search_tab)
+        
+        #self.connect(self.main.tabWidget_files, QtCore.SIGNAL("customContextMenuRequested(QPoint)"), self.tab_files_context_menu)
+        #self.connect(self.main.tabWidget_graphical, QtCore.SIGNAL("customContextMenuRequested(QPoint)"), self.tab_files_context_menu)
+        
+        self.main.tabWidget_files.contextMenuEvent = self.tab_files_context_menu
+        self.main.tabWidget_files.tabWidget_graphical = self.tab_files_context_menu

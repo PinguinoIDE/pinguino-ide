@@ -4,6 +4,7 @@
 import os
 import codecs
 import webbrowser
+import shutil
 
 from PySide import QtCore, QtGui
 
@@ -45,6 +46,7 @@ class EventMethods(Methods):
         editor.text_edit.copyAvailable.connect(self.__text_can_copy__)
         editor.text_edit.dropEvent = self.__drop__
         editor.text_edit.keyPressEvent = self.__key_press__
+        editor.text_edit.contextMenuEvent = self.file_edit_context_menu
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), filename[:-1])
         editor.text_edit.setFocus()
             
@@ -70,6 +72,7 @@ class EventMethods(Methods):
             pde_file.close()
             editor.text_edit.setPlainText(content)
             setattr(editor, "path", filename)
+            setattr(editor, "last_saved", content)
             self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
             self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1]) 
             #self.update_recents(filename)
@@ -167,8 +170,17 @@ class EventMethods(Methods):
         widgets = map(lambda index:tab.widget(index), range(tab.count()))
         for widget in widgets:
             self.close_file(editor=widget)
-                    
-        
+            
+    #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    def close_others(self):
+        tab = self.get_tab()
+        current = tab.currentWidget()
+        widgets = map(lambda index:tab.widget(index), range(tab.count()))
+        for widget in widgets:
+            if widget == current: continue
+            self.close_file(editor=widget)
+            
     #----------------------------------------------------------------------
     def __close_ide__(self, *args, **kwargs):
         size = self.size()
@@ -238,6 +250,23 @@ class EventMethods(Methods):
         editor = self.main.tabWidget_files.currentWidget()
         index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.paste()
+        
+    #----------------------------------------------------------------------
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_open_files()
+    def delete(self):
+        editor = self.main.tabWidget_files.currentWidget()
+        index = self.main.tabWidget_files.currentIndex()
+        tc = editor.text_edit.textCursor()
+        if tc.selectedText(): tc.removeSelectedText()
+        
+    #----------------------------------------------------------------------
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_open_files()
+    def select_all(self):
+        editor = self.main.tabWidget_files.currentWidget()
+        index = self.main.tabWidget_files.currentIndex()
+        editor.text_edit.selectAll()
     
     
     #----------------------------------------------------------------------
@@ -937,4 +966,66 @@ class EventMethods(Methods):
                 self.open_file_from_path(path.path())
 
 
-
+    #----------------------------------------------------------------------
+    def tab_files_context_menu(self, event):
+        menu = QtGui.QMenu()
+        menu.addAction(self.main.actionSave_file)  
+        menu.addAction(self.main.actionSave_as)    
+        menu.addAction(self.main.actionSave_all)
+        menu.addSeparator()
+        menu.addAction(self.main.actionClose_file)
+        menu.addAction(self.main.actionClose_all)
+        menu.addAction(self.main.actionClose_others)
+        menu.exec_(event.globalPos())
+        
+        
+    #----------------------------------------------------------------------
+    def file_edit_context_menu(self, event):
+        menu = QtGui.QMenu()
+        
+        
+        editor = self.main.tabWidget_files.currentWidget()
+        filename = getattr(editor, "path", False)
+        if filename and (filename.startswith(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "examples")) or filename.startswith(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "graphical_examples"))):
+            menu.addAction(QtGui.QApplication.translate("Frame", "Restore example"), self.restore_example)
+            menu.addSeparator()        
+        
+        
+        menu.addAction(self.main.actionUndo)
+        menu.addAction(self.main.actionRedo)
+        menu.addSeparator()
+        menu.addAction(self.main.actionCut)
+        menu.addAction(self.main.actionCopy)
+        menu.addAction(self.main.actionPaste)
+        menu.addAction(self.main.actionDelete)
+        menu.addSeparator()
+        menu.addAction(self.main.actionSelect_all)
+        menu.addSeparator()
+        menu.addAction(self.main.actionComment_out_region)
+        menu.addAction(self.main.actionComment_Uncomment_region)
+        menu.addSeparator()
+        menu.addAction(self.main.actionIndent)
+        menu.addAction(self.main.actionDedent)
+        menu.addSeparator()
+        menu.addAction(self.main.actionCompile)
+        menu.addAction(self.main.actionUpload)
+        menu.addSeparator()
+        menu.addAction(self.main.actionWiki_docs)
+        menu.addAction(self.main.actionLibrary_manager)
+        menu.addAction(self.main.actionHex_code)
+        menu.addAction(self.main.actionSet_paths)
+        menu.addAction(self.main.actionStdout)
+        menu.addSeparator()
+        menu.addAction(self.main.actionAutocomplete)
+        
+        menu.exec_(event.globalPos())
+        
+        
+    #----------------------------------------------------------------------
+    def restore_example(self):
+        editor = self.main.tabWidget_files.currentWidget()
+        filename = getattr(editor, "path", False)
+        filename_install = filename.replace(os.environ.get("PINGUINO_USER_PATH"), os.environ.get("PINGUINO_INSTALL_PATH"))
+        shutil.copyfile(filename_install, filename)
+        self.reload_file()
+        

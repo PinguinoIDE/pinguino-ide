@@ -139,14 +139,16 @@
      <addaction name="separator"/>
     </widget>
     <addaction name="actionNew_file"/>
-    <addaction name="menuRecents"/>
     <addaction name="actionOpen_file"/>
-    <addaction name="actionSave_file"/>
-    <addaction name="actionClose_file"/>
+    <addaction name="menuRecents"/>
     <addaction name="separator"/>
+    <addaction name="actionSave_file"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionSave_all"/>
+    <addaction name="separator"/>
+    <addaction name="actionClose_file"/>
     <addaction name="actionClose_all"/>
+    <addaction name="actionClose_others"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -160,6 +162,8 @@
     <addaction name="actionCut"/>
     <addaction name="actionCopy"/>
     <addaction name="actionPaste"/>
+    <addaction name="actionDelete"/>
+    <addaction name="actionSelect_all"/>
     <addaction name="separator"/>
     <addaction name="actionSearch"/>
     <addaction name="actionSearch_and_replace"/>
@@ -205,6 +209,9 @@
     </property>
     <addaction name="actionComment_out_region"/>
     <addaction name="actionComment_Uncomment_region"/>
+    <addaction name="separator"/>
+    <addaction name="actionIndent"/>
+    <addaction name="actionDedent"/>
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
@@ -1083,7 +1090,7 @@
      <normaloff>:/toolbar/toolbar/new_file.png</normaloff>:/toolbar/toolbar/new_file.png</iconset>
    </property>
    <property name="text">
-    <string>New file</string>
+    <string>New</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -1110,7 +1117,7 @@
      <normaloff>:/toolbar/toolbar/save_file.png</normaloff>:/toolbar/toolbar/save_file.png</iconset>
    </property>
    <property name="text">
-    <string>Save file</string>
+    <string>Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -1121,7 +1128,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Close file</string>
+    <string>Close</string>
    </property>
    <property name="toolTip">
     <string>Close file</string>
@@ -1299,6 +1306,9 @@
    <property name="text">
     <string>Quit</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
   </action>
   <action name="actionAbout">
    <property name="text">
@@ -1428,6 +1438,9 @@
    <property name="text">
     <string>Save as</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
   </action>
   <action name="actionUse_system_compilers">
    <property name="checkable">
@@ -1555,6 +1568,37 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+I</string>
+   </property>
+  </action>
+  <action name="actionIndent">
+   <property name="text">
+    <string>Indent</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+&gt;</string>
+   </property>
+  </action>
+  <action name="actionDedent">
+   <property name="text">
+    <string>Dedent</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+&lt;</string>
+   </property>
+  </action>
+  <action name="actionClose_others">
+   <property name="text">
+    <string>Close others</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Delete</string>
+   </property>
+  </action>
+  <action name="actionSelect_all">
+   <property name="text">
+    <string>Select all</string>
    </property>
   </action>
  </widget>

@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import codecs
+
 from PySide import QtGui
 
 from ..methods.decorators import Decorator
 from ..tools.code_navigator import CodeNavigator
 from ..tools.files import Files
-
+from ..methods.dialogs import Dialogs
 from ..code_editor.autocomplete_icons import CompleteIcons
 
 ########################################################################
@@ -166,3 +168,26 @@ class TimerMethods(object):
         self.completer_funtions = []
         self.completer_directives = []
         self.completer_variables = []
+        
+    #----------------------------------------------------------------------
+    @Decorator.timer(1000)
+    @Decorator.requiere_main_focus()
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_open_files()
+    def check_external_changes(self):
+        editor = self.main.tabWidget_files.currentWidget()
+        filename = getattr(editor, "path", None)
+        if not filename: return
+        
+        file_ = codecs.open(filename, "r", "utf-8")
+        content_file = "".join(file_.readlines())
+        file_.close()
+        
+        last_saved = getattr(editor, "last_saved")
+        
+        if content_file != last_saved:
+            reload_ = Dialogs.overwrite_file(self, filename)
+            
+            if reload_: self.save_file()
+            else: self.reload_file()
+                
