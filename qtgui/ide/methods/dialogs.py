@@ -207,23 +207,28 @@ class Dialogs(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def overwrite_file(self, parent, filename):
+    def overwrite_file(self, parent, filename, exist):
         
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Warning)
         msg_box.setWindowTitle(NAME+QtGui.QApplication.translate("Dialogs", " - Error"))
-        msg_box.setText(QtGui.QApplication.translate("Dialogs", "This file has changed on disk.")+"\n"+filename)
-        
+        if exist:            
+            msg_box.setText(QtGui.QApplication.translate("Dialogs", "This file has changed on disk.")+"\n"+filename)
+        else:
+            msg_box.setText(QtGui.QApplication.translate("Dialogs", "This file has deleted/moved on disk.")+"\n"+filename)
+            
         stdout = QtGui.QPushButton()
         stdout.setText(QtGui.QApplication.translate("Dialogs", "Overwrite"))
         
-        ok = QtGui.QPushButton()
-        ok.setText(QtGui.QApplication.translate("Dialogs", "Reload"))
+        if exist:
+            ok = QtGui.QPushButton()
+            ok.setText(QtGui.QApplication.translate("Dialogs", "Reload"))
         
         msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
-        msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
+        if exist: msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
         
-        msg_box.setDefaultButton(ok)
+        if exist: msg_box.setDefaultButton(ok)
+        else: msg_box.setDefaultButton(stdout)
         
         reply = msg_box.exec_()    
         

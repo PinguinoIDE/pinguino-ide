@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
 import codecs
 
 from PySide import QtGui
@@ -178,15 +179,19 @@ class TimerMethods(object):
         editor = self.main.tabWidget_files.currentWidget()
         filename = getattr(editor, "path", None)
         if not filename: return
-        
-        file_ = codecs.open(filename, "r", "utf-8")
-        content_file = "".join(file_.readlines())
-        file_.close()
+        if os.path.exists(filename):
+            file_ = codecs.open(filename, "r", "utf-8")
+            content_file = "".join(file_.readlines())
+            file_.close()
+            exist = True
+        else:
+            content_file = ""
+            exist = False
         
         last_saved = getattr(editor, "last_saved")
         
         if content_file != last_saved:
-            reload_ = Dialogs.overwrite_file(self, filename)
+            reload_ = Dialogs.overwrite_file(self, filename, exist)
             
             if reload_: self.save_file()
             else: self.reload_file()
