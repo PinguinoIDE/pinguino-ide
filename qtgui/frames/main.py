@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sun Feb  2 21:42:38 2014
+# Created: Mon Feb  3 23:53:15 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -330,6 +330,7 @@ class Ui_PinguinoIDE(object):
         self.tab = QtGui.QWidget()
         self.tab.setObjectName("tab")
         self.gridLayout_2 = QtGui.QGridLayout(self.tab)
+        self.gridLayout_2.setContentsMargins(-1, 0, -1, -1)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.tabWidget_blocks = QtGui.QTabWidget(self.tab)
         self.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.West)

@@ -84,7 +84,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="3">
+        <item row="2" column="0" colspan="3">
          <widget class="QTableWidget" name="tableWidget_sources">
           <property name="autoFillBackground">
            <bool>true</bool>
@@ -165,6 +165,12 @@
             <string>Repository</string>
            </property>
           </column>
+          <column>
+           <property name="text">
+            <string>Web page</string>
+           </property>
+          </column>
+          <item row="0" column="2"/>
           <item row="1" column="0">
            <property name="text">
             <string/>
@@ -175,31 +181,48 @@
           </item>
          </widget>
         </item>
-        <item row="3" column="0" colspan="3">
-         <layout class="QHBoxLayout" name="horizontalLayout">
+        <item row="1" column="0" colspan="3">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="pushButton_update">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
+           <widget class="QRadioButton" name="radioButton_repo_git">
             <property name="text">
-             <string>Update selected</string>
+             <string>Git</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_remove">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
+           <widget class="QRadioButton" name="radioButton_repo_hg">
             <property name="text">
-             <string>Remove selected</string>
+             <string>Mercurial</string>
             </property>
            </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_repo_svn">
+            <property name="text">
+             <string>Subversion</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
-        <item row="2" column="0" colspan="3">
+        <item row="3" column="0" colspan="3">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QCheckBox" name="checkBox_sources">
@@ -223,6 +246,36 @@
           </item>
          </layout>
         </item>
+        <item row="4" column="0" colspan="3">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButton_update">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Update library from their repository.</string>
+            </property>
+            <property name="text">
+             <string>Update selected</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_remove">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Delete directory from disk.</string>
+            </property>
+            <property name="text">
+             <string>Remove selected</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab">
@@ -230,7 +283,7 @@
         <string>Libraries</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QTableWidget" name="tableWidget_libs">
           <property name="alternatingRowColors">
            <bool>true</bool>
@@ -311,7 +364,7 @@
           </column>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QCheckBox" name="checkBox_libs">
@@ -335,7 +388,7 @@
           </item>
          </layout>
         </item>
-        <item row="2" column="0">
+        <item row="4" column="0">
          <widget class="QPushButton" name="pushButton_apply">
           <property name="enabled">
            <bool>false</bool>
@@ -354,6 +407,19 @@
           </property>
           <property name="text">
            <string>Apply</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Select libraries for enable or disable it, only libraries enabled can be used in the editor.</string>
           </property>
          </widget>
         </item>

@@ -945,6 +945,9 @@
          <string>Blocks</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_2">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
          <item row="1" column="0">
           <widget class="QTabWidget" name="tabWidget_blocks">
            <property name="tabPosition">

@@ -16,7 +16,7 @@ from ..methods.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
 from ...frames.libraries_widget import Ui_LibraryManager
 
-from ..repositories.git_repo import GitRepo
+from ..repositories.git_repo import PinguinoLibrary
 
 ########################################################################
 class LibManager(QtGui.QMainWindow):
@@ -38,12 +38,12 @@ class LibManager(QtGui.QMainWindow):
         self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
         
         self.connect(self.libframe.pushButton_add, QtCore.SIGNAL("clicked()"), self.add_source)
-        self.connect(self.libframe.lineEdit_source, QtCore.SIGNAL("editingFinished()"), self.add_source)
+        #self.connect(self.libframe.lineEdit_source, QtCore.SIGNAL("editingFinished()"), self.add_source)
         self.connect(self.libframe.tableWidget_sources, QtCore.SIGNAL("itemClicked(QTableWidgetItem*)"), self.handleItemClicked_source)
         self.connect(self.libframe.tableWidget_libs, QtCore.SIGNAL("itemClicked(QTableWidgetItem*)"), self.handleItemClicked_libs)
         
         self.connect(self.libframe.pushButton_apply, QtCore.SIGNAL("clicked()"), self.update_changes_install_libs)   
-        self.connect(self.libframe.pushButton_update, QtCore.SIGNAL("clicked()"), self.update_instaled_libraries)
+        self.connect(self.libframe.pushButton_update, QtCore.SIGNAL("clicked()"), self.update_libraries)
         self.connect(self.libframe.pushButton_remove, QtCore.SIGNAL("clicked()"), self.remove_instaled_libraries)
         self.connect(self.libframe.pushButton_close, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.libframe.pushButton_from_zip, QtCore.SIGNAL("clicked()"), self.install_from_zip)
@@ -52,6 +52,10 @@ class LibManager(QtGui.QMainWindow):
         self.connect(self.libframe.checkBox_libs, QtCore.SIGNAL("clicked(bool)"), self.check_all_libs)        
         
         self.connect(self.libframe.commandLinkButton_how, QtCore.SIGNAL("clicked()"), self.open_tutorial)
+
+
+        self.connect(self.libframe.tableWidget_sources, QtCore.SIGNAL("clicked(QModelIndex)"), self.open_link)         
+        
             
         self.default_line_edit_source = "e.g. git@github.com:repo/pinguinolib-library.git"
         PrettyFeatures.LineEdit_default_text(self.libframe, self.libframe.lineEdit_source, self.default_line_edit_source)
@@ -70,6 +74,20 @@ class LibManager(QtGui.QMainWindow):
         self.update_sources_view()
         self.update_libraries_view()
         self.centrar()
+        
+    
+    #----------------------------------------------------------------------
+    def open_link(self, model_index):
+        column = model_index.column()
+        item = self.libframe.tableWidget_sources.itemFromIndex(model_index)
+        url = getattr(item, "url", None)
+        if not url: return
+        
+        reply = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs",  "Do you want open this URL in a new tab?")+"\n"+url)
+        if reply: webbrowser.open_new_tab(url)
+        
+        
+        
         
         
     #----------------------------------------------------------------------
@@ -146,45 +164,35 @@ class LibManager(QtGui.QMainWindow):
             Dialogs.error_message(self, source+"\n"+QtGui.QApplication.translate("Dialogs", "already exist."))
             return
             
-        name = self.get_name_from_source(source)
+        name = "temp_lib_name"
         if not name: return
         
-        name_config = os.path.join(self.user_libraries_dir, name, "config")
+        temp_dir = os.path.join(self.user_libraries_dir, name)
+        if os.path.exists(temp_dir): shutil.rmtree(temp_dir)
+        os.mkdir(temp_dir)
         
-        if os.path.exists(os.path.join(self.user_libraries_dir, name)):
-            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Library duplicated (name conflict)."))
-            return
-        
-        os.mkdir(os.path.join(self.user_libraries_dir, name))
-        
+        name_config = os.path.join(self.user_libraries_dir, name, "config") 
         new_lib = self.ConfigLibs.new(name_config)
-        
         new_lib.set("LIB", "repository", source)
-        new_lib.set("LIB", "name", name)
-        new_lib.save_config()
+        new_lib.save_config() 
         
-        index = self.libframe.tableWidget_sources.rowCount()
-        self.libframe.tableWidget_sources.setRowCount(index+1)
-        
-        item = QtGui.QTableWidgetItem()
-        self.libframe.tableWidget_sources.setVerticalHeaderItem(index, item) 
-        
-        checkable = QtGui.QTableWidgetItem()
-        checkable.setCheckState(QtCore.Qt.Checked)
-        
-        self.libframe.tableWidget_sources.setItem(index, 0, checkable)
-        self.libframe.tableWidget_sources.setItem(index, 1, QtGui.QTableWidgetItem())
-        
-        self.libframe.tableWidget_sources.item(index, 0).setText(name)
-        self.libframe.tableWidget_sources.item(index, 1).setText(source)
-        
-        #checked by default
-        self.libframe.pushButton_update.setEnabled(True)
-        self.libframe.pushButton_remove.setEnabled(True)
-        
-        self.install_library(name)
-        self.update_libraries_view()
+        if self.install_library(name):
+            data = self.get_data_from_lib(name)
+            new_lib = self.ConfigLibs.new(name_config)
+            source = self.ConfigLibs.all_libs[name]
+            source.set("LIB", "description", data["description"])
+            source.set("LIB", "author", data["author"])
+            source.set("LIB", "arch", data["arch"])
+            source.set("LIB", "url", data["url"])
+            source.set("LIB", "name", data["name"])
+            source.save_config()
+            os.rename(temp_dir, os.path.join(os.path.split(temp_dir)[0], data["name"]))
+            
+        self.ConfigLibs = ConfigLibsGroup()
         self.ConfigLibs.load_config()
+        
+        self.update_libraries_view()
+        self.update_sources_view()
         
         
     #----------------------------------------------------------------------
@@ -200,6 +208,8 @@ class LibManager(QtGui.QMainWindow):
             
             name = key
             repo = sources[key]["repository"]
+            url = sources[key]["url"]
+            description = sources[key]["description"]
             
             #ins = "Yes" if sources[key]["installed"] else "No"
 
@@ -210,33 +220,50 @@ class LibManager(QtGui.QMainWindow):
             
             item = QtGui.QTableWidgetItem()
             self.libframe.tableWidget_sources.setVerticalHeaderItem(index, item)
-
-            hh = self.libframe.tableWidget_sources.horizontalHeader()
-            hh.resizeSection(0, 250)
             
-            #if repo:
+            #name
             checkable = QtGui.QTableWidgetItem()
             checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable)
             checkable.setCheckState(QtCore.Qt.Unchecked)
+            checkable.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            checkable.setToolTip(description)
             self.libframe.tableWidget_sources.setItem(index, 0, checkable)
-            #else:
-                #checkable = QtGui.QTableWidgetItem()
-                #checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
-                #self.libframe.tableWidget_sources.setItem(index, 0, checkable)
-                
+            
+            #repo
             repository = QtGui.QTableWidgetItem()
             repository.setFlags(QtCore.Qt.ItemIsEnabled)
+            repository.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             self.libframe.tableWidget_sources.setItem(index, 1, repository)
             
-            #installed = QtGui.QTableWidgetItem()
-            #installed.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsSelectable)
-            #self.libframe.tableWidget_sources.setItem(index, 2, installed)
+            #url
+            web_page = QtGui.QTableWidgetItem()
+            web_page.setFlags(QtCore.Qt.ItemIsEnabled)
+            brush = QtGui.QBrush(QtGui.QColor(0, 0, 255))
+            brush.setStyle(QtCore.Qt.NoBrush)
+            web_page.setForeground(brush)
+            font = web_page.font()
+            font.setUnderline(True)
+            web_page.setFont(font)
+            web_page.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            web_page.setToolTip(url)
+            setattr(web_page, "url", url)
+            self.libframe.tableWidget_sources.setItem(index, 2, web_page)
+            
+        
             
             self.libframe.tableWidget_sources.item(index, 0).setText(name)
             self.libframe.tableWidget_sources.item(index, 1).setText(repo)
-            #self.libframe.tableWidget_sources.item(index, 2).setText(ins)
+            self.libframe.tableWidget_sources.item(index, 2).setText("Link")
             
             index += 1
+            
+    
+        hh = self.libframe.tableWidget_sources.horizontalHeader()
+        hh.resizeSection(0, 250)        
+        hh.resizeSection(1, 400)        
+        #hh.resizeSection(2, 50)         
+                        
+            
             
             
     #----------------------------------------------------------------------
@@ -264,25 +291,35 @@ class LibManager(QtGui.QMainWindow):
             #if not installed: continue
             self.libframe.tableWidget_libs.setRowCount(self.libframe.tableWidget_libs.rowCount()+1)
                 
+            
+            #name            
             checkable = QtGui.QTableWidgetItem()
             checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable)
             if active:
                 checkable.setCheckState(QtCore.Qt.Checked)
+                checkable.setToolTip(QtGui.QApplication.translate("ToolTip", "This library is enable (can be used)."))
             else:
                 checkable.setCheckState(QtCore.Qt.Unchecked)
-                
+                checkable.setToolTip(QtGui.QApplication.translate("ToolTip", "This library is not enable."))                
+            checkable.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             self.libframe.tableWidget_libs.setItem(index, 0, checkable)
             
+            #arch
             arch_ = QtGui.QTableWidgetItem()
-            arch_.setFlags(QtCore.Qt.ItemIsEnabled)            
+            arch_.setFlags(QtCore.Qt.ItemIsEnabled)
+            arch_.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             self.libframe.tableWidget_libs.setItem(index, 1, arch_)
             
+            #author
             auth = QtGui.QTableWidgetItem()
-            auth.setFlags(QtCore.Qt.ItemIsEnabled)            
+            auth.setFlags(QtCore.Qt.ItemIsEnabled)
+            auth.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             self.libframe.tableWidget_libs.setItem(index, 2, auth)
 
+            #description
             desc = QtGui.QTableWidgetItem()
-            desc.setFlags(QtCore.Qt.ItemIsEnabled)      
+            desc.setFlags(QtCore.Qt.ItemIsEnabled)
+            #desc.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             self.libframe.tableWidget_libs.setItem(index, 3, desc)
             
             self.libframe.tableWidget_libs.item(index, 0).setText(name)
@@ -291,30 +328,6 @@ class LibManager(QtGui.QMainWindow):
             self.libframe.tableWidget_libs.item(index, 3).setText(description)
 
             index += 1
-        
-        
-
-    #----------------------------------------------------------------------
-    def get_name_from_source(self, source):
-        cv = ""
-        if source.endswith(".git"):
-            match = re.match(".*/([\w-]*)(.git)", source)
-            cv += "Git\n"
-            
-        #elif source.startswith("https://") or source.startswith("http://"):
-            #match = re.match(".*/([\w-]*)", source)
-            #cv += "Subversion\n"
-        
-        else:
-            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Only this control versions are supported:\n")+cv)
-        
-        if match:
-            name = match.groups()[0]
-            #Dialogs.info_message(self, name+" from "+source+"\nsuccessfully added.")
-            return name
-        else:
-            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "%s is not recognized as a valid source.")%source)
-            return False
         
         
     #----------------------------------------------------------------------
@@ -355,12 +368,19 @@ class LibManager(QtGui.QMainWindow):
         self.update_sources_view()
         self.update_libraries_view()
         
-                
-        
     #----------------------------------------------------------------------
-    def update_instaled_libraries(self):
+    def get_repository_for_install(self):
+        repos = {"git": self.libframe.radioButton_repo_git, 
+                 "hg": self.libframe.radioButton_repo_hg,
+                 "svn": self.libframe.radioButton_repo_svn,
+                 }
+        for key in repos.keys():
+            if repos[key].isChecked(): return key
+            
+            
+    #----------------------------------------------------------------------
+    def update_libraries(self):
         self.setCursor(QtCore.Qt.WaitCursor)
-        
         sources = self.ConfigLibs.get_all_sources()
         selected = []
         
@@ -370,25 +390,16 @@ class LibManager(QtGui.QMainWindow):
                 
         work = []
         for sel in selected:
-            Repository = self.get_repo_type(sel, sources)
+            Repository = PinguinoLibrary(sel, sources)
             if Repository is None:
                 work.append(sel + ": Nothing to do")
                 continue
             
-            try:
-                Repository.update_library(sel)
-            except:
-                if os.path.exists(os.path.join(self.user_libraries_dir, sel, "lib")):
-                    shutil.rmtree(os.path.join(self.user_libraries_dir, sel, "lib"))
-                try:
-                    Repository.install_library(sel)
-                except:
-                    Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Problems with %s.")%sel)
-            work.append(sel + ": Updated")
-                
-            if not self.install_lib_config(sel):
-                work.pop(-1)
-                work.append(QtGui.QApplication.translate("Dialogs", "%s: Failed")%sel)
+            reply = Repository.update_library()
+            if reply:
+                work.append(sel+": "+QtGui.QApplication.translate("Dialogs", "Updated"))
+            else:
+                work.append(sel+": "+QtGui.QApplication.translate("Dialogs", "Failed"))
                 
         self.setCursor(QtCore.Qt.ArrowCursor)
             
@@ -399,44 +410,36 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def install_library(self, sel):
         self.setCursor(QtCore.Qt.WaitCursor)
-        Repository = self.get_repo_type(sel, self.ConfigLibs.get_all_sources())
-        try:
-            Repository.install_library(sel)
-            self.setCursor(QtCore.Qt.ArrowCursor)
-            Dialogs.info_message(self, QtGui.QApplication.translate("Dialogs", "%s: Installed")%sel)
-            self.install_lib_config(sel)
-            return True
-        except:
-            if os.path.isdir(os.path.join(self.user_libraries_dir, sel, "lib")):
-                shutil.rmtree(os.path.join(self.user_libraries_dir, sel, "lib"))
-            try:
-                Repository.install_library(sel)
-            except:
-                Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Problems with %s.")%sel)
-            self.setCursor(QtCore.Qt.ArrowCursor)
-            return False
-                
+        sources = self.ConfigLibs.get_all_sources()
+        Repository = PinguinoLibrary(sel, sources)
+        reply = Repository.install_library(self.get_repository_for_install())
+        
+        if reply:
+            Dialogs.info_message(self, sel+": "+QtGui.QApplication.translate("Dialogs", "Installed"))
+        else:
+            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Problems with")+" %s."%sel)
+            
+        self.setCursor(QtCore.Qt.ArrowCursor)
+        
+        return reply
+
+
+
         
     #----------------------------------------------------------------------
-    def install_lib_config(self, lib):
+    def get_data_from_lib(self, lib):
         lib_data = RawConfigParser()
         filename = os.path.join(self.user_libraries_dir, lib, "lib", "PINGUINO")
 
-        sources = self.ConfigLibs.all_libs
+        lib_data.readfp(file(filename, "r"))
         
-        if os.path.exists(filename):
-            lib_data.readfp(file(filename, "r"))
-            for arg in "arch author description url repository name".split():
-                sources[lib].set("LIB", arg, lib_data.get("library", arg))
-            #sources[lib].set("LIB", "installed", True)
-            sources[lib].set("LIB", "active", False)
-            sources[lib].save_config()
-            return True
-        return False
-    
-
-    
-    
+        return {"arch": lib_data.get("library", "arch"),
+                "author": lib_data.get("library", "author"),
+                "description": lib_data.get("library", "description"),
+                "url": lib_data.get("library", "url"),
+                "name": lib_data.get("library", "name"),
+                }
+        
         
         
     #----------------------------------------------------------------------
@@ -449,20 +452,23 @@ class LibManager(QtGui.QMainWindow):
         sources = self.ConfigLibs.all_libs
         for sel, state in selected:
             sources[sel].set("LIB", "active", state)
-            message += sel + ": " + QtGui.QApplication.translate("Dialogs", "Enable") if state else QtGui.QApplication.translate("Dialogs", "Disable") + "\n"
+            message += sel + ": " + (QtGui.QApplication.translate("Dialogs", "Enable") if state else QtGui.QApplication.translate("Dialogs", "Disable")) + "\n"
         
         Dialogs.info_message(self, message)
         
         self.ConfigLibs.save_config()
         
+        self.libframe.pushButton_apply.setEnabled(False)        
+        self.update_libraries_view()
         
-    #----------------------------------------------------------------------
-    def get_repo_type(self, sel, sources):
         
-        cfg = sources[sel]
+    ##----------------------------------------------------------------------
+    #def get_repo_type(self, sel, sources):
         
-        if cfg["repository"].endswith(".git"):
-            return GitRepo()
+        #cfg = sources[sel]
+        
+        #if cfg["repository"].endswith(".git"):
+            #return PinguinoLibrary()
     
     
     #----------------------------------------------------------------------
@@ -482,4 +488,4 @@ class LibManager(QtGui.QMainWindow):
                 self.libframe.tableWidget_libs.item(index, 0).setCheckState(QtCore.Qt.Checked)
             else:
                 self.libframe.tableWidget_libs.item(index, 0).setCheckState(QtCore.Qt.Unchecked)
-        self.libframe.pushButton_apply.setEnabled(check)          
+        #self.libframe.pushButton_apply.setEnabled(check)          

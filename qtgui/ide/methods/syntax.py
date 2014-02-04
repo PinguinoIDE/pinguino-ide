@@ -34,7 +34,7 @@ Snippet["typedef ... struct {snippet}"] = [21, "typedef struct {\n\t\n}TYPE;"]
 Snippet["union {snippet}"] = [12, "union {\n\t\n};"]
 Snippet["typedef ... union {snippet}"] = [20, "typedef union {\n\t\n}TYPE;"]
 
-Snippet["Bare minimum {snippet}"] = [35, "void setup() {\n\t// put your setup code here, to run once:\n\n}\n\nvoid loop() {\n\t// put your main code here, to run repeatedly:\n\n}\n\nvoid interrupt() {\n\t// put your interrupt code here\n\t// this one is optional\n\n}"]
+Snippet["Bare minimum {snippet}"] = [35, "void setup() {\n\t// put your setup code here, to run once:\n\n}\n\nvoid loop() {\n\t// put your main code here, to run repeatedly:\n\n}\n"]
 
 
 Snippet["file {snippet}"] = [65,

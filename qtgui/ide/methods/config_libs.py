@@ -44,6 +44,7 @@ class ConfigLibsGroup(object):
                                 "author": self.all_libs[lib_key].config("LIB", "author", ""),
                                 "arch": self.all_libs[lib_key].config("LIB", "arch", ""),
                                 "active": self.all_libs[lib_key].config("LIB", "active", False),
+                                "url": self.all_libs[lib_key].config("LIB", "url", ""),
                                 #"installed": self.all_libs[lib_key].config("LIB", "installed", False),
                                 }
                 
