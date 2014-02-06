@@ -31,7 +31,7 @@ class Namespaces(object):
         for fichier in all_libdir_pdls:
             
             # check content of the PDL file
-            lib_file = file(os.path.join(libdir, "pdl", fichier), "r")
+            lib_file = open(os.path.join(libdir, "pdl", fichier), "r")
             lines = lib_file.readlines()
             lib_file.close()
             
@@ -67,5 +67,5 @@ class Namespaces(object):
                 name_spaces_commun.append(name)
         
         namespaces = {"arch8": name_spaces_8, "arch32": name_spaces_32, "all": name_spaces_commun,}   
-        pickle.dump(namespaces, file(Constants.IDE_NAMESPACES_FILE, "w"))
+        pickle.dump(namespaces, open(Constants.IDE_NAMESPACES_FILE, "w"))
     

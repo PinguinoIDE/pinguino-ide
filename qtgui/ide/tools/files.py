@@ -11,7 +11,7 @@ class Files(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def update_path_files(self, path, listWidget, label):
+    def update_path_files(self, path, listWidget, label, exclude=None):
         
         path = os.path.expanduser(path)
         paths = filter(lambda child: not child.startswith("."), os.listdir(path))
@@ -30,6 +30,8 @@ class Files(object):
         
         files = filter(lambda file:not file.endswith(".pyc"), files)
         files = filter(lambda file:not file.endswith(".hex"), files)
+        if exclude: files = filter(lambda file:not file.endswith(exclude), files)
+        
         
         icon_dir = QtGui.QIcon()
         icon_dir.addPixmap(QtGui.QPixmap(":/icons/icons/icon_dir.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

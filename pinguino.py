@@ -7,17 +7,20 @@ import os
 sys.path.append(os.path.join("qtgui", "resources"))
 
 python_path_modules = os.path.join("python_modules")
-if os.path.isdir(python_path_modules):
-    sys.path.append(python_path_modules)
+if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
 
 from qtgui.ide import PinguinoIDE
 from PySide.QtGui import QApplication
 from PySide import QtCore
 
-#load translations
 locale = QtCore.QLocale.system().name()
 translator = QtCore.QTranslator()
 
+#load intern dialogs translations
+qtTranslator = QtCore.QTranslator()
+qtTranslator.load("qt_" + locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
+
+#load translations files
 translations_path = os.path.abspath("multilanguage")
 translations_file = "pinguino_" + locale
 
@@ -31,10 +34,6 @@ elif "_" in locale:
     translations_file = "pinguino_" + locale
     if translations_file + ".qm" in os.listdir(translations_path):
         translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm" % locale))
-
-#load intern dialogs translations
-qtTranslator = QtCore.QTranslator()
-qtTranslator.load("qt_" + locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
 
 
 def main(argv):
@@ -85,14 +84,14 @@ if __name__ == "__main__":
                 
                 fname, extension = os.path.splitext(filename)
                 if extension != ".pde":
-                    print "ERROR: bad file extension, it should be .pde"
+                    print("ERROR: bad file extension, it should be .pde")
                     sys.exit()
                 del fname, extension
                 
                 pinguino.compile_file(filename)
                 
                 if not pinguino.compiled():
-                    print "\nERROR: no compiled\n"
+                    print("\nERROR: no compiled\n")
                     
                     errors_proprocess = pinguino.get_errors_preprocess()
                     if errors_proprocess:
@@ -118,7 +117,7 @@ if __name__ == "__main__":
                     print("compiled to: %s" % result["hex_file"])
                     
                     if parser.hex_file:
-                        hex_file = file(result["hex_file"], "r")
+                        hex_file = open(result["hex_file"], "r")
                         content_hex = hex_file.readlines()
                         hex_file.close()
                         print("\n" + "*" * 70)

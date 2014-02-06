@@ -22,13 +22,12 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         self.highlightingRules = []
         self.highlightingRulesMatch = []
         
-        #namespaces = pickle.load(file(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))  
         reservadas=QtGui.QTextCharFormat()
         reservadas.setForeground(color("#0000ff"))     
-        #all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"] + namespaces["all"] + namespaces["arch8"] + namespaces["arch32"]
         all_reservadas = Autocompleter["reserved"] + Autocompleter["directive"]
-        #all_reservadas = filter(lambda e:e.count(".")<=0, all_reservadas)
-        #all_reservadas = filter(lambda e:e.isupper(), all_reservadas)
+        #namespaces = pickle.load(open(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))
+        #namespaces = filter(lambda s:not "." in s, namespaces["all"])
+        #all_reservadas += namespaces
         self.highlightingRules.append(("\\b("+"|".join(all_reservadas)+")\\b", reservadas))
 
         dotFuntions=QtGui.QTextCharFormat()

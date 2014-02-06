@@ -182,6 +182,26 @@ class EventMethods(Methods):
             self.close_file(editor=widget)
             
     #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
+    def print_file(self):
+        #Bug: no print to file, this is PySide bug.
+        editor = self.get_tab().currentWidget()
+        filename = self.get_tab().tabText(self.get_tab().currentIndex()).replace(".pde", ".pdf").replace(".gpde", ".pdf")
+        QPrinter = QtGui.QPrinter
+        printer = QPrinter(QPrinter.HighResolution)
+        printer.setPageSize(QPrinter.Letter)
+        printer.setOutputFileName(filename)
+        printer.setDocName(filename)
+        printer.setPageOrder(QPrinter.FirstPageFirst)
+        printer.setOutputFormat(QPrinter.PdfFormat)
+        preview = QtGui.QPrintDialog(printer)
+        if preview.exec_():
+            document = editor.text_edit.document()
+            document.print_(printer)
+            
+            
+    #----------------------------------------------------------------------
     def __close_ide__(self, *args, **kwargs):
         size = self.size()
         self.configIDE.set("Main", "size", size.toTuple())
@@ -423,8 +443,9 @@ class EventMethods(Methods):
         
         
     #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def indentregion(self):
-        
         editor, cursor, prevCursor, selected, firstLine = self.select_block_edit()
         
         if firstLine != False:
@@ -512,8 +533,9 @@ class EventMethods(Methods):
         
         
     #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def dedentregion(self):
-        
         editor, cursor, prevCursor, selected, firstLine = self.select_block_edit()
         
         if firstLine != False:
@@ -781,18 +803,17 @@ class EventMethods(Methods):
         if getattr(list_widget_item, "type_file") == "dir":
             self.__update_path_files__(getattr(list_widget_item, "path_file"))
         if getattr(list_widget_item, "type_file") == "file":
-            if getattr(list_widget_item, "path_file").endswith(".pde"):
-                self.open_file_from_path(filename=getattr(list_widget_item, "path_file"))
-        
-        
+            self.open_file_from_path(filename=getattr(list_widget_item, "path_file"))
+            
+      
     #----------------------------------------------------------------------
     def jump_dir_filesg(self, list_widget_item):
         if getattr(list_widget_item, "type_file") == "dir":
             self.__update_graphical_path_files__(getattr(list_widget_item, "path_file"))
         if getattr(list_widget_item, "type_file") == "file":
-            if getattr(list_widget_item, "path_file").endswith(".gpde"):
-                self.open_file_from_path(filename=getattr(list_widget_item, "path_file"))
+            self.open_file_from_path(filename=getattr(list_widget_item, "path_file"))
                 
+
                 
     #----------------------------------------------------------------------
     def change_dir_files(self, to_dir):
@@ -806,6 +827,10 @@ class EventMethods(Methods):
             editor = self.main.tabWidget_files.currentWidget()
             dir_ = getattr(editor, "path", None)
             if dir_: self.__update_path_files__(os.path.split(dir_)[0])
+            
+        elif to_dir == "Third party libraries":
+            path = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples")
+            if os.path.exists(path): self.__update_path_files__(path)
             
         elif to_dir == "Other...":
             open_dir = Dialogs.set_open_dir(self)
@@ -825,6 +850,10 @@ class EventMethods(Methods):
             editor = self.main.tabWidget_files.currentWidget()
             dir_ = getattr(editor, "path", None)
             if dir_: self.__update_graphical_path_files__(os.path.split(dir_)[0])
+            
+        elif to_dir == "Third party libraries":
+            path = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples")
+            if os.path.exists(path): self.__update_graphical_path_files__(path)
             
         elif to_dir == "Other...":
             open_dir = Dialogs.set_open_dir(self)
@@ -1029,3 +1058,10 @@ class EventMethods(Methods):
         shutil.copyfile(filename_install, filename)
         self.reload_file()
         
+        
+    #----------------------------------------------------------------------
+    def update_mode_output(self, visible):
+        if self.is_graphical():
+            self.configIDE.set("Features", "terminal_on_graphical", visible)
+        else:
+            self.configIDE.set("Features", "terminal_on_text", visible)         

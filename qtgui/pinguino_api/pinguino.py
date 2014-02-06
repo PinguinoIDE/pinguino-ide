@@ -124,7 +124,7 @@ class Pinguino(PinguinoTools):
     def get_hex(self):
         
         assert self.__compiled__
-        hex_file = file(self.__data__["hex_file"], "r")
+        hex_file = open(self.__data__["hex_file"], "r")
         content = hex_file.readlines()
         hex_file.close()
         return hex_file

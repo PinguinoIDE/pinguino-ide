@@ -16,7 +16,7 @@ from ..methods.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
 from ...frames.libraries_widget import Ui_LibraryManager
 
-from ..repositories.git_repo import PinguinoLibrary
+from ..methods.repositories import PinguinoLibrary
 
 ########################################################################
 class LibManager(QtGui.QMainWindow):
@@ -29,8 +29,9 @@ class LibManager(QtGui.QMainWindow):
         
         self.main = IDE
         
-        self.user_libraries_dir = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries")        
+        self.user_libraries_dir = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries")        
         
+        if not os.path.isdir(os.path.dirname(self.user_libraries_dir)): os.mkdir(os.path.dirname(self.user_libraries_dir))
         if not os.path.isdir(self.user_libraries_dir): os.mkdir(self.user_libraries_dir)
         
         self.ConfigLibs = ConfigLibsGroup()
@@ -87,8 +88,28 @@ class LibManager(QtGui.QMainWindow):
         if reply: webbrowser.open_new_tab(url)
         
         
+    #----------------------------------------------------------------------
+    def post_install(self, lib_name):
         
+        for dir_ in ["examples", "blocks"]:
+            path_user_examples_libraries = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, dir_)
+            if not os.path.exists(path_user_examples_libraries): os.mkdir(path_user_examples_libraries)
+            
+        lista = []
         
+        path_examples = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, "lib", "examples")
+        dest_examples = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples", lib_name)
+        lista.append([path_examples, dest_examples])
+        
+        path_blocks = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, "lib", "blocks")
+        dest_blocks = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks", lib_name)
+        lista.append([path_blocks, dest_blocks])
+        
+        for src, dest in lista:
+            if os.path.exists(src):
+                if os.path.exists(dest): shutil.rmtree(dest)
+                shutil.copytree(src, dest)
+            
         
     #----------------------------------------------------------------------
     def open_tutorial(self):
@@ -110,10 +131,10 @@ class LibManager(QtGui.QMainWindow):
             dir_, name = os.path.split(lib)
             name, ext = os.path.splitext(name)
             
-            path_dirlib = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name)
-            #path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name, "lib")
-            path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name)
-            path_PINGUINO = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", name, "lib", "PINGUINO")
+            path_dirlib = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name)
+            #path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name, "lib")
+            path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name)
+            path_PINGUINO = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name, "lib", "PINGUINO")
             path_config = os.path.join(self.user_libraries_dir, name, "config")
             
             if os.path.exists(path_dirlib):
@@ -134,7 +155,9 @@ class LibManager(QtGui.QMainWindow):
             
             file_config = open(path_config, "w")
             file_config.write(content)
-            file_config.close()            
+            file_config.close()
+            
+            self.post_install(name)
             
         self.update_sources_view()
         self.update_libraries_view()
@@ -151,6 +174,7 @@ class LibManager(QtGui.QMainWindow):
     def close(self, event=None):
         self.ConfigLibs.save_config()
         self.main.update_user_libs()
+        self.main.update_instaled_reserved_words()
         super(LibManager, self).close()
         
         
@@ -359,7 +383,7 @@ class LibManager(QtGui.QMainWindow):
                                        "\n"+"\n".join(selected)):
             return
                 
-        selected = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries", sel), selected)
+        selected = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", sel), selected)
         
         for sel in selected:
             if os.path.exists(sel):
@@ -398,6 +422,7 @@ class LibManager(QtGui.QMainWindow):
             reply = Repository.update_library()
             if reply:
                 work.append(sel+": "+QtGui.QApplication.translate("Dialogs", "Updated"))
+                self.post_install(sel)
             else:
                 work.append(sel+": "+QtGui.QApplication.translate("Dialogs", "Failed"))
                 
@@ -416,10 +441,12 @@ class LibManager(QtGui.QMainWindow):
         
         if reply:
             Dialogs.info_message(self, sel+": "+QtGui.QApplication.translate("Dialogs", "Installed"))
+            self.post_install(sel)
         else:
             Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Problems with")+" %s."%sel)
             
         self.setCursor(QtCore.Qt.ArrowCursor)
+
         
         return reply
 
@@ -431,7 +458,7 @@ class LibManager(QtGui.QMainWindow):
         lib_data = RawConfigParser()
         filename = os.path.join(self.user_libraries_dir, lib, "lib", "PINGUINO")
 
-        lib_data.readfp(file(filename, "r"))
+        lib_data.readfp(open(filename, "r"))
         
         return {"arch": lib_data.get("library", "arch"),
                 "author": lib_data.get("library", "author"),

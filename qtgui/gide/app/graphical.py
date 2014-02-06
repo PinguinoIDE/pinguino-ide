@@ -22,7 +22,8 @@ from ...ide.methods.decorators import Decorator
 from ...frames.blocks_widget import Ui_widgetBlock
 from ...frames.grafical_widget import Ui_Form_graphical
 from ...ide.methods.dialogs import Dialogs
-from ...ide.methods.config import Config
+
+from ..py_bloques.user_blocks import UserBlocks
 
 
 ########################################################################
@@ -63,6 +64,8 @@ class GraphicalIDE:
         self.openID = 1
         
         self.fileName = None
+        
+        self.update_all_blocks()
         
         self.listBlocks = []
         #self.listSpaces = 0
@@ -118,6 +121,13 @@ class GraphicalIDE:
         self.main.tabWidget_graphical.setCurrentWidget(editor) 
         index = self.main.tabWidget_graphical.currentIndex()  
         self.main.tabWidget_graphical.setTabText(index, filename[:-1])
+        
+        
+    #----------------------------------------------------------------------
+    def update_all_blocks(self):
+        ub = UserBlocks()
+        blocks = ub.getBlocks()
+        all_sets.update(blocks)
         
     
     #----------------------------------------------------------------------
@@ -220,7 +230,7 @@ class GraphicalIDE:
             file_parser.add_section(name_section)
             for key in block.keys():
                 file_parser.set(name_section, key, block[key])
-        file_parser.write(file(filename, "w"))
+        file_parser.write(open(filename, "w"))
         
         
     #----------------------------------------------------------------------
@@ -229,7 +239,7 @@ class GraphicalIDE:
         blocks_set = []
         
         file_parser = RawConfigParser()
-        file_parser.readfp(file(filename, "r"))
+        file_parser.readfp(open(filename, "r"))
         
         sections = file_parser.sections()
         for section in sections:
@@ -488,7 +498,7 @@ class GraphicalIDE:
         
         editor = self.main.tabWidget_graphical.currentWidget()
         filename = editor.path.replace(".gpde", ".pde")
-        file_pde = file(filename, "w")
+        file_pde = open(filename, "w")
         file_pde.write(self.get_pinguino_source_code())
         file_pde.close()
         

@@ -3,6 +3,7 @@
 
 import functools
 import time
+import threading
 
 from PySide import QtCore
 
@@ -214,7 +215,6 @@ class Decorator(object):
             return wrapped
         return actualdecorator
     
-    
 
     #----------------------------------------------------------------------
     @classmethod
@@ -244,6 +244,19 @@ class Decorator(object):
         
 
     
+    ##----------------------------------------------------------------------
+    #@classmethod
+    #def thread(self):
+        #def actualdecorator(fn):
+            #@functools.wraps(fn)
+            #def wrapped(Pinguino, *args, **kwargs):
+                #t = threading.Thread(target=fn, args=(Pinguino, ))
+                #t.start()
+                #retorno = t
+                #return retorno
+            #return wrapped
+        #return actualdecorator        
+        
     ##----------------------------------------------------------------------
     #@classmethod
     #def call_delay(self, key, delay):

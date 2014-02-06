@@ -16,26 +16,30 @@ class Librarymanager(object):
     
     #----------------------------------------------------------------------
     def get_libraries(self):
-        path = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries")
+        path = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries")
         if not os.path.exists(path): return []
         dirs = os.listdir(path)
         
         libraries = []
         for dir_ in dirs:
-            if os.path.isdir(os.path.join(path, dir_)):
-                dict_ = self.parser_to_dict(os.path.join(path, dir_, "config"))
+            #if os.path.isdir(os.path.join(path, dir_)):
+            config = self.parser_to_dict(os.path.join(path, dir_, "config"))
+            dict_ = {}
+            
+            if config.get("active", "False") == "False": continue
+            
+            dict_["pdl"] = os.path.join(path, dir_, "lib", "pdl")
+            
+            if os.path.isdir(os.path.join(path, dir_, "lib", "p8")):
+                dict_["p8"] = os.path.join(path, dir_, "lib", "p8")
                 
-                if dict_.get("active", "False") == "False": continue
+            if os.path.isdir(os.path.join(path, dir_, "lib", "p32")):
+                dict_["p32"] = os.path.join(path, dir_, "lib", "p32")
                 
-                dict_["pdl"] = os.path.join(path, dir_, "lib", "pdl")
+            #if os.path.isdir(os.path.join(path, dir_, "lib", "examples")):
+                #dict_["examples"] = (config["name"], os.path.join(path, dir_, "lib", "examples"))
                 
-                if os.path.isdir(os.path.join(path, dir_, "lib", "p8")):
-                    dict_["p8"] = os.path.join(path, dir_, "lib", "p8")
-                    
-                if os.path.isdir(os.path.join(path, dir_, "lib", "p32")):
-                    dict_["p32"] = os.path.join(path, dir_, "lib", "p32")
-                    
-                libraries.append(dict_)
+            libraries.append(dict_)
         
         return libraries
             
@@ -48,7 +52,8 @@ class Librarymanager(object):
     #----------------------------------------------------------------------
     def get_p32_libraries(self):
         return filter(lambda lib:lib.get("p32", False), self.libraries)
-    
+
+
     #----------------------------------------------------------------------
     def get_pdls(self):
         #_list_pdls = map(lambda lib:map(lambda pdl_file:os.path.join(lib["pdl"], pdl_file) , os.listdir(lib["pdl"])), self.libraries)

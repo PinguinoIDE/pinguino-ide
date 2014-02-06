@@ -524,7 +524,7 @@ class WorkArea(QtGui.QWidget):
                 if child.metadata.parent != "None":
                     pos += child.metadata.parent.metadata.widget.pos()
                 fullw = map(lambda wdg:wdg.metadata.basename, child.metadata.inside)
-                if not fullw: fullw = [False]
+                #if not fullw: fullw = [False]
                 child, pos2 = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=fullw)
                 
     

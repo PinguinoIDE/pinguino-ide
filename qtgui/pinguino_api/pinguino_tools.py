@@ -223,23 +223,25 @@ class PinguinoTools(object):
         
 
     #----------------------------------------------------------------------
-    def read_lib(self, arch):
+    def read_lib(self, arch, include_default=True):
         """Load .pdl or .pdl32 files (keywords and libraries)
          trying to find PDL files to store reserved words."""
         
         regobject = []
         libinstructions = []
         
+        all_pdls = self.USER_PDL
+           
         if arch == 8:
             libext = ".pdl"
             libdir = self.P8_DIR
         else:
             libext = ".pdl32"
             libdir = self.P32_DIR
-            
-        all_pdls = self.USER_PDL
-            
-        all_pdls.extend(map(lambda pdl:os.path.join(libdir, "pdl", pdl), os.listdir(os.path.join(libdir, "pdl"))))
+                
+        if include_default:                 
+            all_pdls.extend(map(lambda pdl:os.path.join(libdir, "pdl", pdl), os.listdir(os.path.join(libdir, "pdl"))))
+        
         all_pdls = filter(lambda name:name.endswith(libext), all_pdls)
             
             
@@ -264,10 +266,6 @@ class PinguinoTools(object):
                 
                 if not instruction: continue
                 
-                #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])"+str(instruction))+"[ ]*\(")
-                #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])"+str(instruction)+r"([' ']|['=']|['}']|[',']|[';']|[\t]|[')'].*)")
-                #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])"+str(instruction)+".*")
-                #regex = re.compile(r'\W%s\W' % re.escape(str(instruction)))
                 regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])%s\W" % re.escape(instruction))
                 
                 regobject.append(regex)
@@ -286,17 +284,17 @@ class PinguinoTools(object):
         # delete old define.h and create a new one
         if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h")):
             os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"))
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
         fichier.close()
 
         # rename .pde in user.c
         path, name = os.path.split(filename)
         shutil.copy(filename + ".pde", os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"))
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "a")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "a")
         fichier.close()
         
 
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
         i=0
         file_line = {}
         for line in fichier.readlines():
@@ -311,13 +309,13 @@ class PinguinoTools(object):
         fichier.close()
 
         # rewrite file user.c without #include and #define
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
         for cpt in range(i):
             fichier.write(file_line[cpt])
         fichier.close()
 
         # search and replace arduino keywords in file
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
         content = fichier.read()
         content = self.remove_comments(content)
         content = content.split('\n')
@@ -337,20 +335,20 @@ class PinguinoTools(object):
 
 
         # save new tmp file
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
         for i in range(0, nblines):
             fichier.writelines(file_line[i])
         fichier.writelines("\r\n")
         fichier.close()
 
         # sort define.h
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
         lignes = fichier.readlines()
         lignes.sort()
         fichier.close()
 
         # save sorted lines
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "w")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "w")
         fichier.writelines(lignes)
         fichier.close()
         
@@ -360,7 +358,7 @@ class PinguinoTools(object):
     #----------------------------------------------------------------------
     def add_define(self, chaine):
         """ add #define in define.h file """
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
         fichier.writelines(chaine)
         fichier.writelines("\r\n")
         fichier.close()
@@ -368,7 +366,7 @@ class PinguinoTools(object):
     #----------------------------------------------------------------------
     def not_in_define(self, chaine):
         """ verify if #define exists in define.h file """
-        fichier = file(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
         for line in fichier.readlines():
             # chaine has been found ?
             if line.find(chaine) != -1:
@@ -747,7 +745,7 @@ class PinguinoTools(object):
         codesize = 0
         address_Hi = 0
         memfree = board.memend - board.memstart
-        fichier = file(filename, 'r')
+        fichier = open(filename, 'r')
         lines = fichier.readlines()
 
         for line in lines:

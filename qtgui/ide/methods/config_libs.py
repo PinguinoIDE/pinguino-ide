@@ -15,7 +15,7 @@ class ConfigLibsGroup(object):
     #----------------------------------------------------------------------
     def __init__(self):
         
-        IDE_LIBRARY_INSTALLED = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries") 
+        IDE_LIBRARY_INSTALLED = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries") 
         libs = os.listdir(IDE_LIBRARY_INSTALLED)
     
         self.all_libs = {}
@@ -93,7 +93,7 @@ class ConfigLibs(RawConfigParser, object):
         self.config_filename = filename
         self.verify_config_file()
         self.load_config()
-        #self.readfp(file(IDE_CONFIG_FILE, "r")) 
+        #self.readfp(open(IDE_CONFIG_FILE, "r")) 
         
     #----------------------------------------------------------------------
     def get_format_config(self, section, option):
@@ -134,16 +134,16 @@ class ConfigLibs(RawConfigParser, object):
     def verify_config_file(self):
         
         if not os.path.isfile(self.config_filename):
-            file(self.config_filename, "w").close()
+            open(self.config_filename, "w").close()
         
     #----------------------------------------------------------------------
     def save_config(self):
         
-        self.write(file(self.config_filename, "w"))
+        self.write(open(self.config_filename, "w"))
         
     #----------------------------------------------------------------------
     def load_config(self):
         
-        self.readfp(file(self.config_filename, "r")) 
+        self.readfp(open(self.config_filename, "r")) 
         
         

@@ -24,7 +24,7 @@ class PinguinoAutoCompleter(QListWidget):
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
 
         self.setIconSize(QtCore.QSize(14, 14))
-        self.set_height(200)
+        self.set_height(300)
         
         self.setSpell(2)
         self.setEnabled(True)
@@ -37,7 +37,7 @@ class PinguinoAutoCompleter(QListWidget):
                        "arch32": [],}
         
         
-        self.namespaces = pickle.load(file(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))          
+        self.namespaces = pickle.load(open(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))          
         
         icons = CompleteIcons()
         self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
@@ -50,12 +50,12 @@ class PinguinoAutoCompleter(QListWidget):
         
         icons = CompleteIcons()
         
-        if arch == 8:
+        if arch == "8":
             for item in self.namespaces["arch8"]:
                 self.addTemporalItem("arch8", item, icons.iconLibrary)
             self.removeTemporalItems("arch32")
             
-        elif arch == 32:
+        elif arch == "32":
             for item in self.namespaces["arch32"]:
                 self.addTemporalItem("arch32", item, icons.iconLibrary)
             self.removeTemporalItems("arch8")

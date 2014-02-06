@@ -88,7 +88,7 @@ class WikiDock(QtGui.QMainWindow):
                 libs = self.update_from_wiki()
                 if libs:
                     libs = self.update_from_wiki()
-                    pickle.dump(libs, file(self.ide_wiki_docs, "w"))
+                    pickle.dump(libs, open(self.ide_wiki_docs, "w"))
                 else:
                     Dialogs.info_message(self, "Impossible read Wiki page.\n"+"http://wiki.pinguino.cc") 
                 self.set_home(libs=libs)
@@ -195,11 +195,11 @@ class WikiDock(QtGui.QMainWindow):
         
         if not os.path.isfile(self.ide_wiki_docs):
             libs = self.update_from_wiki()
-            pickle.dump(libs, file(self.ide_wiki_docs, "w"))
+            pickle.dump(libs, open(self.ide_wiki_docs, "w"))
             return libs
             
         else:
-            return pickle.load(file(self.ide_wiki_docs, "r"))
+            return pickle.load(open(self.ide_wiki_docs, "r"))
             
         
     #----------------------------------------------------------------------

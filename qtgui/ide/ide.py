@@ -18,7 +18,6 @@ from .methods.pyhton_debug import Stderr
 from .methods.config import Config
 from .code_editor.autocomplete_icons import CompleteIcons
 from .widgets.output_widget import PinguinoTerminal
-from .methods.dev_tools import DevTools
 from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
@@ -123,8 +122,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             os.environ["PINGUINO_OS_NAME"] = "windows"
         
         #load path from paths.conf
-        os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ["PINGUINO_OS_NAME"], "user_path"))
-        os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ["PINGUINO_OS_NAME"], "install_path"))        
+        os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ.get("PINGUINO_OS_NAME"), "user_path"))
+        os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ.get("PINGUINO_OS_NAME"), "install_path"))  
+        os.environ["PINGUINO_USERLIBS_PATH"] = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "library_manager")      
                     
     
     #----------------------------------------------------------------------
@@ -195,6 +195,16 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def build_output(self):
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
         self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
+        
+        class DevTools(object):
+            update_reserved = self.update_reserved_words
+            update_installed_reserved = self.update_instaled_reserved_words
+            
+            functions = ["update_reserved",
+                         "update_installed_reserved",
+                         
+                         ]
+            
         self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self, "devmode": DevTools(),})
         self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
         
@@ -236,7 +246,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.toolBar_graphical.setVisible(normal)
         self.main.toolBar_undo_redo.setVisible(not normal)
         
-        self.configIDE.set("Features", "terminal_on_graphical", self.main.dockWidget_output.isVisible())         
+        #self.configIDE.set("Features", "terminal_on_graphical", self.main.dockWidget_output.isVisible())         
         self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_text", True))
         self.configIDE.save_config()
         
@@ -264,7 +274,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.toolBar_graphical.setVisible(normal)
         self.main.toolBar_undo_redo.setVisible(not normal)       
         
-        self.configIDE.set("Features", "terminal_on_text", self.main.dockWidget_output.isVisible())        
+        #self.configIDE.set("Features", "terminal_on_text", self.main.dockWidget_output.isVisible())        
         self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.configIDE.save_config()
         

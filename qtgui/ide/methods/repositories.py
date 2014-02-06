@@ -13,8 +13,8 @@ except: logging.warning(INFO%"gitpython")
 try: import pysvn
 except: logging.warning(INFO%"pysvn")
 
-try: from mercurial import ui, hg
-except: logging.warning(INFO%"mercurial")
+try: import hgapi
+except: logging.warning(INFO%"hgapi")
 
 from ..methods.config_libs import ConfigLibsGroup
 
@@ -27,7 +27,7 @@ class PinguinoLibrary(object):
     #----------------------------------------------------------------------
     def __init__(self, lib, source):
         self.config = ConfigLibsGroup()   
-        self.ide_library_installed = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "user_libraries")
+        self.ide_library_installed = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries")
         
         self.name = lib
         self.url = self.config.get_all_sources()[lib]["repository"]
@@ -105,13 +105,14 @@ class HgRepo(object):
     
     #----------------------------------------------------------------------
     def clone(self, url, path):
-        """"""
+        hgapi.hg_clone(url, path)
     
     #----------------------------------------------------------------------
     def update(self, path):
-        """"""
+        repo = hgapi.Repo(path)
+        repo.hg_pull()
+        repo.hg_update("default", clean=True)
 
-    
     
 ########################################################################
 class SvnRepo(object):

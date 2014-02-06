@@ -39,13 +39,15 @@ class CustomTextEdit(QtGui.QTextEdit):
         
         self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
         
-        #namespaces = pickle.load(file(Constants.IDE_NAMESPACES_FILE, "r"))
+        #namespaces = pickle.load(open(Constants.IDE_NAMESPACES_FILE, "r"))
         #self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)
         
         #palette = QtGui.QPalette(self.palette())
         #self.setAutoFillBackground(True)
         #palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
-        #self.setPalette(palette)          
+        #self.setPalette(palette)
+        
+        self.next_ignore = None
         
         #Highlighter(self)
         
@@ -101,8 +103,17 @@ class CustomTextEdit(QtGui.QTextEdit):
         selected = completion
         tc = self.textCursor()
         
+        #word like: cdc|
+        tc.movePosition(tc.WordLeft, tc.KeepAnchor)        
+        
+        #word like: cdc.|
+        if tc.selectedText().startswith("."): tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+        
+        #word like: cdc.pri|
         tc.movePosition(tc.WordLeft, tc.KeepAnchor)
-        if tc.selectedText() == ".": tc.movePosition(tc.WordLeft, tc.KeepAnchor)            
+        if tc.selectedText().startswith("."): tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+        else: tc.movePosition(tc.WordRight, tc.KeepAnchor)
+            
         tc.removeSelectedText()
         
         if completion in Snippet.keys():
@@ -135,18 +146,33 @@ class CustomTextEdit(QtGui.QTextEdit):
         tc = self.textCursor()
         
         def accept(insert):
-            QtGui.QTextEdit.keyPressEvent(self, event)
-            tc.insertText(insert)
-            tc.setPosition(tc.position() - len(insert))
-            self.setTextCursor(tc)
-            return True
+            selected = tc.selectedText()
+            tc.insertText(key + selected + insert)
+            tc.movePosition(tc.Left, tc.MoveAnchor)
+            tc.setPosition(tc.position()-len(selected), tc.MoveAnchor)
+            tc.setPosition(tc.position()+len(selected), tc.KeepAnchor)
+            return tc
 
-        #if key=="[" and self.autoClose["brackets"]: return accept("]")
-        #elif key=="{" and self.autoClose["keys"]: return accept("}")
-        #elif key=='"' and self.autoClose["doublequotation"]: return accept('"')
-        #elif key=="'" and self.autoClose["singlequotation"]: return accept("'")
-        #elif key=="(" and self.autoClose["parentheses"]: return accept(")")
-        #else: return False
+        if key=="[":
+            self.next_ignore = "]" 
+            return accept("]")
+        
+        elif key=="{":
+            self.next_ignore = "}"
+            return accept("}")
+        
+        elif key=='"':
+            self.next_ignore = '"'
+            return accept('"')
+        
+        elif key=="'":
+            self.next_ignore = "'"
+            return accept("'")
+        
+        elif key=="(":
+            self.next_ignore = ")"
+            return accept(")")
+        else: return False
 
     #----------------------------------------------------------------------
     def keyPressEvent_autocompleter(self, event):
@@ -175,8 +201,13 @@ class CustomTextEdit(QtGui.QTextEdit):
     def __keyPressEvent__(self, event):
         self.setFocus()
         
+        key_text = event.text()
+        if self.next_ignore == key_text:
+            self.next_ignore = None
+            return
+        
         if event.key() in (
-            QtCore.Qt.Key_Enter,
+            #QtCore.Qt.Key_Enter,
             QtCore.Qt.Key_Escape,
             QtCore.Qt.Key_Space,
             QtCore.Qt.Key_Control,
@@ -196,13 +227,36 @@ class CustomTextEdit(QtGui.QTextEdit):
             super(CustomTextEdit, self).keyPressEvent(event)
             return
         
+        
         #Si el autocerrado está activado
-        if self.autoInsert(event): return
+        ttcc = self.autoInsert(event)
+        if ttcc:
+            self.setTextCursor(ttcc)
+            return
 
         if event.key() == QtCore.Qt.Key_Tab:
             tc = self.textCursor()
             tc.insertText(" "*4)
             return
+        
+                
+        if event.key() in [QtCore.Qt.Key_Enter, QtCore.Qt.Key_Enter-1]:
+            tc = self.textCursor()
+            pos = tc.position()
+            tc.select(tc.LineUnderCursor)
+            line = tc.selectedText()
+            comment = ""
+            if line.isspace() or line == "":
+                len_s = len(line)
+            else:
+                normal = line.replace(" ", "")
+                if normal.startswith("//"):
+                    comment = "//"
+                len_s = line.find(normal[0])
+                
+            tc.setPosition(pos)
+            tc.insertText("\n"+" "*len_s+comment)
+            return    
         
         super(CustomTextEdit, self).keyPressEvent(event)
         

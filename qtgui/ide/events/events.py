@@ -22,6 +22,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionClose_all, QtCore.SIGNAL("triggered()"), self.close_all)
         self.connect(self.main.actionClose_others, QtCore.SIGNAL("triggered()"), self.close_others)
         self.connect(self.main.actionQuit, QtCore.SIGNAL("triggered()"), self.__close_ide__)
+        self.connect(self.main.actionPrint, QtCore.SIGNAL("triggered()"), self.print_file)
         
         # Menu Edit
         self.connect(self.main.actionUndo, QtCore.SIGNAL("triggered()"), self.undo)
@@ -105,8 +106,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.closeEvent = self.__close_ide__
         self.connect(self.main.lineEdit_blocks_search, QtCore.SIGNAL("textChanged(QString)"), self.PinguinoKIT.update_blocks_search_tab)
         
-        #self.connect(self.main.tabWidget_files, QtCore.SIGNAL("customContextMenuRequested(QPoint)"), self.tab_files_context_menu)
-        #self.connect(self.main.tabWidget_graphical, QtCore.SIGNAL("customContextMenuRequested(QPoint)"), self.tab_files_context_menu)
-        
         self.main.tabWidget_files.contextMenuEvent = self.tab_files_context_menu
         self.main.tabWidget_files.tabWidget_graphical = self.tab_files_context_menu
+        
+        self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.update_mode_output)         

@@ -28,7 +28,7 @@ class HexViewer(QtGui.QMainWindow):
         
         self.original_filename = file_path
         
-        self.hex_obj = IntelHex(file(file_path, "r"))
+        self.hex_obj = IntelHex(open(file_path, "r"))
         self.update_viewer()
         
         self.connect(self.hex_viewer.comboBox_view, QtCore.SIGNAL("currentIndexChanged(QString)"), self.update_viewer)

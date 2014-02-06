@@ -6,7 +6,6 @@ today = datetime.datetime.now()
 
 Autocompleter = {}
 Autocompleter["directive"] = ["define", "include", "ifndef", "endif",  "undef", "if", "elif", "else", "error", "warning"]
-
 Autocompleter["reserved"] = ["TRUE", "FALSE", "HIGH", "LOW", "INPUT", "OUTPUT", "FOSC", "MIPS", "ON", "OFF",
               "LED1", "LED2", "LED3", "LED4", "REDLED", "GREENLED", "BLUELED", "WHITELED", "YELLOWLED",
               "PROGBUTTON", "USERBUTTON", "RUNLED", "USERLED", "A4", 

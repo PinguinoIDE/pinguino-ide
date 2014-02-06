@@ -3,6 +3,7 @@
 
 import os
 import codecs
+import pickle
 
 from PySide import QtGui, QtCore
 
@@ -34,7 +35,7 @@ class Methods(SearchReplace):
         
         self.new_file(filename=filename)
         editor = self.main.tabWidget_files.currentWidget()
-        #pde_file = file(path, mode="r")
+        #pde_file = open(path, mode="r")
         pde_file = codecs.open(filename, "r", "utf-8")
         content = "".join(pde_file.readlines())
         pde_file.close()
@@ -78,6 +79,8 @@ class Methods(SearchReplace):
         
     
     #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def select_block_edit(self):
         editor = self.main.tabWidget_files.currentWidget()
         cursor = editor.text_edit.textCursor()
@@ -166,12 +169,12 @@ class Methods(SearchReplace):
             
     #----------------------------------------------------------------------
     def __update_path_files__(self, path):
-        Files.update_path_files(path, self.main.listWidget_files, self.main.label_path)
+        Files.update_path_files(path, self.main.listWidget_files, self.main.label_path, exclude=".gpde")
         
         
     #----------------------------------------------------------------------
     def __update_graphical_path_files__(self, path):
-        Files.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg)
+        Files.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg, exclude=".pde")
         
         
     #----------------------------------------------------------------------
@@ -195,7 +198,7 @@ class Methods(SearchReplace):
     def __save_file__(self, *args, **kwargs):
         editor = kwargs.get("editor", self.get_tab())
         content = editor.text_edit.toPlainText()
-        #pde_file = file(editor.path, mode="w")
+        #pde_file = open(editor.path, mode="w")
         pde_file = codecs.open(editor.path, "w", "utf-8")
         pde_file.write(content)
         pde_file.close()
@@ -458,6 +461,9 @@ class Methods(SearchReplace):
         
         self.pinguinoAPI.USER_PDL = libs.get_pdls()
         
+        #self.update_reserved_words()
+        #self.update_instaled_reserved_words()
+        
         
     #----------------------------------------------------------------------
     def reload_file(self):
@@ -469,3 +475,62 @@ class Methods(SearchReplace):
         self.save_file()
         
  
+
+
+    #----------------------------------------------------------------------
+    def update_reserved_words(self):
+        
+        regobject, libinstructions = self.pinguinoAPI.read_lib(8)
+        name_spaces_8 = map(lambda x:x[0], libinstructions)
+                            
+        regobject, libinstructions = self.pinguinoAPI.read_lib(32)
+        name_spaces_32 = map(lambda x:x[0], libinstructions)
+        
+        reserved_filename = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle")
+        
+        name_spaces_commun = []
+        
+        copy_32 = name_spaces_32[:]        
+        for name in name_spaces_8:
+            if name in copy_32:
+                name_spaces_8.remove(name)
+                name_spaces_32.remove(name)
+                name_spaces_commun.append(name)
+        
+        namespaces = {"arch8": name_spaces_8, "arch32": name_spaces_32, "all": name_spaces_commun,}   
+        pickle.dump(namespaces, open(reserved_filename, "w"))
+        
+        print("Write on %s" % reserved_filename)
+        
+
+    #----------------------------------------------------------------------
+    def update_instaled_reserved_words(self):
+        
+        regobject, libinstructions = self.pinguinoAPI.read_lib(8, include_default=False)
+        name_spaces_8 = map(lambda x:x[0], libinstructions)
+                            
+        regobject, libinstructions = self.pinguinoAPI.read_lib(32, include_default=False)
+        name_spaces_32 = map(lambda x:x[0], libinstructions)
+        
+        reserved_filename = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle")
+        
+        name_spaces_commun = []
+        
+        copy_32 = name_spaces_32[:]        
+        for name in name_spaces_8:
+            if name in copy_32:
+                name_spaces_8.remove(name)
+                name_spaces_32.remove(name)
+                name_spaces_commun.append(name)
+        
+        
+        olds = pickle.load(open(reserved_filename, "r"))
+        
+        
+        namespaces = {"arch8": list(set(name_spaces_8 + olds["arch8"])),
+                      "arch32": list(set(name_spaces_32 + olds["arch32"])),
+                      "all": list(set(name_spaces_commun + olds["all"])),}        
+        
+        pickle.dump(olds, open(reserved_filename, "w"))
+        
+        print("Write on %s" % reserved_filename)
