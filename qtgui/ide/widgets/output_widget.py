@@ -26,7 +26,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                            "color: #fff;"\
                            "font-family: mono;"\
                            "font-size: 12px;")
-        
+
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
         self.appendPlainText(START)
@@ -50,13 +50,13 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             super(PinguinoTerminal, self).keyPressEvent(event)
             command = self.get_command()
             if self.run_default_command(command):
-                self.appendPlainText(START)
+                #self.appendPlainText(START)
                 return
             self.historial.append(command.replace("\n", ""))
             if not command.isspace():
                 self.moveCursor(QtGui.QTextCursor.End)
                 self.insertPlainText(self.shell.run(command))
-            self.insertPlainText(START)
+            #self.insertPlainText(START)
             self.moveCursor(QtGui.QTextCursor.End)
     
         elif event.key() == QtCore.Qt.Key_Backspace:
@@ -134,6 +134,10 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             menu.addMenu(sub_menu)
             menu.addSeparator()
         
+            
+        menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
+        menu.addAction(QtGui.QApplication.translate("PythonShell", "Restart"), self.command_restart)
+        menu.addSeparator()
         menu.addAction(QtGui.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
         menu.addAction(QtGui.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
         menu.addAction(QtGui.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
@@ -201,16 +205,15 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         
     #----------------------------------------------------------------------
     def command_clear(self):
-        
         self.clear()
+        self.appendPlainText(START)
         
         
     #----------------------------------------------------------------------
     def command_restart(self):
-        
         self.shell.restart()
         self.clear()
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
         self.set_extra_args(**self.extra_args)
-        #self.main.plainTextEdit_output.shell.statement_module.pinguino_main = self       
+        self.appendPlainText(START)

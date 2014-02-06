@@ -393,6 +393,9 @@ class Methods(SearchReplace):
         for key in kwargs.keys():
             line = key + ": " + kwargs[key]
             self.main.plainTextEdit_output.appendPlainText(line)
+            
+        scroll = self.main.plainTextEdit_output.verticalScrollBar()
+        scroll.setValue(scroll.maximum())
         
         
     #----------------------------------------------------------------------

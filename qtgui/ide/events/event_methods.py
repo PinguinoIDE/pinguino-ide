@@ -47,6 +47,7 @@ class EventMethods(Methods):
         editor.text_edit.dropEvent = self.__drop__
         editor.text_edit.keyPressEvent = self.__key_press__
         editor.text_edit.contextMenuEvent = self.file_edit_context_menu
+        editor.text_edit.setAcceptRichText(False)
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), filename[:-1])
         editor.text_edit.setFocus()
             
