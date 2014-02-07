@@ -4,6 +4,7 @@
 import os
 from ConfigParser import RawConfigParser
 import logging
+import shutil
 
 
 ########################################################################
@@ -23,7 +24,15 @@ class Librarymanager(object):
         libraries = []
         for dir_ in dirs:
             #if os.path.isdir(os.path.join(path, dir_)):
-            config = self.parser_to_dict(os.path.join(path, dir_, "config"))
+            try:
+                config = self.parser_to_dict(os.path.join(path, dir_, "config"))
+            except:
+                shutil.rmtree(os.path.join(path, dir_))
+                if os.path.exists(os.path.join(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples"), dir_)):
+                    shutil.rmtree(os.path.join(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples"), dir_))
+                if os.path.exists(os.path.join(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks"), dir_)):
+                    shutil.rmtree(os.path.join(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks"), dir_))
+                continue
             dict_ = {}
             
             if config.get("active", "False") == "False": continue

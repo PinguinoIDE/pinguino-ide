@@ -70,16 +70,19 @@ class PinguinoLibrary(object):
         
     #----------------------------------------------------------------------
     def install_library(self, repo):
-        self.set_repo(repo)
-        self.clone(self.url, self.path)
-        return True
+        try:
+            self.set_repo(repo)
+            self.clone(self.url, self.path)
+            return True
+        except: return False
             
     #----------------------------------------------------------------------
     def update_library(self):
-        self.search_repo()
-        self.update(self.path)
-        return True
-
+        try:
+            self.search_repo()
+            self.update(self.path)
+            return True
+        except: return False
         
     
     

@@ -43,6 +43,8 @@ class PinguinoAutoCompleter(QListWidget):
         self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
         del icons
         
+        #self.set_arch_autocompleter()
+        
     #----------------------------------------------------------------------
     def set_arch_autocompleter(self):
         
@@ -69,8 +71,6 @@ class PinguinoAutoCompleter(QListWidget):
         
     #----------------------------------------------------------------------
     def show(self, *args):
-        
-        self.set_arch_autocompleter()
         super(PinguinoAutoCompleter, self).show(*args)
         
     #----------------------------------------------------------------------
@@ -179,7 +179,9 @@ class PinguinoAutoCompleter(QListWidget):
                 self.itemsListName.append(item.text())
     
     #----------------------------------------------------------------------
-    def popup(self, pos, index=None): 
+    def popup(self, pos, index=None):
+        self.set_arch_autocompleter()
+        
         self.sortItems()        
         self.itemsList.sort()
         

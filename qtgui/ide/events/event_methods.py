@@ -36,9 +36,17 @@ class EventMethods(Methods):
         filename = os.path.split(path)[1]         
         editor = PinguinoCodeEditor()
         self.main.tabWidget_files.addTab(editor, filename)
-        editor.text_edit.insertPlainText(Snippet["file {snippet}"][1].replace("\t", ""))
-        editor.text_edit.insertPlainText("\n")
-        editor.text_edit.insertPlainText(Snippet["Bare minimum {snippet}"][1].replace("\t", ""))
+        #editor.text_edit.insertPlainText(Snippet["file {snippet}"][1].replace("\t", ""))
+        #editor.text_edit.insertPlainText("\n")
+        #editor.text_edit.insertPlainText(Snippet["Bare minimum {snippet}"][1].replace("\t", ""))
+        
+        tc = editor.text_edit.textCursor()        
+        editor.text_edit.insert("file {snippet}")
+        tc.movePosition(tc.End)
+        tc.insertText("\n\n")
+        editor.text_edit.setTextCursor(tc)
+        editor.text_edit.insert("Bare minimum {snippet}")
+        
         self.main.tabWidget_files.setCurrentWidget(editor)
         editor.text_edit.textChanged.connect(self.__text_changed__)
         editor.text_edit.undoAvailable.connect(self.__text_can_undo__)
@@ -54,7 +62,12 @@ class EventMethods(Methods):
     
     #----------------------------------------------------------------------
     def open_files(self):
-        filenames = Dialogs.set_open_file(self)
+        editor = self.main.tabWidget_files.currentWidget()
+        path = getattr(editor, "path", None)
+        if path: path = os.path.dirname(path)
+        else: path = QtCore.QDir.home().path()
+        filenames = Dialogs.set_open_file(self, path)
+        
         for filename in filenames:
             if self.__check_duplicate_file__(filename): continue
 

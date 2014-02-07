@@ -145,7 +145,12 @@ class LibManager(QtGui.QMainWindow):
             os.mkdir(path_dirlib)
             libZip.extractall(path_dirlib_source)
             
-            os.rename(os.path.join(path_dirlib_source, name), os.path.join(path_dirlib_source, "lib"))
+            try:
+                os.rename(os.path.join(path_dirlib_source, name), os.path.join(path_dirlib_source, "lib"))
+            except OSError:
+                Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "This is not a Pinguino library or are not packaged correctly."))
+                shutil.rmtree(path_dirlib_source)
+                continue
             
             file_config = open(path_PINGUINO)
             content = "".join(file_config.readlines())

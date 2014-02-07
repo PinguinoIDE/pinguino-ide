@@ -103,23 +103,19 @@ class CustomTextEdit(QtGui.QTextEdit):
         selected = completion
         tc = self.textCursor()
         
-        #word like: cdc|
-        tc.movePosition(tc.WordLeft, tc.KeepAnchor)        
-        
-        #word like: cdc.|
-        if tc.selectedText().startswith("."): tc.movePosition(tc.WordLeft, tc.KeepAnchor)
-        
-        #word like: cdc.pri|
-        tc.movePosition(tc.WordLeft, tc.KeepAnchor)
-        if tc.selectedText().startswith("."): tc.movePosition(tc.WordLeft, tc.KeepAnchor)
-        else: tc.movePosition(tc.WordRight, tc.KeepAnchor)
+        self.smart_under_selection(tc)
             
         tc.removeSelectedText()
         
         if completion in Snippet.keys():
             pos = tc.position()
-            tc.insertText(Snippet[str(completion)][1].replace("\t", " "*4))
-            tc.setPosition(pos + Snippet[str(completion)][0])
+            
+            text_position = Snippet[completion].find("[!]")
+            text_insert = Snippet[completion].replace("[!]", "")
+            
+            tc.insertText(text_insert)
+            tc.setPosition(pos + text_position)
+            
             self.setTextCursor(tc)
         elif re.match("(.+) +\[.+\]", str(completion)) != None:
             ins = re.match("(.+) +\[.+\]", str(completion)).group(1)
@@ -264,13 +260,27 @@ class CustomTextEdit(QtGui.QTextEdit):
         
         
     #----------------------------------------------------------------------
-    def show_autocomplete_if_conditions(self):
+    def smart_under_selection(self, tc):
+        #word like: cdc|
+        tc.movePosition(tc.WordLeft, tc.KeepAnchor)        
         
+        #word like: cdc.|
+        if tc.selectedText().startswith("."): tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+        
+        #word like: cdc.pri|
+        tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+        if tc.selectedText().startswith("."): tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+        else: tc.movePosition(tc.WordRight, tc.KeepAnchor)          
+        
+        
+        
+    #----------------------------------------------------------------------
+    def show_autocomplete_if_conditions(self):
         tc = self.textCursor()
-        #tc.select(QtGui.QTextCursor.WordUnderCursor)
-        tc.select(QtGui.QTextCursor.BlockUnderCursor)
+        self.smart_under_selection(tc)
         
         selected = tc.selectedText().split()
+        
         if not selected: return
         #selected = selected[-1]
         

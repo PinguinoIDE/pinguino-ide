@@ -24,10 +24,11 @@ class Dialogs(object):
         
     #----------------------------------------------------------------------
     @classmethod
-    def set_open_file(self, parent):
+    def set_open_file(self, parent, path):
         open_files = QtGui.QFileDialog.getOpenFileNames(parent,
                 NAME+QtGui.QApplication.translate("Dialogs", " - Open"),
-                QtCore.QDir.home().path(),
+                #QtCore.QDir.home().path(),
+                path,
                 QtGui.QApplication.translate("Dialogs", "Pinguino Files (*.pde *.gpde);;All Files (*)"))
         if open_files: return open_files[0]
         else: return None

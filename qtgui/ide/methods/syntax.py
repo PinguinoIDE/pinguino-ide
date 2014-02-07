@@ -18,31 +18,32 @@ Autocompleter["reserved"] = ["TRUE", "FALSE", "HIGH", "LOW", "INPUT", "OUTPUT", 
 
 
 Snippet = {}
-#Snippet[name {snippet}]=[cursor position,"to insert"]
-Snippet["void {snippet}"] = [5, "void (){\n\n\t}"]
-Snippet["while( ) {snippet}"] = [7, "while (){\n\n\t}"]
-Snippet["do {...} while  {snippet}"] = [8, "do {\n\t\n} while();"]
-Snippet["for {snippet}"] = [5, "for (){\n\n\t}"]
-Snippet["for (i=0;...{snippet}"] = [7, "for (i= ;i< ;i++){\n\n\t}"]
-Snippet["if...else {snippet}"] = [4, "if (){\n\n\t}\nelse {\n\n\t}"]
-Snippet["if...else if...else {snippet}"] = [4, "if (){\n\n\t}\nelse if (){\n\n\t}\nelse {\n\n\t}"]
-Snippet["switch( ) {snippet}"] = [8, "switch (){\n\tcase:\n\n\t\tbreak;\n\tdefault:\n\n\t}"]
+#Snippet[name {snippet}]=["to insert, with cursor mark: [!]"] ##[!] is the cursos position
 
-Snippet["struct {snippet}"] = [13, "struct {\n\t\n};"]
-Snippet["typedef ... struct {snippet}"] = [21, "typedef struct {\n\t\n}TYPE;"]
-Snippet["union {snippet}"] = [12, "union {\n\t\n};"]
-Snippet["typedef ... union {snippet}"] = [20, "typedef union {\n\t\n}TYPE;"]
+Snippet["void {snippet}"] = "void [!](){\n\n\t}"
+Snippet["while( ) {snippet}"] = "while [!](){\n\n\t}"
+Snippet["do {...} while  {snippet}"] = "do {\n\t[!]\n} while();"
+Snippet["for {snippet}"] = "for ([!]){\n\n\t}"
+Snippet["for (i=0;...{snippet}"] = "for (i=[!]; i<; i++){\n\n\t}"
+Snippet["if...else {snippet}"] = "if ([!]){\n\n\t}\nelse {\n\n\t}"
+Snippet["if...else if...else {snippet}"] = "if ([!]){\n\n\t}\nelse if (){\n\n\t}\nelse {\n\n\t}"
+Snippet["switch( ) {snippet}"] = "switch ([!]){\n\tcase:\n\n\t\tbreak;\n\tdefault:\n\n\t}"
 
-Snippet["Bare minimum {snippet}"] = [35, "void setup() {\n\t// put your setup code here, to run once:\n\n}\n\nvoid loop() {\n\t// put your main code here, to run repeatedly:\n\n}\n"]
+Snippet["struct {snippet}"] = "struct {\n\t[!]\n};"
+Snippet["typedef ... struct {snippet}"] = "typedef struct {\n\t[!]\n}TYPE;"
+Snippet["union {snippet}"] = "union {\n\t\n};"
+Snippet["typedef ... union {snippet}"] = "typedef union {\n\t[!]\n}TYPE;"
+
+Snippet["Bare minimum {snippet}"] = "void setup() {\n\t// put your setup code here, to run once:\n\n\t[!]\n}\n\nvoid loop() {\n\t// put your main code here, to run repeatedly:\n\n}\n"
 
 
-Snippet["file {snippet}"] = [65,
-"""/*----------------------------------------------------- 
-%s:  --<>
+Snippet["file {snippet}"] = """/*----------------------------------------------------- 
+%s: [!] --<>
 %s: %s
 %s:
 
 -----------------------------------------------------*/
-""" %("Author", "Date", today.strftime("%Y-%m-%d"), "Description")]
+""" %("Author", "Date", today.strftime("%Y-%m-%d"), "Description")
 
-for key in Snippet.keys(): Snippet[key][1] = Snippet[key][1].replace("\t", " "*4)
+for key in Snippet.keys():
+    Snippet[key] = Snippet[key].replace("\t", " "*4)

@@ -140,7 +140,10 @@ class CodeNavigator(object):
                 for arg in args:
                     this_variable = {}
                     this_variable["type"] = type_
-                    this_variable["name"] = arg
+                    if re.match("(.*)(\[.*\])", arg):
+                        this_variable["name"] = re.match("(.*)(\[.*\])", arg).groups()[0]
+                    else:
+                        this_variable["name"] = arg
                     #this_variable["value"] = match.groups()[6]
                     this_variable["line"] = str(line + 1)
                     variables.append(this_variable)
