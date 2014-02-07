@@ -1006,7 +1006,7 @@ class EventMethods(Methods):
         mine = event.mimeData()
         if mine.hasUrls():
             for path in mine.urls():
-                self.open_file_from_path(path.path())
+                self.open_file_from_path(filename=path.path())
 
 
     #----------------------------------------------------------------------

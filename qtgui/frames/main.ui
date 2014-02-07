@@ -1084,7 +1084,7 @@
   <action name="actionNew_file">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/new_file.png</normaloff>:/toolbar/toolbar/new_file.png</iconset>
+     <normaloff>:/toolbar/toolbar/new_file.svg</normaloff>:/toolbar/toolbar/new_file.svg</iconset>
    </property>
    <property name="text">
     <string>New</string>
@@ -1096,7 +1096,7 @@
   <action name="actionOpen_file">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/open_file.png</normaloff>:/toolbar/toolbar/open_file.png</iconset>
+     <normaloff>:/toolbar/toolbar/open_file.svg</normaloff>:/toolbar/toolbar/open_file.svg</iconset>
    </property>
    <property name="text">
     <string>Open file</string>
@@ -1111,7 +1111,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/save_file.png</normaloff>:/toolbar/toolbar/save_file.png</iconset>
+     <normaloff>:/toolbar/toolbar/save_file.svg</normaloff>:/toolbar/toolbar/save_file.svg</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -1140,7 +1140,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/undo.png</normaloff>:/toolbar/toolbar/undo.png</iconset>
+     <normaloff>:/toolbar/toolbar/undo.svg</normaloff>:/toolbar/toolbar/undo.svg</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -1155,7 +1155,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/redo.png</normaloff>:/toolbar/toolbar/redo.png</iconset>
+     <normaloff>:/toolbar/toolbar/redo.svg</normaloff>:/toolbar/toolbar/redo.svg</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -1170,7 +1170,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/cut.png</normaloff>:/toolbar/toolbar/cut.png</iconset>
+     <normaloff>:/toolbar/toolbar/cut.svg</normaloff>:/toolbar/toolbar/cut.svg</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -1185,7 +1185,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/copy.png</normaloff>:/toolbar/toolbar/copy.png</iconset>
+     <normaloff>:/toolbar/toolbar/copy.svg</normaloff>:/toolbar/toolbar/copy.svg</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -1200,7 +1200,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/paste.png</normaloff>:/toolbar/toolbar/paste.png</iconset>
+     <normaloff>:/toolbar/toolbar/paste.svg</normaloff>:/toolbar/toolbar/paste.svg</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -1225,7 +1225,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/search.png</normaloff>:/toolbar/toolbar/search.png</iconset>
+     <normaloff>:/toolbar/toolbar/search.svg</normaloff>:/toolbar/toolbar/search.svg</iconset>
    </property>
    <property name="text">
     <string>Search</string>
@@ -1240,7 +1240,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/replace.png</normaloff>:/toolbar/toolbar/replace.png</iconset>
+     <normaloff>:/toolbar/toolbar/replace.svg</normaloff>:/toolbar/toolbar/replace.svg</iconset>
    </property>
    <property name="text">
     <string>Search and replace</string>
@@ -1252,7 +1252,7 @@
   <action name="actionSelect_board">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/board.png</normaloff>:/toolbar/toolbar/board.png</iconset>
+     <normaloff>:/toolbar/toolbar/board.svg</normaloff>:/toolbar/toolbar/board.svg</iconset>
    </property>
    <property name="text">
     <string>Select board</string>
@@ -1267,7 +1267,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/compile.png</normaloff>:/toolbar/toolbar/compile.png</iconset>
+     <normaloff>:/toolbar/toolbar/compile.svg</normaloff>:/toolbar/toolbar/compile.svg</iconset>
    </property>
    <property name="text">
     <string>Compile</string>
@@ -1282,7 +1282,7 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/download.png</normaloff>:/toolbar/toolbar/download.png</iconset>
+     <normaloff>:/toolbar/toolbar/download.svg</normaloff>:/toolbar/toolbar/download.svg</iconset>
    </property>
    <property name="text">
     <string>Upload</string>
@@ -1351,8 +1351,8 @@
    </property>
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/switch_to_graphical.png</normaloff>
-     <normalon>:/toolbar/toolbar/switch_to_text.png</normalon>:/toolbar/toolbar/switch_to_graphical.png</iconset>
+     <normaloff>:/toolbar/toolbar/switch_to_graphical.svg</normaloff>
+     <normalon>:/toolbar/toolbar/switch_to_text.png</normalon>:/toolbar/toolbar/switch_to_graphical.svg</iconset>
    </property>
    <property name="text">
     <string>Switch ide</string>
@@ -1364,7 +1364,7 @@
   <action name="actionSave_image">
    <property name="icon">
     <iconset resource="../resources/resources.qrc">
-     <normaloff>:/toolbar/toolbar/save_image.png</normaloff>:/toolbar/toolbar/save_image.png</iconset>
+     <normaloff>:/toolbar/toolbar/save_image.svg</normaloff>:/toolbar/toolbar/save_image.svg</iconset>
    </property>
    <property name="text">
     <string>Save image</string>

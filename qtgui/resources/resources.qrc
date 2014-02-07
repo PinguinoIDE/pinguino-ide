@@ -1,21 +1,21 @@
 <RCC>
   <qresource prefix="toolbar">
-    <file>toolbar/new_file.png</file>
-    <file>toolbar/redo.png</file>
-    <file>toolbar/search.png</file>
-    <file>toolbar/replace.png</file>
-    <file>toolbar/cut.png</file>
-    <file>toolbar/copy.png</file>
-    <file>toolbar/paste.png</file>
-    <file>toolbar/undo.png</file>
-    <file>toolbar/board.png</file>
-    <file>toolbar/switch_to_graphical.png</file>
-    <file>toolbar/open_file.png</file>
-    <file>toolbar/switch_to_text.png</file>
-    <file>toolbar/save_image.png</file>
-    <file>toolbar/download.png</file>
-    <file>toolbar/compile.png</file>
-    <file>toolbar/save_file.png</file>
+    <file>toolbar/new_file.svg</file>
+    <file>toolbar/undo.svg</file>
+    <file>toolbar/redo.svg</file>
+    <file>toolbar/save_file.svg</file>
+    <file>toolbar/compile.svg</file>
+    <file>toolbar/switch_to_text.svg</file>
+    <file>toolbar/switch_to_graphical.svg</file>
+    <file>toolbar/open_file.svg</file>
+    <file>toolbar/paste.svg</file>
+    <file>toolbar/download.svg</file>
+    <file>toolbar/copy.svg</file>
+    <file>toolbar/search.svg</file>
+    <file>toolbar/save_image.svg</file>
+    <file>toolbar/replace.svg</file>
+    <file>toolbar/cut.svg</file>
+    <file>toolbar/board.svg</file>
   </qresource>
   <qresource prefix="bg">
     <file>bg/box.png</file>
