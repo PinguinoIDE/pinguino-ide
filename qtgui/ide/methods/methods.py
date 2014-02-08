@@ -66,7 +66,10 @@ class Methods(SearchReplace):
         self.setCursor(QtCore.Qt.WaitCursor)
         for file_ in opens:
             if os.path.exists(file_):
-                self.open_file_from_path(filename=file_)
+                try:
+                    self.open_file_from_path(filename=file_)
+                except:
+                    pass
                 
         self.main.actionSwitch_ide.setChecked(file_.endswith(".gpde"))
         self.switch_ide_mode(file_.endswith(".gpde"))

@@ -31,8 +31,12 @@ class LibManager(QtGui.QMainWindow):
         
         self.user_libraries_dir = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries")        
         
-        if not os.path.isdir(os.path.dirname(self.user_libraries_dir)): os.mkdir(os.path.dirname(self.user_libraries_dir))
-        if not os.path.isdir(self.user_libraries_dir): os.mkdir(self.user_libraries_dir)
+        if not os.path.isdir(os.path.dirname(self.user_libraries_dir)):
+            os.mkdir(os.path.dirname(self.user_libraries_dir))
+            self.main.output_ide(QtGui.QApplication.translate("frame", "Created :")+os.path.dirname(self.user_libraries_dir))
+        if not os.path.isdir(self.user_libraries_dir):
+            os.mkdir(self.user_libraries_dir)
+            self.main.output_ide(QtGui.QApplication.translate("frame", "Created :")+self.user_libraries_dir)
         
         self.ConfigLibs = ConfigLibsGroup()
         
@@ -92,8 +96,10 @@ class LibManager(QtGui.QMainWindow):
     def post_install(self, lib_name):
         
         for dir_ in ["examples", "blocks"]:
-            path_user_examples_libraries = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, dir_)
-            if not os.path.exists(path_user_examples_libraries): os.mkdir(path_user_examples_libraries)
+            path_user_examples_libraries = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"))
+            if not os.path.exists(path_user_examples_libraries):
+                os.mkdir(path_user_examples_libraries)
+                self.main.output_ide(QtGui.QApplication.translate("frame", "Created :")+path_user_examples_libraries)
             
         lista = []
         
@@ -107,8 +113,13 @@ class LibManager(QtGui.QMainWindow):
         
         for src, dest in lista:
             if os.path.exists(src):
-                if os.path.exists(dest): shutil.rmtree(dest)
+                if os.path.exists(dest):
+                    shutil.rmtree(dest)
+                    self.main.output_ide(QtGui.QApplication.translate("frame", "Removed :")+dest)
                 shutil.copytree(src, dest)
+                self.main.output_ide(QtGui.QApplication.translate("frame", "Created :")+dest)
+                for x in os.listdir(dest):
+                    self.main.output_ide(QtGui.QApplication.translate("frame", "Copied :")+x)
             
         
     #----------------------------------------------------------------------
@@ -143,6 +154,7 @@ class LibManager(QtGui.QMainWindow):
             
             libZip = ZipFile(lib)
             os.mkdir(path_dirlib)
+            self.main.output_ide(QtGui.QApplication.translate("frame", "Created :")+path_dirlib)
             libZip.extractall(path_dirlib_source)
             
             try:
@@ -150,6 +162,7 @@ class LibManager(QtGui.QMainWindow):
             except OSError:
                 Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "This is not a Pinguino library or are not packaged correctly."))
                 shutil.rmtree(path_dirlib_source)
+                self.main.output_ide(QtGui.QApplication.translate("frame", "Removed :")+path_dirlib_source)
                 continue
             
             file_config = open(path_PINGUINO)
@@ -197,8 +210,11 @@ class LibManager(QtGui.QMainWindow):
         if not name: return
         
         temp_dir = os.path.join(self.user_libraries_dir, name)
-        if os.path.exists(temp_dir): shutil.rmtree(temp_dir)
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
+            self.main.output_ide(QtGui.QApplication.translate("frame", "Removed :")+temp_dir)
         os.mkdir(temp_dir)
+        self.main.output_ide(QtGui.QApplication.translate("frame", "Created :")+temp_dir)
         
         name_config = os.path.join(self.user_libraries_dir, name, "config") 
         new_lib = self.ConfigLibs.new(name_config)
@@ -388,11 +404,14 @@ class LibManager(QtGui.QMainWindow):
                                        "\n"+"\n".join(selected)):
             return
                 
-        selected = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", sel), selected)
+        selected_l = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", sel), selected)
+        selected_b = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks", sel), selected)
+        selected_e = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples", sel), selected)
         
-        for sel in selected:
+        for sel in selected_l + selected_b + selected_e:
             if os.path.exists(sel):
                 shutil.rmtree(sel)
+                self.main.output_ide(QtGui.QApplication.translate("frame", "Removed :")+sel)
                 
         self.update_sources_view()
         self.update_libraries_view()

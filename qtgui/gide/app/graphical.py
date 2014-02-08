@@ -404,7 +404,7 @@ class GraphicalIDE:
         
         for block in editor.graphical_area.get_project_blocks():
             if block.metadata.inside:
-                toFitInside.append([block, block.metadata.inside])        
+                toFitInside.append([block, block.metadata.inside[:]])
                 #self.force_inside(block, block.metadata.inside)
         
         all_dummies = []
@@ -449,6 +449,8 @@ class GraphicalIDE:
     def get_widget_from_id(self, id_):
         
         if type(id_) != type(""): return id_
+        if id_ is None: return id_
+        
         editor = self.main.tabWidget_graphical.currentWidget()
         blocks = editor.graphical_area.get_project_blocks()
         

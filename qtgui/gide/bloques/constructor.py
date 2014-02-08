@@ -454,11 +454,11 @@ class Constructor(object):
     #----------------------------------------------------------------------
     def addParent(self, widget, force=False, point=None):
         """"""
+        #FIXME: Blocks :(
         static, move = widget
         static_layout = static.metadata.object_.layout
         
         inside_pos, layout_pos = static.metadata.object_.getInsidePos()
-    
         
         if not force:
             for ins in inside_pos:
@@ -469,7 +469,19 @@ class Constructor(object):
             index = 0
             
         static_layout.itemAt(layout_pos[index]).widget().hide()
+        static_layout.itemAt(layout_pos[index]).widget().setEnabled(False)
         static_layout.insertWidget(layout_pos[index], move)
+        
+        #update parents
+        if static.metadata.parent == "None":
+            move.metadata.parent = static
+        else: move.metadata.parent = static.metadata.parent
+        
+        #updtate iside
+        static.metadata.inside.append(move)
+        
+        #update linecode
+        move.getLine = move.metadata.line_code
         
         #fit heigth
         move.setMinimumHeight(move.height())
@@ -481,6 +493,100 @@ class Constructor(object):
                        static,
                        move, 
                        )
+        
+        
+        ##pasado = WidgetStatic.metadata.object_.getWidgtes()[r]
+        #pasado = WidgetStatic.metadata.object_.getWidgtes()[r]
+
+        #pasado.hide()
+        #self.pasado = pasado
+        ##self.layoutPos = layoutPos[r]
+        ##WidgetStatic.metadata.inside[r] = widgetMove.ID
+        #self.w_parent = WidgetStatic
+        #self.w_move = widgetMove
+        #self.R = r
+        #self.updateSize()
+        ##self.w_parent.adjustSize()
+        
+        ##self.toAddPoint = WidgetStatic.metadata.object_.inLayouts_all.pop(r)
+        ##self.toAddPos = WidgetStatic.metadata.object_.layoutsPos.pop(r)
+        #self.toAddPoint = WidgetStatic.metadata.object_.inLayouts_all.pop(r)
+        #self.toAddPos = WidgetStatic.metadata.object_.layoutsPos.pop(r)
+                
+
+        
+        
+        
+        
+        ##self.primo = widget
+   #-        widgetMove = widget[1]
+   #-        self.widgetMove = widgetMove
+   #-        WidgetStatic = widget[0]
+   #-        
+   #-        r = 0
+   #-        #insidePos, layoutPos = WidgetStatic.metadata.object_.getInsidePos()
+   #-        insidePos, layoutPos = WidgetStatic.metadata.object_.getInsidePos()
+   #-        #print layoutPos
+   #-        for po in insidePos:
+   #-            
+   #-            if not force:
+   #-                a = widgetMove.pos()
+   #-                #b = po + WidgetStatic.DATA["pos"] + WidgetStatic.metadata.object_.getInsidePoint()
+   #-                b = po + WidgetStatic.metadata.pos_ + WidgetStatic.metadata.object_.getInsidePoint()
+   #-                poGlobal = po
+   #-                aGlobal = widgetMove.parent().mapToGlobal(a)
+   #-                c = poGlobal - aGlobal
+   #-            else:
+   #-                r = 0
+   #-                c = QtCore.QPoint()
+   #-            
+   #-            #print c.x()
+   #-            if -4 <= c.x() <= 4:
+   #-                
+   #-                
+   #-                if WidgetStatic.metadata.parent == "None":
+   #-                    widgetMove.metadata.parent = WidgetStatic
+   #-                else: widgetMove.metadata.parent = WidgetStatic.metadata.parent
+   #-                
+   #-                if layoutPos[r] == layoutPos[-1]:
+   #-                    WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r]+1, widgetMove)
+   #-                    
+   #-                else:
+   #-                    WidgetStatic.metadata.object_.layout.insertWidget(layoutPos[r], widgetMove)
+   #-                
+   #-                WidgetStatic.metadata.inside.append(widgetMove)
+   #-                
+   #-                    
+   #-
+   #-                #widgetMove.getLine = widgetMove.DATA["lineCode"]
+   #-                widgetMove.getLine = widgetMove.metadata.line_code
+   #-                
+   #-                
+   #-                widgetMove.setMinimumHeight(widgetMove.height())
+   #-                widgetMove.setMaximumHeight(widgetMove.height())
+   #-                
+   #-                #pasado = WidgetStatic.metadata.object_.getWidgtes()[r]
+   #-                pasado = WidgetStatic.metadata.object_.getWidgtes()[r]
+   #-
+   #-                pasado.hide()
+   #-                self.pasado = pasado
+   #-                #self.layoutPos = layoutPos[r]
+   #-                #WidgetStatic.metadata.inside[r] = widgetMove.ID
+   #-                self.w_parent = WidgetStatic
+   #-                self.w_move = widgetMove
+   #-                self.R = r
+   #-                self.updateSize()
+   #-                #self.w_parent.adjustSize()
+   #-                
+   #-                #self.toAddPoint = WidgetStatic.metadata.object_.inLayouts_all.pop(r)
+   #-                #self.toAddPos = WidgetStatic.metadata.object_.layoutsPos.pop(r)
+   #-                self.toAddPoint = WidgetStatic.metadata.object_.inLayouts_all.pop(r)
+   #-                self.toAddPos = WidgetStatic.metadata.object_.layoutsPos.pop(r)
+   #-                
+   #-                return
+   #-            
+   #-            r += 1        
+        
         
         
  
@@ -495,6 +601,7 @@ class Constructor(object):
         #static.metadata.object_.inLayouts_all.insert(self.R, self.toAddPoint)
         #static.metadata.object_.layoutsPos.insert(self.R, self.toAddPos) 
         hidden.show()
+        hidden.setEnabled(True)
         static.metadata.object_.layout.removeWidget(static)        
         
         
@@ -525,7 +632,7 @@ class Constructor(object):
         widgets = self.get_widgets_from_layout()
         layoutpos = []
         for index, wid in widgets:
-            if wid.objectName() == "BLOCK_SPACE" and wid.isVisible():
+            if wid.objectName() == "BLOCK_SPACE" and wid.isEnabled():
                 layoutpos.append(index)
         return layoutpos
     
@@ -545,7 +652,7 @@ class Constructor(object):
         widgets = self.get_widgets_from_layout()
         layoutpos = []
         for index, wid in widgets:
-            if wid.objectName() == "BLOCK_SPACE" and wid.isVisible():
+            if wid.objectName() == "BLOCK_SPACE" and wid.isEnabled():
                 layoutpos.append(wid)
         return layoutpos
         
