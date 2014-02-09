@@ -693,6 +693,11 @@ class EventMethods(Methods):
                 for error in errors_linking["linking"]:
                     self.output_ide(error)
                     
+                line_errors_l = errors_linking["line_numbers"]
+                for line_error in line_errors_l:
+                    self.highligh_line(line_error, "#ff7f7f")                    
+                    
+                    
             if errors_asm or errors_c:
                 if Dialogs.error_while_compiling(self):
                     self.__show_stdout__()
@@ -1020,7 +1025,7 @@ class EventMethods(Methods):
         menu.addAction(self.main.actionClose_all)
         menu.addAction(self.main.actionClose_others)
         menu.exec_(event.globalPos())
-        
+    
         
     #----------------------------------------------------------------------
     def file_edit_context_menu(self, event):
@@ -1031,8 +1036,7 @@ class EventMethods(Methods):
         filename = getattr(editor, "path", False)
         if filename and (filename.startswith(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "examples")) or filename.startswith(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "graphical_examples"))):
             menu.addAction(QtGui.QApplication.translate("Frame", "Restore example"), self.restore_example)
-            menu.addSeparator()        
-        
+            menu.addSeparator()
         
         menu.addAction(self.main.actionUndo)
         menu.addAction(self.main.actionRedo)

@@ -134,6 +134,7 @@ class Methods(SearchReplace):
         
         if line:
             content = editor.text_edit.toPlainText()
+            line_content = content.split("\n")[line-1]
             content = content.split("\n")[:line]
             position = len("\n".join(content))
             text_cur = editor.text_edit.textCursor()
@@ -151,7 +152,8 @@ class Methods(SearchReplace):
         selection.format.setBackground(QtGui.QColor(color))
         selection.format.setProperty(QtGui.QTextFormat.FullWidthSelection, True)
         selection.cursor = editor.text_edit.textCursor()
-        editor.text_edit.setExtraSelections([selection])
+        editor.text_edit.setExtraSelections(editor.text_edit.extraSelections()+[selection])
+        
         selection.cursor.clearSelection()
         
         if text_cursor: editor.text_edit.setTextCursor(text_cursor)
@@ -159,8 +161,8 @@ class Methods(SearchReplace):
         
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    def clear_highlighs(self):
-        editor = self.main.tabWidget_files.currentWidget()
+    def update_highlighs(self):
+        editor = self.main.tabWidget_files.currentWidget()        
         editor.text_edit.setExtraSelections([])
     
     
@@ -228,7 +230,7 @@ class Methods(SearchReplace):
         if not filename.endswith("*"):
             self.main.tabWidget_files.setTabText(index, filename+"*")
             self.main.actionSave_file.setEnabled(True)
-        self.clear_highlighs()
+        self.update_highlighs()
             
     
     #----------------------------------------------------------------------

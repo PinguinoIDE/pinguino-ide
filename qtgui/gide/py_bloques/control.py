@@ -67,7 +67,7 @@ class Control(object):
         pm.addLabel("case")
         pm.addSyntax("(")
         pm.addSpace()
-        pm.addSyntax(")")
+        pm.addSyntax("):")
         pm.fillWith(["spin-int"])
         return pm.getBlock()
 

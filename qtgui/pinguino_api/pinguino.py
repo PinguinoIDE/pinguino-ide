@@ -4,6 +4,7 @@
 import os
 import sys
 import argparse
+import re
 
 from .pinguino_tools import PinguinoTools
 from .boards import boardlist as AllBoards
@@ -80,6 +81,10 @@ class Pinguino(PinguinoTools):
 
         report = {}
         report["linking"] = errors
+        report["line_numbers"] = []
+        for error in errors:
+            match = re.match(".*:([\d]+):[\d]+: error.*", error)
+            if not match is None: report["line_numbers"] += [int(match.groups()[0])]
         return report        
         
         

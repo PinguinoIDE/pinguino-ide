@@ -1,2 +1,4 @@
 *.pyc
+*~
+*.hex
 __pycache__/

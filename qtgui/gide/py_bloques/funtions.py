@@ -12,9 +12,9 @@ class Functions(object):
         pm.addSyntax("//")
         pm.addLabel("Repeat")
         pm.addSyntax("\n")
-        pm.addSyntax("for(__i__=0;__i__<")
+        pm.addSyntax("for(__i__ = 0; __i__ < ")
         pm.addSpace()
-        pm.addSyntax(";__i__=__i__+1)")
+        pm.addSyntax("; __i__++)")
         pm.fillWith(["spin-int"])
         return pm.getBlock()
     

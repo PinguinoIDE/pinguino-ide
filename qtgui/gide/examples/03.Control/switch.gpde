@@ -1,0 +1,352 @@
+[Block-1]
+self_id = 0x3cc95a8
+from = []
+name = function
+constructor = [['label', 'loop'], ['syntax', '()']]
+position = (512, 39)
+basename = loop
+inside = []
+to = []
+nested = ['0x3cca1b8']
+
+[Block-2]
+self_id = 0x3cca1b8
+from = ['0x3cc95a8']
+name = nested
+constructor = [['label', 'switch'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (524, 78)
+basename = switch
+inside = ['0x3ccaf38']
+to = []
+nested = ['0x3cc6050']
+
+[Block-3]
+self_id = 0x3ccaf38
+from = ['0x3cca1b8']
+name = output
+constructor = [['label', 'digitalRead'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (467, 193)
+basename = digitalRead_o
+inside = ['0x3ccb7a0']
+to = []
+nested = []
+
+[Block-4]
+self_id = 0x3ccb7a0
+from = ['0x3ccaf38']
+name = output
+constructor = [['spin_choice', 'USERBUTTON', ['GREENLED', 'YELLOWLED', 'USERBUTTON', 'RUNLED']]]
+position = (573, 100)
+basename = choice_user
+inside = []
+to = []
+nested = []
+
+[Block-5]
+self_id = 0x3cc6050
+from = ['0x3cca1b8']
+name = nested-second
+constructor = [['label', 'case'], ['syntax', '('], ['space'], ['syntax', '):']]
+position = (536, 117)
+basename = case
+inside = ['0x3bdac68']
+to = ['0x3cc8098']
+nested = ['0x3cd5a28']
+
+[Block-6]
+self_id = 0x3bdac68
+from = ['0x3cc6050']
+name = output
+constructor = [['spin_choice', 'HIGH', ['HIGH', 'LOW']]]
+position = (712, 139)
+basename = choice_hl
+inside = []
+to = []
+nested = []
+
+[Block-7]
+self_id = 0x3cc8098
+from = ['0x3cc6050']
+name = nested-second
+constructor = [['label', 'case'], ['syntax', '('], ['space'], ['syntax', '):']]
+position = (536, 303)
+basename = case
+inside = ['0x3cc6b48']
+to = []
+nested = ['0x3bd0098']
+
+[Block-8]
+self_id = 0x3cc6b48
+from = ['0x3cc8098']
+name = output
+constructor = [['spin_choice', 'LOW', ['HIGH', 'LOW']]]
+position = (0, 0)
+basename = choice_hl
+inside = []
+to = []
+nested = []
+
+[Block-9]
+self_id = 0x3cc9200
+from = []
+name = function
+constructor = [['label', 'setup'], ['syntax', '()']]
+position = (47, 30)
+basename = setup
+inside = []
+to = []
+nested = ['0x3cdcea8']
+
+[Block-10]
+self_id = 0x3bd0098
+from = ['0x3cc8098']
+name = linear
+constructor = [['label', 'digitalWrite'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (548, 342)
+basename = digitalWrite
+inside = ['0x3bd3b00', '0x3bd4248']
+to = ['0x3cd9488']
+nested = []
+
+[Block-11]
+self_id = 0x3bd3b00
+from = ['0x3bd0098']
+name = output
+constructor = [['spin_choice', 'YELLOWLED', ['GREENLED', 'YELLOWLED', 'USERBUTTON', 'RUNLED']]]
+position = (397, 490)
+basename = choice_user
+inside = []
+to = []
+nested = []
+
+[Block-12]
+self_id = 0x3bd4248
+from = ['0x3bd0098']
+name = output
+constructor = [['spin_choice', 'LOW', ['HIGH', 'LOW']]]
+position = (554, 490)
+basename = choice-hl
+inside = []
+to = []
+nested = []
+
+[Block-13]
+self_id = 0x3bd7248
+from = ['0x3ccbfc8']
+name = linear
+constructor = [['label', 'pinMode'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (59, 147)
+basename = pinMode
+inside = ['0x3bcccf8', '0x3bd8950']
+to = []
+nested = []
+
+[Block-14]
+self_id = 0x3bcccf8
+from = ['0x3bd7248']
+name = output
+constructor = [['spin_choice', 'YELLOWLED', ['GREENLED', 'YELLOWLED', 'USERBUTTON', 'RUNLED']]]
+position = (194, 295)
+basename = choice_user
+inside = []
+to = []
+nested = []
+
+[Block-15]
+self_id = 0x3bd8950
+from = ['0x3bd7248']
+name = output
+constructor = [['spin_choice', 'OUTPUT', ['INPUT', 'OUTPUT']]]
+position = (0, 0)
+basename = choice-io
+inside = []
+to = []
+nested = []
+
+[Block-16]
+self_id = 0x3ccbfc8
+from = ['0x3cdcea8']
+name = linear
+constructor = [['label', 'pinMode'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (59, 108)
+basename = pinMode
+inside = ['0x3cd49e0', '0x3cd5248']
+to = ['0x3bd7248']
+nested = []
+
+[Block-17]
+self_id = 0x3cd49e0
+from = ['0x3ccbfc8']
+name = output
+constructor = [['spin_choice', 'GREENLED', ['GREENLED', 'YELLOWLED', 'USERBUTTON', 'RUNLED']]]
+position = (194, 256)
+basename = choice_user
+inside = []
+to = []
+nested = []
+
+[Block-18]
+self_id = 0x3cd5248
+from = ['0x3ccbfc8']
+name = output
+constructor = [['spin_choice', 'OUTPUT', ['INPUT', 'OUTPUT']]]
+position = (0, 0)
+basename = choice-io
+inside = []
+to = []
+nested = []
+
+[Block-19]
+self_id = 0x3cd5a28
+from = ['0x3cc6050']
+name = linear
+constructor = [['label', 'digitalWrite'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (548, 156)
+basename = digitalWrite
+inside = ['0x3cd7440', '0x3cd7c68']
+to = ['0x3ce1908']
+nested = []
+
+[Block-20]
+self_id = 0x3cd7440
+from = ['0x3cd5a28']
+name = output
+constructor = [['spin_choice', 'YELLOWLED', ['GREENLED', 'YELLOWLED', 'USERBUTTON', 'RUNLED']]]
+position = (628, 383)
+basename = choice_user
+inside = []
+to = []
+nested = []
+
+[Block-21]
+self_id = 0x3cd7c68
+from = ['0x3cd5a28']
+name = output
+constructor = [['spin_choice', 'HIGH', ['HIGH', 'LOW']]]
+position = (785, 383)
+basename = choice_hl
+inside = []
+to = []
+nested = []
+
+[Block-22]
+self_id = 0x3cd9488
+from = ['0x3bd0098']
+name = linear
+constructor = [['label', 'digitalWrite'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (548, 381)
+basename = digitalWrite
+inside = ['0x3cd9e60', '0x3cdc6c8']
+to = ['0x2995128']
+nested = []
+
+[Block-23]
+self_id = 0x3cd9e60
+from = ['0x3cd9488']
+name = output
+constructor = [['spin_choice', 'GREENLED', ['GREENLED', 'YELLOWLED', 'USERBUTTON', 'RUNLED']]]
+position = (628, 456)
+basename = choice_user
+inside = []
+to = []
+nested = []
+
+[Block-24]
+self_id = 0x3cdc6c8
+from = ['0x3cd9488']
+name = output
+constructor = [['spin_choice', 'HIGH', ['HIGH', 'LOW']]]
+position = (785, 456)
+basename = choice_hl
+inside = []
+to = []
+nested = []
+
+[Block-25]
+self_id = 0x3cdcea8
+from = ['0x3cc9200']
+name = linear
+constructor = [['label', 'pinMode'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (59, 69)
+basename = pinMode
+inside = ['0x3cdf8c0', '0x3ce1128']
+to = ['0x3ccbfc8']
+nested = []
+
+[Block-26]
+self_id = 0x3cdf8c0
+from = ['0x3cdcea8']
+name = output
+constructor = [['spin_choice', 'USERBUTTON', ['GREENLED', 'YELLOWLED', 'USERBUTTON', 'RUNLED']]]
+position = (190, 90)
+basename = choice_user
+inside = []
+to = []
+nested = []
+
+[Block-27]
+self_id = 0x3ce1128
+from = ['0x3cdcea8']
+name = output
+constructor = [['spin_choice', 'INPUT', ['INPUT', 'OUTPUT']]]
+position = (0, 0)
+basename = choice-io
+inside = []
+to = []
+nested = []
+
+[Block-28]
+self_id = 0x3ce1908
+from = ['0x3cd5a28']
+name = linear
+constructor = [['label', 'digitalWrite'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (548, 195)
+basename = digitalWrite
+inside = ['0x3ce3320', '0x3ce3b48']
+to = ['0x3bcc680']
+nested = []
+
+[Block-29]
+self_id = 0x3ce3320
+from = ['0x3ce1908']
+name = output
+constructor = [['spin_choice', 'GREENLED', ['GREENLED', 'YELLOWLED', 'USERBUTTON', 'RUNLED']]]
+position = (400, 426)
+basename = choice_user
+inside = []
+to = []
+nested = []
+
+[Block-30]
+self_id = 0x3ce3b48
+from = ['0x3ce1908']
+name = output
+constructor = [['spin_choice', 'LOW', ['HIGH', 'LOW']]]
+position = (0, 0)
+basename = choice-hl
+inside = []
+to = []
+nested = []
+
+[Block-31]
+self_id = 0x3bcc680
+from = ['0x3ce1908']
+name = linear
+constructor = [['label', 'break']]
+position = (548, 234)
+basename = break
+inside = []
+to = []
+nested = []
+
+[Block-32]
+self_id = 0x2995128
+from = ['0x3cd9488']
+name = linear
+constructor = [['label', 'break']]
+position = (548, 420)
+basename = break_
+inside = []
+to = []
+nested = []
+

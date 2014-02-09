@@ -27,7 +27,7 @@ class SearchReplace(object):
         empty = not text_to_search == QtGui.QApplication.translate("Frame", "Search...")
         self.main.pushButton_search_previous.setEnabled(empty)
         self.main.pushButton_search_next.setEnabled(empty)
-        if empty: return
+        if not empty: return
         
         editor = self.main.tabWidget_files.currentWidget()
         text_cur = editor.text_edit.textCursor()
@@ -37,12 +37,12 @@ class SearchReplace(object):
         if self.main.checkBox_case_sensitive.isChecked():
             content = editor.text_edit.toPlainText()
             count = content.count(text_to_search)
-            self.main.label_replace_info.setText("%d words were found."%count)
+            self.main.label_replace_info.setText(QtGui.QApplication.translate("Frame", "%d words were found.")%count)
             
         else:
             content = editor.text_edit.toPlainText().lower()
             count = content.count(text_to_search.lower())
-            self.main.label_replace_info.setText("%d words were found."%count)
+            self.main.label_replace_info.setText(QtGui.QApplication.translate("Frame", "%d words were found.")%count)
         
     
     #----------------------------------------------------------------------

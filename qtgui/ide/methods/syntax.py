@@ -31,7 +31,7 @@ Snippet["switch( ) {snippet}"] = "switch ([!]){\n\tcase:\n\n\t\tbreak;\n\tdefaul
 
 Snippet["struct {snippet}"] = "struct {\n\t[!]\n};"
 Snippet["typedef ... struct {snippet}"] = "typedef struct {\n\t[!]\n}TYPE;"
-Snippet["union {snippet}"] = "union {\n\t\n};"
+Snippet["union {snippet}"] = "union [!]{\n\t\n};"
 Snippet["typedef ... union {snippet}"] = "typedef union {\n\t[!]\n}TYPE;"
 
 Snippet["Bare minimum {snippet}"] = "void setup() {\n\t// put your setup code here, to run once:\n\n\t[!]\n}\n\nvoid loop() {\n\t// put your main code here, to run repeatedly:\n\n}\n"

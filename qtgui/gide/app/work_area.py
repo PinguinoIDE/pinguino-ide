@@ -105,6 +105,7 @@ class WorkArea(QtGui.QWidget):
             #menu.addAction(QtGui.QApplication.translate("Graphical", "Export code to pinguino editor"), self.export_code_to_pinguino_editor)
             menu.addAction(self.main.actionExport_code_to_editor)
             menu.addAction(self.main.actionInsert_Block)
+            menu.addAction(self.main.actionView_Pinguino_code)
             
         menu.exec_(event.globalPos())
         
@@ -416,7 +417,8 @@ class WorkArea(QtGui.QWidget):
         for block in self.get_project_blocks():
             if block.metadata.expandible:
                 size1 = block.metadata.widget.size().height()
-                size = self.get_height(block, self.get_metadata_nested, self.get_metadata_to)
+                try: size = self.get_height(block, self.get_metadata_nested, self.get_metadata_to)
+                except RuntimeError: continue
                 block.metadata.expand(size)
                 size2 = block.metadata.widget.size().height()
                 s = size2 - size1 
@@ -573,7 +575,7 @@ class WorkArea(QtGui.QWidget):
         self.expand_all(release=True)
         self.update_user()
         
-        self.paintEvent()
+        #self.paintEvent()
         
             
     #----------------------------------------------------------------------
@@ -613,7 +615,6 @@ class WorkArea(QtGui.QWidget):
         
     #----------------------------------------------------------------------
     def paintEvent(self, event=None):
-        
         painter = QtGui.QPainter()
         painter.begin(self)
         painter.fillRect(self.rect(), QtCore.Qt.white)
@@ -621,12 +622,11 @@ class WorkArea(QtGui.QWidget):
         self.draw_grid(QtGui.QColor("#e6eef4"), painter, 15)
 
         painter.end()
-        self.painter = painter
         
     #----------------------------------------------------------------------
     def draw_grid(self, color, painter, space):
         
-        painter.setPen(QtGui.QPen(QtGui.QBrush(QtGui.QColor(color)), 1, QtCore.Qt.DashLine))        
+        painter.setPen(QtGui.QPen(QtGui.QBrush(QtGui.QColor(color)), 1, QtCore.Qt.DashLine))
         
         j = 0
         for i in range(0, self.size().height(), space):
