@@ -262,6 +262,7 @@ class PinguinoTools(object):
                 instruction, cnvinstruction, include, define = reg.groups()
                 include = "" if include is None else include
                 define = "" if define is None else define
+                cnvinstruction = instruction if cnvinstruction is "" else cnvinstruction
                 libinstructions.append([instruction, cnvinstruction, include, define])
                 
                 if not instruction: continue
