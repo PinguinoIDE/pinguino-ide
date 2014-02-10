@@ -80,10 +80,9 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def open_tab_doc(self, url):
-        
         url = url.toString()
         if url == "__update__":
-            reply = Dialogs.confirm_message(self, "This will take a long time.")
+            reply = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "This will take a long time."))
             if reply:
                 libs = self.update_from_wiki()
                 if libs:
@@ -97,13 +96,8 @@ class WikiDock(QtGui.QMainWindow):
                 self.set_home()
                 return
         
-        if not "http" in url: return
-        
-        #self.main.set_url_wiki_docs(url[1:])
-        
-        #QtGui.q
-        
-        #self.main_widget.tabWidget.addTab()
+        if not "http" in url:
+            return
         
         self.add_tab()
         self.replace_with_url(url[1:])
@@ -138,7 +132,6 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def replace_with_url(self, url):
-        
         index = self.main_widget.tabWidget.currentIndex()
         tab = self.main_widget.tabWidget.currentWidget()
         
@@ -156,8 +149,6 @@ class WikiDock(QtGui.QMainWindow):
         
         content = soup.find_all("div", attrs={"id": "content"})[0]
         tab.textBrowser.clear()
-        
-        
         
         delete = []
         delete.append(content.find("h3",attrs={"id":"siteSub"}).extract())

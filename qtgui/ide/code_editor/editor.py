@@ -246,8 +246,8 @@ class CustomTextEdit(QtGui.QTextEdit):
                 len_s = len(line)
             else:
                 normal = line.replace(" ", "")
-                if normal.startswith("//"):
-                    comment = "//"
+                #if normal.startswith("//"):
+                    #comment = "//"
                 len_s = line.find(normal[0])
                 
             tc.setPosition(pos)
