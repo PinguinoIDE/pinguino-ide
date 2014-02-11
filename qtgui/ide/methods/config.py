@@ -40,7 +40,6 @@ class Config(RawConfigParser, object):
             
     #---------------------------------------------------------------------- 
     def config(self, section, option, default):
-        
         if self.has_section(section) and self.has_option(section, option):
             return self.get_format_config(section, option)
         else:
@@ -49,24 +48,20 @@ class Config(RawConfigParser, object):
         
     #----------------------------------------------------------------------
     def set(self, section, option, value):
-        
         if not self.has_section(section): self.add_section(section)
         super(Config, self).set(section, option, value)
     
     #----------------------------------------------------------------------
     def verify_config_file(self):
-        
         if not os.path.isfile(self.ide_config_file):
             open(self.ide_config_file, "w").close()
         
     #----------------------------------------------------------------------
     def save_config(self):
-        
         self.write(open(self.ide_config_file, "w"))
         
     #----------------------------------------------------------------------
     def load_config(self):
-        
         self.readfp(open(self.ide_config_file, "r")) 
         
     

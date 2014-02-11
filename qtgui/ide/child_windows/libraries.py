@@ -3,7 +3,7 @@
 
 import os
 import shutil
-import re
+#import re
 from zipfile import ZipFile
 from ConfigParser import RawConfigParser
 import webbrowser
@@ -63,7 +63,7 @@ class LibManager(QtGui.QMainWindow):
         
             
         self.default_line_edit_source = "e.g. git@github.com:repo/pinguinolib-library.git"
-        PrettyFeatures.LineEdit_default_text(self.libframe, self.libframe.lineEdit_source, self.default_line_edit_source)
+        PrettyFeatures.LineEdit_default_text(self.libframe.lineEdit_source, self.default_line_edit_source)
         
         bg_color = IDE.configIDE.config("Styles", "background_color", "#FFFFFF")
         alternate_bg_color = IDE.configIDE.config("Styles", "alternate_background_color", "#DDE8FF")        
@@ -83,12 +83,12 @@ class LibManager(QtGui.QMainWindow):
     
     #----------------------------------------------------------------------
     def open_link(self, model_index):
-        column = model_index.column()
+        #column = model_index.column()
         item = self.libframe.tableWidget_sources.itemFromIndex(model_index)
         url = getattr(item, "url", None)
         if not url: return
         
-        reply = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs",  "Do you want open this URL in a new tab?")+"\n"+url)
+        reply = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "Do you want open this URL in a new tab?")+"\n"+url)
         if reply: webbrowser.open_new_tab(url)
         
         
@@ -96,7 +96,7 @@ class LibManager(QtGui.QMainWindow):
     def post_install(self, lib_name):
         
         for dir_ in ["examples", "blocks"]:
-            path_user_examples_libraries = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"))
+            path_user_examples_libraries = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), dir_)
             if not os.path.exists(path_user_examples_libraries):
                 os.mkdir(path_user_examples_libraries)
                 self.main.output_ide(QtGui.QApplication.translate("frame", "Created :")+path_user_examples_libraries)
@@ -139,8 +139,10 @@ class LibManager(QtGui.QMainWindow):
         libraries = open_files[0]
         
         for lib in libraries:
-            dir_, name = os.path.split(lib)
-            name, ext = os.path.splitext(name)
+            #dir_, name = os.path.split(lib)
+            #name, ext = os.path.splitext(name)
+            name = os.path.split(lib)[1]
+            name = os.path.splitext(name)[0]
             
             path_dirlib = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name)
             #path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name, "lib")
@@ -184,7 +186,7 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def centrar(self):
         screen = QtGui.QDesktopWidget().screenGeometry()
-        size =  self.geometry()
+        size = self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
         
 
@@ -326,7 +328,7 @@ class LibManager(QtGui.QMainWindow):
         for key in sources.keys():
             
             name = key
-            repo = sources[key]["repository"]
+            #repo = sources[key]["repository"]
             #installed = sources[key]["installed"]
             arch = sources[key]["arch"]
             author = sources[key]["author"]
@@ -393,7 +395,7 @@ class LibManager(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def remove_instaled_libraries(self):
-        sources = self.ConfigLibs.get_all_sources()
+        #sources = self.ConfigLibs.get_all_sources()
         selected = []        
         
         for index in range(self.libframe.tableWidget_sources.rowCount()):
@@ -429,7 +431,7 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def update_libraries(self):
         self.setCursor(QtCore.Qt.WaitCursor)
-        sources = self.ConfigLibs.get_all_sources()
+        #sources = self.ConfigLibs.get_all_sources()
         selected = []
         
         for index in range(self.libframe.tableWidget_sources.rowCount()):
@@ -438,7 +440,7 @@ class LibManager(QtGui.QMainWindow):
                 
         work = []
         for sel in selected:
-            Repository = PinguinoLibrary(sel, sources)
+            Repository = PinguinoLibrary(sel)
             if Repository is None:
                 work.append(sel + ": Nothing to do")
                 continue
@@ -459,8 +461,8 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def install_library(self, sel):
         self.setCursor(QtCore.Qt.WaitCursor)
-        sources = self.ConfigLibs.get_all_sources()
-        Repository = PinguinoLibrary(sel, sources)
+        #sources = self.ConfigLibs.get_all_sources()
+        Repository = PinguinoLibrary(sel)
         reply = Repository.install_library(self.get_repository_for_install())
         
         if reply:
@@ -539,4 +541,5 @@ class LibManager(QtGui.QMainWindow):
                 self.libframe.tableWidget_libs.item(index, 0).setCheckState(QtCore.Qt.Checked)
             else:
                 self.libframe.tableWidget_libs.item(index, 0).setCheckState(QtCore.Qt.Unchecked)
-        #self.libframe.pushButton_apply.setEnabled(check)          
+        #self.libframe.pushButton_apply.setEnabled(check)
+        

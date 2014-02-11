@@ -5,13 +5,26 @@ import sys
 
 from PySide import QtCore, QtGui
 
-from .linear import Linear
-from .nested import Nested
-from .nested_in_code import NestedLinear
-from .nested_in_code_next import NestedSecond
-from .inside import Floatable, FloatableBool
-from .frame_edit import FrameEdit
-from .constructor import Constructor, FONT_SIZE, changeFontSize
+#from .linear import Linear
+from .linear.linear import Ui_Form as Linear
+
+#from .nested import Nested
+from .nested.nested import Ui_Form as Nested
+
+#from .nested_in_code import NestedLinear
+from .nested_in_code.nested_line import Ui_Form as NestedLinear
+
+#from .nested_in_code_next import NestedSecond
+from .nested_in_code_next.nested_second import Ui_Form as NestedSecond
+
+#from .inside import Floatable, FloatableBool
+from .inside.part import Ui_Form as Floatable
+from .inside.part_bool import Ui_Form as FloatableBool
+
+#from .frame_edit import FrameEdit
+from .frame_edit.frame_edit import Ui_Form as FrameEdit
+
+from .constructor import Constructor, changeFontSize
 
 #----------------------------------------------------------------------
 def setPartOfBlock(blocks):
@@ -86,7 +99,7 @@ class Properties(object):
     
     #----------------------------------------------------------------------
     def destroy_this(self):
-        base = self.widget.BASENAME
+        #base = self.widget.BASENAME
         #c = self.widget.parent()
         #while c.objectName() != "": c = c.parent()
         #c.addBlock(base, True)
@@ -134,13 +147,13 @@ class BlockLinear(Constructor, Properties):
         return "BlockLinear"
 
     #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE=None):
+    def __init__(self, widget, bloque):
         
         delay = Linear()
         delay.setupUi(widget)
         widget.setObjectName("Bloq!")
         self.f_expand = lambda :None
-        self.IDE = IDE
+        #self.IDE = IDE
         self.delay = delay
         
         #self.principalColor = 
@@ -214,7 +227,7 @@ class BlockFunction(Constructor, Properties):
     #toChild = 0
     
     #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE):
+    def __init__(self, widget, bloque):
         
         #setColor(color, "nested")
         
@@ -222,7 +235,7 @@ class BlockFunction(Constructor, Properties):
         Nest = Nested()
         Nest.setupUi(widget)
         widget.setObjectName("Bloq!")
-        self.IDE = IDE
+        #self.IDE = IDE
         
         
         #self.child = self.CHILD
@@ -389,7 +402,7 @@ class BlockNested(Constructor, Properties):
     #color_ = "nested"
     
     #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE=None):
+    def __init__(self, widget, bloque):
         NestLin = NestedLinear()
         NestLin.setupUi(widget)
         widget.setObjectName("Bloq!")
@@ -450,7 +463,7 @@ class BlockNested(Constructor, Properties):
         a = widgetMove.pos() - WidgetStatic.pos()
 
         c = b - a
-        #print "XXXXXXXXXX", c, a
+        #print c, a
         #print widgetMove.DATA["pos"], WidgetStatic.DATA["pos"]
         if abs(c.y()) < 2:
             #print "Funciona"
@@ -517,7 +530,7 @@ class BlockSpace(Constructor, Properties):
     #color_ = "inside"
 
     #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE=None):
+    def __init__(self, widget, bloque):
         self.Inside = Floatable()
         self.Inside.setupUi(widget)
         widget.setObjectName("Bloq!")
@@ -584,7 +597,7 @@ class BlockSpaceBool(Constructor, Properties):
     #color_ = "inside"
 
     #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE=None):
+    def __init__(self, widget, bloque):
         self.Inside = FloatableBool()
         self.Inside.setupUi(widget)
         widget.setObjectName("Bloq!")
@@ -615,7 +628,7 @@ class BlockSpaceBool(Constructor, Properties):
         self.layout_adds = []
         self.layout_pos = []
 
-        self.buildBlock(widget, bloque, (13, 0), inside=True, bool=True)
+        self.buildBlock(widget, bloque, (13, 0), inside=True)
         
         
         self.w_parent = None
@@ -654,7 +667,7 @@ class BlockNestedSecond(Constructor, Properties):
     #color_ = "nested"
     
     #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE=None):
+    def __init__(self, widget, bloque):
         NestSec = NestedSecond()
         NestSec.setupUi(widget)
         widget.setObjectName("Bloq!")
@@ -715,7 +728,7 @@ class BlockNestedSecond(Constructor, Properties):
         a = widgetMove.metadata.pos_ - WidgetStatic.metadata.pos_
 
         c = b - a
-        #print "XXXXXXXXXX", c, a
+        #print c, a
         #print widgetMove.DATA["pos"], WidgetStatic.DATA["pos"]
         if abs(c.y()) < 2:
             #print "Funciona"
@@ -751,10 +764,10 @@ class BlockNestedSecond(Constructor, Properties):
     #----------------------------------------------------------------------
     def updatePoints(self):
         
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
+        poits = map(lambda x:self.widget.mapToGlobal(x.pos() + self.insidePos), self.inLayouts)
         self.toType["tipo5"] = poits
         
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts_b)
+        poits = map(lambda x:self.widget.mapToGlobal(x.pos() + self.insidePos), self.inLayouts_b)
         self.toType["tipo2"] = poits
         
         
@@ -780,7 +793,7 @@ class BlockFrameEdit(Constructor, Properties):
     #color_ = "nested"
     
     #----------------------------------------------------------------------
-    def __init__(self, widget, bloque, IDE=None):
+    def __init__(self, widget, bloque):
         NestSec = FrameEdit()
         NestSec.setupUi(widget)
         widget.setObjectName("Bloq!")

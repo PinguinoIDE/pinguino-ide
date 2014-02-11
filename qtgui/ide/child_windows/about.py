@@ -9,7 +9,7 @@ from ...frames.about import Ui_About
 ########################################################################
 class About(QtGui.QDialog):
     
-    def __init__(self, IDE):
+    def __init__(self):
         super(About, self).__init__()     
     
         self.about = Ui_About()

@@ -30,7 +30,6 @@ class ConfigLibsGroup(object):
             
     #----------------------------------------------------------------------
     def new(self, name):
-        
         return ConfigLibs(name)
             
     #----------------------------------------------------------------------
@@ -126,7 +125,6 @@ class ConfigLibs(RawConfigParser, object):
         
     #----------------------------------------------------------------------
     def set(self, section, option, value):
-        
         if not self.has_section(section): self.add_section(section)
         super(ConfigLibs, self).set(section, option, value)
     

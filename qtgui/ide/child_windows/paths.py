@@ -5,7 +5,7 @@ import os
 
 from PySide import QtGui, QtCore
 
-from ..methods.widgets_features import PrettyFeatures
+#from ..methods.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
 from ..methods.constants import TAB_NAME
 from ...frames.paths import Ui_Paths
@@ -41,10 +41,10 @@ class Paths(QtGui.QDialog):
                          }
         
         for lineEdit, pushButton, keyWord in self.dialog_file:
-            self.connect(pushButton, QtCore.SIGNAL("clicked()"), self.set_file_dialog(lineEdit, keyWord))
+            self.connect(pushButton, QtCore.SIGNAL("clicked()"), self.set_file_dialog(lineEdit))
             
         for lineEdit, pushButton, keyWord in self.dialog_dirs:
-            self.connect(pushButton, QtCore.SIGNAL("clicked()"), self.set_dir_dialog(lineEdit, keyWord))         
+            self.connect(pushButton, QtCore.SIGNAL("clicked()"), self.set_dir_dialog(lineEdit))         
         
         for lineEdit, pushButton, keyWord in self.dialog_file + self.dialog_dirs:
             lineEdit.setText(self.main.configIDE.config("Paths", keyWord, default_paths[keyWord]))
@@ -75,7 +75,7 @@ class Paths(QtGui.QDialog):
         super(Paths, self).close()
 
     #----------------------------------------------------------------------
-    def set_file_dialog(self, lineEdit, KeyWord):
+    def set_file_dialog(self, lineEdit):
         
         def dummy_func():
             path = lineEdit.text()
@@ -96,7 +96,7 @@ class Paths(QtGui.QDialog):
         return dummy_func
                 
     #----------------------------------------------------------------------
-    def set_dir_dialog(self, lineEdit, KeyWord):
+    def set_dir_dialog(self, lineEdit):
         
         def dummy_func():
             path = lineEdit.text()
@@ -139,3 +139,4 @@ class Paths(QtGui.QDialog):
         
         #if current_theme in self.all_themes.keys():
             #self.set_paths.comboBox.setCurrentIndex(items.index(current_theme))
+            

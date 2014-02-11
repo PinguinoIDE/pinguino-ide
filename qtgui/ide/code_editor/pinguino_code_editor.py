@@ -58,13 +58,12 @@ class PinguinoCodeEditor(QWidget):
         
     #----------------------------------------------------------------------
     def initialize(self):
-        
         self.set_font_size(12)
         self.set_font_family("Ubuntu Mono")
         
         
     #----------------------------------------------------------------------
-    def eventFilter(self, object, event):
+    def eventFilter(self, object_, event):
         self.line_number.update()
         return False
     

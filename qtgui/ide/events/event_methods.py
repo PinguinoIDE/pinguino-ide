@@ -9,7 +9,7 @@ import shutil
 from PySide import QtCore, QtGui
 
 from ..code_editor.pinguino_code_editor import PinguinoCodeEditor
-from ..methods.syntax import Snippet
+#from ..methods.syntax import Snippet
 from ..methods.dialogs import Dialogs
 from ..methods.decorators import Decorator
 from ..methods import constants as Constants
@@ -181,7 +181,7 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     def close_all(self):
         tab = self.get_tab()
-        widgets = map(lambda index:tab.widget(index), range(tab.count()))
+        widgets = map(tab.widget, range(tab.count()))
         for widget in widgets:
             self.close_file(editor=widget)
             
@@ -190,7 +190,7 @@ class EventMethods(Methods):
     def close_others(self):
         tab = self.get_tab()
         current = tab.currentWidget()
-        widgets = map(lambda index:tab.widget(index), range(tab.count()))
+        widgets = map(tab.widget, range(tab.count()))
         for widget in widgets:
             if widget == current: continue
             self.close_file(editor=widget)
@@ -248,14 +248,14 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     def undo(self):
         editor = self.main.tabWidget_files.currentWidget()
-        index = self.main.tabWidget_files.currentIndex()
+        #index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.undo()
         
         
     #----------------------------------------------------------------------
     def redo(self):
         editor = self.main.tabWidget_files.currentWidget()
-        index = self.main.tabWidget_files.currentIndex()
+        #index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.redo()
         
         
@@ -264,7 +264,7 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     def cut(self):
         editor = self.main.tabWidget_files.currentWidget()
-        index = self.main.tabWidget_files.currentIndex()
+        #index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.cut()
         
         
@@ -273,7 +273,7 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     def copy(self):
         editor = self.main.tabWidget_files.currentWidget()
-        index = self.main.tabWidget_files.currentIndex()
+        #index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.copy()
         
         
@@ -282,7 +282,7 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     def paste(self):
         editor = self.main.tabWidget_files.currentWidget()
-        index = self.main.tabWidget_files.currentIndex()
+        #index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.paste()
         
     #----------------------------------------------------------------------
@@ -290,7 +290,7 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     def delete(self):
         editor = self.main.tabWidget_files.currentWidget()
-        index = self.main.tabWidget_files.currentIndex()
+        #index = self.main.tabWidget_files.currentIndex()
         tc = editor.text_edit.textCursor()
         if tc.selectedText(): tc.removeSelectedText()
         
@@ -299,7 +299,7 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     def select_all(self):
         editor = self.main.tabWidget_files.currentWidget()
-        index = self.main.tabWidget_files.currentIndex()
+        #index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.selectAll()
     
     
@@ -351,7 +351,7 @@ class EventMethods(Methods):
         start_ = cursor.selectionStart()
         end_ = cursor.selectionEnd()        
                 
-        selectionEnd = cursor.selectionEnd()
+        #selectionEnd = cursor.selectionEnd()
         start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
         end = editor.text_edit.document().findBlock(cursor.selectionEnd()).firstLineNumber()
         startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()
@@ -500,7 +500,7 @@ class EventMethods(Methods):
             start_ = cursor.selectionStart()
             end_ = cursor.selectionEnd()        
                     
-            selectionEnd = cursor.selectionEnd()
+            #selectionEnd = cursor.selectionEnd()
             start = editor.text_edit.document().findBlock(cursor.selectionStart()).firstLineNumber()
             end = editor.text_edit.document().findBlock(cursor.selectionEnd()).firstLineNumber()
             startPosition = editor.text_edit.document().findBlockByLineNumber(start).position()
@@ -811,7 +811,7 @@ class EventMethods(Methods):
     
     #----------------------------------------------------------------------
     def __show_about__(self):
-        self.frame_about = About(self)
+        self.frame_about = About()
         self.frame_about.show()
         
         
@@ -983,8 +983,8 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     def switch_ide_mode(self, graphical):
         self.main.actionSwitch_ide.setChecked(graphical)
-        self.main.tabWidget_graphical.setVisible(graphical and self.main.tabWidget_graphical.count()>0)
-        self.main.tabWidget_files.setVisible(not graphical and self.main.tabWidget_files.count()>0)
+        self.main.tabWidget_graphical.setVisible(graphical and self.main.tabWidget_graphical.count() > 0)
+        self.main.tabWidget_files.setVisible(not graphical and self.main.tabWidget_files.count() > 0)
         
         if graphical:
             self.update_actions_for_graphical()
@@ -1082,4 +1082,5 @@ class EventMethods(Methods):
         if self.is_graphical():
             self.configIDE.set("Features", "terminal_on_graphical", visible)
         else:
-            self.configIDE.set("Features", "terminal_on_text", visible)         
+            self.configIDE.set("Features", "terminal_on_text", visible)
+            

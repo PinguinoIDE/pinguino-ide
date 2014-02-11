@@ -134,11 +134,3 @@ class Math_(object):
         pm = Block.Linear("Math")
         pm.addSpaceBool()
         return pm.getBlock()       
-
-    #----------------------------------------------------------------------
-    def pre_decre(self):
-        pm = Block.Output("Math")
-        pm.addLabel("--")
-        pm.addSpace()
-        return pm.getBlock()   
-

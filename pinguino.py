@@ -131,7 +131,7 @@ if __name__ == "__main__":
                         uploaded, result = pinguino.upload()
                         if result:
                             print(result)
-                    except Exception:
+                    except:
                         if pinguino.get_board().arch == 8:
                             print("ERROR: is possible that a parameter is incorrect, try another bootloader option.")
                             print("Boloader options: "),

@@ -61,7 +61,7 @@ class ToolArea(QtGui.QWidget):
             finalBlock, self.npos = self.workArea().new_bloq(name, args, self.mapToGlobal(self.workArea().pos()), baseName)
 
             tempBlock = QtGui.QWidget(self.widget_parent)
-            nuevo = eval(Blocks[name])(tempBlock, args[2:], None)
+            eval(Blocks[name])(tempBlock, args[2:])
    
    
             #print "*" * 89
@@ -122,7 +122,7 @@ class ToolArea(QtGui.QWidget):
     def mouse_release_event(self, event):
         
         self.workArea().forExpand = False
-        child, pos = self.get_child_drag()
+        child = self.get_child_drag()[0]
         
         try:
             self.block_close_hand.setCursor(QtCore.Qt.OpenHandCursor)

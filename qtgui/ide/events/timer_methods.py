@@ -8,9 +8,9 @@ from PySide import QtGui
 
 from ..methods.decorators import Decorator
 from ..tools.code_navigator import CodeNavigator
-from ..tools.files import Files
+#from ..tools.files import Files
 from ..methods.dialogs import Dialogs
-from ..code_editor.autocomplete_icons import CompleteIcons
+#from ..code_editor.autocomplete_icons import CompleteIcons
 
 ########################################################################
 class TimerMethods(object):

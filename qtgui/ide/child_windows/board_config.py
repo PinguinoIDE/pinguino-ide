@@ -33,7 +33,7 @@ class BoardConfig(QtGui.QDialog):
         self.closeEvent = self.terminate_config
         
     #----------------------------------------------------------------------
-    def terminate_config(self, *args):
+    def terminate_config(self, event=None):
         
         self.main.configIDE.load_config()
         self.close()
@@ -168,3 +168,4 @@ class BoardConfig(QtGui.QDialog):
             if name_checked == board.name: radio.setChecked(True)
             self.connect(radio, QtCore.SIGNAL("clicked()"), self.set_board_name(board.name, "32"))
             count += 1
+            

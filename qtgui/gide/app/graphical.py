@@ -12,7 +12,7 @@ from PySide import QtGui, QtCore
 from .blocks import Blocks
 from .work_area import WorkArea
 from .tool_area import ToolArea
-from .constant import INTRO_CODE, TAB_NAME
+from .constant import TAB_NAME
 #from ..bloques.color import setColor
 from ..py_bloques.get_blocks import all_sets
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
@@ -27,7 +27,7 @@ from ..py_bloques.user_blocks import UserBlocks
 
 
 ########################################################################
-class GraphicalIDE:
+class GraphicalIDE(object):
     
     #----------------------------------------------------------------------
     def __init__(self, ide):
@@ -108,7 +108,7 @@ class GraphicalIDE:
         
         area = WorkArea(parent=main_widget,
                         scroll=scroll_area,
-                        widget=widget, 
+                        #widget=widget, 
                         frame=self, 
                         ide=self.ide)
 
@@ -230,7 +230,7 @@ class GraphicalIDE:
             file_parser.add_section(name_section)
             for key in block.keys():
                 file_parser.set(name_section, key, block[key])
-        file_parser.write(open(filename, "w"))
+        file_parser.write(codecs.open(filename, "w", "utf-8"))
         
         
     #----------------------------------------------------------------------
@@ -239,7 +239,7 @@ class GraphicalIDE:
         blocks_set = []
         
         file_parser = RawConfigParser()
-        file_parser.readfp(open(filename, "r"))
+        file_parser.readfp(codecs.open(filename, "r", "utf-8"))
         
         sections = file_parser.sections()
         for section in sections:
@@ -290,7 +290,7 @@ class GraphicalIDE:
         
         layout = block.metadata.object_.layout
         if layout is None: return []
-        bloque = block.ARGS[2:]
+        #bloque = block.ARGS[2:]
         #layout_pos = []
         #empty = block.metadata.object_.get_layout_pos_save()
         #fix = 0
@@ -374,8 +374,8 @@ class GraphicalIDE:
         editor.graphical_area.isOpening = True
         
         toFitInside = []
-        restaurPos = []
-        all_icons = []
+        #restaurPos = []
+        #all_icons = []
         
         #dummy, pos = editor.graphical_area.new_bloq("output", all_sets["convert_"], QtCore.QPoint(), "dummy_block", "dummy_block")
         #dummy.metadata.self_id = self.serialize_widgets([dummy])[0]
@@ -387,7 +387,7 @@ class GraphicalIDE:
             basename = block["basename"]
             ID = block["self_id"]
             
-            newIcon, pos2 = editor.graphical_area.new_bloq(name, args, pos, basename, ID)
+            newIcon = editor.graphical_area.new_bloq(name, args, pos, basename)[0]
             newIcon.metadata.self_id = ID
             
             newIcon.move(pos)
@@ -500,7 +500,7 @@ class GraphicalIDE:
         
         editor = self.main.tabWidget_graphical.currentWidget()
         filename = editor.path.replace(".gpde", ".pde")
-        file_pde = open(filename, "w")
+        file_pde = codecs.open(filename, "w", "utf-8")
         file_pde.write(self.get_pinguino_source_code())
         file_pde.close()
         
@@ -590,7 +590,7 @@ class GraphicalIDE:
                 return widget
         
     #----------------------------------------------------------------------
-    def add_blocks(self, tab, tab_set, count=0, side=0, ignore_jump=False, clear=False):
+    def add_blocks(self, tab, tab_set, count=0, side=0, clear=False):
         widget = self.get_widget(tab)
         grid_layout = widget.grid_layout
         tool_area = widget.tool_area
@@ -601,7 +601,7 @@ class GraphicalIDE:
         for key, tab in tab_set:
             
             newIcon = QtGui.QWidget(tool_area)
-            nuevo = eval(Blocks[tab[0]])(newIcon, tab[2:], None)
+            eval(Blocks[tab[0]])(newIcon, tab[2:])
             newIcon.setMaximumSize(newIcon.size())
             
             widget.content_widgets.append(newIcon)

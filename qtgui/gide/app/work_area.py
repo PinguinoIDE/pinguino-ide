@@ -4,7 +4,7 @@
 import re
 import os
 from math import sqrt
-import time
+#import time
 
 from PySide import QtGui, QtCore
 
@@ -16,7 +16,7 @@ from ..py_bloques.get_blocks import all_sets
 from ..py_bloques import constructor
 from ...frames.select_area import Ui_Selection
 from ...ide.methods.dialogs import Dialogs
-from ...ide.methods.decorators import Decorator
+#from ...ide.methods.decorators import Decorator
 
 TEMPLATES = {"and": {"python":"and", "pinguino":"&&",},
              "not": {"python":"not", "pinguino":"!",},
@@ -32,7 +32,8 @@ class Metadata(object):
 ########################################################################
 class WorkArea(QtGui.QWidget):
 
-    def __init__(self, parent, scroll, widget, frame, ide):
+    #def __init__(self, parent, scroll, widget, frame, ide):
+    def __init__(self, parent, scroll, frame, ide):
         
         super(WorkArea, self).__init__(parent)
         
@@ -177,7 +178,8 @@ class WorkArea(QtGui.QWidget):
 
         
     #----------------------------------------------------------------------
-    def new_bloq(self, name, args, pos, baseName, IDuser=None, full=None):
+    #def new_bloq(self, name, args, pos, baseName, IDuser=None, full=None):
+    def new_bloq(self, name, args, pos, baseName, full=None):
         
         newIcon = QtGui.QWidget(self)
         
@@ -185,7 +187,7 @@ class WorkArea(QtGui.QWidget):
         newIcon.ARGS = args
         newIcon.BASENAME = baseName
         
-        nuevo = self.build_block(name, newIcon, self, args)
+        nuevo = self.build_block(name, newIcon, args)
         nuevo.name = name
         nuevo.ContexMenu = True
         
@@ -244,7 +246,7 @@ class WorkArea(QtGui.QWidget):
             NAME = name[0]
             ARGS = name     
             BASENAME = block 
-            child, pos2 = self.new_bloq(NAME, ARGS, QtCore.QPoint(), BASENAME)
+            child = self.new_bloq(NAME, ARGS, QtCore.QPoint(), BASENAME)[0]
             child.metadata.add_parent([parent.metadata.widget, child.metadata.widget], force=True)
             child.metadata.from_.append(parent)
 
@@ -287,8 +289,8 @@ class WorkArea(QtGui.QWidget):
             
             point, accept, parent = self.get_better_pos(listPos, point)
             
-            self.prepareAccept = [accept, child, parent, point]
-            self.accept_move(False, child, parent, point)
+            self.prepareAccept = [accept, child, parent]
+            self.accept_move(False, child, parent)
             
             
             relative = point - child.pos()
@@ -365,7 +367,7 @@ class WorkArea(QtGui.QWidget):
 
             
     #----------------------------------------------------------------------
-    def accept_move(self, accept, child, _ID, point):
+    def accept_move(self, accept, child, _ID):
         
         if accept:
             #print point
@@ -412,12 +414,12 @@ class WorkArea(QtGui.QWidget):
         
                 
     #----------------------------------------------------------------------
-    def expand_all(self, release=False):
+    def expand_all(self):
         
         for block in self.get_project_blocks():
             if block.metadata.expandible:
                 size1 = block.metadata.widget.size().height()
-                try: size = self.get_height(block, self.get_metadata_nested, self.get_metadata_to)
+                try: size = self.get_height(block, self.get_metadata_nested)
                 except RuntimeError: continue
                 block.metadata.expand(size)
                 size2 = block.metadata.widget.size().height()
@@ -430,7 +432,7 @@ class WorkArea(QtGui.QWidget):
             
                 
     #----------------------------------------------------------------------
-    def get_height(self, block, func, func2=None):
+    def get_height(self, block, func):
         
         size = 0
         #listIDs = self.getNested(ID)
@@ -527,14 +529,14 @@ class WorkArea(QtGui.QWidget):
                     pos += child.metadata.parent.metadata.widget.pos()
                 fullw = map(lambda wdg:wdg.metadata.basename, child.metadata.inside)
                 #if not fullw: fullw = [False]
-                child, pos2 = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=fullw)
+                child = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=fullw)[0]
                 
     
             if event.modifiers() == QtCore.Qt.ShiftModifier:
                 #Copy a basic block
                 if child.metadata.parent != "None":
                     pos += child.metadata.parent.metadata.widget.pos()
-                child, pos2 = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=[False])
+                child = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=[False])[0]
     
 
             if child.childAt(child.mapFromGlobal(event.globalPos())):
@@ -572,7 +574,7 @@ class WorkArea(QtGui.QWidget):
         
         self.CHILD = None
         self.prepareAccept = None
-        self.expand_all(release=True)
+        self.expand_all()
         self.update_user()
         
         #self.paintEvent()
@@ -628,32 +630,33 @@ class WorkArea(QtGui.QWidget):
         
         painter.setPen(QtGui.QPen(QtGui.QBrush(QtGui.QColor(color)), 1, QtCore.Qt.DashLine))
         
-        j = 0
+        #j = 0
         for i in range(0, self.size().height(), space):
             painter.drawLine(QtCore.QPoint(0, i), QtCore.QPoint(self.size().height(), i))
-            j += 1
+            #j += 1
         
-        j = 0
+        #j = 0
         for i in range(0, self.size().width(), space):
             painter.drawLine(QtCore.QPoint(i, 0), QtCore.QPoint(i, self.size().width()))
-            j += 1            
+            #j += 1            
 
                 
     #----------------------------------------------------------------------
     def get_code_start(self):
         
         codepi = ""
-        codepy = ""
+        #codepy = ""
         for block in self.get_project_blocks():
             if block.metadata.code_start:
                 
                 codepi += block.metadata.code_start.get("pinguino", "")[0]
-                codepy += block.metadata.code_start.get("python", "")
+                #codepy += block.metadata.code_start.get("python", "")
                 
                 func, type_ = block.metadata.code_start.get("pinguino", ["", ["", ""]])[1]
                 if func: self.dicTypes[func] = type_
                 
-        return codepi, codepy
+        #return codepi, codepy
+        return codepi
                 
     #----------------------------------------------------------------------
     def update_code(self):
@@ -661,7 +664,7 @@ class WorkArea(QtGui.QWidget):
         self.allVars = []
         pinguino_code = ""
                
-        pi, py = self.get_code_start()
+        pi = self.get_code_start()
         pinguino_code += pi
         
         for block in self.get_project_blocks():
@@ -669,8 +672,8 @@ class WorkArea(QtGui.QWidget):
                 pinguino_code += "//  "                
                 pinguino_code += self.get_code_from(block).replace("{\n", "").replace("}\n", "").replace("    ", "")
                 
-        gloval_vars = ""
-        if len(self.allVars) > 0: gloval_vars = "global " + ", ".join(self.allVars)
+        #gloval_vars = ""
+        #if len(self.allVars) > 0: gloval_vars = "global " + ", ".join(self.allVars)
         
         funcs = []
         for section in ["user_function", "interfaz_function", "setup", "loop", "main_py"]:
@@ -686,7 +689,9 @@ class WorkArea(QtGui.QWidget):
                     if code == section + "()\n": code = section + "(){}\n"
                     
                     if self.function_has_return(key):
-                        ret = self.function_has_return(key, True)
+                        
+                        #If function has return, get it, else false
+                        ret = self.function_has_return(key, ret=True)
                         
                         typeVar = self.listTypeVars.get(ret, "")
                         
@@ -740,7 +745,7 @@ class WorkArea(QtGui.QWidget):
     def get_code_from(self, ID, auto_open=True):
         
         code = ""
-        incrementar = False
+        #incrementar = False
         if ID.metadata.basename == "asign":
             tempCode = ID.metadata.line_code().replace("\n", "").replace("%s", "1")            
             nameVar = tempCode[:tempCode.find("=")]
@@ -782,7 +787,7 @@ class WorkArea(QtGui.QWidget):
 
         
             	
-        else: code += self.fix_syntax_code(ID, ID.metadata.line_code())
+        else: code += self.fix_syntax_code(ID.metadata.line_code())
         
         if len(ID.metadata.nested) > 0:
             bloque = ID.metadata.nested[0]
@@ -792,10 +797,10 @@ class WorkArea(QtGui.QWidget):
             #print bloque.metadata.basename, exclude_auto_open
             if auto_open: code += "{"
 
-            if not incrementar:
-                code += "\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque, auto_open=auto_open).split("\n"))) + "}\n\n"
-            else:
-                code += "\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque, auto_open=auto_open).split("\n"))) + "%s;}\n\n" % line[2]               
+            #if not incrementar:
+            code += "\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque, auto_open=auto_open).split("\n"))) + "}\n\n"
+            #else:
+                #code += "\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque, auto_open=auto_open).split("\n"))) + "%s;}\n\n" % line[2]               
                 
             
         if len(ID.metadata.to) > 0:
@@ -805,7 +810,7 @@ class WorkArea(QtGui.QWidget):
         return code
     
     #----------------------------------------------------------------------
-    def fix_syntax_code(self, bloque, code):
+    def fix_syntax_code(self, code):
         
         fix_syntax = "> < >= <= = ".split()
         for char in fix_syntax:
@@ -843,7 +848,7 @@ class WorkArea(QtGui.QWidget):
                 
         
     #----------------------------------------------------------------------
-    def add_function(self, name, countVars, _return, tab="User", prename="", ID__=None):
+    def add_function(self, name, countVars, _return, prename="", ID__=None):
         
         if _return: tipo = "output"
         else: tipo = "linear"
@@ -892,7 +897,7 @@ class WorkArea(QtGui.QWidget):
             
             if block.metadata.basename == "user_function":
                 name = self.get_name_function(block)
-                new_blocks.append(self.add_function(name, self.get_count_vars_function(block), self.function_has_return(block))        )
+                new_blocks.append(self.add_function(name, self.get_count_vars_function(block), self.function_has_return(block)))
             
             elif block.metadata.basename == "asign":
                 name = self.get_name_var(block)
@@ -1011,9 +1016,9 @@ class WorkArea(QtGui.QWidget):
 
 
     #----------------------------------------------------------------------
-    def build_block(self, name, widget, parent, instructions):
+    def build_block(self, name, widget, instructions):
         
-        return eval(Blocks[name])(widget, instructions[2:], parent)
+        return eval(Blocks[name])(widget, instructions[2:])
         
         
     #----------------------------------------------------------------------

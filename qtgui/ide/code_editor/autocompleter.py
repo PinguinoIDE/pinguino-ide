@@ -8,7 +8,7 @@ from PySide.QtGui import QListWidget, QListWidgetItem
 from PySide import QtCore, QtGui
 
 from .autocomplete_icons import CompleteIcons	
-from ..methods import constants as Constants
+#from ..methods import constants as Constants
 
 class PinguinoAutoCompleter(QListWidget):
     
@@ -28,13 +28,14 @@ class PinguinoAutoCompleter(QListWidget):
         
         self.setSpell(2)
         self.setEnabled(True)
-        self.itemsList=[]
-        self.itemsListName=[]
-        self.temporal={"variables":[],
-                       "functions":[],
-                       "directives":[],
-                       "arch8": [],
-                       "arch32": [],}
+        self.itemsList = []
+        self.itemsListName = []
+        self.temporal = {"variables" : [],
+                         "functions" : [],
+                         "directives" : [],
+                         "arch8" : [],
+                         "arch32" : [],
+                         }
         
         
         self.namespaces = pickle.load(open(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))          
@@ -74,7 +75,7 @@ class PinguinoAutoCompleter(QListWidget):
         super(PinguinoAutoCompleter, self).show(*args)
         
     #----------------------------------------------------------------------
-    def focusOutEvent (self, event):
+    def focusOutEvent(self, event):
         self.hide()
         QtGui.QListWidget.focusOutEvent(self, event)
         
@@ -107,15 +108,15 @@ class PinguinoAutoCompleter(QListWidget):
             if cont > 100: self.destroy()
             
         cont = 0
-        while self.pos().x() + size.width() - screen.width() >- 10:
+        while self.pos().x() + size.width() - screen.width() > -10:
             self.move(self.pos().x() - 5, self.pos().y())
             cont += 1
             if cont > 100: self.destroy()  
         
         
     #----------------------------------------------------------------------
-    def setSpell(self, int):
-        self.spell = int
+    def setSpell(self, int_):
+        self.spell = int_
         
     #----------------------------------------------------------------------
     def down(self):
@@ -168,8 +169,8 @@ class PinguinoAutoCompleter(QListWidget):
         return None
     
     #----------------------------------------------------------------------
-    def addItemsCompleter(self, list, icon=None):
-        for text in list:
+    def addItemsCompleter(self, list_, icon=None):
+        for text in list_:
             if not text in self.itemsListName:
                 item = QListWidgetItem()
                 if icon != None: item.setIcon(icon)

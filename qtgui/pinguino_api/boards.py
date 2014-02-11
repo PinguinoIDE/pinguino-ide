@@ -28,349 +28,349 @@
 MICROCHIP_ID = 0x04D8
 
 # products id (Pinguino's Microchip sub-license)
-P8_ID  = 0xFEAA
+P8_ID = 0xFEAA
 P32_ID = 0x003C
 
 # RB 17/09/2013
 """
-class PinguinoNoBoot:
-    name='Pinguino (no Bootloader)'
-    arch=8
-    bldr='noboot'
-    proc=''
-    board=''
-    vendor=''
-    product=''
-    memstart=0x0000
-    memend=0xFFF8
-    shortarg='-b'
-    longarg='--noboot'
+class PinguinoNoBoot(object):
+    name = 'Pinguino (no Bootloader)'
+    arch = 8
+    bldr = 'noboot'
+    proc = ''
+    board = ''
+    vendor = ''
+    product = ''
+    memstart = 0x0000
+    memend = 0xFFF8
+    shortarg = '-b'
+    longarg = '--noboot'
 """
 
 """---------------------------------------------------------------------
     8-bit Boards
 ---------------------------------------------------------------------"""
 
-class Pinguino2455:
-    name='Pinguino 2455'
-    arch=8
-    bldr='boot4'
-    proc='18f2455'
-    board='PINGUINO2455'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x6000
-    shortarg='-p2455'
-    longarg='--pinguino2455'
+class Pinguino2455(object):
+    name = 'Pinguino 2455'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f2455'
+    board = 'PINGUINO2455'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x6000
+    shortarg = '-p2455'
+    longarg = '--pinguino2455'
     
-class Pinguino2550:
-    name='Pinguino 2550'
-    arch=8
-    bldr='boot2'
-    proc='18f2550'
-    board='PINGUINO2550'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x2000       # bootloader offset
-    memend=0x8000
-    shortarg='-p2550'
-    longarg='--pinguino2550'
+class Pinguino2550(object):
+    name = 'Pinguino 2550'
+    arch = 8
+    bldr = 'boot2'
+    proc = '18f2550'
+    board = 'PINGUINO2550'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x2000       # bootloader offset
+    memend = 0x8000
+    shortarg = '-p2550'
+    longarg = '--pinguino2550'
     
-class FreeJALduino:
-    name='FreeJALduino'
-    arch=8
-    bldr='boot2'
-    proc='18f2550'
-    board='FREEJALDUINO'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x2000
-    memend=0x8000
-    config=0x300000
-    shortarg='-J'
-    longarg='--freejalduino'
+class FreeJALduino(object):
+    name = 'FreeJALduino'
+    arch = 8
+    bldr = 'boot2'
+    proc = '18f2550'
+    board = 'FREEJALDUINO'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x2000
+    memend = 0x8000
+    config = 0x300000
+    shortarg = '-J'
+    longarg = '--freejalduino'
 
-class Pinguino25k50:
-    name='Pinguino 25k50'
-    arch=8
-    bldr='boot4'
-    proc='18f25k50'
-    board='PINGUINO25K50'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x8000
-    shortarg='-p25k50'
-    longarg='--pinguino25k50'
+class Pinguino25k50(object):
+    name = 'Pinguino 25k50'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f25k50'
+    board = 'PINGUINO25K50'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x8000
+    shortarg = '-p25k50'
+    longarg = '--pinguino25k50'
 
-class Pinguino26J50:
-    name='Pinguino 26J50'
-    arch=8
-    bldr='boot4'
-    proc='18f26j50'
-    board='PINGUINO26J50'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x10000
-    shortarg='-p26j50'
-    longarg='--pinguino26j50'
+class Pinguino26J50(object):
+    name = 'Pinguino 26J50'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f26j50'
+    board = 'PINGUINO26J50'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x10000
+    shortarg = '-p26j50'
+    longarg = '--pinguino26j50'
 
-class Pinguino27J53:
-    name='Pinguino 27J53'
-    arch=8
-    bldr='boot4'
-    proc='18f27j53'
-    board='PINGUINO27J53'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x20000
-    shortarg='-p27j53'
-    longarg='--pinguino27j53'
+class Pinguino27J53(object):
+    name = 'Pinguino 27J53'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f27j53'
+    board = 'PINGUINO27J53'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x20000
+    shortarg = '-p27j53'
+    longarg = '--pinguino27j53'
 
-class Pinguino4455:
-    name='Pinguino 4455'
-    arch=8
-    bldr='boot4'
-    proc='18f4455'
-    board='PINGUINO4455'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x6000
-    shortarg='-p4455'
-    longarg='--pinguino4455'
+class Pinguino4455(object):
+    name = 'Pinguino 4455'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f4455'
+    board = 'PINGUINO4455'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x6000
+    shortarg = '-p4455'
+    longarg = '--pinguino4455'
 
-class Pinguino4550:
-    name='Pinguino 4550'
-    arch=8
-    bldr='boot2'
-    proc='18f4550'
-    board='PINGUINO4550'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x2000       # bootloader offset
-    memend=0x8000
-    shortarg='-p4550'
-    longarg='--pinguino4550'
+class Pinguino4550(object):
+    name = 'Pinguino 4550'
+    arch = 8
+    bldr = 'boot2'
+    proc = '18f4550'
+    board = 'PINGUINO4550'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x2000       # bootloader offset
+    memend = 0x8000
+    shortarg = '-p4550'
+    longarg = '--pinguino4550'
 
-class PICuno_Equo:
-    name='PICuno Equo'
-    arch=8
-    bldr='boot2'
-    proc='18f4550'
-    board='PICUNO_EQUO'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x2000
-    memend=0x8000
-    config=0x300000
-    shortarg='-eq'
-    longarg='--picunoequo'
+class PICuno_Equo(object):
+    name = 'PICuno Equo'
+    arch = 8
+    bldr = 'boot2'
+    proc = '18f4550'
+    board = 'PICUNO_EQUO'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x2000
+    memend = 0x8000
+    config = 0x300000
+    shortarg = '-eq'
+    longarg = '--picunoequo'
 
-class Pinguino45k50:
-    name='Pinguino 45k50'
-    arch=8
-    bldr='boot4'
-    proc='18f45k50'
-    board='PINGUINO45K50'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x8000
-    shortarg='-p45k50'
-    longarg='--pinguino45k50'
+class Pinguino45k50(object):
+    name = 'Pinguino 45k50'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f45k50'
+    board = 'PINGUINO45K50'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x8000
+    shortarg = '-p45k50'
+    longarg = '--pinguino45k50'
 
-class CHRP3:
-    name='CHRP3.0'
-    arch=8
-    bldr='boot4'
-    proc='18f25k50'
-    board='CHRP3'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x8000
-    shortarg='-c'
-    longarg='--chrp3'
+class CHRP3(object):
+    name = 'CHRP3.0'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f25k50'
+    board = 'CHRP3'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x8000
+    shortarg = '-c'
+    longarg = '--chrp3'
 
-class Pinguino46J50:
-    name='Pinguino 46J50'
-    arch=8
-    bldr='boot4'
-    proc='18f46j50'
-    board='PINGUINO46J50'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x10000
-    shortarg='-p46j50'
-    longarg='--pinguino46j50'
+class Pinguino46J50(object):
+    name = 'Pinguino 46J50'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f46j50'
+    board = 'PINGUINO46J50'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x10000
+    shortarg = '-p46j50'
+    longarg = '--pinguino46j50'
 
-class Pinguino47J53A:
-    name='Pinguino 47J53-A'
-    arch=8
-    bldr='boot4'
-    proc='18f47j53'
-    board='PINGUINO47J53A'
-    vendor=MICROCHIP_ID
-    product=P8_ID
-    memstart=0x0C00       # bootloader offset
-    memend=0x20000
-    shortarg='-p47j53A'
-    longarg='--pinguino47j53a'
+class Pinguino47J53A(object):
+    name = 'Pinguino 47J53-A'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f47j53'
+    board = 'PINGUINO47J53A'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend = 0x20000
+    shortarg = '-p47j53A'
+    longarg = '--pinguino47j53a'
 
 """---------------------------------------------------------------------
     32-bit Boards
 ---------------------------------------------------------------------"""
 
-class Pinguino32MX220:
-    name='Pinguino 32MX220'
-    arch=32
-    bldr='microchip'
-    proc='32MX220F032B'
-    board='PINGUINO32MX220'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    ebase = 0x9D003000
-    memstart=ebase+0x00000
-    memend=ebase+0x08000
-    shortarg='-p32mx220'
-    longarg='--pinguino32mx220'
+class Pinguino32MX220(object):
+    name = 'Pinguino 32MX220'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX220F032B'
+    board = 'PINGUINO32MX220'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    ebase  =  0x9D003000
+    memstart = ebase+0x00000
+    memend = ebase+0x08000
+    shortarg = '-p32mx220'
+    longarg = '--pinguino32mx220'
 
-class Pinguino32MX250:
-    name='Pinguino 32MX250'
-    arch=32
-    bldr='microchip'
-    proc='32MX250F128B'
-    board='PINGUINO32MX250'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    ebase = 0x9D003000
-    memstart=ebase+0x00000
-    memend=ebase+0x20000
-    shortarg='-p32mx250'
-    longarg='--pinguino32mx250'
+class Pinguino32MX250(object):
+    name = 'Pinguino 32MX250'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX250F128B'
+    board = 'PINGUINO32MX250'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    ebase  =  0x9D003000
+    memstart = ebase+0x00000
+    memend = ebase+0x20000
+    shortarg = '-p32mx250'
+    longarg = '--pinguino32mx250'
 
-class PIC32_Pinguino:
-    name='PIC32 Pinguino'
-    arch=32
-    bldr='microchip'
-    proc='32MX440F256H'
-    board='PIC32_PINGUINO'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x40000
-    shortarg='-o'
-    longarg='--olimex440'
+class PIC32_Pinguino(object):
+    name = 'PIC32 Pinguino'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX440F256H'
+    board = 'PIC32_PINGUINO'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x00000
+    memend = 0x40000
+    shortarg = '-o'
+    longarg = '--olimex440'
 
-class PIC32_Pinguino_OTG:
-    name='PIC32 Pinguino OTG'
-    arch=32
-    bldr='microchip'
-    proc='32MX440F256H'
-    board='PIC32_PINGUINO_OTG'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000 #0x9D000000
-    memend=0x40000
-    shortarg='-O'
-    longarg='--olimex440OTG'
+class PIC32_Pinguino_OTG(object):
+    name = 'PIC32 Pinguino OTG'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX440F256H'
+    board = 'PIC32_PINGUINO_OTG'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x00000 #0x9D000000
+    memend = 0x40000
+    shortarg = '-O'
+    longarg = '--olimex440OTG'
 
-class PIC32_Pinguino_Micro:
-    name='PIC32 Pinguino Micro'
-    arch=32
-    bldr='microchip'
-    proc='32MX440F256H'
-    board='PIC32_PINGUINO_MICRO'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x40000
-    shortarg='-M'
-    longarg='--olimex440Micro'
+class PIC32_Pinguino_Micro(object):
+    name = 'PIC32 Pinguino Micro'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX440F256H'
+    board = 'PIC32_PINGUINO_MICRO'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x00000
+    memend = 0x40000
+    shortarg = '-M'
+    longarg = '--olimex440Micro'
 
-class PIC32_Pinguino_T795:
-    name='PIC32 Pinguino T795'
-    arch=32
-    bldr='microchip'
-    proc='32MX795F512H'
-    board='PIC32_PINGUINO_T795'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x80000
-    shortarg='-T'
-    longarg='--olimexT795'
+class PIC32_Pinguino_T795(object):
+    name = 'PIC32 Pinguino T795'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX795F512H'
+    board = 'PIC32_PINGUINO_T795'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x00000
+    memend = 0x80000
+    shortarg = '-T'
+    longarg = '--olimexT795'
 
-class PIC32_Pinguino_220:
-    name='PIC32 Pinguino MX220'
-    arch=32
-    bldr='microchip'
-    proc='32MX220F032D'
-    board='PIC32_PINGUINO_220'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    ebase = 0x9D003000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x08000
-    shortarg='-m'
-    longarg='--olimex220'
+class PIC32_Pinguino_220(object):
+    name = 'PIC32 Pinguino MX220'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX220F032D'
+    board = 'PIC32_PINGUINO_220'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    ebase  =  0x9D003000
+    memstart = ebase + 0x00000
+    memend = ebase + 0x08000
+    shortarg = '-m'
+    longarg = '--olimex220'
 
-class Emperor_460:
-    name='Emperor 460'
-    arch=32
-    bldr='microchip'
-    proc='32MX460F512L'
-    board='EMPEROR460'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x80000
-    shortarg='-e'
-    longarg='--emperor460'
+class Emperor_460(object):
+    name = 'Emperor 460'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX460F512L'
+    board = 'EMPEROR460'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x00000
+    memend = 0x80000
+    shortarg = '-e'
+    longarg = '--emperor460'
 
-class Emperor_795:
-    name='Emperor 795'
-    arch=32
-    bldr='microchip'
-    proc='32MX795F512L'
-    board='EMPEROR795'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x80000
-    shortarg='-E'
-    longarg='--emperor795'
+class Emperor_795(object):
+    name = 'Emperor 795'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX795F512L'
+    board = 'EMPEROR795'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x00000
+    memend = 0x80000
+    shortarg = '-E'
+    longarg = '--emperor795'
 
-class UBW32_460:
-    name='UBW32 460'
-    arch=32
-    bldr='microchip'
-    proc='32MX460F512L'
-    board='UBW32_460'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x80000
-    shortarg='-u'
-    longarg='--ubw460'
+class UBW32_460(object):
+    name = 'UBW32 460'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX460F512L'
+    board = 'UBW32_460'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x00000
+    memend = 0x80000
+    shortarg = '-u'
+    longarg = '--ubw460'
 
-class UBW32_795:
-    name='UBW32 795'
-    arch=32
-    bldr='microchip'
-    proc='32MX795F512L'
-    board='UBW32_795'
-    vendor=MICROCHIP_ID
-    product=P32_ID
-    memstart=0x00000
-    memend=0x80000
-    shortarg='-U'
-    longarg='--ubw795'
+class UBW32_795(object):
+    name = 'UBW32 795'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX795F512L'
+    board = 'UBW32_795'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x00000
+    memend = 0x80000
+    shortarg = '-U'
+    longarg = '--ubw795'
 
 """---------------------------------------------------------------------
     Board list

@@ -6,33 +6,27 @@ import re
 data_types = ["int", "float", "char", "double", "u8", "u16", "u32", "u64", "BOOL", "byte", "word", "void"]
 preprocessor_commands = ["define", "include", "error", "undef", "if", "else", "if", "elif", "ifdef", "ifndef", "line", "pragma"]  #endif
 
+
 ########################################################################
 class CodeNavigator(object):
     
-
-    #----------------------------------------------------------------------
-    def __init__(self):
-        """Constructor"""
-        
-        
     #----------------------------------------------------------------------
     @classmethod
-    def remove_comments(self, content):
-        
-         #Code for remove comments here
-        
+    def remove_comments(cls, content):
+        #FIXME: Code for remove comments here
         return content
         
     
+
     #----------------------------------------------------------------------
     @classmethod
-    def get_functions(self, editor):
+    def get_functions(cls, editor):
         
         regex_function = "[\s]*(unsigned|signed|long)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
-        regex_function_content = "[\s]*%s[\s]*\{[\s\S]*\}[\s]*"
+        #regex_function_content = "[\s]*%s[\s]*\{[\s\S]*\}[\s]*"
         
         funtions = []
-        full_text = self.remove_comments(editor.text_edit.toPlainText())
+        full_text = cls.remove_comments(editor.text_edit.toPlainText())
         content = full_text.split("\n")
         
         for line in range(len(content)):
@@ -75,12 +69,12 @@ class CodeNavigator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def get_directives(self, editor):
+    def get_directives(cls, editor):
         
         regex_directive = "[\s]*#(" + "|".join(preprocessor_commands)+ ")[\s]+<?[\s]*([\w.]*)[\s]*>?[\s]*([\S]*)"
         
         directives = []
-        content = editor.text_edit.toPlainText().split("\n")
+        content = cls.remove_comments(editor.text_edit.toPlainText().split("\n"))
         for line in range(len(content)):
             match = re.match(regex_directive, content[line])
             this_directive = {}                
@@ -98,12 +92,12 @@ class CodeNavigator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def get_variables(self, editor):
+    def get_variables(cls, editor):
         
         regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*([*])*[\s]*([ \w\[\]=,{}\"'\*]*);"
         
         variables = []
-        content = editor.text_edit.toPlainText().split("\n")
+        content = cls.remove_comments(editor.text_edit.toPlainText().split("\n"))
         for line in range(len(content)):
             match = re.match(regex_variables, content[line])
             if match:
@@ -150,3 +144,4 @@ class CodeNavigator(object):
                     
                 
         return variables
+    

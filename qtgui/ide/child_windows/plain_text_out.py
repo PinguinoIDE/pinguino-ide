@@ -51,3 +51,4 @@ class PlainOut(QtGui.QDialog):
         
         if pde: Highlighter(self.plain_out.textEdit)
         self.plain_out.textEdit.setPlainText(text)
+        

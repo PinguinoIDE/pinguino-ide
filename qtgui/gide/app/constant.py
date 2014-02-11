@@ -2,9 +2,9 @@
 #-*- coding: utf-8 -*-
 
 import time
-import os
+#import os
 
-from ...ide.methods.constants import TAB_NAME, NAME, VERSION
+from ...ide.methods.constants import NAME, VERSION, TAB_NAME
 
 #FONTS_DIR = os.path.join(IDE_HOME_DIR, "qtgui", "resources", "fonts")
 

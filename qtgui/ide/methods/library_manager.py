@@ -70,7 +70,7 @@ class Librarymanager(object):
         list_pdls = []
         for lib in self.libraries:
             if os.path.exists(lib["pdl"]):
-                list_pdls.extend(map(lambda pdl_file:os.path.join(lib["pdl"], pdl_file) , os.listdir(lib["pdl"])))
+                list_pdls.extend(map(lambda pdl_file:os.path.join(lib["pdl"], pdl_file), os.listdir(lib["pdl"])))
             else:
                 logging.warning("Missing: "+lib["pdl"])
         
@@ -87,3 +87,4 @@ class Librarymanager(object):
         options = parser.options("LIB")
         for option in options: dict_[option] = parser.get("LIB", option)
         return dict_
+    

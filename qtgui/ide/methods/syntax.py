@@ -5,7 +5,7 @@ import datetime
 today = datetime.datetime.now()
 
 Autocompleter = {}
-Autocompleter["directive"] = ["define", "include", "ifndef", "endif",  "undef", "if", "elif", "else", "error", "warning"]
+Autocompleter["directive"] = ["define", "include", "ifndef", "endif", "undef", "if", "elif", "else", "error", "warning"]
 Autocompleter["reserved"] = ["TRUE", "FALSE", "HIGH", "LOW", "INPUT", "OUTPUT", "FOSC", "MIPS", "ON", "OFF",
               "LED1", "LED2", "LED3", "LED4", "REDLED", "GREENLED", "BLUELED", "WHITELED", "YELLOWLED",
               "PROGBUTTON", "USERBUTTON", "RUNLED", "USERLED", "A4", 
@@ -13,7 +13,7 @@ Autocompleter["reserved"] = ["TRUE", "FALSE", "HIGH", "LOW", "INPUT", "OUTPUT", 
               "if", "switch", "for", "while", "do", "continue", "break", "else", "return", "case", "default",
               "void", "const", "BOOL", "char", "unsigned", "short", "int", "long", "float", "double", "byte", "word",
               "u8", "s8", "u16", "s16", "u32", "s32", "u64", "s64",
-              "struct", "union", "typedef", "enum", "register",  "static", "extern", "volatile",
+              "struct", "union", "typedef", "enum", "register", "static", "extern", "volatile",
               "loop", "setup", "INT_MILLISEC", "INT_MICROSEC", "INT_FALLING_EDGE", "interrupt"]
 
 

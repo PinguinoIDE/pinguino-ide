@@ -35,5 +35,5 @@ class PythonShell(object):
 
     #----------------------------------------------------------------------
     def restart(self):
-        
         self.__init__()
+        

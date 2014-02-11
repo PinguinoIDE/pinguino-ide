@@ -1,18 +1,31 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-import os
-import sys
+#import os
+#import sys
 
 from PySide import QtGui, QtCore
 
-from .widgets import Label
-from .widgets import ControlSpin
-from .widgets import ControlSlider
-#from .widgets import ControlButton
-from .widgets import Name
-from .inside import Inside, Inside2
-from .inside import InsideBool, Inside2Bool
+#from .widgets import Label
+from .widgets.label import Ui_Frame as Label
+
+#from .widgets import ControlSpin
+from .widgets.control_spin import Ui_Frame as ControlSpin
+
+#from .widgets import ControlSlider
+from .widgets.control_slider import Ui_Frame as ControlSlider
+
+#from .widgets import Name
+from .widgets.name import Ui_Frame as Name
+
+#from .inside import Inside, Inside2
+from .inside.inside import Ui_Form as Inside
+from .inside.inside2 import Ui_Form as Inside2
+
+#from .inside import InsideBool, Inside2Bool
+from .inside.inside_bool import Ui_Form as InsideBool
+from .inside.inside2_bool import Ui_Form as Inside2Bool
+
 
 FIX_SYNTAX = ", ; = > < >= <= + -".split()
 
@@ -41,7 +54,7 @@ class Constructor(object):
     
     DeletLater = False
         
-    def buildBlock(self, widget, bloque, insidePos=(27, 2), inside=False, bool=False):
+    def buildBlock(self, widget, bloque, insidePos=(27, 2), inside=False):
         self.layout_adds = []
         self.layout_adds_b = []
         self.layout_adds_all = []
@@ -452,7 +465,7 @@ class Constructor(object):
     
     
     #----------------------------------------------------------------------
-    def addParent(self, widget, force=False, point=None):
+    def addParent(self, widget, force=False):
         """"""
         #FIXME: Blocks :(
         static, move = widget
@@ -488,7 +501,7 @@ class Constructor(object):
         move.setMaximumHeight(move.height())        
         
         self.remove = (
-                       static_layout.itemAt(layout_pos[index]).widget(),
+                       #static_layout.itemAt(layout_pos[index]).widget(),
                        static_layout.itemAt(layout_pos[index]+1).widget(),
                        static,
                        move, 
@@ -592,7 +605,7 @@ class Constructor(object):
  
     #----------------------------------------------------------------------
     def removeParent(self):
-        block, hidden, static, move = self.remove
+        hidden, static, move = self.remove
         
         static.metadata.parent = "None"
         move.metadata.parent = "None"
@@ -826,3 +839,4 @@ class Constructor(object):
     def setDecrementHigth(self):
         self.widget.setMinimumSize(self.widget.size()-QtCore.QSize(0, 100))
         self.widget.setMaximumSize(self.widget.size()-QtCore.QSize(0, 100))
+        

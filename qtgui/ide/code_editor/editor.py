@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 import re
-import pickle
+#import pickle
 
 from PySide import QtGui, QtCore
 from PySide.QtCore import QPoint
@@ -11,8 +11,8 @@ from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons	
 from .syntaxhighlighter import Highlighter        
 from ..methods.syntax import Autocompleter, Snippet
-from ..methods import constants as Constants
-from ..methods.decorators import Decorator
+#from ..methods import constants as Constants
+#from ..methods.decorators import Decorator
         
  
 ########################################################################
@@ -100,7 +100,7 @@ class CustomTextEdit(QtGui.QTextEdit):
     #----------------------------------------------------------------------
     def insert(self, completion):
         if not completion: return
-        selected = completion
+        #selected = completion
         tc = self.textCursor()
         
         self.smart_under_selection(tc)
@@ -149,23 +149,23 @@ class CustomTextEdit(QtGui.QTextEdit):
             tc.setPosition(tc.position()+len(selected), tc.KeepAnchor)
             return tc
 
-        if key=="[":
+        if key == "[":
             self.next_ignore = "]" 
             return accept("]")
         
-        elif key=="{":
+        elif key == "{":
             self.next_ignore = "}"
             return accept("}")
         
-        elif key=='"':
+        elif key == '"':
             self.next_ignore = '"'
             return accept('"')
         
-        elif key=="'":
+        elif key == "'":
             self.next_ignore = "'"
             return accept("'")
         
-        elif key=="(":
+        elif key == "(":
             self.next_ignore = ")"
             return accept(")")
         else: return False
@@ -293,4 +293,5 @@ class CustomTextEdit(QtGui.QTextEdit):
                 self.completer.popup(self.getPosPopup(), selected[-1])
                 self.setFocus()
             
-        except UnicodeEncodeError: return  #capturas tildes y caracteres especiales        
+        except UnicodeEncodeError: return  #capturas tildes y caracteres especiales
+        

@@ -3,7 +3,7 @@
 
 import os
 
-from PySide import QtGui, QtCore
+from PySide import QtGui
 
 ########################################################################
 class Files(object):
@@ -11,7 +11,7 @@ class Files(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def update_path_files(self, path, listWidget, label, exclude=None):
+    def update_path_files(cls, path, listWidget, label, exclude=None):
         
         path = os.path.expanduser(path)
         paths = filter(lambda child: not child.startswith("."), os.listdir(path))
@@ -58,25 +58,25 @@ class Files(object):
         listWidget.item(0).setText("..")        
         
         index = 1
-        for dir in dirs:
-            name = os.path.split(dir)[1]
+        for dir_ in dirs:
+            name = os.path.split(dir_)[1]
             item = QtGui.QListWidgetItem(listWidget)
             item.setIcon(icon_dir)
             setattr(item, "type_file", "dir")
-            setattr(item, "path_file", dir)
-            item.setToolTip(dir)
+            setattr(item, "path_file", dir_)
+            item.setToolTip(dir_)
             listWidget.item(index).setText(name)
             index += 1
             
-        for file in files:
-            name = os.path.split(file)[1]
+        for file_ in files:
+            name = os.path.split(file_)[1]
             item = QtGui.QListWidgetItem(listWidget)
             if name.endswith(".pde") or name.endswith(".gpde"): item.setIcon(icon_file_pde)
             elif name.endswith(".py"): item.setIcon(icon_file_py)
             else: item.setIcon(icon_file)
             setattr(item, "type_file", "file")
-            setattr(item, "path_file", file)
-            item.setToolTip(file)
+            setattr(item, "path_file", file_)
+            item.setToolTip(file_)
             listWidget.item(index).setText(name)
             index += 1
         

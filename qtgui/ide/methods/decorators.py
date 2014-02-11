@@ -3,7 +3,7 @@
 
 import functools
 import time
-import threading
+#import threading
 
 from PySide import QtCore
 
@@ -15,7 +15,7 @@ class Decorator(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def files_tab_on_focus(self):
+    def files_tab_on_focus(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -30,7 +30,7 @@ class Decorator(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def requiere_open_files(self):
+    def requiere_open_files(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -44,7 +44,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def timer(self, time):
+    def timer(cls, time_):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -52,24 +52,24 @@ class Decorator(object):
                 setattr(Pinguino, name, QtCore.QTimer())
                 atr = getattr(Pinguino, name)
                 QtCore.QObject.connect(atr, QtCore.SIGNAL("timeout()"), lambda :fn(Pinguino, *args, **kwargs))                
-                atr.start(time)
+                atr.start(time_)
                 return name, atr
             return wrapped
         return actualdecorator
     
     #----------------------------------------------------------------------
     @classmethod
-    def call_later(self, time=100):
+    def call_later(cls, time_=100):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                QtCore.QTimer.singleShot(time, lambda :fn(Pinguino, *args, **kwargs))
+                QtCore.QTimer.singleShot(time_, lambda :fn(Pinguino, *args, **kwargs))
             return wrapped
         return actualdecorator
     
     #----------------------------------------------------------------------
     @classmethod
-    def requiere_browser_tab(self, name):
+    def requiere_browser_tab(cls, name):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -85,7 +85,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def requiere_tools_tab(self, name):
+    def requiere_tools_tab(cls, name):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -101,7 +101,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def requiere_text_mode(self):
+    def requiere_text_mode(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -113,7 +113,7 @@ class Decorator(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def requiere_graphical_mode(self):
+    def requiere_graphical_mode(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -125,7 +125,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def requiere_main_focus(self):
+    def requiere_main_focus(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -139,7 +139,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def requiere_line_edit_content(self, line_edit):
+    def requiere_line_edit_content(cls, line_edit):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -152,7 +152,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def requiere_file_saved(self):
+    def requiere_file_saved(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -170,7 +170,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def update_toolbar(self):
+    def update_toolbar(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -204,7 +204,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def connect_features(self):
+    def connect_features(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -218,7 +218,7 @@ class Decorator(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def if_autocomplete_is_enable(self):
+    def if_autocomplete_is_enable(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -230,7 +230,7 @@ class Decorator(object):
     
     #----------------------------------------------------------------------
     @classmethod
-    def debug_time(self):
+    def debug_time(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
@@ -246,7 +246,7 @@ class Decorator(object):
     
     ##----------------------------------------------------------------------
     #@classmethod
-    #def thread(self):
+    #def thread(cls):
         #def actualdecorator(fn):
             #@functools.wraps(fn)
             #def wrapped(Pinguino, *args, **kwargs):
@@ -259,7 +259,7 @@ class Decorator(object):
         
     ##----------------------------------------------------------------------
     #@classmethod
-    #def call_delay(self, key, delay):
+    #def call_delay(cls, key, delay):
         #def actualdecorator(fn):
             #@functools.wraps(fn)
             #def wrapped(Pinguino, *args, **kwargs):
@@ -285,3 +285,4 @@ class Decorator(object):
             
             #return wrapped
         #return actualdecorator
+        

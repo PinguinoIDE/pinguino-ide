@@ -66,10 +66,8 @@ class Methods(SearchReplace):
         self.setCursor(QtCore.Qt.WaitCursor)
         for file_ in opens:
             if os.path.exists(file_):
-                try:
-                    self.open_file_from_path(filename=file_)
-                except:
-                    pass
+                try: self.open_file_from_path(filename=file_)
+                except: pass
                 
         self.main.actionSwitch_ide.setChecked(file_.endswith(".gpde"))
         self.switch_ide_mode(file_.endswith(".gpde"))
@@ -78,7 +76,7 @@ class Methods(SearchReplace):
         
     #----------------------------------------------------------------------
     def jump_to_line(self, line):
-        self.highligh_line(line,  "#DBFFE3")
+        self.highligh_line(line, "#DBFFE3")
         
     
     #----------------------------------------------------------------------
@@ -119,7 +117,7 @@ class Methods(SearchReplace):
         lines = text.split(u'\u2029')
         firstLine = False
         for line in lines:
-            if not line.isspace() and not line=="":
+            if not line.isspace() and not line == "":
                 firstLine = line
                 break
         return editor, cursor, prevCursor, selected, firstLine
@@ -134,7 +132,7 @@ class Methods(SearchReplace):
         
         if line:
             content = editor.text_edit.toPlainText()
-            line_content = content.split("\n")[line-1]
+            #line_content = content.split("\n")[line-1]
             content = content.split("\n")[:line]
             position = len("\n".join(content))
             text_cur = editor.text_edit.textCursor()
@@ -294,12 +292,12 @@ class Methods(SearchReplace):
     def get_all_open_files(self):
         opens = []
         tab = self.main.tabWidget_files
-        widgets = map(lambda index:tab.widget(index), range(tab.count()))
+        widgets = map(tab.widget, range(tab.count()))
         for widget in widgets:
             path = getattr(widget, "path", False)
             if path: opens.append(path)
         tab = self.main.tabWidget_graphical
-        widgets = map(lambda index:tab.widget(index), range(tab.count()))
+        widgets = map(tab.widget, range(tab.count()))
         for widget in widgets:
             path = getattr(widget, "path", False)
             if path: opens.append(path)
@@ -378,10 +376,10 @@ class Methods(SearchReplace):
         self.main.statusBar.addPermanentWidget(self.status_info, 1)    
         
         
-    #----------------------------------------------------------------------
-    def update_namespaces(self):
-        names = Namespaces()
-        names.save_namespaces()        
+    ##----------------------------------------------------------------------
+    #def update_namespaces(self):
+        #names = Namespaces()
+        #names.save_namespaces()        
         
         
     ##----------------------------------------------------------------------
@@ -487,11 +485,10 @@ class Methods(SearchReplace):
 
     #----------------------------------------------------------------------
     def update_reserved_words(self):
-        
-        regobject, libinstructions = self.pinguinoAPI.read_lib(8)
+        libinstructions = self.pinguinoAPI.read_lib(8)[1]
         name_spaces_8 = map(lambda x:x[0], libinstructions)
                             
-        regobject, libinstructions = self.pinguinoAPI.read_lib(32)
+        libinstructions = self.pinguinoAPI.read_lib(32)[1]
         name_spaces_32 = map(lambda x:x[0], libinstructions)
         
         reserved_filename = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle")
@@ -513,11 +510,10 @@ class Methods(SearchReplace):
 
     #----------------------------------------------------------------------
     def update_instaled_reserved_words(self):
-        
-        regobject, libinstructions = self.pinguinoAPI.read_lib(8, include_default=False)
+        libinstructions = self.pinguinoAPI.read_lib(8, include_default=False)[1]
         name_spaces_8 = map(lambda x:x[0], libinstructions)
                             
-        regobject, libinstructions = self.pinguinoAPI.read_lib(32, include_default=False)
+        libinstructions = self.pinguinoAPI.read_lib(32, include_default=False)[1]
         name_spaces_32 = map(lambda x:x[0], libinstructions)
         
         reserved_filename = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle")
@@ -539,6 +535,7 @@ class Methods(SearchReplace):
                       "arch32": list(set(name_spaces_32 + olds["arch32"])),
                       "all": list(set(name_spaces_commun + olds["all"])),}        
         
-        pickle.dump(olds, open(reserved_filename, "w"))
+        #pickle.dump(olds, open(reserved_filename, "w"))
+        pickle.dump(namespaces, open(reserved_filename, "w"))
         
         print("Write on %s" % reserved_filename)

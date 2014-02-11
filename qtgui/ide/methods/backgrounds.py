@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
+from PySide import QtGui
 #from .constants import a
 
 ########################################################################
-class BackgroundPallete:
+class BackgroundPallete(object):
     
 
     #----------------------------------------------------------------------

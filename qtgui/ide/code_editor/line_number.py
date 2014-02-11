@@ -5,7 +5,7 @@ from PySide.QtGui import QWidget
 from PySide.QtGui import QPainter
 from PySide import QtCore, QtGui
 
-from ..methods.backgrounds import BackgroundPallete
+#from ..methods.backgrounds import BackgroundPallete
 
 class LineNumber(QWidget):
 
@@ -15,7 +15,7 @@ class LineNumber(QWidget):
         
         self.edit = None
         self.highest_line = 0
-        self.current=0
+        self.current = 0
         
         self.setMinimumSize(QtCore.QSize(51, 0))
         self.setMaximumSize(QtCore.QSize(51, 16777215))
@@ -59,7 +59,7 @@ class LineNumber(QWidget):
                 font = painter.font()
                 font.setBold(True)
                 painter.setFont(font)
-                self.current=line_count
+                self.current = line_count
             painter.drawText(self.width() - font_metrics.width(str(line_count)) - 10,
                              round(position.y()) - contents_y + font_metrics.ascent(),
                              str(line_count))
@@ -71,3 +71,4 @@ class LineNumber(QWidget):
         self.highest_line = line_count
         painter.end()
         QWidget.paintEvent(self, event)
+        

@@ -41,7 +41,7 @@ class HexViewer(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def centrar(self):
         screen = QtGui.QDesktopWidget().screenGeometry()
-        size =  self.geometry()
+        size = self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
         
         

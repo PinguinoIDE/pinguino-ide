@@ -44,8 +44,7 @@ class SearchReplace(object):
             self.main.label_replace_info.setText(QtGui.QApplication.translate("Frame", "%d words were found.")%count)
     
     
-        for i in range(count):
-            self.search_next()    
+        for i in range(count): self.search_next()    
     
         text_cur = editor.text_edit.textCursor()
         editor.text_edit.moveCursor(text_cur.Start)    

@@ -52,3 +52,4 @@ class Functions(object):
         pm.fillWith(["spin-int"])
         pm.addContextHelp("Normally closed")
         return pm.getBlock()
+    

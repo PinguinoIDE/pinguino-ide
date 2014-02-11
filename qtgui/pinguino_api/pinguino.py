@@ -2,7 +2,7 @@
 #-*- coding: utf-8 -*-
 
 import os
-import sys
+#import sys
 import argparse
 import re
 
@@ -127,10 +127,9 @@ class Pinguino(PinguinoTools):
         
     #----------------------------------------------------------------------
     def get_hex(self):
-        
         assert self.__compiled__
         hex_file = open(self.__data__["hex_file"], "r")
-        content = hex_file.readlines()
+        #content = hex_file.readlines()
         hex_file.close()
         return hex_file
     

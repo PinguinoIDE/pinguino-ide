@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from . import constructor as Block
+#from . import constructor as Block
 from .constructor import Kit
 
 Kit = Kit()

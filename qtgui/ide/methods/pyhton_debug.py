@@ -8,8 +8,7 @@ class Stderr(file):
     
     #----------------------------------------------------------------------
     @classmethod
-    def write(self, message):
-        
+    def write(cls, message):
         Dialogs.error_message(None, message)
         
 

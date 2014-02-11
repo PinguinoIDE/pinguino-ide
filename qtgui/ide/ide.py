@@ -76,9 +76,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.connect_events()
 
         os_name = os.environ.get("PINGUINO_OS_NAME")
-        if os_name == "windows":
-            os.environ['PATH'] = os.environ['PATH'] + ';' + os.path.join(HOME_DIR,'win32','p8','bin') 
-        elif os_name == "linux":
+        #if os_name == "windows":
+            #os.environ['PATH'] = os.environ['PATH']
+        if os_name == "linux":
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
 
 
@@ -90,9 +90,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.tabWidget_tools.setCurrentIndex(0)
         self.main.tabWidget_blocks_tools.setCurrentIndex(0)
 
-        PrettyFeatures.LineEdit_default_text(self, self.main.lineEdit_search, QtGui.QApplication.translate("Frame", "Search..."))
-        PrettyFeatures.LineEdit_default_text(self, self.main.lineEdit_replace, QtGui.QApplication.translate("Frame", "Replace..."))
-        PrettyFeatures.LineEdit_default_text(self, self.main.lineEdit_blocks_search, QtGui.QApplication.translate("Frame", "Search block..."))
+        PrettyFeatures.LineEdit_default_text(self.main.lineEdit_search, QtGui.QApplication.translate("Frame", "Search..."))
+        PrettyFeatures.LineEdit_default_text(self.main.lineEdit_replace, QtGui.QApplication.translate("Frame", "Replace..."))
+        PrettyFeatures.LineEdit_default_text(self.main.lineEdit_blocks_search, QtGui.QApplication.translate("Frame", "Search block..."))
 
 
     #----------------------------------------------------------------------

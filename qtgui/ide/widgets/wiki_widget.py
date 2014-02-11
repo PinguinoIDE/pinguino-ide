@@ -46,7 +46,6 @@ class WikiDock(QtGui.QMainWindow):
         
     #----------------------------------------------------------------------
     def tab_close(self, index):
-        
         if index == 0: return
         else: self.main_widget.tabWidget.removeTab(index)
         
@@ -55,7 +54,7 @@ class WikiDock(QtGui.QMainWindow):
     def centrar(self):
         
         screen = QtGui.QDesktopWidget().screenGeometry()
-        size =  self.geometry()
+        size = self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)        
         
 
@@ -151,10 +150,10 @@ class WikiDock(QtGui.QMainWindow):
         tab.textBrowser.clear()
         
         delete = []
-        delete.append(content.find("h3",attrs={"id":"siteSub"}).extract())
-        delete.append(content.find("div",attrs={"id":"jump-to-nav"}).extract())
-        delete.append(content.find("div",attrs={"class":"printfooter"}).extract())
-        delete.append(content.find("div",attrs={"id":"catlinks"}).extract())
+        delete.append(content.find("h3", attrs={"id":"siteSub"}).extract())
+        delete.append(content.find("div", attrs={"id":"jump-to-nav"}).extract())
+        delete.append(content.find("div", attrs={"class":"printfooter"}).extract())
+        delete.append(content.find("div", attrs={"id":"catlinks"}).extract())
         
         content = str(content.extract())
         

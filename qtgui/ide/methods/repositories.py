@@ -2,19 +2,19 @@
 #-*- coding: utf-8 -*-
 
 import os
-import shutil
+#import shutil
 import logging
 
 INFO = "%s is an optional dependence for Pinguino's Library Manager."
 
 try: import git
-except: logging.warning(INFO%"gitpython")
+except ImportError: logging.warning(INFO%"gitpython")
 
 try: import pysvn
-except: logging.warning(INFO%"pysvn")
+except ImportError: logging.warning(INFO%"pysvn")
 
 try: import hgapi
-except: logging.warning(INFO%"hgapi")
+except ImportError: logging.warning(INFO%"hgapi")
 
 from ..methods.config_libs import ConfigLibsGroup
 
@@ -25,7 +25,7 @@ class PinguinoLibrary(object):
  
     
     #----------------------------------------------------------------------
-    def __init__(self, lib, source):
+    def __init__(self, lib):
         self.config = ConfigLibsGroup()   
         self.ide_library_installed = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries")
         
@@ -129,3 +129,4 @@ class SvnRepo(object):
     def update(self, path):
         client = pysvn.Client()
         client.update(path)
+        

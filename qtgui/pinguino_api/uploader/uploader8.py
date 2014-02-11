@@ -29,7 +29,7 @@
 # See also http://wiki.erazor-zone.de/wiki:projects:python:pyusb:pydoc
 # Pinguino Device Descriptors : lsusb -v -d 04d8:feaa
 
-import sys
+#import sys
 import os
 #import usb            # checked in check.py
 

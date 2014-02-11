@@ -27,8 +27,9 @@ from subprocess import Popen, STDOUT
 import re
 import shutil
 import time
+import argparse
 
-from .boards import boardlist as BoardList
+from .boards import boardlist as Boardlist
 from .uploader.uploader import Uploader
 
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
@@ -123,12 +124,12 @@ class PinguinoTools(object):
         #self.in_verify=1
         t0 = time.time()
         
-        filename, extension = os.path.splitext(filename)
+        filename = os.path.splitext(filename)[0]
         if os.path.exists(filename + ".hex"): os.remove(filename + ".hex")
         if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c")): os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"))
         
         cur_board = self.get_board()
-        retour, error_preprocess = self.preprocess(filename, cur_board)
+        retour, error_preprocess = self.preprocess(filename)
         
         if not retour:
             DATA_RETURN["verified"] = False
@@ -275,12 +276,12 @@ class PinguinoTools(object):
         
     
     #----------------------------------------------------------------------
-    def preprocess(self, filename, board):
+    def preprocess(self, filename):
         """Read Pinguino File (.pde) and translate it into C language"""
         
         error = []
         #defineword = {}
-        index = 0
+        #index = 0
         
         # delete old define.h and create a new one
         if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h")):
@@ -289,7 +290,7 @@ class PinguinoTools(object):
         fichier.close()
 
         # rename .pde in user.c
-        path, name = os.path.split(filename)
+        #name = os.path.split(filename)[1]
         shutil.copy(filename + ".pde", os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"))
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "a")
         fichier.close()
@@ -787,23 +788,12 @@ def getOptions():
     parser.add_argument('-ul', '--upload', dest='upload', const=True, action='store_const', default=False, help='upload code')
     parser.add_argument('-bt', '--boot', dest='bootloader', nargs=1, default=False, help='set bootloader option')
     
-    for b in range(len(boardlist)):
-        parser.add_argument(    boardlist[b].shortarg,
-                                boardlist[b].longarg,
+    for b in range(len(Boardlist)):
+        parser.add_argument(    Boardlist[b].shortarg,
+                                Boardlist[b].longarg,
                                 dest='board',
                                 const=b,
                                 action='store_const',
                                 default=False,
-                                help='compile code for ' + boardlist[b].board + ' board')
+                                help='compile code for ' + Boardlist[b].board + ' board')
     return parser.parse_args()
-
-# ------------------------------------------------------------------------------
-# getVersion
-# ------------------------------------------------------------------------------
-def getVersion():
-    return pinguino_version
-
-#----------------------------------------------------------------------
-def setGui(bool):
-    global gui
-    gui=bool
