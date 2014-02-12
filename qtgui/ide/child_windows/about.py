@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
+
 from PySide import QtGui, QtCore
 
-from ..methods.constants import TAB_NAME
+#from ..methods.constants import os.getenv("NAME")
 from ...frames.about import Ui_About
 
 ########################################################################
@@ -15,7 +17,7 @@ class About(QtGui.QDialog):
         self.about = Ui_About()
         self.about.setupUi(self)
         
-        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
         
         
         self.connect(self.about.pushButton_credits, QtCore.SIGNAL("clicked()"), lambda :self.about.stackedWidget.setCurrentIndex(1))

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
+
 from PySide import QtGui, QtCore
 
-from ..methods.constants import TAB_NAME
+#from ..methods.constants import os.getenv("NAME")
 from ...frames.insert_block import Ui_InsertBlock
 
 ########################################################################
@@ -15,7 +17,7 @@ class InsertBlock(QtGui.QDialog):
         self.insert = Ui_InsertBlock()
         self.insert.setupUi(self)
         
-        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
         
         self.graphical = KIT        
         

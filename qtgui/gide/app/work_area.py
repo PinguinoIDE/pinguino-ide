@@ -4,12 +4,12 @@
 import re
 import os
 from math import sqrt
-#import time
+from datetime import datetime
 
 from PySide import QtGui, QtCore
 
 from .blocks import Blocks
-from .constant import INTRO_CODE
+#from .constant import INTRO_CODE
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
 from ..py_bloques.get_blocks import all_sets
@@ -725,7 +725,17 @@ class WorkArea(QtGui.QWidget):
         
         if global_: global_ = "//  blocks variables, don't edit this\n" + global_ + "\n"
         
-        pinguino_code = INTRO_CODE() + global_ + pinguino_code
+        header_code = """//------------------------------------------------------------------
+// Pinguino source code generated automatically.
+// 
+// Created: %s
+// by: %s %s
+// 
+//  WARNING! All changes made in this file will be lost!
+//------------------------------------------------------------------\n
+"""% (datetime.today().strftime("%Y-%m-%d"), os.getenv("NAME"), os.getenv("VERSION"))
+        
+        pinguino_code = header_code + global_ + pinguino_code
         
         return pinguino_code
         

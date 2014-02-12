@@ -352,22 +352,22 @@ class Methods(SearchReplace):
         return menu
             
             
-    #----------------------------------------------------------------------
-    def update_pinguino_paths(self):
-        user_sdcc_bin = self.configIDE.get_path("sdcc_bin")
-        if user_sdcc_bin: self.pinguinoAPI.P8_BIN = user_sdcc_bin
+    ##----------------------------------------------------------------------
+    #def update_pinguino_paths(self):
+        #user_sdcc_bin = self.configIDE.get_path("sdcc_bin")
+        #if user_sdcc_bin: self.pinguinoAPI.P8_BIN = user_sdcc_bin
         
-        user_gcc_bin = self.configIDE.get_path("gcc_bin")
-        if user_gcc_bin: self.pinguinoAPI.P32_BIN = user_gcc_bin
+        #user_gcc_bin = self.configIDE.get_path("gcc_bin")
+        #if user_gcc_bin: self.pinguinoAPI.P32_BIN = user_gcc_bin
         
-        pinguino_source = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")
-        if pinguino_source: self.pinguinoAPI.SOURCE_DIR = pinguino_source
+        #pinguino_source = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")
+        #if pinguino_source: self.pinguinoAPI.SOURCE_DIR = pinguino_source
         
-        pinguino_8_libs = self.configIDE.get_path("pinguino_8_libs")
-        if pinguino_8_libs: self.pinguinoAPI.P8_DIR = pinguino_8_libs
+        #pinguino_8_libs = self.configIDE.get_path("pinguino_8_libs")
+        #if pinguino_8_libs: self.pinguinoAPI.P8_DIR = pinguino_8_libs
         
-        pinguino_32_libs = self.configIDE.get_path("pinguino_32_libs")
-        if pinguino_32_libs: self.pinguinoAPI.P32_DIR = pinguino_32_libs
+        #pinguino_32_libs = self.configIDE.get_path("pinguino_32_libs")
+        #if pinguino_32_libs: self.pinguinoAPI.P32_DIR = pinguino_32_libs
                 
                 
     #----------------------------------------------------------------------
@@ -453,22 +453,19 @@ class Methods(SearchReplace):
         return board_config
     
     
-    #----------------------------------------------------------------------
-    def update_user_libs(self):
-        libs = Librarymanager()
+    ##----------------------------------------------------------------------
+    #def update_user_libs(self):
+        #libs = Librarymanager()
         
-        all_p8 = libs.get_p8_libraries()
-        all_p8 = map(lambda lib:lib["p8"], all_p8)
-        self.pinguinoAPI.USER_P8_LIBS = all_p8   
+        #all_p8 = libs.get_p8_libraries()
+        #all_p8 = map(lambda lib:lib["p8"], all_p8)
+        #self.pinguinoAPI.USER_P8_LIBS = all_p8   
         
-        all_p32 = libs.get_p32_libraries()
-        all_p32 = map(lambda lib:lib["p32"], all_p32)
-        self.pinguinoAPI.USER_P32_LIBS = all_p32  
+        #all_p32 = libs.get_p32_libraries()
+        #all_p32 = map(lambda lib:lib["p32"], all_p32)
+        #self.pinguinoAPI.USER_P32_LIBS = all_p32  
         
-        self.pinguinoAPI.USER_PDL = libs.get_pdls()
-        
-        #self.update_reserved_words()
-        #self.update_instaled_reserved_words()
+        #self.pinguinoAPI.USER_PDL = libs.get_pdls()
         
         
     #----------------------------------------------------------------------
@@ -491,7 +488,7 @@ class Methods(SearchReplace):
         libinstructions = self.pinguinoAPI.read_lib(32)[1]
         name_spaces_32 = map(lambda x:x[0], libinstructions)
         
-        reserved_filename = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle")
+        reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
         
         name_spaces_commun = []
         
@@ -516,7 +513,7 @@ class Methods(SearchReplace):
         libinstructions = self.pinguinoAPI.read_lib(32, include_default=False)[1]
         name_spaces_32 = map(lambda x:x[0], libinstructions)
         
-        reserved_filename = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle")
+        reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
         
         name_spaces_commun = []
         

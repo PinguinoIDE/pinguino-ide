@@ -5,7 +5,7 @@ import os
 import re
 import pickle
 
-from . import constants as Constants
+#from . import constants as Constants
 
 P32_DIR = os.path.join(Constants.IDE_HOME_DIR, "pinguino", "p32")
 P8_DIR = os.path.join(Constants.IDE_HOME_DIR, "pinguino", "p8")
@@ -66,5 +66,5 @@ class Namespaces(object):
                 name_spaces_commun.append(name)
         
         namespaces = {"arch8": name_spaces_8, "arch32": name_spaces_32, "all": name_spaces_commun,}   
-        pickle.dump(namespaces, open(Constants.IDE_NAMESPACES_FILE, "w"))
+        #pickle.dump(namespaces, open(Constants.IDE_NAMESPACES_FILE, "w"))
     

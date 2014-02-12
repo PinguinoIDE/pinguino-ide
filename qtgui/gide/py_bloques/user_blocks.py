@@ -14,10 +14,10 @@ class UserBlocks(object):
     #----------------------------------------------------------------------
     def __init__(self):
         
-        path = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks")
+        path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks")
         
         if not os.path.exists(path): return
-        sets = os.listdir(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks"))
+        sets = os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks"))
         
         sys.path.append(os.path.join(os.getcwd(), "qtgui", "gide", "py_bloques"))
         

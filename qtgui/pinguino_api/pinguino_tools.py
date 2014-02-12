@@ -34,8 +34,6 @@ from .uploader.uploader import Uploader
 
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
-    
-#FIXME: add user libraries to 32bit
 
 
 ########################################################################
@@ -110,7 +108,7 @@ class PinguinoTools(object):
     def get_hex_file(self):
         
         return self.__hex_file__
-        
+    
 
     #----------------------------------------------------------------------
     def verify(self, filename):

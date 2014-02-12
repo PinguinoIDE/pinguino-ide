@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
+
 from ...frames.board_config import Ui_BoardConfig
-from ..methods.constants import TAB_NAME
+#from ..methods.constants import os.getenv("NAME")
 from PySide import QtGui, QtCore
 
 
@@ -16,7 +18,7 @@ class BoardConfig(QtGui.QDialog):
         self.board_config.setupUi(self)
         self.main = parent
         
-        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
         
         self.build_devices_arch()        
         self.load_config()

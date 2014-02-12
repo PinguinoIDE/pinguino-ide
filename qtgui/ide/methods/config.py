@@ -13,7 +13,7 @@ class Config(RawConfigParser, object):
     def __init__(self):
         super(Config, self).__init__()
         
-        self.ide_config_file = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "pinguino.conf")
+        self.ide_config_file = os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf")
         self.verify_config_file()
         self.load_config()
         

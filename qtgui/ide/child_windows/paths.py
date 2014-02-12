@@ -7,8 +7,9 @@ from PySide import QtGui, QtCore
 
 #from ..methods.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
-from ..methods.constants import TAB_NAME
+#from ..methods.constants import os.getenv("NAME")
 from ...frames.paths import Ui_Paths
+from ...pinguino_api.pinguino_config import PinguinoConfig
 
 
 ########################################################################
@@ -21,7 +22,7 @@ class Paths(QtGui.QDialog):
         self.set_paths.setupUi(self)
         self.main = parent
         
-        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
         
         self.dialog_file = ((self.set_paths.lineEdit_gcc_bin, self.set_paths.pushButton_gcc_bin, "GCC_BIN"),
                             (self.set_paths.lineEdit_sdcc_bin, self.set_paths.pushButton_sdcc_bin, "SDCC_BIN"),
@@ -71,7 +72,8 @@ class Paths(QtGui.QDialog):
                     return
                 else: self.main.configIDE.set("Paths", keyWord, content)  
         self.main.configIDE.save_config()
-        self.main.update_pinguino_paths()
+        #self.main.update_pinguino_paths()
+        PinguinoConfig.update_pinguino_paths(self.main.configIDE, self.main.pinguinoAPI)
         super(Paths, self).close()
 
     #----------------------------------------------------------------------

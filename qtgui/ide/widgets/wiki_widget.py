@@ -23,7 +23,9 @@ class WikiDock(QtGui.QMainWindow):
         self.main_widget = Ui_WikiDocs()
         self.main_widget.setupUi(self)
         
-        self.ide_wiki_docs = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "wikidocs.pickle")
+        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
+        
+        self.ide_wiki_docs = os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")
 
         self.to_ignore = ["Examples"]
         

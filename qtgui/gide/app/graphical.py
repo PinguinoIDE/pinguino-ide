@@ -12,7 +12,7 @@ from PySide import QtGui, QtCore
 from .blocks import Blocks
 from .work_area import WorkArea
 from .tool_area import ToolArea
-from .constant import TAB_NAME
+#from .constant import os.getenv("NAME")
 #from ..bloques.color import setColor
 from ..py_bloques.get_blocks import all_sets
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
@@ -172,7 +172,7 @@ class GraphicalIDE(object):
             setattr(editor, "path", save_path)
             self.main.tabWidget_graphical.setTabText(index, filename)
             self.main.tabWidget_graphical.setTabToolTip(index, save_path) 
-            self.ide.setWindowTitle(TAB_NAME+" - "+save_path)        
+            self.ide.setWindowTitle(os.getenv("NAME")+" - "+save_path)        
         
         self.__save_file__(editor=editor)
         return True
@@ -194,7 +194,7 @@ class GraphicalIDE(object):
         setattr(editor, "path", save_path)
         self.main.tabWidget_graphical.setTabText(index, filename)
         self.main.tabWidget_graphical.setTabToolTip(index, save_path) 
-        self.ide.setWindowTitle(TAB_NAME+" - "+save_path)        
+        self.ide.setWindowTitle(os.getenv("NAME")+" - "+save_path)        
     
         self.__save_file__(editor=editor)
         return True
@@ -361,7 +361,7 @@ class GraphicalIDE(object):
         self.load_blocks(set_blocks)
         self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
         self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])       
-        self.ide.setWindowTitle(TAB_NAME+" - "+filename)   
+        self.ide.setWindowTitle(os.getenv("NAME")+" - "+filename)   
         setattr(editor, "path", filename)
             
         self.ide.tab_changed()
@@ -461,7 +461,7 @@ class GraphicalIDE(object):
         
     #----------------------------------------------------------------------
     def load_fonts(self):
-        fonts_dir = os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "ide", "qtgui", "resources", "fonts")
+        fonts_dir = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "ide", "qtgui", "resources", "fonts")
         if not os.path.exists(fonts_dir):
             logging.warning("Missing: "+fonts_dir)
             return
@@ -490,7 +490,7 @@ class GraphicalIDE(object):
         setattr(editor, "path", filename)
         self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
         self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
-        self.ide.setWindowTitle(TAB_NAME+" - "+filename)      
+        self.ide.setWindowTitle(os.getenv("NAME")+" - "+filename)      
         
         self.ide.tab_changed()
         

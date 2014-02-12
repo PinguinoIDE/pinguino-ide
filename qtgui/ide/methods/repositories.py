@@ -27,7 +27,7 @@ class PinguinoLibrary(object):
     #----------------------------------------------------------------------
     def __init__(self, lib):
         self.config = ConfigLibsGroup()   
-        self.ide_library_installed = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries")
+        self.ide_library_installed = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries")
         
         self.name = lib
         self.url = self.config.get_all_sources()[lib]["repository"]

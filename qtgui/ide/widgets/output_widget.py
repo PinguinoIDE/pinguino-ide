@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
 import sys
 
 from PySide import QtCore, QtGui
 import git
 
-from ..methods import constants as Constants
+#from ..methods import constants as Constants
 from ..methods.python_shell import PythonShell
 
-HEAD = Constants.TAB_NAME + "\n" + "Python " + sys.version + " on " + sys.platform
+HEAD = os.getenv("NAME") + " " + os.getenv("VERSION") + "\n" + "Python " + sys.version + " on " + sys.platform
 HELP = QtGui.QApplication.translate("PythonShell", "can also use the commands:") + ' "clear", "restart"'
 
 START = ">>> "

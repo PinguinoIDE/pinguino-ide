@@ -6,13 +6,13 @@ import sys
 import codecs
 import shutil
 import logging
-from ConfigParser import RawConfigParser
+#from ConfigParser import RawConfigParser
 
 from PySide import QtGui, QtCore
 
 from .methods.backgrounds import BackgroundPallete
 from .events.events import PinguinoEvents
-from .methods import constants as Constants
+#from .methods import constants as Constants
 from .methods.dialogs import Dialogs
 from .methods.pyhton_debug import Stderr
 from .methods.config import Config
@@ -22,6 +22,25 @@ from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
+from ..pinguino_api.pinguino_config import PinguinoConfig
+
+
+##----------------------------------------------------------------------
+#def set_environ_vars():
+    #config_paths = RawConfigParser()
+    #config_paths.readfp(open("paths.cfg", "r"))
+
+    #if os.name == "posix": #GNU/Linux
+        #os.environ["PINGUINO_OS_NAME"] = "linux"
+
+    #elif os.name == "nt":  #Windows
+        #os.environ["PINGUINO_OS_NAME"] = "windows"
+
+    ##load path from paths.conf
+    #os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "user_path"))
+    #os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "install_path"))  
+    #os.environ["PINGUINO_USERLIBS_PATH"] = os.path.join(os.getenv("PINGUINO_USER_PATH"), "library_manager")  
+
 
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
@@ -36,8 +55,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main = Ui_PinguinoIDE()          
         self.main.setupUi(self)
 
-        self.set_environ_vars()
-        self.check_user_files()
+        #set_environ_vars()
+        #self.check_user_files()
+        PinguinoConfig.set_environ_vars()
+        PinguinoConfig.check_user_files()
 
         self.pinguinoAPI = Pinguino()
         self.pinguinoAPI._boards_ = AllBoards
@@ -47,10 +68,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.dockWidget_blocks.setVisible(False) 
         self.ICONS = CompleteIcons()
 
-        self.update_pinguino_paths()
-        self.update_user_libs()        
+        #self.update_pinguino_paths()
+        #self.update_user_libs()
+        PinguinoConfig.update_pinguino_paths(self.configIDE, self.pinguinoAPI)
+        PinguinoConfig.update_user_libs(self.pinguinoAPI)
 
-        self.setWindowTitle(Constants.TAB_NAME)
+        self.setWindowTitle(os.getenv("NAME")+" "+os.getenv("VERSION"))
         self.fix_styles()
 
         self.open_last_files()
@@ -75,7 +98,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.load_main_config()
         self.connect_events()
 
-        os_name = os.environ.get("PINGUINO_OS_NAME")
+        os_name = os.getenv("PINGUINO_OS_NAME")
         #if os_name == "windows":
             #os.environ['PATH'] = os.environ['PATH']
         if os_name == "linux":
@@ -120,87 +143,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         for toolbar in toolbars:
             toolbar.setIconSize(QtCore.QSize(32, 32))
             #toolbar.setIconSize(QtCore.QSize(48, 48))
-
-
-    #----------------------------------------------------------------------
-    def set_environ_vars(self):
-        config_paths = RawConfigParser()
-        config_paths.readfp(open("paths.conf", "r"))
-
-        if os.name == "posix": #GNU/Linux
-            os.environ["PINGUINO_OS_NAME"] = "linux"
-
-        elif os.name == "nt":  #Windows
-            os.environ["PINGUINO_OS_NAME"] = "windows"
-
-        #load path from paths.conf
-        os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ.get("PINGUINO_OS_NAME"), "user_path"))
-        os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.environ.get("PINGUINO_OS_NAME"), "install_path"))  
-        os.environ["PINGUINO_USERLIBS_PATH"] = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "library_manager")      
-
-
-    #----------------------------------------------------------------------
-    def check_user_files(self):
-
-        #check instalation path
-        if not os.path.exists(os.environ.get("PINGUINO_INSTALL_PATH")):
-            logging.warning("Missing Pinguino libraries instalation. "
-                            "Make sure the paths in %s are correct."%os.path.abspath("paths.conf"))
-
-        #create ~/.pinguino
-        if not os.path.exists(os.environ.get("PINGUINO_USER_PATH")):
-            os.mkdir(os.environ.get("PINGUINO_USER_PATH"))
-
-        #Check files
-        self.check_dirs()
-        self.check_config_files()
-
-
-    #----------------------------------------------------------------------
-    def check_dirs(self):
-
-        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "examples"),
-                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "examples"),
-                                    default_dir=True)
-
-        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "graphical_examples"),
-                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "graphical_examples"),
-                                    default_dir=True)
-
-        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "source"),
-                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "source"))
-
-        #FIXME: wath to do with this dir?
-        self.if_not_exist_then_copy(src=os.path.join(os.environ.get("PINGUINO_INSTALL_PATH"), "p32", "obj"),
-                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "source", "obj"))
-
-
-    #----------------------------------------------------------------------
-    def check_config_files(self):
-        self.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "pinguino.%s.conf"%os.environ.get("PINGUINO_OS_NAME")),
-                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "pinguino.conf"))
-
-        self.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "reserved.pickle"),
-                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"))
-
-        self.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "wikidocs.pickle"),
-                                    dst=os.path.join(os.environ.get("PINGUINO_USER_PATH"), "wikidocs.pickle"))
-
-
-
-    #----------------------------------------------------------------------
-    def if_not_exist_then_copy(self, src, dst, default_dir=False):
-        if not os.path.exists(src):
-            logging.warning("Missing: " + src)
-            if not os.path.exists(dst) and default_dir:
-                os.mkdir(dst)
-            return
-
-        if not os.path.exists(dst):
-            if os.path.isdir(src):
-                shutil.copytree(src, dst)
-            else:
-                shutil.copy(src, dst)
 
 
     #----------------------------------------------------------------------

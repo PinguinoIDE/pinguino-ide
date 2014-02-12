@@ -6,7 +6,7 @@ import os
 
 from PySide import QtGui, QtCore
 
-from ..methods.constants import TAB_NAME
+#from ..methods.constants import os.getenv("NAME")
 #from ..methods.constants import PINGUINO_STDOUT_FILE
 from ...frames.stdout import Ui_PlainOut
 from ..code_editor.syntaxhighlighter import Highlighter
@@ -26,7 +26,7 @@ class PlainOut(QtGui.QDialog):
         font.setPointSize(font.pointSize()-1)
         self.plain_out.textEdit.setFont(font)
         
-        self.setWindowTitle(TAB_NAME+" - "+title)
+        self.setWindowTitle(os.getenv("NAME")+" - "+title)
         
         self.connect(self.plain_out.pushButton_close, QtCore.SIGNAL("clicked()"), self.close)
         
@@ -35,7 +35,7 @@ class PlainOut(QtGui.QDialog):
         palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
         self.setPalette(palette)
         
-        PINGUINO_STDOUT_FILE = os.path.join(os.environ.get("PINGUINO_USER_PATH"), "source", "stdout")
+        PINGUINO_STDOUT_FILE = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "stdout")
 
         if os.path.exists(PINGUINO_STDOUT_FILE):
             stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")

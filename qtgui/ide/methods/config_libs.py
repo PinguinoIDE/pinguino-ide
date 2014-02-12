@@ -15,7 +15,7 @@ class ConfigLibsGroup(object):
     #----------------------------------------------------------------------
     def __init__(self):
         
-        IDE_LIBRARY_INSTALLED = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries") 
+        IDE_LIBRARY_INSTALLED = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries") 
         libs = os.listdir(IDE_LIBRARY_INSTALLED)
     
         self.all_libs = {}

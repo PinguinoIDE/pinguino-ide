@@ -17,7 +17,7 @@ class Librarymanager(object):
     
     #----------------------------------------------------------------------
     def get_libraries(self):
-        path = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries")
+        path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries")
         if not os.path.exists(path): return []
         dirs = os.listdir(path)
         
@@ -28,10 +28,10 @@ class Librarymanager(object):
                 config = self.parser_to_dict(os.path.join(path, dir_, "config"))
             except:
                 shutil.rmtree(os.path.join(path, dir_))
-                if os.path.exists(os.path.join(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples"), dir_)):
-                    shutil.rmtree(os.path.join(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples"), dir_))
-                if os.path.exists(os.path.join(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks"), dir_)):
-                    shutil.rmtree(os.path.join(os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks"), dir_))
+                if os.path.exists(os.path.join(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples"), dir_)):
+                    shutil.rmtree(os.path.join(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples"), dir_))
+                if os.path.exists(os.path.join(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks"), dir_)):
+                    shutil.rmtree(os.path.join(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks"), dir_))
                 continue
             dict_ = {}
             

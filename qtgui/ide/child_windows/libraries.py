@@ -11,12 +11,12 @@ import webbrowser
 from PySide import QtGui, QtCore
 
 from ..methods.config_libs import ConfigLibsGroup
-from ..methods.constants import TAB_NAME, NAME
+#from ..methods.constants import os.getenv("NAME"), NAME
 from ..methods.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
-from ...frames.libraries_widget import Ui_LibraryManager
-
 from ..methods.repositories import PinguinoLibrary
+from ...frames.libraries_widget import Ui_LibraryManager
+from ...pinguino_api.pinguino_config import PinguinoConfig
 
 ########################################################################
 class LibManager(QtGui.QMainWindow):
@@ -29,7 +29,7 @@ class LibManager(QtGui.QMainWindow):
         
         self.main = IDE
         
-        self.user_libraries_dir = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries")        
+        self.user_libraries_dir = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries")        
         
         if not os.path.isdir(os.path.dirname(self.user_libraries_dir)):
             os.mkdir(os.path.dirname(self.user_libraries_dir))
@@ -40,7 +40,7 @@ class LibManager(QtGui.QMainWindow):
         
         self.ConfigLibs = ConfigLibsGroup()
         
-        self.setWindowTitle(TAB_NAME+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
         
         self.connect(self.libframe.pushButton_add, QtCore.SIGNAL("clicked()"), self.add_source)
         #self.connect(self.libframe.lineEdit_source, QtCore.SIGNAL("editingFinished()"), self.add_source)
@@ -96,19 +96,19 @@ class LibManager(QtGui.QMainWindow):
     def post_install(self, lib_name):
         
         for dir_ in ["examples", "blocks"]:
-            path_user_examples_libraries = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), dir_)
+            path_user_examples_libraries = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), dir_)
             if not os.path.exists(path_user_examples_libraries):
                 os.mkdir(path_user_examples_libraries)
                 self.main.output_ide(QtGui.QApplication.translate("frame", "Created :")+path_user_examples_libraries)
             
         lista = []
         
-        path_examples = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, "lib", "examples")
-        dest_examples = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples", lib_name)
+        path_examples = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, "lib", "examples")
+        dest_examples = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples", lib_name)
         lista.append([path_examples, dest_examples])
         
-        path_blocks = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, "lib", "blocks")
-        dest_blocks = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks", lib_name)
+        path_blocks = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, "lib", "blocks")
+        dest_blocks = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks", lib_name)
         lista.append([path_blocks, dest_blocks])
         
         for src, dest in lista:
@@ -131,7 +131,7 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def install_from_zip(self):
         open_files = QtGui.QFileDialog.getOpenFileNames(self,
-                NAME+QtGui.QApplication.translate("Dialogs", " - Open"),
+                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
                 QtCore.QDir.home().path(),
                 QtGui.QApplication.translate("Dialogs", "Zip Files (*.zip)"))
         
@@ -144,10 +144,10 @@ class LibManager(QtGui.QMainWindow):
             name = os.path.split(lib)[1]
             name = os.path.splitext(name)[0]
             
-            path_dirlib = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name)
-            #path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name, "lib")
-            path_dirlib_source = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name)
-            path_PINGUINO = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", name, "lib", "PINGUINO")
+            path_dirlib = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", name)
+            #path_dirlib_source = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", name, "lib")
+            path_dirlib_source = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", name)
+            path_PINGUINO = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", name, "lib", "PINGUINO")
             path_config = os.path.join(self.user_libraries_dir, name, "config")
             
             if os.path.exists(path_dirlib):
@@ -193,7 +193,8 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def close(self, event=None):
         self.ConfigLibs.save_config()
-        self.main.update_user_libs()
+        #self.main.update_user_libs()
+        PinguinoConfig.update_user_libs(self.main.pinguinoAPI)
         self.main.update_instaled_reserved_words()
         super(LibManager, self).close()
         
@@ -406,9 +407,9 @@ class LibManager(QtGui.QMainWindow):
                                        "\n"+"\n".join(selected)):
             return
                 
-        selected_l = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "libraries", sel), selected)
-        selected_b = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "blocks", sel), selected)
-        selected_e = map(lambda sel:os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples", sel), selected)
+        selected_l = map(lambda sel:os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", sel), selected)
+        selected_b = map(lambda sel:os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks", sel), selected)
+        selected_e = map(lambda sel:os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples", sel), selected)
         
         for sel in selected_l + selected_b + selected_e:
             if os.path.exists(sel):

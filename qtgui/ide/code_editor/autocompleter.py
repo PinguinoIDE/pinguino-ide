@@ -38,7 +38,7 @@ class PinguinoAutoCompleter(QListWidget):
                          }
         
         
-        self.namespaces = pickle.load(open(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))          
+        self.namespaces = pickle.load(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))          
         
         icons = CompleteIcons()
         self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
@@ -49,7 +49,7 @@ class PinguinoAutoCompleter(QListWidget):
     #----------------------------------------------------------------------
     def set_arch_autocompleter(self):
         
-        arch = os.environ.get("PINGUINO_BOARD_ARCH")
+        arch = os.getenv("PINGUINO_BOARD_ARCH")
         
         icons = CompleteIcons()
         

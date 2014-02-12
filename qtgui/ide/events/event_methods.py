@@ -12,7 +12,7 @@ from ..code_editor.pinguino_code_editor import PinguinoCodeEditor
 #from ..methods.syntax import Snippet
 from ..methods.dialogs import Dialogs
 from ..methods.decorators import Decorator
-from ..methods import constants as Constants
+#from ..methods import constants as Constants
 from ..methods.methods import Methods
 from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
@@ -109,7 +109,7 @@ class EventMethods(Methods):
             setattr(editor, "path", save_path)
             self.main.tabWidget_files.setTabText(index, filename)
             self.main.tabWidget_files.setTabToolTip(index, save_path)    
-            self.setWindowTitle(Constants.TAB_NAME+" - "+save_path)
+            self.setWindowTitle(os.getenv("NAME")+" - "+save_path)
             
             self.update_recents(save_path)            
         
@@ -163,7 +163,7 @@ class EventMethods(Methods):
         setattr(editor, "path", save_path)
         self.main.tabWidget_files.setTabText(index, filename)
         self.main.tabWidget_files.setTabToolTip(index, save_path) 
-        self.setWindowTitle(Constants.TAB_NAME+" - "+save_path)
+        self.setWindowTitle(os.getenv("NAME")+" - "+save_path)
         
         self.__save_file__(editor=editor)
         return True
@@ -837,7 +837,7 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     def change_dir_files(self, to_dir):
         if to_dir == "Examples":
-            self.__update_path_files__(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "examples"))
+            self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
             
         elif to_dir == "Home":
             self.__update_path_files__(QtCore.QDir.home().path())
@@ -848,7 +848,7 @@ class EventMethods(Methods):
             if dir_: self.__update_path_files__(os.path.split(dir_)[0])
             
         elif to_dir == "Third party libraries":
-            path = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples")
+            path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
             if os.path.exists(path): self.__update_path_files__(path)
             
         elif to_dir == "Other...":
@@ -860,7 +860,7 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     def change_dir_filesg(self, to_dir):
         if to_dir == "Examples":
-            self.__update_graphical_path_files__(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "graphical_examples"))
+            self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
             
         elif to_dir == "Home":
             self.__update_graphical_path_files__(QtCore.QDir.home().path())
@@ -871,7 +871,7 @@ class EventMethods(Methods):
             if dir_: self.__update_graphical_path_files__(os.path.split(dir_)[0])
             
         elif to_dir == "Third party libraries":
-            path = os.path.join(os.environ.get("PINGUINO_USERLIBS_PATH"), "examples")
+            path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
             if os.path.exists(path): self.__update_graphical_path_files__(path)
             
         elif to_dir == "Other...":
@@ -945,8 +945,8 @@ class EventMethods(Methods):
         self.main.actionClose_file.setEnabled(self.main.tabWidget_files.count() > 0)
             
         editor = self.main.tabWidget_files.currentWidget()
-        if getattr(editor, "path", None): self.setWindowTitle(Constants.TAB_NAME+" - "+editor.path)
-        else: self.setWindowTitle(Constants.TAB_NAME)
+        if getattr(editor, "path", None): self.setWindowTitle(os.getenv("NAME")+" - "+editor.path)
+        else: self.setWindowTitle(os.getenv("NAME"))
         
         index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)
@@ -1034,7 +1034,7 @@ class EventMethods(Methods):
         
         editor = self.main.tabWidget_files.currentWidget()
         filename = getattr(editor, "path", False)
-        if filename and (filename.startswith(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "examples")) or filename.startswith(os.path.join(os.environ.get("PINGUINO_USER_PATH"), "graphical_examples"))):
+        if filename and (filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples")) or filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))):
             menu.addAction(QtGui.QApplication.translate("Frame", "Restore example"), self.restore_example)
             menu.addSeparator()
         
@@ -1072,7 +1072,7 @@ class EventMethods(Methods):
     def restore_example(self):
         editor = self.main.tabWidget_files.currentWidget()
         filename = getattr(editor, "path", False)
-        filename_install = filename.replace(os.environ.get("PINGUINO_USER_PATH"), os.environ.get("PINGUINO_INSTALL_PATH"))
+        filename_install = filename.replace(os.getenv("PINGUINO_USER_PATH"), os.getenv("PINGUINO_INSTALL_PATH"))
         shutil.copyfile(filename_install, filename)
         self.reload_file()
         
