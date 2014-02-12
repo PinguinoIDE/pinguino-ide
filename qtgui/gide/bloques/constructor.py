@@ -466,8 +466,6 @@ class Constructor(object):
     
     #----------------------------------------------------------------------
     def addParent(self, widget, force=False):
-        """"""
-        #FIXME: Blocks :(
         static, move = widget
         static_layout = static.metadata.object_.layout
         
@@ -622,10 +620,13 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def updatePoints(self):
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
-        self.toType["tipo5"] = poits
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts_b)
-        self.toType["tipo2"] = poits
+        layouts = filter(lambda l:l.isEnabled(), self.inLayouts)
+        points = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), layouts)
+        self.toType["tipo5"] = points
+        
+        layouts_b = filter(lambda l:l.isEnabled(), self.inLayouts_b)        
+        points = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), layouts_b)
+        self.toType["tipo2"] = points
         
             
     #----------------------------------------------------------------------

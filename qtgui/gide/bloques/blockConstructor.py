@@ -296,12 +296,13 @@ class BlockFunction(Constructor, Properties):
         
     #----------------------------------------------------------------------
     def updatePoints(self):
+        super(BlockFunction, self).updatePoints()
         
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
-        self.toType["tipo5"] = poits
+        #poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
+        #self.toType["tipo5"] = poits
         
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts_b)
-        self.toType["tipo2"] = poits
+        #poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts_b)
+        #self.toType["tipo2"] = poits
         
         
         self.toType["tipo1"] = [QtCore.QPoint(12, 39)]      
@@ -493,16 +494,12 @@ class BlockNested(Constructor, Properties):
         
     #----------------------------------------------------------------------
     def updatePoints(self):
+        super(BlockNested, self).updatePoints()
+        #poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
+        #self.toType["tipo5"] = poits
         
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts)
-        self.toType["tipo5"] = poits
-        
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts_b)
-        self.toType["tipo2"] = poits
-        
-        
-        
-        
+        #poits = map(lambda x:self.widget.mapToGlobal(x.pos()+self.insidePos), self.inLayouts_b)
+        #self.toType["tipo2"] = poits
 
         c = QtCore.QPoint(0, self.widget.size().height()-7)
         d = QtCore.QPoint(0, self.widget.size().height()-16)
@@ -763,15 +760,14 @@ class BlockNestedSecond(Constructor, Properties):
         
     #----------------------------------------------------------------------
     def updatePoints(self):
+               
+        super(BlockNestedSecond, self).updatePoints()
+        #poits = map(lambda x:self.widget.mapToGlobal(x.pos() + self.insidePos), self.inLayouts)
+        #self.toType["tipo5"] = poits
         
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos() + self.insidePos), self.inLayouts)
-        self.toType["tipo5"] = poits
+        #poits = map(lambda x:self.widget.mapToGlobal(x.pos() + self.insidePos), self.inLayouts_b)
+        #self.toType["tipo2"] = poits
         
-        poits = map(lambda x:self.widget.mapToGlobal(x.pos() + self.insidePos), self.inLayouts_b)
-        self.toType["tipo2"] = poits
-        
-        
-
         c = QtCore.QPoint(0, self.widget.size().height()-7)
         d = QtCore.QPoint(0, self.widget.size().height()-16)
 

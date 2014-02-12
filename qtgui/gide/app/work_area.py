@@ -155,15 +155,31 @@ class WorkArea(QtGui.QWidget):
         
         distancia = lambda pa, pb:sqrt((pa.x()-pb.x())**2+(pa.y()-pb.y())**2)
         
+        if not posList: return pos, False, "None"
+            
+        
+        
         newPosList = []
         for point in posList:
             
             s = point[0]
+            b = point[1]
+            
+            if b.metadata.type_ == "tipo1":
+                if b.metadata.to: continue
+                
+            elif b.metadata.type_ in "tipo4".split():
+                if b.metadata.nested: continue
+                
+            elif b.metadata.type_ in "tipo7 tipo9".split():
+                if b.metadata.to and b.metadata.nested: continue
+                #FIXME: two positios!
+                
             
             h = distancia(s, pos)
             if h < 20 and h != 0.0: newPosList.append((s, h, point[1]))
         
-        if len(newPosList) == 0: return pos, False, "None"
+        if not newPosList: return pos, False, "None"
             
         h2 = 100
         for p in newPosList:

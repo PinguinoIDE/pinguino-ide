@@ -13,7 +13,15 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     @classmethod
     def remove_comments(cls, content):
-        #FIXME: Code for remove comments here
+        #FIXME: Code for remove multiline comments here
+        
+        #while content.find("/*") != -1:
+        for i in range(content.count("/*")):
+            start_pos = content.find("/*")
+            end_pos = content.find("*/")
+            comment = content[start_pos:end_pos]
+            content = content[:start_pos] + "\n"*comment.count("\n") + content[end_pos+2:]
+        
         return content
         
     
@@ -74,7 +82,9 @@ class CodeNavigator(object):
         regex_directive = "[\s]*#(" + "|".join(preprocessor_commands)+ ")[\s]+<?[\s]*([\w.]*)[\s]*>?[\s]*([\S]*)"
         
         directives = []
-        content = cls.remove_comments(editor.text_edit.toPlainText().split("\n"))
+        content = cls.remove_comments(editor.text_edit.toPlainText())
+        content = content.split("\n")
+        
         for line in range(len(content)):
             match = re.match(regex_directive, content[line])
             this_directive = {}                
@@ -97,7 +107,8 @@ class CodeNavigator(object):
         regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*([*])*[\s]*([ \w\[\]=,{}\"'\*]*);"
         
         variables = []
-        content = cls.remove_comments(editor.text_edit.toPlainText().split("\n"))
+        content = cls.remove_comments(editor.text_edit.toPlainText())
+        content = content.split("\n")
         for line in range(len(content)):
             match = re.match(regex_variables, content[line])
             if match:
