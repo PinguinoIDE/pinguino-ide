@@ -1,4 +1,4 @@
-pinguino-ide
+Pinguino IDE
 ===========
 Open source integrated development enviroment (IDE).
 
@@ -9,20 +9,26 @@ Open source integrated development enviroment (IDE).
   * [Python API](#python-api)
 
 ## Dependencies
-  * pyside
-  * gitpython
-  * intelhex
-  * beautifulsoup4
-  * pyusb==1.0.0b1
+  * [pyside] (https://pypi.python.org/pypi/PySide)
+  * [intelhex] (https://pypi.python.org/pypi/IntelHex)
+  * [beautifulsoup4] (https://pypi.python.org/pypi/beautifulsoup4)
+  * [pyusb==1.0.0b1] (https://pypi.python.org/pypi/pyusb/1.0.0b1)
   
+#### optionals
+Used for Pinguino's library manager
+  * [gitpython] (https://pypi.python.org/pypi/GitPython)
+  * [hgapi] (https://pypi.python.org/pypi/hgapi)
+  * [pysvn] (http://pysvn.tigris.org/project_downloads.html)
 
 
 ## IDE
 Graphical user interface (GUI) in [Python](http://python.org/) and [PySide](http://www.pyside.org/).
 ```shell
-$ cd pinguinoide
-python pinguino.py
+$ python pinguino.py
 ```
+![Pinguino IDE 11.0 - Text mode](https://lh4.googleusercontent.com/-XiJW0FCqZG4/UvryfpUEn1I/AAAAAAAAGUQ/8PWFdAopCEA/w700-h362-no/text_mode.png "Pinguino IDE 11.0 - Text mode")
+![Pinguino IDE 11.0 - Graphical mode](https://lh3.googleusercontent.com/-KmOJjxGpdJE/UvryfjZ4BLI/AAAAAAAAGUU/wQt5UPeP614/w700-h365-no/graphical_mode.png "Pinguino IDE 11.0 - Graphical mode")
+
 
 
 ## Command line
@@ -146,7 +152,7 @@ UBW32 795             -U        --ubw795
 
 ```
 
-## Python API
+## Python API (temporarily deprecated)
 Python module for compile and upload *.pde files to Pinguino boards.
 ```python
 >>> import sys
@@ -159,7 +165,7 @@ Python module for compile and upload *.pde files to Pinguino boards.
 True
 >>> result = project.get_result()
 >>> for key in result:
-    print(key+": "+result[key])
+    print(key+": "+result[key])https://github.com/PinguinoIDE/pinguino-ide/edit/master/README.md#
 ...     
 hex_file: Desktop/test.hex
 code_size: code size: 0 / 262144 bytes (0% used)
