@@ -226,6 +226,7 @@ class EventMethods(Methods):
         self.configIDE.set("Main", "maximized", self.isMaximized())
         
         count = 1
+        self.configIDE.clear_recents()
         for file_ in self.recent_files:
             self.configIDE.set("Recents", "recent_"+str(count), file_)
             count += 1

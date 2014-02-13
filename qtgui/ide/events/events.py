@@ -107,6 +107,6 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.lineEdit_blocks_search, QtCore.SIGNAL("textChanged(QString)"), self.PinguinoKIT.update_blocks_search_tab)
         
         self.main.tabWidget_files.contextMenuEvent = self.tab_files_context_menu
-        self.main.tabWidget_files.tabWidget_graphical = self.tab_files_context_menu
+        self.main.tabWidget_graphical.contextMenuEvent = self.tab_files_context_menu
         
         self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.update_mode_output)         
