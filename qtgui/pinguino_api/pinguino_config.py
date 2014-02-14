@@ -4,6 +4,7 @@
 import os
 import logging
 import shutil
+import sys
 from ConfigParser import RawConfigParser
 
 from ..ide.methods.library_manager import Librarymanager
@@ -14,6 +15,10 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def set_environ_vars(cls):
+        if not os.path.exists("paths.cfg"):
+            logging.error("Missing: paths.cfg")
+            sys.exit()
+            
         config_paths = RawConfigParser()
         config_paths.readfp(open("paths.cfg", "r"))
     
