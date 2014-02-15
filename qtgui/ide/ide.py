@@ -25,23 +25,6 @@ from ..pinguino_api.pinguino import Pinguino, AllBoards
 from ..pinguino_api.pinguino_config import PinguinoConfig
 
 
-##----------------------------------------------------------------------
-#def set_environ_vars():
-    #config_paths = RawConfigParser()
-    #config_paths.readfp(open("paths.cfg", "r"))
-
-    #if os.name == "posix": #GNU/Linux
-        #os.environ["PINGUINO_OS_NAME"] = "linux"
-
-    #elif os.name == "nt":  #Windows
-        #os.environ["PINGUINO_OS_NAME"] = "windows"
-
-    ##load path from paths.conf
-    #os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "user_path"))
-    #os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "install_path"))  
-    #os.environ["PINGUINO_USERLIBS_PATH"] = os.path.join(os.getenv("PINGUINO_USER_PATH"), "library_manager")  
-
-
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
@@ -103,7 +86,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             #os.environ['PATH'] = os.environ['PATH']
         if os_name == "linux":
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
-
+            
 
     #----------------------------------------------------------------------
     def init_widgets(self):

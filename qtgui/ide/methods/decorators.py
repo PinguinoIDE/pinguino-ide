@@ -237,7 +237,7 @@ class Decorator(object):
                 inicio = time.time()
                 retorno = fn(Pinguino, *args, **kwargs)
                 fin = time.time()
-                Pinguino.output_ide("debug: " + fn.__name__ + "\nTime: %.7fs\n" %(fin - inicio))
+                Pinguino.write_log("debug: " + fn.__name__ + "\nTime: %.7fs\n" %(fin - inicio))
                 return retorno
             return wrapped
         return actualdecorator        

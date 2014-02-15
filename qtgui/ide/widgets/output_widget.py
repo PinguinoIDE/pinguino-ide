@@ -38,7 +38,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         
         self.historial = []
         self.index_historial = 0
-        
+
 
     #----------------------------------------------------------------------
     def keyPressEvent(self, event):
@@ -101,7 +101,6 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             
     #----------------------------------------------------------------------
     def get_command(self):
-        
         plain = self.toPlainText()
         comand = plain[plain.rfind(START):]
         return comand[len(START):]
@@ -109,7 +108,6 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
     def wheelEvent(self, event):
-        
         if event.modifiers() == QtCore.Qt.ControlModifier:
             self.step_font_size(event.delta())
             
@@ -152,7 +150,6 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                 
     #----------------------------------------------------------------------
     def step_font_size(self, delta):
-        
         font = self.font()
         size = font.pointSize()
         if delta > 0: font.setPointSize(size+1)
@@ -162,17 +159,13 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                           
     #----------------------------------------------------------------------
     def set_extra_args(self, *args, **kwargs):
-        
         for key in kwargs:
             setattr(self.shell.statement_module, key, kwargs[key])
-            
-            
         self.extra_args.update(kwargs)
         
                           
     #----------------------------------------------------------------------
     def set_last_line(self):
-        
         cursor = self.textCursor()
         position = cursor.position()
         plain = self.toPlainText()
@@ -182,7 +175,6 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                           
     #----------------------------------------------------------------------
     def no_overwrite_start(self):
-        
         cursor = self.textCursor()
         position = cursor.position()
         plain = self.toPlainText()

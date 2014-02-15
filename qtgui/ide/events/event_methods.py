@@ -21,7 +21,7 @@ from ..child_windows.libraries import LibManager
 from ..child_windows.paths import Paths
 from ..child_windows.hex_viewer import HexViewer
 from ..child_windows.insert_block_dialog import InsertBlock
-from ..widgets.wiki_widget import WikiDock
+from ..child_windows.wiki_librarires import WikiDock
 
 
 ########################################################################
@@ -664,8 +664,8 @@ class EventMethods(Methods):
             return
         elif reply == None: return
             
-        self.output_ide(QtGui.QApplication.translate("Frame", "compilling: %s")%filename)
-        self.output_ide(self.get_description_board())
+        self.write_log(QtGui.QApplication.translate("Frame", "compilling: %s")%filename)
+        self.write_log(self.get_description_board())
         
         self.pinguinoAPI.compile_file(filename)
         
@@ -675,11 +675,11 @@ class EventMethods(Methods):
             errors_preprocess = self.pinguinoAPI.get_errors_preprocess()
             if errors_preprocess:
                 for error in errors_preprocess["preprocess"]:
-                    self.output_ide(error)
+                    self.write_log(error)
             
             errors_c = self.pinguinoAPI.get_errors_compiling_c()
             if errors_c:
-                self.output_ide(errors_c["complete_message"])
+                self.write_log(errors_c["complete_message"])
                 line_errors = errors_c["line_numbers"]
                 for line_error in line_errors:
                     self.highligh_line(line_error, "#ff7f7f")
@@ -687,12 +687,12 @@ class EventMethods(Methods):
             errors_asm = self.pinguinoAPI.get_errors_compiling_asm()
             if errors_asm:
                 for error in errors_asm["error_symbols"]:
-                    self.output_ide(error)
+                    self.write_log(error)
             
             errors_linking = self.pinguinoAPI.get_errors_linking()
             if errors_linking:
                 for error in errors_linking["linking"]:
-                    self.output_ide(error)
+                    self.write_log(error)
                     
                 line_errors_l = errors_linking["line_numbers"]
                 for line_error in line_errors_l:
@@ -715,9 +715,9 @@ class EventMethods(Methods):
                 
         else:
             result = self.pinguinoAPI.get_result()
-            self.output_ide(QtGui.QApplication.translate("Frame", "compilation done"))
-            self.output_ide(result["code_size"])
-            self.output_ide(QtGui.QApplication.translate("Frame", "%s seconds process time")%result["time"])
+            self.write_log(QtGui.QApplication.translate("Frame", "compilation done"))
+            self.write_log(result["code_size"])
+            self.write_log(QtGui.QApplication.translate("Frame", "%s seconds process time")%result["time"])
             
             if Dialogs.compilation_done(self):
                 self.pinguino_upload()
@@ -732,7 +732,7 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     def pinguino_upload(self):
         uploaded, result = self.pinguinoAPI.upload()
-        self.output_ide(result)
+        self.write_log(result)
         if uploaded:
             Dialogs.upload_done(self)
         elif Dialogs.upload_fail(self, result):
@@ -814,6 +814,9 @@ class EventMethods(Methods):
     def __show_about__(self):
         self.frame_about = About()
         self.frame_about.show()
+        
+        print "okl"
+        #1 / 0
         
         
     # Tools Files

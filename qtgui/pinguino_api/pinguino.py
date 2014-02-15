@@ -2,9 +2,10 @@
 #-*- coding: utf-8 -*-
 
 import os
-#import sys
+import shutil
 import argparse
 import re
+import codecs
 
 from .pinguino_tools import PinguinoTools
 from .boards import boardlist as AllBoards
@@ -29,6 +30,21 @@ class Pinguino(PinguinoTools):
             self.__data__ = data
         else:
             raise Exception, "No such file or directory: %s" % file_name
+        
+        
+    #----------------------------------------------------------------------
+    def compile_string(self, code):
+        
+        temp_dir = os.path.join(os.getenv("PINGUINO_USER_PATH"), "temp")
+        if os.path.exists(temp_dir):
+            shutil.rmtree(temp_dir)
+        os.mkdir(temp_dir)
+        temp_file = os.path.join(temp_dir, "temp_filename.pde")
+        file_ = codecs.open(temp_file, "w", "utf-8")
+        file_.write(code)
+        file_.close()
+        self.compile_file(temp_file)
+        
         
     #----------------------------------------------------------------------
     def upload(self):
