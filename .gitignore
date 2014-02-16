@@ -2,3 +2,6 @@
 *~
 *.hex
 __pycache__/
+build/
+dist/
+

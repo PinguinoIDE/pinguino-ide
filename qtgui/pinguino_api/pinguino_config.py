@@ -15,12 +15,12 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def set_environ_vars(cls):
-        if not os.path.exists("paths.cfg"):
-            logging.error("Missing: paths.cfg")
+        if not os.path.exists(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg")):
+            logging.error("Missing: "+os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"))
             sys.exit()
             
         config_paths = RawConfigParser()
-        config_paths.readfp(open("paths.cfg", "r"))
+        config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"), "r"))
     
         if os.name == "posix": #GNU/Linux
             os.environ["PINGUINO_OS_NAME"] = "linux"
@@ -41,7 +41,7 @@ class PinguinoConfig(object):
         #check instalation path
         if not os.path.exists(os.getenv("PINGUINO_INSTALL_PATH")):
             logging.warning("Missing Pinguino libraries instalation. "
-                            "Make sure the paths in %s are correct."%os.path.abspath("paths.conf"))
+                            "Make sure the paths in %s are correct."%os.path.join(os.getenv("PINGUINO_DATA"), "paths.conf"))
 
         #create ~/.pinguino
         if not os.path.exists(os.getenv("PINGUINO_USER_PATH")):
@@ -75,13 +75,13 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def check_config_files(cls):
-        cls.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "pinguino.%s.conf"%os.getenv("PINGUINO_OS_NAME")),
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "pinguino.%s.conf"%os.getenv("PINGUINO_OS_NAME")),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "reserved.pickle"),
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "reserved.pickle"),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getcwd(), "qtgui", "config", "wikidocs.pickle"),
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "wikidocs.pickle"),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
 
 

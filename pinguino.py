@@ -33,17 +33,22 @@ import os
 
 os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION
+os.environ["PINGUINO_HOME"] = os.path.abspath(".")
+
+if os.path.exists(os.path.abspath("pinguino_data")):
+    os.environ["PINGUINO_DATA"] = os.path.abspath("pinguino_data")
+else:
+    os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")
 
 if __name__ == "__main__":
     
-    sys.path.append(os.path.join("qtgui", "resources"))
+    sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
     
-    python_path_modules = os.path.join("python_modules")
+    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python_requirements")
     if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
     
     from qtgui.ide import PinguinoIDE
-    from PySide.QtGui import QApplication
-    from PySide import QtCore
+    from PySide import QtCore, QtGui
     
     locale = QtCore.QLocale.system().name()
     translator = QtCore.QTranslator()
@@ -53,28 +58,32 @@ if __name__ == "__main__":
     qtTranslator.load("qt_" + locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
     
     #load translations files
-    translations_path = os.path.abspath("multilanguage")
+    translations_path = os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage")
     translations_file = "pinguino_" + locale
     
     if not os.path.exists(translations_path): os.mkdir(translations_path)
     
     if translations_file + ".qm" in os.listdir(translations_path):
-        translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm" % locale))
+        translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % locale))
         
     elif "_" in locale:
         locale = locale[:locale.find("_")]
         translations_file = "pinguino_" + locale
         if translations_file + ".qm" in os.listdir(translations_path):
-            translator.load(os.path.join(os.path.abspath("multilanguage"), "pinguino_%s.qm" % locale))
+            translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % locale))
 
 
     if len(sys.argv) == 1:
-        app = QApplication(sys.argv)
+        app = QtGui.QApplication(sys.argv)
         app.installTranslator(translator)
         app.installTranslator(qtTranslator)
         frame = PinguinoIDE()
         frame.show()
-        app.exec_()        
+        if app is None:
+            from PySide import QtCore, QtGui
+            QtGui.QApplication.instance().exec_()
+        else:
+            app.exec_()        
         
     
     else:  #command line

@@ -3,12 +3,12 @@ Pinguino IDE
 Open source integrated development enviroment (IDE).
 
 
-  * [Dependencies] (#dependencies)
+  * [Requirements] (#Requirements)
   * [IDE](#ide)
   * [Command line](#command-line)
   * [Python API](#python-api)
 
-## Dependencies
+## Requirements
   * [pyside] (https://pypi.python.org/pypi/PySide)
   * [intelhex] (https://pypi.python.org/pypi/IntelHex)
   * [beautifulsoup4] (https://pypi.python.org/pypi/beautifulsoup4)

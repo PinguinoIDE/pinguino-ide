@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Mon Feb 10 22:37:07 2014
+# Created: Sun Feb 16 05:49:48 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,8 +22,8 @@ class Ui_PinguinoIDE(object):
         self.centralwidget = QtGui.QWidget(PinguinoIDE)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_15 = QtGui.QGridLayout(self.centralwidget)
-        self.gridLayout_15.setSpacing(0)
         self.gridLayout_15.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_15.setSpacing(0)
         self.gridLayout_15.setObjectName("gridLayout_15")
         self.tabWidget_files = QtGui.QTabWidget(self.centralwidget)
         self.tabWidget_files.setDocumentMode(True)
@@ -83,8 +83,8 @@ class Ui_PinguinoIDE(object):
         self.dockWidgetContents = QtGui.QWidget()
         self.dockWidgetContents.setObjectName("dockWidgetContents")
         self.gridLayout_4 = QtGui.QGridLayout(self.dockWidgetContents)
-        self.gridLayout_4.setSpacing(0)
         self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_4.setSpacing(0)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.tabWidget_tools = QtGui.QTabWidget(self.dockWidgetContents)
         self.tabWidget_tools.setTabPosition(QtGui.QTabWidget.West)
@@ -126,8 +126,8 @@ class Ui_PinguinoIDE(object):
         self.tab_7 = QtGui.QWidget()
         self.tab_7.setObjectName("tab_7")
         self.gridLayout_6 = QtGui.QGridLayout(self.tab_7)
-        self.gridLayout_6.setSpacing(0)
         self.gridLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_6.setSpacing(0)
         self.gridLayout_6.setObjectName("gridLayout_6")
         self.tableWidget_variables = QtGui.QTableWidget(self.tab_7)
         self.tableWidget_variables.setFrameShape(QtGui.QFrame.NoFrame)
@@ -149,8 +149,8 @@ class Ui_PinguinoIDE(object):
         self.tab_6 = QtGui.QWidget()
         self.tab_6.setObjectName("tab_6")
         self.gridLayout_5 = QtGui.QGridLayout(self.tab_6)
-        self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.tableWidget_functions = QtGui.QTableWidget(self.tab_6)
         self.tableWidget_functions.setFrameShape(QtGui.QFrame.NoFrame)
@@ -175,8 +175,8 @@ class Ui_PinguinoIDE(object):
         self.tab_8 = QtGui.QWidget()
         self.tab_8.setObjectName("tab_8")
         self.gridLayout_7 = QtGui.QGridLayout(self.tab_8)
-        self.gridLayout_7.setSpacing(0)
         self.gridLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_7.setSpacing(0)
         self.gridLayout_7.setObjectName("gridLayout_7")
         self.tableWidget_directives = QtGui.QTableWidget(self.tab_8)
         palette = QtGui.QPalette()
@@ -283,8 +283,8 @@ class Ui_PinguinoIDE(object):
         self.dockWidgetContents_2 = QtGui.QWidget()
         self.dockWidgetContents_2.setObjectName("dockWidgetContents_2")
         self.gridLayout_3 = QtGui.QGridLayout(self.dockWidgetContents_2)
-        self.gridLayout_3.setSpacing(0)
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_3.setSpacing(0)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.dockWidget_output.setWidget(self.dockWidgetContents_2)
         PinguinoIDE.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.dockWidget_output)
@@ -320,8 +320,8 @@ class Ui_PinguinoIDE(object):
         self.dockWidgetContents_4 = QtGui.QWidget()
         self.dockWidgetContents_4.setObjectName("dockWidgetContents_4")
         self.gridLayout_13 = QtGui.QGridLayout(self.dockWidgetContents_4)
-        self.gridLayout_13.setSpacing(0)
         self.gridLayout_13.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_13.setSpacing(0)
         self.gridLayout_13.setObjectName("gridLayout_13")
         self.tabWidget_blocks_tools = QtGui.QTabWidget(self.dockWidgetContents_4)
         self.tabWidget_blocks_tools.setTabPosition(QtGui.QTabWidget.South)

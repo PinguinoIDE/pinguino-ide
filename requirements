@@ -2,7 +2,6 @@
 # install via: sudo pip install <package>
 
 pyside
-gitpython
 intelhex
 beautifulsoup4
 pyusb==1.0.0b1
