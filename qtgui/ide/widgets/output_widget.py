@@ -51,13 +51,13 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             super(PinguinoTerminal, self).keyPressEvent(event)
             command = self.get_command()
             if self.run_default_command(command):
-                #self.appendPlainText(START)
+                self.appendPlainText(START)
                 return
             self.historial.append(command.replace("\n", ""))
             if not command.isspace():
                 self.moveCursor(QtGui.QTextCursor.End)
                 self.insertPlainText(self.shell.run(command))
-            #self.insertPlainText(START)
+            self.insertPlainText(START)
             self.moveCursor(QtGui.QTextCursor.End)
     
         elif event.key() == QtCore.Qt.Key_Backspace:
