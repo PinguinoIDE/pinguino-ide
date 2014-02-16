@@ -80,6 +80,14 @@ class Properties(object):
         #menu.addAction("Clone with sublocks", )    
         #menu.addAction("Clone", )
         
+        menu.setStyleSheet("""
+        QMenu {
+            font-family: ubuntu regular;
+            font-weight: normal;
+            }
+        
+        """)         
+        
         menu.exec_(event.globalPos())
     
     
@@ -846,9 +854,17 @@ class BlockFrameEdit(Constructor, Properties):
         
         NestSec.plainTextEdit.appendPlainText(bloque[0])
         
-        changeFontSize(NestSec.plainTextEdit, -3)
+        changeFontSize(NestSec.plainTextEdit)
         
-        NestSec.plainTextEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(90, 90, 90);")
+        NestSec.plainTextEdit.setStyleSheet("""
+        QPlainTextEdit{
+            background-image: url(:/bg/bg/box.png);
+            color: rgb(90, 90, 90);
+            font-family: ubuntu mono;
+        }""")
+        
+        
+        
 
         self.widget = widget
         self.buildBlock(widget, [bloque], (40, 2))

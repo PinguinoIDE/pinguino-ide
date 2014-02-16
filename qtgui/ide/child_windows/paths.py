@@ -58,7 +58,27 @@ class Paths(QtGui.QDialog):
         
         self.set_paths.pushButton_close.setFocus()
         
-        Dialogs.warning_message(self, "This paths are very important don't try to edit it if you don't know what are you doing.")
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+
+        """)
+        
+        self.set_paths.groupBox.setStyleSheet("""
+        QGroupBox{
+            font-family: ubuntu regular;
+            font-weight: bold;
+        }
+        """)
+        
+        self.set_paths.groupBox_2.setStyleSheet("""
+        QGroupBox{
+            font-family: ubuntu regular;
+            font-weight: bold;
+        }
+        """)
+        
+        Dialogs.warning_message(self, "This paths are very important don't try to edit it if you don't know what are you doing.")        
         
     #----------------------------------------------------------------------
     def close(self):

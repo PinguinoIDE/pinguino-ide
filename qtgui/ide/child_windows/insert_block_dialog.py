@@ -31,6 +31,12 @@ class InsertBlock(QtGui.QDialog):
         self.insert.lineEdit.setText(QtGui.QApplication.translate("Dialogs", "search block..."))
         self.insert.lineEdit.selectAll()
         
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)
+        
     
     #----------------------------------------------------------------------
     def line_edit_key(self, event):

@@ -108,6 +108,14 @@ class WorkArea(QtGui.QWidget):
             menu.addAction(self.main.actionInsert_Block)
             menu.addAction(self.main.actionView_Pinguino_code)
             
+        menu.setStyleSheet("""
+        QMenu {
+            font-family: ubuntu regular;
+            font-weight: normal;
+            }
+        
+        """) 
+            
         menu.exec_(event.globalPos())
         
         

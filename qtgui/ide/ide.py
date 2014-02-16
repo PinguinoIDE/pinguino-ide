@@ -57,13 +57,14 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
 
         self.setWindowTitle(os.getenv("NAME")+" "+os.getenv("VERSION"))
-        self.fix_styles()
 
         self.open_last_files()
 
         self.init_widgets()
         self.build_statusbar()
-        self.build_output()        
+        self.build_output()
+        
+        self.set_styleSheet()
 
         #timer events
         self.update_functions()
@@ -102,7 +103,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
 
     #----------------------------------------------------------------------
-    def fix_styles(self):
+    def set_styleSheet(self):
+        self.load_fonts()
+        
         self.PinguinoPallete = BackgroundPallete()
         self.PinguinoPallete.save_palette(self.main.centralwidget.parent())   
         self.switch_color_theme(self.configIDE.config("Main", "color_theme", True))
@@ -126,6 +129,41 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         for toolbar in toolbars:
             toolbar.setIconSize(QtCore.QSize(32, 32))
             #toolbar.setIconSize(QtCore.QSize(48, 48))
+            
+        
+        #Global CSS styles
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+
+        """)
+        
+        
+        self.main.groupBox_replace.setStyleSheet("""
+        QGroupBox{
+            font-family: ubuntu regular;
+            font-weight: bold;
+        }
+        """)
+        
+        self.main.groupBox_search.setStyleSheet("""
+        QGroupBox{
+            font-family: ubuntu regular;
+            font-weight: bold;
+        }
+        """)
+        
+        #Python shell CSS styles
+        self.main.plainTextEdit_output.setStyleSheet("""
+        QPlainTextEdit {
+            background-color: #333;
+            color: #FFFFFF;
+            font-family: ubuntu mono;
+            font-weight: normal;
+            }
+        
+        """)
+        
 
 
     #----------------------------------------------------------------------

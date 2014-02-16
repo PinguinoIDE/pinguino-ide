@@ -210,6 +210,11 @@ class EventMethods(Methods):
         printer.setPageOrder(QPrinter.FirstPageFirst)
         printer.setOutputFormat(QPrinter.PdfFormat)
         preview = QtGui.QPrintDialog(printer)
+        preview.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)               
         if preview.exec_():
             document = editor.text_edit.document()
             document.print_(printer)
@@ -1028,6 +1033,13 @@ class EventMethods(Methods):
         menu.addAction(self.main.actionClose_file)
         menu.addAction(self.main.actionClose_all)
         menu.addAction(self.main.actionClose_others)
+        
+        menu.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)        
+        
         menu.exec_(event.globalPos())
     
         
@@ -1068,6 +1080,14 @@ class EventMethods(Methods):
         menu.addAction(self.main.actionStdout)
         menu.addSeparator()
         menu.addAction(self.main.actionAutocomplete)
+        
+        menu.setStyleSheet("""
+        QMenu {
+            font-family: ubuntu regular;
+            font-weight: normal;
+            }
+        
+        """)        
         
         menu.exec_(event.globalPos())
         

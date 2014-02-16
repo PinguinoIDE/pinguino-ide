@@ -23,10 +23,15 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
     def __init__(self, *args, **kwargs):
         super(PinguinoTerminal, self).__init__(*args, **kwargs)
         
-        self.setStyleSheet("background-color: #333;"\
-                           "color: #fff;"\
-                           "font-family: mono;"\
-                           "font-size: 12px;")
+        #self.setStyleSheet("""QPlainTextEdit {
+            #background-color: #333;
+            #color: #FFFFFF;
+            #font-family: ubuntu mono;
+            #font-weight: normal;
+            #}
+        #""")
+        
+        
 
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
@@ -143,6 +148,14 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         menu.addAction(QtGui.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
         menu.addSeparator()
         #menu.addAction(self.main.actionComment_out_region)
+        
+        menu.setStyleSheet("""
+        QMenu {
+            font-family: ubuntu regular;
+            font-weight: normal;
+            }
+        
+        """) 
         
         menu.exec_(event.globalPos())
     

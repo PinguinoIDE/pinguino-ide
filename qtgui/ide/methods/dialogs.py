@@ -105,9 +105,11 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def warning_message(cls, parent, message):
+
         QtGui.QMessageBox.warning(parent,
                                   os.getenv("NAME") + QtGui.QApplication.translate("Dialogs", " - Warning"),
                                   message)
+        
         return True
             
     #----------------------------------------------------------------------
@@ -146,6 +148,12 @@ class Dialogs(object):
         
         msg_box.setDefaultButton(compile_)
         
+        msg_box.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)        
+        
         reply = msg_box.exec_()    
         
         if reply == 2: return True
@@ -173,6 +181,12 @@ class Dialogs(object):
         
         msg_box.setDefaultButton(ok)
         
+        msg_box.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)  
+        
         reply = msg_box.exec_()    
         
         if reply == 0: return True
@@ -197,6 +211,12 @@ class Dialogs(object):
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
         
         msg_box.setDefaultButton(ok)
+        
+        msg_box.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)  
         
         reply = msg_box.exec_()    
         
@@ -230,6 +250,12 @@ class Dialogs(object):
         if exist: msg_box.setDefaultButton(ok)
         else: msg_box.setDefaultButton(stdout)
         
+        msg_box.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)  
+        
         reply = msg_box.exec_()    
         
         if reply == 0: return True
@@ -255,6 +281,12 @@ class Dialogs(object):
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
         
         msg_box.setDefaultButton(ok)
+        
+        msg_box.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)  
         
         reply = msg_box.exec_()    
         
@@ -283,6 +315,12 @@ class Dialogs(object):
         
         msg_box.setDefaultButton(ok)
         
+        msg_box.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)  
+        
         reply = msg_box.exec_()    
         
         if reply == 0: return True
@@ -309,6 +347,12 @@ class Dialogs(object):
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
         
         msg_box.setDefaultButton(ok)
+        
+        msg_box.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)
         
         reply = msg_box.exec_()    
         
@@ -344,6 +388,12 @@ class Dialogs(object):
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
         
         msg_box.setDefaultButton(upload)
+        
+        msg_box.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)
         
         reply = msg_box.exec_()    
         

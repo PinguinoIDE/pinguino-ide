@@ -34,6 +34,12 @@ class BoardConfig(QtGui.QDialog):
         
         self.closeEvent = self.terminate_config
         
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)
+        
     #----------------------------------------------------------------------
     def terminate_config(self, event=None):
         

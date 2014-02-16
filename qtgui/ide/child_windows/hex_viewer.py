@@ -8,7 +8,9 @@ from intelhex import IntelHex
 from PySide import QtGui, QtCore
 
 #from ..methods.constants import NAME, os.getenv("NAME")
+from ..methods.dialogs import Dialogs
 from ...frames.hex_viewer_widget import Ui_HexViewer
+
 
 ########################################################################
 class HexViewer(QtGui.QMainWindow):
@@ -24,12 +26,25 @@ class HexViewer(QtGui.QMainWindow):
         self.hex_viewer.setupUi(self)
         self.main = parent
         
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)
+        
         self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
         
         self.original_filename = file_path
         
         self.hex_obj = IntelHex(open(file_path, "r"))
-        self.update_viewer()
+        
+        try:
+            self.update_viewer()
+        except MemoryError:
+            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Impossible show 32-bit hex files."))
+            self.deleteLater()
+            #FIXME: deleteLater is not good solution here
+            #self.close()  #not work, why?
         
         self.connect(self.hex_viewer.comboBox_view, QtCore.SIGNAL("currentIndexChanged(QString)"), self.update_viewer)
         self.connect(self.hex_viewer.tableWidget_viewer, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), lambda :self.hex_viewer.pushButton_save_changes.setEnabled(True))
@@ -83,6 +98,9 @@ class HexViewer(QtGui.QMainWindow):
         
         hex_dict = self.hex_obj.todict()
         rows = int(ceil(max(hex_dict.keys()) / float(0x18)))
+
+        if rows > 1e6: raise MemoryError
+        
         self.hex_viewer.tableWidget_viewer.setRowCount(rows)
         
         space = 0
@@ -111,7 +129,6 @@ class HexViewer(QtGui.QMainWindow):
                 font.setFamily("mono")
                 font.setPointSize(9)
                 item.setFont(font)
-                
                 
                 space += 1
                 

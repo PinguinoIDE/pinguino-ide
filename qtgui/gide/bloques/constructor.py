@@ -40,12 +40,19 @@ ADJ2 = -5  #space on expand
 
 
 #----------------------------------------------------------------------
-def changeFontSize(widget, adj=0):
+def changeFontSize(widget):
+    name = widget.__str__()
+    name = name[name.rfind(".")+1:name.find(" ")]
     
-    font = widget.font()
-    font.setFamily("Ubuntu mono")
-    font.setPointSize(FONT_SIZE+adj)    
-    widget.setFont(font)
+    widget.setStyleSheet("""
+    %s{
+        color: #FFFFFF;
+        font-family: ubuntu mono;
+        font-weight: normal;
+        font-size: 15pt;
+    }
+    
+    """%name)
     
 
 
@@ -59,7 +66,7 @@ class Constructor(object):
         self.layout_adds_b = []
         self.layout_adds_all = []
         layout_pos = []
-        self.constructorCode = []      
+        self.constructorCode = []
         self.LineCode = []
         self.fullWidgetWith = []
         self.codeStart = {}
@@ -117,7 +124,14 @@ class Constructor(object):
         changeFontSize(label.label)
         
         if rgb != None:
-            label.label.setStyleSheet("background-color: rgb(%d, %d, %d);\ncolor: rgb(255, 255, 255);" %rgb)
+            #label.label.setStyleSheet("background-color: rgb(%d, %d, %d);\ncolor: rgb(255, 255, 255);" %rgb)
+            label.label.setStyleSheet(label.label.styleSheet()+"""
+            QLabel{
+                background-color: rgb(%d, %d, %d);
+                color: rgb(255, 255, 255);
+            }
+            
+            """%rgb)
             
         if len(text) > 3:
             widgetLabel.setMinimumSize(len(text)*(FONT_SIZE+ADJ2)+ADJ, widgetLabel.size().height())
@@ -135,7 +149,14 @@ class Constructor(object):
         label.label.setText(text)
         changeFontSize(label.label)
         if rgb != None:
-            label.label.setStyleSheet("background-color: rgb(%d, %d, %d);\ncolor: rgb(255, 255, 255);" %rgb)
+            #label.label.setStyleSheet("background-color: rgb(%d, %d, %d);\ncolor: rgb(255, 255, 255);" %rgb)            label.label.setStyleSheet(label.label.styleSheet()+"""
+            label.label.setStyleSheet(label.label.styleSheet()+"""
+            QLabel{
+                background-color: rgb(%d, %d, %d);
+                color: rgb(255, 255, 255);
+            }
+            
+            """%rgb)
             
         if len(text) > 3:
             widgetLabel.setMinimumSize(len(text)*(FONT_SIZE+ADJ2)+ADJ, widgetLabel.size().height())
@@ -163,15 +184,22 @@ class Constructor(object):
         spin.frame.setStyleSheet("image: url(%sup.svg);"%self.isideDir)        
         spin.frame_2.setStyleSheet("image: url(%sdown.svg);"%self.isideDir)            
         
-        
-        
         edit = spin.lineEdit
-        edit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(90, 90, 90);")
+        #edit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(90, 90, 90);")
         
         b_up = spin.frame
         b_down = spin.frame_2
         
         changeFontSize(edit)
+        
+        edit.setStyleSheet(edit.styleSheet()+"""
+        QLineEdit{
+            background-image: url(:/bg/bg/box.png);
+            color: rgb(90, 90, 90);
+        }
+        
+        """)        
+        
         
         edit.setText(str(start))
         
@@ -229,6 +257,15 @@ class Constructor(object):
         edit.setText(str(start))
         changeFontSize(edit)
         
+        edit.setStyleSheet(edit.styleSheet()+"""
+        QLineEdit{
+            background-image: url(:/bg/bg/box.png);
+            color: rgb(90, 90, 90);
+        }
+        
+        """)  
+        
+        
         def up(*args):
             try: current = float(edit.text())
             except ValueError: current = start
@@ -266,16 +303,42 @@ class Constructor(object):
         changeFontSize(name.lineEdit)
         
         if background == "white" and color != None:
-            name.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(%d, %d, %d);" %color)
-            name.lineEdit.h = name.lineEdit.size().height() - 5
-    
-        elif background == "white" and color == None:
-            name.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);")
+            #name.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(%d, %d, %d);" %color)
             name.lineEdit.h = name.lineEdit.size().height() - 5
             
+            name.lineEdit.setStyleSheet("""
+            QLineEdit{
+                background-image: url(:/bg/bg/box.png);
+                color: rgb(%d, %d, %d);
+                font-family: ubuntu mono;
+            }
+            """%color)
+            
+            
+            
+    
+        elif background == "white" and color == None:
+            #name.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);")
+            name.lineEdit.h = name.lineEdit.size().height() - 5
+            name.lineEdit.setStyleSheet("""
+            QLineEdit{
+                background-image: url(:/bg/bg/box.png);
+                font-family: ubuntu mono;
+            }
+            """)       
+            
+            
+            
         elif background == None and color != None:
-            name.lineEdit.setStyleSheet("color: rgb(%d, %d, %d);" %color)
+            #name.lineEdit.setStyleSheet("color: rgb(%d, %d, %d);" %color)
             name.lineEdit.h = name.lineEdit.size().height() + 4
+            name.lineEdit.setStyleSheet("""
+            QLineEdit{
+                color: rgb(%d, %d, %d);
+                font-family: ubuntu mono;
+            }
+            """%color)       
+            
     
         self.LineCode.append(name.lineEdit.text)
         return widgetName, name.lineEdit
@@ -308,6 +371,7 @@ class Constructor(object):
         
         changeFontSize(edit)
         
+
         def up(*args):
             try: current = opc.index(edit.text())
             except ValueError: current = 0
@@ -350,7 +414,15 @@ class Constructor(object):
         changeFontSize(edit)
         slid = slider.horizontalSlider
         #edit.setStyleSheet("background-image: url(:/general/arte/box.png);\ncolor: rgb(0, 0, 0);")
-        edit.setStyleSheet("color: rgb(255, 255, 255);")
+        #edit.setStyleSheet("color: rgb(255, 255, 255);")
+        edit.setStyleSheet(edit.styleSheet()+"""
+        QLineEdit {
+        color: #FFFFFF;
+        }
+        
+        """)        
+        
+        
         def updateEdit(value): edit.setText(str(value).rjust(4, "0"))
         QtCore.QObject.connect(slid, QtCore.SIGNAL("sliderMoved(int)"), updateEdit)
         edit.setText(str(start).rjust(4, "0"))

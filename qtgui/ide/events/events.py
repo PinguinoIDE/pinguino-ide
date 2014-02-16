@@ -110,3 +110,5 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.main.tabWidget_graphical.contextMenuEvent = self.tab_files_context_menu
         
         self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.update_mode_output)         
+
+        

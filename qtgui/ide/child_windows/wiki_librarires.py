@@ -43,8 +43,13 @@ class WikiDock(QtGui.QMainWindow):
         self.connect(self.main_widget.textBrowser_doc, QtCore.SIGNAL("anchorClicked(QUrl)"), self.open_tab_doc)
         self.connect(self.main_widget.tabWidget, QtCore.SIGNAL("tabCloseRequested(int)"), self.tab_close)        
         
-        
         self.centrar()
+        
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)
         
     #----------------------------------------------------------------------
     def tab_close(self, index):

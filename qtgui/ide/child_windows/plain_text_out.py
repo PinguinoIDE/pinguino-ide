@@ -21,10 +21,15 @@ class PlainOut(QtGui.QDialog):
         self.plain_out = Ui_PlainOut()
         self.plain_out.setupUi(self)
         
-        font = self.plain_out.textEdit.font()
-        font.setFamily("mono")
-        font.setPointSize(font.pointSize()-1)
-        self.plain_out.textEdit.setFont(font)
+        self.plain_out.textEdit.setStyleSheet("""
+        QTextEdit {
+            background-color: #FFF;
+            font-family: ubuntu mono;
+            font-weight: normal;
+            font-size: 11pt;
+            }
+            
+        """)  
         
         self.setWindowTitle(os.getenv("NAME")+" - "+title)
         
@@ -44,6 +49,12 @@ class PlainOut(QtGui.QDialog):
             self.show_text("".join(content))
             
         self.plain_out.pushButton_close.setFocus()
+        
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)
         
         
     #----------------------------------------------------------------------

@@ -45,6 +45,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         #palette = QtGui.QPalette(self.palette())
         #self.setAutoFillBackground(True)
         #palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
+        #self.initialize()
         #self.setPalette(palette)
         
         self.next_ignore = None
@@ -54,6 +55,17 @@ class CustomTextEdit(QtGui.QTextEdit):
         Highlighter(self.document())
         
         #self.set_highlighter()
+        
+        self.setStyleSheet("""
+        QTextEdit {
+            background-color: #FFF;
+            font-family: ubuntu mono;
+            font-weight: normal;
+            font-size: 12pt;
+            }
+            
+        """)        
+        
         
         
     ##----------------------------------------------------------------------

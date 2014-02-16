@@ -253,7 +253,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab_5">
         <attribute name="title">
@@ -547,7 +547,7 @@
           <number>0</number>
          </property>
          <item row="1" column="0">
-          <widget class="QGroupBox" name="groupBox">
+          <widget class="QGroupBox" name="groupBox_replace">
            <property name="title">
             <string>Replace</string>
            </property>
@@ -607,7 +607,7 @@
           </spacer>
          </item>
          <item row="0" column="0">
-          <widget class="QGroupBox" name="groupBox_2">
+          <widget class="QGroupBox" name="groupBox_search">
            <property name="title">
             <string>Search</string>
            </property>

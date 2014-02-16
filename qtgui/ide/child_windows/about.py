@@ -29,3 +29,9 @@ class About(QtGui.QDialog):
         
         self.about.stackedWidget.setCurrentIndex(0)
         self.about.tabWidget.setCurrentIndex(0)
+        
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)

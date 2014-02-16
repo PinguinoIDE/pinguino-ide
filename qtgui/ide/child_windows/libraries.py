@@ -80,6 +80,12 @@ class LibManager(QtGui.QMainWindow):
         self.update_libraries_view()
         self.centrar()
         
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+        
+        """)
+        
     
     #----------------------------------------------------------------------
     def open_link(self, model_index):

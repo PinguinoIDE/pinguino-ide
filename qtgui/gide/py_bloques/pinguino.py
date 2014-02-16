@@ -62,8 +62,8 @@ class Pinguino(object):
     #----------------------------------------------------------------------
     def types(self):
         st = Block.Output("Output")
-        st.addSpinChoice("int", ["char*", "char", "int", "float", "u8", "u16", "u32"])
+        st.addSpinChoice("char*", ["char*", "char", "int", "float", "u8", "u16", "u32"])
         st.addSyntax(" ")
-        st.addEdit("45")
+        st.addEdit("Pinguino")
         return st.getBlock()
     

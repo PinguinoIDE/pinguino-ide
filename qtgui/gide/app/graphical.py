@@ -35,27 +35,25 @@ class GraphicalIDE(object):
         self.main = ide.main
         self.ide = ide
         
-        self.load_fonts()
+        #self.colorTheme = "['3a7fff', 'ffaa00', 'a861ff', 'bca6ff', '8ebbff', '8ebbff']"
         
-        self.colorTheme = "['3a7fff', 'ffaa00', 'a861ff', 'bca6ff', '8ebbff', '8ebbff']"
-        
-        self.colorTheme = self.colorTheme.replace("[", "").replace("]", "").replace("'", "").replace(" ", "")
-        self.colorTheme = self.colorTheme.split(",")
+        #self.colorTheme = self.colorTheme.replace("[", "").replace("]", "").replace("'", "").replace(" ", "")
+        #self.colorTheme = self.colorTheme.split(",")
 
-        self.colorEspecific = {"linear": self.colorTheme[0],
-                               "function": self.colorTheme[1],
-                               "nested": self.colorTheme[2],
-                               "insidebool": self.colorTheme[3],
-                               "inside": self.colorTheme[4],
-                               "frame": self.colorTheme[5],}
+        #self.colorEspecific = {"linear": self.colorTheme[0],
+                               #"function": self.colorTheme[1],
+                               #"nested": self.colorTheme[2],
+                               #"insidebool": self.colorTheme[3],
+                               #"inside": self.colorTheme[4],
+                               #"frame": self.colorTheme[5],}
         
         #for key in self.colorEspecific.keys():
             #setColor(self.colorEspecific[key], key)
             
-        self.colorEspecific["output"] = self.colorTheme[4]
-        self.colorEspecific["output-bool"] = self.colorTheme[3]
-        self.colorEspecific["frame-edit"] = self.colorTheme[0]
-        self.colorEspecific["frame-plot"] = self.colorTheme[0]
+        #self.colorEspecific["output"] = self.colorTheme[4]
+        #self.colorEspecific["output-bool"] = self.colorTheme[3]
+        #self.colorEspecific["frame-edit"] = self.colorTheme[0]
+        #self.colorEspecific["frame-plot"] = self.colorTheme[0]
 
 
         self.highlightedRect = QtCore.QRect()
@@ -458,19 +456,7 @@ class GraphicalIDE(object):
             if block.metadata.self_id == id_:
                 return block
         
-        
-    #----------------------------------------------------------------------
-    def load_fonts(self):
-        fonts_dir = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "ide", "qtgui", "resources", "fonts")
-        if not os.path.exists(fonts_dir):
-            logging.warning("Missing: "+fonts_dir)
-            return
-            
-        for dir_font in os.listdir(fonts_dir):
-            for ttf in filter(lambda file:file.endswith(".ttf") or file.endswith(".otf"), os.listdir(os.path.join(fonts_dir, dir_font))):
-                QtGui.QFontDatabase.addApplicationFont(os.path.join(fonts_dir, dir_font, ttf))
-        
-        
+
     #----------------------------------------------------------------------
     def open_file_from_path(self, *args, **kwargs):
         
@@ -563,10 +549,26 @@ class GraphicalIDE(object):
             tool_area.widget_parent = widget
             tool_area.scroll_area = ui.scrollArea
             
-            palette = QtGui.QPalette(self.main.centralwidget.parent().palette())
-            widget.setAutoFillBackground(True)
-            palette.setColor(QtGui.QPalette.Window, QtGui.QColor("#ffffff"))
-            widget.setPalette(palette)
+            #palette = QtGui.QPalette(self.main.centralwidget.parent().palette())
+            #widget.setAutoFillBackground(True)
+            #palette.setColor(QtGui.QPalette.Window, QtGui.QColor("#ffffff"))
+            #widget.setPalette(palette)
+            
+            ui.frame.setStyleSheet("""
+            
+            QFrame{
+                 background-color: #FFF;
+             }
+            
+            """)
+            
+            ui.frame_2.setStyleSheet("""
+            
+            QFrame{
+                 background-color: #FFF;
+             }
+            
+            """)
             
             ui.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
             
