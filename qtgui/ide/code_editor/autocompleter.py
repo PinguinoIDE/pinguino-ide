@@ -44,6 +44,13 @@ class PinguinoAutoCompleter(QListWidget):
         self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
         del icons
         
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+
+        """)
+        
+        
         #self.set_arch_autocompleter()
         
     #----------------------------------------------------------------------

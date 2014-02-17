@@ -12,7 +12,7 @@ from PySide import QtGui, QtCore
 
 from .methods.backgrounds import BackgroundPallete
 from .events.events import PinguinoEvents
-#from .methods import constants as Constants
+from .methods.decorators import Decorator
 from .methods.dialogs import Dialogs
 from .methods.pyhton_debug import Stderr
 from .methods.config import Config
@@ -28,6 +28,7 @@ from ..pinguino_api.pinguino_config import PinguinoConfig
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
+    #@Decorator.debug_time()
     def __init__(self):
         super(PinguinoIDE, self).__init__()
 
@@ -160,6 +161,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             color: #FFFFFF;
             font-family: ubuntu mono;
             font-weight: normal;
+            font-size: 11pt;
             }
         
         """)

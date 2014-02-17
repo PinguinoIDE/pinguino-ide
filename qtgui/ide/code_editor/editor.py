@@ -8,7 +8,7 @@ from PySide import QtGui, QtCore
 from PySide.QtCore import QPoint
 
 from .autocompleter import PinguinoAutoCompleter
-from .autocomplete_icons import CompleteIcons	
+from .autocomplete_icons import CompleteIcons
 from .syntaxhighlighter import Highlighter        
 from ..methods.syntax import Autocompleter, Snippet
 #from ..methods import constants as Constants

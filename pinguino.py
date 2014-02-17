@@ -3,13 +3,13 @@
 
 NAME = "Pinguino IDE"
 VERSION = "11.0"
-DESCRIPTION = ""
-LONG_DESCRIPTION = ""
+#DESCRIPTION = ""
+#LONG_DESCRIPTION = ""
 
 ################################################################################
 
 """-------------------------------------------------------------------------
-    pnguino.py
+    Pinguino IDE
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -35,6 +35,7 @@ os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION
 os.environ["PINGUINO_HOME"] = os.path.abspath(".")
 
+# For PyInstaller compatibility
 if os.path.exists(os.path.abspath("pinguino_data")):
     os.environ["PINGUINO_DATA"] = os.path.abspath("pinguino_data")
 else:
@@ -48,7 +49,8 @@ if __name__ == "__main__":
     if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
     
     from qtgui.ide import PinguinoIDE
-    from PySide import QtCore, QtGui
+    from PySide.QtGui import QApplication
+    from PySide import QtCore
     
     locale = QtCore.QLocale.system().name()
     translator = QtCore.QTranslator()
@@ -74,14 +76,16 @@ if __name__ == "__main__":
 
 
     if len(sys.argv) == 1:
-        app = QtGui.QApplication(sys.argv)
+        app = QApplication(sys.argv)
         app.installTranslator(translator)
         app.installTranslator(qtTranslator)
         frame = PinguinoIDE()
         frame.show()
+        
+        #For PyInstaller compatibility
         if app is None:
-            from PySide import QtCore, QtGui
-            QtGui.QApplication.instance().exec_()
+            from PySide.QtGui import QApplication
+            QApplication.instance().exec_()
         else:
             app.exec_()        
         

@@ -5,9 +5,8 @@ import os
 import sys
 
 from PySide import QtCore, QtGui
-import git
 
-#from ..methods import constants as Constants
+from .python_highlighter import Highlighter
 from ..methods.python_shell import PythonShell
 
 HEAD = os.getenv("NAME") + " " + os.getenv("VERSION") + "\n" + "Python " + sys.version + " on " + sys.platform
@@ -22,16 +21,6 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
     #----------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
         super(PinguinoTerminal, self).__init__(*args, **kwargs)
-        
-        #self.setStyleSheet("""QPlainTextEdit {
-            #background-color: #333;
-            #color: #FFFFFF;
-            #font-family: ubuntu mono;
-            #font-weight: normal;
-            #}
-        #""")
-        
-        
 
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
@@ -43,6 +32,8 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         
         self.historial = []
         self.index_historial = 0
+        
+        Highlighter(self.document(), START)
 
 
     #----------------------------------------------------------------------
