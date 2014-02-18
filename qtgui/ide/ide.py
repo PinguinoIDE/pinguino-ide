@@ -118,6 +118,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("NAME"), os.getenv("VERSION")))
 
+    ##----------------------------------------------------------------------
+    #def __str__(self):
+        #return " ".join([os.getenv("NAME"), os.getenv("VERSION")])
+
 
     #----------------------------------------------------------------------
     @Decorator.debug_time()
@@ -138,6 +142,21 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         PrettyFeatures.LineEdit_default_text(self.main.lineEdit_blocks_search, QtGui.QApplication.translate("Frame", "Search block..."))
 
 
+        toolbars = [self.main.toolBar_edit,
+                    self.main.toolBar_files,
+                    self.main.toolBar_graphical,
+                    self.main.toolBar_pinguino,
+                    self.main.toolBar_search_replace,
+                    self.main.toolBar_switch,
+                    self.main.toolBar_undo_redo,
+                    ]
+
+        for toolbar in toolbars:
+            toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonTextOnly)  #explicit IconOnly for windows
+            toolbar.setIconSize(QtCore.QSize(32, 32))
+            #toolbar.setIconSize(QtCore.QSize(48, 48))
+
+
     #----------------------------------------------------------------------
     def set_styleSheet(self):
         self.load_fonts()
@@ -152,20 +171,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.tableWidget_functions.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
         self.main.tableWidget_directives.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
         self.main.tableWidget_variables.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
-
-        toolbars = [self.main.toolBar_edit,
-                    self.main.toolBar_files,
-                    self.main.toolBar_graphical,
-                    self.main.toolBar_pinguino,
-                    self.main.toolBar_search_replace,
-                    self.main.toolBar_switch,
-                    self.main.toolBar_undo_redo,
-                    ]
-
-        for toolbar in toolbars:
-            toolbar.setIconSize(QtCore.QSize(32, 32))
-            #toolbar.setIconSize(QtCore.QSize(48, 48))
-
 
         #Global CSS styles
         self.setStyleSheet("""

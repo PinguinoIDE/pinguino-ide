@@ -90,7 +90,12 @@ if __name__ == "__main__":
             font-size: 11pt;
 
         """)
-        splash_write = lambda msg:splash.showMessage("\t"+msg+"\n", color=QtCore.Qt.white, alignment=QtCore.Qt.AlignBottom)
+        #splash_write = lambda msg:splash.showMessage("\t"+msg+"\n", color=QtCore.Qt.white, alignment=QtCore.Qt.AlignBottom)
+
+        def splash_write(msg):
+            if not splash is None:
+                splash.showMessage("\t"+msg+"\n", color=QtCore.Qt.white, alignment=QtCore.Qt.AlignBottom)
+
 
         splash_write(NAME+" "+VERSION)
         app.processEvents()
