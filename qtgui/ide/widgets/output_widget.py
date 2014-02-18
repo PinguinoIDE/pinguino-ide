@@ -156,9 +156,20 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
     def step_font_size(self, delta):
         font = self.font()
         size = font.pointSize()
-        if delta > 0: font.setPointSize(size+1)
-        else: font.setPointSize(size-1)
-        self.setFont(font)
+        if delta > 0: size = size + 1
+        else: size = size - 1
+
+        self.setStyleSheet("""
+        QPlainTextEdit {
+            background-color: #333;
+            color: #FFFFFF;
+            font-family: ubuntu mono;
+            font-weight: normal;
+            font-size: %dpt;
+        }
+        """%size)
+
+
 
 
     #----------------------------------------------------------------------

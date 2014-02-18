@@ -152,7 +152,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
                     ]
 
         for toolbar in toolbars:
-            toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonTextOnly)  #explicit IconOnly for windows
+            toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)  #explicit IconOnly for windows
             toolbar.setIconSize(QtCore.QSize(32, 32))
             #toolbar.setIconSize(QtCore.QSize(48, 48))
 

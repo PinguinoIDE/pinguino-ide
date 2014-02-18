@@ -12,21 +12,27 @@ class LineNumber(QWidget):
     #----------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
         super(LineNumber, self).__init__(*args, **kwargs)
-        
+
         self.edit = None
         self.highest_line = 0
         self.current = 0
-        
+
         self.setMinimumSize(QtCore.QSize(51, 0))
         self.setMaximumSize(QtCore.QSize(51, 16777215))
         #BackgroundPallete.set_background_pinguino(self)
-        
+
         palette = QtGui.QPalette(self.palette())
         self.setAutoFillBackground(True)
         palette.setColor(QtGui.QPalette.Window, QtGui.QColor(175, 200, 225))
-        self.setPalette(palette)        
-               
-        
+        self.setPalette(palette)
+
+        self.setStyleSheet("""
+        font-family: ubuntu mono;
+        font-weight: normal;
+        font-size: 12pt;
+
+        """)
+
 
     #----------------------------------------------------------------------
     def setTextEdit(self, edit):
@@ -71,4 +77,3 @@ class LineNumber(QWidget):
         self.highest_line = line_count
         painter.end()
         QWidget.paintEvent(self, event)
-        
