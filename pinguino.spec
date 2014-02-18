@@ -1,7 +1,5 @@
 # -*- mode: python -*-
 
-
-
 a = Analysis(['pinguino.py'],
              pathex=['qtgui/resources', '.'],
              hiddenimports=[],
@@ -25,7 +23,6 @@ exe = EXE(pyz,
           
           
 coll = COLLECT([('paths.cfg', 'paths.cfg', 'DATA')],
-               #[('qtgui/config/pinguino.linux.conf', 'qtgui/config/pinguino.linux.conf', 'DATA')],
                Tree('qtgui/config',"qtgui/config"),
                name='pinguino_data',
                strip=None,

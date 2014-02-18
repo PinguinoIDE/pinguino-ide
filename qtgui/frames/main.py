@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sun Feb 16 16:41:38 2014
+# Created: Mon Feb 17 20:07:36 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -484,8 +484,8 @@ class Ui_PinguinoIDE(object):
         self.actionSwitch_ide = QtGui.QAction(PinguinoIDE)
         self.actionSwitch_ide.setCheckable(True)
         icon16 = QtGui.QIcon()
-        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.actionSwitch_ide.setIcon(icon16)
         self.actionSwitch_ide.setObjectName("actionSwitch_ide")
         self.actionSave_image = QtGui.QAction(PinguinoIDE)

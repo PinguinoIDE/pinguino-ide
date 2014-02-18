@@ -17,7 +17,7 @@ START = ">>> "
 
 ########################################################################
 class PinguinoTerminal(QtGui.QPlainTextEdit):
-    
+
     #----------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
         super(PinguinoTerminal, self).__init__(*args, **kwargs)
@@ -25,22 +25,22 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
         self.appendPlainText(START)
-        
+
         self.extra_args = {}
-        
+
         self.shell = PythonShell()
-        
+
         self.historial = []
         self.index_historial = 0
-        
+
         Highlighter(self.document(), START)
 
 
     #----------------------------------------------------------------------
     def keyPressEvent(self, event):
-        
+
         self.set_last_line()
-        
+
         if event.key() in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Enter-1):
             self.moveCursor(QtGui.QTextCursor.End)
             self.index_historial = 0
@@ -55,23 +55,23 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                 self.insertPlainText(self.shell.run(command))
             self.insertPlainText(START)
             self.moveCursor(QtGui.QTextCursor.End)
-    
+
         elif event.key() == QtCore.Qt.Key_Backspace:
             if not self.get_command(): return
             else: super(PinguinoTerminal, self).keyPressEvent(event)
-            
+
         elif event.key() == QtCore.Qt.Key_Up:
             if len(self.historial) >= self.index_historial + 1:
                 self.index_historial += 1
                 self.moveCursor(QtGui.QTextCursor.End)
-                
+
                 tc = self.textCursor()
                 tc.movePosition(tc.StartOfLine, tc.KeepAnchor)
                 tc.removeSelectedText()
                 tc.insertText(START)
-                
+
                 tc.insertText(self.historial[-self.index_historial])
-                
+
         elif event.key() == QtCore.Qt.Key_Down:
             if len(self.historial) >= self.index_historial - 1:
                 self.index_historial -= 1
@@ -79,57 +79,57 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
                     self.index_historial += 1
                     return
                 self.moveCursor(QtGui.QTextCursor.End)
-                
+
                 tc = self.textCursor()
                 tc.movePosition(tc.StartOfLine, tc.KeepAnchor)
                 tc.removeSelectedText()
                 tc.insertText(START)
-                
+
                 tc.insertText(self.historial[-self.index_historial])
-            
+
         elif event.key() == QtCore.Qt.Key_Left:
             if self.no_overwrite_start():
                 super(PinguinoTerminal, self).keyPressEvent(event)
-        
+
         else:
             super(PinguinoTerminal, self).keyPressEvent(event)
-            
-            
+
+
     #----------------------------------------------------------------------
     def get_command(self):
         plain = self.toPlainText()
         comand = plain[plain.rfind(START):]
         return comand[len(START):]
-    
+
 
     #----------------------------------------------------------------------
     def wheelEvent(self, event):
         if event.modifiers() == QtCore.Qt.ControlModifier:
             self.step_font_size(event.delta())
-            
+
         else: super(PinguinoTerminal, self).wheelEvent(event)
-                
-                
+
+
     ##----------------------------------------------------------------------
     #def (self):
         #""""""
-        
-                
+
+
     #----------------------------------------------------------------------
     def contextMenuEvent(self, event):
         menu = QtGui.QMenu()
-        
+
         if self.historial:
             sub_menu = QtGui.QMenu(QtGui.QApplication.translate("PythonShell", "Last commands"))
             rhistorial = self.historial[:]
-                
+
             rhistorial.reverse()
             for command in rhistorial[:10]:
                 sub_menu.addAction(command, lambda :self.insertPlainText(command))
             menu.addMenu(sub_menu)
             menu.addSeparator()
-        
-            
+
+
         menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
         menu.addAction(QtGui.QApplication.translate("PythonShell", "Restart"), self.command_restart)
         menu.addSeparator()
@@ -139,19 +139,19 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         menu.addAction(QtGui.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
         menu.addSeparator()
         #menu.addAction(self.main.actionComment_out_region)
-        
+
         menu.setStyleSheet("""
         QMenu {
             font-family: ubuntu regular;
             font-weight: normal;
             }
-        
-        """) 
-        
+
+        """)
+
         menu.exec_(event.globalPos())
-    
-    
-                
+
+
+
     #----------------------------------------------------------------------
     def step_font_size(self, delta):
         font = self.font()
@@ -159,15 +159,15 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         if delta > 0: font.setPointSize(size+1)
         else: font.setPointSize(size-1)
         self.setFont(font)
-                          
-                          
+
+
     #----------------------------------------------------------------------
     def set_extra_args(self, *args, **kwargs):
         for key in kwargs:
             setattr(self.shell.statement_module, key, kwargs[key])
         self.extra_args.update(kwargs)
-        
-                          
+
+
     #----------------------------------------------------------------------
     def set_last_line(self):
         cursor = self.textCursor()
@@ -175,8 +175,8 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         plain = self.toPlainText()
         index = plain.rfind("\n")
         if position < (index + len(START) + 1): self.moveCursor(QtGui.QTextCursor.End)
-        
-                          
+
+
     #----------------------------------------------------------------------
     def no_overwrite_start(self):
         cursor = self.textCursor()
@@ -186,8 +186,8 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         if position > index:
             return (position - index) > len(START) + 1
         #if position < index: self.moveCursor(QtGui.QTextCursor.End)
-        
-        
+
+
     #----------------------------------------------------------------------
     def run_default_command(self, command):
         try:
@@ -196,16 +196,16 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             if run: run()
         except:
             return False
-        
+
         return bool(run)
-        
-        
+
+
     #----------------------------------------------------------------------
     def command_clear(self):
         self.clear()
-        self.appendPlainText(START)
-        
-        
+        #self.appendPlainText(START)
+
+
     #----------------------------------------------------------------------
     def command_restart(self):
         self.shell.restart()
@@ -213,4 +213,4 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
         self.set_extra_args(**self.extra_args)
-        self.appendPlainText(START)
+        #self.appendPlainText(START)

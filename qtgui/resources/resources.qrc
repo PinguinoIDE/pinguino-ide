@@ -102,6 +102,7 @@
     <file>art/pinguino11.svg</file>
     <file>art/windowIcon.svg</file>
     <file>art/banner.png</file>
+    <file>art/splash.png</file>
     <file>art/banner_blue.png</file>
   </qresource>
   <qresource prefix="autocompleter">
