@@ -208,8 +208,15 @@
    </widget>
    <widget class="QMenu" name="menuConfiguration">
     <property name="title">
-     <string>Options</string>
+     <string>View</string>
     </property>
+    <addaction name="actionMaximize_editor"/>
+    <addaction name="separator"/>
+    <addaction name="actionTools_2"/>
+    <addaction name="actionBlocks_2"/>
+    <addaction name="actionPython_shell"/>
+    <addaction name="actionToolbars"/>
+    <addaction name="separator"/>
     <addaction name="actionAutocomplete"/>
     <addaction name="actionColor_theme"/>
    </widget>
@@ -223,10 +230,10 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuConfiguration"/>
    <addaction name="menuSource"/>
    <addaction name="menuPinguino"/>
    <addaction name="menuGraphical"/>
-   <addaction name="menuConfiguration"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget_tools">
@@ -706,7 +713,7 @@
     <set>QDockWidget::DockWidgetFeatureMask</set>
    </property>
    <property name="windowTitle">
-    <string>Output</string>
+    <string>Python Shell</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>8</number>
@@ -1137,16 +1144,6 @@
     <string>Ctrl+V</string>
    </property>
   </action>
-  <action name="actionClear">
-   <property name="text">
-    <string>Clear</string>
-   </property>
-  </action>
-  <action name="actionSelect">
-   <property name="text">
-    <string>Select</string>
-   </property>
-  </action>
   <action name="actionSearch">
    <property name="enabled">
     <bool>false</bool>
@@ -1251,20 +1248,6 @@
     <string>Ctrl+/</string>
    </property>
   </action>
-  <action name="actionBoard_info">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Board info</string>
-   </property>
-   <property name="autoRepeat">
-    <bool>false</bool>
-   </property>
-   <property name="visible">
-    <bool>true</bool>
-   </property>
-  </action>
   <action name="actionStdout">
    <property name="text">
     <string>Stdout</string>
@@ -1359,31 +1342,6 @@
     <string>Ctrl+Shift+S</string>
    </property>
   </action>
-  <action name="actionUse_system_compilers">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Use system compilers</string>
-   </property>
-   <property name="toolTip">
-    <string>Use system compilers</string>
-   </property>
-  </action>
-  <action name="actionUse_local_compilers">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Use local compilers</string>
-   </property>
-  </action>
   <action name="actionWiki_docs">
    <property name="text">
     <string>Wiki docs</string>
@@ -1401,39 +1359,6 @@
    </property>
    <property name="text">
     <string>Autocomplete</string>
-   </property>
-  </action>
-  <action name="actionTools">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Tools</string>
-   </property>
-  </action>
-  <action name="actionShell">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Shell</string>
-   </property>
-  </action>
-  <action name="actionBlocks">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Blocks</string>
    </property>
   </action>
   <action name="actionColor_theme">
@@ -1524,6 +1449,49 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionTools_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Tools</string>
+   </property>
+  </action>
+  <action name="actionBlocks_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Blocks</string>
+   </property>
+  </action>
+  <action name="actionPython_shell">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Python shell</string>
+   </property>
+  </action>
+  <action name="actionMaximize_editor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Maximize editor</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F2</string>
+   </property>
+  </action>
+  <action name="actionToolbars">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Toolbars</string>
    </property>
   </action>
  </widget>
