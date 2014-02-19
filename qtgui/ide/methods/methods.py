@@ -395,12 +395,19 @@ class Methods(SearchReplace):
 
     #----------------------------------------------------------------------
     def write_log(self, *args, **kwargs):
+
+        lines = ""
         for line in args:
-            self.main.plainTextEdit_output.appendPlainText(line)
+            lines += line
+            #self.main.plainTextEdit_output.appendPlainText(line)
 
         for key in kwargs.keys():
             line = key + ": " + kwargs[key]
-            self.main.plainTextEdit_output.appendPlainText(line)
+            lines += line
+
+        #Integration with Shell: print(Lines)
+        #self.main.plainTextEdit_output.appendPlainText(lines)
+        self.main.plainTextEdit_output.log_output(lines)
 
         scroll = self.main.plainTextEdit_output.verticalScrollBar()
         scroll.setValue(scroll.maximum())
@@ -558,4 +565,38 @@ class Methods(SearchReplace):
                 status = QtGui.QFontDatabase.addApplicationFont(os.path.join(fonts_dir, dir_font, ttf))
                 if status == -1: logging.warning("Error loading: "+os.path.join(fonts_dir, dir_font, ttf))
 
+
+    #----------------------------------------------------------------------
+    def exapand_editor(self, exapand):
+
+        self.toggle_toolbars(not exapand)
+        self.main.dockWidget_output.setVisible(not exapand)
+        self.main.actionToolbars.setChecked(not exapand)
+
+        if self.is_graphical():
+            self.main.dockWidget_blocks.setVisible(not exapand)
+            self.main.dockWidget_tools.setVisible(False)
+        else:
+            self.main.dockWidget_tools.setVisible(not exapand)
+            self.main.dockWidget_blocks.setVisible(False)
+
+    #----------------------------------------------------------------------
+    def toggle_toolbars(self, visible):
+
+        if visible == False:
+            for toolbar in self.toolbars:
+                toolbar.setVisible(visible)
+
+        else:
+
+            self.main.toolBar_switch.setVisible(True)
+            self.main.toolBar_files.setVisible(True)
+            self.main.toolBar_pinguino.setVisible(True)
+
+            visible = self.is_graphical()
+
+            self.main.toolBar_edit.setVisible(not visible)
+            self.main.toolBar_graphical.setVisible(visible)
+            self.main.toolBar_search_replace.setVisible(not visible)
+            self.main.toolBar_undo_redo.setVisible(not visible)
 

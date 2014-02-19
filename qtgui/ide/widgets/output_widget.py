@@ -35,6 +35,18 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
         Highlighter(self.document(), START)
 
+        self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
+
+
+    #----------------------------------------------------------------------
+    def log_output(self, text):
+
+        self.moveCursor(QtGui.QTextCursor.End)
+        self.insertPlainText(self.shell.run('print("""%s""")'%text))
+        self.insertPlainText(START)
+        self.moveCursor(QtGui.QTextCursor.End)
+
+
 
     #----------------------------------------------------------------------
     def keyPressEvent(self, event):
