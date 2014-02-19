@@ -653,11 +653,15 @@ class EventMethods(Methods):
     @Decorator.requiere_open_files()
     @Decorator.requiere_file_saved()
     def pinguino_compile(self):
+
+        filename = self.get_tab().currentWidget().path
+
         if not self.is_graphical():
-            filename = self.get_tab().currentWidget().path
+            compile_code = lambda :self.pinguinoAPI.compile_file(filename)
+
         else:
-            filename = self.PinguinoKIT.save_as_pde()
-            filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde")
+            compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
+
 
         self.set_board()
         reply = Dialogs.confirm_board(self)
@@ -665,12 +669,18 @@ class EventMethods(Methods):
         if reply == False:
             self.__show_board_config__()
             return
-        elif reply == None: return
+        elif reply == None:
+            return
 
         self.write_log(QtGui.QApplication.translate("Frame", "compilling: %s")%filename)
         self.write_log(self.get_description_board())
+        self.write_log("")
 
-        self.pinguinoAPI.compile_file(filename)
+        compile_code()
+        self.post_compile()
+
+    #----------------------------------------------------------------------
+    def post_compile(self):
 
         self.main.actionUpload.setEnabled(self.pinguinoAPI.compiled())
         if not self.pinguinoAPI.compiled():
@@ -678,11 +688,11 @@ class EventMethods(Methods):
             errors_preprocess = self.pinguinoAPI.get_errors_preprocess()
             if errors_preprocess:
                 for error in errors_preprocess["preprocess"]:
-                    self.write_log(error)
+                    self.write_log("ERROR: "+error)
 
             errors_c = self.pinguinoAPI.get_errors_compiling_c()
             if errors_c:
-                self.write_log(errors_c["complete_message"])
+                self.write_log("ERROR: "+errors_c["complete_message"])
                 line_errors = errors_c["line_numbers"]
                 for line_error in line_errors:
                     self.highligh_line(line_error, "#ff7f7f")
@@ -690,12 +700,12 @@ class EventMethods(Methods):
             errors_asm = self.pinguinoAPI.get_errors_compiling_asm()
             if errors_asm:
                 for error in errors_asm["error_symbols"]:
-                    self.write_log(error)
+                    self.write_log("ERROR: "+error)
 
             errors_linking = self.pinguinoAPI.get_errors_linking()
             if errors_linking:
                 for error in errors_linking["linking"]:
-                    self.write_log(error)
+                    self.write_log("ERROR: "+error)
 
                 line_errors_l = errors_linking["line_numbers"]
                 for line_error in line_errors_l:
@@ -725,10 +735,6 @@ class EventMethods(Methods):
             if Dialogs.compilation_done(self):
                 self.pinguino_upload()
 
-        if self.is_graphical():
-            os.remove(filename)
-
-        self.main.plainTextEdit_output.appendPlainText(">>> ")
 
 
     #----------------------------------------------------------------------

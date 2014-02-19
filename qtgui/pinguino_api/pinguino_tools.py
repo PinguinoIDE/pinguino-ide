@@ -205,7 +205,7 @@ class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def get_regobject_libinstructions(self, arch):
-        """Return regobject and libinstructions for each architecrure."""
+        """Return regobject and libinstructions for each architecture."""
         if arch == 8:
             if getattr(self, "regobject_8", False) and getattr(self, "libinstructions_8", False):
                 return self.regobject_8,  self.libinstructions_8

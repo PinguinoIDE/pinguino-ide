@@ -13,6 +13,7 @@ from .dialogs import Dialogs
 from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
 from ..methods.library_manager import Librarymanager
+from ..widgets.output_widget import START
 
 
 ########################################################################
@@ -392,7 +393,6 @@ class Methods(SearchReplace):
         #names = Namespaces()
         #names.save_namespaces()
 
-
     #----------------------------------------------------------------------
     def write_log(self, *args, **kwargs):
 
@@ -407,7 +407,9 @@ class Methods(SearchReplace):
 
         #Integration with Shell: print(Lines)
         #self.main.plainTextEdit_output.appendPlainText(lines)
-        self.main.plainTextEdit_output.log_output(lines)
+        self.main.plainTextEdit_output.log_output(lines.replace("\n", "\n"+START))
+
+        self.main.plainTextEdit_output.update()
 
         scroll = self.main.plainTextEdit_output.verticalScrollBar()
         scroll.setValue(scroll.maximum())

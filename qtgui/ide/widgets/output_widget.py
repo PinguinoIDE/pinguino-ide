@@ -38,14 +38,16 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
 
 
+
     #----------------------------------------------------------------------
     def log_output(self, text):
+        if text:
+            self.moveCursor(QtGui.QTextCursor.End)
+            self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
+            self.insertPlainText(START)
+            self.moveCursor(QtGui.QTextCursor.End)
 
-        self.moveCursor(QtGui.QTextCursor.End)
-        self.insertPlainText(self.shell.run('print("""%s""")'%text))
-        self.insertPlainText(START)
-        self.moveCursor(QtGui.QTextCursor.End)
-
+        self.repaint()
 
 
     #----------------------------------------------------------------------
