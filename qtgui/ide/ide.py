@@ -142,7 +142,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         PrettyFeatures.LineEdit_default_text(self.main.lineEdit_blocks_search, QtGui.QApplication.translate("Frame", "Search block..."))
 
 
-        toolbars = [self.main.toolBar_edit,
+        self.toolbars = [self.main.toolBar_edit,
                     self.main.toolBar_files,
                     self.main.toolBar_graphical,
                     self.main.toolBar_pinguino,
@@ -151,7 +151,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
                     self.main.toolBar_undo_redo,
                     ]
 
-        for toolbar in toolbars:
+        for toolbar in self.toolbars:
             toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)  #explicit IconOnly for windows
             toolbar.setIconSize(QtCore.QSize(32, 32))
             #toolbar.setIconSize(QtCore.QSize(48, 48))
@@ -268,6 +268,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         #self.configIDE.set("Features", "terminal_on_graphical", self.main.dockWidget_output.isVisible())
         self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_text", True))
+        self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_text", True))
         self.configIDE.save_config()
 
 
@@ -297,4 +298,5 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         #self.configIDE.set("Features", "terminal_on_text", self.main.dockWidget_output.isVisible())
         self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
+        self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.configIDE.save_config()
