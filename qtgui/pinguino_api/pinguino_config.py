@@ -18,20 +18,20 @@ class PinguinoConfig(object):
         if not os.path.exists(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg")):
             logging.error("Missing: "+os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"))
             sys.exit()
-            
+
         config_paths = RawConfigParser()
         config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"), "r"))
-    
+
         if os.name == "posix": #GNU/Linux
             os.environ["PINGUINO_OS_NAME"] = "linux"
-    
+
         elif os.name == "nt":  #Windows
             os.environ["PINGUINO_OS_NAME"] = "windows"
-    
+
         #load path from paths.conf
         os.environ["PINGUINO_USER_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "user_path"))
-        os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "install_path"))  
-        os.environ["PINGUINO_USERLIBS_PATH"] = os.path.join(os.getenv("PINGUINO_USER_PATH"), "library_manager")  
+        os.environ["PINGUINO_INSTALL_PATH"] = os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "install_path"))
+        os.environ["PINGUINO_USERLIBS_PATH"] = os.path.join(os.getenv("PINGUINO_USER_PATH"), "library_manager")
 
 
     #----------------------------------------------------------------------
@@ -64,7 +64,7 @@ class PinguinoConfig(object):
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"),
                                     default_dir=True)
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "source"),
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_HOME"), "pinguino_source", "source"),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
         #FIXME: wath to do with this dir?
@@ -75,6 +75,7 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def check_config_files(cls):
+
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "pinguino.%s.conf"%os.getenv("PINGUINO_OS_NAME")),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 
@@ -106,31 +107,31 @@ class PinguinoConfig(object):
     def update_pinguino_paths(cls, config, pinguino_object):
         user_sdcc_bin = config.get_path("sdcc_bin")
         if user_sdcc_bin: pinguino_object.P8_BIN = user_sdcc_bin
-        
+
         user_gcc_bin = config.get_path("gcc_bin")
         if user_gcc_bin: pinguino_object.P32_BIN = user_gcc_bin
-        
+
         pinguino_source = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")
         if pinguino_source: pinguino_object.SOURCE_DIR = pinguino_source
-        
+
         pinguino_8_libs = config.get_path("pinguino_8_libs")
         if pinguino_8_libs: pinguino_object.P8_DIR = pinguino_8_libs
-        
+
         pinguino_32_libs = config.get_path("pinguino_32_libs")
         if pinguino_32_libs: pinguino_object.P32_DIR = pinguino_32_libs
-        
-        
+
+
     #----------------------------------------------------------------------
     @classmethod
     def update_user_libs(cls, pinguino_object):
         libs = Librarymanager()
-        
+
         all_p8 = libs.get_p8_libraries()
         all_p8 = map(lambda lib:lib["p8"], all_p8)
-        pinguino_object.USER_P8_LIBS = all_p8   
-        
+        pinguino_object.USER_P8_LIBS = all_p8
+
         all_p32 = libs.get_p32_libraries()
         all_p32 = map(lambda lib:lib["p32"], all_p32)
-        pinguino_object.USER_P32_LIBS = all_p32  
-        
+        pinguino_object.USER_P32_LIBS = all_p32
+
         pinguino_object.USER_PDL = libs.get_pdls()

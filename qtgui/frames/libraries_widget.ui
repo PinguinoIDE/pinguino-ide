@@ -70,17 +70,119 @@
         <item row="0" column="0">
          <widget class="QLineEdit" name="lineEdit_source"/>
         </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="pushButton_add">
-          <property name="text">
-           <string>Add</string>
-          </property>
-         </widget>
+        <item row="4" column="0" colspan="3">
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QPushButton" name="pushButton_update">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Update library from their repository.</string>
+            </property>
+            <property name="text">
+             <string>Update selected</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="pushButton_remove">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Delete directory from disk.</string>
+            </property>
+            <property name="text">
+             <string>Remove selected</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="pushButton_reload_s">
+            <property name="text">
+             <string>Reload</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="3" column="0" colspan="3">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QCheckBox" name="checkBox_sources">
+            <property name="text">
+             <string>Check/Uncheck all</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="radioButton_repo_git">
+            <property name="text">
+             <string>Git</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_repo_hg">
+            <property name="text">
+             <string>Mercurial</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radioButton_repo_svn">
+            <property name="text">
+             <string>Subversion</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
         <item row="0" column="2">
          <widget class="QPushButton" name="pushButton_from_zip">
           <property name="text">
            <string>Install from .zip</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="pushButton_add">
+          <property name="text">
+           <string>Add</string>
           </property>
          </widget>
         </item>
@@ -181,101 +283,6 @@
           </item>
          </widget>
         </item>
-        <item row="1" column="0" colspan="3">
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QRadioButton" name="radioButton_repo_git">
-            <property name="text">
-             <string>Git</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_repo_hg">
-            <property name="text">
-             <string>Mercurial</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="radioButton_repo_svn">
-            <property name="text">
-             <string>Subversion</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item row="3" column="0" colspan="3">
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QCheckBox" name="checkBox_sources">
-            <property name="text">
-             <string>Check/Uncheck all</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item row="4" column="0" colspan="3">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QPushButton" name="pushButton_update">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>Update library from their repository.</string>
-            </property>
-            <property name="text">
-             <string>Update selected</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_remove">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>Delete directory from disk.</string>
-            </property>
-            <property name="text">
-             <string>Remove selected</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab">
@@ -283,7 +290,24 @@
         <string>Libraries</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="1" column="0">
+        <item row="3" column="1">
+         <widget class="QPushButton" name="pushButton_reload_l">
+          <property name="text">
+           <string>Reload</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="pushButton_apply">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Apply</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
          <widget class="QTableWidget" name="tableWidget_libs">
           <property name="alternatingRowColors">
            <bool>true</bool>
@@ -364,7 +388,20 @@
           </column>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label_help">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Select libraries for enable or disable it, only libraries enabled can be used in the editor.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QCheckBox" name="checkBox_libs">
@@ -388,41 +425,6 @@
           </item>
          </layout>
         </item>
-        <item row="4" column="0">
-         <widget class="QPushButton" name="pushButton_apply">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>265</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>265</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Apply</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Select libraries for enable or disable it, only libraries enabled can be used in the editor.</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </widget>
@@ -439,7 +441,6 @@
   <tabstop>pushButton_remove</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>tableWidget_libs</tabstop>
-  <tabstop>pushButton_apply</tabstop>
   <tabstop>commandLinkButton_how</tabstop>
   <tabstop>pushButton_close</tabstop>
  </tabstops>

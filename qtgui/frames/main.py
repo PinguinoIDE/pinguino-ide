@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Feb 18 17:52:38 2014
+# Created: Thu Feb 20 10:22:44 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -475,8 +475,8 @@ class Ui_PinguinoIDE(object):
         self.actionSwitch_ide = QtGui.QAction(PinguinoIDE)
         self.actionSwitch_ide.setCheckable(True)
         icon16 = QtGui.QIcon()
-        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.actionSwitch_ide.setIcon(icon16)
         self.actionSwitch_ide.setObjectName("actionSwitch_ide")
         self.actionSave_image = QtGui.QAction(PinguinoIDE)
@@ -554,6 +554,8 @@ class Ui_PinguinoIDE(object):
         self.actionToolbars = QtGui.QAction(PinguinoIDE)
         self.actionToolbars.setCheckable(True)
         self.actionToolbars.setObjectName("actionToolbars")
+        self.actionIf_Compile_then_Upload = QtGui.QAction(PinguinoIDE)
+        self.actionIf_Compile_then_Upload.setObjectName("actionIf_Compile_then_Upload")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
@@ -590,6 +592,7 @@ class Ui_PinguinoIDE(object):
         self.menuPinguino.addSeparator()
         self.menuPinguino.addAction(self.actionCompile)
         self.menuPinguino.addAction(self.actionUpload)
+        self.menuPinguino.addAction(self.actionIf_Compile_then_Upload)
         self.menuLinks.addAction(self.actionGitHub)
         self.menuLinks.addAction(self.actionWebsite)
         self.menuLinks.addAction(self.actionWiki)
@@ -802,5 +805,7 @@ class Ui_PinguinoIDE(object):
         self.actionMaximize_editor.setText(QtGui.QApplication.translate("PinguinoIDE", "Maximize editor", None, QtGui.QApplication.UnicodeUTF8))
         self.actionMaximize_editor.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Shift+F2", None, QtGui.QApplication.UnicodeUTF8))
         self.actionToolbars.setText(QtGui.QApplication.translate("PinguinoIDE", "Toolbars", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionIf_Compile_then_Upload.setText(QtGui.QApplication.translate("PinguinoIDE", "If Compile then Upload", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionIf_Compile_then_Upload.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F7", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

@@ -7,7 +7,7 @@ from ..methods.decorators import Decorator
 
 ########################################################################
 class SearchReplace(object):
-    
+
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_replace")
@@ -17,7 +17,7 @@ class SearchReplace(object):
         self.main.pushButton_replace.setEnabled(empty)
         self.main.pushButton_replace_all.setEnabled(empty)
         if empty: return
-        
+
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
@@ -27,34 +27,34 @@ class SearchReplace(object):
         empty = not text_to_search == QtGui.QApplication.translate("Frame", "Search...")
         self.main.pushButton_search_previous.setEnabled(empty)
         self.main.pushButton_search_next.setEnabled(empty)
-        
-        editor = self.main.tabWidget_files.currentWidget()        
-        editor.text_edit.setExtraSelections([])        
+
+        editor = self.main.tabWidget_files.currentWidget()
+        editor.text_edit.setExtraSelections([])
         if not empty: return
-    
-        
+
+
         if self.main.checkBox_case_sensitive.isChecked():
             content = editor.text_edit.toPlainText()
             count = content.count(text_to_search)
             self.main.label_replace_info.setText(QtGui.QApplication.translate("Frame", "%d words were found.")%count)
-            
+
         else:
             content = editor.text_edit.toPlainText().lower()
             count = content.count(text_to_search.lower())
             self.main.label_replace_info.setText(QtGui.QApplication.translate("Frame", "%d words were found.")%count)
-    
-    
-        for i in range(count): self.search_next()    
-    
+
+
+        #for i in range(count): self.search_next()
+
         text_cur = editor.text_edit.textCursor()
-        editor.text_edit.moveCursor(text_cur.Start)    
-        self.__search__(text_to_search)            
-        
-        
-    
+        editor.text_edit.moveCursor(text_cur.Start)
+        self.__search__(text_to_search)
+
+
+
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    @Decorator.requiere_line_edit_content("main.lineEdit_search")  
+    @Decorator.requiere_line_edit_content("main.lineEdit_search")
     def __search__(self, text_to_search):
         if text_to_search == QtGui.QApplication.translate("Frame", "Search..."): return
 
@@ -63,7 +63,7 @@ class SearchReplace(object):
                         back=False,
                         sensitive=self.main.checkBox_case_sensitive.isChecked(),
                         whole=False)
-        
+
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
@@ -73,7 +73,7 @@ class SearchReplace(object):
                         back=True,
                         sensitive=self.main.checkBox_case_sensitive.isChecked(),
                         whole=False)
-        
+
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
@@ -82,8 +82,8 @@ class SearchReplace(object):
         self.find_match(word=self.main.lineEdit_search.text(),
                         back=False,
                         sensitive=self.main.checkBox_case_sensitive.isChecked(),
-                        whole=False)  
-        
+                        whole=False)
+
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
@@ -97,7 +97,7 @@ class SearchReplace(object):
             text_cur.insertText(self.main.lineEdit_replace.text())
             text_cur.clearSelection()
             self.highligh_line(line=None, color="#ffff7f")
-        
+
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
@@ -108,7 +108,7 @@ class SearchReplace(object):
                                wordNew=self.main.lineEdit_replace.text(),
                                sensitive=self.main.checkBox_case_sensitive.isChecked(),
                                whole=False)
-        
+
     #----------------------------------------------------------------------
     def replace_all_match(self, wordOld, wordNew, sensitive=False, whole=False):
         editor = self.main.tabWidget_files.currentWidget()
@@ -133,7 +133,7 @@ class SearchReplace(object):
         text_cur.endEditBlock()
         self.main.label_replace_info.setText("%d words were replaced."%count)
 
-    #----------------------------------------------------------------------    
+    #----------------------------------------------------------------------
     def find_match(self, word, back, sensitive, whole):
         editor = self.main.tabWidget_files.currentWidget()
         text_doc = editor.text_edit.document()
@@ -145,6 +145,5 @@ class SearchReplace(object):
         if back or sensitive or whole: editor.text_edit.find(word, b or s or w)
         else:  editor.text_edit.find(word)
         self.highligh_line(line=None, color="#ffff7f", text_cursor=editor.text_edit.textCursor())
-        
-        
-        
+
+

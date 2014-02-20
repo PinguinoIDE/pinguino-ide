@@ -60,31 +60,23 @@ class PinguinoTools(object):
     #----------------------------------------------------------------------
     def set_os_variables(self):
 
-        if sys.platform == 'darwin':
-            self.os_name = 'macosx'
-            #self.debug_port = '/dev/tty.usbmodem1912'
-            self.c8 = 'sdcc'
-            self.u32 = 'mphidflash'
-            self.make = 'make'
-
-        elif sys.platform == 'win32':
-            self.os_name = 'win32'
-            #self.debug_port = 15
-            self.c8 = 'sdcc.exe'
-            #self.P8_COMPILER = "sdcc.exe"
-            self.p8 = 'picpgm.exe'
-            self.u32 = 'mphidflash.exe'
-            self.make = os.path.join(HOME_DIR, self.os_name, 'p32', 'bin', 'make.exe')
-
-        else:
-            self.os_name = 'linux'
-            #self.debug_port = '/dev/ttyACM0'
+        #if sys.platform == 'darwin':
             #self.c8 = 'sdcc'
+            #self.u32 = 'mphidflash'
+            #self.make = 'make'
+
+        if os.getenv("PINGUINO_OS_NAME") == "windows":
+            self.COMPILER_8BIT = "sdcc.exe"
+            #self.p8 = 'picpgm.exe'
+            self.UPLOADER_32 = "mphidflash.exe"
+            #self.make = os.path.join(HOME_DIR, self.os_name, 'p32', 'bin', 'make.exe')
+            self.MAKE = os.path.join(P8_BIN, "make.exe")
+
+        elif os.getenv("PINGUINO_OS_NAME") == "linux":
             self.COMPILER_8BIT = "sdcc"
             #self.p8 = 'picpgm'
             self.UPLOADER_32 = "ubw32"
-            #self.u32 = 'ubw32'
-            self.make = 'make'
+            self.MAKE = "make"
 
 
 
@@ -697,7 +689,7 @@ class PinguinoTools(object):
 
             user_imports32 = self.get_user_imports_p32()
 
-            sortie = Popen([self.make,
+            sortie = Popen([self.MAKE,
                             "--makefile=" + makefile,
                             "PDEDIR=" + os.path.dirname(filename),
                             "PROC=" + board.proc,

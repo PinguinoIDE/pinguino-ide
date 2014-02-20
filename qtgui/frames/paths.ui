@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>737</width>
-    <height>246</height>
+    <height>278</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,14 +19,7 @@
      <property name="title">
       <string>8-bit</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="2">
-       <widget class="QPushButton" name="pushButton_sdcc_bin">
-        <property name="text">
-         <string>Change...</string>
-        </property>
-       </widget>
-      </item>
+     <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
@@ -35,10 +28,42 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_sdcc_bin"/>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_pinguino_8_libs"/>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_sdcc_bin"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_clear_sdcc_bin">
+          <property name="maximumSize">
+           <size>
+            <width>26</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="edit-clear">
+            <normaloff/>
+           </iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_sdcc_bin">
+          <property name="text">
+           <string>Change...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_6">
@@ -47,12 +72,43 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="pushButton_pinguino_8_libs">
-        <property name="text">
-         <string>Change...</string>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="spacing">
+         <number>0</number>
         </property>
-       </widget>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_pinguino_8_libs"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_clear_8_libs">
+          <property name="maximumSize">
+           <size>
+            <width>26</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="edit-clear">
+            <normaloff/>
+           </iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_pinguino_8_libs">
+          <property name="text">
+           <string>Change...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
@@ -62,23 +118,51 @@
      <property name="title">
       <string>32-bit</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="2">
-       <widget class="QPushButton" name="pushButton_gcc_bin">
-        <property name="text">
-         <string>Change...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_gcc_bin"/>
-      </item>
+     <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="label_4">
         <property name="text">
          <string>GCC compiler:</string>
         </property>
        </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_gcc_bin"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_clear_gcc_bin">
+          <property name="maximumSize">
+           <size>
+            <width>26</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="edit-clear">
+            <normaloff/>
+           </iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_gcc_bin">
+          <property name="text">
+           <string>Change...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_8">
@@ -88,14 +172,42 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_pinguino_32_libs"/>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="pushButton_pinguino_32_libs">
-        <property name="text">
-         <string>Change...</string>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="spacing">
+         <number>0</number>
         </property>
-       </widget>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_pinguino_32_libs"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_clear_32_libs">
+          <property name="maximumSize">
+           <size>
+            <width>26</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset theme="edit-clear">
+            <normaloff/>
+           </iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_pinguino_32_libs">
+          <property name="text">
+           <string>Change...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

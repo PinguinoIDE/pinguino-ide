@@ -652,7 +652,7 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_file_saved()
-    def pinguino_compile(self):
+    def pinguino_compile(self, dialog_upload=True):
 
         filename = self.get_tab().currentWidget().path
 
@@ -668,19 +668,19 @@ class EventMethods(Methods):
 
         if reply == False:
             self.__show_board_config__()
-            return
+            return False
         elif reply == None:
-            return
+            return False
 
         self.write_log(QtGui.QApplication.translate("Frame", "compilling: %s")%filename)
         self.write_log(self.get_description_board())
         self.write_log("")
 
         compile_code()
-        self.post_compile()
+        self.post_compile(dialog_upload)
 
     #----------------------------------------------------------------------
-    def post_compile(self):
+    def post_compile(self, dialog_upload=True):
 
         self.main.actionUpload.setEnabled(self.pinguinoAPI.compiled())
         if not self.pinguinoAPI.compiled():
@@ -732,9 +732,9 @@ class EventMethods(Methods):
             self.write_log(result["code_size"])
             self.write_log(QtGui.QApplication.translate("Frame", "%s seconds process time")%result["time"])
 
-            if Dialogs.compilation_done(self):
-                self.pinguino_upload()
-
+            if dialog_upload:
+                if Dialogs.compilation_done(self):
+                    self.pinguino_upload()
 
 
     #----------------------------------------------------------------------
@@ -746,6 +746,16 @@ class EventMethods(Methods):
             Dialogs.upload_done(self)
         elif Dialogs.upload_fail(self, result):
             self.pinguino_upload()
+
+
+    #----------------------------------------------------------------------
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_file_saved()
+    def pinguino_compile_and_upload(self):
+        self.pinguino_compile(dialog_upload=False)
+        if self.pinguinoAPI.compiled():
+            self.pinguino_upload()
+
 
 
     # Graphical
@@ -1051,7 +1061,6 @@ class EventMethods(Methods):
     def file_edit_context_menu(self, event):
         menu = QtGui.QMenu()
 
-
         editor = self.main.tabWidget_files.currentWidget()
         filename = getattr(editor, "path", False)
         if filename and (filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples")) or filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))):
@@ -1076,6 +1085,7 @@ class EventMethods(Methods):
         menu.addSeparator()
         menu.addAction(self.main.actionCompile)
         menu.addAction(self.main.actionUpload)
+        menu.addAction(self.main.actionIf_Compile_then_Upload)
         menu.addSeparator()
         menu.addAction(self.main.actionWiki_docs)
         menu.addAction(self.main.actionLibrary_manager)

@@ -457,7 +457,7 @@ class Methods(SearchReplace):
     def get_status_board(self):
         self.set_board()
         board = self.pinguinoAPI.get_board()
-        board_config = "Board: %s" % board.name
+        board_config = board.name
 
         if board.arch == 8 and board.bldr == "boot4":
             board_config += " - Boootloader: v4"
@@ -574,6 +574,8 @@ class Methods(SearchReplace):
         self.toggle_toolbars(not exapand)
         self.main.dockWidget_output.setVisible(not exapand)
         self.main.actionToolbars.setChecked(not exapand)
+
+        self.main.statusBar.setVisible(not exapand)
 
         if self.is_graphical():
             self.main.dockWidget_blocks.setVisible(not exapand)

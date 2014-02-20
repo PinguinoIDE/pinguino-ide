@@ -179,7 +179,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         """)
 
-
         self.main.groupBox_replace.setStyleSheet("""
         QGroupBox{
             font-family: ubuntu regular;
