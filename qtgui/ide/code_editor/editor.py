@@ -9,7 +9,7 @@ from PySide.QtCore import QPoint
 
 from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons
-from .syntaxhighlighter import Highlighter
+from .pinguino_highlighter import Highlighter
 from ..methods.syntax import Autocompleter, Snippet
 #from ..methods import constants as Constants
 #from ..methods.decorators import Decorator
