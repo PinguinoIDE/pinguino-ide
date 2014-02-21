@@ -49,37 +49,43 @@ if __name__ == "__main__":
     python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python_requirements")
     if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
 
-    from qtgui.ide import PinguinoIDE
-    from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
+    #from qtgui.ide import PinguinoIDE #overwrite locale ¿?
+    #from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
     from PySide import QtCore
+    #import locale
 
-    locale = QtCore.QLocale.system().name()
+    sys_locale = QtCore.QLocale.system().name()
+    #sys_locale = locale.getdefaultlocale()[0]
     translator = QtCore.QTranslator()
 
     #load intern dialogs translations
     qtTranslator = QtCore.QTranslator()
-    qtTranslator.load("qt_" + locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
+    qtTranslator.load("qt_" + sys_locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
 
     #load translations files
     translations_path = os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage")
-    translations_file = "pinguino_" + locale
+    translations_file = "pinguino_" + sys_locale
 
-    if not os.path.exists(translations_path): os.mkdir(translations_path)
+    if not os.path.exists(translations_path):
+        os.mkdir(translations_path)
 
     if translations_file + ".qm" in os.listdir(translations_path):
-        translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % locale))
+        translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
 
-    elif "_" in locale:
-        locale = locale[:locale.find("_")]
-        translations_file = "pinguino_" + locale
+    elif "_" in sys_locale:
+        sys_locale = sys_locale[:sys_locale.find("_")]
+        translations_file = "pinguino_" + sys_locale
         if translations_file + ".qm" in os.listdir(translations_path):
-            translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % locale))
+            translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
 
 
     if len(sys.argv) == 1:
+        from qtgui.ide import PinguinoIDE
+        from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
+
         app = QApplication(sys.argv)
 
-        from PySide import QtGui
+        #from PySide import QtGui
 
         pixmap = QPixmap(":/logo/art/splash.png")
         splash = QSplashScreen(pixmap, QtCore.Qt.WindowStaysOnTopHint)
@@ -94,7 +100,6 @@ if __name__ == "__main__":
         def splash_write(msg):
             if not splash is None:
                 splash.showMessage("\t"+msg+"\n", color=QtCore.Qt.white, alignment=QtCore.Qt.AlignBottom)
-
 
         splash_write(NAME+" "+VERSION)
         app.processEvents()
