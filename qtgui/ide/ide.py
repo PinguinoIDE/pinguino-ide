@@ -153,6 +153,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         for toolbar in self.toolbars:
             toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)  #explicit IconOnly for windows
+            #toolbar.setIconSize(QtCore.QSize(24, 24))
             toolbar.setIconSize(QtCore.QSize(32, 32))
             #toolbar.setIconSize(QtCore.QSize(48, 48))
 
@@ -168,9 +169,27 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         bg_color = self.configIDE.config("Styles", "background_color", "#FFFFFF")
         alternate_bg_color = self.configIDE.config("Styles", "alternate_background_color", "#DDE8FF")
 
-        self.main.tableWidget_functions.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
-        self.main.tableWidget_directives.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
-        self.main.tableWidget_variables.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
+        self.main.tableWidget_functions.setStyleSheet("""
+        QTableWidget {
+            background-color: %s;
+            alternate-background-color: %s;
+        }
+        """%(bg_color, alternate_bg_color))
+
+        self.main.tableWidget_directives.setStyleSheet("""
+        QTableWidget {
+            background-color: %s;
+            alternate-background-color: %s;
+        }
+        """%(bg_color, alternate_bg_color))
+
+        self.main.tableWidget_variables.setStyleSheet("""
+        QTableWidget {
+            background-color: %s;
+            alternate-background-color: %s;
+        }
+        """%(bg_color, alternate_bg_color))
+
 
         #Global CSS styles
         self.setStyleSheet("""
