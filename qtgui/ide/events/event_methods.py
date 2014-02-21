@@ -828,15 +828,10 @@ class EventMethods(Methods):
     def open_web_site(self, url):
         webbrowser.open_new_tab(url)
 
-
     #----------------------------------------------------------------------
     def __show_about__(self):
         self.frame_about = About()
         self.frame_about.show()
-
-        print "okl"
-        #1 / 0
-
 
     # Tools Files
 
