@@ -33,7 +33,7 @@ import os
 
 os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION
-os.environ["PINGUINO_HOME"] = os.path.abspath(".")
+os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
 # For PyInstaller compatibility
 if os.path.exists(os.path.abspath("pinguino_data")):
@@ -64,20 +64,19 @@ if __name__ == "__main__":
 
     #load translations files
     translations_path = os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage")
-    translations_file = "pinguino_" + sys_locale
+    trasnlations = os.path.exists(translations_path)
 
-    if not os.path.exists(translations_path):
-        os.mkdir(translations_path)
-
-    if translations_file + ".qm" in os.listdir(translations_path):
-        translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
-
-    elif "_" in sys_locale:
-        sys_locale = sys_locale[:sys_locale.find("_")]
+    if trasnlations:
         translations_file = "pinguino_" + sys_locale
+
         if translations_file + ".qm" in os.listdir(translations_path):
             translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
 
+        elif "_" in sys_locale:
+            sys_locale = sys_locale[:sys_locale.find("_")]
+            translations_file = "pinguino_" + sys_locale
+            if translations_file + ".qm" in os.listdir(translations_path):
+                translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
 
     if len(sys.argv) == 1:
         from qtgui.ide import PinguinoIDE
@@ -104,8 +103,9 @@ if __name__ == "__main__":
         splash_write(NAME+" "+VERSION)
         app.processEvents()
 
-        app.installTranslator(translator)
         app.installTranslator(qtTranslator)
+        if trasnlations: app.installTranslator(translator)
+
         frame = PinguinoIDE(splash_write=splash_write)
         frame.show()
 
