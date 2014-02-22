@@ -107,18 +107,23 @@ class PinguinoConfig(object):
     def update_pinguino_paths(cls, config, pinguino_object):
         user_sdcc_bin = config.get_path("sdcc_bin")
         if user_sdcc_bin: pinguino_object.P8_BIN = user_sdcc_bin
+        else: logging.warning("Missing path to 'sdcc_bin': '%s'"%user_sdcc_bin)
 
         user_gcc_bin = config.get_path("gcc_bin")
         if user_gcc_bin: pinguino_object.P32_BIN = user_gcc_bin
+        else: logging.warning("Missing path to 'gcc_bin': '%s'"%user_gcc_bin)
 
         pinguino_source = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")
         if pinguino_source: pinguino_object.SOURCE_DIR = pinguino_source
+        else: logging.warning("Missing path to 'source': '%s'"%pinguino_source)
 
         pinguino_8_libs = config.get_path("pinguino_8_libs")
         if pinguino_8_libs: pinguino_object.P8_DIR = pinguino_8_libs
+        else: logging.warning("Missing path to '8_libs': '%s'"%pinguino_8_libs)
 
         pinguino_32_libs = config.get_path("pinguino_32_libs")
         if pinguino_32_libs: pinguino_object.P32_DIR = pinguino_32_libs
+        else: logging.warning("Missing path to '32_libs': '%s'"%pinguino_32_libs)
 
 
     #----------------------------------------------------------------------
