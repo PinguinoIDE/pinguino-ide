@@ -1,0 +1,12 @@
+Pinguino IDE 11.0.0
+-------------------
+
+February 21, 2014
+
+Features
+
+* Updated and improved GUI based on Qt via PySide
+* Added Python shell
+* Added library manager
+* Added hex viewer
+* Added graphic development interface
