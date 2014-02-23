@@ -685,7 +685,7 @@ class PinguinoTools(object):
 
         else:#if board.arch == 32:
 
-            makefile = os.path.join(os.path.expanduser(self.SOURCE_DIR), 'Makefile32.'+self.os_name)
+            makefile = os.path.join(os.path.expanduser(self.SOURCE_DIR), 'Makefile32.'+os.getenv("PINGUINO_OS_NAME"))
 
             user_imports32 = self.get_user_imports_p32()
 
