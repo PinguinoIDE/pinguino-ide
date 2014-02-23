@@ -694,7 +694,7 @@ class PinguinoTools(object):
                             "PDEDIR=" + os.path.dirname(filename),
                             "PROC=" + board.proc,
                             "BOARD=" + board.board,
-                            "BINDIR=" + os.path.dirname(self.P32_BIN),  #default /usr/bin
+                            "BINDIR=" + self.P32_BIN,  #default /usr/bin
                             "P32DIR=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
                             "SRCDIR=" + self.SOURCE_DIR,
 
