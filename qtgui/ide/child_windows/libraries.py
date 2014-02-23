@@ -282,7 +282,6 @@ class LibManager(QtGui.QMainWindow):
 
         #Rename directories
         self.rename_dirs_post_install(name, data["name"])
-        #os.rename(temp_dir, os.path.join(os.path.split(temp_dir)[0], data["name"]))
 
         #reload config after directories renamed
         self.ConfigLibs = ConfigLibsGroup()
