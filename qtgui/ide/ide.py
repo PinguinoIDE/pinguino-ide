@@ -14,7 +14,6 @@ from .methods.backgrounds import BackgroundPallete
 from .events.events import PinguinoEvents
 from .methods.decorators import Decorator
 from .methods.dialogs import Dialogs
-from .methods.pyhton_debug import Stderr
 from .methods.config import Config
 from .code_editor.autocomplete_icons import CompleteIcons
 from .widgets.output_widget import PinguinoTerminal
