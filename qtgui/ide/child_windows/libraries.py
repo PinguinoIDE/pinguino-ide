@@ -7,6 +7,7 @@ import shutil
 from zipfile import ZipFile
 from ConfigParser import RawConfigParser
 import webbrowser
+#import logging
 
 from PySide import QtGui, QtCore
 
@@ -127,10 +128,13 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def post_install(self, lib_name):
 
+        self.main.write_log(lib_name)
+
         for dir_ in ["examples", "blocks"]:
             path_user_examples_libraries = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), dir_)
             if not os.path.exists(path_user_examples_libraries):
                 os.mkdir(path_user_examples_libraries)
+                logg
                 self.main.write_log(QtGui.QApplication.translate("frame", "Created :")+path_user_examples_libraries)
 
         lista = []
@@ -184,7 +188,7 @@ class LibManager(QtGui.QMainWindow):
 
             if os.path.exists(path_dirlib):
                 Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Library duplicated (name conflict)."))
-                return
+                continue
 
             libZip = ZipFile(lib)
             os.mkdir(path_dirlib)
@@ -232,18 +236,21 @@ class LibManager(QtGui.QMainWindow):
 
 
     #----------------------------------------------------------------------
-    def add_source(self, source=None):
-        if not source:
-            source = self.libframe.lineEdit_source.text()
-            if source == self.default_line_edit_source: return
+    def add_source(self):
 
+        #source is the url of the repository
+        source = self.libframe.lineEdit_source.text()
+        if source == self.default_line_edit_source: return  #defaul content
+
+        #Check duplicateds, FIXME: unecesary
         if self.ConfigLibs.check_duplicated(source):
             Dialogs.error_message(self, source+"\n"+QtGui.QApplication.translate("Dialogs", "already exist."))
             return
 
+        #default name for directory
         name = "temp_lib_name"
-        if not name: return
 
+        #clear 'temp_lib_name', after this 'temp_lib_name' is an empty directory
         temp_dir = os.path.join(self.user_libraries_dir, name)
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
@@ -251,32 +258,53 @@ class LibManager(QtGui.QMainWindow):
         os.mkdir(temp_dir)
         self.main.write_log(QtGui.QApplication.translate("frame", "Created :")+temp_dir)
 
+        #create default main config file, this config is used by the program
         name_config = os.path.join(self.user_libraries_dir, name, "config")
         new_lib = self.ConfigLibs.new(name_config)
         new_lib.set("LIB", "repository", source)
         new_lib.save_config()
 
-        if self.install_library(name):
-            data = self.get_data_from_lib(name)
-            new_lib = self.ConfigLibs.new(name_config)
-            source = self.ConfigLibs.all_libs[name]
-            source.set("LIB", "description", data["description"])
-            source.set("LIB", "author", data["author"])
-            source.set("LIB", "arch", data["arch"])
-            source.set("LIB", "url", data["url"])
-            source.set("LIB", "name", data["name"])
-            source.save_config()
-            os.rename(temp_dir, os.path.join(os.path.split(temp_dir)[0], data["name"]))
+        #return True if library was cloned, this step need provious configuration file
+        cloned = self.install_library(name)
+        if not cloned:
+            self.update_libraries_view()
+            self.update_sources_view()
+            return
 
+        #cloned then copy the data config
+        data = self.get_data_from_lib(name)
+        new_lib.set("LIB", "description", data["description"])
+        new_lib.set("LIB", "author", data["author"])
+        new_lib.set("LIB", "arch", data["arch"])
+        new_lib.set("LIB", "url", data["url"])
+        new_lib.set("LIB", "name", data["name"])
+        new_lib.save_config()
+
+        #Rename directories
+        self.rename_dirs_post_install(name, data["name"])
+        #os.rename(temp_dir, os.path.join(os.path.split(temp_dir)[0], data["name"]))
+
+        #reload config after directories renamed
         self.ConfigLibs = ConfigLibsGroup()
         self.ConfigLibs.load_config()
 
+        #update views
         self.update_libraries_view()
         self.update_sources_view()
 
 
     #----------------------------------------------------------------------
+    def rename_dirs_post_install(self, temp_name, name):
+
+        for dir_ in "libraries examples blocks".split():
+            old = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), dir_, temp_name)
+            new = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), dir_, name)
+            os.rename(old, new)
+
+
+    #----------------------------------------------------------------------
     def update_sources_view(self):
+
         sources = self.ConfigLibs.get_all_sources()
 
         index = 0
