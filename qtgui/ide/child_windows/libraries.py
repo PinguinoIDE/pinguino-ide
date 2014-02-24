@@ -15,7 +15,7 @@ from ..methods.config_libs import ConfigLibsGroup
 #from ..methods.constants import os.getenv("NAME"), NAME
 from ..methods.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
-from ..methods.repositories import PinguinoLibrary
+from ..methods.repositories import PinguinoLibrary, ErrorModules
 from ...frames.libraries_widget import Ui_LibraryManager
 from ...pinguino_api.pinguino_config import PinguinoConfig
 
@@ -29,6 +29,18 @@ class LibManager(QtGui.QMainWindow):
         self.libframe.setupUi(self)
 
         self.main = IDE
+
+        if not ErrorModules["gitpython"] == False:
+            self.libframe.radioButton_repo_git.setEnabled(False)
+            self.libframe.radioButton_repo_git.setToolTip("'gitpython' no installed")
+
+        if not ErrorModules["pysvn"] == False:
+            self.libframe.radioButton_repo_svn.setEnabled(False)
+            self.libframe.radioButton_repo_svn.setToolTip("'pysvn' no installed")
+
+        if not ErrorModules["hgapi"] == False:
+            self.libframe.radioButton_repo_hg.setEnabled(False)
+            self.libframe.radioButton_repo_hg.setToolTip("'hgapi' no installed")
 
         self.user_libraries_dir = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries")
 
