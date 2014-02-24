@@ -42,8 +42,6 @@ class PinguinoTools(object):
     #----------------------------------------------------------------------
     def __init__(self):
 
-        self.set_os_variables()
-
         self.NoBoot = ("noboot", 0)
         self.Boot2 = ("boot2", 0x2000)
         self.Boot4 = ("boot4", 0x0C00)
@@ -66,16 +64,15 @@ class PinguinoTools(object):
             #self.make = 'make'
 
         if os.getenv("PINGUINO_OS_NAME") == "windows":
-            self.COMPILER_8BIT = "sdcc.exe"
+            self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
             #self.p8 = 'picpgm.exe'
-            self.UPLOADER_32 = "mphidflash.exe"
-            #self.make = os.path.join(HOME_DIR, self.os_name, 'p32', 'bin', 'make.exe')
-            self.MAKE = os.path.join(P8_BIN, "make.exe")
+            self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
+            self.MAKE = os.path.join(P32_BIN, "make.exe")
 
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
-            self.COMPILER_8BIT = "sdcc"
+            self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
             #self.p8 = 'picpgm'
-            self.UPLOADER_32 = "ubw32"
+            self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
             self.MAKE = "make"
 
 

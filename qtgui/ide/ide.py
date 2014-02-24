@@ -65,6 +65,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         PinguinoConfig.update_pinguino_paths(self.configIDE, self.pinguinoAPI)
         splash_write(QtGui.QApplication.translate("Splash", "Searching user libraries"))
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
+        self.pinguinoAPI.set_os_variables()
 
         self.setWindowTitle(os.getenv("NAME")+" "+os.getenv("VERSION"))
 
