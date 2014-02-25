@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="42"
+   height="16"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="nested3.svg"
+   inkscape:export-filename="/home/yeison/Documentos/PythonPowered/RoboBloq!/RoboBloq/arte/nested/nested11.png"
+   inkscape:export-xdpi="80"
+   inkscape:export-ydpi="80">
+  <defs
+     id="defs4">
+    <filter
+       id="filter3870"
+       inkscape:label="Darken edges"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Darken the edges with an inner blur"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3872"
+         result="result6"
+         stdDeviation="1.5" />
+      <feComposite
+         id="feComposite3874"
+         in2="result6"
+         operator="atop"
+         in="SourceGraphic"
+         result="result8" />
+      <feComposite
+         id="feComposite3876"
+         in2="SourceAlpha"
+         in="result8"
+         operator="atop"
+         result="result9" />
+    </filter>
+    <filter
+       id="filter3027"
+       inkscape:label="Darken edges"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Darken the edges with an inner blur"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3029"
+         result="result6"
+         stdDeviation="1.5" />
+      <feComposite
+         id="feComposite3031"
+         in2="result6"
+         operator="atop"
+         in="SourceGraphic"
+         result="result8" />
+      <feComposite
+         id="feComposite3033"
+         in2="SourceAlpha"
+         in="result8"
+         operator="atop"
+         result="result9" />
+    </filter>
+    <filter
+       id="filter3049"
+       inkscape:label="Darken edges"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Darken the edges with an inner blur"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3051"
+         result="result6"
+         stdDeviation="1.5" />
+      <feComposite
+         id="feComposite3053"
+         in2="result6"
+         operator="atop"
+         in="SourceGraphic"
+         result="result8" />
+      <feComposite
+         id="feComposite3055"
+         in2="SourceAlpha"
+         in="result8"
+         operator="atop"
+         result="result9" />
+    </filter>
+    <filter
+       id="filter3104"
+       inkscape:label="Darken edges"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Darken the edges with an inner blur"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3106"
+         result="result6"
+         stdDeviation="1.5" />
+      <feComposite
+         id="feComposite3108"
+         in2="result6"
+         operator="atop"
+         in="SourceGraphic"
+         result="result8" />
+      <feComposite
+         id="feComposite3110"
+         in2="SourceAlpha"
+         in="result8"
+         operator="atop"
+         result="result9" />
+    </filter>
+    <filter
+       id="filter3126"
+       inkscape:label="Darken edges"
+       inkscape:menu="Shadows and Glows"
+       inkscape:menu-tooltip="Darken the edges with an inner blur"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3128"
+         result="result6"
+         stdDeviation="1.5" />
+      <feComposite
+         id="feComposite3130"
+         in2="result6"
+         operator="atop"
+         in="SourceGraphic"
+         result="result8" />
+      <feComposite
+         id="feComposite3132"
+         in2="SourceAlpha"
+         in="result8"
+         operator="atop"
+         result="result9" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="10.104348"
+     inkscape:cx="18.929"
+     inkscape:cy="5.347867"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3040"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="-0.9"
+     fit-margin-bottom="0"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1317"
+     inkscape:window-height="744"
+     inkscape:window-x="49"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2987"
+       empspacing="19"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="-3.0722e-06px"
+       originy="5px"
+       spacingx="1px"
+       spacingy="1px" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid3009"
+       empspacing="1"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       spacingx="50px"
+       spacingy="38px"
+       color="#ff0000"
+       opacity="0.1254902"
+       empcolor="#ff0000"
+       empopacity="0.25098039"
+       originx="-3.0722e-06px"
+       originy="-33px" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="18.999997,-174"
+       id="guide3201" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(279.93751,-228.75788)">
+    <g
+       id="g2989"
+       transform="translate(100.125,0)">
+      <g
+         id="g3010"
+         transform="translate(0,6.4648438e-6)">
+        <g
+           id="g3027"
+           transform="matrix(0.95238095,0,0,0.95238095,-17.33631,10.178946)" />
+      </g>
+      <g
+         transform="translate(-24.125002,182)"
+         id="layer1-0"
+         inkscape:label="Capa 1">
+        <g
+           transform="translate(100.125,0)"
+           id="g2989-8" />
+      </g>
+      <g
+         transform="translate(-388.1787,80.55174)"
+         id="g3038"
+         inkscape:label="Capa 1">
+        <g
+           transform="translate(100.125,0)"
+           id="g3040">
+          <g
+             id="g3042">
+            <g
+               transform="translate(-87.875,89)"
+               id="g3044"
+               inkscape:label="Capa 1">
+              <g
+                 transform="translate(94.875,-13)"
+                 id="g3046" />
+            </g>
+          </g>
+          <path
+             sodipodi:nodetypes="sscccsssccccccccccsccccsscccc"
+             inkscape:connector-curvature="0"
+             d="m -54.8838,164.20614 c 2.70108,0 4.875,-2.20074 4.875,-4.9375 l 0,-1.0625 -6,0 0,6 z m -37.125,-4.875 c 0,2.70108 2.20074,4.875 4.9375,4.875 l 1.0625,0 0,-6 -6,0 0,0.14062 0,0.14063 0,0.14062 0,0.14063 0,0.14062 0,0.14063 0,0.14062 z m 5,4.875 32,0 5,-5 0,-3 -26.0625,0 c -2.73676,0 -4.9375,-2.17392 -4.9375,-4.875 l -7e-6,-3.125 -11,0 c 0,0 0,4 7e-6,4.38435 l 0,5.61719"
+             style="fill:#ffaa00"
+             id="path3048" />
+          <g
+             inkscape:label="Capa 1"
+             id="g3050"
+             transform="translate(193.98473,57.648231)" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
