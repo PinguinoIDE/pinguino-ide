@@ -30,15 +30,15 @@ class LibManager(QtGui.QMainWindow):
 
         self.main = IDE
 
-        if not ErrorModules["gitpython"] == False:
+        if ErrorModules["gitpython"] == False:
             self.libframe.radioButton_repo_git.setEnabled(False)
             self.libframe.radioButton_repo_git.setToolTip("'gitpython' no installed")
 
-        if not ErrorModules["pysvn"] == False:
+        if ErrorModules["pysvn"] == False:
             self.libframe.radioButton_repo_svn.setEnabled(False)
             self.libframe.radioButton_repo_svn.setToolTip("'pysvn' no installed")
 
-        if not ErrorModules["hgapi"] == False:
+        if ErrorModules["hgapi"] == False:
             self.libframe.radioButton_repo_hg.setEnabled(False)
             self.libframe.radioButton_repo_hg.setToolTip("'hgapi' no installed")
 
