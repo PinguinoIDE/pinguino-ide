@@ -67,7 +67,7 @@ class PinguinoTools(object):
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
             #self.p8 = 'picpgm.exe'
             self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
-            self.MAKE = os.path.join(P32_BIN, "make.exe")
+            self.MAKE = os.path.join(self.P32_BIN, "make.exe")
 
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
