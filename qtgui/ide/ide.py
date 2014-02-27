@@ -110,9 +110,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.connect_events()
 
         os_name = os.getenv("PINGUINO_OS_NAME")
-        #if os_name == "windows":
-            #os.environ['PATH'] = os.environ['PATH']
-        if os_name == "linux":
+        if os_name == "windows":
+            os.environ["PATH"] = os.environ["PATH"] + ";" + self.configIDE.get_path("sdcc_bin")
+
+        elif os_name == "linux":
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
 
 
