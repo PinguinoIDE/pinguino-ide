@@ -3,15 +3,16 @@
 
 import functools
 import time
+import os
 #import threading
 
-from PySide import QtCore
+from PySide import QtCore, QtGui
 
 from .dialogs import Dialogs
 
 ########################################################################
 class Decorator(object):
-    
+
 
     #----------------------------------------------------------------------
     @classmethod
@@ -41,7 +42,7 @@ class Decorator(object):
                     return None
             return wrapped
         return actualdecorator
-    
+
     #----------------------------------------------------------------------
     @classmethod
     def timer(cls, time_):
@@ -51,12 +52,12 @@ class Decorator(object):
                 name = "timer_" + fn.__name__
                 setattr(Pinguino, name, QtCore.QTimer())
                 atr = getattr(Pinguino, name)
-                QtCore.QObject.connect(atr, QtCore.SIGNAL("timeout()"), lambda :fn(Pinguino, *args, **kwargs))                
+                QtCore.QObject.connect(atr, QtCore.SIGNAL("timeout()"), lambda :fn(Pinguino, *args, **kwargs))
                 atr.start(time_)
                 return name, atr
             return wrapped
         return actualdecorator
-    
+
     #----------------------------------------------------------------------
     @classmethod
     def call_later(cls, time_=100):
@@ -66,7 +67,7 @@ class Decorator(object):
                 QtCore.QTimer.singleShot(time_, lambda :fn(Pinguino, *args, **kwargs))
             return wrapped
         return actualdecorator
-    
+
     #----------------------------------------------------------------------
     @classmethod
     def requiere_browser_tab(cls, name):
@@ -81,8 +82,8 @@ class Decorator(object):
                     return None
             return wrapped
         return actualdecorator
-    
-    
+
+
     #----------------------------------------------------------------------
     @classmethod
     def requiere_tools_tab(cls, name):
@@ -97,8 +98,8 @@ class Decorator(object):
                     return None
             return wrapped
         return actualdecorator
-    
-    
+
+
     #----------------------------------------------------------------------
     @classmethod
     def requiere_text_mode(cls):
@@ -122,7 +123,7 @@ class Decorator(object):
                 else: return None
             return wrapped
         return actualdecorator
-    
+
     #----------------------------------------------------------------------
     @classmethod
     def requiere_main_focus(cls):
@@ -136,7 +137,7 @@ class Decorator(object):
                     return None
             return wrapped
         return actualdecorator
-    
+
     #----------------------------------------------------------------------
     @classmethod
     def requiere_line_edit_content(cls, line_edit):
@@ -149,7 +150,7 @@ class Decorator(object):
                     return None
             return wrapped
         return actualdecorator
-    
+
     #----------------------------------------------------------------------
     @classmethod
     def requiere_file_saved(cls):
@@ -163,11 +164,27 @@ class Decorator(object):
                 else:
                     saved = Pinguino.save_file(*args, **kwargs)
                     if saved: fn(Pinguino, *args, **kwargs)
-                    else: Dialogs.save_before_compile(Pinguino)             
+                    else: Dialogs.save_before_compile(Pinguino)
             return wrapped
         return actualdecorator
-    
-    
+
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def requiere_can_compile(cls):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                if os.getenv("PINGUINO_CAN_COMPILE") == "True":
+                    return fn(Pinguino, *args, **kwargs)
+                else:
+                    #print("Missing libraries and/or compiler")
+                    Dialogs.warning_message(Pinguino, QtGui.QApplication.translate("Dialogs", "Impossible to compile this file, missing libraries and/or compiler."))
+                    return None
+            return wrapped
+        return actualdecorator
+
+
     #----------------------------------------------------------------------
     @classmethod
     def update_toolbar(cls):
@@ -182,10 +199,10 @@ class Decorator(object):
                 Pinguino.main.actionPaste.setEnabled(bool(count))
                 Pinguino.main.actionUndo.setEnabled(bool(count))
                 Pinguino.main.actionRedo.setEnabled(bool(count))
-                
+
                 if not count:
                     Pinguino.main.actionUpload.setEnabled(False)
-                    
+
                 if Pinguino.is_widget():
                     Pinguino.main.actionSearch.setEnabled(False)
                     Pinguino.main.actionSearch_and_replace.setEnabled(False)
@@ -194,14 +211,14 @@ class Decorator(object):
                     Pinguino.main.actionPaste.setEnabled(False)
                     Pinguino.main.actionUndo.setEnabled(False)
                     Pinguino.main.actionRedo.setEnabled(False)
-                    Pinguino.main.actionCompile.setEnabled(False)                 
-                    
-                
+                    Pinguino.main.actionCompile.setEnabled(False)
+
+
                 return fn(Pinguino, *args, **kwargs)
             return wrapped
         return actualdecorator
-    
-    
+
+
     #----------------------------------------------------------------------
     @classmethod
     def connect_features(cls):
@@ -214,7 +231,7 @@ class Decorator(object):
                     return fn(Pinguino, *args, **kwargs)
             return wrapped
         return actualdecorator
-    
+
 
     #----------------------------------------------------------------------
     @classmethod
@@ -227,7 +244,7 @@ class Decorator(object):
                 #else: return None
             return wrapped
         return actualdecorator
-    
+
     #----------------------------------------------------------------------
     @classmethod
     def debug_time(cls):
@@ -240,10 +257,10 @@ class Decorator(object):
                 Pinguino.write_log("debug: " + fn.__name__ + "\nTime: %.7fs\n" %(fin - inicio))
                 return retorno
             return wrapped
-        return actualdecorator        
-        
+        return actualdecorator
 
-    
+
+
     ##----------------------------------------------------------------------
     #@classmethod
     #def thread(cls):
@@ -255,17 +272,17 @@ class Decorator(object):
                 #retorno = t
                 #return retorno
             #return wrapped
-        #return actualdecorator        
-        
+        #return actualdecorator
+
     ##----------------------------------------------------------------------
     #@classmethod
     #def call_delay(cls, key, delay):
         #def actualdecorator(fn):
             #@functools.wraps(fn)
             #def wrapped(Pinguino, *args, **kwargs):
-                
+
                 #last_time = getattr(Pinguino, "key_delay_"+key, False)
-                
+
                 #if last_time:
                     #if time.time() - last_time >= delay:
                         #print("tiempo")
@@ -276,13 +293,12 @@ class Decorator(object):
                         #print(time.time())
                         #print(last_time)
                         #print(time.time() - last_time)
-                        
+
                 #else:
                     #print("sin inicializar")
                     #setattr(Pinguino, "key_delay_"+key, time.time())
                     #return fn(Pinguino, *args, **kwargs)
-                
-            
+
+
             #return wrapped
         #return actualdecorator
-        

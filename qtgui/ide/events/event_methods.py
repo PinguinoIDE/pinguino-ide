@@ -652,6 +652,7 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_file_saved()
+    @Decorator.requiere_can_compile()
     def pinguino_compile(self, dialog_upload=True):
 
         filename = self.get_tab().currentWidget().path

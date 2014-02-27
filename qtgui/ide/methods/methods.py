@@ -384,8 +384,21 @@ class Methods(SearchReplace):
 
     #----------------------------------------------------------------------
     def build_statusbar(self):
+        #principal status
         self.status_info = QtGui.QLabel()
+
+        #warning status
+        self.status_warnnig = QtGui.QLabel()
+        self.status_warnnig.setAlignment(QtCore.Qt.AlignRight)
+        self.status_warnnig.setStyleSheet("""
+        QLabel{
+            color: red;
+        }
+        """)
+
         self.main.statusBar.addPermanentWidget(self.status_info, 1)
+        self.main.statusBar.addPermanentWidget(self.status_warnnig, 2)
+
 
 
     ##----------------------------------------------------------------------
@@ -419,6 +432,10 @@ class Methods(SearchReplace):
     def statusbar_ide(self, status):
         self.status_info.setText(status)
 
+    #----------------------------------------------------------------------
+    def statusbar_warnning(self, status):
+        self.status_warnnig.setText(status)
+
 
     #----------------------------------------------------------------------
     def set_board(self):
@@ -436,6 +453,40 @@ class Methods(SearchReplace):
                 self.pinguinoAPI.set_bootloader(self.pinguinoAPI.Boot4)
 
         os.environ["PINGUINO_BOARD_ARCH"] = str(arch)
+
+
+        compiler = self.configIDE.get_path("sdcc_bin"), "sdcc"
+
+        if os.getenv("PINGUINO_OS_NAME") == "windows":
+            ext = ".exe"
+        elif os.getenv("PINGUINO_OS_NAME") == "linux":
+            ext = ""
+
+
+        if arch == 8:
+            compiler = os.path.exists(os.path.join(self.configIDE.get_path("sdcc_bin"), "sdcc" + ext))
+            libraries = os.path.exists(self.configIDE.get_path("pinguino_8_libs"))
+
+        elif arch == 32:
+            compiler = os.path.exists(os.path.join(self.configIDE.get_path("gcc_bin"), "mips-elf-gcc-4.5.2" + ext))
+            libraries = os.path.exists(self.configIDE.get_path("pinguino_32_libs"))
+
+        status = ""
+        if not compiler:
+            status = QtGui.QApplication.translate("Frame", "Missing compiler for %d-bit") % arch
+
+        elif  not libraries:
+            status = QtGui.QApplication.translate("Frame", "Missing libraries for %d-bit") % arch
+
+        if not libraries and not compiler:
+            status = QtGui.QApplication.translate("Frame", "Missing libraries and compiler for %d-bit") % arch
+
+        if status:
+            self.statusbar_warnning(status)
+            os.environ["PINGUINO_CAN_COMPILE"] = "False"
+        else:
+            os.environ["PINGUINO_CAN_COMPILE"] = "True"
+
 
 
     #----------------------------------------------------------------------
