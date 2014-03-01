@@ -25,6 +25,10 @@ class PinguinoConfig(object):
         if os.name == "posix": #GNU/Linux
             os.environ["PINGUINO_OS_NAME"] = "linux"
 
+        #Mac could return posix :/
+        elif os.name == "os2":  #Mac OS X
+            os.environ["PINGUINO_OS_NAME"] = "macosx"
+
         elif os.name == "nt":  #Windows
             os.environ["PINGUINO_OS_NAME"] = "windows"
 

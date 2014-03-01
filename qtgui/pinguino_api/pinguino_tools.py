@@ -75,6 +75,12 @@ class PinguinoTools(object):
             self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
             self.MAKE = "make"
 
+        elif os.getenv("PINGUINO_OS_NAME") == "mac":
+            self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
+            #self.p8 = 'picpgm'
+            self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash")
+            self.MAKE = "make"
+
 
 
     #----------------------------------------------------------------------
