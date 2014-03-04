@@ -902,6 +902,7 @@ class EventMethods(Methods):
     # Tools Source
 
     #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
     def jump_function(self, model_index):
         column = model_index.column()
         item = self.main.tableWidget_functions.itemFromIndex(model_index).text()
@@ -911,6 +912,7 @@ class EventMethods(Methods):
 
 
     #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
     def jump_directive(self, model_index):
         column = model_index.column()
         item = self.main.tableWidget_directives.itemFromIndex(model_index).text()
@@ -920,6 +922,7 @@ class EventMethods(Methods):
 
 
     #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
     def jump_variable(self, model_index):
         column = model_index.column()
         item = self.main.tableWidget_variables.itemFromIndex(model_index).text()
@@ -929,6 +932,7 @@ class EventMethods(Methods):
 
 
     #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
     def jump_function_header(self, row):
         item = self.main.tableWidget_functions.item(row, 2).text()
         line = item[:item.find("-")]
@@ -936,6 +940,7 @@ class EventMethods(Methods):
 
 
     #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
     def jump_directive_header(self, row):
         item = self.main.tableWidget_directives.item(row, 2).text()
         line = item
@@ -943,6 +948,7 @@ class EventMethods(Methods):
 
 
     #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
     def jump_variable_header(self, row):
         item = self.main.tableWidget_variables.item(row, 1).text()
         line = item

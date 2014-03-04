@@ -260,6 +260,17 @@ class Decorator(object):
         return actualdecorator
 
 
+    #----------------------------------------------------------------------
+    @classmethod
+    def clear_highlighted_lines(cls):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                Pinguino.clear_highlighted_lines()
+                return fn(Pinguino, *args, **kwargs)
+            return wrapped
+        return actualdecorator
+
 
     ##----------------------------------------------------------------------
     #@classmethod

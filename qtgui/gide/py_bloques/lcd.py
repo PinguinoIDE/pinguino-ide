@@ -86,7 +86,7 @@ class LCD(object):
         pm.addSyntax(",")
         pm.addDecorator(" ")
 
-        pm.addDecorator("D0-D3=")
+        pm.addDecorator("D4-D7=")
 
         for i in range(4):
             pm.addSpace()

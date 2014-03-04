@@ -12,8 +12,16 @@ class CodeNavigator(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def remove_comments(cls, text):
-        return text
+    def remove_comments(cls, content):
+        #FIXME: needed revision
+        for i in range(content.count("/*")):
+            start_pos = content.find("/*")
+            end_pos = content.find("*/")
+            comment = content[start_pos:end_pos]
+            content = content[:start_pos] + "\n"*comment.count("\n") + content[end_pos+2:]
+
+        return content
+
 
     #----------------------------------------------------------------------
     @classmethod
@@ -93,7 +101,7 @@ class CodeNavigator(object):
     @classmethod
     def get_variables(cls, editor):
 
-        regex_variables = "[\s]*(volatile|register|static|extern)*[\s]+(unsigned|signed)*[\s]+(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]+([*])*[\s]*([ \w\[\]=,{}\"'\*]*);"
+        regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*([*])*[\s]*([ \w\[\]=,{}\"'\*]*);"
 
         variables = []
         content = cls.remove_comments(editor.text_edit.toPlainText())
@@ -141,6 +149,5 @@ class CodeNavigator(object):
                     #this_variable["value"] = match.groups()[6]
                     this_variable["line"] = str(line + 1)
                     variables.append(this_variable)
-
 
         return variables

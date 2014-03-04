@@ -161,7 +161,7 @@ class Methods(SearchReplace):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    def update_highlighs(self):
+    def clear_highlighted_lines(self):
         editor = self.main.tabWidget_files.currentWidget()
         editor.text_edit.setExtraSelections([])
 
@@ -230,7 +230,7 @@ class Methods(SearchReplace):
         if not filename.endswith("*"):
             self.main.tabWidget_files.setTabText(index, filename+"*")
             self.main.actionSave_file.setEnabled(True)
-        self.update_highlighs()
+        self.clear_highlighted_lines()
 
 
     #----------------------------------------------------------------------
