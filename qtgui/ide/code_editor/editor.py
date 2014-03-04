@@ -134,8 +134,9 @@ class CustomTextEdit(QtGui.QTextEdit):
 
             text_position = Snippet[completion].find("[!]")
             text_insert = Snippet[completion].replace("[!]", "")
+            position_in_line = tc.positionInBlock()
 
-            tc.insertText(text_insert)
+            tc.insertText(text_insert.replace("\n", "\n"+" "*position_in_line))
             tc.setPosition(pos + text_position)
 
             self.setTextCursor(tc)
