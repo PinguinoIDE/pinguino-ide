@@ -1,10 +1,3 @@
-@echo off
-
-if exist pinguino.exe goto start_exe
-    python.exe pinguino.py
-goto end
-
-:start_exe
-   pinguino.exe
-
-:end
+@ECHO OFF
+CD C:\pinguino-ide\v11\
+C:\Python27\python.exe pinguino.py
