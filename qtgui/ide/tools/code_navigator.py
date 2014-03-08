@@ -12,15 +12,32 @@ class CodeNavigator(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def remove_comments(cls, content):
-        #FIXME: needed revision
-        for i in range(content.count("/*")):
-            start_pos = content.find("/*")
-            end_pos = content.find("*/")
-            comment = content[start_pos:end_pos]
-            content = content[:start_pos] + "\n"*comment.count("\n") + content[end_pos+2:]
+    def remove_comments(cls, text):
+        #FIXME: replace comment with white lines for debugger
 
-        return content
+        if type(text) == type([]):
+            text = "".join(text)
+
+        def replacer(match):
+            s = match.group(0)
+
+            if s.startswith('/'):
+                #return "" #bug in line number in error info, multiline comments
+                return "" + "\n" * (s.count("\n"))
+
+            else:
+                return s
+
+        pattern = re.compile(
+            r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
+            re.DOTALL | re.MULTILINE
+        )
+        textout = re.sub(pattern, replacer, text)
+
+        if type(text) == type([]):
+            textout = textout.split("\n")
+
+        return textout
 
 
     #----------------------------------------------------------------------

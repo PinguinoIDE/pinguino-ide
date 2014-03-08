@@ -292,7 +292,9 @@ class PinguinoTools(object):
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
         i=0
         file_line = {}
-        for line in fichier.readlines():
+        readlines = fichier.readlines()
+        readlines = self.remove_comments(readlines)
+        for line in readlines:
             if line.find("#include")!=-1 or line.find("#define")!=-1:
                 line = line[:line.find('//')]   # Ignores C++ comments, fixing Issue 11
                 self.add_define(line)    # add to define.h
@@ -394,22 +396,30 @@ class PinguinoTools(object):
     #----------------------------------------------------------------------
     def remove_comments(self, text):
         #FIXME: replace comment with white lines for debugger
-        #def replacer(match):
-            #s = match.group(0)
 
-            #if s.startswith('/'):
-                ##return "" #bug in line number in error info, multiline comments
-                #return "" + "\n" * (s.count("\n"))
+        if type(text) == type([]):
+            text = "".join(text)
 
-            #else:
-                #return s
+        def replacer(match):
+            s = match.group(0)
 
-        #pattern = re.compile(
-            #r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
-            #re.DOTALL | re.MULTILINE
-        #)
-        #return re.sub(pattern, replacer, text)
-        return text
+            if s.startswith('/'):
+                #return "" #bug in line number in error info, multiline comments
+                return "" + "\n" * (s.count("\n"))
+
+            else:
+                return s
+
+        pattern = re.compile(
+            r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
+            re.DOTALL | re.MULTILINE
+        )
+        textout = re.sub(pattern, replacer, text)
+
+        if type(text) == type([]):
+            textout = textout.split("\n")
+
+        return textout
 
     #----------------------------------------------------------------------
     def get_user_imports_p8(self):
