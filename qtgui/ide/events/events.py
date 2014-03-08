@@ -35,6 +35,18 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionSearch, QtCore.SIGNAL("triggered()"), self.set_tab_search)
         self.connect(self.main.actionSearch_and_replace, QtCore.SIGNAL("triggered()"), self.set_tab_search)
 
+        # Menu View
+        self.connect(self.main.actionMaximize_editor, QtCore.SIGNAL("toggled(bool)"), self.exapand_editor)
+        self.connect(self.main.actionToolbars, QtCore.SIGNAL("toggled(bool)"), self.toggle_toolbars)
+        self.connect(self.main.actionTools_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_tools.setVisible)
+        self.connect(self.main.actionBlocks_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_blocks.setVisible)
+        self.connect(self.main.actionPython_shell, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_output.setVisible)
+
+        #Menu Settings
+        self.connect(self.main.actionAutocomplete, QtCore.SIGNAL("triggered()"), self.switch_autocomplete)
+        self.connect(self.main.actionColor_theme, QtCore.SIGNAL("toggled(bool)"), self.switch_color_theme)
+        self.connect(self.main.actionConfirm_board, QtCore.SIGNAL("toggled(bool)"), self.switch_confirm_board)
+
         # Menu Source
         self.connect(self.main.actionComment_out_region, QtCore.SIGNAL("triggered()"), self.commentregion)
         self.connect(self.main.actionComment_Uncomment_region, QtCore.SIGNAL("triggered()"), self.comment_uncomment)
@@ -55,15 +67,6 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)
         self.connect(self.main.actionExport_code_to_editor, QtCore.SIGNAL("triggered()"), self.__export_pinguino_code__)
         self.connect(self.main.actionInsert_Block, QtCore.SIGNAL("triggered()"), self.__insert_block__)
-
-        # Options
-        self.connect(self.main.actionTools_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_tools.setVisible)
-        self.connect(self.main.actionBlocks_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_blocks.setVisible)
-        self.connect(self.main.actionPython_shell, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_output.setVisible)
-        self.connect(self.main.actionToolbars, QtCore.SIGNAL("toggled(bool)"), self.toggle_toolbars)
-        self.connect(self.main.actionMaximize_editor, QtCore.SIGNAL("toggled(bool)"), self.exapand_editor)
-        self.connect(self.main.actionAutocomplete, QtCore.SIGNAL("triggered()"), self.switch_autocomplete)
-        self.connect(self.main.actionColor_theme, QtCore.SIGNAL("toggled(bool)"), self.switch_color_theme)
 
         # Help
         self.connect(self.main.actionWiki_docs, QtCore.SIGNAL("triggered()"), self.show_wiki_docs)
@@ -125,3 +128,4 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.main.actionBlocks_2.setChecked(self.main.dockWidget_blocks.isVisible())
         self.main.actionToolbars.setChecked(True)
         self.main.actionPython_shell.setChecked(True)
+        self.main.actionConfirm_board.setChecked(self.configIDE.config("Features", "confirm_board", True))

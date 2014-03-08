@@ -817,6 +817,13 @@ class EventMethods(Methods):
         self.main.actionColor_theme.setChecked(pinguino_color)
 
 
+    #----------------------------------------------------------------------
+    def switch_confirm_board(self):
+        enable = self.main.actionConfirm_board.isChecked()
+        self.configIDE.set("Features", "confirm_board", enable)
+        self.configIDE.save_config()
+
+
     # Help
 
     #----------------------------------------------------------------------

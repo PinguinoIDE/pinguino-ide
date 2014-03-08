@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Thu Feb 20 21:43:52 2014
+# Created: Sat Mar  8 00:29:59 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -76,6 +76,8 @@ class Ui_PinguinoIDE(object):
         self.menuConfiguration.setObjectName("menuConfiguration")
         self.menuGraphical = QtGui.QMenu(self.menubar)
         self.menuGraphical.setObjectName("menuGraphical")
+        self.menuSettings = QtGui.QMenu(self.menubar)
+        self.menuSettings.setObjectName("menuSettings")
         PinguinoIDE.setMenuBar(self.menubar)
         self.dockWidget_tools = QtGui.QDockWidget(PinguinoIDE)
         self.dockWidget_tools.setFeatures(QtGui.QDockWidget.AllDockWidgetFeatures)
@@ -556,6 +558,10 @@ class Ui_PinguinoIDE(object):
         self.actionToolbars.setObjectName("actionToolbars")
         self.actionIf_Compile_then_Upload = QtGui.QAction(PinguinoIDE)
         self.actionIf_Compile_then_Upload.setObjectName("actionIf_Compile_then_Upload")
+        self.actionConfirm_board = QtGui.QAction(PinguinoIDE)
+        self.actionConfirm_board.setCheckable(True)
+        self.actionConfirm_board.setChecked(True)
+        self.actionConfirm_board.setObjectName("actionConfirm_board")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
@@ -615,15 +621,16 @@ class Ui_PinguinoIDE(object):
         self.menuConfiguration.addAction(self.actionBlocks_2)
         self.menuConfiguration.addAction(self.actionPython_shell)
         self.menuConfiguration.addAction(self.actionToolbars)
-        self.menuConfiguration.addSeparator()
-        self.menuConfiguration.addAction(self.actionAutocomplete)
-        self.menuConfiguration.addAction(self.actionColor_theme)
         self.menuGraphical.addAction(self.actionView_Pinguino_code)
         self.menuGraphical.addAction(self.actionExport_code_to_editor)
         self.menuGraphical.addAction(self.actionInsert_Block)
+        self.menuSettings.addAction(self.actionAutocomplete)
+        self.menuSettings.addAction(self.actionColor_theme)
+        self.menuSettings.addAction(self.actionConfirm_board)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuConfiguration.menuAction())
+        self.menubar.addAction(self.menuSettings.menuAction())
         self.menubar.addAction(self.menuSource.menuAction())
         self.menubar.addAction(self.menuPinguino.menuAction())
         self.menubar.addAction(self.menuGraphical.menuAction())
@@ -680,6 +687,7 @@ class Ui_PinguinoIDE(object):
         self.menuSource.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Source", None, QtGui.QApplication.UnicodeUTF8))
         self.menuConfiguration.setTitle(QtGui.QApplication.translate("PinguinoIDE", "View", None, QtGui.QApplication.UnicodeUTF8))
         self.menuGraphical.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuSettings.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_tools.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Tools", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(0, QtGui.QApplication.translate("PinguinoIDE", "Examples", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(1, QtGui.QApplication.translate("PinguinoIDE", "Third party libraries", None, QtGui.QApplication.UnicodeUTF8))
@@ -807,5 +815,6 @@ class Ui_PinguinoIDE(object):
         self.actionToolbars.setText(QtGui.QApplication.translate("PinguinoIDE", "Toolbars", None, QtGui.QApplication.UnicodeUTF8))
         self.actionIf_Compile_then_Upload.setText(QtGui.QApplication.translate("PinguinoIDE", "If Compile then Upload", None, QtGui.QApplication.UnicodeUTF8))
         self.actionIf_Compile_then_Upload.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F7", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionConfirm_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Confirm board when compiling", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

@@ -217,9 +217,6 @@
     <addaction name="actionBlocks_2"/>
     <addaction name="actionPython_shell"/>
     <addaction name="actionToolbars"/>
-    <addaction name="separator"/>
-    <addaction name="actionAutocomplete"/>
-    <addaction name="actionColor_theme"/>
    </widget>
    <widget class="QMenu" name="menuGraphical">
     <property name="title">
@@ -229,9 +226,18 @@
     <addaction name="actionExport_code_to_editor"/>
     <addaction name="actionInsert_Block"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionAutocomplete"/>
+    <addaction name="actionColor_theme"/>
+    <addaction name="actionConfirm_board"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuConfiguration"/>
+   <addaction name="menuSettings"/>
    <addaction name="menuSource"/>
    <addaction name="menuPinguino"/>
    <addaction name="menuGraphical"/>
@@ -1501,6 +1507,17 @@
    </property>
    <property name="shortcut">
     <string>F7</string>
+   </property>
+  </action>
+  <action name="actionConfirm_board">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Confirm board when compiling</string>
    </property>
   </action>
  </widget>
