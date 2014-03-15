@@ -145,6 +145,10 @@ class GraphicalIDE(object):
         self.main.frame_logo.setVisible(not self.main.tabWidget_graphical.count() > 0)
         self.main.actionClose_file.setEnabled(self.main.tabWidget_graphical.count() > 0)
 
+        editor = self.main.tabWidget_graphical.currentWidget()
+        if getattr(editor, "path", None): self.ide.setWindowTitle(os.getenv("NAME")+" - "+editor.path)
+        else: self.ide.setWindowTitle(os.getenv("NAME"))
+
         index = self.main.tabWidget_graphical.currentIndex()
         filename = self.main.tabWidget_graphical.tabText(index)
         if filename.endswith("*"): self.main.actionSave_file.setEnabled(True)
