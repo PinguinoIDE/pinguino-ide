@@ -41,7 +41,7 @@ class Dialogs(object):
         options = QtGui.QMessageBox.Yes | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
         reply = QtGui.QMessageBox.question(parent,
                 os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Save"),
-                QtGui.QApplication.translate("Dialogs", "This file has not been saved,\nWould you like to do?\n\n")+filename,
+                QtGui.QApplication.translate("Dialogs", "This file has not been saved,\nWould you like to do?\n\n")+filename[:-1],
                 options)
 
         if reply == QtGui.QMessageBox.Yes: return True
