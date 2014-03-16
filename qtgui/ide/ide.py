@@ -37,6 +37,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         self.main = Ui_PinguinoIDE()
         self.main.setupUi(self)
+        self.reload_toolbar_icons()
 
         #set_environ_vars()
         #self.check_user_files()
@@ -44,7 +45,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         PinguinoConfig.set_environ_vars()
         splash_write(QtGui.QApplication.translate("Splash", "Checking user files"))
         PinguinoConfig.check_user_files()
-
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading Pinguino API"))
         self.pinguinoAPI = Pinguino()
@@ -69,10 +69,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         self.setWindowTitle(os.getenv("NAME")+" "+os.getenv("VERSION"))
 
-
         splash_write(QtGui.QApplication.translate("Splash", "Opening last files"))
         self.open_last_files()
-
 
         splash_write(QtGui.QApplication.translate("Splash", "Starting widgets features"))
         self.init_widgets()
@@ -80,7 +78,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.build_statusbar()
         splash_write(QtGui.QApplication.translate("Splash", "Building terminal output"))
         self.build_output()
-
 
         splash_write(QtGui.QApplication.translate("Splash", "Overwriting stylesheets"))
         self.set_styleSheet()
@@ -93,16 +90,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.update_autocompleter()
         self.check_external_changes()
 
-
         splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
         self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
         self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
-
         splash_write(QtGui.QApplication.translate("Splash", "Loading las board configuration"))
         self.set_board()
         self.statusbar_ide(self.get_status_board())
-
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading configuration"))
         self.load_main_config()
@@ -319,3 +313,39 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.configIDE.save_config()
+
+    #----------------------------------------------------------------------
+    def reload_toolbar_icons(self):
+
+        icons_toolbar = [
+                         (self.main.actionNew_file, "new_file"),
+                         (self.main.actionOpen_file, "open_file"),
+                         (self.main.actionSave_file, "save_file"),
+
+                         (self.main.actionUndo, "undo"),
+                         (self.main.actionRedo, "redo"),
+                         (self.main.actionCut, "cut"),
+                         (self.main.actionCopy, "copy"),
+                         (self.main.actionPaste, "paste"),
+
+                         (self.main.actionSearch, "search"),
+                         (self.main.actionSearch_and_replace, "replace"),
+
+                         (self.main.actionSelect_board, "board"),
+                         (self.main.actionCompile, "compile"),
+                         (self.main.actionUpload, "download"),
+
+                         (self.main.actionSave_image, "save_image"),
+                         #(self.main.actionSwitch_ide, ""),
+
+                        ]
+
+        for action, icon_name in icons_toolbar:
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/%s.svg"%icon_name), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            action.setIcon(icon)
+
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.main.actionSwitch_ide.setIcon(icon)
