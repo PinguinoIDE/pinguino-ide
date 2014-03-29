@@ -32,10 +32,13 @@ $ python pinguino.py
 
 ## Install (on custom directory)
   * Download [Compilers](https://github.com/PinguinoIDE/pinguino-compilers/releases/latest), [Libraries](https://github.com/PinguinoIDE/pinguino-libraries/releases/latest) and [IDE](https://github.com/PinguinoIDE/pinguino-ide/releases/latest) sources.
-  * Uncompress all files in a directory (PINGUINO-DIR).
+  * Create a own directory, we use ```PINGUINO-DIR``` with absolute path ```/PATH/TO/PINGUINO-DIR```
+  * Uncompress ```pinguino-ide-x.x.x.zip``` and extract the content of ```pinguino-ide-x.x.x``` to ```PINGUINO-DIR```.
+  * Uncompress ```pinguino-libraries-x.x.zip``` and extract the content of ```pinguino-libraries-x.X``` to ```PINGUINO-DIR```.
+  * Uncompress ```linux.zip``` (win32.zip or macosx.zip) and move the ```linux``` (win32 or macosx) directory to ```PINGUINO-DIR```.
   * Edit [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg) with ```install_path = /PATH/TO/PINGUINO-DIR```.
   * Install [dependences](#requirements).
-  * Execute ```python pinguino.py```.
+  * Run ```python pinguino.py```.
   * On menu ```pinguino >> Set paths```.
  
 ![Pinguino IDE 11.0 - Set paths dialog](https://lh3.googleusercontent.com/--H1cV_DYjWw/UzYyAUL6-yI/AAAAAAAAGsQ/nr3Tkc4CxFs/w550-h237-no/paths.png)
