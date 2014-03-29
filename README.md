@@ -5,6 +5,7 @@ Open source integrated development enviroment (IDE).
 
   * [Requirements] (#Requirements)
   * [IDE](#ide)
+  * [Install (on custom directory)] (#install-on-custom-directory)
   * [Command line](#command-line)
   * [Python API](#python-api)
 
@@ -29,7 +30,16 @@ $ python pinguino.py
 ![Pinguino IDE 11.0 - Text mode](https://lh4.googleusercontent.com/-XiJW0FCqZG4/UvryfpUEn1I/AAAAAAAAGUQ/8PWFdAopCEA/w700-h362-no/text_mode.png "Pinguino IDE 11.0 - Text mode")
 ![Pinguino IDE 11.0 - Graphical mode](https://lh3.googleusercontent.com/-KmOJjxGpdJE/UvryfjZ4BLI/AAAAAAAAGUU/wQt5UPeP614/w700-h365-no/graphical_mode.png "Pinguino IDE 11.0 - Graphical mode")
 
-
+## Install (on custom directory)
+  * Download [Compilers](https://github.com/PinguinoIDE/pinguino-compilers/releases), [Libraries](https://github.com/PinguinoIDE/pinguino-libraries/releases) and [IDE](https://github.com/PinguinoIDE/pinguino-ide/releases) sources.
+  * Uncompress all files in a directory (PINGUINO-DIR).
+  * Edit [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg) with ```install_path = /PATH/TO/PINGUINO-DIR```.
+  * Install [dependences](#requirements).
+  * Execute ```python pinguino.py```.
+  * On menu ```pinguino >> Set paths```.
+ 
+![Pinguino IDE 11.0 - Set paths dialog](https://lh3.googleusercontent.com/--H1cV_DYjWw/UzYyAUL6-yI/AAAAAAAAGsQ/nr3Tkc4CxFs/w550-h237-no/paths.png)
+  * Coding, compile and enjoy.
 
 ## Command line
 Command line tools for compile and upload *.pde files to Pinguino boards.
