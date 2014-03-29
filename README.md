@@ -31,7 +31,7 @@ $ python pinguino.py
 ![Pinguino IDE 11.0 - Graphical mode](https://lh3.googleusercontent.com/-KmOJjxGpdJE/UvryfjZ4BLI/AAAAAAAAGUU/wQt5UPeP614/w700-h365-no/graphical_mode.png "Pinguino IDE 11.0 - Graphical mode")
 
 ## Install (on custom directory)
-  * Download [Compilers](https://github.com/PinguinoIDE/pinguino-compilers/releases), [Libraries](https://github.com/PinguinoIDE/pinguino-libraries/releases) and [IDE](https://github.com/PinguinoIDE/pinguino-ide/releases) sources.
+  * Download [Compilers](https://github.com/PinguinoIDE/pinguino-compilers/releases/latest), [Libraries](https://github.com/PinguinoIDE/pinguino-libraries/releases/latest) and [IDE](https://github.com/PinguinoIDE/pinguino-ide/releases/latest) sources.
   * Uncompress all files in a directory (PINGUINO-DIR).
   * Edit [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg) with ```install_path = /PATH/TO/PINGUINO-DIR```.
   * Install [dependences](#requirements).
