@@ -76,17 +76,17 @@ class Paths(QtGui.QDialog):
         }
         """)
 
-        Dialogs.warning_message(self, "This paths are very important don't try to edit it if you don't know what are you doing.")
+        Dialogs.warning_message(self, QtGui.QApplication.translate("Dialogs", "This paths are very important don't try to edit it if you don't know what are you doing."))
 
     #----------------------------------------------------------------------
     def close(self):
 
-        if Dialogs.confirm_message(self, "Do you really want save these paths?."):
+        if Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "Do you really want save these paths?.")):
             for lineEdit, pushButton, keyWord in self.dialog_dirs:
                 content = lineEdit.text()
                 if content.isspace(): content = ""
                 if not os.path.exists(content) and content:
-                    Dialogs.error_message(self, keyWord + ": '" + content + "'\nThis path not exist.")
+                    Dialogs.error_message(self, keyWord + ": '" + content + "'\n"+QtGui.QApplication.translate("Dialogs", "This path not exist."))
                     return
                 else: self.main.configIDE.set("Paths", keyWord, content)
         self.main.configIDE.save_config()

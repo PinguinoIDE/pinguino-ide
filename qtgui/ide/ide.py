@@ -76,7 +76,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.init_widgets()
         splash_write(QtGui.QApplication.translate("Splash", "Building status bar"))
         self.build_statusbar()
-        splash_write(QtGui.QApplication.translate("Splash", "Building terminal output"))
+        splash_write(QtGui.QApplication.translate("Splash", "Building Python Shell"))
         self.build_output()
 
         splash_write(QtGui.QApplication.translate("Splash", "Overwriting stylesheets"))
@@ -94,7 +94,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
         self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading las board configuration"))
+        splash_write(QtGui.QApplication.translate("Splash", "Loading boards configuration"))
         self.set_board()
         self.statusbar_ide(self.get_status_board())
 

@@ -46,10 +46,10 @@ class LibManager(QtGui.QMainWindow):
 
         if not os.path.isdir(os.path.dirname(self.user_libraries_dir)):
             os.mkdir(os.path.dirname(self.user_libraries_dir))
-            self.main.write_log(QtGui.QApplication.translate("frame", "Created :")+os.path.dirname(self.user_libraries_dir))
+            self.main.write_log(QtGui.QApplication.translate("Frame", "Created :")+os.path.dirname(self.user_libraries_dir))
         if not os.path.isdir(self.user_libraries_dir):
             os.mkdir(self.user_libraries_dir)
-            self.main.write_log(QtGui.QApplication.translate("frame", "Created :")+self.user_libraries_dir)
+            self.main.write_log(QtGui.QApplication.translate("Frame", "Created :")+self.user_libraries_dir)
 
         self.ConfigLibs = ConfigLibsGroup()
 
@@ -147,7 +147,7 @@ class LibManager(QtGui.QMainWindow):
             if not os.path.exists(path_user_examples_libraries):
                 os.mkdir(path_user_examples_libraries)
                 logg
-                self.main.write_log(QtGui.QApplication.translate("frame", "Created :")+path_user_examples_libraries)
+                self.main.write_log(QtGui.QApplication.translate("Frame", "Created :")+path_user_examples_libraries)
 
         lista = []
 
@@ -163,11 +163,11 @@ class LibManager(QtGui.QMainWindow):
             if os.path.exists(src):
                 if os.path.exists(dest):
                     shutil.rmtree(dest)
-                    self.main.write_log(QtGui.QApplication.translate("frame", "Removed :")+dest)
+                    self.main.write_log(QtGui.QApplication.translate("Frame", "Removed :")+dest)
                 shutil.copytree(src, dest)
-                self.main.write_log(QtGui.QApplication.translate("frame", "Created :")+dest)
+                self.main.write_log(QtGui.QApplication.translate("Frame", "Created :")+dest)
                 for x in os.listdir(dest):
-                    self.main.write_log(QtGui.QApplication.translate("frame", "Copied :")+x)
+                    self.main.write_log(QtGui.QApplication.translate("Frame", "Copied :")+x)
 
 
     #----------------------------------------------------------------------
@@ -204,7 +204,7 @@ class LibManager(QtGui.QMainWindow):
 
             libZip = ZipFile(lib)
             os.mkdir(path_dirlib)
-            self.main.write_log(QtGui.QApplication.translate("frame", "Created :")+path_dirlib)
+            self.main.write_log(QtGui.QApplication.translate("Frame", "Created :")+path_dirlib)
             libZip.extractall(path_dirlib_source)
 
             try:
@@ -212,7 +212,7 @@ class LibManager(QtGui.QMainWindow):
             except OSError:
                 Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "This is not a Pinguino library or are not packaged correctly."))
                 shutil.rmtree(path_dirlib_source)
-                self.main.write_log(QtGui.QApplication.translate("frame", "Removed :")+path_dirlib_source)
+                self.main.write_log(QtGui.QApplication.translate("Frame", "Removed :")+path_dirlib_source)
                 continue
 
             file_config = open(path_PINGUINO)
@@ -266,9 +266,9 @@ class LibManager(QtGui.QMainWindow):
         temp_dir = os.path.join(self.user_libraries_dir, name)
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
-            self.main.write_log(QtGui.QApplication.translate("frame", "Removed :")+temp_dir)
+            self.main.write_log(QtGui.QApplication.translate("Frame", "Removed :")+temp_dir)
         os.mkdir(temp_dir)
-        self.main.write_log(QtGui.QApplication.translate("frame", "Created :")+temp_dir)
+        self.main.write_log(QtGui.QApplication.translate("Frame", "Created :")+temp_dir)
 
         #create default main config file, this config is used by the program
         name_config = os.path.join(self.user_libraries_dir, name, "config")
@@ -416,10 +416,10 @@ class LibManager(QtGui.QMainWindow):
             checkable.setFlags(QtCore.Qt.ItemIsEnabled|QtCore.Qt.ItemIsUserCheckable)
             if active:
                 checkable.setCheckState(QtCore.Qt.Checked)
-                checkable.setToolTip(QtGui.QApplication.translate("ToolTip", "This library is enable (can be used)."))
+                checkable.setToolTip(QtGui.QApplication.translate("Frame", "This library is enable (can be used)."))
             else:
                 checkable.setCheckState(QtCore.Qt.Unchecked)
-                checkable.setToolTip(QtGui.QApplication.translate("ToolTip", "This library is not enable."))
+                checkable.setToolTip(QtGui.QApplication.translate("Frame", "This library is not enable."))
             checkable.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             self.libframe.tableWidget_libs.setItem(index, 0, checkable)
 
@@ -485,7 +485,7 @@ class LibManager(QtGui.QMainWindow):
         for sel in selected_l + selected_b + selected_e:
             if os.path.exists(sel):
                 shutil.rmtree(sel)
-                self.main.write_log(QtGui.QApplication.translate("frame", "Removed :")+sel)
+                self.main.write_log(QtGui.QApplication.translate("Frame", "Removed :")+sel)
 
         self.update_sources_view()
         self.update_libraries_view()

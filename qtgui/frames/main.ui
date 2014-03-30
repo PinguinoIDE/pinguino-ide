@@ -228,7 +228,7 @@
    </widget>
    <widget class="QMenu" name="menuGraphical">
     <property name="title">
-     <string>Graphical</string>
+     <string>Graphical mode</string>
     </property>
     <addaction name="actionView_Pinguino_code"/>
     <addaction name="actionExport_code_to_editor"/>
@@ -275,7 +275,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_5">
         <attribute name="title">
@@ -296,7 +296,7 @@
            </item>
            <item>
             <property name="text">
-             <string>Current file dir</string>
+             <string>Current file directory</string>
             </property>
            </item>
            <item>
@@ -966,7 +966,7 @@
            </item>
            <item>
             <property name="text">
-             <string>Current file dir</string>
+             <string>Current file directory</string>
             </property>
            </item>
            <item>
@@ -1010,6 +1010,9 @@
    <addaction name="actionSave_image"/>
   </widget>
   <widget class="QToolBar" name="toolBar_switch">
+   <property name="windowTitle">
+    <string>Switch mode</string>
+   </property>
    <property name="layoutDirection">
     <enum>Qt::RightToLeft</enum>
    </property>
@@ -1368,7 +1371,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Autocomplete</string>
+    <string>Autocomplete code</string>
    </property>
   </action>
   <action name="actionColor_theme">
@@ -1379,7 +1382,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Color theme</string>
+    <string>Background color</string>
    </property>
   </action>
   <action name="actionLibrary_manager">

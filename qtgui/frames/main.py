@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sat Mar 29 19:41:53 2014
+# Created: Sun Mar 30 15:51:09 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -667,7 +667,7 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(2)
+        self.tabWidget_tools.setCurrentIndex(0)
         self.tabWidget_browser.setCurrentIndex(0)
         self.tabWidget_blocks_tools.setCurrentIndex(1)
         self.tabWidget_blocks.setCurrentIndex(-1)
@@ -696,12 +696,12 @@ class Ui_PinguinoIDE(object):
         self.menuGitHub.setTitle(QtGui.QApplication.translate("PinguinoIDE", "GitHub", None, QtGui.QApplication.UnicodeUTF8))
         self.menuSource.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Source", None, QtGui.QApplication.UnicodeUTF8))
         self.menuConfiguration.setTitle(QtGui.QApplication.translate("PinguinoIDE", "View", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuGraphical.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuGraphical.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical mode", None, QtGui.QApplication.UnicodeUTF8))
         self.menuSettings.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_tools.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Tools", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(0, QtGui.QApplication.translate("PinguinoIDE", "Examples", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(1, QtGui.QApplication.translate("PinguinoIDE", "Third party libraries", None, QtGui.QApplication.UnicodeUTF8))
-        self.comboBox_files.setItemText(2, QtGui.QApplication.translate("PinguinoIDE", "Current file dir", None, QtGui.QApplication.UnicodeUTF8))
+        self.comboBox_files.setItemText(2, QtGui.QApplication.translate("PinguinoIDE", "Current file directory", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(3, QtGui.QApplication.translate("PinguinoIDE", "Home", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_files.setItemText(4, QtGui.QApplication.translate("PinguinoIDE", "Other...", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.tab_5), QtGui.QApplication.translate("PinguinoIDE", "Files", None, QtGui.QApplication.UnicodeUTF8))
@@ -735,7 +735,7 @@ class Ui_PinguinoIDE(object):
         self.tabWidget_blocks_tools.setTabText(self.tabWidget_blocks_tools.indexOf(self.tab), QtGui.QApplication.translate("PinguinoIDE", "Blocks", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_filesg.setItemText(0, QtGui.QApplication.translate("PinguinoIDE", "Examples", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_filesg.setItemText(1, QtGui.QApplication.translate("PinguinoIDE", "Third party libraries", None, QtGui.QApplication.UnicodeUTF8))
-        self.comboBox_filesg.setItemText(2, QtGui.QApplication.translate("PinguinoIDE", "Current file dir", None, QtGui.QApplication.UnicodeUTF8))
+        self.comboBox_filesg.setItemText(2, QtGui.QApplication.translate("PinguinoIDE", "Current file directory", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_filesg.setItemText(3, QtGui.QApplication.translate("PinguinoIDE", "Home", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_filesg.setItemText(4, QtGui.QApplication.translate("PinguinoIDE", "Other...", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_blocks_tools.setTabText(self.tabWidget_blocks_tools.indexOf(self.tab_2), QtGui.QApplication.translate("PinguinoIDE", "Files", None, QtGui.QApplication.UnicodeUTF8))
@@ -795,8 +795,8 @@ class Ui_PinguinoIDE(object):
         self.actionSave_as.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+S", None, QtGui.QApplication.UnicodeUTF8))
         self.actionWiki_docs.setText(QtGui.QApplication.translate("PinguinoIDE", "Wiki docs", None, QtGui.QApplication.UnicodeUTF8))
         self.actionWiki_docs.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F1", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionAutocomplete.setText(QtGui.QApplication.translate("PinguinoIDE", "Autocomplete", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionColor_theme.setText(QtGui.QApplication.translate("PinguinoIDE", "Color theme", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionAutocomplete.setText(QtGui.QApplication.translate("PinguinoIDE", "Autocomplete code", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionColor_theme.setText(QtGui.QApplication.translate("PinguinoIDE", "Background color", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLibrary_manager.setText(QtGui.QApplication.translate("PinguinoIDE", "Library manager", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLibrary_manager.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+L", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHex_code.setText(QtGui.QApplication.translate("PinguinoIDE", "Hex code", None, QtGui.QApplication.UnicodeUTF8))

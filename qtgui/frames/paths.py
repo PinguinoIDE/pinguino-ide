@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/paths.ui'
 #
-# Created: Sat Mar 29 19:41:54 2014
+# Created: Sun Mar 30 15:51:09 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -121,7 +121,7 @@ class Ui_Paths(object):
         QtCore.QMetaObject.connectSlotsByName(Paths)
 
     def retranslateUi(self, Paths):
-        Paths.setWindowTitle(QtGui.QApplication.translate("Paths", "Pinguino Paths", None, QtGui.QApplication.UnicodeUTF8))
+        Paths.setWindowTitle(QtGui.QApplication.translate("Paths", "Paths", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("Paths", "8-bit", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("Paths", "SDCC compiler:", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_sdcc_bin.setText(QtGui.QApplication.translate("Paths", "Change...", None, QtGui.QApplication.UnicodeUTF8))

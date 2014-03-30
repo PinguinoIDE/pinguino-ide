@@ -387,7 +387,7 @@ class Dialogs(object):
 
         QtGui.QMessageBox.information(parent,
                 os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Upload done"),
-                QtGui.QApplication.translate("Dialogs", "File sucessfully uploaded to pinguino."))
+                QtGui.QApplication.translate("Dialogs", "File sucessfully uploaded to Pinguino."))
         return True
 
 
@@ -401,7 +401,7 @@ class Dialogs(object):
         msg_box.setText(message)
 
         upload = QtGui.QPushButton()
-        upload.setText(QtGui.QApplication.translate("Dialogs", "Try again!!"))
+        upload.setText(QtGui.QApplication.translate("Dialogs", "Try again!"))
 
         ok = QtGui.QPushButton()
         ok.setText(QtGui.QApplication.translate("Dialogs", "Cancel"))

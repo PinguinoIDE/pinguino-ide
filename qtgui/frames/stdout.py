@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/stdout.ui'
 #
-# Created: Sat Mar 29 19:41:54 2014
+# Created: Sun Mar 30 15:51:10 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,6 +13,7 @@ class Ui_PlainOut(object):
     def setupUi(self, PlainOut):
         PlainOut.setObjectName("PlainOut")
         PlainOut.resize(596, 475)
+        PlainOut.setWindowTitle("Plain Out")
         self.gridLayout = QtGui.QGridLayout(PlainOut)
         self.gridLayout.setObjectName("gridLayout")
         self.textEdit = QtGui.QTextEdit(PlainOut)
@@ -30,6 +31,5 @@ class Ui_PlainOut(object):
         QtCore.QMetaObject.connectSlotsByName(PlainOut)
 
     def retranslateUi(self, PlainOut):
-        PlainOut.setWindowTitle(QtGui.QApplication.translate("PlainOut", "Plain Out", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("PlainOut", "Close", None, QtGui.QApplication.UnicodeUTF8))
 

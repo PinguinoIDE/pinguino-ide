@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Sat Mar 29 19:41:57 2014
+# Created: Sun Mar 30 15:51:08 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -172,7 +172,7 @@ class Ui_About(object):
         QtCore.QMetaObject.connectSlotsByName(About)
 
     def retranslateUi(self, About):
-        About.setWindowTitle(QtGui.QApplication.translate("About", "About", None, QtGui.QApplication.UnicodeUTF8))
+        About.setWindowTitle(QtGui.QApplication.translate("About", "About...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("About", "<html><head/><body><p align=\"center\">Pinguino is an Open Software and Open Hardware<br>Arduino-like project. Boards are based on 8 or 32-bit USB built-in<br>Microchip microcontrollers. The main goal is to build a real<br>USB system without USB to serial converter.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_credits.setText(QtGui.QApplication.translate("About", "Credits", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("About", "Close", None, QtGui.QApplication.UnicodeUTF8))

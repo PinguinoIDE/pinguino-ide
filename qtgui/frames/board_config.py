@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/board_config.ui'
 #
-# Created: Sat Mar 29 19:41:56 2014
+# Created: Sun Mar 30 15:51:09 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -19,8 +19,8 @@ class Ui_BoardConfig(object):
         self.groupBox_arch.setAutoFillBackground(False)
         self.groupBox_arch.setObjectName("groupBox_arch")
         self.gridLayout = QtGui.QGridLayout(self.groupBox_arch)
-        self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.radioButton_arch_8 = QtGui.QRadioButton(self.groupBox_arch)
         self.radioButton_arch_8.setObjectName("radioButton_arch_8")
@@ -44,8 +44,8 @@ class Ui_BoardConfig(object):
         self.groupBox_mode = QtGui.QGroupBox(BoardConfig)
         self.groupBox_mode.setObjectName("groupBox_mode")
         self.gridLayout_2 = QtGui.QGridLayout(self.groupBox_mode)
-        self.gridLayout_2.setSpacing(0)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_2.setSpacing(0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.radioButton_mode_icsp = QtGui.QRadioButton(self.groupBox_mode)
         self.radioButton_mode_icsp.setText("ICSP")
@@ -58,8 +58,8 @@ class Ui_BoardConfig(object):
         self.groupBox_bootloader = QtGui.QGroupBox(BoardConfig)
         self.groupBox_bootloader.setObjectName("groupBox_bootloader")
         self.gridLayout_3 = QtGui.QGridLayout(self.groupBox_bootloader)
-        self.gridLayout_3.setSpacing(0)
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_3.setSpacing(0)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.radioButton_bootloader_v1_v2 = QtGui.QRadioButton(self.groupBox_bootloader)
         self.radioButton_bootloader_v1_v2.setText("v1.x or v2.x")
@@ -108,6 +108,6 @@ class Ui_BoardConfig(object):
         self.groupBox_bootloader.setTitle(QtGui.QApplication.translate("BoardConfig", "Bootloader", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_devices_32.setTitle(QtGui.QApplication.translate("BoardConfig", "Devices", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_cancel.setText(QtGui.QApplication.translate("BoardConfig", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_ok.setText(QtGui.QApplication.translate("BoardConfig", "Ok", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_ok.setText(QtGui.QApplication.translate("BoardConfig", "Accept", None, QtGui.QApplication.UnicodeUTF8))
         self.label_warning.setText(QtGui.QApplication.translate("BoardConfig", "warning!", None, QtGui.QApplication.UnicodeUTF8))
 

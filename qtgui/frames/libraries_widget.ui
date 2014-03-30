@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>839</width>
-    <height>382</height>
+    <width>833</width>
+    <height>376</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,7 +60,7 @@
     <item row="0" column="0" colspan="4">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -227,36 +227,6 @@
           <attribute name="verticalHeaderStretchLastSection">
            <bool>false</bool>
           </attribute>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
           <column>
            <property name="text">
             <string>Name</string>
@@ -272,15 +242,6 @@
             <string>Web page</string>
            </property>
           </column>
-          <item row="0" column="2"/>
-          <item row="1" column="0">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="flags">
-            <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>
@@ -336,36 +297,6 @@
           <attribute name="verticalHeaderVisible">
            <bool>false</bool>
           </attribute>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>New Row</string>
-           </property>
-          </row>
           <column>
            <property name="text">
             <string>Library</string>
