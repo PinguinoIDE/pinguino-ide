@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/about.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Sat Mar  8 00:29:46 2014
-#      by: pyside-uic 0.2.15 running on PySide 1.2.1
+# Created: Sat Mar 29 19:41:57 2014
+#      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -35,16 +35,16 @@ class Ui_About(object):
         self.pushButton_close.setObjectName("pushButton_close")
         self.gridLayout_4.addWidget(self.pushButton_close, 0, 1, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_4, 6, 0, 1, 3)
-        self.label_2 = QtGui.QLabel(self.page)
+        self.label_name = QtGui.QLabel(self.page)
         font = QtGui.QFont()
         font.setPointSize(23)
         font.setWeight(75)
         font.setBold(True)
-        self.label_2.setFont(font)
-        self.label_2.setText("Pinguino 11.0")
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName("label_2")
-        self.gridLayout.addWidget(self.label_2, 0, 1, 1, 1)
+        self.label_name.setFont(font)
+        self.label_name.setText("Pinguino 11.0")
+        self.label_name.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_name.setObjectName("label_name")
+        self.gridLayout.addWidget(self.label_name, 0, 1, 1, 1)
         spacerItem1 = QtGui.QSpacerItem(620, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
         self.gridLayout.addItem(spacerItem1, 5, 0, 1, 3)
         self.label = QtGui.QLabel(self.page)

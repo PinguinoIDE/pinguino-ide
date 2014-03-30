@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeison/.virtualenvs/pinguino_env/pinguino/pinguino-ide/qtgui/frames/main.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sat Mar  8 00:29:59 2014
-#      by: pyside-uic 0.2.15 running on PySide 1.2.1
+# Created: Sat Mar 29 19:41:53 2014
+#      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -70,6 +70,8 @@ class Ui_PinguinoIDE(object):
         self.menuHelp.setObjectName("menuHelp")
         self.menuLinks = QtGui.QMenu(self.menuHelp)
         self.menuLinks.setObjectName("menuLinks")
+        self.menuGitHub = QtGui.QMenu(self.menuLinks)
+        self.menuGitHub.setObjectName("menuGitHub")
         self.menuSource = QtGui.QMenu(self.menubar)
         self.menuSource.setObjectName("menuSource")
         self.menuConfiguration = QtGui.QMenu(self.menubar)
@@ -477,8 +479,8 @@ class Ui_PinguinoIDE(object):
         self.actionSwitch_ide = QtGui.QAction(PinguinoIDE)
         self.actionSwitch_ide.setCheckable(True)
         icon16 = QtGui.QIcon()
-        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon16.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.actionSwitch_ide.setIcon(icon16)
         self.actionSwitch_ide.setObjectName("actionSwitch_ide")
         self.actionSave_image = QtGui.QAction(PinguinoIDE)
@@ -505,8 +507,6 @@ class Ui_PinguinoIDE(object):
         self.actionGroup.setObjectName("actionGroup")
         self.actionShop = QtGui.QAction(PinguinoIDE)
         self.actionShop.setObjectName("actionShop")
-        self.actionGitHub = QtGui.QAction(PinguinoIDE)
-        self.actionGitHub.setObjectName("actionGitHub")
         self.actionSave_as = QtGui.QAction(PinguinoIDE)
         self.actionSave_as.setObjectName("actionSave_as")
         self.actionWiki_docs = QtGui.QAction(PinguinoIDE)
@@ -562,6 +562,12 @@ class Ui_PinguinoIDE(object):
         self.actionConfirm_board.setCheckable(True)
         self.actionConfirm_board.setChecked(True)
         self.actionConfirm_board.setObjectName("actionConfirm_board")
+        self.actionIDE = QtGui.QAction(PinguinoIDE)
+        self.actionIDE.setObjectName("actionIDE")
+        self.actionLibraries = QtGui.QAction(PinguinoIDE)
+        self.actionLibraries.setObjectName("actionLibraries")
+        self.actionCompilers = QtGui.QAction(PinguinoIDE)
+        self.actionCompilers.setObjectName("actionCompilers")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
@@ -599,7 +605,10 @@ class Ui_PinguinoIDE(object):
         self.menuPinguino.addAction(self.actionCompile)
         self.menuPinguino.addAction(self.actionUpload)
         self.menuPinguino.addAction(self.actionIf_Compile_then_Upload)
-        self.menuLinks.addAction(self.actionGitHub)
+        self.menuGitHub.addAction(self.actionIDE)
+        self.menuGitHub.addAction(self.actionLibraries)
+        self.menuGitHub.addAction(self.actionCompilers)
+        self.menuLinks.addAction(self.menuGitHub.menuAction())
         self.menuLinks.addAction(self.actionWebsite)
         self.menuLinks.addAction(self.actionWiki)
         self.menuLinks.addAction(self.actionForum)
@@ -684,6 +693,7 @@ class Ui_PinguinoIDE(object):
         self.menuEdit.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Help", None, QtGui.QApplication.UnicodeUTF8))
         self.menuLinks.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Links", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuGitHub.setTitle(QtGui.QApplication.translate("PinguinoIDE", "GitHub", None, QtGui.QApplication.UnicodeUTF8))
         self.menuSource.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Source", None, QtGui.QApplication.UnicodeUTF8))
         self.menuConfiguration.setTitle(QtGui.QApplication.translate("PinguinoIDE", "View", None, QtGui.QApplication.UnicodeUTF8))
         self.menuGraphical.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical", None, QtGui.QApplication.UnicodeUTF8))
@@ -781,7 +791,6 @@ class Ui_PinguinoIDE(object):
         self.actionBlog.setText(QtGui.QApplication.translate("PinguinoIDE", "Blog", None, QtGui.QApplication.UnicodeUTF8))
         self.actionGroup.setText(QtGui.QApplication.translate("PinguinoIDE", "Group", None, QtGui.QApplication.UnicodeUTF8))
         self.actionShop.setText(QtGui.QApplication.translate("PinguinoIDE", "Shop", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionGitHub.setText(QtGui.QApplication.translate("PinguinoIDE", "GitHub", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_as.setText(QtGui.QApplication.translate("PinguinoIDE", "Save as", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_as.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+S", None, QtGui.QApplication.UnicodeUTF8))
         self.actionWiki_docs.setText(QtGui.QApplication.translate("PinguinoIDE", "Wiki docs", None, QtGui.QApplication.UnicodeUTF8))
@@ -816,5 +825,8 @@ class Ui_PinguinoIDE(object):
         self.actionIf_Compile_then_Upload.setText(QtGui.QApplication.translate("PinguinoIDE", "If Compile then Upload", None, QtGui.QApplication.UnicodeUTF8))
         self.actionIf_Compile_then_Upload.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F7", None, QtGui.QApplication.UnicodeUTF8))
         self.actionConfirm_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Confirm board when compiling", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionIDE.setText(QtGui.QApplication.translate("PinguinoIDE", "IDE", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionLibraries.setText(QtGui.QApplication.translate("PinguinoIDE", "Libraries", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCompilers.setText(QtGui.QApplication.translate("PinguinoIDE", "Compilers", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

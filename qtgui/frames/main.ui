@@ -184,7 +184,15 @@
      <property name="title">
       <string>Links</string>
      </property>
-     <addaction name="actionGitHub"/>
+     <widget class="QMenu" name="menuGitHub">
+      <property name="title">
+       <string>GitHub</string>
+      </property>
+      <addaction name="actionIDE"/>
+      <addaction name="actionLibraries"/>
+      <addaction name="actionCompilers"/>
+     </widget>
+     <addaction name="menuGitHub"/>
      <addaction name="actionWebsite"/>
      <addaction name="actionWiki"/>
      <addaction name="actionForum"/>
@@ -1336,11 +1344,6 @@
     <string>Shop</string>
    </property>
   </action>
-  <action name="actionGitHub">
-   <property name="text">
-    <string>GitHub</string>
-   </property>
-  </action>
   <action name="actionSave_as">
    <property name="text">
     <string>Save as</string>
@@ -1518,6 +1521,21 @@
    </property>
    <property name="text">
     <string>Confirm board when compiling</string>
+   </property>
+  </action>
+  <action name="actionIDE">
+   <property name="text">
+    <string>IDE</string>
+   </property>
+  </action>
+  <action name="actionLibraries">
+   <property name="text">
+    <string>Libraries</string>
+   </property>
+  </action>
+  <action name="actionCompilers">
+   <property name="text">
+    <string>Compilers</string>
    </property>
   </action>
  </widget>
