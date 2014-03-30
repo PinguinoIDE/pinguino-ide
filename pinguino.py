@@ -3,6 +3,7 @@
 
 NAME = "Pinguino IDE"
 VERSION = "11.0"
+SUBVERSION = "1"
 #DESCRIPTION = ""
 #LONG_DESCRIPTION = ""
 
@@ -33,6 +34,7 @@ import os
 
 os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION
+os.environ["SUBVERSION"] = SUBVERSION
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
 # For PyInstaller compatibility
