@@ -18,6 +18,10 @@ class About(QtGui.QDialog):
         self.about.setupUi(self)
 
         self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
+
+        self.about.label_name.setText(os.getenv("NAME")+" "+os.getenv("VERSION")+"."+os.getenv("SUBVERSION"))
+
+
         self.about.label.setPixmap(QtGui.QPixmap(":/logo/art/pinguino11.svg"))
 
 
