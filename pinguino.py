@@ -57,6 +57,7 @@ if __name__ == "__main__":
     #import locale
 
     sys_locale = QtCore.QLocale.system().name()
+    #sys_locale = "ja"
     #sys_locale = locale.getdefaultlocale()[0]
     translator = QtCore.QTranslator()
 
@@ -133,6 +134,7 @@ if __name__ == "__main__":
         PinguinoConfig.check_user_files()
         config = Config()
         PinguinoConfig.update_pinguino_paths(config, Pinguino)
+        PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
         PinguinoConfig.update_user_libs(pinguino)
 
         parser = pinguino.build_argparse()

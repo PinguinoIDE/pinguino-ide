@@ -7,13 +7,16 @@
     <x>0</x>
     <y>0</y>
     <width>336</width>
-    <height>274</height>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Board Config</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
+   <property name="verticalSpacing">
+    <number>14</number>
+   </property>
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox_arch">
      <property name="autoFillBackground">
@@ -46,7 +49,36 @@
      </layout>
     </widget>
    </item>
-   <item row="6" column="0">
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="groupBox_mode">
+     <property name="title">
+      <string>Progamming mode</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioButton_mode_icsp">
+        <property name="text">
+         <string notr="true">ICSP</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="radioButton_mode_bootloader">
+        <property name="text">
+         <string>Bootloader</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="7" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -59,7 +91,7 @@
      </property>
     </spacer>
    </item>
-   <item row="3" column="0">
+   <item row="4" column="0">
     <widget class="QGroupBox" name="groupBox_devices_8">
      <property name="title">
       <string>Devices</string>
@@ -83,36 +115,7 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QGroupBox" name="groupBox_mode">
-     <property name="title">
-      <string>Progamming Mode</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <property name="margin">
-       <number>0</number>
-      </property>
-      <property name="spacing">
-       <number>0</number>
-      </property>
-      <item row="0" column="0">
-       <widget class="QRadioButton" name="radioButton_mode_icsp">
-        <property name="text">
-         <string notr="true">ICSP</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QRadioButton" name="radioButton_mode_bootloader">
-        <property name="text">
-         <string>USB Bootloader</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="0">
+   <item row="3" column="0">
     <widget class="QGroupBox" name="groupBox_bootloader">
      <property name="title">
       <string>Bootloader</string>
@@ -141,7 +144,35 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="0">
+   <item row="9" column="0">
+    <layout class="QGridLayout" name="gridLayout_6">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButton_cancel">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_ok">
+       <property name="text">
+        <string>Accept</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label_warning">
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>warning!</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
     <widget class="QGroupBox" name="groupBox_devices_32">
      <property name="title">
       <string>Devices</string>
@@ -165,36 +196,102 @@
      </layout>
     </widget>
    </item>
-   <item row="8" column="0">
-    <layout class="QGridLayout" name="gridLayout_6">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="pushButton_cancel">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="pushButton_ok">
-       <property name="text">
-        <string>Accept</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="label_warning">
-     <property name="styleSheet">
-      <string notr="true">color: rgb(255, 0, 0);</string>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBox_extra">
+     <property name="title">
+      <string>32-bit extra options</string>
      </property>
-     <property name="text">
-      <string>warning!</string>
-     </property>
+     <layout class="QGridLayout" name="gridLayout_8">
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkBox_heapsize">
+        <property name="text">
+         <string>HEAPSIZE</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="checkBox_mips16">
+        <property name="text">
+         <string>MIPS16</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>radioButton_arch_32</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_extra</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>269</x>
+     <y>29</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>98</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_arch_32</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_devices_32</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>326</x>
+     <y>44</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>326</x>
+     <y>288</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_arch_8</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_devices_8</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>41</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>44</x>
+     <y>245</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupBox_arch</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_bootloader</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>84</x>
+     <y>170</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

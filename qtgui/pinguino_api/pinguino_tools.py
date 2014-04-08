@@ -704,14 +704,17 @@ class PinguinoTools(object):
 
             sortie = Popen([self.MAKE,
                             "--makefile=" + makefile,
-                            "PDEDIR=" + os.path.dirname(filename),
-                            "PROC=" + board.proc,
-                            "BOARD=" + board.board,
-                            "BINDIR=" + self.P32_BIN,  #default /usr/bin
-                            "P32DIR=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
-                            "SRCDIR=" + self.SOURCE_DIR,
+                            "_IDE_PDEDIR_=" + os.path.dirname(filename),
+                            "_IDE_PROC_=" + board.proc,
+                            "_IDE_BOARD_=" + board.board,
+                            "_IDE_BINDIR_=" + self.P32_BIN,  #default /usr/bin
+                            "_IDE_P32DIR_=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
+                            "_IDE_SRCDIR_=" + self.SOURCE_DIR,
+                            "_IDE_USERLIBS_=" + user_imports32,
 
-                            "USERLIBS=" + user_imports32,
+                            "_IDE_HEAP_SIZE_=" + "16384" if self.HEAPSIZE else "16384",
+                            "_IDE_MIPS16_ENABLE_=" + "1" if self.MIPS16_ENABLE else "0",
+
                          ],
 
                          stdout=fichier, stderr=STDOUT)

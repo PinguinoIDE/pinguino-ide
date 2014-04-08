@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1088</width>
-    <height>672</height>
+    <height>678</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -116,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>1088</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -166,9 +166,9 @@
     <property name="title">
      <string notr="true">Pinguino</string>
     </property>
-    <addaction name="actionLibrary_manager"/>
-    <addaction name="actionSet_paths"/>
     <addaction name="actionSelect_board"/>
+    <addaction name="actionSet_paths"/>
+    <addaction name="actionLibrary_manager"/>
     <addaction name="actionHex_code"/>
     <addaction name="actionStdout"/>
     <addaction name="separator"/>
@@ -1357,7 +1357,7 @@
   </action>
   <action name="actionWiki_docs">
    <property name="text">
-    <string>Wiki docs</string>
+    <string>Wiki documentation</string>
    </property>
    <property name="shortcut">
     <string>F1</string>

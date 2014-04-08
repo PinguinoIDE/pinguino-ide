@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/wiki_doc_widget.ui'
 #
-# Created: Sun Mar 30 15:51:08 2014
+# Created: Wed Apr  2 13:18:40 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,7 +13,6 @@ class Ui_WikiDocs(object):
     def setupUi(self, WikiDocs):
         WikiDocs.setObjectName("WikiDocs")
         WikiDocs.resize(817, 454)
-        WikiDocs.setWindowTitle("Wiki documentation")
         self.centralwidget = QtGui.QWidget(WikiDocs)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtGui.QGridLayout(self.centralwidget)
@@ -24,8 +23,8 @@ class Ui_WikiDocs(object):
         self.tab = QtGui.QWidget()
         self.tab.setObjectName("tab")
         self.gridLayout = QtGui.QGridLayout(self.tab)
-        self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.textBrowser_doc = QtGui.QTextBrowser(self.tab)
         self.textBrowser_doc.setFrameShape(QtGui.QFrame.NoFrame)
@@ -42,5 +41,6 @@ class Ui_WikiDocs(object):
         QtCore.QMetaObject.connectSlotsByName(WikiDocs)
 
     def retranslateUi(self, WikiDocs):
+        WikiDocs.setWindowTitle(QtGui.QApplication.translate("WikiDocs", "Wiki documentation", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("WikiDocs", "Libraries", None, QtGui.QApplication.UnicodeUTF8))
 

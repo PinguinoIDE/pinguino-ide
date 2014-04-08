@@ -15,6 +15,7 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def set_environ_vars(cls):
+
         if not os.path.exists(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg")):
             logging.error("Missing: "+os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"))
             sys.exit()
@@ -91,10 +92,10 @@ class PinguinoConfig(object):
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
 
 
-
     #----------------------------------------------------------------------
     @classmethod
     def if_not_exist_then_copy(cls, src, dst, default_dir=False):
+
         if not os.path.exists(src):
             logging.warning("Missing: " + src)
             if not os.path.exists(dst) and default_dir:
@@ -107,9 +108,19 @@ class PinguinoConfig(object):
             else:
                 shutil.copy(src, dst)
 
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def update_pinguino_extra_options(self, config, pinguino_object):
+
+        pinguino_object.MIPS16_ENABLE = config.config("Board", "mips16", True)
+        pinguino_object.HEAPSIZE = config.config("Board", "heapsize", True)
+
+
     #----------------------------------------------------------------------
     @classmethod
     def update_pinguino_paths(cls, config, pinguino_object):
+
         user_sdcc_bin = config.get_path("sdcc_bin")
         if user_sdcc_bin: pinguino_object.P8_BIN = user_sdcc_bin
         else: logging.warning("Missing path to 'sdcc_bin': '%s'"%user_sdcc_bin)
@@ -134,6 +145,7 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def update_user_libs(cls, pinguino_object):
+
         libs = Librarymanager()
 
         all_p8 = libs.get_p8_libraries()

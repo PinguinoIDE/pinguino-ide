@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sun Mar 30 15:51:09 2014
+# Created: Wed Apr  2 13:18:41 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(1088, 672)
+        PinguinoIDE.resize(1088, 678)
         PinguinoIDE.setWindowTitle("Pinguino 11")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -55,7 +55,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 22))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -596,9 +596,9 @@ class Ui_PinguinoIDE(object):
         self.menuEdit.addAction(self.actionSearch)
         self.menuEdit.addAction(self.actionSearch_and_replace)
         self.menuEdit.addSeparator()
-        self.menuPinguino.addAction(self.actionLibrary_manager)
-        self.menuPinguino.addAction(self.actionSet_paths)
         self.menuPinguino.addAction(self.actionSelect_board)
+        self.menuPinguino.addAction(self.actionSet_paths)
+        self.menuPinguino.addAction(self.actionLibrary_manager)
         self.menuPinguino.addAction(self.actionHex_code)
         self.menuPinguino.addAction(self.actionStdout)
         self.menuPinguino.addSeparator()
@@ -740,6 +740,7 @@ class Ui_PinguinoIDE(object):
         self.comboBox_filesg.setItemText(4, QtGui.QApplication.translate("PinguinoIDE", "Other...", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_blocks_tools.setTabText(self.tabWidget_blocks_tools.indexOf(self.tab_2), QtGui.QApplication.translate("PinguinoIDE", "Files", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_graphical.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical mode", None, QtGui.QApplication.UnicodeUTF8))
+        self.toolBar_switch.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Switch mode", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+N", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Open file", None, QtGui.QApplication.UnicodeUTF8))
@@ -793,7 +794,7 @@ class Ui_PinguinoIDE(object):
         self.actionShop.setText(QtGui.QApplication.translate("PinguinoIDE", "Shop", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_as.setText(QtGui.QApplication.translate("PinguinoIDE", "Save as", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_as.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+S", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionWiki_docs.setText(QtGui.QApplication.translate("PinguinoIDE", "Wiki docs", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionWiki_docs.setText(QtGui.QApplication.translate("PinguinoIDE", "Wiki documentation", None, QtGui.QApplication.UnicodeUTF8))
         self.actionWiki_docs.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F1", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAutocomplete.setText(QtGui.QApplication.translate("PinguinoIDE", "Autocomplete code", None, QtGui.QApplication.UnicodeUTF8))
         self.actionColor_theme.setText(QtGui.QApplication.translate("PinguinoIDE", "Background color", None, QtGui.QApplication.UnicodeUTF8))
