@@ -752,7 +752,12 @@ class PinguinoTools(object):
 
         codesize = 0
         address_Hi = 0
-        memfree = board.memend - board.memstart
+        if board.arch == 32:
+            memfree = board.memend - board.ebase
+        else:
+            memfree = board.memend - board.memstart
+        print "%X"%board.memstart
+        print "%X"%board.memend
         fichier = open(filename, 'r')
         lines = fichier.readlines()
 
