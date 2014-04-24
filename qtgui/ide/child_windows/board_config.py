@@ -138,7 +138,7 @@ class BoardConfig(QtGui.QDialog):
 
         mode_boot = self.board_config.radioButton_mode_bootloader.isChecked()
         arch_8 = self.board_config.radioButton_arch_8.isChecked()
-        #self.board_config.groupBox_bootloader.setVisible(mode_boot and arch_8)
+        self.board_config.groupBox_bootloader.setVisible(mode_boot and arch_8)
 
         if not mode_boot:
             self.board_config.label_warning.setText("WARNING!! this mode can overwite the bootloader code.")
