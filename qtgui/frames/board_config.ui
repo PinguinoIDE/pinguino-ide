@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>336</width>
-    <height>382</height>
+    <height>398</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -288,8 +288,56 @@
      <y>45</y>
     </hint>
     <hint type="destinationlabel">
-     <x>84</x>
-     <y>170</y>
+     <x>93</x>
+     <y>214</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_mode_bootloader</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_bootloader</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>206</x>
+     <y>148</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>276</x>
+     <y>181</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_mode_icsp</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_bootloader</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>57</x>
+     <y>186</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_arch_32</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupBox_bootloader</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>282</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>229</x>
+     <y>187</y>
     </hint>
    </hints>
   </connection>

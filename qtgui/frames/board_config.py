@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/board_config.ui'
 #
-# Created: Wed Apr  2 13:18:38 2014
+# Created: Tue Apr 22 14:51:29 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_BoardConfig(object):
     def setupUi(self, BoardConfig):
         BoardConfig.setObjectName("BoardConfig")
-        BoardConfig.resize(336, 382)
+        BoardConfig.resize(336, 398)
         self.gridLayout_5 = QtGui.QGridLayout(BoardConfig)
         self.gridLayout_5.setVerticalSpacing(14)
         self.gridLayout_5.setObjectName("gridLayout_5")
@@ -113,6 +113,9 @@ class Ui_BoardConfig(object):
         QtCore.QObject.connect(self.radioButton_arch_32, QtCore.SIGNAL("toggled(bool)"), self.groupBox_devices_32.setVisible)
         QtCore.QObject.connect(self.radioButton_arch_8, QtCore.SIGNAL("toggled(bool)"), self.groupBox_devices_8.setVisible)
         QtCore.QObject.connect(self.groupBox_arch, QtCore.SIGNAL("toggled(bool)"), self.groupBox_bootloader.setVisible)
+        QtCore.QObject.connect(self.radioButton_mode_bootloader, QtCore.SIGNAL("toggled(bool)"), self.groupBox_bootloader.setVisible)
+        QtCore.QObject.connect(self.radioButton_mode_icsp, QtCore.SIGNAL("toggled(bool)"), self.groupBox_bootloader.setHidden)
+        QtCore.QObject.connect(self.radioButton_arch_32, QtCore.SIGNAL("toggled(bool)"), self.groupBox_bootloader.setHidden)
         QtCore.QMetaObject.connectSlotsByName(BoardConfig)
 
     def retranslateUi(self, BoardConfig):
