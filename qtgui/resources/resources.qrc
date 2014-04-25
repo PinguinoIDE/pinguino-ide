@@ -93,6 +93,7 @@
     <file>icons/icon_file.png</file>
     <file>icons/icon_file_pde.png</file>
     <file>icons/icon_dir.png</file>
+    <file>icons/clear.png</file>
   </qresource>
   <qresource prefix="selection">
     <file>selection/border.svg</file>
