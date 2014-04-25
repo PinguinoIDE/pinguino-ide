@@ -47,9 +47,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="edit-clear">
-            <normaloff/>
-           </iconset>
+           <iconset resource="../resources/resources.qrc">
+            <normaloff>:/icons/icons/clear.png</normaloff>:/icons/icons/clear.png</iconset>
           </property>
           <property name="flat">
            <bool>true</bool>
@@ -92,9 +91,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="edit-clear">
-            <normaloff/>
-           </iconset>
+           <iconset resource="../resources/resources.qrc">
+            <normaloff>:/icons/icons/clear.png</normaloff>:/icons/icons/clear.png</iconset>
           </property>
           <property name="flat">
            <bool>true</bool>
@@ -146,9 +144,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="edit-clear">
-            <normaloff/>
-           </iconset>
+           <iconset resource="../resources/resources.qrc">
+            <normaloff>:/icons/icons/clear.png</normaloff>:/icons/icons/clear.png</iconset>
           </property>
           <property name="flat">
            <bool>true</bool>
@@ -191,9 +188,8 @@
            <string/>
           </property>
           <property name="icon">
-           <iconset theme="edit-clear">
-            <normaloff/>
-           </iconset>
+           <iconset resource="../resources/resources.qrc">
+            <normaloff>:/icons/icons/clear.png</normaloff>:/icons/icons/clear.png</iconset>
           </property>
           <property name="flat">
            <bool>true</bool>
@@ -244,6 +240,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

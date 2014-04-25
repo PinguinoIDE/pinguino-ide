@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/paths.ui'
 #
-# Created: Tue Apr 22 14:51:31 2014
+# Created: Thu Apr 24 23:04:05 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,7 +32,7 @@ class Ui_Paths(object):
         self.pushButton_clear_sdcc_bin.setMaximumSize(QtCore.QSize(26, 16777215))
         self.pushButton_clear_sdcc_bin.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/icons/icons/clear.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_clear_sdcc_bin.setIcon(icon)
         self.pushButton_clear_sdcc_bin.setFlat(True)
         self.pushButton_clear_sdcc_bin.setObjectName("pushButton_clear_sdcc_bin")
@@ -134,3 +134,4 @@ class Ui_Paths(object):
         self.pushButton_pinguino_32_libs.setText(QtGui.QApplication.translate("Paths", "Change...", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("Paths", "Close", None, QtGui.QApplication.UnicodeUTF8))
 
+import resources_rc

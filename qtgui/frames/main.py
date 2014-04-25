@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Apr 22 14:51:29 2014
+# Created: Thu Apr 24 23:04:05 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(1088, 678)
+        PinguinoIDE.resize(1088, 699)
         PinguinoIDE.setWindowTitle("Pinguino 11")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -55,7 +55,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 24))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -596,15 +596,11 @@ class Ui_PinguinoIDE(object):
         self.menuEdit.addAction(self.actionSearch)
         self.menuEdit.addAction(self.actionSearch_and_replace)
         self.menuEdit.addSeparator()
-        self.menuPinguino.addAction(self.actionSelect_board)
-        self.menuPinguino.addAction(self.actionSet_paths)
-        self.menuPinguino.addAction(self.actionLibrary_manager)
-        self.menuPinguino.addAction(self.actionHex_code)
-        self.menuPinguino.addAction(self.actionStdout)
-        self.menuPinguino.addSeparator()
         self.menuPinguino.addAction(self.actionCompile)
         self.menuPinguino.addAction(self.actionUpload)
         self.menuPinguino.addAction(self.actionIf_Compile_then_Upload)
+        self.menuPinguino.addSeparator()
+        self.menuPinguino.addAction(self.actionLibrary_manager)
         self.menuGitHub.addAction(self.actionIDE)
         self.menuGitHub.addAction(self.actionLibraries)
         self.menuGitHub.addAction(self.actionCompilers)
@@ -624,15 +620,21 @@ class Ui_PinguinoIDE(object):
         self.menuSource.addSeparator()
         self.menuSource.addAction(self.actionIndent)
         self.menuSource.addAction(self.actionDedent)
-        self.menuConfiguration.addAction(self.actionMaximize_editor)
+        self.menuConfiguration.addAction(self.actionHex_code)
         self.menuConfiguration.addSeparator()
         self.menuConfiguration.addAction(self.actionTools_2)
         self.menuConfiguration.addAction(self.actionBlocks_2)
         self.menuConfiguration.addAction(self.actionPython_shell)
         self.menuConfiguration.addAction(self.actionToolbars)
+        self.menuConfiguration.addSeparator()
+        self.menuConfiguration.addAction(self.actionStdout)
         self.menuGraphical.addAction(self.actionView_Pinguino_code)
         self.menuGraphical.addAction(self.actionExport_code_to_editor)
         self.menuGraphical.addAction(self.actionInsert_Block)
+        self.menuSettings.addAction(self.actionSelect_board)
+        self.menuSettings.addAction(self.actionSet_paths)
+        self.menuSettings.addSeparator()
+        self.menuSettings.addAction(self.actionMaximize_editor)
         self.menuSettings.addAction(self.actionAutocomplete)
         self.menuSettings.addAction(self.actionColor_theme)
         self.menuSettings.addAction(self.actionConfirm_board)
@@ -764,7 +766,7 @@ class Ui_PinguinoIDE(object):
         self.actionSearch.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+F", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSearch_and_replace.setText(QtGui.QApplication.translate("PinguinoIDE", "Search and replace", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSearch_and_replace.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+R", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSelect_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Select board", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSelect_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Board Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSelect_board.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+B", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCompile.setText(QtGui.QApplication.translate("PinguinoIDE", "Compile", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCompile.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F5", None, QtGui.QApplication.UnicodeUTF8))
@@ -802,7 +804,7 @@ class Ui_PinguinoIDE(object):
         self.actionLibrary_manager.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+L", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHex_code.setText(QtGui.QApplication.translate("PinguinoIDE", "Hex code", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHex_code.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+H", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSet_paths.setText(QtGui.QApplication.translate("PinguinoIDE", "Set paths", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSet_paths.setText(QtGui.QApplication.translate("PinguinoIDE", "System paths", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSet_paths.setToolTip(QtGui.QApplication.translate("PinguinoIDE", "Set paths", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSet_paths.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+P", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport_code_to_editor.setText(QtGui.QApplication.translate("PinguinoIDE", "Export code to editor", None, QtGui.QApplication.UnicodeUTF8))
