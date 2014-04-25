@@ -19,7 +19,7 @@
    inkscape:version="0.48.4 r9939"
    width="385.53448"
    height="207.77994"
-   sodipodi:docname="seti_cons11.svg"
+   sodipodi:docname="set_icons11.svg"
    inkscape:export-filename="/home/yeison/Documentos/PythonPowered/pinguinoX3/PinguinoX/PinguinoSVG_min/Pinguino-Dr/new.png"
    inkscape:export-xdpi="32.02"
    inkscape:export-ydpi="32.02">
@@ -31,7 +31,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1621,15 +1621,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1317"
-     inkscape:window-height="744"
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.1793961"
-     inkscape:cx="63.954532"
-     inkscape:cy="87.42059"
-     inkscape:window-x="49"
-     inkscape:window-y="24"
+     inkscape:zoom="1.667918"
+     inkscape:cx="191.69043"
+     inkscape:cy="19.422988"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2"
      showguides="true"
@@ -5384,6 +5384,54 @@ ABUAFgAXABkAGwAcAAA=&quot;)}
          id="path4430"
          style="fill:#afc8e1;fill-opacity:1;stroke:none"
          sodipodi:type="star" />
+    </g>
+  </g>
+  <g
+     id="g4433"
+     transform="translate(-41.974659,-0.62994062)">
+    <rect
+       inkscape:export-ydpi="34.631378"
+       inkscape:export-xdpi="34.631378"
+       inkscape:export-filename="/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/resources/icons/clear.png"
+       ry="0"
+       y="124.72428"
+       x="250.31207"
+       height="62.371193"
+       width="62.371193"
+       id="rect4425"
+       style="fill:none;stroke:none" />
+    <g
+       inkscape:export-ydpi="34"
+       inkscape:export-xdpi="34"
+       inkscape:export-filename="/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/resources/icons/clear.png"
+       transform="matrix(0.84177979,0,0,0.84177979,46.78871,23.841573)"
+       id="g4427">
+      <path
+         style="fill:#808080;stroke:#4d4d4d;stroke-width:2.71338415;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         d="m 253.38668,156.89175 16.95865,16.95865 33.9173,0 0,-33.9173 -33.9173,0 z"
+         id="path3642"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccc"
+         inkscape:export-filename="/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/resources/icons/clear.png"
+         inkscape:export-xdpi="20.878601"
+         inkscape:export-ydpi="20.878601" />
+      <g
+         id="g4420"
+         transform="matrix(0.56528834,0,0,0.56528834,119.82843,75.238412)"
+         inkscape:export-filename="/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/resources/icons/clear.png"
+         inkscape:export-xdpi="20.878601"
+         inkscape:export-ydpi="20.878601">
+        <path
+           inkscape:connector-curvature="0"
+           id="path4416"
+           d="m 277.09104,127.22806 34.43484,34.43484"
+           style="fill:#ffffff;stroke:#ffffff;stroke-width:10.97000027;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+        <path
+           inkscape:connector-curvature="0"
+           id="path4418"
+           d="m 277.09104,161.6629 34.43484,-34.43484"
+           style="fill:#ffffff;stroke:#ffffff;stroke-width:10.97000027;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      </g>
     </g>
   </g>
 </svg>
