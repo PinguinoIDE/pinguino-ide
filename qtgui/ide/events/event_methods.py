@@ -861,46 +861,50 @@ class EventMethods(Methods):
 
 
     #----------------------------------------------------------------------
-    def change_dir_files(self, to_dir):
+    def change_dir_files(self, index):
+        to_dir = ["Examples", "Third", "Dir", "Home", "Other"][index]
+
         if to_dir == "Examples":
             self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
 
         elif to_dir == "Home":
             self.__update_path_files__(QtCore.QDir.home().path())
 
-        elif to_dir == "Current file dir":
+        elif to_dir == "Dir":
             editor = self.main.tabWidget_files.currentWidget()
             dir_ = getattr(editor, "path", None)
             if dir_: self.__update_path_files__(os.path.split(dir_)[0])
 
-        elif to_dir == "Third party libraries":
+        elif to_dir == "Third":
             path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
             if os.path.exists(path): self.__update_path_files__(path)
 
-        elif to_dir == "Other...":
+        elif to_dir == "Other":
             open_dir = Dialogs.set_open_dir(self)
             if open_dir:
                 self.__update_path_files__(open_dir)
 
 
     #----------------------------------------------------------------------
-    def change_dir_filesg(self, to_dir):
+    def change_dir_filesg(self, index):
+        to_dir = ["Examples", "Third", "Dir", "Home", "Other"][index]
+
         if to_dir == "Examples":
             self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
         elif to_dir == "Home":
             self.__update_graphical_path_files__(QtCore.QDir.home().path())
 
-        elif to_dir == "Current file dir":
+        elif to_dir == "Dir":
             editor = self.main.tabWidget_files.currentWidget()
             dir_ = getattr(editor, "path", None)
             if dir_: self.__update_graphical_path_files__(os.path.split(dir_)[0])
 
-        elif to_dir == "Third party libraries":
+        elif to_dir == "Third":
             path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
             if os.path.exists(path): self.__update_graphical_path_files__(path)
 
-        elif to_dir == "Other...":
+        elif to_dir == "Other":
             open_dir = Dialogs.set_open_dir(self)
             if open_dir:
                 self.__update_graphical_path_files__(open_dir)

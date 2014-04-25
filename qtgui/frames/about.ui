@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>656</width>
-    <height>491</height>
+    <height>513</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout">
@@ -161,7 +161,7 @@
           <enum>QTabWidget::North</enum>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -199,7 +199,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label_6">
              <property name="text">
-              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Joan Espinoza&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alexis Sánchez&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Moreno Manzini &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Joan Espinoza&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Alexis Sánchez&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Régis Blanchot&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Moreno Manzini &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Yeison Cardona&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&amp;quot;Avrin&amp;quot;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>

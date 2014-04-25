@@ -52,7 +52,7 @@
    <item row="2" column="0">
     <widget class="QGroupBox" name="groupBox_mode">
      <property name="title">
-      <string>Progamming mode</string>
+      <string>Programming mode</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="margin">

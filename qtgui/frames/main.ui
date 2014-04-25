@@ -279,7 +279,7 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="tab_5">
+       <widget class="QWidget" name="Files">
         <attribute name="title">
          <string>Files</string>
         </attribute>
@@ -345,7 +345,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_3">
+       <widget class="QWidget" name="SourceBrowser">
         <attribute name="title">
          <string>Source Browser</string>
         </attribute>
@@ -356,9 +356,9 @@
             <enum>QTabWidget::South</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
            </property>
-           <widget class="QWidget" name="tab_7">
+           <widget class="QWidget" name="Variables">
             <attribute name="title">
              <string>Variables</string>
             </attribute>
@@ -406,7 +406,7 @@
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="tab_6">
+           <widget class="QWidget" name="Functions">
             <attribute name="title">
              <string>Functions</string>
             </attribute>
@@ -462,7 +462,7 @@
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="tab_8">
+           <widget class="QWidget" name="Directives">
             <attribute name="title">
              <string>Directives</string>
             </attribute>
@@ -556,7 +556,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_4">
+       <widget class="QWidget" name="SearchReplace">
         <attribute name="title">
          <string>Search Replace</string>
         </attribute>
@@ -891,9 +891,9 @@
         <enum>QTabWidget::South</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
-       <widget class="QWidget" name="tab">
+       <widget class="QWidget" name="Blocks">
         <attribute name="title">
          <string>Blocks</string>
         </attribute>
@@ -913,7 +913,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="Files">
         <attribute name="title">
          <string>Files</string>
         </attribute>

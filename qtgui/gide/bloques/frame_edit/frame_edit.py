@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/gide/bloques/frame_edit/frame_edit.ui'
 #
-# Created: Thu Apr 24 23:04:08 2014
+# Created: Fri Apr 25 13:11:15 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!

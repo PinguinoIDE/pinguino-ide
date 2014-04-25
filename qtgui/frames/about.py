@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Thu Apr 24 23:04:05 2014
+# Created: Fri Apr 25 13:11:16 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_About(object):
     def setupUi(self, About):
         About.setObjectName("About")
-        About.resize(656, 491)
+        About.resize(656, 513)
         self.gridLayout_2 = QtGui.QGridLayout(About)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.stackedWidget = QtGui.QStackedWidget(About)
@@ -100,7 +100,7 @@ class Ui_About(object):
         self.gridLayout_10 = QtGui.QGridLayout(self.tab_3)
         self.gridLayout_10.setObjectName("gridLayout_10")
         self.label_6 = QtGui.QLabel(self.tab_3)
-        self.label_6.setText("<html><head/><body><p align=\"center\">Joan Espinoza</p><p align=\"center\">Alexis Sánchez</p><p align=\"center\">Régis Blanchot</p><p align=\"center\">Moreno Manzini </p><p align=\"center\"><br/></p></body></html>")
+        self.label_6.setText("<html><head/><body><p align=\"center\">Joan Espinoza</p><p align=\"center\">Alexis Sánchez</p><p align=\"center\">Régis Blanchot</p><p align=\"center\">Moreno Manzini </p><p align=\"center\">Yeison Cardona</p><p align=\"center\">&quot;Avrin&quot;<br/></p></body></html>")
         self.label_6.setObjectName("label_6")
         self.gridLayout_10.addWidget(self.label_6, 0, 0, 1, 1)
         self.tabWidget.addTab(self.tab_3, "")
@@ -167,8 +167,8 @@ class Ui_About(object):
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(About)
-        self.stackedWidget.setCurrentIndex(0)
-        self.tabWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(About)
 
     def retranslateUi(self, About):

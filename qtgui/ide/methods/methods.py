@@ -186,13 +186,13 @@ class Methods(SearchReplace):
     def __update_current_dir_on_files__(self):
         tab = self.get_tab()
         if tab == self.main.tabWidget_files:
-            if self.main.comboBox_files.currentText() == "Current file dir":
+            if self.main.comboBox_files.currentIndex() == 2:
                 editor = tab.currentWidget()
                 dir_ = getattr(editor, "path", None)
                 if dir_: self.__update_path_files__(os.path.split(dir_)[0])
 
         else:
-            if self.main.comboBox_filesg.currentText() == "Current file dir":
+            if self.main.comboBox_filesg.currentIndex == 2:
                 editor = tab.currentWidget()
                 dir_ = getattr(editor, "path", None)
                 if dir_: self.__update_graphical_path_files__(os.path.split(dir_)[0])
@@ -654,4 +654,3 @@ class Methods(SearchReplace):
             self.main.toolBar_graphical.setVisible(visible)
             self.main.toolBar_search_replace.setVisible(not visible)
             self.main.toolBar_undo_redo.setVisible(not visible)
-

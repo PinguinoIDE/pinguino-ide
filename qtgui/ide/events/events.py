@@ -84,8 +84,8 @@ class PinguinoEvents(EventMethods, TimerMethods):
         # Tools Files
         self.connect(self.main.listWidget_files, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.jump_dir_files)
         self.connect(self.main.listWidget_filesg, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.jump_dir_filesg)
-        self.connect(self.main.comboBox_files, QtCore.SIGNAL("currentIndexChanged(QString)"), self.change_dir_files)
-        self.connect(self.main.comboBox_filesg, QtCore.SIGNAL("currentIndexChanged(QString)"), self.change_dir_filesg)
+        self.connect(self.main.comboBox_files, QtCore.SIGNAL("currentIndexChanged(int)"), self.change_dir_files)
+        self.connect(self.main.comboBox_filesg, QtCore.SIGNAL("currentIndexChanged(int)"), self.change_dir_filesg)
 
         # Tools Source
         self.connect(self.main.tableWidget_functions, QtCore.SIGNAL("doubleClicked(QModelIndex)"), self.jump_function)

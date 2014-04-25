@@ -138,6 +138,10 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             rhistorial = self.historial[:]
 
             rhistorial.reverse()
+
+            rhistorial = filter(lambda cm: not cm.isspace(), rhistorial)
+            rhistorial = filter(lambda cm: not cm == "", rhistorial)
+
             for command in rhistorial[:10]:
                 sub_menu.addAction(command, lambda :self.insertPlainText(command))
             menu.addMenu(sub_menu)
@@ -228,7 +232,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
     #----------------------------------------------------------------------
     def command_clear(self):
         self.clear()
-        #self.appendPlainText(START)
+        self.appendPlainText(START)
 
 
     #----------------------------------------------------------------------
@@ -238,4 +242,4 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
         self.set_extra_args(**self.extra_args)
-        #self.appendPlainText(START)
+        self.appendPlainText(START)

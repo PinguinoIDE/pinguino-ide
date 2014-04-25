@@ -5,11 +5,18 @@ xxxxxx --, 2014
 
 Features
 
-*
+* Added language support
+* Added Spanish translation by Yeison Cardona
+* Added Japanesse translation by "avrin"
+
+Improves
+
+* Menu sorted
 
 Bug Fixes
 
-*
+* Fixed clear and restart commands in python shell
+* Fixed historial commands in python shell
 
 ##################################################
 

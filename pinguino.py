@@ -57,7 +57,6 @@ if __name__ == "__main__":
     #import locale
 
     sys_locale = QtCore.QLocale.system().name()
-    #sys_locale = "ja"
     #sys_locale = locale.getdefaultlocale()[0]
     translator = QtCore.QTranslator()
 

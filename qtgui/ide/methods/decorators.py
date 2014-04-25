@@ -74,7 +74,8 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                current_tab_name = Pinguino.main.tabWidget_browser.tabText(Pinguino.main.tabWidget_browser.currentIndex())
+                current_tab_name = Pinguino.main.tabWidget_browser.currentWidget().objectName()
+                Pinguino.main.tabWidget_browser.accessibleName
                 if current_tab_name == name:
                     return fn(Pinguino, *args, **kwargs)
                 else:
@@ -90,7 +91,7 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                current_tab_name = Pinguino.main.tabWidget_tools.tabText(Pinguino.main.tabWidget_tools.currentIndex())
+                current_tab_name = Pinguino.main.tabWidget_tools.currentWidget().objectName()
                 if current_tab_name == name:
                     return fn(Pinguino, *args, **kwargs)
                 else:
