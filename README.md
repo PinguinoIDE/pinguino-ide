@@ -11,7 +11,6 @@ Open source integrated development enviroment (IDE).
 
 ## Requirements
   * [pyside] (https://pypi.python.org/pypi/PySide)
-  * [intelhex] (https://pypi.python.org/pypi/IntelHex)
   * [beautifulsoup4] (https://pypi.python.org/pypi/beautifulsoup4)
   * [pyusb==1.0.0b1] (https://pypi.python.org/pypi/pyusb/1.0.0b1)
   
