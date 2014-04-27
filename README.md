@@ -38,6 +38,7 @@ $ python pinguino.py
   * Uncompress ```linux.zip``` (win32.zip or macosx.zip) and move the ```linux``` (win32 or macosx) directory to ```PINGUINO-DIR```.
   * Edit [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg) with ```install_path = /PATH/TO/PINGUINO-DIR```.
   * Install [dependences](#requirements).
+  * Copy "source" directory (from ```PINGUINO-DIR```) to ```user_path```, see [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg)
   * Run ```python pinguino.py```.
   * On menu ```pinguino >> Set paths```.
  
