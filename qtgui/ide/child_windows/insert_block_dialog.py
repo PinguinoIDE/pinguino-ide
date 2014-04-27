@@ -36,9 +36,19 @@ class InsertBlock(QtGui.QDialog):
 
         """)
 
+        self.center_on_screen()
+
+
+    #----------------------------------------------------------------------
+    def center_on_screen(self):
+
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 
     #----------------------------------------------------------------------
     def line_edit_key(self, event):
+
         key = event.key()
         if key in (QtCore.Qt.Key_Down, ):
             self.insert.listWidget.setFocus()
@@ -53,6 +63,7 @@ class InsertBlock(QtGui.QDialog):
 
     #----------------------------------------------------------------------
     def list_key(self, event):
+
         key = event.key()
         if key in (QtCore.Qt.Key_Down,
                    QtCore.Qt.Key_Up,
@@ -66,6 +77,7 @@ class InsertBlock(QtGui.QDialog):
 
     #----------------------------------------------------------------------
     def update_blocks(self, text):
+
         bloques = []
         self.items = {}
         self.all_sets = self.graphical.get_all_sets()
@@ -81,6 +93,7 @@ class InsertBlock(QtGui.QDialog):
 
     #----------------------------------------------------------------------
     def insert_block(self, list_widget):
+
         self.hide()
         work_area = self.graphical.get_work_area()
         block = self.items[list_widget.text()]

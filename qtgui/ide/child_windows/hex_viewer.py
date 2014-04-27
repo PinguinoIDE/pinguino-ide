@@ -52,10 +52,11 @@ class HexViewer(QtGui.QMainWindow):
         self.connect(self.hex_viewer.pushButton_close, QtCore.SIGNAL("clicked()"), self.close)
         self.connect(self.hex_viewer.pushButton_save_changes, QtCore.SIGNAL("clicked()"), self.save_changes)
 
-        self.centrar()
+        self.center_on_screen()
 
     #----------------------------------------------------------------------
-    def centrar(self):
+    def center_on_screen(self):
+
         screen = QtGui.QDesktopWidget().screenGeometry()
         size = self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)

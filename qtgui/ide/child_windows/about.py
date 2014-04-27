@@ -5,7 +5,6 @@ import os
 
 from PySide import QtGui, QtCore
 
-#from ..methods.constants import os.getenv("NAME")
 from ...frames.about import Ui_About
 
 ########################################################################
@@ -13,6 +12,9 @@ class About(QtGui.QDialog):
 
     def __init__(self):
         super(About, self).__init__()
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
+                            QtCore.Qt.WindowSystemMenuHint |
+                            QtCore.Qt.WindowStaysOnTopHint)
 
         self.about = Ui_About()
         self.about.setupUi(self)
@@ -40,3 +42,12 @@ class About(QtGui.QDialog):
         font-weight: normal;
 
         """)
+
+        self.center_on_screen()
+
+    #----------------------------------------------------------------------
+    def center_on_screen(self):
+
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)

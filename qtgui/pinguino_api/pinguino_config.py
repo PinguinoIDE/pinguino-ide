@@ -113,8 +113,10 @@ class PinguinoConfig(object):
     @classmethod
     def update_pinguino_extra_options(self, config, pinguino_object):
 
-        pinguino_object.MIPS16_ENABLE = config.config("Board", "mips16", True)
-        pinguino_object.HEAPSIZE = config.config("Board", "heapsize", True)
+        #pinguino_object.MIPS16 = "1" if config.config("Board", "mips16", True) else "0"
+        pinguino_object.MIPS16 = str(config.config("Board", "mips16", True))
+        pinguino_object.HEAPSIZE = str(config.config("Board", "heapsize", 512))
+        pinguino_object.OPTIMIZATION = config.config("Board", "optimization", "-O3")
 
 
     #----------------------------------------------------------------------

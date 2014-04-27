@@ -715,8 +715,9 @@ class PinguinoTools(object):
                             "_IDE_P32DIR_=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
                             "_IDE_SRCDIR_=" + self.SOURCE_DIR,
 
-                            "_IDE_HEAP_SIZE_=" + "16384" if self.HEAPSIZE else "16384",
-                            "_IDE_MIPS16_ENABLE_=" + "1" if self.MIPS16_ENABLE else "0",
+                            "_IDE_HEAP_SIZE_=" + self.HEAPSIZE,
+                            "_IDE_MIPS16_ENABLE_=" + self.MIPS16,
+                            "_IDE_OPTIMIZATION_=" + self.OPTIMIZATION,
 
                          ] + _IDE_USERLIBS_,
 

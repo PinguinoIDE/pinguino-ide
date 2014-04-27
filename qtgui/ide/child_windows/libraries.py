@@ -125,8 +125,19 @@ class LibManager(QtGui.QMainWindow):
 
         """)
 
+        self.center_on_screen()
+
 
     #----------------------------------------------------------------------
+
+    def center_on_screen(self):
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
+
+
+    #----------------------------------------------------------------------
+
     def open_link(self, model_index):
         #column = model_index.column()
         item = self.libframe.tableWidget_sources.itemFromIndex(model_index)

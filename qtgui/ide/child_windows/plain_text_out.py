@@ -56,6 +56,16 @@ class PlainOut(QtGui.QDialog):
 
         """)
 
+        self.center_on_screen()
+
+
+    #----------------------------------------------------------------------
+
+    def center_on_screen(self):
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
+
 
     #----------------------------------------------------------------------
     def show_text(self, text, pde=False):

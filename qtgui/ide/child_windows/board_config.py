@@ -4,7 +4,7 @@
 import os
 
 from ...frames.board_config import Ui_BoardConfig
-#from ..methods.constants import os.getenv("NAME")
+from .board_config_advance import BoardConfigAdvance
 from PySide import QtGui, QtCore
 
 
@@ -13,6 +13,9 @@ class BoardConfig(QtGui.QDialog):
 
     def __init__(self, parent):
         super(BoardConfig, self).__init__()
+        self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
+                            QtCore.Qt.WindowSystemMenuHint |
+                            QtCore.Qt.WindowStaysOnTopHint)
 
         self.board_config = Ui_BoardConfig()
         self.board_config.setupUi(self)
@@ -29,16 +32,17 @@ class BoardConfig(QtGui.QDialog):
         self.connect(self.board_config.radioButton_arch_8, QtCore.SIGNAL("clicked()"), self.update_mode)
         self.connect(self.board_config.radioButton_arch_32, QtCore.SIGNAL("clicked()"), self.update_mode)
 
+        self.connect(self.board_config.pushButton_advance, QtCore.SIGNAL("clicked()"), self.advance)
         self.connect(self.board_config.pushButton_ok, QtCore.SIGNAL("clicked()"), self.accept_config)
         self.connect(self.board_config.pushButton_cancel, QtCore.SIGNAL("clicked()"), self.terminate_config)
 
-        self.connect(self.board_config.checkBox_heapsize, QtCore.SIGNAL("clicked()"), self.update_heapsize)
-        self.connect(self.board_config.checkBox_mips16, QtCore.SIGNAL("clicked()"), self.update_mips16)
+        #self.connect(self.board_config.checkBox_heapsize, QtCore.SIGNAL("clicked()"), self.update_heapsize)
+        #self.connect(self.board_config.checkBox_mips16, QtCore.SIGNAL("clicked()"), self.update_mips16)
 
         self.closeEvent = self.terminate_config
 
         all_groups = [self.board_config.groupBox_arch,
-                      self.board_config.groupBox_extra,
+                      #self.board_config.groupBox_extra,
                       self.board_config.groupBox_mode,
                       self.board_config.groupBox_bootloader,
                       self.board_config.groupBox_devices_8,
@@ -59,6 +63,7 @@ class BoardConfig(QtGui.QDialog):
         """)
 
         self.init_groups()
+        self.center_on_screen()
 
 
     #----------------------------------------------------------------------
@@ -95,6 +100,7 @@ class BoardConfig(QtGui.QDialog):
         arch = self.main.configIDE.config("Board", "arch", 8)
         self.board_config.radioButton_arch_8.setChecked(arch == 8)
         self.board_config.radioButton_arch_32.setChecked(arch == 32)
+        self.board_config.pushButton_advance.setVisible(arch == 32)
 
         mode = self.main.configIDE.config("Board", "mode", "bootloader")
         self.board_config.radioButton_mode_bootloader.setChecked(mode == "bootloader")
@@ -104,13 +110,13 @@ class BoardConfig(QtGui.QDialog):
         self.board_config.radioButton_bootloader_v1_v2.setChecked(bootloader == "v1_v2")
         self.board_config.radioButton_bootloader_v4.setChecked(bootloader == "v4")
 
-        mips16 = self.main.configIDE.config("Board", "mips16", True)
-        self.board_config.checkBox_mips16.setChecked(mips16)
+        #mips16 = self.main.configIDE.config("Board", "mips16", True)
+        #self.board_config.checkBox_mips16.setChecked(mips16)
 
-        heapsize = self.main.configIDE.config("Board", "heapsize", True)
-        self.board_config.checkBox_heapsize.setChecked(heapsize)
+        #heapsize = self.main.configIDE.config("Board", "heapsize", True)
+        #self.board_config.checkBox_heapsize.setChecked(heapsize)
 
-        self.update_mode()
+        #self.update_mode()
         self.update_mode()
 
 
@@ -141,7 +147,7 @@ class BoardConfig(QtGui.QDialog):
         self.board_config.groupBox_bootloader.setVisible(mode_boot and arch_8)
 
         if not mode_boot:
-            self.board_config.label_warning.setText("WARNING!! this mode can overwite the bootloader code.")
+            self.board_config.label_warning.setText(QtGui.QApplication.translate("Frame", "WARNING!! this mode can overwite the bootloader code."))
         else:
             self.board_config.label_warning.setText("")
 
@@ -152,7 +158,6 @@ class BoardConfig(QtGui.QDialog):
         arch_8 = self.board_config.radioButton_arch_8.isChecked()
         self.board_config.groupBox_devices_32.setVisible(not arch_8)
         self.board_config.groupBox_devices_8.setVisible(arch_8)
-        self.board_config.groupBox_extra.setVisible(not arch_8)
 
 
     #----------------------------------------------------------------------
@@ -206,3 +211,18 @@ class BoardConfig(QtGui.QDialog):
             if name_checked == board.name: radio.setChecked(True)
             self.connect(radio, QtCore.SIGNAL("clicked()"), self.set_board_name(board.name, "32"))
             count += 1
+
+
+    #----------------------------------------------------------------------
+    def advance(self):
+
+        self.frame_advance = BoardConfigAdvance(self.main, "BOARDNAME")
+        self.frame_advance.show()
+
+
+    #----------------------------------------------------------------------
+    def center_on_screen(self):
+
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)

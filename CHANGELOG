@@ -12,11 +12,13 @@ Features
 Improves
 
 * Menu sorted
+* Dialogues centered on the screen
 
 Bug Fixes
 
 * Fixed clear and restart commands in python shell
 * Fixed historial commands in python shell
+
 
 ##################################################
 

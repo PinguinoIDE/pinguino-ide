@@ -78,6 +78,17 @@ class Paths(QtGui.QDialog):
 
         Dialogs.warning_message(self, QtGui.QApplication.translate("Dialogs", "This paths are very important don't try to edit it if you don't know what are you doing."))
 
+        self.center_on_screen()
+
+
+    #----------------------------------------------------------------------
+    def center_on_screen(self):
+
+        screen = QtGui.QDesktopWidget().screenGeometry()
+        size = self.geometry()
+        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
+
+
     #----------------------------------------------------------------------
     def close(self):
 
