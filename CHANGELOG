@@ -8,6 +8,7 @@ Features
 * Added language support
 * Added Spanish translation by Yeison Cardona
 * Added Japanesse translation by "avrin"
+* Added backup files
 
 Improves
 
@@ -16,8 +17,11 @@ Improves
 
 Bug Fixes
 
-* Fixed clear and restart commands in python shell
-* Fixed historial commands in python shell
+* "clear" and "restart" commands in python shell not add new line
+* Recents commands in python shell not saved
+* Fixed "close all files" event
+* Generate autocompleter for each arch
+
 
 
 ##################################################

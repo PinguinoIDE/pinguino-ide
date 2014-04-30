@@ -81,6 +81,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
     def mouseAction(self, event):
+
         if self.underMouse(): self.completer.hide()
         QtGui.QTextEdit.mousePressEvent(self, event)
 
@@ -111,7 +112,6 @@ class CustomTextEdit(QtGui.QTextEdit):
             }
 
         """%size)
-
 
 
     #----------------------------------------------------------------------

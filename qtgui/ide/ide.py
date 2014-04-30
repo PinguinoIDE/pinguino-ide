@@ -90,6 +90,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.update_variables()
         self.update_autocompleter()
         self.check_external_changes()
+        self.save_backup_file()
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
         self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))

@@ -62,6 +62,7 @@ class EventMethods(Methods):
 
     #----------------------------------------------------------------------
     def open_files(self):
+
         editor = self.main.tabWidget_files.currentWidget()
         path = getattr(editor, "path", None)
         if path: path = os.path.dirname(path)
@@ -90,6 +91,7 @@ class EventMethods(Methods):
             self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
             self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
             #self.update_recents(filename)
+            self.check_backup_file(editor=editor)
 
         self.tab_changed()
 
@@ -97,6 +99,7 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     @Decorator.connect_features()
     def save_file(self, *args, **kwargs):
+
         editor = kwargs.get("editor", None)
         if not editor: editor = self.get_tab().currentWidget()
         index = self.get_tab().indexOf(editor)
@@ -133,14 +136,14 @@ class EventMethods(Methods):
                 save_path, filename = Dialogs.set_save_file(self, filename)
                 if not save_path: return
                 setattr(editor, "path", save_path)
-                self.__save_file__(editor)
+                self.__save_file__(editor=editor)
 
             elif reply == None: return
 
         elif filename.endswith("*"):
             reply = Dialogs.set_no_saved_file(self, filename)
             #print reply
-            if reply == True: self.__save_file__(editor)
+            if reply == True: self.__save_file__(editor=editor)
             elif reply == None: return
 
         self.get_tab().removeTab(index)

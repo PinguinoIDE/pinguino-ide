@@ -8,9 +8,7 @@ from PySide import QtGui
 
 from ..methods.decorators import Decorator
 from ..tools.code_navigator import CodeNavigator
-#from ..tools.files import Files
 from ..methods.dialogs import Dialogs
-#from ..code_editor.autocomplete_icons import CompleteIcons
 
 ########################################################################
 class TimerMethods(object):
@@ -25,7 +23,6 @@ class TimerMethods(object):
     @Decorator.requiere_tools_tab("SourceBrowser")
     def update_functions(self):
 
-        #print("Source Browser: Functions")
         editor = self.main.tabWidget_files.currentWidget()
         functions_parse = CodeNavigator.get_functions(editor)
 
@@ -46,7 +43,6 @@ class TimerMethods(object):
             self.main.tableWidget_functions.item(index, 1).setText(funtion["args"])
             self.main.tableWidget_functions.item(index, 2).setText("-".join(funtion["line"]))
 
-
             index += 1
 
 
@@ -59,7 +55,6 @@ class TimerMethods(object):
     @Decorator.requiere_tools_tab("SourceBrowser")
     def update_directives(self):
 
-        #print("Source Browser: Directives.")
         editor = self.main.tabWidget_files.currentWidget()
         directives_parse = CodeNavigator.get_directives(editor)
 
@@ -92,10 +87,8 @@ class TimerMethods(object):
     @Decorator.requiere_tools_tab("SourceBrowser")
     def update_variables(self):
 
-        #print("Source Browser: Variables.")
         editor = self.main.tabWidget_files.currentWidget()
         variables_parse = CodeNavigator.get_variables(editor)
-
 
         index = 0
         self.main.tableWidget_variables.setRowCount(len(variables_parse))
@@ -144,7 +137,6 @@ class TimerMethods(object):
             for directive in directives_parse:
                 self.completer_directives.append(directive["name"])
 
-
         editor.text_edit.completer.removeTemporalItems("directives")
         editor.text_edit.completer.removeTemporalItems("variables")
         editor.text_edit.completer.removeTemporalItems("functions")
@@ -164,11 +156,10 @@ class TimerMethods(object):
 
             editor.text_edit.completer.addTemporalItem("variables", item, icon)
 
-
-
         self.completer_funtions = []
         self.completer_directives = []
         self.completer_variables = []
+
 
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
@@ -176,6 +167,7 @@ class TimerMethods(object):
     @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
     def check_external_changes(self):
+
         editor = self.main.tabWidget_files.currentWidget()
         filename = getattr(editor, "path", None)
         if not filename: return
@@ -195,3 +187,28 @@ class TimerMethods(object):
 
             if reload_: self.save_file()
             else: self.reload_file()
+
+
+    #----------------------------------------------------------------------
+    @Decorator.timer(1000)
+    @Decorator.requiere_main_focus()
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_open_files()
+    def save_backup_file(self):
+
+        editor = self.main.tabWidget_files.currentWidget()
+        index = self.main.tabWidget_files.indexOf(editor)
+        filename_tab = self.main.tabWidget_files.tabText(index)
+        filename = getattr(editor, "path", None)
+        if not filename: return
+        content_saved = getattr(editor, "last_saved", None)
+        content = editor.text_edit.toPlainText()
+        filename_backup = filename + "~"
+        #if os.path.exists(filename) and filename_tab.endswith("*"):
+        if os.path.exists(filename) and (content_saved != content):
+            file_ = codecs.open(filename_backup, "w", "utf-8")
+            file_.write(content)
+            file_.close()
+
+        elif content_saved == content and os.path.exists(filename_backup):
+            os.remove(filename_backup)

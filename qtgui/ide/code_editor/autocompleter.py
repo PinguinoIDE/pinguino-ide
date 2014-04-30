@@ -77,6 +77,7 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def show(self, *args):
+        self.set_arch_autocompleter()
         super(PinguinoAutoCompleter, self).show(*args)
 
     #----------------------------------------------------------------------
@@ -187,11 +188,11 @@ class PinguinoAutoCompleter(QListWidget):
     #----------------------------------------------------------------------
     def popup(self, pos, index=None):
 
-        #hide autocompleter after 3s
-        hide_timer = QtCore.QTimer()
-        QtCore.QTimer.singleShot(3000, self.hide)
-        hide_timer.setSingleShot(True)
-        hide_timer.start()
+        ##hide autocompleter after 3s
+        #hide_timer = QtCore.QTimer()
+        #QtCore.QTimer.singleShot(3000, self.hide)
+        #hide_timer.setSingleShot(True)
+        #hide_timer.start()
 
         self.sortItems()
         self.itemsList.sort()
