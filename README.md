@@ -11,7 +11,6 @@ Open source integrated development enviroment (IDE).
 
 ## Requirements
   * [pyside] (https://pypi.python.org/pypi/PySide)
-  * [intelhex] (https://pypi.python.org/pypi/IntelHex)
   * [beautifulsoup4] (https://pypi.python.org/pypi/beautifulsoup4)
   * [pyusb==1.0.0b1] (https://pypi.python.org/pypi/pyusb/1.0.0b1)
   
@@ -38,6 +37,7 @@ $ python pinguino.py
   * Uncompress ```linux.zip``` (win32.zip or macosx.zip) and move the ```linux``` (win32 or macosx) directory to ```PINGUINO-DIR```.
   * Edit [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg) with ```install_path = /PATH/TO/PINGUINO-DIR```.
   * Install [dependences](#requirements).
+  * Copy "source" directory (from ```PINGUINO-DIR```) to ```user_path```, see [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg)
   * Run ```python pinguino.py```.
   * On menu ```pinguino >> Set paths```.
  
