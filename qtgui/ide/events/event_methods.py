@@ -161,7 +161,7 @@ class EventMethods(Methods):
         filename = self.main.tabWidget_files.tabText(index)
         save_path = getattr(editor, "path", None)
 
-        save_path, filename = Dialogs.set_save_file(self, filename)
+        save_path, filename = Dialogs.set_save_file(self, save_path)
         if not save_path: return False
         setattr(editor, "path", save_path)
         self.main.tabWidget_files.setTabText(index, filename)

@@ -32,17 +32,17 @@ class SearchReplace(object):
         editor.text_edit.setExtraSelections([])
         if not empty: return
 
-
         if self.main.checkBox_case_sensitive.isChecked():
             content = editor.text_edit.toPlainText()
             count = content.count(text_to_search)
-            self.main.label_replace_info.setText(QtGui.QApplication.translate("Frame", "%d words were found.")%count)
-
         else:
             content = editor.text_edit.toPlainText().lower()
             count = content.count(text_to_search.lower())
-            self.main.label_replace_info.setText(QtGui.QApplication.translate("Frame", "%d words were found.")%count)
 
+        if count == 0: message = QtGui.QApplication.translate("Frame", "No words were found.")
+        elif  count == 1: message = QtGui.QApplication.translate("Frame", "One word were found.")
+        else: message = QtGui.QApplication.translate("Frame", "%d words were found."%count)
+        self.main.label_replace_info.setText(message)
 
         #for i in range(count): self.search_next()
 
@@ -114,15 +114,15 @@ class SearchReplace(object):
         editor = self.main.tabWidget_files.currentWidget()
         text_doc = editor.text_edit.document()
         text_cur = editor.text_edit.textCursor()
-        s = text_doc.FindCaseSensitively if sensitive else None
-        w = text_doc.FindWholeWords if whole else None
+        s = text_doc.FindCaseSensitively if sensitive else 0
+        w = text_doc.FindWholeWords if whole else 0
         editor.text_edit.moveCursor(text_cur.NoMove, text_cur.KeepAnchor)
         text_cur.beginEditBlock()
         editor.text_edit.moveCursor(text_cur.Start)
         count = 0
         while True:
             result = False
-            if sensitive or whole: result = editor.text_edit.find(wordOld, s or w)
+            if sensitive or whole: result = editor.text_edit.find(wordOld, s | w)
             else: result = editor.text_edit.find(wordOld)
             if result:
                 tc = editor.text_edit.textCursor()
@@ -138,11 +138,11 @@ class SearchReplace(object):
         editor = self.main.tabWidget_files.currentWidget()
         text_doc = editor.text_edit.document()
         text_cur = editor.text_edit.textCursor()
-        b = text_doc.FindBackward if back else None
-        s = text_doc.FindCaseSensitively if sensitive else None
-        w = text_doc.FindWholeWords if whole else None
+        b = text_doc.FindBackward if back else 0
+        s = text_doc.FindCaseSensitively if sensitive else 0
+        w = text_doc.FindWholeWords if whole else 0
         editor.text_edit.moveCursor(text_cur.NoMove, text_cur.KeepAnchor)
-        if back or sensitive or whole: editor.text_edit.find(word, b or s or w)
+        if back or sensitive or whole: editor.text_edit.find(word, b | s | w)
         else:  editor.text_edit.find(word)
         self.highligh_line(line=None, color="#ffff7f", text_cursor=editor.text_edit.textCursor())
 

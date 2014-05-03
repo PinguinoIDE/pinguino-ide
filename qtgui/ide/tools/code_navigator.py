@@ -118,7 +118,7 @@ class CodeNavigator(object):
     @classmethod
     def get_variables(cls, editor):
 
-        regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*([*])*[\s]*([ \w\[\]=,{}\"'\*]*);"
+        regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*([*])*[\s]*([ \w\[\]=,.{}\"'\*]*);"
 
         variables = []
         content = cls.remove_comments(editor.text_edit.toPlainText())
