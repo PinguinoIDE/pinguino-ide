@@ -836,9 +836,9 @@ class WorkArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     def fix_syntax_code(self, code):
 
-        fix_syntax = "> < >= <= = ".split()
-        for char in fix_syntax:
-            code = code.replace(char, " "+char+" ")
+        #fix_syntax = "> < >= <= =".split()
+        #for char in fix_syntax:
+            #code = code.replace(char, " "+char+" ")
         return code
 
 

@@ -23,6 +23,7 @@ Bug Fixes
 * Generate autocompleter for each arch
 * Float initialized not recognized by source browser
 * "Case sensitive "option in search and replace without effect
+* Fixed code generation on graphical mode
 
 
 
