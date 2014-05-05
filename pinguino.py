@@ -57,7 +57,7 @@ if __name__ == "__main__":
     #import locale
 
     sys_locale = QtCore.QLocale.system().name()
-    #sys_locale = locale.getdefaultlocale()[0]
+    #sys_locale = "en"  #force language
     translator = QtCore.QTranslator()
 
     #load intern dialogs translations

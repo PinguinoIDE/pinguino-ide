@@ -112,7 +112,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         elif os_name == "linux":
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
 
-
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("NAME"), os.getenv("VERSION")))
 
 

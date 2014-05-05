@@ -204,7 +204,6 @@ class Methods(SearchReplace):
 
         editor = kwargs.get("editor", self.get_tab())
         content = editor.text_edit.toPlainText()
-        #pde_file = open(editor.path, mode="w")
         pde_file = codecs.open(editor.path, "w", "utf-8")
         pde_file.write(content)
         pde_file.close()

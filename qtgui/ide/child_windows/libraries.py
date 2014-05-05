@@ -157,7 +157,6 @@ class LibManager(QtGui.QMainWindow):
             path_user_examples_libraries = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), dir_)
             if not os.path.exists(path_user_examples_libraries):
                 os.mkdir(path_user_examples_libraries)
-                logg
                 self.main.write_log(QtGui.QApplication.translate("Frame", "Created :")+path_user_examples_libraries)
 
         lista = []
