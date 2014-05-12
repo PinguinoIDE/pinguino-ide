@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
@@ -35,6 +36,19 @@ class BoardConfigAdvance(QtGui.QDialog):
 
         self.connect(self.board_config.pushButton_accept, QtCore.SIGNAL("clicked()"), self.accept_config)
         self.connect(self.board_config.pushButton_defaul, QtCore.SIGNAL("clicked()"), self.restore_default)
+
+        self.setStyleSheet("""
+        font-family: ubuntu regular;
+        font-weight: normal;
+
+        """)
+
+        #self.board_config.pushButton_advance.setStyleSheet("""
+        #QPushButton{
+            #font-family: ubuntu regular;
+            #font-weight: bold;
+        #}
+        #""")
 
         self.center_on_screen()
 

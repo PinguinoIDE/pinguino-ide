@@ -70,6 +70,7 @@ class BoardConfig(QtGui.QDialog):
     def terminate_config(self, event=None):
 
         self.main.configIDE.load_config()
+        self.close_advance()
         self.close()
 
 
@@ -89,6 +90,7 @@ class BoardConfig(QtGui.QDialog):
         self.save_config()
         self.main.configIDE.save_config()
         self.main.statusbar_ide(self.main.get_status_board())
+        self.close_advance()
         self.close()
 
 
@@ -218,6 +220,13 @@ class BoardConfig(QtGui.QDialog):
 
         self.frame_advance = BoardConfigAdvance(self.main, "BOARDNAME")
         self.frame_advance.show()
+
+    #----------------------------------------------------------------------
+    def close_advance(self):
+
+        try: assert self.frame_advance
+        except: return
+        self.frame_advance.close()
 
 
     #----------------------------------------------------------------------

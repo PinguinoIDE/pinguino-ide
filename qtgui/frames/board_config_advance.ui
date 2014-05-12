@@ -34,6 +34,9 @@
        <property name="cursor">
         <cursorShape>WhatsThisCursor</cursorShape>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The amount of memory allocated to objects that are being defined.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string>Heap Size:</string>
        </property>

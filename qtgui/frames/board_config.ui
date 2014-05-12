@@ -171,6 +171,12 @@
      </item>
      <item row="0" column="0" colspan="2">
       <widget class="QPushButton" name="pushButton_advance">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Advance options</string>
        </property>
@@ -228,7 +234,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>326</x>
-     <y>245</y>
+     <y>282</y>
     </hint>
    </hints>
   </connection>
@@ -243,8 +249,8 @@
      <y>40</y>
     </hint>
     <hint type="destinationlabel">
-     <x>53</x>
-     <y>202</y>
+     <x>62</x>
+     <y>239</y>
     </hint>
    </hints>
   </connection>
@@ -259,8 +265,8 @@
      <y>45</y>
     </hint>
     <hint type="destinationlabel">
-     <x>93</x>
-     <y>133</y>
+     <x>102</x>
+     <y>196</y>
     </hint>
    </hints>
   </connection>
@@ -272,7 +278,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>326</x>
-     <y>102</y>
+     <y>139</y>
     </hint>
     <hint type="destinationlabel">
      <x>285</x>
@@ -287,8 +293,8 @@
    <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>102</y>
+     <x>94</x>
+     <y>139</y>
     </hint>
     <hint type="destinationlabel">
      <x>66</x>

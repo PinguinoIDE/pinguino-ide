@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/board_config.ui'
 #
-# Created: Sun Apr 27 15:31:26 2014
+# Created: Mon May 12 13:56:40 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -83,6 +83,10 @@ class Ui_BoardConfig(object):
         self.pushButton_ok.setObjectName("pushButton_ok")
         self.gridLayout_6.addWidget(self.pushButton_ok, 1, 1, 1, 1)
         self.pushButton_advance = QtGui.QPushButton(BoardConfig)
+        font = QtGui.QFont()
+        font.setWeight(75)
+        font.setBold(True)
+        self.pushButton_advance.setFont(font)
         self.pushButton_advance.setObjectName("pushButton_advance")
         self.gridLayout_6.addWidget(self.pushButton_advance, 0, 0, 1, 2)
         self.gridLayout_5.addLayout(self.gridLayout_6, 8, 0, 1, 1)
