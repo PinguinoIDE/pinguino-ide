@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/paths.ui'
 #
-# Created: Mon May 12 13:56:42 2014
+# Created: Mon Jun  2 19:52:06 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -116,6 +116,9 @@ class Ui_Paths(object):
         self.pushButton_close.setObjectName("pushButton_close")
         self.horizontalLayout_2.addWidget(self.pushButton_close)
         self.gridLayout_5.addLayout(self.horizontalLayout_2, 2, 0, 1, 1)
+        self.label = QtGui.QLabel(Paths)
+        self.label.setObjectName("label")
+        self.gridLayout_5.addWidget(self.label, 3, 0, 1, 1)
 
         self.retranslateUi(Paths)
         QtCore.QMetaObject.connectSlotsByName(Paths)
@@ -133,5 +136,6 @@ class Ui_Paths(object):
         self.label_8.setText(QtGui.QApplication.translate("Paths", "Libraries:", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_pinguino_32_libs.setText(QtGui.QApplication.translate("Paths", "Change...", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("Paths", "Close", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("Paths", "<html><head/><body><p>Pinguino IDE requires a restart to reinitialize its preferences.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

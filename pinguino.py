@@ -90,6 +90,7 @@ if __name__ == "__main__":
 
         pixmap = QPixmap(":/logo/art/splash.png")
         splash = QSplashScreen(pixmap, QtCore.Qt.WindowStaysOnTopHint)
+
         splash.show()
         splash.setStyleSheet("""
             font-family: ubuntu regular;
