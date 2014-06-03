@@ -18,10 +18,10 @@ from ...frames.select_area import Ui_Selection
 from ...ide.methods.dialogs import Dialogs
 #from ...ide.methods.decorators import Decorator
 
-TEMPLATES = {"and": {"python":"and", "pinguino":"&&",},
-             "not": {"python":"not", "pinguino":"!",},
-             "or": {"python":"or", "pinguino":"||",},
-             }
+#TEMPLATES = {"and": {"python":"and", "pinguino":"&&",},
+             #"not": {"python":"not", "pinguino":"!",},
+             #"or": {"python":"or", "pinguino":"||",},
+             #}
 
 exclude_auto_open = ["button_pressed", "button_released"]
 
@@ -728,8 +728,8 @@ class WorkArea(QtGui.QWidget):
             if not f in funcs:
                 pinguino_code_extra += "\n" + f + "(){\n    }\n"
 
-        for key in TEMPLATES.keys():
-            pinguino_code = pinguino_code.replace("@"+key+"@", TEMPLATES[key]["pinguino"])
+        #for key in TEMPLATES.keys():
+            #pinguino_code = pinguino_code.replace("@"+key+"@", TEMPLATES[key]["pinguino"])
 
         pinguino_code += pinguino_code_extra
 

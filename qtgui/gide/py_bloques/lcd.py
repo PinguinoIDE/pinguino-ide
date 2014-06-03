@@ -37,19 +37,15 @@ class LCD(object):
 
     #----------------------------------------------------------------------
     def LCD_pins_8bit(self):
+
         pm = Block.Linear("LCD")
         pm.addLabel("lcd.pins")
         pm.addDecorator(" (8bits)")
         pm.addSyntax("(")
 
-        #pm.addSyntax("0,")  #0: 8bits
-
         pm.addArg("RS")
         pm.addSyntax(",")
         pm.addDecorator(" ")
-        #pm.addArg("RW")
-        #pm.addSyntax(",")
-        #pm.addDecorator(" ")
         pm.addArg("E")
         pm.addSyntax(",")
         pm.addDecorator(" ")
@@ -69,19 +65,15 @@ class LCD(object):
 
     #----------------------------------------------------------------------
     def LCD_pins_4bit(self):
+
         pm = Block.Linear("LCD")
         pm.addLabel("lcd.pins")
         pm.addDecorator(" (4bits)")
         pm.addSyntax("(")
 
-        #pm.addSyntax("1, ")  #1: 4bits
-
         pm.addArg("RS")
         pm.addSyntax(",")
         pm.addDecorator(" ")
-        #pm.addArg("RW")
-        #pm.addSyntax(",")
-        #pm.addDecorator(" ")
         pm.addArg("E")
         pm.addSyntax(",")
         pm.addDecorator(" ")
@@ -104,6 +96,7 @@ class LCD(object):
 
     #----------------------------------------------------------------------
     def LCD_begin(self):
+
         pm = Block.Linear("LCD")
         pm.addLabel("lcd.begin")
         pm.addSyntax("(")
@@ -116,8 +109,10 @@ class LCD(object):
         pm.fillWith(["spin-int", "spin-int"])
         return pm.getBlock()
 
+
     #----------------------------------------------------------------------
     def LCD_setCursor(self):
+
         pm = Block.Linear("LCD")
         pm.addLabel("lcd.setCursor")
         pm.addSyntax("(")
@@ -129,8 +124,10 @@ class LCD(object):
         pm.fillWith(["spin-int", "spin-int"])
         return pm.getBlock()
 
+
     #----------------------------------------------------------------------
     def LCD_printNumber(self):
+
         pm = Block.Linear("LCD")
         pm.addLabel("lcd.printNumber")
         pm.addSyntax("(")

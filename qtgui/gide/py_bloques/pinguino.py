@@ -26,22 +26,28 @@ class Pinguino(object):
     digitalRead_b = lambda n:Kit.addFunct("Pinguino", "digitalRead", 1, t="output-bool", fill=["spin-int"])
     analogRead_b = lambda n:Kit.addFunct("Pinguino", "analogRead", 1, t="output-bool", fill=["spin-int"])
 
+
     #----------------------------------------------------------------------
     def setup(self):
+
         st = Block.Function("Pinguino")
         st.addLabel("setup")
         st.addSyntax("()")
         return st.getBlock()
 
+
     #----------------------------------------------------------------------
     def loop(self):
+
         st = Block.Function("Pinguino")
         st.addLabel("loop")
         st.addSyntax("()")
         return st.getBlock()
 
+
     #----------------------------------------------------------------------
     def define(self):
+
         st = Block.Linear("Pinguino")
         st.addLabel("#define")
         st.addSyntax(" ")
@@ -52,8 +58,10 @@ class Pinguino(object):
         st.fillWith(["edit-value", "edit-value"])
         return st.getBlock()
 
+
     #----------------------------------------------------------------------
     def global_vars(self):
+
         st = Block.Function("Pinguino")
         st.addLabel("global")
         st.addSyntax(" variables")
@@ -62,9 +70,9 @@ class Pinguino(object):
 
     #----------------------------------------------------------------------
     def types(self):
+
         st = Block.Output("Output")
         st.addSpinChoice("char*", ["char*", "char", "int", "float", "u8", "u16", "u32"])
         st.addSyntax(" ")
         st.addEdit("Pinguino")
         return st.getBlock()
-

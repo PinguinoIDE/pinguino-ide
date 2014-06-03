@@ -13,9 +13,10 @@ class Stepper(object):
     Stepper_setMicrostep = lambda n:Kit.addFunct("Stepper", "Stepper.setMicrostep", 1, fill=["spin-int"])
     Stepper_step = lambda n:Kit.addFunct("Stepper", "Stepper.step", 1, fill=["spin-int"])
 
-    
+
     #----------------------------------------------------------------------
     def Stepper_init(self):
+
         pm = Block.Linear("Stepper")
         pm.addLabel("Stepper.init")
         pm.addSyntax("(")
@@ -29,4 +30,3 @@ class Stepper(object):
         pm.addSpace()
         pm.addSyntax(")")
         return pm.getBlock()
-    

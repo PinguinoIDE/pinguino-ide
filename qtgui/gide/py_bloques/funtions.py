@@ -5,9 +5,10 @@ from . import constructor as Block
 
 ########################################################################
 class Functions(object):
-    
+
     #----------------------------------------------------------------------
     def repeat(self):
+
         pm = Block.Nested("Functions")
         pm.addSyntax("//")
         pm.addLabel("Repeat")
@@ -17,10 +18,11 @@ class Functions(object):
         pm.addSyntax("; __i__++)")
         pm.fillWith(["spin-int"])
         return pm.getBlock()
-    
+
+
     #----------------------------------------------------------------------
     def button_pressed(self):
-        
+
         pm = Block.Nested("Functions")
         pm.addSyntax("//")
         pm.addLabel("Button Pressed")
@@ -34,11 +36,11 @@ class Functions(object):
         pm.fillWith(["spin-int"])
         pm.addContextHelp("Normally open")
         return pm.getBlock()
-        
-    
+
+
     #----------------------------------------------------------------------
     def button_released(self):
-        
+
         pm = Block.Nested("Functions")
         pm.addSyntax("//")
         pm.addLabel("Button Released")
@@ -52,4 +54,3 @@ class Functions(object):
         pm.fillWith(["spin-int"])
         pm.addContextHelp("Normally closed")
         return pm.getBlock()
-    
