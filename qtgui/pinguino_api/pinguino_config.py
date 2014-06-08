@@ -7,8 +7,6 @@ import shutil
 import sys
 from ConfigParser import RawConfigParser
 
-from ..ide.methods.library_manager import Librarymanager
-
 ########################################################################
 class PinguinoConfig(object):
 
@@ -146,6 +144,8 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def update_user_libs(cls, pinguino_object):
+
+        from ..ide.methods.library_manager import Librarymanager
 
         libs = Librarymanager()
 
