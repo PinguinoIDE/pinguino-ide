@@ -6,7 +6,6 @@ import sys
 
 from qtgui.pinguino_api.pinguino_config import PinguinoConfig
 
-
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
 # For PyInstaller compatibility
