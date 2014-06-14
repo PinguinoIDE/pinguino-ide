@@ -67,7 +67,6 @@ class PinguinoConfig(object):
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"),
                                     default_dir=True)
 
-        #cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_HOME"), "pinguino_source", "source"),
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_HOME"), "source"),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
@@ -94,17 +93,33 @@ class PinguinoConfig(object):
     @classmethod
     def if_not_exist_then_copy(cls, src, dst, default_dir=False):
 
-        if not os.path.exists(src):
-            logging.warning("Missing: " + src)
-            if not os.path.exists(dst) and default_dir:
-                os.mkdir(dst)
+        #When src is a file
+        if os.path.isfile(src):
+            if not os.path.exists(src): logging.warning("Missing: " + src)
+            else: shutil.copy(src, dst)
             return
 
-        if not os.path.exists(dst):
-            if os.path.isdir(src):
-                shutil.copytree(src, dst)
-            else:
-                shutil.copy(src, dst)
+        #Create parent directories
+        def prepare_directory(file_path):
+            dir_, filename = os.path.split(file_path)
+            all_dirs = []
+            while not os.path.exists(dir_):
+                all_dirs.append(dir_)
+                dir_, dir2 = os.path.split(dir_)
+            all_dirs.reverse()
+            for dir_ in all_dirs:  os.mkdir(dir_)
+
+        #When src is a directory, copy file by file
+        all_files = []
+        for path, dirs, files in os.walk(src):
+            for f in files:
+                file_path_src = os.path.join(path, f)
+                file_path_dst = dst + os.path.join(path, f).replace(src, "")
+
+                if not os.path.exists(file_path_dst):
+                    logging.warning("Copying: " + file_path_dst)
+                    prepare_directory(file_path_dst)
+                    shutil.copy(file_path_src, file_path_dst)
 
 
     #----------------------------------------------------------------------
