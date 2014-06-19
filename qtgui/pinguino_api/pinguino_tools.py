@@ -72,7 +72,8 @@ class PinguinoTools(object):
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
             #self.p8 = 'picpgm'
-            self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
+            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
+            self.UPLOADER_32 = os.path.join(self.P32_BIN, "pic32prog")
             self.MAKE = "make"
 
         elif os.getenv("PINGUINO_OS_NAME") == "mac":
@@ -182,12 +183,16 @@ class PinguinoTools(object):
 
         elif board.arch == 32:
             fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), 'stdout'), 'w+')
-
+            """ RB 19-06-2014 : pic32prog replace ubw32
             sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
                           "-w",
                           hex_file,
                           "-r",
                           "-n"],
+                         stdout=fichier, stderr=STDOUT)
+            """
+            sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
+                          "-S","-p",hex_file],
                          stdout=fichier, stderr=STDOUT)
             sortie.communicate()
             fichier.seek(0)
