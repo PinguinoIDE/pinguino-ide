@@ -37,6 +37,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         self.main = Ui_PinguinoIDE()
         self.main.setupUi(self)
+        self.set_icon_theme()
         self.reload_toolbar_icons()
 
         #set_environ_vars()
@@ -321,34 +322,43 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def reload_toolbar_icons(self):
 
         icons_toolbar = [
-                         (self.main.actionNew_file, "new_file"),
-                         (self.main.actionOpen_file, "open_file"),
-                         (self.main.actionSave_file, "save_file"),
+                         (self.main.actionNew_file, "document-new"),
+                         (self.main.actionOpen_file, "document-open"),
+                         (self.main.actionSave_file, "document-save"),
 
-                         (self.main.actionUndo, "undo"),
-                         (self.main.actionRedo, "redo"),
-                         (self.main.actionCut, "cut"),
-                         (self.main.actionCopy, "copy"),
-                         (self.main.actionPaste, "paste"),
+                         (self.main.actionUndo, "edit-undo"),
+                         (self.main.actionRedo, "edit-redo"),
+                         (self.main.actionCut, "edit-cut"),
+                         (self.main.actionCopy, "edit-copy"),
+                         (self.main.actionPaste, "edit-paste"),
 
-                         (self.main.actionSearch, "search"),
-                         (self.main.actionSearch_and_replace, "replace"),
+                         (self.main.actionSearch, "edit-find"),
+                         (self.main.actionSearch_and_replace, "edit-find-replace"),
 
-                         (self.main.actionSelect_board, "board"),
-                         (self.main.actionCompile, "compile"),
-                         (self.main.actionUpload, "download"),
+                         (self.main.actionSelect_board, "applications-electronics"),
+                         (self.main.actionCompile, "system-run"),
+                         (self.main.actionUpload, "emblem-downloads"),
 
-                         (self.main.actionSave_image, "save_image"),
+                         (self.main.actionSave_image, "applets-screenshooter"),
                          #(self.main.actionSwitch_ide, ""),
 
                         ]
 
         for action, icon_name in icons_toolbar:
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/%s.svg"%icon_name), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            #icon = QtGui.QIcon()
+            #icon.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/%s.svg"%icon_name), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            #icon.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/%s.svg"%icon_name), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            icon = QtGui.QIcon.fromTheme(icon_name)
             action.setIcon(icon)
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_text.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon.addPixmap(QtGui.QPixmap(":/toolbar/toolbar/switch_to_graphical.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.main.actionSwitch_ide.setIcon(icon)
+
+
+    #----------------------------------------------------------------------
+    def set_icon_theme(self):
+        """"""
+        QtGui.QIcon.setThemeSearchPaths(QtGui.QIcon.themeSearchPaths()+[os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources", "themes")])
+        QtGui.QIcon.setThemeName("pinguino11")

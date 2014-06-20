@@ -174,7 +174,7 @@ class WorkArea(QtGui.QWidget):
 
             elif b.metadata.type_ in "tipo7 tipo9".split():
                 if b.metadata.to and b.metadata.nested: continue
-                #FIXME: two positios!
+                #FIXME: two positions!
 
             h = distancia(s, pos)
             if h < 20 and h != 0.0: newPosList.append((s, h, point[1]))

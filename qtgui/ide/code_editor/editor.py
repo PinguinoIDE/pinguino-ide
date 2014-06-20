@@ -20,6 +20,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
+
         super(CustomTextEdit, self).__init__(*args, **kwargs)
         self.completer = PinguinoAutoCompleter()
         self.completer.text_edit = self
@@ -116,10 +117,12 @@ class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
     def insertItem(self, completion):
+
         self.insert(completion.text())
 
 
     #----------------------------------------------------------------------
+
     def insert(self, completion):
         if not completion: return
         #selected = completion
@@ -148,8 +151,8 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.setFocus()
 
 
-
     #----------------------------------------------------------------------
+
     def getPosPopup(self):
         pos = self.pos()
         pos1 = self.mapToGlobal(pos)
@@ -159,7 +162,9 @@ class CustomTextEdit(QtGui.QTextEdit):
         pos2.setY(cRect.y())
         return pos1 + pos2
 
+
     #----------------------------------------------------------------------
+
     def autoInsert(self, event):
         key = event.text()
         tc = self.textCursor()
@@ -193,6 +198,7 @@ class CustomTextEdit(QtGui.QTextEdit):
             return accept(")")
         else: return False
 
+
     #----------------------------------------------------------------------
     def keyPressEvent_autocompleter(self, event):
 
@@ -211,12 +217,15 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         self.keyPressEvent(event)
 
+
     #----------------------------------------------------------------------
     def force_keyPressEvent(self, event):
 
         super(CustomTextEdit, self).keyPressEvent(event)
 
+
     #----------------------------------------------------------------------
+
     def __keyPressEvent__(self, event):
         self.setFocus()
 
@@ -283,6 +292,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
 
     #----------------------------------------------------------------------
+
     def smart_under_selection(self, tc):
         #word like: cdc|
         tc.movePosition(tc.WordLeft, tc.KeepAnchor)
@@ -296,9 +306,9 @@ class CustomTextEdit(QtGui.QTextEdit):
         else: tc.movePosition(tc.WordRight, tc.KeepAnchor)
 
 
-
     #----------------------------------------------------------------------
     def show_autocomplete_if_conditions(self):
+
         tc = self.textCursor()
         self.smart_under_selection(tc)
 
@@ -317,3 +327,77 @@ class CustomTextEdit(QtGui.QTextEdit):
                 self.setFocus()
 
         except UnicodeEncodeError: return  #capturas tildes y caracteres especiales
+
+
+    #----------------------------------------------------------------------
+    def brace_match(self):
+        return
+
+        #braces = {"(": ")",
+                  #"[": "]",
+                  #"{": "}",
+                  #")": "(",
+                  #"]": "[",
+                  #"}": "{",}
+
+        #format_single = QtGui.QTextCharFormat()
+        #format_single.setBackground(QtGui.QBrush(QtGui.QColor("red")))
+
+        #format_balanced = QtGui.QTextCharFormat()
+        #format_balanced.setBackground(QtGui.QBrush(QtGui.QColor("green")))
+
+        #tc = self.textCursor()
+        #tc.movePosition(tc.Left, tc.KeepAnchor)
+        #brace = tc.selectedText()
+        #braceprev_pos = 1
+        #adjpos = True
+        #if not brace in "( [ { } ])".split():
+            #braceprev_pos = 0
+            #tc.movePosition(tc.Right, tc.MoveAnchor)
+            #tc.movePosition(tc.Right, tc.KeepAnchor)
+            #brace = tc.selectedText()
+            #adjpos = False
+            #if not brace in "( [ { } ] )".split(): return
+
+        #braceprev_pos += tc.position()
+        #if adjpos:
+            #tc.movePosition(tc.Left, tc.MoveAnchor)
+        ##else:
+
+
+        ##print brace, braceprev_pos,
+
+        #if brace in "[ { (".split():
+            #adv = tc.Right
+        #elif brace in "] } )".split():
+            #adv = tc.Left
+
+        #index = 1
+        #while index != 0 and brace:
+            #tc.movePosition(adv, tc.MoveAnchor)
+            #tc.movePosition(adv, tc.KeepAnchor)
+            #brace = tc.selectedText()
+            #if brace in "[ { (".split(): index += 1
+            #if brace in "] } )".split(): index -= 1
+
+        #if index == 0:
+            #bracenext_pos = tc.position() + 0 if adv == tc.Right else 1
+
+            #tc.setPosition(braceprev_pos, tc.MoveAnchor)
+            #tc.movePosition(tc.Left, tc.KeepAnchor)
+            #tc.mergeCharFormat(format_balanced)
+
+            #tc.setPosition(bracenext_pos, tc.MoveAnchor)
+            #tc.movePosition(tc.Left, tc.KeepAnchor)
+            #tc.mergeCharFormat(format_balanced)
+
+
+        #tc.setPosition(braceprev_pos, tc.MoveAnchor)
+        #tc.movePosition(tc.Left, tc.KeepAnchor)
+        #tc.mergeCharFormat(format_single)
+
+
+
+
+
+

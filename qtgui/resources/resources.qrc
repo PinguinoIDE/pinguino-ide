@@ -1,22 +1,4 @@
 <RCC>
-  <qresource prefix="toolbar">
-    <file>toolbar/new_file.svg</file>
-    <file>toolbar/undo.svg</file>
-    <file>toolbar/redo.svg</file>
-    <file>toolbar/save_file.svg</file>
-    <file>toolbar/compile.svg</file>
-    <file>toolbar/switch_to_text.svg</file>
-    <file>toolbar/switch_to_graphical.svg</file>
-    <file>toolbar/open_file.svg</file>
-    <file>toolbar/paste.svg</file>
-    <file>toolbar/download.svg</file>
-    <file>toolbar/copy.svg</file>
-    <file>toolbar/search.svg</file>
-    <file>toolbar/save_image.svg</file>
-    <file>toolbar/replace.svg</file>
-    <file>toolbar/cut.svg</file>
-    <file>toolbar/board.svg</file>
-  </qresource>
   <qresource prefix="bloques">
     <file>bloques/frame_edit/arte/insert23.svg</file>
     <file>bloques/frame_edit/arte/esq11.svg</file>

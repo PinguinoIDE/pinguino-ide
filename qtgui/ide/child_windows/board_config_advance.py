@@ -21,8 +21,9 @@ class BoardConfigAdvance(QtGui.QDialog):
         self.board_config.setupUi(self)
         self.main = parent
 
-        self.HEAPSIZE = {"512 bytes": 512,
-                         "1024 bytes": 1024,}
+        #FIXME: add correct options
+        self.HEAPSIZE = {"512 byte": 512,
+                         "1024 byte": 1024,}
         self.board_config.comboBox_heapsize.clear()
         self.board_config.comboBox_heapsize.addItems(self.HEAPSIZE.keys())
 

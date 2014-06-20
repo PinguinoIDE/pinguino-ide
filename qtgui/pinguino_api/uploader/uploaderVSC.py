@@ -4,7 +4,7 @@
 """-------------------------------------------------------------------------
 	Pinguino Universal Uploader
 
-	(c) 2011 Regis Blanchot <rblanchot@gmail.com> 
+	(c) 2011 Regis Blanchot <rblanchot@gmail.com>
 
 	This library is free software; you can redistribute it and/or
 	modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@
 -------------------------------------------------------------------------"""
 
 # This class is based on :
-# - Docker software licensed (LGPL) by Pierre Gaufillet <pierre.gaufillet@magic.fr> 
+# - Docker software licensed (LGPL) by Pierre Gaufillet <pierre.gaufillet@magic.fr>
 # - Vasco  software licensed (LGPL) by Jean-Pierre Mandon <jp.mandon@gmail.com>
 # PyUSB Doc can be found here: http://wiki.erazor-zone.de/wiki:projects:python:pyusb:pydoc
 # To get the Device Descriptors : lsusb -v -d 04d8:feaa
@@ -60,11 +60,11 @@ class uploaderVSC(baseUploader):
 	VSC_TIMEOUT						=	200
 
 	# Table with supported USB devices
-	# device_id:[PIC name, flash size(in bytes), eeprom size (in bytes)] 
+	# device_id:[PIC name, flash size(in bytes), eeprom size (in bytes)]
 	# --------------------------------------------------------------------------
 
 	devices_table = \
-	{  
+	{
 		0x1260: ['18f2455'],
 		0x1240: ['18f2550'],
 		0x1220: ['18f4455'],
@@ -77,16 +77,19 @@ class uploaderVSC(baseUploader):
 		""" init pinguino device """
 		handle = self.device.open()
 		if handle:
-			handle.setConfiguration(self.VSC_ACTIVE_CONFIG)
-			handle.claimInterface(self.VSC_INTERFACE_ID)
-			return handle
+			try:
+				handle.setConfiguration(self.VSC_ACTIVE_CONFIG)
+				handle.claimInterface(self.VSC_INTERFACE_ID)
+				return handle
+			except:
+				return self.ERR_USB_INIT1
 		return self.ERR_USB_INIT1
 # ------------------------------------------------------------------------------
 	def usbWrite(self, usbBuf):
 # ------------------------------------------------------------------------------
 		"""	Write a data packet to currently-open USB device """
 		sent_bytes = self.handle.bulkWrite(self.VSC_OUT_EP, usbBuf, self.VSC_TIMEOUT)
-		if (sent_bytes): 
+		if (sent_bytes):
 			return self.ERR_NONE
 		else:
 			return self.ERR_USB_WRITE
@@ -109,7 +112,7 @@ class uploaderVSC(baseUploader):
 # ------------------------------------------------------------------------------
 		""" write a block of code """
 		# command
-		cmd = self.VSC_WRITE_FLASH_CMD 
+		cmd = self.VSC_WRITE_FLASH_CMD
 		# block's address
 		address = "%06X" % address
 		readbyte1 = int(address[4:6], 16)
@@ -159,7 +162,7 @@ class uploaderVSC(baseUploader):
 			address_Lo = int(line[3:7], 16) # lower 16 bits (bits 0-15) of the data address
 			record_type= int(line[7:9], 16)
 			i+=1
-			
+
 			address = (address_Hi << 16) + address_Lo
 
 			# checksum calculation
@@ -226,7 +229,7 @@ class uploaderVSC(baseUploader):
 			else:
 				return self.ERR_HEX_RECORD
 
-		# erase and write blocks 
+		# erase and write blocks
 		# ----------------------------------------------------------------------
 
 		usbBuf = []
@@ -272,6 +275,8 @@ class uploaderVSC(baseUploader):
 			self.add_report("Pinguino found")
 
 		self.handle = self.initDevice()
+
+
 		if self.handle is self.ERR_USB_INIT1:
 			self.add_report("Upload not possible")
 			self.add_report("Try to restart the bootloader mode")

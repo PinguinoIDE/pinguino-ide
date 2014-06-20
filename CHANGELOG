@@ -1,5 +1,25 @@
+Pinguino IDE 11.0 - Beta 2
+--------------------------
+
+xxxxx --, 2014
+
+Features
+
+* Added post_install.py for complete instalation
+
+Improves
+
+*
+
+Bug Fixes
+
+* Save as not work with unsaved files
+
+
+
+##################################################
 Pinguino IDE 11.0 - Beta 1
--------------------
+--------------------------
 
 June 7, 2014
 
@@ -30,7 +50,7 @@ Bug Fixes
 ##################################################
 
 Pinguino IDE 11.0 - Beta 0
--------------------
+--------------------------
 
 March 28, 2014
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/board_config_advance.ui'
 #
-# Created: Mon Jun  2 19:52:07 2014
+# Created: Fri Jun 20 01:46:41 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,7 +27,6 @@ class Ui_AdvanceBoardConfig(object):
         self.horizontalLayout_2.addWidget(self.label)
         self.comboBox_heapsize = QtGui.QComboBox(AdvanceBoardConfig)
         self.comboBox_heapsize.setObjectName("comboBox_heapsize")
-        self.comboBox_heapsize.addItem("")
         self.horizontalLayout_2.addWidget(self.comboBox_heapsize)
         self.gridLayout.addLayout(self.horizontalLayout_2, 1, 0, 1, 1)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
@@ -64,7 +63,6 @@ class Ui_AdvanceBoardConfig(object):
         self.checkBox_mips16.setText(QtGui.QApplication.translate("AdvanceBoardConfig", "Mips16", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setToolTip(QtGui.QApplication.translate("AdvanceBoardConfig", "<html><head/><body><p>The amount of memory allocated to objects that are being defined.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("AdvanceBoardConfig", "Heap Size:", None, QtGui.QApplication.UnicodeUTF8))
-        self.comboBox_heapsize.setItemText(0, QtGui.QApplication.translate("AdvanceBoardConfig", "512 bytes", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setToolTip(QtGui.QApplication.translate("AdvanceBoardConfig", "<html><head/><body><p>-O2: The compiler will attempt to increase code performance without compromising on size, and without taking too much compilation time.</p><p>-O3: This is the highest level of optimization possible. It enables optimizations that are expensive in terms of compile time and memory usage, in many cases can slow down a system due to larger binaries and increased memory usage.</p><p>-Os: This option will optimize your code for size.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("AdvanceBoardConfig", "Optimization:", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox_optimization.setItemText(0, QtGui.QApplication.translate("AdvanceBoardConfig", "-O2", None, QtGui.QApplication.UnicodeUTF8))

@@ -51,7 +51,7 @@ class Pinguino(PinguinoTools):
 
         data = self.__upload__()
         data = "\n".join(data)
-        if data.find("Pinguino not found") != -1 or data.find("Error") != -1:
+        if data.find("Pinguino not found") != -1 or data.find("Error") != -1 or data.find("Upload not possible") != -1:
             if data.find("Error") != -1: data = data[data.find("Error"):]
             return False, data
         return True, data
