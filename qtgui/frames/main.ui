@@ -236,6 +236,22 @@
     <property name="title">
      <string>Settings</string>
     </property>
+    <widget class="QMenu" name="menuIcons_theme">
+     <property name="title">
+      <string>Icons theme</string>
+     </property>
+     <addaction name="actionPinguino11"/>
+    </widget>
+    <widget class="QMenu" name="menuIcons_size">
+     <property name="title">
+      <string>Icons size</string>
+     </property>
+     <addaction name="action16x16"/>
+     <addaction name="action22x22"/>
+     <addaction name="action24x24"/>
+     <addaction name="action32x32"/>
+     <addaction name="action48x48"/>
+    </widget>
     <addaction name="actionSelect_board"/>
     <addaction name="actionSet_paths"/>
     <addaction name="separator"/>
@@ -243,6 +259,9 @@
     <addaction name="actionAutocomplete"/>
     <addaction name="actionColor_theme"/>
     <addaction name="actionConfirm_board"/>
+    <addaction name="separator"/>
+    <addaction name="menuIcons_theme"/>
+    <addaction name="menuIcons_size"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1293,12 +1312,12 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normaloff>:/toolbar/toolbar/switch_to_graphical.svg</normaloff>
-     <normalon>:/toolbar/toolbar/switch_to_text.png</normalon>:/toolbar/toolbar/switch_to_graphical.svg</iconset>
+    <iconset theme="insert-object">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
-    <string>Switch ide</string>
+    <string>Graphical mode</string>
    </property>
    <property name="shortcut">
     <string>F4</string>
@@ -1554,6 +1573,51 @@
   <action name="actionCompilers">
    <property name="text">
     <string>Compilers</string>
+   </property>
+  </action>
+  <action name="actionPinguino11">
+   <property name="text">
+    <string>Pinguino11</string>
+   </property>
+  </action>
+  <action name="action16x16">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>16 x 16</string>
+   </property>
+  </action>
+  <action name="action24x24">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>24 x 24</string>
+   </property>
+  </action>
+  <action name="action32x32">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>32 x 32</string>
+   </property>
+  </action>
+  <action name="action48x48">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>48 x 48</string>
+   </property>
+  </action>
+  <action name="action22x22">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>22 x 22</string>
    </property>
   </action>
  </widget>

@@ -96,7 +96,8 @@ class PinguinoConfig(object):
         #When src is a file
         if os.path.isfile(src):
             if not os.path.exists(src): logging.warning("Missing: " + src)
-            else: shutil.copy(src, dst)
+            else:
+                if not os.path.exists(dst): shutil.copy(src, dst)
             return
 
         #Create parent directories
