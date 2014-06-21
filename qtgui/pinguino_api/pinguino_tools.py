@@ -72,7 +72,8 @@ class PinguinoTools(object):
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
             #self.p8 = 'picpgm'
-            self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
+            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
+            self.UPLOADER_32 = os.path.join(self.P32_BIN, "pic32prog")
             self.MAKE = "make"
 
         elif os.getenv("PINGUINO_OS_NAME") == "mac":
@@ -182,12 +183,16 @@ class PinguinoTools(object):
 
         elif board.arch == 32:
             fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), 'stdout'), 'w+')
-
+            """ RB 19-06-2014 : pic32prog replace ubw32
             sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
                           "-w",
                           hex_file,
                           "-r",
                           "-n"],
+                         stdout=fichier, stderr=STDOUT)
+            """
+            sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
+                          "-S","-p",hex_file],
                          stdout=fichier, stderr=STDOUT)
             sortie.communicate()
             fichier.seek(0)
@@ -440,8 +445,10 @@ class PinguinoTools(object):
     def compile(self, filename):
         """ Compile.
 
-        NB :  "--opt-code-size"   deprecated
-              "--use-non-free"    implicit -I and -L options for non-free headers and libs
+        NB :    "--opt-code-size"   deprecated
+                "--use-non-free"    implicit -I and -L options for non-free headers and libs
+                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
+                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
         """
 
         ERROR = {"c": {},
@@ -471,10 +478,9 @@ class PinguinoTools(object):
                 "-DBOARD=\"" + board.board + "\"",\
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=2",\
-                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
-                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
+                "--use-non-free",\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
@@ -498,10 +504,9 @@ class PinguinoTools(object):
                 "-DBOARD=\"" + board.board + "\"",\
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=4",\
-                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
-                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
+                "--use-non-free",\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
@@ -522,10 +527,9 @@ class PinguinoTools(object):
                 "-DBOARD=\"" + board.board + "\"",\
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=0",\
-                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
-                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
+                "--use-non-free",\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
@@ -578,7 +582,14 @@ class PinguinoTools(object):
         """Link.
 
         NB :  "--opt-code-size"   deprecated
-              "--use-non-free"    implicit -I and -L options for non-free headers and libs"""
+              "--use-non-free"    implicit -I and -L options for non-free headers and libs
+                    "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
+                    "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
+                    "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
+                    "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
+                    "-L" + os.path.join(self.P8_DIR, 'sdcc', 'lib', 'pic16'),\
+                    "-L" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'lib', 'pic16'),\
+        """
 
         error = []
         board = self.get_board()
@@ -606,12 +617,9 @@ class PinguinoTools(object):
                     "-DBOARD=\"" + board.board + "\"",\
                     "-DPROC=\"" + board.proc + "\"",\
                     "-DBOOT_VER=2",\
-                    "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
-                    "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
-                    "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                    "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
-                    "-L" + os.path.join(self.P8_DIR, 'sdcc', 'lib', 'pic16'),\
-                    "-L" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'lib', 'pic16'),\
+                    "--use-non-free",\
+                    "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                    "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                     'libio' + board.proc + '.lib',\
                     'libdev' + board.proc + '.lib',\
                     'libc18f.lib',\
@@ -646,12 +654,9 @@ class PinguinoTools(object):
                     "-DBOARD=\"" + board.board + "\"",\
                     "-DPROC=\"" + board.proc + "\"",\
                     "-DBOOT_VER=4",\
-                    "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
-                    "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
-                    "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                    "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
-                    "-L" + os.path.join(self.P8_DIR, 'sdcc', 'lib', 'pic16'),\
-                    "-L" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'lib', 'pic16'),\
+                    "--use-non-free",\
+                    "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                    "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                     os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
                     'libio' + board.proc + '.lib',\
                     'libdev' + board.proc + '.lib',\
@@ -680,12 +685,9 @@ class PinguinoTools(object):
                     "-DBOARD=\"" + board.board + "\"",\
                     "-DPROC=\"" + board.proc + "\"",\
                     "-DBOOT_VER=0",\
-                    "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
-                    "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
-                    "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                    "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
-                    "-L" + os.path.join(self.P8_DIR, 'sdcc', 'lib', 'pic16'),\
-                    "-L" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'lib', 'pic16'),\
+                    "--use-non-free",\
+                    "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                    "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                     'libio' + board.proc + '.lib',\
                     'libdev' + board.proc + '.lib',\
                     'libc18f.lib',\
