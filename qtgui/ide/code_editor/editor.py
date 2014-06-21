@@ -331,70 +331,8 @@ class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
     def brace_match(self):
+
         return
-
-        #braces = {"(": ")",
-                  #"[": "]",
-                  #"{": "}",
-                  #")": "(",
-                  #"]": "[",
-                  #"}": "{",}
-
-        #format_single = QtGui.QTextCharFormat()
-        #format_single.setBackground(QtGui.QBrush(QtGui.QColor("red")))
-
-        #format_balanced = QtGui.QTextCharFormat()
-        #format_balanced.setBackground(QtGui.QBrush(QtGui.QColor("green")))
-
-        #tc = self.textCursor()
-        #tc.movePosition(tc.Left, tc.KeepAnchor)
-        #brace = tc.selectedText()
-        #braceprev_pos = 1
-        #adjpos = True
-        #if not brace in "( [ { } ])".split():
-            #braceprev_pos = 0
-            #tc.movePosition(tc.Right, tc.MoveAnchor)
-            #tc.movePosition(tc.Right, tc.KeepAnchor)
-            #brace = tc.selectedText()
-            #adjpos = False
-            #if not brace in "( [ { } ] )".split(): return
-
-        #braceprev_pos += tc.position()
-        #if adjpos:
-            #tc.movePosition(tc.Left, tc.MoveAnchor)
-        ##else:
-
-
-        ##print brace, braceprev_pos,
-
-        #if brace in "[ { (".split():
-            #adv = tc.Right
-        #elif brace in "] } )".split():
-            #adv = tc.Left
-
-        #index = 1
-        #while index != 0 and brace:
-            #tc.movePosition(adv, tc.MoveAnchor)
-            #tc.movePosition(adv, tc.KeepAnchor)
-            #brace = tc.selectedText()
-            #if brace in "[ { (".split(): index += 1
-            #if brace in "] } )".split(): index -= 1
-
-        #if index == 0:
-            #bracenext_pos = tc.position() + 0 if adv == tc.Right else 1
-
-            #tc.setPosition(braceprev_pos, tc.MoveAnchor)
-            #tc.movePosition(tc.Left, tc.KeepAnchor)
-            #tc.mergeCharFormat(format_balanced)
-
-            #tc.setPosition(bracenext_pos, tc.MoveAnchor)
-            #tc.movePosition(tc.Left, tc.KeepAnchor)
-            #tc.mergeCharFormat(format_balanced)
-
-
-        #tc.setPosition(braceprev_pos, tc.MoveAnchor)
-        #tc.movePosition(tc.Left, tc.KeepAnchor)
-        #tc.mergeCharFormat(format_single)
 
 
 
