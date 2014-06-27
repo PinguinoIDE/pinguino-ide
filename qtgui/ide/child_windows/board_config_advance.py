@@ -39,14 +39,14 @@ class BoardConfigAdvance(QtGui.QDialog):
         self.connect(self.board_config.pushButton_defaul, QtCore.SIGNAL("clicked()"), self.restore_default)
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
 
         #self.board_config.pushButton_advance.setStyleSheet("""
         #QPushButton{
-            #font-family: ubuntu regular;
+            #font-family: inherit;
             #font-weight: bold;
         #}
         #""")

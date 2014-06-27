@@ -24,9 +24,9 @@ class PlainOut(QtGui.QDialog):
         self.plain_out.textEdit.setStyleSheet("""
         QTextEdit {
             background-color: #FFF;
-            font-family: ubuntu mono;
+            font-family: mono;
             font-weight: normal;
-            font-size: 11pt;
+            font-size: 10pt;
             }
 
         """)
@@ -51,7 +51,7 @@ class PlainOut(QtGui.QDialog):
         self.plain_out.pushButton_close.setFocus()
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)

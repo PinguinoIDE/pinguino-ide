@@ -51,13 +51,13 @@ class BoardConfig(QtGui.QDialog):
         for group in all_groups:
             group.setStyleSheet("""
             QGroupBox{
-                font-family: ubuntu regular;
+                font-family: inherit;
                 font-weight: bold;
             }
             """)
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)

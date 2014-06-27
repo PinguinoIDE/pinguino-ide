@@ -45,7 +45,7 @@ class PinguinoAutoCompleter(QListWidget):
         del icons
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)

@@ -597,20 +597,20 @@ class Methods(SearchReplace):
         print("Write on %s" % reserved_filename)
 
 
-    #----------------------------------------------------------------------
-    def load_fonts(self):
+    ##----------------------------------------------------------------------
+    #def load_fonts(self):
 
-        #fonts_dir = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "ide", "qtgui", "resources", "fonts")
-        fonts_dir = os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources", "fonts")
-        if not os.path.exists(fonts_dir):
-            logging.warning("Missing: "+fonts_dir)
-            return
+        ##fonts_dir = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "ide", "qtgui", "resources", "fonts")
+        #fonts_dir = os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources", "fonts")
+        #if not os.path.exists(fonts_dir):
+            #logging.warning("Missing: "+fonts_dir)
+            #return
 
-        for dir_font in os.listdir(fonts_dir):
-            for ttf in filter(lambda file:file.endswith(".ttf") or file.endswith(".otf"), os.listdir(os.path.join(fonts_dir, dir_font))):
-                #print QtGui.QFontDatabase.addApplicationFontFromData(os.path.join(fonts_dir, dir_font, ttf))
-                status = QtGui.QFontDatabase.addApplicationFont(os.path.join(fonts_dir, dir_font, ttf))
-                if status == -1: logging.warning("Error loading: "+os.path.join(fonts_dir, dir_font, ttf))
+        #for dir_font in os.listdir(fonts_dir):
+            #for ttf in filter(lambda file:file.endswith(".ttf") or file.endswith(".otf"), os.listdir(os.path.join(fonts_dir, dir_font))):
+                ##print QtGui.QFontDatabase.addApplicationFontFromData(os.path.join(fonts_dir, dir_font, ttf))
+                #status = QtGui.QFontDatabase.addApplicationFont(os.path.join(fonts_dir, dir_font, ttf))
+                #if status == -1: logging.warning("Error loading: "+os.path.join(fonts_dir, dir_font, ttf))
 
 
     #----------------------------------------------------------------------

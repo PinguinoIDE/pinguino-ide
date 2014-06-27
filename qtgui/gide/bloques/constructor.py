@@ -41,18 +41,32 @@ ADJ2 = -5  #space on expand
 
 #----------------------------------------------------------------------
 def changeFontSize(widget):
-    name = widget.__str__()
-    name = name[name.rfind(".")+1:name.find(" ")]
+    #name = widget.__str__()
+    #name = name[name.rfind(".")+1:name.find(" ")]
 
     widget.setStyleSheet("""
-    %s{
+    QLineEdit{
         color: #FFFFFF;
-        font-family: ubuntu mono;
+        font-family: mono;
         font-weight: normal;
-        font-size: 15pt;
+        font-size: 12pt;
     }
 
-    """%name)
+    QLabel{
+        color: #FFFFFF;
+        font-family: mono;
+        font-weight: normal;
+        font-size: 12pt;
+    }
+
+    QPlainTextEdit{
+        color: #FFFFFF;
+        font-family: mono;
+        font-weight: normal;
+        font-size: 12pt;
+    }
+
+    """)
 
 
 
@@ -70,6 +84,8 @@ class Constructor(object):
         self.LineCode = []
         self.fullWidgetWith = []
         self.codeStart = {}
+
+        changeFontSize(widget)
 
         for add in bloque:
             if add[0] == "label": self.addLabel(widget, add[1])
@@ -121,7 +137,7 @@ class Constructor(object):
         label.setupUi(widgetLabel)
         label.label.setText(text)
 
-        changeFontSize(label.label)
+        #changeFontSize(label.label)
 
         if rgb != None:
             #label.label.setStyleSheet("background-color: rgb(%d, %d, %d);\ncolor: rgb(255, 255, 255);" %rgb)
@@ -147,7 +163,7 @@ class Constructor(object):
         label = Label()
         label.setupUi(widgetLabel)
         label.label.setText(text)
-        changeFontSize(label.label)
+        #changeFontSize(label.label)
         if rgb != None:
             #label.label.setStyleSheet("background-color: rgb(%d, %d, %d);\ncolor: rgb(255, 255, 255);" %rgb)            label.label.setStyleSheet(label.label.styleSheet()+"""
             label.label.setStyleSheet(label.label.styleSheet()+"""
@@ -190,7 +206,7 @@ class Constructor(object):
         b_up = spin.frame
         b_down = spin.frame_2
 
-        changeFontSize(edit)
+        #changeFontSize(edit)
 
         edit.setStyleSheet(edit.styleSheet()+"""
         QLineEdit{
@@ -235,8 +251,6 @@ class Constructor(object):
         spin = ControlSpin()
         spin.setupUi(widgetSpin)
 
-        spin.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);color: rgb(90,90,90)")
-
         #icon = QtGui.QIcon()
         #icon.addPixmap(QtGui.QPixmap("%sup.svg"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         #spin.toolButton_3.setIcon(icon)
@@ -255,7 +269,7 @@ class Constructor(object):
         b_down = spin.frame_2
 
         edit.setText(str(start))
-        changeFontSize(edit)
+        #changeFontSize(edit)
 
         edit.setStyleSheet(edit.styleSheet()+"""
         QLineEdit{
@@ -300,7 +314,7 @@ class Constructor(object):
         name = Name()
         name.setupUi(widgetName)
         name.lineEdit.setText(str(text))
-        changeFontSize(name.lineEdit)
+        #changeFontSize(name.lineEdit)
 
         if background == "white" and color != None:
             #name.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(%d, %d, %d);" %color)
@@ -310,7 +324,7 @@ class Constructor(object):
             QLineEdit{
                 background-image: url(:/bg/bg/box.png);
                 color: rgb(%d, %d, %d);
-                font-family: ubuntu mono;
+                font-family: mono;
             }
             """%color)
 
@@ -323,7 +337,7 @@ class Constructor(object):
             name.lineEdit.setStyleSheet("""
             QLineEdit{
                 background-image: url(:/bg/bg/box.png);
-                font-family: ubuntu mono;
+                font-family: mono;
             }
             """)
 
@@ -335,7 +349,7 @@ class Constructor(object):
             name.lineEdit.setStyleSheet("""
             QLineEdit{
                 color: rgb(%d, %d, %d);
-                font-family: ubuntu mono;
+                font-family: mono;
             }
             """%color)
 
@@ -369,7 +383,7 @@ class Constructor(object):
         b_min = 0
         b_max = len(opc) - 1
 
-        changeFontSize(edit)
+        #changeFontSize(edit)
 
 
         def up(*args):
@@ -411,7 +425,7 @@ class Constructor(object):
         slider.setupUi(widgetSlider)
 
         edit = slider.lineEdit_2
-        changeFontSize(edit)
+        #changeFontSize(edit)
         slid = slider.horizontalSlider
         #edit.setStyleSheet("background-image: url(:/general/arte/box.png);\ncolor: rgb(0, 0, 0);")
         #edit.setStyleSheet("color: rgb(255, 255, 255);")

@@ -151,7 +151,7 @@ class Dialogs(object):
         layout = msg_box.layout()
 
         checkbox.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: bold;
 
         """)
@@ -165,7 +165,7 @@ class Dialogs(object):
         msg_box.setDefaultButton(compile_)
 
         msg_box.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -204,7 +204,7 @@ class Dialogs(object):
         msg_box.setDefaultButton(ok)
 
         msg_box.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -235,7 +235,7 @@ class Dialogs(object):
         msg_box.setDefaultButton(ok)
 
         msg_box.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -273,7 +273,7 @@ class Dialogs(object):
         else: msg_box.setDefaultButton(stdout)
 
         msg_box.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -305,7 +305,7 @@ class Dialogs(object):
         msg_box.setDefaultButton(ok)
 
         msg_box.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -338,7 +338,7 @@ class Dialogs(object):
         msg_box.setDefaultButton(ok)
 
         msg_box.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -371,7 +371,7 @@ class Dialogs(object):
         msg_box.setDefaultButton(ok)
 
         msg_box.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -412,7 +412,7 @@ class Dialogs(object):
         msg_box.setDefaultButton(upload)
 
         msg_box.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)

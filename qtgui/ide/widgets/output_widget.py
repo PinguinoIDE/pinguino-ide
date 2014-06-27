@@ -160,7 +160,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
         menu.setStyleSheet("""
         QMenu {
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: normal;
             }
 
@@ -181,7 +181,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         QPlainTextEdit {
             background-color: #333;
             color: #FFFFFF;
-            font-family: ubuntu mono;
+            font-family: mono;
             font-weight: normal;
             font-size: %dpt;
         }

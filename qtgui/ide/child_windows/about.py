@@ -38,7 +38,7 @@ class About(QtGui.QDialog):
         self.about.tabWidget.setCurrentIndex(0)
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)

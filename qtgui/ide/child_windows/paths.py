@@ -57,21 +57,21 @@ class Paths(QtGui.QDialog):
         self.set_paths.pushButton_close.setFocus()
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
 
         self.set_paths.groupBox.setStyleSheet("""
         QGroupBox{
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: bold;
         }
         """)
 
         self.set_paths.groupBox_2.setStyleSheet("""
         QGroupBox{
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: bold;
         }
         """)

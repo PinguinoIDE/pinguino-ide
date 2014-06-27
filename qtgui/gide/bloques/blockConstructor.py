@@ -82,7 +82,7 @@ class Properties(object):
 
         menu.setStyleSheet("""
         QMenu {
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: normal;
             }
 
@@ -856,11 +856,12 @@ class BlockFrameEdit(Constructor, Properties):
 
         changeFontSize(NestSec.plainTextEdit)
 
+
         NestSec.plainTextEdit.setStyleSheet("""
         QPlainTextEdit{
             background-image: url(:/bg/bg/box.png);
             color: rgb(90, 90, 90);
-            font-family: ubuntu mono;
+            font-family: mono;
         }""")
 
 

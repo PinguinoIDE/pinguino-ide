@@ -147,7 +147,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
     #----------------------------------------------------------------------
     def set_styleSheet(self):
-        self.load_fonts()
+        #self.load_fonts()
 
         self.PinguinoPallete = BackgroundPallete()
         self.PinguinoPallete.save_palette(self.main.centralwidget.parent())
@@ -180,21 +180,21 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         #Global CSS styles
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
 
         self.main.groupBox_replace.setStyleSheet("""
         QGroupBox{
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: bold;
         }
         """)
 
         self.main.groupBox_search.setStyleSheet("""
         QGroupBox{
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: bold;
         }
         """)
@@ -204,9 +204,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         QPlainTextEdit {
             background-color: #333;
             color: #FFFFFF;
-            font-family: ubuntu mono;
+            font-family: mono;
             font-weight: normal;
-            font-size: 11pt;
+            font-size: 10pt;
         }
 
         """)

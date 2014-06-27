@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
         splash.show()
         splash.setStyleSheet("""
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: normal;
             font-size: 11pt;
 

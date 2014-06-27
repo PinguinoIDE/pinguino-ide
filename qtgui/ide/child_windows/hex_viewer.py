@@ -28,7 +28,7 @@ class HexViewer(QtGui.QMainWindow):
         self.main = parent
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)

@@ -105,7 +105,7 @@ class WorkArea(QtGui.QWidget):
 
         menu.setStyleSheet("""
         QMenu {
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: normal;
             }
 

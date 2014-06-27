@@ -215,7 +215,7 @@ class EventMethods(Methods):
         printer.setOutputFormat(QPrinter.PdfFormat)
         preview = QtGui.QPrintDialog(printer)
         preview.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -1066,7 +1066,7 @@ class EventMethods(Methods):
         menu.addAction(self.main.actionClose_others)
 
         menu.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
@@ -1114,7 +1114,7 @@ class EventMethods(Methods):
 
         menu.setStyleSheet("""
         QMenu {
-            font-family: ubuntu regular;
+            font-family: inherit;
             font-weight: normal;
             }
 

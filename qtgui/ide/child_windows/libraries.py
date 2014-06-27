@@ -96,31 +96,31 @@ class LibManager(QtGui.QMainWindow):
         self.centrar()
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
 
         self.libframe.tableWidget_libs.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
 
         self.libframe.tableWidget_sources.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)
 
         self.libframe.label_help.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: bold;
 
         """)
 
         self.libframe.commandLinkButton_how.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: bold;
 
         """)

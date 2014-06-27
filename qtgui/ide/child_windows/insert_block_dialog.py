@@ -31,7 +31,7 @@ class InsertBlock(QtGui.QDialog):
         self.insert.lineEdit.selectAll()
 
         self.setStyleSheet("""
-        font-family: ubuntu regular;
+        font-family: inherit;
         font-weight: normal;
 
         """)

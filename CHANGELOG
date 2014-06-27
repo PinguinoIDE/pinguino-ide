@@ -14,8 +14,9 @@ Improves
 
 Bug Fixes
 
-* Save as not work with unsaved files
-
+* "Save as" not work with unsaved files
+* IDE not use default fonts
+* Some files are unnecessary
 
 
 ##################################################

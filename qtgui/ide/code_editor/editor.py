@@ -60,9 +60,9 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.setStyleSheet("""
         QTextEdit {
             background-color: #FFF;
-            font-family: ubuntu mono;
+            font-family: mono;
             font-weight: normal;
-            font-size: 12pt;
+            font-size: 11pt;
             }
 
         """)
@@ -107,7 +107,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.setStyleSheet("""
         QTextEdit {
             background-color: #FFF;
-            font-family: ubuntu mono;
+            font-family: mono;
             font-weight: normal;
             font-size: %dpt;
             }

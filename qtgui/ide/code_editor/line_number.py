@@ -27,9 +27,9 @@ class LineNumber(QWidget):
         self.setPalette(palette)
 
         self.setStyleSheet("""
-        font-family: ubuntu mono;
+        font-family: mono;
         font-weight: normal;
-        font-size: 12pt;
+        font-size: 11pt;
 
         """)
 
