@@ -105,26 +105,26 @@ class Paths(QtGui.QDialog):
         PinguinoConfig.update_pinguino_paths(self.main.configIDE, self.main.pinguinoAPI)
         super(Paths, self).close()
 
-    #----------------------------------------------------------------------
-    def set_file_dialog(self, lineEdit):
+    ##----------------------------------------------------------------------
+    #def set_file_dialog(self, lineEdit):
 
-        def dummy_func():
-            path = lineEdit.text()
-            if not os.path.isfile(path):
-                path = QtCore.QDir.home().path()
+        #def dummy_func():
+            #path = lineEdit.text()
+            #if not os.path.isfile(path):
+                #path = QtCore.QDir.home().path()
 
-            filename = QtGui.QFileDialog.getOpenFileName(self,
-                    "Select file",
-                    path,
-                    "All Files (*)")
+            #filename = QtGui.QFileDialog.getOpenFileName(self,
+                    #"Select file",
+                    #path,
+                    #"All Files (*)")
 
-            if filename:
-                filename = filename[0]
-                if filename:
-                    lineEdit.setText(filename)
-                    lineEdit.setStyleSheet("")
+            #if filename:
+                #filename = filename[0]
+                #if filename:
+                    #lineEdit.setText(filename)
+                    #lineEdit.setStyleSheet("")
 
-        return dummy_func
+        #return dummy_func
 
     #----------------------------------------------------------------------
     def set_dir_dialog(self, lineEdit):
@@ -176,5 +176,5 @@ class Paths(QtGui.QDialog):
     def reset_value(self, option):
         default = RawConfigParser()
         default.readfp(open(os.path.join(os.getenv("PINGUINO_HOME"), "qtgui", "config", "pinguino."+os.getenv("PINGUINO_OS_NAME")+".conf"), "r"))
-        getattr(self.set_paths, "lineEdit_"+option).setText(default.get("Paths", option))
+        getattr(self, "lineEdit_"+option).setText(default.get("Paths", option))
 

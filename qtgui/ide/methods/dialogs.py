@@ -22,6 +22,7 @@ class Dialogs(object):
         if save_filename: return save_filename[0], os.path.split(save_filename[0])[1]
         else: return None, None
 
+
     #----------------------------------------------------------------------
     @classmethod
     def set_open_file(cls, parent, path):
@@ -60,6 +61,7 @@ class Dialogs(object):
         if open_dir: return open_dir
         else: return None
 
+
     #----------------------------------------------------------------------
     @classmethod
     def file_duplicated(cls, parent, filename):
@@ -69,6 +71,7 @@ class Dialogs(object):
                 QtGui.QApplication.translate("Dialogs", "This file is already open in other tab.\n%s")%filename)
         return True
 
+
     #----------------------------------------------------------------------
     @classmethod
     def error_message(cls, parent, message):
@@ -77,6 +80,7 @@ class Dialogs(object):
                 os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Error"),
                 message)
         return True
+
 
     #----------------------------------------------------------------------
     @classmethod
@@ -102,6 +106,7 @@ class Dialogs(object):
                 message)
         return True
 
+
     #----------------------------------------------------------------------
     @classmethod
     def warning_message(cls, parent, message):
@@ -112,6 +117,7 @@ class Dialogs(object):
 
         return True
 
+
     #----------------------------------------------------------------------
     @classmethod
     def save_before_compile(cls, parent):
@@ -120,6 +126,7 @@ class Dialogs(object):
                 os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Save file first."),
                 QtGui.QApplication.translate("Dialogs", "You must save the file before compiling."))
         return True
+
 
     #----------------------------------------------------------------------
     @classmethod
@@ -213,6 +220,7 @@ class Dialogs(object):
 
         if reply == 0: return True
         elif reply == 1: return False
+
 
     #----------------------------------------------------------------------
     @classmethod
@@ -381,6 +389,7 @@ class Dialogs(object):
         if reply == 0: return True
         elif reply == 1: return False
 
+
     #----------------------------------------------------------------------
     @classmethod
     def upload_done(cls, parent):
@@ -434,3 +443,4 @@ class Dialogs(object):
 
         if file_name: return file_name[0]
         else: return None
+

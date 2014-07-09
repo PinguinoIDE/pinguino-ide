@@ -12,7 +12,7 @@ from .decorators import Decorator
 from .dialogs import Dialogs
 from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
-from ..methods.library_manager import Librarymanager
+#from ..methods.library_manager import Librarymanager
 from ..widgets.output_widget import START
 
 
