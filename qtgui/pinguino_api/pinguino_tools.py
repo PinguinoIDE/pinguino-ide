@@ -447,8 +447,8 @@ class PinguinoTools(object):
 
         NB :    "--opt-code-size"   deprecated
                 "--use-non-free"    implicit -I and -L options for non-free headers and libs
-                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'include', 'pic16'),\
-                "-I" + os.path.join(self.P8_DIR, 'sdcc', 'non-free', 'include', 'pic16'),\
+                "-I" + os.path.join(self.P8_DIR, '..', 'sdcc', 'include', 'pic16'),\
+                "-I" + os.path.join(self.P8_DIR, '..', 'sdcc', 'non-free', 'include', 'pic16'),\
         """
 
         ERROR = {"c": {},
