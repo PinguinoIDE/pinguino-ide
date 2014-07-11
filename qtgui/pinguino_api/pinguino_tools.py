@@ -451,7 +451,6 @@ class PinguinoTools(object):
             user_imports.append("-I" + lib_dir)
         return " ".join(user_imports)
 
-
     #----------------------------------------------------------------------
     def compile(self, filename):
         """ Compile.
@@ -490,8 +489,8 @@ class PinguinoTools(object):
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=2",\
                 "--use-non-free",\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
@@ -516,8 +515,8 @@ class PinguinoTools(object):
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=4",\
                 "--use-non-free",\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
@@ -539,13 +538,15 @@ class PinguinoTools(object):
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=0",\
                 "--use-non-free",\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
                 "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
                 stdout=fichier, stderr=STDOUT)
+
+        print "DEBUG : %s" % self.P8_DIR
 
         sortie.communicate()
         if sortie.poll()!=0:
