@@ -177,27 +177,35 @@ class PinguinoTools(object):
         hex_file = self.get_hex_file()
         board = self.get_board()
 
+        uploader = Uploader(hex_file, board)
+        result = uploader.write_hex()
+
+        """
         if board.arch == 8:
             uploader = Uploader(hex_file, board)
             result = uploader.write_hex()
 
         elif board.arch == 32:
             fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), 'stdout'), 'w+')
-            """ RB 19-06-2014 : pic32prog replace ubw32
+            
+            #RB 19-06-2014 : pic32prog
             sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
                           "-w",
                           hex_file,
                           "-r",
                           "-n"],
                          stdout=fichier, stderr=STDOUT)
-            """
+
+            #RB 19-06-2014 : ubw32/mhidflash
             sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
                           "-S","-p",hex_file],
                          stdout=fichier, stderr=STDOUT)
+
             sortie.communicate()
             fichier.seek(0)
             result = fichier.readlines()
             fichier.close()
+        """
 
         result = filter(lambda line:not line.isspace(), result)
         return result

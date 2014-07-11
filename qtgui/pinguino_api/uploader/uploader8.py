@@ -352,9 +352,9 @@ class uploader8(baseUploader):
         # read hex file
         # --------------------------------------------------------------
 
-        fichier = open(filename,'r')
-        lines = fichier.readlines()
-        fichier.close()
+        hexfile = open(filename,'r')
+        lines = hexfile.readlines()
+        hexfile.close()
 
         # calculate checksum and max_address
         # --------------------------------------------------------------
@@ -459,11 +459,11 @@ class uploader8(baseUploader):
             self.closeDevice()
             return
 
-        fichier = open(self.filename, 'r')
-        if fichier == "":
+        hexfile = open(self.filename, 'r')
+        if hexfile == "":
             self.add_report("Unable to open %s" % self.filename)
             return
-        fichier.close()
+        hexfile.close()
 
         # search for a Pinguino board
         # --------------------------------------------------------------
