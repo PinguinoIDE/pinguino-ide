@@ -407,11 +407,13 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
-    def remove_comments(self, text):
+    def remove_comments(self, textinput):
         #FIXME: replace comment with white lines for debugger
 
-        if type(text) == type([]):
-            text = "".join(text)
+        if type(textinput) == type([]):
+            text = "".join(textinput)
+        else:
+            text = textinput
 
         def replacer(match):
             s = match.group(0)
@@ -429,8 +431,9 @@ class PinguinoTools(object):
         )
         textout = re.sub(pattern, replacer, text)
 
-        if type(text) == type([]):
+        if type(textinput) == type([]):
             textout = textout.split("\n")
+            textout = map(lambda x:x+"\n", textout)
 
         return textout
 
@@ -487,8 +490,8 @@ class PinguinoTools(object):
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=2",\
                 "--use-non-free",\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
@@ -513,8 +516,8 @@ class PinguinoTools(object):
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=4",\
                 "--use-non-free",\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
@@ -536,8 +539,8 @@ class PinguinoTools(object):
                 "-DPROC=\"" + board.proc + "\"",\
                 "-DBOOT_VER=0",\
                 "--use-non-free",\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'pinguino', 'libraries'),\
                 "-I" + os.path.dirname(filename),\
                 "--compile-only",\
                 os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\

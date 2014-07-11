@@ -14,7 +14,7 @@
    <string notr="true">Pinguino 11</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../resources/resources.qrc">
+   <iconset>
     <normaloff>:/logo/art/windowIcon.svg</normaloff>:/logo/art/windowIcon.svg</iconset>
   </property>
   <property name="dockOptions">
@@ -101,7 +101,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../resources/resources.qrc">:/logo/art/banner.png</pixmap>
+          <pixmap>:/logo/art/banner.png</pixmap>
          </property>
         </widget>
        </item>
@@ -683,7 +683,7 @@
                <string>Previous</string>
               </property>
               <property name="icon">
-               <iconset resource="../resources/resources.qrc">
+               <iconset>
                 <normaloff>:/icons/icons/icon_up.png</normaloff>:/icons/icons/icon_up.png</iconset>
               </property>
              </widget>
@@ -697,7 +697,7 @@
                <string>Next</string>
               </property>
               <property name="icon">
-               <iconset resource="../resources/resources.qrc">
+               <iconset>
                 <normaloff>:/icons/icons/icon_down.png</normaloff>:/icons/icons/icon_down.png</iconset>
               </property>
              </widget>
@@ -1075,7 +1075,7 @@
     </iconset>
    </property>
    <property name="text">
-    <string>Open file</string>
+    <string>Open</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
