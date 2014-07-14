@@ -14,7 +14,7 @@ class baseUploader(object):
     Extended_Segment_Address_Record = 02
     Start_Segment_Address_Record = 03
     Extended_Linear_Address_Record = 04
-    Start_Linear_Address_Record = 05    
+    Start_Linear_Address_Record = 05
     
     
     # Error codes returned by various functions
@@ -71,10 +71,14 @@ class baseUploader(object):
 class Uploader(object):
     """Universal uploder class"""
 
+    # bootloader version 1 and 2
     from uploaderVSC import uploaderVSC
+    # bootloader version 3
     #from uploaderDLN import uploaderDLN
+    # bootloader version 4
     from uploader8   import uploader8
-    #from uploaderMCC import uploaderMCC
+    # bootloader PIC32
+    from uploader32  import uploader32
 
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
@@ -95,8 +99,8 @@ class Uploader(object):
         elif board.bldr == "boot4":
             self.uploader = self.uploader8(hex_file, board)
             
-        #elif board.bldr == "microchip":
-            #self.uploader = self.uploaderMCC(hex_file, board)
+        elif board.bldr == "microchip":
+            self.uploader = self.uploader32(hex_file, board)
 
 
     #----------------------------------------------------------------------
