@@ -176,5 +176,5 @@ class Paths(QtGui.QDialog):
     def reset_value(self, option):
         default = RawConfigParser()
         default.readfp(open(os.path.join(os.getenv("PINGUINO_HOME"), "qtgui", "config", "pinguino."+os.getenv("PINGUINO_OS_NAME")+".conf"), "r"))
-        getattr(self, "lineEdit_"+option).setText(default.get("Paths", option))
+        getattr(self.set_paths, "lineEdit_"+option).setText(default.get("Paths", option))
 
