@@ -67,7 +67,10 @@ class PinguinoConfig(object):
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"),
                                     default_dir=True)
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_HOME"), "source"),
+        #cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_HOME"), "source"),
+                                    #dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
+
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "source"),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
         #FIXME: wath to do with this dir?
