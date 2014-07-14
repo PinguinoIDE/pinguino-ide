@@ -3,6 +3,7 @@
 
 import os
 import sys
+import shutil
 
 from qtgui.pinguino_api.pinguino_config import PinguinoConfig
 
@@ -14,6 +15,11 @@ if os.path.exists(os.path.abspath("pinguino_data")):
 else:
     os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")
 
-#Check files and directories
 PinguinoConfig.set_environ_vars()
+
+#Remove files and directories
+os.environ["PINGUINO_USER_PATH"]
+shutil.rmtree(os.path.join(os.environ["PINGUINO_USER_PATH"], "source"))
+
+#Check files and directories
 PinguinoConfig.check_user_files()
