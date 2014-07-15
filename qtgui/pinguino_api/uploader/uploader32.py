@@ -4,7 +4,7 @@
 """-------------------------------------------------------------------------
 	Pinguino Uploader for Pinguino 32
 
-	(c) 2011-2014 Regis Blanchot <rblanchot@gmail.com> 
+	(c) 2011-2014 Regis Blanchot <rblanchot@gmail.com>
 
 	This library is free software; you can redistribute it and/or
 	modify it under the terms of the GNU Lesser General Public
@@ -44,7 +44,7 @@ class uploader32(baseUploader):
     ACTIVE_CONFIG					=	1
     TIMEOUT							=	10000
 
-    # Data block description 
+    # Data block description
     BYTESPERADDRESS					=	1
     MAXPACKETSIZE					=	64
     DATABLOCKSIZE					=	56		# MAXPACKETSIZE - Block Command Size
@@ -84,13 +84,10 @@ class uploader32(baseUploader):
         """ init pinguino device """
         handle = self.device.open()
         if handle:
-            try:
-                # make sure the hiddev kernel driver is not active
-                handle.detachKernelDriver(self.INTERFACE_ID)
-            except usb.USBError:
-                pass
             handle.setConfiguration(self.ACTIVE_CONFIG)
+
             handle.claimInterface(self.INTERFACE_ID)
+
             return handle
         return self.ERR_USB_INIT1
 
@@ -99,7 +96,7 @@ class uploader32(baseUploader):
 # ----------------------------------------------------------------------
         """	Write a MAXPACKETSIZE bytes data packet to currently-open USB device """
         sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
-        if sent_bytes == len(usbBuf): 
+        if sent_bytes == len(usbBuf):
             return self.ERR_NONE
         else:
             return self.ERR_USB_WRITE
@@ -116,7 +113,7 @@ class uploader32(baseUploader):
             return self.usbWrite(usbBuf)
         # command code
         usbBuf = [self.PROGRAM_DEVICE_CMD] * self.MAXPACKETSIZE
-        #usbBuf[0] = PROGRAM_DEVICE_CMD 
+        #usbBuf[0] = PROGRAM_DEVICE_CMD
         # block's address (0x12345678 => "12345678")
         address = "%08X" % (address / self.BYTESPERADDRESS)
         usbBuf[1] = int(address[6:8], 16)	# 78 = (address      ) & 0xFF
@@ -181,7 +178,7 @@ class uploader32(baseUploader):
         # --------------------------------------------------------------
 
         for line in lines:
-            
+
             byte_count = int(line[1:3], 16)
             # lower 16 bits (bits 0-15) of the data address
             address_Lo = int(line[3:7], 16)
@@ -197,7 +194,7 @@ class uploader32(baseUploader):
             while i < end:
                 cs = cs + (0x100 - int(line[i:i+2], 16) ) & 0xff # eq. to not(i)
                 i = i + 2
-                
+
             if checksum != cs:
                 return self.ERR_HEX_CHECKSUM
 
@@ -211,10 +208,10 @@ class uploader32(baseUploader):
             # data record
             # ----------------------------------------------------------
             elif record_type == self.Data_Record:
-                
+
                 address = address_Hi + address_Lo
                 #self.add_report("%d to be written" % address)
-                
+
                 # max address
                 if (address > old_address) and (address < board.memend):
                     max_address = address + byte_count
@@ -272,7 +269,7 @@ class uploader32(baseUploader):
 # ----------------------------------------------------------------------
     def writeHex(self):
 # ----------------------------------------------------------------------
-        
+
         # check file to upload
         # --------------------------------------------------------------
 
@@ -342,7 +339,7 @@ class uploader32(baseUploader):
             self.add_report("Query Error!")
             self.closeDevice()
             return
-            
+
 
         # find out flash memory size
         # --------------------------------------------------------------
@@ -359,7 +356,7 @@ class uploader32(baseUploader):
         """
         memfree = self.board.memend - self.board.memstart
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
-        
+
         # start erasing
         # --------------------------------------------------------------
 
@@ -396,7 +393,7 @@ class uploader32(baseUploader):
             self.add_report("Reset Error!")
             self.closeDevice()
             return
-        
+
         self.closeDevice()
         self.add_report("Ready")
         #self.add_report("BREAKPOINT")

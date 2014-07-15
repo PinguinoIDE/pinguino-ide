@@ -420,8 +420,8 @@ class Methods(SearchReplace):
 
         #Integration with Shell: print(Lines)
         #self.main.plainTextEdit_output.appendPlainText(lines)
-        self.main.plainTextEdit_output.log_output(lines.replace("\n", "\n"+START))
 
+        self.main.plainTextEdit_output.log_output(lines.replace("\n", "\n"+START))
         self.main.plainTextEdit_output.update()
 
         scroll = self.main.plainTextEdit_output.verticalScrollBar()

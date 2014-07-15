@@ -6,7 +6,7 @@ import usb
 
 ########################################################################
 class baseUploader(object):
-    
+
     # Hex format record types
     # --------------------------------------------------------------------------
     Data_Record = 00
@@ -15,8 +15,8 @@ class baseUploader(object):
     Start_Segment_Address_Record = 03
     Extended_Linear_Address_Record = 04
     Start_Linear_Address_Record = 05
-    
-    
+
+
     # Error codes returned by various functions
     # --------------------------------------------------------------------------
     ERR_NONE = 0
@@ -64,47 +64,40 @@ class baseUploader(object):
     def closeDevice(self):
         """ Close currently-open USB device """
         self.handle.releaseInterface()
-        
-        
+
+
 
 ########################################################################
 class Uploader(object):
     """Universal uploder class"""
 
-    # bootloader version 1 and 2
-    from uploaderVSC import uploaderVSC
-    # bootloader version 3
-    #from uploaderDLN import uploaderDLN
-    # bootloader version 4
-    from uploader8   import uploader8
-    # bootloader PIC32
-    from uploader32  import uploader32
-
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
-        
 
         if board.bldr == "noboot":
-            
+
             # TODO : interface here something like PICpgm (http://www.members.aon.at/electronics/pic/picpgm/)
             #self.logwindow("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board", 1)
             raise Exception, "You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board"
-       
+
         elif board.bldr == "boot2":
-            self.uploader = self.uploaderVSC(hex_file, board)
-            
+            from uploaderVSC import uploaderVSC as Uploader
+
         #elif board.bldr == 'boot3':
         #    self.uploader = self.uploaderDLN(*parameters)
-        
+
         elif board.bldr == "boot4":
-            self.uploader = self.uploader8(hex_file, board)
-            
+            from uploader8 import uploader8 as Uploader
+
         elif board.bldr == "microchip":
-            self.uploader = self.uploader32(hex_file, board)
+            from uploader32 import uploader32 as Uploader
+
+
+        self.uploader = Uploader(hex_file, board)
 
 
     #----------------------------------------------------------------------
     def write_hex(self):
-        
+
         self.uploader.writeHex()
         return self.uploader.report

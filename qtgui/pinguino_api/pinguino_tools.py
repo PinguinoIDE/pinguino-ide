@@ -180,6 +180,7 @@ class PinguinoTools(object):
         uploader = Uploader(hex_file, board)
         result = uploader.write_hex()
 
+
         """
         if board.arch == 8:
             uploader = Uploader(hex_file, board)
@@ -187,7 +188,7 @@ class PinguinoTools(object):
 
         elif board.arch == 32:
             fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), 'stdout'), 'w+')
-            
+
             #RB 19-06-2014 : pic32prog
             sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
                           "-w",

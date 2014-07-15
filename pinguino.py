@@ -30,6 +30,8 @@ SUBVERSION = "beta.1"
 ################################################################################
 
 import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
 import os
 
 os.environ["NAME"] = NAME
