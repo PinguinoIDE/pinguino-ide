@@ -412,14 +412,14 @@ class Methods(SearchReplace):
         lines = ""
         for line in args:
             lines += line
-            #self.main.plainTextEdit_output.appendPlainText(line)
 
         for key in kwargs.keys():
             line = key + ": " + kwargs[key]
             lines += line
 
-        #Integration with Shell: print(Lines)
-        #self.main.plainTextEdit_output.appendPlainText(lines)
+        #import sys
+        #reload(sys)
+        #sys.stdout.write(lines)
 
         self.main.plainTextEdit_output.log_output(lines.replace("\n", "\n"+START))
         self.main.plainTextEdit_output.update()
