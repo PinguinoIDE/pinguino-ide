@@ -29,7 +29,7 @@
 
 #import sys
 import os
-#import usb
+import usb
 
 from uploader import baseUploader
 
@@ -82,14 +82,22 @@ class uploader32(baseUploader):
     def initDevice(self):
 # ----------------------------------------------------------------------
         """ init pinguino device """
-        handle = self.device.open()
-        if handle:
-            handle.setConfiguration(self.ACTIVE_CONFIG)
 
-            handle.claimInterface(self.INTERFACE_ID)
+        handle = self.device.open()
+
+        if handle:
+            try:
+                handle.detachKernelDriver(self.INTERFACE_ID)
+                handle.setConfiguration(self.ACTIVE_CONFIG)
+                handle.claimInterface(self.INTERFACE_ID)
+
+            except usb.USBError as msg:
+                self.add_report(msg.message)
+                return
 
             return handle
         return self.ERR_USB_INIT1
+
 
 # ----------------------------------------------------------------------
     def usbWrite(self, usbBuf):
@@ -296,9 +304,14 @@ class uploader32(baseUploader):
             self.add_report("Pinguino found ...")
 
         self.handle = self.initDevice()
+
+
         if self.handle == self.ERR_USB_INIT1:
             self.add_report("Upload not possible")
             self.add_report("Try to restart the bootloader mode")
+            return
+
+        elif self.handle == None:
             return
 
         #self.add_report("%s - %s" % (handle.getString(device.iProduct, 30), handle.getString(device.iManufacturer, 30))
