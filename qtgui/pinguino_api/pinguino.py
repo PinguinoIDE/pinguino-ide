@@ -54,7 +54,10 @@ class Pinguino(PinguinoTools):
         NO_UPLOATED_KEY_TEXT = ["Pinguino not found",
                                 "Error",
                                 "Upload not possible",
-                                "No target found"]
+                                "No target found",
+                                "Resource busy",
+                                "Entity not found",
+                                ]
 
         if False in [data.find(key)==-1 for key in NO_UPLOATED_KEY_TEXT]:
             if data.find("Error") != -1: data = data[data.find("Error"):]
