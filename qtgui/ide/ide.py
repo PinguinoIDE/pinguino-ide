@@ -382,6 +382,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             self.main.menuIcons_theme.addAction(action)
 
         theme = self.configIDE.config("Main", "theme", "pinguino11")
+        if not QtGui.QIcon.hasThemeIcon(theme):
+            theme = "pinguino11"
+            self.configIDE.set("Main", "theme", "pinguino11")
         self.change_icon_theme(theme, dict_themes[theme])()
         dict_themes[theme].setChecked(True)
 
