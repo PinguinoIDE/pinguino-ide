@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/stdout.ui'
 #
-# Created: Fri Jun 20 20:09:40 2014
+# Created: Sun Aug 17 01:53:54 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PlainOut(object):
     def setupUi(self, PlainOut):
         PlainOut.setObjectName("PlainOut")
-        PlainOut.resize(596, 475)
+        PlainOut.resize(861, 458)
         PlainOut.setWindowTitle("Plain Out")
         self.gridLayout = QtGui.QGridLayout(PlainOut)
         self.gridLayout.setObjectName("gridLayout")

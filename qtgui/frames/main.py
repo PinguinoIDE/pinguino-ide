@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Fri Jun 20 20:09:39 2014
+# Created: Sun Aug 17 01:53:53 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,7 +55,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 24))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -562,6 +562,10 @@ class Ui_PinguinoIDE(object):
         self.action22x22 = QtGui.QAction(PinguinoIDE)
         self.action22x22.setCheckable(True)
         self.action22x22.setObjectName("action22x22")
+        self.actionUser_c = QtGui.QAction(PinguinoIDE)
+        self.actionUser_c.setObjectName("actionUser_c")
+        self.actionMain_c = QtGui.QAction(PinguinoIDE)
+        self.actionMain_c.setObjectName("actionMain_c")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
@@ -622,6 +626,8 @@ class Ui_PinguinoIDE(object):
         self.menuConfiguration.addAction(self.actionToolbars)
         self.menuConfiguration.addSeparator()
         self.menuConfiguration.addAction(self.actionStdout)
+        self.menuConfiguration.addSeparator()
+        self.menuConfiguration.addAction(self.actionMain_c)
         self.menuGraphical.addAction(self.actionView_Pinguino_code)
         self.menuGraphical.addAction(self.actionExport_code_to_editor)
         self.menuGraphical.addAction(self.actionInsert_Block)
@@ -750,7 +756,7 @@ class Ui_PinguinoIDE(object):
         self.toolBar_switch.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Switch mode", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+N", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOpen_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Open file", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOpen_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Open", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+O", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Save", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))
@@ -842,5 +848,7 @@ class Ui_PinguinoIDE(object):
         self.action32x32.setText(QtGui.QApplication.translate("PinguinoIDE", "32 x 32", None, QtGui.QApplication.UnicodeUTF8))
         self.action48x48.setText(QtGui.QApplication.translate("PinguinoIDE", "48 x 48", None, QtGui.QApplication.UnicodeUTF8))
         self.action22x22.setText(QtGui.QApplication.translate("PinguinoIDE", "22 x 22", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionUser_c.setText(QtGui.QApplication.translate("PinguinoIDE", "user.c", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionMain_c.setText(QtGui.QApplication.translate("PinguinoIDE", "main.c", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

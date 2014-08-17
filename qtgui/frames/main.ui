@@ -116,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>1088</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -223,6 +223,8 @@
     <addaction name="actionToolbars"/>
     <addaction name="separator"/>
     <addaction name="actionStdout"/>
+    <addaction name="separator"/>
+    <addaction name="actionMain_c"/>
    </widget>
    <widget class="QMenu" name="menuGraphical">
     <property name="title">
@@ -1618,6 +1620,16 @@
    </property>
    <property name="text">
     <string>22 x 22</string>
+   </property>
+  </action>
+  <action name="actionUser_c">
+   <property name="text">
+    <string>user.c</string>
+   </property>
+  </action>
+  <action name="actionMain_c">
+   <property name="text">
+    <string>main.c</string>
    </property>
   </action>
  </widget>
