@@ -654,6 +654,22 @@ class EventMethods(Methods):
 
 
     #----------------------------------------------------------------------
+    def __show_main_c__(self):
+        source = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")
+        board = self.configIDE.config("Board", "arch", 8)
+        if board == 32: extra = "32"
+        else: extra = ""
+        filename = os.path.join(source, "main%s.c"%extra)
+
+        if os.path.isfile(filename):
+            file_ = codecs.open(filename, "r", "utf-8")
+            content = file_.readlines()
+            file_.close()
+            self.frame_stdout = PlainOut("Main.c", "".join(content), highlight=True)
+            self.frame_stdout.show()
+
+
+    #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     @Decorator.requiere_file_saved()
     @Decorator.requiere_can_compile()

@@ -14,7 +14,7 @@ from ..code_editor.pinguino_highlighter import Highlighter
 ########################################################################
 class PlainOut(QtGui.QDialog):
 
-    def __init__(self, title):
+    def __init__(self, title, text=None, highlight=False):
         super(PlainOut, self).__init__()
 
 
@@ -42,11 +42,15 @@ class PlainOut(QtGui.QDialog):
 
         PINGUINO_STDOUT_FILE = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "stdout")
 
-        if os.path.exists(PINGUINO_STDOUT_FILE):
+        if os.path.exists(PINGUINO_STDOUT_FILE) and text is None:
             stdout = codecs.open(PINGUINO_STDOUT_FILE, "r", "utf-8")
             content = stdout.readlines()
             stdout.close()
             self.show_text("".join(content))
+
+        elif text:
+            self.show_text(text, pde=highlight)
+
 
         self.plain_out.pushButton_close.setFocus()
 
