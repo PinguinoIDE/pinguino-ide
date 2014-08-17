@@ -34,6 +34,17 @@ class Dialogs(object):
         if open_files: return open_files[0]
         else: return None
 
+    #----------------------------------------------------------------------
+    @classmethod
+    def set_open_hex(cls, parent, path):
+        open_file = QtGui.QFileDialog.getOpenFileName(parent,
+                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Select"),
+                #QtCore.QDir.home().path(),
+                path,
+                QtGui.QApplication.translate("Dialogs", "Hex Files (*.hex);;All Files (*)"))
+        if open_file: return open_file[0]
+        else: return None
+
 
     #----------------------------------------------------------------------
     @classmethod

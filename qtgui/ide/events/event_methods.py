@@ -801,6 +801,37 @@ class EventMethods(Methods):
             self.pinguino_upload()
 
 
+    #----------------------------------------------------------------------
+    def pinguino_upload_hex(self):
+
+        Dialogs.warning_message(self, "Be careful with this feature, ensure that .hex file it is correct.")
+
+        path = QtCore.QDir.home().path()
+        filename = Dialogs.set_open_hex(self, path)
+
+        if not filename: return
+
+        self.set_board()
+        reply = Dialogs.confirm_board(self)
+
+        if reply == False:
+            self.__show_board_config__()
+            return False
+        elif reply == None:
+            return False
+
+        board = self.pinguinoAPI.get_board()
+        reply = Dialogs.confirm_message(self, "Do you want upload '%s' to %s"%(filename, board.name))
+
+        if reply:
+            self.pinguinoAPI.__hex_file__ = filename
+            self.pinguino_upload()
+
+
+
+
+
+
 
     # Graphical
 

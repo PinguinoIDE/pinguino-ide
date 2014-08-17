@@ -168,6 +168,7 @@
     </property>
     <addaction name="actionCompile"/>
     <addaction name="actionUpload"/>
+    <addaction name="actionUpload_hex_directly"/>
     <addaction name="actionIf_Compile_then_Upload"/>
     <addaction name="separator"/>
     <addaction name="actionLibrary_manager"/>
@@ -225,6 +226,8 @@
     <addaction name="actionStdout"/>
     <addaction name="separator"/>
     <addaction name="actionMain_c"/>
+    <addaction name="actionUser_c"/>
+    <addaction name="actionDefine_h"/>
    </widget>
    <widget class="QMenu" name="menuGraphical">
     <property name="title">
@@ -1622,14 +1625,25 @@
     <string>22 x 22</string>
    </property>
   </action>
+  <action name="actionMain_c">
+   <property name="text">
+    <string>main.c</string>
+   </property>
+  </action>
+  <action name="actionDefine_h">
+   <property name="text">
+    <string>define.h</string>
+   </property>
+  </action>
   <action name="actionUser_c">
    <property name="text">
     <string>user.c</string>
    </property>
   </action>
-  <action name="actionMain_c">
+  <action name="actionUpload_hex_directly">
    <property name="text">
-    <string>main.c</string>
+    <string>Upload .hex directly
+</string>
    </property>
   </action>
  </widget>

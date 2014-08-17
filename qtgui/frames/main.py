@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sun Aug 17 01:53:53 2014
+# Created: Sun Aug 17 13:59:33 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -562,10 +562,14 @@ class Ui_PinguinoIDE(object):
         self.action22x22 = QtGui.QAction(PinguinoIDE)
         self.action22x22.setCheckable(True)
         self.action22x22.setObjectName("action22x22")
-        self.actionUser_c = QtGui.QAction(PinguinoIDE)
-        self.actionUser_c.setObjectName("actionUser_c")
         self.actionMain_c = QtGui.QAction(PinguinoIDE)
         self.actionMain_c.setObjectName("actionMain_c")
+        self.actionDefine_h = QtGui.QAction(PinguinoIDE)
+        self.actionDefine_h.setObjectName("actionDefine_h")
+        self.actionUser_c = QtGui.QAction(PinguinoIDE)
+        self.actionUser_c.setObjectName("actionUser_c")
+        self.actionUpload_hex_directly = QtGui.QAction(PinguinoIDE)
+        self.actionUpload_hex_directly.setObjectName("actionUpload_hex_directly")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
@@ -596,6 +600,7 @@ class Ui_PinguinoIDE(object):
         self.menuEdit.addSeparator()
         self.menuPinguino.addAction(self.actionCompile)
         self.menuPinguino.addAction(self.actionUpload)
+        self.menuPinguino.addAction(self.actionUpload_hex_directly)
         self.menuPinguino.addAction(self.actionIf_Compile_then_Upload)
         self.menuPinguino.addSeparator()
         self.menuPinguino.addAction(self.actionLibrary_manager)
@@ -628,6 +633,8 @@ class Ui_PinguinoIDE(object):
         self.menuConfiguration.addAction(self.actionStdout)
         self.menuConfiguration.addSeparator()
         self.menuConfiguration.addAction(self.actionMain_c)
+        self.menuConfiguration.addAction(self.actionUser_c)
+        self.menuConfiguration.addAction(self.actionDefine_h)
         self.menuGraphical.addAction(self.actionView_Pinguino_code)
         self.menuGraphical.addAction(self.actionExport_code_to_editor)
         self.menuGraphical.addAction(self.actionInsert_Block)
@@ -848,7 +855,10 @@ class Ui_PinguinoIDE(object):
         self.action32x32.setText(QtGui.QApplication.translate("PinguinoIDE", "32 x 32", None, QtGui.QApplication.UnicodeUTF8))
         self.action48x48.setText(QtGui.QApplication.translate("PinguinoIDE", "48 x 48", None, QtGui.QApplication.UnicodeUTF8))
         self.action22x22.setText(QtGui.QApplication.translate("PinguinoIDE", "22 x 22", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionUser_c.setText(QtGui.QApplication.translate("PinguinoIDE", "user.c", None, QtGui.QApplication.UnicodeUTF8))
         self.actionMain_c.setText(QtGui.QApplication.translate("PinguinoIDE", "main.c", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionDefine_h.setText(QtGui.QApplication.translate("PinguinoIDE", "define.h", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionUser_c.setText(QtGui.QApplication.translate("PinguinoIDE", "user.c", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionUpload_hex_directly.setText(QtGui.QApplication.translate("PinguinoIDE", "Upload .hex directly\n"
+"", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
