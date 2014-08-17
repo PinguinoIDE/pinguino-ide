@@ -27,6 +27,16 @@ from qtgui.pinguino_api.pinguino_config import PinguinoConfig
 from qtgui.ide.methods.config import Config
 
 
+Pinguino = Pinguino()
+
+PinguinoConfig.set_environ_vars()
+PinguinoConfig.check_user_files()
+config = Config()
+PinguinoConfig.update_pinguino_paths(config, Pinguino)
+PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
+PinguinoConfig.update_user_libs(Pinguino)
+
+
 ########################################################################
 class TestPinguinoIDE(unittest.TestCase):
     """"""
@@ -73,13 +83,6 @@ class TestPinguinoIDE(unittest.TestCase):
 
     #----------------------------------------------------------------------
     def test_preprocess(self):
-
-        PinguinoConfig.set_environ_vars()
-        PinguinoConfig.check_user_files()
-        config = Config()
-        PinguinoConfig.update_pinguino_paths(config, Pinguino)
-        PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
-        PinguinoConfig.update_user_libs(Pinguino)
 
         regobject, libinstructions = Pinguino.get_regobject_libinstructions(8)
 
