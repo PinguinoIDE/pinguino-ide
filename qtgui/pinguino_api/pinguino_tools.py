@@ -213,6 +213,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @classmethod
     def get_regobject_libinstructions(self, arch):
         """Return regobject and libinstructions for each architecture."""
         if arch == 8:
@@ -231,6 +232,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @classmethod
     def read_lib(self, arch, include_default=True):
         """Load .pdl or .pdl32 files (keywords and libraries)
          trying to find PDL files to store reserved words."""
@@ -274,6 +276,11 @@ class PinguinoTools(object):
                 libinstructions.append([instruction, cnvinstruction, include, define])
 
                 if not instruction: continue
+
+                #import sys
+                #reload(sys)
+                #sys.stdout.write(str([instruction, cnvinstruction, include, define]))
+                #sys.stdout.write("\n")
 
                 regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])%s\W" % re.escape(instruction))
 
@@ -331,9 +338,10 @@ class PinguinoTools(object):
         content = self.remove_comments(content)
         content = content.split('\n')
         nblines = 0
+        regobject, libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
         for line in content:
-            if not line.isspace():
-                resultline = self.replace_word(line)
+            if not line.isspace() and line:
+                resultline = self.replace_word(line, regobject, libinstructions) + "\n"
             else: resultline = "\n"
             #FIXME: error line
             #if resultline.find("error") == 1:
@@ -369,6 +377,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @classmethod
     def add_define(self, chaine):
         """ add #define in define.h file """
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
@@ -377,6 +386,7 @@ class PinguinoTools(object):
         fichier.close()
 
     #----------------------------------------------------------------------
+    @classmethod
     def not_in_define(self, chaine):
         """ verify if #define exists in define.h file """
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
@@ -389,10 +399,12 @@ class PinguinoTools(object):
         return True
 
     #----------------------------------------------------------------------
-    def replace_word(self, line):
+    @classmethod
+    def replace_word(self, line, regobject=None, libinstructions=None):
         """ convert pinguino language in C language """
 
-        regobject, libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+        if None in [regobject, libinstructions]:
+            regobject, libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
         # replace arduino/pinguino language and add #define or #include to define.h
         for i in range(len(libinstructions)):
@@ -404,10 +416,10 @@ class PinguinoTools(object):
                     self.add_define(libinstructions[i][2])
                 if self.not_in_define(libinstructions[i][3]):
                     self.add_define(libinstructions[i][3])
-        return line+"\n"
-
+        return line
 
     #----------------------------------------------------------------------
+    @classmethod
     def remove_comments(self, textinput):
         #FIXME: replace comment with white lines for debugger
 
@@ -434,7 +446,7 @@ class PinguinoTools(object):
 
         if type(textinput) == type([]):
             textout = textout.split("\n")
-            textout = map(lambda x:x+"\n", textout)
+            textout = map(lambda x:x+"\n", textout)[:-1]
 
         return textout
 
