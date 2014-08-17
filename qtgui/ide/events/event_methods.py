@@ -665,8 +665,31 @@ class EventMethods(Methods):
             file_ = codecs.open(filename, "r", "utf-8")
             content = file_.readlines()
             file_.close()
-            self.frame_stdout = PlainOut("Main.c", "".join(content), highlight=True)
-            self.frame_stdout.show()
+            self.frame_main = PlainOut("Main.c", "".join(content), highlight=True)
+            self.frame_main.show()
+
+    #----------------------------------------------------------------------
+    def __show_define_h__(self):
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "define.h")
+
+        if os.path.isfile(filename):
+            file_ = codecs.open(filename, "r", "utf-8")
+            content = file_.readlines()
+            file_.close()
+            self.frame_define = PlainOut("Define.h", "".join(content), highlight=True)
+            self.frame_define.show()
+
+
+    #----------------------------------------------------------------------
+    def __show_user_c__(self):
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "user.c")
+
+        if os.path.isfile(filename):
+            file_ = codecs.open(filename, "r", "utf-8")
+            content = file_.readlines()
+            file_.close()
+            self.frame_user = PlainOut("User.c", "".join(content), highlight=True)
+            self.frame_user.show()
 
 
     #----------------------------------------------------------------------

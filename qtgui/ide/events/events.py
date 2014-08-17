@@ -68,6 +68,8 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionHex_code, QtCore.SIGNAL("triggered()"), self.__show_hex_code__)
         self.connect(self.main.actionStdout, QtCore.SIGNAL("triggered()"), self.__show_stdout__)
         self.connect(self.main.actionMain_c, QtCore.SIGNAL("triggered()"), self.__show_main_c__)
+        self.connect(self.main.actionUser_c, QtCore.SIGNAL("triggered()"), self.__show_user_c__)
+        self.connect(self.main.actionDefine_h, QtCore.SIGNAL("triggered()"), self.__show_define_h__)
 
         # Graphical
         self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)
