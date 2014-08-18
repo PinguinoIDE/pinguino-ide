@@ -46,6 +46,18 @@ else:
     os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")
 
 
+class bcolors:
+    Black = "\033[0;30m"
+    Red = "\033[0;31m"
+    Green = "\033[0;32m"
+    Yellow = "\033[0;33m"
+    Blue = "\033[0;34m"
+    Purple = "\033[0;35m"
+    Cyan = "\033[0;36m"
+    LightGray = "\033[0;37m"
+    ENDC = "\033[0m"
+
+
 if __name__ == "__main__":
 
     sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
@@ -139,29 +151,34 @@ if __name__ == "__main__":
         PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
         PinguinoConfig.update_user_libs(pinguino)
 
+
+        def printb(text, color):
+            print(color + text + bcolors.ENDC)
+
+
         parser = pinguino.build_argparse()
 
         if parser.version:
-            print("\t" + VERSION)
+            printb("\t" + VERSION, bcolors.Green)
             sys.exit()
 
         if parser.author:
-            print("\tJean-Pierre Mandon")
-            print("\tRegis Blanchot")
-            print("\tYeison Cardona")
+            printb("\tJean-Pierre Mandon", bcolors.Green)
+            printb("\tRegis Blanchot", bcolors.Green)
+            printb("\tYeison Cardona", bcolors.Green)
             sys.exit()
 
         if parser.board:
             pinguino.set_board(parser.board)
-            print("using %s board" % parser.board.name)
+            printb("using %s board" % parser.board.name, bcolors.Green)
 
             if parser.bootloader:
                 bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.bldr)
                 pinguino.set_bootloader(bootloader)
-            print("using %s bootloader" % pinguino.get_board().bldr)
+            printb("using %s bootloader" % pinguino.get_board().bldr, bcolors.Green)
 
             if not parser.filename:
-                print("ERROR: missing filename")
+                printb("ERROR: missing filename", bcolors.Red)
                 sys.exit(1)
 
             else:
@@ -169,55 +186,55 @@ if __name__ == "__main__":
 
                 fname, extension = os.path.splitext(filename)
                 if extension != ".pde":
-                    print("ERROR: bad file extension, it should be .pde")
+                    printb("ERROR: bad file extension, it should be .pde", bcolors.Red)
                     sys.exit()
                 del fname, extension
 
                 pinguino.compile_file(filename)
 
                 if not pinguino.compiled():
-                    print("\nERROR: no compiled\n")
+                    printb("\nERROR: no compiled\n", bcolors.Red)
 
                     errors_proprocess = pinguino.get_errors_preprocess()
                     if errors_proprocess:
-                        for error in errors_proprocess["preprocess"]: print(error)
+                        for error in errors_proprocess["preprocess"]: printb(error, bcolors.Red)
 
                     errors_c = pinguino.get_errors_compiling_c()
                     if errors_c:
-                        print(errors_c["complete_message"])
+                        printb(errors_c["complete_message"], bcolors.Red)
 
                     errors_asm = pinguino.get_errors_compiling_asm()
                     if errors_asm:
-                        for error in errors_asm["error_symbols"]: print(error)
+                        for error in errors_asm["error_symbols"]: printb(error, bcolors.Red)
 
                     errors_link = pinguino.get_errors_linking()
                     if errors_link:
-                        for error in errors_link["linking"]: print(error)
+                        for error in errors_link["linking"]: printb(error, bcolors.Red)
 
                     sys.exit()
 
                 else:
                     result = pinguino.get_result()
-                    print("compilation time: %s" % result["time"])
-                    print("compiled to: %s" % result["hex_file"])
+                    printb("compilation time: %s" % result["time"], bcolors.Yellow)
+                    printb("compiled to: %s" % result["hex_file"], bcolors.Yellow)
 
                     if parser.hex_file:
                         hex_file = open(result["hex_file"], "r")
                         content_hex = hex_file.readlines()
                         hex_file.close()
-                        print("\n" + "*" * 70)
-                        print(result["hex_file"])
-                        print("*" * 70)
-                        for line in content_hex: print(line),
-                        print("*" * 70 + "\n")
+                        printb("\n" + "*" * 70, bcolors.Cyan)
+                        printb(result["hex_file"], bcolors.Cyan)
+                        printb("*" * 70, bcolors.Cyan)
+                        for line in content_hex: printb(line, bcolors.Cyan),
+                        printb("*" * 70 + "\n", bcolors.Cyan)
 
                 if parser.upload:
                     try:
                         uploaded, result = pinguino.upload()
                         if result:
-                            print(result)
+                            printb(result, bcolors.Green)
                     except:
                         if pinguino.get_board().arch == 8:
-                            print("ERROR: is possible that a parameter is incorrect, try another bootloader option.")
-                            print("Boloader options: "),
-                            print(", ".join(pinguino.dict_boot.keys()))
+                            printb("ERROR: is possible that a parameter is incorrect, try another bootloader option.", bcolors.Red)
+                            printb("Boloader options: ", bcolors.Green),
+                            printb(", ".join(pinguino.dict_boot.keys()), bcolors.Green)
