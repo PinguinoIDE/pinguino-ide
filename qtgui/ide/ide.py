@@ -2,10 +2,10 @@
 #-*- coding: utf-8 -*-
 
 import os
-import sys
-import codecs
-import shutil
-import logging
+#import sys
+#import codecs
+#import shutil
+#import logging
 #from ConfigParser import RawConfigParser
 
 from PySide import QtGui, QtCore
@@ -13,7 +13,7 @@ from PySide import QtGui, QtCore
 from .methods.backgrounds import BackgroundPallete
 from .events.events import PinguinoEvents
 from .methods.decorators import Decorator
-from .methods.dialogs import Dialogs
+#from .methods.dialogs import Dialogs
 from .methods.config import Config
 from .code_editor.autocomplete_icons import CompleteIcons
 from .widgets.output_widget import PinguinoTerminal
@@ -223,7 +223,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
             functions = ["update_reserved",
                          "update_installed_reserved",
-
                          ]
 
         self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self,
@@ -312,13 +311,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def reload_toolbar_icons(self):
 
         self.toolbars = [self.main.toolBar_edit,
-                    self.main.toolBar_files,
-                    self.main.toolBar_graphical,
-                    self.main.toolBar_pinguino,
-                    self.main.toolBar_search_replace,
-                    self.main.toolBar_switch,
-                    self.main.toolBar_undo_redo,
-                    ]
+                         self.main.toolBar_files,
+                         self.main.toolBar_graphical,
+                         self.main.toolBar_pinguino,
+                         self.main.toolBar_search_replace,
+                         self.main.toolBar_switch,
+                         self.main.toolBar_undo_redo,
+                         ]
 
         for toolbar in self.toolbars:
             toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)  #explicit IconOnly for windows
@@ -352,7 +351,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             if QtGui.QIcon.hasThemeIcon(icon_name):
                 icon = QtGui.QIcon.fromTheme(icon_name)
                 action.setIcon(icon)
-            else: action.setEnabled(False)
+                action.setVisible(True)
+            else:
+                action.setVisible(False)
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QIcon.fromTheme("insert-text").pixmap(size), QtGui.QIcon.Normal, QtGui.QIcon.On)
@@ -365,7 +366,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def set_icon_theme(self):
 
         QtGui.QIcon.setThemeSearchPaths(QtGui.QIcon.themeSearchPaths()+[os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources", "themes")])
-        paths = filter(lambda path:os.path.isdir(path), QtGui.QIcon.themeSearchPaths())
+        #paths = filter(lambda path:os.path.isdir(path), QtGui.QIcon.themeSearchPaths())
+        paths = [path for path in QtGui.QIcon.themeSearchPaths() if os.path.isdir(path)]
         themes = [(path, os.listdir(path)) for path in paths]
 
         valid_themes = []

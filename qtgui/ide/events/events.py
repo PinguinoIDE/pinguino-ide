@@ -40,7 +40,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionToolbars, QtCore.SIGNAL("toggled(bool)"), self.toggle_toolbars)
         self.connect(self.main.actionTools_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_tools.setVisible)
         self.connect(self.main.actionBlocks_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_blocks.setVisible)
-        self.connect(self.main.actionPython_shell, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_output.setVisible)
+        self.connect(self.main.actionPython_shell, QtCore.SIGNAL("toggled(bool)"), self.toggle_pythonshell)
 
         #Menu Settings
         self.connect(self.main.actionAutocomplete, QtCore.SIGNAL("triggered()"), self.switch_autocomplete)

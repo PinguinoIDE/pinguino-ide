@@ -1208,3 +1208,9 @@ class EventMethods(Methods):
             self.configIDE.set("Features", "terminal_on_graphical", visible)
         else:
             self.configIDE.set("Features", "terminal_on_text", visible)
+
+
+    #----------------------------------------------------------------------
+    def toggle_pythonshell(self, visible):
+        self.main.dockWidget_output.setVisible(visible)
+        self.configIDE.config("Features", "terminal_on_graphical", False)
