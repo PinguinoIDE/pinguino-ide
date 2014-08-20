@@ -23,6 +23,10 @@ class Paths(QtGui.QDialog):
 
         self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+
         self.dialog_dirs = ((self.set_paths.lineEdit_gcc_bin, self.set_paths.pushButton_gcc_bin, "GCC_BIN"),
                             (self.set_paths.lineEdit_sdcc_bin, self.set_paths.pushButton_sdcc_bin, "SDCC_BIN"),
                             (self.set_paths.lineEdit_pinguino_8_libs, self.set_paths.pushButton_pinguino_8_libs, "PINGUINO_8_LIBS"),

@@ -18,6 +18,10 @@ class InsertBlock(QtGui.QDialog):
 
         self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+
         self.graphical = KIT
 
         self.connect(self.insert.lineEdit, QtCore.SIGNAL("textChanged(QString)"), self.update_blocks)

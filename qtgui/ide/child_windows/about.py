@@ -23,9 +23,9 @@ class About(QtGui.QDialog):
 
         self.about.label_name.setText(os.getenv("NAME")+" "+os.getenv("VERSION")+"-"+os.getenv("SUBVERSION"))
 
-
-        self.about.label.setPixmap(QtGui.QPixmap(":/logo/art/pinguino11.svg"))
-
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
 
         self.connect(self.about.pushButton_credits, QtCore.SIGNAL("clicked()"), lambda :self.about.stackedWidget.setCurrentIndex(1))
         self.connect(self.about.pushButton_license, QtCore.SIGNAL("clicked()"), lambda :self.about.stackedWidget.setCurrentIndex(2))

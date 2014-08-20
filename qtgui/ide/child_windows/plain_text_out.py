@@ -33,6 +33,10 @@ class PlainOut(QtGui.QDialog):
 
         self.setWindowTitle(os.getenv("NAME")+" - "+title)
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+
         self.connect(self.plain_out.pushButton_close, QtCore.SIGNAL("clicked()"), self.close)
 
         palette = QtGui.QPalette(self.palette())
