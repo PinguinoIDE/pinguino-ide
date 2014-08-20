@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/select_area.ui'
 #
-# Created: Sun Aug 17 13:59:36 2014
+# Created: Tue Aug 19 23:30:06 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -15,13 +15,13 @@ class Ui_Selection(object):
         Selection.resize(360, 145)
         Selection.setWindowTitle("SelectArea")
         self.gridLayout = QtGui.QGridLayout(Selection)
-        self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.border_w = QtGui.QFrame(Selection)
         self.border_w.setMinimumSize(QtCore.QSize(1, 0))
         self.border_w.setMaximumSize(QtCore.QSize(1, 16777215))
-        self.border_w.setStyleSheet("background-image: url(:/selection/selection/border.svg);")
+        self.border_w.setStyleSheet("background-image: url(:/selection/selection/border.png);")
         self.border_w.setObjectName("border_w")
         self.horizontalLayout_7 = QtGui.QHBoxLayout(self.border_w)
         self.horizontalLayout_7.setSpacing(0)
@@ -29,7 +29,7 @@ class Ui_Selection(object):
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.gridLayout.addWidget(self.border_w, 1, 0, 1, 1)
         self.background = QtGui.QFrame(Selection)
-        self.background.setStyleSheet("background-image: url(:/selection/selection/background.svg);")
+        self.background.setStyleSheet("background-image: url(:/selection/selection/background.png);")
         self.background.setObjectName("background")
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.background)
         self.horizontalLayout_2.setSpacing(0)
@@ -39,7 +39,7 @@ class Ui_Selection(object):
         self.border_e = QtGui.QFrame(Selection)
         self.border_e.setMinimumSize(QtCore.QSize(1, 0))
         self.border_e.setMaximumSize(QtCore.QSize(1, 16777215))
-        self.border_e.setStyleSheet("background-image: url(:/selection/selection/border.svg);")
+        self.border_e.setStyleSheet("background-image: url(:/selection/selection/border.png);")
         self.border_e.setObjectName("border_e")
         self.horizontalLayout_9 = QtGui.QHBoxLayout(self.border_e)
         self.horizontalLayout_9.setSpacing(0)
@@ -49,7 +49,7 @@ class Ui_Selection(object):
         self.border_n = QtGui.QFrame(Selection)
         self.border_n.setMinimumSize(QtCore.QSize(0, 1))
         self.border_n.setMaximumSize(QtCore.QSize(16777215, 1))
-        self.border_n.setStyleSheet("background-image: url(:/selection/selection/border.svg);")
+        self.border_n.setStyleSheet("background-image: url(:/selection/selection/border.png);")
         self.border_n.setObjectName("border_n")
         self.horizontalLayout_11 = QtGui.QHBoxLayout(self.border_n)
         self.horizontalLayout_11.setSpacing(0)
@@ -59,7 +59,7 @@ class Ui_Selection(object):
         self.border_s = QtGui.QFrame(Selection)
         self.border_s.setMinimumSize(QtCore.QSize(0, 1))
         self.border_s.setMaximumSize(QtCore.QSize(16777215, 1))
-        self.border_s.setStyleSheet("background-image: url(:/selection/selection/border.svg);")
+        self.border_s.setStyleSheet("background-image: url(:/selection/selection/border.png);")
         self.border_s.setObjectName("border_s")
         self.horizontalLayout_5 = QtGui.QHBoxLayout(self.border_s)
         self.horizontalLayout_5.setSpacing(0)

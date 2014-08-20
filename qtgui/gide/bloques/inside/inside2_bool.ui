@@ -7,23 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>94</width>
-    <height>35</height>
+    <height>34</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true"/>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
+   <property name="margin">
     <number>0</number>
    </property>
    <property name="spacing">
@@ -33,13 +24,13 @@
     <widget class="QFrame" name="frame">
      <property name="minimumSize">
       <size>
-       <width>8</width>
+       <width>9</width>
        <height>34</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>8</width>
+       <width>9</width>
        <height>34</height>
       </size>
      </property>
@@ -65,13 +56,13 @@
     <widget class="QFrame" name="frame_3">
      <property name="minimumSize">
       <size>
-       <width>8</width>
+       <width>9</width>
        <height>34</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>8</width>
+       <width>9</width>
        <height>34</height>
       </size>
      </property>
