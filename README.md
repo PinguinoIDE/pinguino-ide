@@ -12,7 +12,7 @@ Open source integrated development enviroment (IDE).
 ## Requirements
   * [pyside] (https://pypi.python.org/pypi/PySide)
   * [beautifulsoup4] (https://pypi.python.org/pypi/beautifulsoup4)
-  * [pyusb==1.0.0b1] (https://pypi.python.org/pypi/pyusb/1.0.0b1)
+  * [pyusb==0.4.3] (http://sourceforge.net/projects/pyusb/files/PyUSB%200.x/0.4.3)
   
 #### optionals
 Used for Pinguino's library manager
