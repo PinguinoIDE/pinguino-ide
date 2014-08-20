@@ -1,22 +1,25 @@
 Pinguino IDE 11.0 - Beta 2
 --------------------------
 
-xxxxx --, 2014
+August 20, 2014
 
 Features
 
 * Added post_install.py for complete instalation
 * Added themes features
+* Added views for main.c, user.c and define.h
+* Added option for upload .hex directly
 
 Improves
 
-*
+* Remove unnecessary files, like images and fonts
 
 Bug Fixes
 
 * "Save as" not work with unsaved files
 * IDE not use default fonts
 * Some files are unnecessary
+* Missing icons on toolbar and graphical development
 
 
 ##################################################
