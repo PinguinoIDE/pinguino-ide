@@ -248,21 +248,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     #----------------------------------------------------------------------
     def update_actions_for_text(self):
         normal = False
-        #self.main.menuGraphical.setEnabled(normal)
-
-        #self.main.actionExport_code_to_editor.setEnabled(normal)
-        #self.main.actionView_Pinguino_code.setEnabled(normal)
-        #self.main.actionInsert_Block.setEnabled(normal)
-
-        #self.main.actionComment_out_region.setEnabled(not normal)
-        #self.main.actionComment_Uncomment_region.setEnabled(not normal)
-        #self.main.actionRedo.setEnabled(not normal)
-        #self.main.actionUndo.setEnabled(not normal)
-        #self.main.actionCut.setEnabled(not normal)
-        #self.main.actionCopy.setEnabled(not normal)
-        #self.main.actionPaste.setEnabled(not normal)
-        #self.main.actionSearch.setEnabled(not normal)
-        #self.main.actionSearch_and_replace.setEnabled(not normal)
+        self.main.menuGraphical.setEnabled(normal)
 
         self.main.dockWidget_blocks.setVisible(normal)
         self.main.dockWidget_tools.setVisible(not normal)
@@ -280,20 +266,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     #----------------------------------------------------------------------
     def update_actions_for_graphical(self):
         normal = True
-        #self.main.menuGraphical.setEnabled(normal)
-        #self.main.actionExport_code_to_editor.setEnabled(normal)
-        #self.main.actionView_Pinguino_code.setEnabled(normal)
-        #self.main.actionInsert_Block.setEnabled(normal)
-
-        #self.main.actionRedo.setEnabled(not normal)
-        #self.main.actionComment_out_region.setEnabled(not normal)
-        #self.main.actionComment_Uncomment_region.setEnabled(not normal)
-        #self.main.actionUndo.setEnabled(not normal)
-        #self.main.actionCut.setEnabled(not normal)
-        #self.main.actionCopy.setEnabled(not normal)
-        #self.main.actionPaste.setEnabled(not normal)
-        #self.main.actionSearch.setEnabled(not normal)
-        #self.main.actionSearch_and_replace.setEnabled(not normal)
+        self.main.menuGraphical.setEnabled(normal)
 
         self.main.dockWidget_blocks.setVisible(normal)
         self.main.dockWidget_tools.setVisible(not normal)
