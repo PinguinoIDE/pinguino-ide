@@ -1,17 +1,27 @@
 [Icon Theme]
 Name=Pinguino11
-Inherits=gnome,ubuntu-mono-light,hicolor,gnome-colors-wise
+Inherits=gnome
 Comment=Icon theme built for Pinguino IDE 11.
-Directories=icons
+Directories=icons/16,icons/22,icons/24,icons/32,icons/48
 
 Example=directory-x-normal
 
-[icons]
-Size=96
-Context=Actions
-Type=Scalable
-MinSize=64
-MaxSize=128
+[icons/16]
+Size=16
+Type=fixed
 
+[icons/22]
+Size=22
+Type=fixed
 
+[icons/24]
+Size=24
+Type=fixed
 
+[icons/32]
+Size=32
+Type=fixed
+
+[icons/48]
+Size=48
+Type=fixed
