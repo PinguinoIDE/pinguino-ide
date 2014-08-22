@@ -189,16 +189,16 @@ class Constructor(object):
         spin.setupUi(widgetSpin)
 
         #icon = QtGui.QIcon()
-        #icon.addPixmap(QtGui.QPixmap("%sup.svg"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon.addPixmap(QtGui.QPixmap("%sup.png"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         #spin.toolButton_3.setIcon(icon)
 
         #icon1 = QtGui.QIcon()
-        #icon1.addPixmap(QtGui.QPixmap("%sdown.svg"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon1.addPixmap(QtGui.QPixmap("%sdown.png"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         #spin.toolButton_4.setIcon(icon1)
 
 
-        spin.frame.setStyleSheet("image: url(%sup.svg);"%self.isideDir)
-        spin.frame_2.setStyleSheet("image: url(%sdown.svg);"%self.isideDir)
+        spin.frame.setStyleSheet("image: url(%sup.png);"%self.isideDir)
+        spin.frame_2.setStyleSheet("image: url(%sdown.png);"%self.isideDir)
 
         edit = spin.lineEdit
         #edit.setStyleSheet("background-image: url(:/bg/bg/box.png);\ncolor: rgb(90, 90, 90);")
@@ -252,16 +252,16 @@ class Constructor(object):
         spin.setupUi(widgetSpin)
 
         #icon = QtGui.QIcon()
-        #icon.addPixmap(QtGui.QPixmap("%sup.svg"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon.addPixmap(QtGui.QPixmap("%sup.png"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         #spin.toolButton_3.setIcon(icon)
 
         #icon1 = QtGui.QIcon()
-        #icon1.addPixmap(QtGui.QPixmap("%sdown.svg"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon1.addPixmap(QtGui.QPixmap("%sdown.png"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         #spin.toolButton_4.setIcon(icon1)
 
 
-        spin.frame.setStyleSheet("image: url(%sup.svg);"%self.isideDir)
-        spin.frame_2.setStyleSheet("image: url(%sdown.svg);"%self.isideDir)
+        spin.frame.setStyleSheet("image: url(%sup.png);"%self.isideDir)
+        spin.frame_2.setStyleSheet("image: url(%sdown.png);"%self.isideDir)
 
 
         edit = spin.lineEdit
@@ -370,11 +370,11 @@ class Constructor(object):
         choice.lineEdit.setStyleSheet("background-image: url(:/bg/bg/box.png); color: rgb(90,90,90);")
 
         #icon = QtGui.QIcon()
-        #icon.addPixmap(QtGui.QPixmap("%sup.svg"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #icon.addPixmap(QtGui.QPixmap("%sup.png"%self.isideDir), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         #choice.toolButton_3.setIcon(icon)
 
-        choice.frame.setStyleSheet("image: url(%sup.svg);"%self.isideDir)
-        choice.frame_2.setStyleSheet("image: url(%sdown.svg);"%self.isideDir)
+        choice.frame.setStyleSheet("image: url(%sup.png);"%self.isideDir)
+        choice.frame_2.setStyleSheet("image: url(%sdown.png);"%self.isideDir)
 
 
         edit = choice.lineEdit
@@ -498,17 +498,17 @@ class Constructor(object):
             inside.setupUi(widgetInside)
             widgetInside.setMinimumHeight(34)
             widgetInside.setMaximumHeight(34)
-            inside.frame.setStyleSheet("image: url(%s/insert21b.svg);"%self.isideDir)
-            inside.frame_2.setStyleSheet("background-image: url(%s/insert23b.svg);"%self.isideDir)
-            #inside.frame_3.setStyleSheet("image: url(bloques/inside/arte/insert22b.svg);")
+            inside.frame.setStyleSheet("image: url(%s/insert21b.png);"%self.isideDir)
+            inside.frame_2.setStyleSheet("background-image: url(%s/insert23b.png);"%self.isideDir)
+            #inside.frame_3.setStyleSheet("image: url(bloques/inside/arte/insert22b.png);")
 
 
         else:
             inside = Inside()
             inside.setupUi(widgetInside)
 
-            inside.frame.setStyleSheet("image: url(%s/insert21.svg);"%self.isideDir)
-            inside.frame_2.setStyleSheet("background-image: url(%s/insert23.svg);"%self.isideDir)
+            inside.frame.setStyleSheet("image: url(%s/insert21.png);"%self.isideDir)
+            inside.frame_2.setStyleSheet("background-image: url(%s/insert23.png);"%self.isideDir)
 
 
 
@@ -530,17 +530,17 @@ class Constructor(object):
             widgetInside.setMinimumHeight(34)
             widgetInside.setMaximumHeight(34)
 
-            inside.frame.setStyleSheet("image: url(%s/insert21b.svg);"%self.isideDir)
-            inside.frame_2.setStyleSheet("background-image: url(%s/insert23b.svg);"%self.isideDir)
-            inside.frame_3.setStyleSheet("image: url(%s/insert21b_.svg);"%self.isideDir)
+            inside.frame.setStyleSheet("image: url(%s/insert21b.png);"%self.isideDir)
+            inside.frame_2.setStyleSheet("background-image: url(%s/insert23b.png);"%self.isideDir)
+            inside.frame_3.setStyleSheet("image: url(%s/insert21b_.png);"%self.isideDir)
 
         else:
             inside = InsideBool()
             inside.setupUi(widgetInside)
-            inside.frame.setStyleSheet("image: url(%s/insert21.svg);"%self.isideDir)
-            inside.frame_2.setStyleSheet("background-image: url(%s/insert23.svg);"%self.isideDir)
-            #inside.frame_3.setStyleSheet("image: url(%sinsert22.svg);"%self.isideDir)
-            inside.frame_3.setStyleSheet("image: url(%s/insert21_.svg);"%self.isideDir)
+            inside.frame.setStyleSheet("image: url(%s/insert21.png);"%self.isideDir)
+            inside.frame_2.setStyleSheet("background-image: url(%s/insert23.png);"%self.isideDir)
+            #inside.frame_3.setStyleSheet("image: url(%sinsert22.png);"%self.isideDir)
+            inside.frame_3.setStyleSheet("image: url(%s/insert21_.png);"%self.isideDir)
 
 
         widgetInside.setMinimumSize(30, widgetInside.size().height())

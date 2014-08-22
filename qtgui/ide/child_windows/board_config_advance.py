@@ -21,6 +21,10 @@ class BoardConfigAdvance(QtGui.QDialog):
         self.board_config.setupUi(self)
         self.main = parent
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+
         #FIXME: add correct options
         self.HEAPSIZE = {"512 byte": 512,
                          "1024 byte": 1024,}

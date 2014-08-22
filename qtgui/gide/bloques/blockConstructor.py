@@ -168,9 +168,9 @@ class BlockLinear(Constructor, Properties):
 
         self.isideDir = ":/bloques/bloques/linear/arte/"
 
-        delay.frame.setStyleSheet("image: url(:/bloques/bloques/linear/arte/linear1.svg);")
-        delay.area.setStyleSheet("background-image: url(:/bloques/bloques/linear/arte/linear2.svg);")
-        delay.frame_3.setStyleSheet("image: url(:/bloques/bloques/linear/arte/linear3.svg);")
+        delay.frame.setStyleSheet("image: url(:/bloques/bloques/linear/arte/linear1.png);")
+        delay.area.setStyleSheet("background-image: url(:/bloques/bloques/linear/arte/linear2.png);")
+        delay.frame_3.setStyleSheet("image: url(:/bloques/bloques/linear/arte/linear3.png);")
 
         setPartOfBlock([delay.frame,
                         delay.area,
@@ -258,11 +258,11 @@ class BlockFunction(Constructor, Properties):
 
         self.isideDir = ":/bloques/bloques/nested/arte/function/"
 
-        Nest.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/function/linear2.svg);")
-        Nest.frame_3.setStyleSheet("image: url(:/bloques/bloques/nested/arte/function/linear3.svg);")
-        Nest.frame_4.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/function/nested2.svg);")
-        Nest.frame_5.setStyleSheet("image: url(:/bloques/bloques/nested/arte/function/nested3.svg);")
-        Nest.frame.setStyleSheet("image: url(:/bloques/bloques/nested/arte/function/nested1.svg);")
+        Nest.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/function/linear2.png);")
+        Nest.frame_3.setStyleSheet("image: url(:/bloques/bloques/nested/arte/function/linear3.png);")
+        Nest.frame_4.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/function/nested2.png);")
+        Nest.frame_5.setStyleSheet("image: url(:/bloques/bloques/nested/arte/function/nested3.png);")
+        Nest.frame.setStyleSheet("image: url(:/bloques/bloques/nested/arte/function/nested1.png);")
 
         setPartOfBlock([Nest.frame_2,
                         Nest.frame_3,
@@ -429,11 +429,11 @@ class BlockNested(Constructor, Properties):
 
         self.isideDir = ":/bloques/bloques/nested/arte/nested/"
 
-        NestLin.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/linear2.svg);")
-        NestLin.frame_3.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/linear3.svg);")
-        NestLin.frame_4.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/nested2.svg);")
-        NestLin.frame_5.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested32.svg);")
-        NestLin.frame.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested1sec.svg);")
+        NestLin.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/linear2.png);")
+        NestLin.frame_3.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/linear3.png);")
+        NestLin.frame_4.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/nested2.png);")
+        NestLin.frame_5.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested32.png);")
+        NestLin.frame.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested1sec.png);")
 
         setPartOfBlock([
                         NestLin.frame_2,
@@ -552,8 +552,8 @@ class BlockSpace(Constructor, Properties):
 
         self.isideDir = ":/bloques/bloques/inside/arte/in/"
 
-        self.Inside.frame.setStyleSheet("image: url(:/bloques/bloques/inside/arte/in/insert.svg);")
-        self.Inside.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/inside/arte/in/insert3.svg);")
+        self.Inside.frame.setStyleSheet("image: url(:/bloques/bloques/inside/arte/in/insert.png);")
+        self.Inside.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/inside/arte/in/insert3.png);")
 
         setPartOfBlock([self.Inside.frame,
                         self.Inside.frame_2])
@@ -619,9 +619,9 @@ class BlockSpaceBool(Constructor, Properties):
 
         self.isideDir = ":/bloques/bloques/inside/arte/bool/"
 
-        self.Inside.frame.setStyleSheet("image: url(:/bloques/bloques/inside/arte/bool/insert.svg);")
-        self.Inside.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/inside/arte/bool/insert3.svg);")
-        self.Inside.frame_3.setStyleSheet("image: url(:/bloques/bloques/inside/arte/bool/insert_.svg);")
+        self.Inside.frame.setStyleSheet("image: url(:/bloques/bloques/inside/arte/bool/insert.png);")
+        self.Inside.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/inside/arte/bool/insert3.png);")
+        self.Inside.frame_3.setStyleSheet("image: url(:/bloques/bloques/inside/arte/bool/insert_.png);")
 
         setPartOfBlock([self.Inside.frame,
                         self.Inside.frame_2,
@@ -690,11 +690,11 @@ class BlockNestedSecond(Constructor, Properties):
 
         self.isideDir = ":/bloques/bloques/nested/arte/nested/"
 
-        NestSec.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/linear2.svg);")
-        NestSec.frame_3.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/linear3.svg);")
-        NestSec.frame_4.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/nested2.svg);")
-        NestSec.frame_5.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested32.svg);")
-        NestSec.frame.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested1.svg);")
+        NestSec.frame_2.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/linear2.png);")
+        NestSec.frame_3.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/linear3.png);")
+        NestSec.frame_4.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/nested2.png);")
+        NestSec.frame_5.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested32.png);")
+        NestSec.frame.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested1.png);")
 
         setPartOfBlock([
                         NestSec.frame_2,
@@ -816,16 +816,16 @@ class BlockFrameEdit(Constructor, Properties):
 
         #self.isideDir = "bloques/nested/arte/nested/"
 
-        NestSec.frame_8.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.svg);")
-        NestSec.frame_10.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.svg);")
-        NestSec.frame_6.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.svg);")
-        NestSec.frame_7.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.svg);")
-        NestSec.frame_11.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.svg);")
+        NestSec.frame_8.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.png);")
+        NestSec.frame_10.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.png);")
+        NestSec.frame_6.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.png);")
+        NestSec.frame_7.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.png);")
+        NestSec.frame_11.setStyleSheet("background-image: url(:/bloques/bloques/frame_edit/arte/fill.png);")
 
-        NestSec.frame.setStyleSheet("image: url(:/bloques/bloques/frame_edit/arte/esq11.svg);")
-        NestSec.frame_2.setStyleSheet("image: url(:/bloques/bloques/frame_edit/arte/esq12.svg);")
-        NestSec.frame_4.setStyleSheet("image: url(:/bloques/bloques/frame_edit/arte/esq22.svg);")
-        NestSec.frame_3.setStyleSheet("image: url(:/bloques/bloques/frame_edit/arte/esq21.svg);")
+        NestSec.frame.setStyleSheet("image: url(:/bloques/bloques/frame_edit/arte/esq11.png);")
+        NestSec.frame_2.setStyleSheet("image: url(:/bloques/bloques/frame_edit/arte/esq12.png);")
+        NestSec.frame_4.setStyleSheet("image: url(:/bloques/bloques/frame_edit/arte/esq22.png);")
+        NestSec.frame_3.setStyleSheet("image: url(:/bloques/bloques/frame_edit/arte/esq21.png);")
 
         setPartOfBlock([NestSec.frame_8,
                         NestSec.frame_10,
@@ -839,9 +839,9 @@ class BlockFrameEdit(Constructor, Properties):
                         ])
 
 
-        #NestSec.frame_4.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/nested2.svg);")
-        #NestSec.frame_5.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested32.svg);")
-        #NestSec.widget.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested1.svg);")
+        #NestSec.frame_4.setStyleSheet("background-image: url(:/bloques/bloques/nested/arte/nested/nested2.png);")
+        #NestSec.frame_5.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested32.png);")
+        #NestSec.widget.setStyleSheet("image: url(:/bloques/bloques/nested/arte/nested/nested1.png);")
 
         self.layout = None
         #self.layout.setContentsMargins(0, 0, 0, 0)
@@ -978,16 +978,16 @@ class BlockFrameEdit(Constructor, Properties):
 
         #self.NestSec.horizontalLayout_2.addWidget(self.viewer)
 
-        #self.NestSec.frame_10.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.svg);")
-        #self.NestSec.frame_6.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.svg);")
-        #self.NestSec.frame_7.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.svg);")
-        #self.NestSec.frame_5.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.svg);")
+        #self.NestSec.frame_10.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.png);")
+        #self.NestSec.frame_6.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.png);")
+        #self.NestSec.frame_7.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.png);")
+        #self.NestSec.frame_5.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.png);")
         #self.NestSec.frame_15.setStyleSheet("background-image: url(:/bloques/bloques/widgets/arte/box.png);")
 
-        #self.NestSec.frame.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq11.svg);")
-        #self.NestSec.frame_2.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq12.svg);")
-        #self.NestSec.frame_4.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq22.svg);")
-        #self.NestSec.frame_3.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq21.svg);")
+        #self.NestSec.frame.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq11.png);")
+        #self.NestSec.frame_2.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq12.png);")
+        #self.NestSec.frame_4.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq22.png);")
+        #self.NestSec.frame_3.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq21.png);")
 
         #setPartOfBlock([
                         #self.NestSec.frame_10,
@@ -1096,17 +1096,17 @@ class BlockFrameEdit(Constructor, Properties):
         #self.MAX_LENGTH = 50
 
 
-        #self.NestSec.frame_10.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.svg);")
-        #self.NestSec.frame_6.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.svg);")
-        #self.NestSec.frame_7.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.svg);")
-        #self.NestSec.frame_5.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.svg);")
+        #self.NestSec.frame_10.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.png);")
+        #self.NestSec.frame_6.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.png);")
+        #self.NestSec.frame_7.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.png);")
+        #self.NestSec.frame_5.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/fill.png);")
         #self.NestSec.frame_15.setStyleSheet("background-image: url(:/bloques/bloques/widgets/arte/box.png);")
-        #self.NestSec.plainTextEdit.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/__fill_b.svg); color: rgb(255, 255, 255);")
+        #self.NestSec.plainTextEdit.setStyleSheet("background-image: url(:/bloques/bloques/frame/arte/__fill_b.png); color: rgb(255, 255, 255);")
 
-        #self.NestSec.frame.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq11.svg);")
-        #self.NestSec.frame_2.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq12.svg);")
-        #self.NestSec.frame_4.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq22.svg);")
-        #self.NestSec.frame_3.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq21.svg);")
+        #self.NestSec.frame.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq11.png);")
+        #self.NestSec.frame_2.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq12.png);")
+        #self.NestSec.frame_4.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq22.png);")
+        #self.NestSec.frame_3.setStyleSheet("image: url(:/bloques/bloques/frame/arte/esq21.png);")
 
         #setPartOfBlock([
                         #self.NestSec.frame_10,

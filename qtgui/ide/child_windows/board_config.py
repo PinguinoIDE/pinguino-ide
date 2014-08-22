@@ -23,6 +23,10 @@ class BoardConfig(QtGui.QDialog):
 
         self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+
         self.build_devices_arch()
         self.load_config()
 

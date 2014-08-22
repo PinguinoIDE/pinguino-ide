@@ -25,6 +25,10 @@ class WikiDock(QtGui.QMainWindow):
 
         self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+
         self.ide_wiki_docs = os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")
 
         self.to_ignore = ["Examples"]

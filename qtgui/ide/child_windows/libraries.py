@@ -30,6 +30,10 @@ class LibManager(QtGui.QMainWindow):
 
         self.main = IDE
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+
         if ErrorModules["gitpython"] == False:
             self.libframe.radioButton_repo_git.setEnabled(False)
             self.libframe.radioButton_repo_git.setToolTip("'gitpython' no installed")

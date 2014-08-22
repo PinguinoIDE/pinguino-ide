@@ -35,6 +35,10 @@ class HexViewer(QtGui.QMainWindow):
 
         self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
+
         self.original_filename = file_path
 
         self.hex_obj = IntelHex(open(file_path, "r"))

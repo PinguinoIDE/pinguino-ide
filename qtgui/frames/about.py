@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Sun Aug 17 13:59:34 2014
+# Created: Tue Aug 19 23:30:05 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_About(object):
     def setupUi(self, About):
         About.setObjectName("About")
-        About.resize(656, 513)
+        About.resize(656, 507)
         self.gridLayout_2 = QtGui.QGridLayout(About)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.stackedWidget = QtGui.QStackedWidget(About)
@@ -25,7 +25,9 @@ class Ui_About(object):
         self.label_3.setObjectName("label_3")
         self.gridLayout.addWidget(self.label_3, 2, 0, 1, 3)
         spacerItem = QtGui.QSpacerItem(620, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
-        self.gridLayout.addItem(spacerItem, 3, 0, 1, 3)
+        self.gridLayout.addItem(spacerItem, 5, 0, 1, 3)
+        spacerItem1 = QtGui.QSpacerItem(620, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
+        self.gridLayout.addItem(spacerItem1, 3, 0, 1, 3)
         self.gridLayout_4 = QtGui.QGridLayout()
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.pushButton_credits = QtGui.QPushButton(self.page)
@@ -35,24 +37,10 @@ class Ui_About(object):
         self.pushButton_close.setObjectName("pushButton_close")
         self.gridLayout_4.addWidget(self.pushButton_close, 0, 1, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_4, 6, 0, 1, 3)
-        self.label_name = QtGui.QLabel(self.page)
-        font = QtGui.QFont()
-        font.setPointSize(23)
-        font.setWeight(75)
-        font.setBold(True)
-        self.label_name.setFont(font)
-        self.label_name.setText("Pinguino 11.0")
-        self.label_name.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_name.setObjectName("label_name")
-        self.gridLayout.addWidget(self.label_name, 0, 1, 1, 1)
-        spacerItem1 = QtGui.QSpacerItem(620, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
-        self.gridLayout.addItem(spacerItem1, 5, 0, 1, 3)
         self.label = QtGui.QLabel(self.page)
-        self.label.setMinimumSize(QtCore.QSize(241, 241))
-        self.label.setMaximumSize(QtCore.QSize(241, 241))
-        self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap(":/logo/art/pinguino11.svg"))
-        self.label.setScaledContents(True)
+        self.label.setMinimumSize(QtCore.QSize(256, 0))
+        self.label.setMaximumSize(QtCore.QSize(256, 16777215))
+        self.label.setPixmap(QtGui.QPixmap(":/logo/art/pinguino11.png"))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 1, 1, 1, 1)
@@ -62,6 +50,20 @@ class Ui_About(object):
         self.label_10.setOpenExternalLinks(True)
         self.label_10.setObjectName("label_10")
         self.gridLayout.addWidget(self.label_10, 4, 0, 1, 3)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem2, 1, 2, 1, 1)
+        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem3, 1, 0, 1, 1)
+        self.label_name = QtGui.QLabel(self.page)
+        font = QtGui.QFont()
+        font.setPointSize(23)
+        font.setWeight(75)
+        font.setBold(True)
+        self.label_name.setFont(font)
+        self.label_name.setText("Pinguino 11.0")
+        self.label_name.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_name.setObjectName("label_name")
+        self.gridLayout.addWidget(self.label_name, 0, 0, 1, 3)
         self.stackedWidget.addWidget(self.page)
         self.page_2 = QtGui.QWidget()
         self.page_2.setObjectName("page_2")
@@ -137,8 +139,8 @@ class Ui_About(object):
         self.pushButton_about.setObjectName("pushButton_about")
         self.gridLayout_12.addWidget(self.pushButton_about, 0, 0, 1, 1)
         self.gridLayout_13.addLayout(self.gridLayout_12, 4, 0, 1, 1)
-        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout_13.addItem(spacerItem2, 1, 0, 1, 1)
+        spacerItem4 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_13.addItem(spacerItem4, 1, 0, 1, 1)
         self.label_8 = QtGui.QLabel(self.page_3)
         font = QtGui.QFont()
         font.setPointSize(23)
@@ -161,13 +163,13 @@ class Ui_About(object):
 "the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA")
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.gridLayout_13.addWidget(self.plainTextEdit, 2, 0, 1, 1)
-        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout_13.addItem(spacerItem3, 3, 0, 1, 1)
+        spacerItem5 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_13.addItem(spacerItem5, 3, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_3)
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(About)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(About)
 
@@ -187,5 +189,4 @@ class Ui_About(object):
         self.pushButton_about.setText(QtGui.QApplication.translate("About", "About", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("About", "License", None, QtGui.QApplication.UnicodeUTF8))
 
-import resources_rc
 import resources_rc
