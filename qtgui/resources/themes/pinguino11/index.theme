@@ -10,10 +10,6 @@ Example=directory-x-normal
 Size=16
 Type=fixed
 
-[icons/22]
-Size=22
-Type=fixed
-
 [icons/24]
 Size=24
 Type=fixed

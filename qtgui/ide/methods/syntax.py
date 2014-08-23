@@ -42,16 +42,16 @@ const += ["PWD%d"%p for p in range(8)]
 Autocompleter["reserved"] = const
 
 Snippet = {}
-#Snippet[name {snippet}]=["to insert, with cursor mark: [!]"] ##[!] is the cursos position
+#Snippet[name {snippet}]=["to insert, with cursor mark: [!]"] ##[!] is the cursor position
 
-Snippet["void {snippet}"] = "void [!]() {\n\n\t}"
-Snippet["while( ) {snippet}"] = "while [!]() {\n\n\t}"
+Snippet["void {snippet}"] = "void [!]() {\n\n}"
+Snippet["while( ) {snippet}"] = "while ([!]) {\n\n}"
 Snippet["do {...} while  {snippet}"] = "do {\n\t[!]\n} while();"
-Snippet["for {snippet}"] = "for ([!]) {\n\n\t}"
-Snippet["for (i=0;...{snippet}"] = "for (i=[!]; i<; i++) {\n\n\t}"
-Snippet["if...else {snippet}"] = "if ([!]) {\n\n\t}\nelse {\n\n\t}"
-Snippet["if...else if...else {snippet}"] = "if ([!]) {\n\n\t}\nelse if () {\n\n\t}\nelse {\n\n\t}"
-Snippet["switch( ) {snippet}"] = "switch ([!]) {\n\tcase:\n\n\t\tbreak;\n\tdefault:\n\n\t}"
+Snippet["for {snippet}"] = "for ([!]) {\n\n}"
+Snippet["for (i=0;...{snippet}"] = "for (i=[!]; i<; i++) {\n\n}"
+Snippet["if...else {snippet}"] = "if ([!]) {\n\n\t}\nelse {\n\n}"
+Snippet["if...else if...else {snippet}"] = "if ([!]) {\n\}\nelse if () {\n\n}\nelse {\n\n"
+Snippet["switch( ) {snippet}"] = "switch ([!]) {\n\tcase:\n\n\t\tbreak;\n\tdefault:\n\n}"
 
 Snippet["struct {snippet}"] = "struct {\n\t[!]\n};"
 Snippet["typedef ... struct {snippet}"] = "typedef struct {\n\t[!]\n}TYPE;"

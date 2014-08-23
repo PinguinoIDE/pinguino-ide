@@ -107,7 +107,7 @@ class Pinguino(PinguinoTools):
         report["linking"] = errors
         report["line_numbers"] = []
         for error in errors:
-            match = re.match(".*:([\d]+):[\d]+: error.*", error)
+            match = re.match(".*user.c:([\d]+):[\d]+: error.*", error)
             if not match is None: report["line_numbers"] += [int(match.groups()[0])]
         return report
 

@@ -252,7 +252,6 @@
       <string>Icons size</string>
      </property>
      <addaction name="action16x16"/>
-     <addaction name="action22x22"/>
      <addaction name="action24x24"/>
      <addaction name="action32x32"/>
      <addaction name="action48x48"/>
@@ -279,7 +278,10 @@
   </widget>
   <widget class="QDockWidget" name="dockWidget_tools">
    <property name="features">
-    <set>QDockWidget::AllDockWidgetFeatures</set>
+    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
     <string>Tools</string>
@@ -751,7 +753,7 @@
     </font>
    </property>
    <property name="features">
-    <set>QDockWidget::DockWidgetFeatureMask</set>
+    <set>QDockWidget::DockWidgetClosable|QDockWidget::DockWidgetMovable|QDockWidget::DockWidgetVerticalTitleBar</set>
    </property>
    <property name="windowTitle">
     <string>Python Shell</string>
@@ -890,10 +892,10 @@
   </widget>
   <widget class="QDockWidget" name="dockWidget_blocks">
    <property name="features">
-    <set>QDockWidget::AllDockWidgetFeatures</set>
+    <set>QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="allowedAreas">
-    <set>Qt::AllDockWidgetAreas</set>
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
     <string>Blocks</string>

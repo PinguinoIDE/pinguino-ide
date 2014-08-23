@@ -47,7 +47,7 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionColor_theme, QtCore.SIGNAL("toggled(bool)"), self.switch_color_theme)
         self.connect(self.main.actionConfirm_board, QtCore.SIGNAL("toggled(bool)"), self.switch_confirm_board)
         self.connect(self.main.action16x16, QtCore.SIGNAL("triggered(bool)"), self.resize_toolbar(16, self.main.action16x16))
-        self.connect(self.main.action22x22, QtCore.SIGNAL("triggered(bool)"), self.resize_toolbar(22, self.main.action22x22))
+        #self.connect(self.main.action22x22, QtCore.SIGNAL("triggered(bool)"), self.resize_toolbar(22, self.main.action22x22))
         self.connect(self.main.action24x24, QtCore.SIGNAL("triggered(bool)"), self.resize_toolbar(24, self.main.action24x24))
         self.connect(self.main.action32x32, QtCore.SIGNAL("triggered(bool)"), self.resize_toolbar(32, self.main.action32x32))
         self.connect(self.main.action48x48, QtCore.SIGNAL("triggered(bool)"), self.resize_toolbar(48, self.main.action48x48))
@@ -129,10 +129,10 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.main.tabWidget_files.contextMenuEvent = self.tab_files_context_menu
         self.main.tabWidget_graphical.contextMenuEvent = self.tab_files_context_menu
 
-        self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.update_mode_output)
-        self.connect(self.main.dockWidget_tools, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionTools_2.setChecked)
-        self.connect(self.main.dockWidget_blocks, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionBlocks_2.setChecked)
-        self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionPython_shell.setChecked)
+        #self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.update_mode_output)
+        #self.connect(self.main.dockWidget_tools, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionTools_2.setChecked)
+        #self.connect(self.main.dockWidget_blocks, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionBlocks_2.setChecked)
+        #self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionPython_shell.setChecked)
 
         self.main.actionTools_2.setChecked(self.main.dockWidget_tools.isVisible())
         self.main.actionPython_shell.setChecked(self.main.dockWidget_output.isVisible())

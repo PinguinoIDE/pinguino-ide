@@ -294,7 +294,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         for toolbar in self.toolbars:
             toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)  #explicit IconOnly for windows
-            size = self.configIDE.config("Main", "icons_size", 32)
+            size = self.configIDE.config("Main", "icons_size", 24)
             self.resize_toolbar(size, getattr(self.main, "action%dx%d"%(size, size)))()
             getattr(self.main, "action%dx%d"%(size, size)).setChecked(True)
 
@@ -391,6 +391,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
             [act.setChecked(False) for act in self.main.menuIcons_size.actions()]
             action.setChecked(True)
+            self.configIDE.set("Main", "icons_size", size)
 
         return resize_icons
 

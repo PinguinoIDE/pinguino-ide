@@ -73,7 +73,6 @@ class PinguinoConfig(object):
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "source"),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
-        #FIXME: wath to do with this dir?
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p32", "obj"),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "obj"))
 

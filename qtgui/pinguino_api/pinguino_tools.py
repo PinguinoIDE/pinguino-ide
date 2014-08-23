@@ -90,15 +90,18 @@ class PinguinoTools(object):
         self.__current_board__ = board
         #self.get_regobject_libinstructions(board.arch)
 
+
     #----------------------------------------------------------------------
     def get_board(self):
 
         return self.__current_board__
 
+
     #----------------------------------------------------------------------
     def get_filename(self):
 
         return self.__filename__
+
 
     #----------------------------------------------------------------------
     def get_hex_file(self):
@@ -108,6 +111,7 @@ class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def verify(self, filename):
+
         DATA_RETURN = {}
         DATA_RETURN["compiling"] = {"c":[], "asm":[]}
         DATA_RETURN["linking"] = []

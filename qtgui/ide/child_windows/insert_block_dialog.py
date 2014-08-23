@@ -86,7 +86,7 @@ class InsertBlock(QtGui.QDialog):
         self.items = {}
         self.all_sets = self.graphical.get_all_sets()
         for key in self.all_sets.keys():
-            if self.all_sets[key][2][0] == "label":
+            if self.all_sets[key][2][0] in ["label", "decorator"]:
                 label = self.all_sets[key][2][1]
                 if label.lower().startswith(text.lower()):
                     bloques.append([key, self.all_sets[key]])

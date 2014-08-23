@@ -11,6 +11,18 @@ from .autocomplete_icons import CompleteIcons
 #from ..methods import constants as Constants
 
 class PinguinoAutoCompleter(QListWidget):
+    """
+    Rules:
+
+    * Visible after 2 keys (self.setSpell(2))
+    * Don't show with nodifiers
+    * Don't show with backspace
+    * When no matchs autocompleter must be visible
+    * Autocompleter must hide with space
+
+
+
+    """
 
     #----------------------------------------------------------------------
     def __init__(self):
@@ -207,22 +219,22 @@ class PinguinoAutoCompleter(QListWidget):
             return
 
         cont = self.getIndex(index, True)
-        if not cont:
-            self.hide()
-            return
+        #if not cont:
+            #self.hide()
+            #return
 
-        if self.enabled:
+        if self.enabled and cont:
             self.setCurrentRow(cont)
             item = cont + 5
             if item >= len(self.itemsList): item = -1
             self.scrollToItem(self.itemsList[item])
 
-            self.move(pos)
-            self.show()
-            self.setFocus()
+        self.move(pos)
+        self.show()
+        self.setFocus()
 
-            self.ajustWidth()
-            self.ajustPos()
+        self.ajustWidth()
+        self.ajustPos()
 
 
 

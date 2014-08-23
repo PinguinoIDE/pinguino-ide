@@ -688,7 +688,7 @@ class GraphicalIDE(object):
         if not text: return
         bloques = []
         for key in all_sets.keys():
-            if all_sets[key][2][0] == "label":
+            if all_sets[key][2][0] in ["label", "decorator"]:
                 label = all_sets[key][2][1]
                 if label.lower().startswith(text.lower()): bloques.append([key, all_sets[key]])
 

@@ -2,11 +2,20 @@
 #-*- coding: utf-8 -*-
 
 import os
+import logging
 import pickle
 import urllib2
 
 from PySide import QtCore, QtGui
-from bs4 import BeautifulSoup
+
+#from bs4 import BeautifulSoup
+
+BEAUTIFULSOUP = True
+try: from bs4 import BeautifulSoup
+except ImportError:
+    INFO = "%s is an optional dependence for Pinguino's Wiki Libraries."
+    logging.warning(INFO%"bs4")
+    BEAUTIFULSOUP = False
 
 #from ..methods.constants import self.ide_wiki_docs
 from ..methods.dialogs import Dialogs
@@ -30,6 +39,11 @@ class WikiDock(QtGui.QMainWindow):
         self.setWindowIcon(icon)
 
         self.ide_wiki_docs = os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")
+
+        if not BEAUTIFULSOUP:
+            bs4_link = "<a href=''><span style='font-weight:600; text-decoration: underline; color:#ff0000;'>BeautifulSoup 4</span></a>"
+            self.main_widget.label_error.setText("You need have installed %s for use this feature."%bs4_link)
+        self.main_widget.label_error.setVisible(not BEAUTIFULSOUP)
 
         self.to_ignore = ["Examples"]
 

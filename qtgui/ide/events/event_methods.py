@@ -205,7 +205,7 @@ class EventMethods(Methods):
     def print_file(self):
         #Bug: no print to file, this is PySide bug.
         editor = self.get_tab().currentWidget()
-        filename = self.get_tab().tabText(self.get_tab().currentIndex()).replace(".pde", ".pdf").replace(".gpde", ".pdf")
+        filename = self.get_tab().tabText(self.get_tab().currentIndex()).replace(".pde", ".pdf")
         QPrinter = QtGui.QPrinter
         printer = QPrinter(QPrinter.HighResolution)
         printer.setPageSize(QPrinter.Letter)
@@ -560,7 +560,7 @@ class EventMethods(Methods):
     def dedentregion(self):
         editor, cursor, prevCursor, selected, firstLine = self.select_block_edit()
 
-        if firstLine != False:
+        if firstLine != False and firstLine.startswith(" "*4):
 
             editor = self.main.tabWidget_files.currentWidget()
             comment_wildcard = " " * 4
@@ -1213,4 +1213,5 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     def toggle_pythonshell(self, visible):
         self.main.dockWidget_output.setVisible(visible)
-        self.configIDE.config("Features", "terminal_on_graphical", False)
+        self.update_mode_output(visible)
+        #self.configIDE.config("Features", "terminal_on_text", visible)

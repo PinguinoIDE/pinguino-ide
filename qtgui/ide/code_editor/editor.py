@@ -246,6 +246,7 @@ class CustomTextEdit(QtGui.QTextEdit):
             QtCore.Qt.Key_Down,
             QtCore.Qt.Key_Right,
             QtCore.Qt.Key_Left,
+            QtCore.Qt.Key_Backspace,
             ) or event.modifiers() in (
             QtCore.Qt.ControlModifier,
             #QtCore.Qt.ShiftModifier,
@@ -291,6 +292,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.show_autocomplete_if_conditions()
 
 
+
     #----------------------------------------------------------------------
 
     def smart_under_selection(self, tc):
@@ -314,16 +316,18 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         selected = tc.selectedText().split()
 
-        if not selected: return
+        #if not selected: return
         #selected = selected[-1]
+        if selected:
+            self.last_w = selected[-1]
 
-        #Si no cumple con el mínimo de letras
         try:
-            if len(selected[-1]) < self.completer.spell:
+            #Si no cumple con el mínimo de letras
+            if len(self.last_w) < self.completer.spell:
                 self.completer.hide()
 
             else:
-                self.completer.popup(self.getPosPopup(), selected[-1])
+                self.completer.popup(self.getPosPopup(), self.last_w)
                 self.setFocus()
 
         except UnicodeEncodeError: return  #capturas tildes y caracteres especiales

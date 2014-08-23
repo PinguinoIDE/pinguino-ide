@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Aug 19 23:30:04 2014
+# Created: Fri Aug 22 15:31:07 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -86,7 +86,8 @@ class Ui_PinguinoIDE(object):
         self.menuIcons_size.setObjectName("menuIcons_size")
         PinguinoIDE.setMenuBar(self.menubar)
         self.dockWidget_tools = QtGui.QDockWidget(PinguinoIDE)
-        self.dockWidget_tools.setFeatures(QtGui.QDockWidget.AllDockWidgetFeatures)
+        self.dockWidget_tools.setFeatures(QtGui.QDockWidget.DockWidgetClosable|QtGui.QDockWidget.DockWidgetMovable)
+        self.dockWidget_tools.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea|QtCore.Qt.RightDockWidgetArea)
         self.dockWidget_tools.setObjectName("dockWidget_tools")
         self.dockWidgetContents = QtGui.QWidget()
         self.dockWidgetContents.setObjectName("dockWidgetContents")
@@ -286,7 +287,7 @@ class Ui_PinguinoIDE(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.dockWidget_output.setFont(font)
-        self.dockWidget_output.setFeatures(QtGui.QDockWidget.DockWidgetFeatureMask)
+        self.dockWidget_output.setFeatures(QtGui.QDockWidget.DockWidgetClosable|QtGui.QDockWidget.DockWidgetMovable|QtGui.QDockWidget.DockWidgetVerticalTitleBar)
         self.dockWidget_output.setObjectName("dockWidget_output")
         self.dockWidgetContents_2 = QtGui.QWidget()
         self.dockWidgetContents_2.setObjectName("dockWidgetContents_2")
@@ -322,8 +323,8 @@ class Ui_PinguinoIDE(object):
         self.toolBar_pinguino.setObjectName("toolBar_pinguino")
         PinguinoIDE.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar_pinguino)
         self.dockWidget_blocks = QtGui.QDockWidget(PinguinoIDE)
-        self.dockWidget_blocks.setFeatures(QtGui.QDockWidget.AllDockWidgetFeatures)
-        self.dockWidget_blocks.setAllowedAreas(QtCore.Qt.AllDockWidgetAreas)
+        self.dockWidget_blocks.setFeatures(QtGui.QDockWidget.DockWidgetMovable)
+        self.dockWidget_blocks.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea|QtCore.Qt.RightDockWidgetArea)
         self.dockWidget_blocks.setObjectName("dockWidget_blocks")
         self.dockWidgetContents_4 = QtGui.QWidget()
         self.dockWidgetContents_4.setObjectName("dockWidgetContents_4")
@@ -640,7 +641,6 @@ class Ui_PinguinoIDE(object):
         self.menuGraphical.addAction(self.actionInsert_Block)
         self.menuIcons_theme.addAction(self.actionPinguino11)
         self.menuIcons_size.addAction(self.action16x16)
-        self.menuIcons_size.addAction(self.action22x22)
         self.menuIcons_size.addAction(self.action24x24)
         self.menuIcons_size.addAction(self.action32x32)
         self.menuIcons_size.addAction(self.action48x48)

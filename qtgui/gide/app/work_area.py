@@ -154,7 +154,7 @@ class WorkArea(QtGui.QWidget):
 
 
     #----------------------------------------------------------------------
-    def get_better_pos(self, posList, pos):
+    def get_better_pos(self, posList, pos, child):
 
         distancia = lambda pa, pb:sqrt((pa.x()-pb.x())**2+(pa.y()-pb.y())**2)
 
@@ -166,6 +166,8 @@ class WorkArea(QtGui.QWidget):
             s = point[0]
             b = point[1]
 
+            print(b.metadata.type_)
+
             if b.metadata.type_ == "tipo1":
                 if b.metadata.to: continue
 
@@ -173,8 +175,8 @@ class WorkArea(QtGui.QWidget):
                 if b.metadata.nested: continue
 
             elif b.metadata.type_ in "tipo7 tipo9".split():
-                if b.metadata.to and b.metadata.nested: continue
-                #FIXME: two positions!
+                if b.metadata.to and b.metadata.nested:
+                    if not child.metadata.type_ in "tipo2 tipo5".split(): continue
 
             h = distancia(s, pos)
             if h < 20 and h != 0.0: newPosList.append((s, h, point[1]))
@@ -301,7 +303,7 @@ class WorkArea(QtGui.QWidget):
 
             listPos = self.get_type_magnetic(child)
 
-            point, accept, parent = self.get_better_pos(listPos, point)
+            point, accept, parent = self.get_better_pos(listPos, point, child)
 
             self.prepareAccept = [accept, child, parent]
             self.accept_move(False, child, parent)

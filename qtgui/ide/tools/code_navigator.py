@@ -13,7 +13,6 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     @classmethod
     def remove_comments(cls, text):
-        #FIXME: replace comment with white lines for debugger
 
         if type(text) == type([]):
             text = "".join(text)
