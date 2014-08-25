@@ -1236,7 +1236,7 @@
      <normaloff>:/toolbar/toolbar/board.svg</normaloff>:/toolbar/toolbar/board.svg</iconset>
    </property>
    <property name="text">
-    <string>Board Settings</string>
+    <string>Board Configuration</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+B</string>

@@ -444,7 +444,7 @@ class PinguinoTools(object):
 
         if type(textinput) == type([]):
             textout = textout.split("\n")
-            textout = map(lambda x:x+"\n", textout)[:-1]
+            textout = map(lambda x:x+"\n", textout)
 
         return textout
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/board_config.ui'
 #
-# Created: Fri Aug 22 15:31:08 2014
+# Created: Sat Aug 23 18:06:06 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -117,7 +117,7 @@ class Ui_BoardConfig(object):
         QtCore.QMetaObject.connectSlotsByName(BoardConfig)
 
     def retranslateUi(self, BoardConfig):
-        BoardConfig.setWindowTitle(QtGui.QApplication.translate("BoardConfig", "Board Config", None, QtGui.QApplication.UnicodeUTF8))
+        BoardConfig.setWindowTitle(QtGui.QApplication.translate("BoardConfig", "Board Configuration", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_arch.setTitle(QtGui.QApplication.translate("BoardConfig", "Architecture", None, QtGui.QApplication.UnicodeUTF8))
         self.radioButton_arch_8.setText(QtGui.QApplication.translate("BoardConfig", "8-bit", None, QtGui.QApplication.UnicodeUTF8))
         self.radioButton_arch_32.setText(QtGui.QApplication.translate("BoardConfig", "32-bit", None, QtGui.QApplication.UnicodeUTF8))
