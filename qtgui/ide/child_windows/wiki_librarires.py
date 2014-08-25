@@ -41,7 +41,7 @@ class WikiDock(QtGui.QMainWindow):
         self.ide_wiki_docs = os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")
 
         if not BEAUTIFULSOUP:
-            bs4_link = "<a href=''><span style='font-weight:600; text-decoration: underline; color:#ff0000;'>BeautifulSoup 4</span></a>"
+            bs4_link = "<a href='https://pypi.python.org/pypi/beautifulsoup4'><span style='font-weight:600; text-decoration: underline; color:#ff0000;'>BeautifulSoup 4</span></a>"
             self.main_widget.label_error.setText("You need have installed %s for use this feature."%bs4_link)
         self.main_widget.label_error.setVisible(not BEAUTIFULSOUP)
 
