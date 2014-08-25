@@ -49,6 +49,7 @@ class CustomTextEdit(QtGui.QTextEdit):
         #self.initialize()
         #self.setPalette(palette)
 
+        self.last_w = ""
         self.next_ignore = None
 
         #Highlighter(self)
