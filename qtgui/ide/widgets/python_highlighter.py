@@ -7,7 +7,7 @@ from PySide import QtGui, QtCore
 class Highlighter(QtGui.QSyntaxHighlighter):
 
     #----------------------------------------------------------------------
-    def __init__(self, parent, START):
+    def __init__(self, parent, extra):
         super(Highlighter, self).__init__(parent)
         color = QtGui.QColor
 
@@ -19,7 +19,11 @@ class Highlighter(QtGui.QSyntaxHighlighter):
 
         start_command = QtGui.QTextCharFormat()
         start_command.setForeground(color("#729fcf"))
-        self.highlightingRules.append((START, start_command))
+        self.highlightingRules.append((extra[0].replace(".", "\."), start_command))
+
+        #line_command = QtGui.QTextCharFormat()
+        #line_command.setForeground(color("#ef292a"))
+        #self.highlightingRules.append((extra[1].replace(".", "\."), line_command))
 
         sdcc_error_01 = QtGui.QTextCharFormat()
         sdcc_error_01.setForeground(color("#ef292a"))

@@ -14,7 +14,8 @@ class About(QtGui.QDialog):
         super(About, self).__init__()
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
                             QtCore.Qt.WindowSystemMenuHint |
-                            QtCore.Qt.WindowStaysOnTopHint)
+                            QtCore.Qt.WindowStaysOnTopHint |
+                            QtCore.Qt.Tool)
 
         self.about = Ui_About()
         self.about.setupUi(self)

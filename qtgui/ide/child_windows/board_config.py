@@ -15,7 +15,8 @@ class BoardConfig(QtGui.QDialog):
         super(BoardConfig, self).__init__()
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
                             QtCore.Qt.WindowSystemMenuHint |
-                            QtCore.Qt.WindowStaysOnTopHint)
+                            QtCore.Qt.WindowStaysOnTopHint |
+                            QtCore.Qt.Tool)
 
         self.board_config = Ui_BoardConfig()
         self.board_config.setupUi(self)
