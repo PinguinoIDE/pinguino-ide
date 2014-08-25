@@ -90,7 +90,8 @@ class PinguinoLibrary(object):
             self.search_repo()
             self.update(self.path)
             return True
-        except: return False
+        except:
+            return False
 
 
 
@@ -107,6 +108,8 @@ class GitRepo(object):
 
         repo = git.Repo(path)
         repo.config_writer()
+        head = repo.heads[0]
+        head.checkout(force=True)
         remo = repo.remote()
         remo.pull()
 
