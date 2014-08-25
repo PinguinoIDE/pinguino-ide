@@ -166,13 +166,13 @@ class WorkArea(QtGui.QWidget):
             s = point[0]
             b = point[1]
 
-            print(b.metadata.type_)
-
             if b.metadata.type_ == "tipo1":
-                if b.metadata.to: continue
+                if b.metadata.to:
+                    if not child.metadata.type_ in "tipo2 tipo5".split(): continue
 
             elif b.metadata.type_ in "tipo4".split():
-                if b.metadata.nested: continue
+                if b.metadata.nested:
+                    if not child.metadata.type_ in "tipo2 tipo5".split(): continue
 
             elif b.metadata.type_ in "tipo7 tipo9".split():
                 if b.metadata.to and b.metadata.nested:
