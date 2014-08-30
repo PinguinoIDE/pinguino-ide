@@ -30,8 +30,10 @@ class PinguinoAutoCompleter(QListWidget):
 
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint |
                             QtCore.Qt.WindowSystemMenuHint |
-                            QtCore.Qt.WindowStaysOnTopHint |
-                            QtCore.Qt.Tool)
+                            QtCore.Qt.WindowStaysOnTopHint|
+                            #QtCore.Qt.Tool
+                            QtCore.Qt.Popup
+                            )
 
         self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
@@ -50,7 +52,6 @@ class PinguinoAutoCompleter(QListWidget):
                          "arch32" : [],
                          }
 
-
         self.namespaces = pickle.load(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))
 
         icons = CompleteIcons()
@@ -62,6 +63,7 @@ class PinguinoAutoCompleter(QListWidget):
         font-weight: normal;
 
         """)
+
 
 
     #----------------------------------------------------------------------
