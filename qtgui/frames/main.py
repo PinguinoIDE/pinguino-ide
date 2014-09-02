@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sat Aug 23 18:06:05 2014
+# Created: Mon Sep  1 22:08:57 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -784,7 +784,7 @@ class Ui_PinguinoIDE(object):
         self.actionSearch.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+F", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSearch_and_replace.setText(QtGui.QApplication.translate("PinguinoIDE", "Search and replace", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSearch_and_replace.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+R", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSelect_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Board Settings", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSelect_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Board Configuration", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSelect_board.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+B", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCompile.setText(QtGui.QApplication.translate("PinguinoIDE", "Compile", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCompile.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F5", None, QtGui.QApplication.UnicodeUTF8))

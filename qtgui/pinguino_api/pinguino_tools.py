@@ -557,7 +557,6 @@ class PinguinoTools(object):
                 "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
                 stdout=fichier, stderr=STDOUT)
 
-        print "DEBUG : %s" % self.P8_DIR
 
         sortie.communicate()
         if sortie.poll()!=0:

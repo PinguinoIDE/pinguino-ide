@@ -119,7 +119,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("NAME"), os.getenv("VERSION")))
 
-
     ##----------------------------------------------------------------------
     #def __str__(self):
         #return " ".join([os.getenv("NAME"), os.getenv("VERSION")])

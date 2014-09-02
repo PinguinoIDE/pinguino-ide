@@ -22,7 +22,7 @@ else:
 
 sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
-from qtgui.pinguino_api.pinguino import Pinguino
+from qtgui.pinguino_api.pinguino import Pinguino, AllBoards
 from qtgui.pinguino_api.pinguino_config import PinguinoConfig
 from qtgui.ide.methods.config import Config
 
@@ -36,9 +36,22 @@ PinguinoConfig.update_pinguino_paths(config, Pinguino)
 PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
 PinguinoConfig.update_user_libs(Pinguino)
 
+Pinguino.set_os_variables()
+
 
 ########################################################################
-class TestPinguinoIDE(unittest.TestCase):
+class TestEnvironment(unittest.TestCase):
+    """"""
+
+    #----------------------------------------------------------------------
+    def test_python_version(self):
+
+        self.assertTrue((3, 0) > sys.version_info > (2, 6), "Environment: Python version recommended > 2.6 and < 3.0")
+
+
+
+########################################################################
+class TestPreprocess(unittest.TestCase):
     """"""
 
     #----------------------------------------------------------------------
@@ -52,7 +65,7 @@ class TestPinguinoIDE(unittest.TestCase):
             ("///*Pinguino Rules!*/", ""),
 
 
-            ([
+            ("\n".join([
             "#define LED1 0\n",
             "//#define LED2 1\n",
             "/*\n",
@@ -61,7 +74,8 @@ class TestPinguinoIDE(unittest.TestCase):
             "3\n",
             "*/\n",
             "#include <math.h>\n",
-            ],[
+            ]),
+            "\n".join([
             "#define LED1 0\n",
             "\n",
             "\n",
@@ -71,14 +85,15 @@ class TestPinguinoIDE(unittest.TestCase):
             "\n",
             "#include <math.h>\n",
             ]),
+            )
 
         )
 
         for case in cases:
             got = Pinguino.remove_comments(case[0])
             expected = case[1]
-            self.assertEqual(got, expected,
-                             "Remove comments: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
+            self.assertMultiLineEqual(got, expected,
+                                      "Remove comments: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
 
 
     #----------------------------------------------------------------------
@@ -108,6 +123,44 @@ class TestPinguinoIDE(unittest.TestCase):
 
 
 
-if __name__ == "__main__":
+########################################################################
+class TestCompilation(unittest.TestCase):
+    """"""
 
+    #----------------------------------------------------------------------
+    @classmethod
+    def compilation(cls, board):
+        """"""
+
+        code = "void setup(){}; void loop(){}"
+
+        def inter(self):
+
+            try: Pinguino.set_board(board)
+            except BaseException, msg:
+                raise BaseException("Compilation: imposible set board %s\n%s" % (board.name, str(msg)))
+
+            if board.arch == 8:
+                for key in Pinguino.dict_boot.keys():
+                    boot = Pinguino.dict_boot[key]
+                    Pinguino.set_bootloader(boot)
+                    try: Pinguino.compile_string(code)
+                    except BaseException, msg:
+                        self.fail("Compilation: impossible compile for %s, %sbits, boot:%s\n%s" % (board.name, board.arch, str(msg), key))
+
+            if board.arch == 32:
+                try: Pinguino.compile_string(code)
+                except BaseException, msg:
+                    #raise BaseException("Compilation: impossible compile for %s, %sbits\n%s" % (board.name, board.arch, str(msg)))
+                    self.fail("Compilation: impossible compile for %s, %sbits\n%s" % (board.name, board.arch, str(msg)))
+
+        return inter
+
+
+for board in AllBoards:
+    test_name = "test_compile_%s" % str(board.name.replace(" ", "_").replace(".", "_"))
+    setattr(TestCompilation, test_name, TestCompilation.compilation(board))
+
+
+if __name__ == "__main__":
     unittest.main()

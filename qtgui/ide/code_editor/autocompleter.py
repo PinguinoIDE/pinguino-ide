@@ -8,7 +8,7 @@ from PySide.QtGui import QListWidget, QListWidgetItem
 from PySide import QtCore, QtGui
 
 from .autocomplete_icons import CompleteIcons
-#from ..methods import constants as Constants
+
 
 class PinguinoAutoCompleter(QListWidget):
     """
@@ -30,10 +30,12 @@ class PinguinoAutoCompleter(QListWidget):
 
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint |
                             QtCore.Qt.WindowSystemMenuHint |
-                            QtCore.Qt.WindowStaysOnTopHint|
-                            #QtCore.Qt.Tool
-                            QtCore.Qt.Popup
-                            )
+                            QtCore.Qt.WindowStaysOnTopHint |
+                            QtCore.Qt.Tool)
+
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.setWindowIcon(icon)
 
         self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
@@ -64,8 +66,6 @@ class PinguinoAutoCompleter(QListWidget):
 
         """)
 
-
-
     #----------------------------------------------------------------------
     def set_arch_autocompleter(self):
 
@@ -92,7 +92,8 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def show(self, *args):
-        self.set_arch_autocompleter()
+        self.set_arch_autocompleter()  #FIXME: move this call
+        self.activateWindow()
         super(PinguinoAutoCompleter, self).show(*args)
 
     #----------------------------------------------------------------------
@@ -234,10 +235,8 @@ class PinguinoAutoCompleter(QListWidget):
 
         self.move(pos)
         self.show()
-        self.setFocus()
 
         self.ajustWidth()
         self.ajustPos()
 
-
-
+        self.setFocus()

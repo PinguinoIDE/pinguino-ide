@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/hex_viewer_widget.ui'
 #
-# Created: Sat Aug 23 18:06:05 2014
+# Created: Mon Sep  1 22:08:58 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!

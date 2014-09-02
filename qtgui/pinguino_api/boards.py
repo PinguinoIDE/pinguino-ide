@@ -5,7 +5,7 @@
     Pinguino Boards List
 
     author:			Regis Blanchot
-    contact:		rblanchot@gmail.com 
+    contact:		rblanchot@gmail.com
     first release:	2011-10-23
     last release:	2012-05-04
 
@@ -63,7 +63,7 @@ class Pinguino2455(object):
     memend = 0x6000
     shortarg = '-p2455'
     longarg = '--pinguino2455'
-    
+
 class Pinguino2550(object):
     name = 'Pinguino 2550'
     arch = 8
@@ -76,7 +76,7 @@ class Pinguino2550(object):
     memend = 0x8000
     shortarg = '-p2550'
     longarg = '--pinguino2550'
-    
+
 class FreeJALduino(object):
     name = 'FreeJALduino'
     arch = 8
@@ -387,7 +387,7 @@ class UBW32_795(object):
 boardlist = [
     Pinguino2455,  Pinguino4455,
     Pinguino2550,  Pinguino4550,
-    FreeJALduino,  PICuno_Equo, CHRP3,  
+    FreeJALduino,  PICuno_Equo, CHRP3,
     Pinguino25k50, Pinguino45k50,
     Pinguino26J50, Pinguino46J50,
     Pinguino27J53, Pinguino47J53A,

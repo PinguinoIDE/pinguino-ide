@@ -328,8 +328,18 @@ class CustomTextEdit(QtGui.QTextEdit):
                 self.completer.hide()
 
             else:
+
+                #print(tc.charFormat().foreground().color().name())
+                #print(self.currentCharFormat().foreground().color().name())
+                #bin_ = QtGui.QTextCharFormat()
+                #bin_.setForeground(QtGui.QColor("#ff0000"))
+                #self.setCurrentCharFormat(bin_)
+                #print(tc.charFormat().foreground().color().name())
+                #print(self.currentCharFormat().foreground().color().name())
+                #print "-" * 80
+
                 self.completer.popup(self.getPosPopup(), self.last_w)
-                self.setFocus()
+                #self.completer.show()
 
         except UnicodeEncodeError: return  #capturas tildes y caracteres especiales
 
@@ -338,6 +348,7 @@ class CustomTextEdit(QtGui.QTextEdit):
     def brace_match(self):
 
         return
+
 
 
 
