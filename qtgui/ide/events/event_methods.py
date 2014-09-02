@@ -716,7 +716,7 @@ class EventMethods(Methods):
         elif reply == None:
             return False
 
-        self.write_log(QtGui.QApplication.translate("Frame", "compilling: %s")%filename)
+        self.write_log(QtGui.QApplication.translate("Frame", "Compiling: %s")%filename)
         self.write_log(self.get_description_board())
         self.write_log("")
 
