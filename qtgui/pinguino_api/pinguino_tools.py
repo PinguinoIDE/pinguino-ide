@@ -220,18 +220,18 @@ class PinguinoTools(object):
     def get_regobject_libinstructions(self, arch):
         """Return regobject and libinstructions for each architecture."""
         if arch == 8:
-            if getattr(self, "regobject_8", False) and getattr(self, "libinstructions_8", False):
-                return self.regobject_8,  self.libinstructions_8
+            if getattr(self, "libinstructions_8", False):
+                return self.libinstructions_8
             else:
-                self.regobject_8, self.libinstructions_8 = self.read_lib(8)
-                return self.regobject_8,  self.libinstructions_8
+                self.libinstructions_8 = self.read_lib(8)
+                return self.libinstructions_8
 
         elif arch == 32:
-            if getattr(self, "regobject_32", False) and getattr(self, "libinstructions_32", False):
-                return self.regobject_32, self.libinstructions_32
+            if getattr(self, "libinstructions_32", False):
+                return self.libinstructions_32
             else:
-                self.regobject_32, self.libinstructions_32 = self.read_lib(32)
-                return self.regobject_32, self.libinstructions_32
+                self.libinstructions_32 = self.read_lib(32)
+                return self.libinstructions_32
 
 
     #----------------------------------------------------------------------
@@ -275,20 +275,17 @@ class PinguinoTools(object):
                 include = "" if include is None else include
                 define = "" if define is None else define
                 cnvinstruction = instruction if cnvinstruction is "" else cnvinstruction
-                libinstructions.append([instruction, cnvinstruction, include, define])
 
                 if not instruction: continue
 
-                #import sys
-                #reload(sys)
-                #sys.stdout.write(str([instruction, cnvinstruction, include, define]))
-                #sys.stdout.write("\n")
 
                 regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])%s\W" % re.escape(instruction))
+                #regobject.append(regex)
 
-                regobject.append(regex)
+                libinstructions.append([instruction, cnvinstruction, include, define, regex])
 
-        return regobject[:], libinstructions[:]
+
+        return libinstructions[:]
 
 
     #----------------------------------------------------------------------
@@ -340,10 +337,10 @@ class PinguinoTools(object):
         content = self.remove_comments(content)
         content = content.split('\n')
         nblines = 0
-        regobject, libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+        libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
         for line in content:
             if not line.isspace() and line:
-                resultline = self.replace_word(line, regobject, libinstructions) + "\n"
+                resultline = self.replace_word(line, libinstructions) + "\n"
             else: resultline = "\n"
             #FIXME: error line
             #if resultline.find("error") == 1:
@@ -399,23 +396,36 @@ class PinguinoTools(object):
         return True
 
     #----------------------------------------------------------------------
-    def replace_word(self, line, regobject=None, libinstructions=None):
+    def replace_word(self, line, libinstructions=None):
         """ convert pinguino language in C language """
 
-        if None in [regobject, libinstructions]:
-            regobject, libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+        if libinstructions is None:
+            libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+
+        ##libinstructions content
+        ##instruction, cnvinstruction, include, define, regex
 
         # replace arduino/pinguino language and add #define or #include to define.h
-        for i in range(len(libinstructions)):
-            if re.search(regobject[i], line):
-                line = line.replace(libinstructions[i][0], libinstructions[i][1])
-                #print (str(self.libinstructions[i][0]), str(self.libinstructions[i][1]))
-                #print (str(self.libinstructions[i][2]), str(self.libinstructions[i][3]))
-                if self.not_in_define(libinstructions[i][2]):
-                    self.add_define(libinstructions[i][2])
-                if self.not_in_define(libinstructions[i][3]):
-                    self.add_define(libinstructions[i][3])
+        for instruction, cnvinstruction, include, define, regex in libinstructions:
+            if re.search(regex, line):
+                line = line.replace(instruction, cnvinstruction)
+                if self.not_in_define(include): self.add_define(include)
+                if self.not_in_define(define): self.add_define(define)
+
+
+        #for i in range(len(libinstructions)):
+            #if re.search(regobject[i], line):
+                #line = line.replace(libinstructions[i][0], libinstructions[i][1])
+                ##print (str(self.libinstructions[i][0]), str(self.libinstructions[i][1]))
+                ##print (str(self.libinstructions[i][2]), str(self.libinstructions[i][3]))
+                #if self.not_in_define(libinstructions[i][2]):
+                    #self.add_define(libinstructions[i][2])
+                #if self.not_in_define(libinstructions[i][3]):
+                    #self.add_define(libinstructions[i][3])
+
         return line
+
+
 
     #----------------------------------------------------------------------
     def remove_comments(self, textinput):

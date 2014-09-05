@@ -99,10 +99,10 @@ class TestPreprocess(unittest.TestCase):
     #----------------------------------------------------------------------
     def test_preprocess(self):
 
-        regobject, libinstructions = Pinguino.get_regobject_libinstructions(8)
+        libinstructions = Pinguino.get_regobject_libinstructions(8)
 
-        for line, expected, include, define in libinstructions:
-            got = Pinguino.replace_word(line+"()", regobject, libinstructions)
+        for line, expected, include, define, regex in libinstructions:
+            got = Pinguino.replace_word(line+"()", libinstructions)
             self.assertEqual(got, expected+"()",
                              "Preprocess: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
 
@@ -115,7 +115,7 @@ class TestPreprocess(unittest.TestCase):
         )
 
         for line, expected, in cases:
-            got = Pinguino.replace_word(line+"()", regobject, libinstructions)
+            got = Pinguino.replace_word(line+"()", libinstructions)
             expected += "()"
             self.assertEqual(got, expected,
                              "Preprocess: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
