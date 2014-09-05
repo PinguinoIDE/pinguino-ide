@@ -7,7 +7,7 @@
     author:			Regis Blanchot
     contact:		rblanchot@gmail.com
     first release:	2011-10-23
-    last release:	2012-05-04
+    last release:	2014-09-05
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -235,7 +235,7 @@ class Pinguino32MX220(object):
     vendor = MICROCHIP_ID
     product = P32_ID
     memstart = 0x9D003180
-    memend = 0x9D020000
+    memend = 0x9D010000
     shortarg = '-p32mx220'
     longarg = '--pinguino32mx220'
 
@@ -251,6 +251,19 @@ class Pinguino32MX250(object):
     memend = 0x9D020000
     shortarg = '-p32mx250'
     longarg = '--pinguino32mx250'
+
+class Pinguino32MX270(object):
+    name = 'Pinguino 32MX270'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX270F256B'
+    board = 'PINGUINO32MX270'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x9D003180
+    memend = 0x9D040000
+    shortarg = '-p32mx270'
+    longarg = '--pinguino32mx270'
 
 class PIC32_Pinguino(object):
     name = 'PIC32 Pinguino'
@@ -391,7 +404,7 @@ boardlist = [
     Pinguino25k50, Pinguino45k50,
     Pinguino26J50, Pinguino46J50,
     Pinguino27J53, Pinguino47J53A,
-    Pinguino32MX220, Pinguino32MX250,
+    Pinguino32MX220, Pinguino32MX250, Pinguino32MX270,
     PIC32_Pinguino, PIC32_Pinguino_OTG,
     PIC32_Pinguino_Micro, PIC32_Pinguino_T795,
     PIC32_Pinguino_220,
