@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Mon Sep  1 22:08:57 2014
+# Created: Fri Sep  5 23:23:24 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,7 +55,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 28))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -665,21 +665,16 @@ class Ui_PinguinoIDE(object):
         self.toolBar_files.addAction(self.actionNew_file)
         self.toolBar_files.addAction(self.actionOpen_file)
         self.toolBar_files.addAction(self.actionSave_file)
-        self.toolBar_files.addSeparator()
         self.toolBar_undo_redo.addAction(self.actionUndo)
         self.toolBar_undo_redo.addAction(self.actionRedo)
-        self.toolBar_undo_redo.addSeparator()
         self.toolBar_edit.addAction(self.actionCut)
         self.toolBar_edit.addAction(self.actionCopy)
         self.toolBar_edit.addAction(self.actionPaste)
-        self.toolBar_edit.addSeparator()
         self.toolBar_search_replace.addAction(self.actionSearch)
         self.toolBar_search_replace.addAction(self.actionSearch_and_replace)
-        self.toolBar_search_replace.addSeparator()
         self.toolBar_pinguino.addAction(self.actionSelect_board)
         self.toolBar_pinguino.addAction(self.actionCompile)
         self.toolBar_pinguino.addAction(self.actionUpload)
-        self.toolBar_pinguino.addSeparator()
         self.toolBar_graphical.addAction(self.actionSave_image)
         self.toolBar_switch.addAction(self.actionSwitch_ide)
 

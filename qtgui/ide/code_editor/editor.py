@@ -313,14 +313,15 @@ class CustomTextEdit(QtGui.QTextEdit):
     def show_autocomplete_if_conditions(self):
 
         tc = self.textCursor()
-        self.smart_under_selection(tc)
 
+        #if self.get_format() in ["comment", "quotation"]:
+            #self.completer.hide()
+            #return
+
+        self.smart_under_selection(tc)
         selected = tc.selectedText().split()
 
-        #if not selected: return
-        #selected = selected[-1]
-        if selected:
-            self.last_w = selected[-1]
+        if selected: self.last_w = selected[-1]
 
         try:
             #Si no cumple con el mínimo de letras
@@ -328,20 +329,10 @@ class CustomTextEdit(QtGui.QTextEdit):
                 self.completer.hide()
 
             else:
-
-                #print(tc.charFormat().foreground().color().name())
-                #print(self.currentCharFormat().foreground().color().name())
-                #bin_ = QtGui.QTextCharFormat()
-                #bin_.setForeground(QtGui.QColor("#ff0000"))
-                #self.setCurrentCharFormat(bin_)
-                #print(tc.charFormat().foreground().color().name())
-                #print(self.currentCharFormat().foreground().color().name())
-                #print "-" * 80
-
                 self.completer.popup(self.getPosPopup(), self.last_w)
-                #self.completer.show()
 
-        except UnicodeEncodeError: return  #capturas tildes y caracteres especiales
+        except UnicodeEncodeError:
+            return  #capturas tildes y caracteres especiales
 
 
     #----------------------------------------------------------------------
@@ -349,6 +340,25 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         return
 
+
+    #----------------------------------------------------------------------
+    def get_format(self):
+
+        contex_color = {"#7f0000": "quotation",
+                        "#cc0000": "quotation",
+                        "#007F00": "comment",
+                        "#c81818": "comment",}
+
+        tc = self.textCursor()
+        pos = tc.positionInBlock()
+
+        block = tc.block()
+        layout = block.layout()
+        formats = layout.additionalFormats()
+
+        for format_ in formats:
+            if pos >= format_.start and pos <= format_.start + format_.length:
+                return contex_color.get(format_.format.foreground().color().name(), None)
 
 
 

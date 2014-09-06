@@ -82,7 +82,7 @@ class Widgets(object):
     def choice_user(self):
 
         pm = Block.Output("Output")
-        pm.addSpinChoice("GREENLED", ["GREENLED", "YELLOWLED", "USERBUTTON", "RUNLED"])
+        pm.addSpinChoice("USERLED", ["GREENLED", "YELLOWLED", "USERBUTTON", "RUNLED", "USERLED"])
         return pm.getBlock()
 
 

@@ -116,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>1088</width>
-     <height>24</height>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -794,7 +794,6 @@
    <addaction name="actionNew_file"/>
    <addaction name="actionOpen_file"/>
    <addaction name="actionSave_file"/>
-   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_undo_redo">
    <property name="windowTitle">
@@ -817,7 +816,6 @@
    </attribute>
    <addaction name="actionUndo"/>
    <addaction name="actionRedo"/>
-   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_edit">
    <property name="windowTitle">
@@ -841,7 +839,6 @@
    <addaction name="actionCut"/>
    <addaction name="actionCopy"/>
    <addaction name="actionPaste"/>
-   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_search_replace">
    <property name="windowTitle">
@@ -864,7 +861,6 @@
    </attribute>
    <addaction name="actionSearch"/>
    <addaction name="actionSearch_and_replace"/>
-   <addaction name="separator"/>
   </widget>
   <widget class="QToolBar" name="toolBar_pinguino">
    <property name="windowTitle">
@@ -888,7 +884,6 @@
    <addaction name="actionSelect_board"/>
    <addaction name="actionCompile"/>
    <addaction name="actionUpload"/>
-   <addaction name="separator"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget_blocks">
    <property name="features">

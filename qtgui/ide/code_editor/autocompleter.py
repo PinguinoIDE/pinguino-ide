@@ -114,7 +114,7 @@ class PinguinoAutoCompleter(QListWidget):
         hs = self.horizontalScrollBar()
         cont = 0
         while hs.isVisible() :
-            self.resize(self.width()+5, self.height())
+            self.resize(self.width()+1, self.height())
             cont += 1
             if cont > 100: return # :)
 
@@ -240,3 +240,4 @@ class PinguinoAutoCompleter(QListWidget):
         self.ajustPos()
 
         self.setFocus()
+        self.activateWindow()

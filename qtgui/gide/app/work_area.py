@@ -828,6 +828,9 @@ class WorkArea(QtGui.QWidget):
             #else:
                 #code += "\n" + "\n".join(map(lambda x:"    "+x, self.get_code_from(bloque, auto_open=auto_open).split("\n"))) + "%s;}\n\n" % line[2]
 
+        elif ID.metadata.type_ in ["tipo9"]:
+            code = code.replace("\n", "{}\n")
+
 
         if len(ID.metadata.to) > 0:
             bloque = ID.metadata.to[0]
