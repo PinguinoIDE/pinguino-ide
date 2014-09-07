@@ -18,8 +18,10 @@ else:
 PinguinoConfig.set_environ_vars()
 
 #Remove files and directories
-os.environ["PINGUINO_USER_PATH"]
 shutil.rmtree(os.path.join(os.environ["PINGUINO_USER_PATH"], "source"))
 
 #Check files and directories
 PinguinoConfig.check_user_files()
+
+#Remove library names
+os.remove(os.path.join(os.environ["PINGUINO_USER_PATH"], "reserved.pickle"))
