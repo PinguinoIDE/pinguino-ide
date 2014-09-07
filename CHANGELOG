@@ -5,17 +5,19 @@ xxxxxx, 2014
 
 Features
 
-*
+* Saving perspectives
 
 Improves
 
-*
+* Hide autocompleter from taskbar
 
 Bug Fixes
 
 * Icons size not saved
+* Icons theme not saved
 * Python shell and tools close when minimize
-* Insert block dialog only search labels
+* Insert block dialog only search on labels
+* Bad code generation in graphic development interface
 
 
 
