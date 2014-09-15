@@ -18,7 +18,8 @@ else:
 PinguinoConfig.set_environ_vars()
 
 #Remove files and directories
-shutil.rmtree(os.path.join(os.environ["PINGUINO_USER_PATH"], "source"))
+if os.path.isdir(os.path.join(os.environ["PINGUINO_USER_PATH"], "source")):
+    shutil.rmtree(os.path.join(os.environ["PINGUINO_USER_PATH"], "source"))
 
 #Check files and directories
 PinguinoConfig.check_user_files()

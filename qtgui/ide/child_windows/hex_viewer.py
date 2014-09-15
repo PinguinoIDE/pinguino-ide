@@ -71,7 +71,7 @@ class HexViewer(QtGui.QMainWindow):
         new_hex.fromdict(self.get_table_dict())
 
         save_filename = QtGui.QFileDialog.getSaveFileName(self,
-                NAME+" - Save",
+                os.getenv("NAME")+" - Save",
                 os.path.join(QtCore.QDir.home().path(), self.original_filename.replace(".hex", "_copy.hex")),
                 "Hex files (*.hex;;All Files (*)")
 

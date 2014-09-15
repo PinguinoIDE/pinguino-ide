@@ -141,7 +141,7 @@ class PinguinoTools(object):
 
 
         retour, error_compile = self.compile(filename)
-        if retour!=0:
+        if retour != 0:
             DATA_RETURN["verified"] = False
             DATA_RETURN["compiling"] = error_compile
             return DATA_RETURN

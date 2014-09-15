@@ -23,7 +23,6 @@ from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
 from ..pinguino_api.pinguino_config import PinguinoConfig
 
-
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
