@@ -26,22 +26,18 @@ from qtgui.pinguino_api.pinguino import Pinguino, AllBoards
 from qtgui.pinguino_api.pinguino_config import PinguinoConfig
 from qtgui.ide.methods.config import Config
 
-
 Pinguino = Pinguino()
-
 PinguinoConfig.set_environ_vars()
 PinguinoConfig.check_user_files()
 config = Config()
 PinguinoConfig.update_pinguino_paths(config, Pinguino)
 PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
 PinguinoConfig.update_user_libs(Pinguino)
-
 Pinguino.set_os_variables()
 
 
 ########################################################################
 class TestEnvironment(unittest.TestCase):
-    """"""
 
     #----------------------------------------------------------------------
     def test_python_version(self):
@@ -52,7 +48,6 @@ class TestEnvironment(unittest.TestCase):
 
 ########################################################################
 class TestPreprocess(unittest.TestCase):
-    """"""
 
     #----------------------------------------------------------------------
     def test_delete_comments(self):
@@ -97,9 +92,9 @@ class TestPreprocess(unittest.TestCase):
 
 
     #----------------------------------------------------------------------
-    def test_preprocess(self):
+    def preprocess(self, arch):
 
-        libinstructions = Pinguino.get_regobject_libinstructions(8)
+        libinstructions = Pinguino.get_regobject_libinstructions(arch)
 
         for line, expected, include, define, regex in libinstructions:
             got = Pinguino.replace_word(line+"()", libinstructions)
@@ -107,30 +102,25 @@ class TestPreprocess(unittest.TestCase):
                              "Preprocess: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
 
 
-        #Test extra words
-        cases = (
-            ("pinMode", "pinmode"),
-            ("CDC.read", "CDCgets"),
-            ("GLCD.init", "Init"),
-        )
+    #----------------------------------------------------------------------
+    def test_preprocess_8bit(self):
 
-        for line, expected, in cases:
-            got = Pinguino.replace_word(line+"()", libinstructions)
-            expected += "()"
-            self.assertEqual(got, expected,
-                             "Preprocess: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
+        self.preprocess(8)
 
+
+    #----------------------------------------------------------------------
+    def test_preprocess_32bit(self):
+
+        self.preprocess(32)
 
 
 
 ########################################################################
 class TestCompilation(unittest.TestCase):
-    """"""
 
     #----------------------------------------------------------------------
     @classmethod
     def compilation(cls, board):
-        """"""
 
         code = "void setup(){}; void loop(){}"
 
