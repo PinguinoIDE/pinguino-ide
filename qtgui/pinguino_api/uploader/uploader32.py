@@ -467,6 +467,13 @@ class uploader32(baseUploader):
                         #data.append(int(line[9 + (2 * i) : 11 + (2 * i)], 16))
                         data[address - board.memstart + i] = int(line[9 + (2 * i) : 11 + (2 * i)], 16)
 
+            # bootloader jump address
+            # ----------------------------------------------------------
+            elif record_type == self.Start_Linear_Address_Record
+
+                #: 04 0000 05 BF C0 00 00 78
+                break
+
             # end of file record
             # ----------------------------------------------------------
             elif record_type == self.End_Of_File_Record:
@@ -478,6 +485,7 @@ class uploader32(baseUploader):
             else:
 
                 self.add_report("Caution : unsupported record type in hex file")
+                self.add_report("Line %s" % line)
                 #return self.ERR_HEX_RECORD
 
         # max_address must be divisible by self.DATABLOCKSIZE
