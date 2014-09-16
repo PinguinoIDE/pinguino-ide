@@ -158,7 +158,8 @@ class uploader32(baseUploader):
         0x04A00053: ['32MX220F032B' , 0x9D008000, 0x9D003180 ], #32K
         0x04A04053: ['32MX220F032D' , 0x9D008000, 0x9D003000 ], #32K
         0x04D00053: ['32MX250F128B' , 0x9D020000, 0x9D003180 ], #128K
-        0x06600053: ['32MX270F256B' , 0x9D040000, 0x9D003180 ]  #256K
+        0x06600053: ['32MX270F256B' , 0x9D040000, 0x9D003180 ], #256K
+        0x00952053: ['32MX440F256H' , 0x9D040000, 0x9D005000 ]  #256K
     }
 
 # ----------------------------------------------------------------------
@@ -441,7 +442,6 @@ class uploader32(baseUploader):
             elif record_type == self.Data_Record:
 
                 address = address_Hi + address_Lo
-                #self.add_report("%d to be written" % address)
 
                 # max address
                 if (address > old_address) and (address < board.memend):
@@ -455,10 +455,17 @@ class uploader32(baseUploader):
                     #self.add_report("codesize = %d" % codesize)
 
                 # data append
-                for i in range(byte_count):
-                    #Caution : addresses are not always contiguous
-                    #data.append(int(line[9 + (2 * i) : 11 + (2 * i)], 16))
-                    data[address - board.memstart + i] = int(line[9 + (2 * i) : 11 + (2 * i)], 16)
+                if (address >= board.memstart) and (address < board.memend):
+                    import sys
+                    reload(sys)
+                    #sys.stdout.write("*** BREAKPOINT ***\r\n")
+                    sys.stdout.write( "0x%08X to be written\r\n" % address )
+                    #self.add_report("%d to be written" % address)
+
+                    for i in range(byte_count):
+                        #Caution : addresses are not always contiguous
+                        #data.append(int(line[9 + (2 * i) : 11 + (2 * i)], 16))
+                        data[address - board.memstart + i] = int(line[9 + (2 * i) : 11 + (2 * i)], 16)
 
             # end of file record
             # ----------------------------------------------------------
@@ -470,7 +477,7 @@ class uploader32(baseUploader):
             # ----------------------------------------------------------
             else:
 
-                self.add_report("Error : unsupported record type in hex file")
+                self.add_report("Caution : unsupported record type in hex file")
                 #return self.ERR_HEX_RECORD
 
         # max_address must be divisible by self.DATABLOCKSIZE
@@ -563,10 +570,6 @@ class uploader32(baseUploader):
             self.add_report("Aborting: program compiled for %s but device has %s" % (self.board.proc, proc))
             self.closeDevice()
             return
-
-        #import sys
-        #reload(sys)
-        #sys.stdout.write("*** BREAKPOINT ***\r\n")
 
         # find out flash memory size
         # --------------------------------------------------------------
