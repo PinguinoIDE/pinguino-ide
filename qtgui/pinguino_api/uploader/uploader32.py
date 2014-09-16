@@ -47,13 +47,13 @@ class uploader32(baseUploader):
     """
     struct __attribute__ ((packed))
     {
-    2    unsigned char Command;
-    56    unsigned char PacketDataFieldSize;
-    3    unsigned char DeviceFamily;
-    1    unsigned char Type1;
-    0 48 0 189    unsigned long Address1; BD003000
-    0 208 1 96   unsigned long Length1;   6001D000
-    255    unsigned char Type2;
+        unsigned char Command;
+        unsigned char PacketDataFieldSize;
+        unsigned char DeviceFamily;
+        unsigned char Type1;
+        unsigned long Address1;
+        unsigned long Length1;
+        unsigned char Type2;
         unsigned long Address2;
         unsigned long Length2;
         unsigned char Type3;        //End of sections list indicator goes here, when not programming the vectors, in that case fill with 0xFF.
@@ -158,7 +158,7 @@ class uploader32(baseUploader):
         0x04A00053: ['32MX220F032B' , 0x9D008000, 0x9D003180 ], #32K
         0x04A04053: ['32MX220F032D' , 0x9D008000, 0x9D003000 ], #32K
         0x04D00053: ['32MX250F128B' , 0x9D020000, 0x9D003180 ], #128K
-        0x66000053: ['32MX270F256B' , 0x9D040000, 0x9D003180 ]  #256K
+        0x06600053: ['32MX270F256B' , 0x9D040000, 0x9D003180 ]  #256K
     }
 
 # ----------------------------------------------------------------------
@@ -196,19 +196,27 @@ class uploader32(baseUploader):
         usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
         #usbBuf[self.BOOT_CMD] = self.QUERY_DEVICE_CMD
         usbBuf = self.getResponse(usbBuf)
+
         if usbBuf == self.ERR_USB_WRITE:
             return self.ERR_USB_WRITE
+
+        if usbBuf == self.ERR_USB_READ:
+            return self.ERR_USB_READ
+
         return usbBuf[self.BOOT_DEVICE_FAMILY]
 
 # ----------------------------------------------------------------------
     def getDeviceID(self):
 # ----------------------------------------------------------------------
-        """ get 4-byte device ID from location 0xBF80F220 / 0x9F80F220 """
+        """ get 4-byte device ID from location 0xBF80F220 """
 
         usbBuf = self.readFlash(0xBF80F220, 4)
 
         if usbBuf == self.ERR_USB_WRITE:
             return self.ERR_USB_WRITE, self.ERR_USB_WRITE
+
+        if usbBuf == self.ERR_USB_READ:
+            return self.ERR_USB_READ, self.ERR_USB_READ
 
         devid = (usbBuf[60]      ) | \
                 (usbBuf[61] <<  8) | \
@@ -232,7 +240,9 @@ class uploader32(baseUploader):
         
         if usbBuf == self.ERR_USB_WRITE:
             return self.ERR_USB_WRITE, self.ERR_USB_WRITE
-            #print "Error: no response from the bootloader"
+
+        if usbBuf == self.ERR_USB_READ:
+            return self.ERR_USB_READ, self.ERR_USB_READ
 
         """
         bf=0
@@ -285,13 +295,16 @@ class uploader32(baseUploader):
 # ----------------------------------------------------------------------
         """ Send a command and get a response from the bootloader """
         sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
-        if sent_bytes == len(usbBuf):
-            try:
-                usbBuf = self.handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
-            except:
-                return self.ERR_USB_WRITE
-            return usbBuf
-        return self.ERR_USB_WRITE
+
+        if sent_bytes != len(usbBuf):
+            return self.ERR_USB_WRITE
+
+        try:
+            usbBuf = self.handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
+        except:
+            return self.ERR_USB_READ
+
+        return usbBuf
 
 # ----------------------------------------------------------------------
     def eraseFlash(self):
@@ -457,7 +470,8 @@ class uploader32(baseUploader):
             # ----------------------------------------------------------
             else:
 
-                return self.ERR_HEX_RECORD
+                self.add_report("Error : unsupported record type in hex file")
+                #return self.ERR_HEX_RECORD
 
         # max_address must be divisible by self.DATABLOCKSIZE
         # --------------------------------------------------------------
@@ -514,10 +528,6 @@ class uploader32(baseUploader):
 
         self.add_report("Pinguino found ...")
 
-        #import sys
-        #reload(sys)
-        #sys.stdout.write("*** BREAKPOINT ***\r\n")
-
         self.handle = self.initDevice()
 
         if self.handle == self.ERR_USB_INIT1:
@@ -525,8 +535,8 @@ class uploader32(baseUploader):
             self.add_report("Try to restart the bootloader mode")
             return
 
-        elif self.handle == None:
-            return
+        #elif self.handle == None:
+        #    return
 
         #self.add_report("%s - %s" % (handle.getString(device.iProduct, 30), handle.getString(device.iManufacturer, 30))
         #self.add_report("%s" % handle.getString(device.iProduct, 30)
@@ -535,35 +545,38 @@ class uploader32(baseUploader):
         # --------------------------------------------------------------
 
         if self.getDeviceFamily() != self.DEVICE_FAMILY_PIC32:
-            self.add_report("Error: not a PIC32 family device")
+            self.add_report("Aborting: not a PIC32 family device")
             self.closeDevice()
             return
 
         device_id, device_rev = self.getDeviceID()
-        if device_id == self.ERR_USB_WRITE or device_rev == self.ERR_USB_WRITE:
-            self.add_report("Error: impossible to read the flash memory")
+
+        if device_id == self.ERR_USB_READ or device_id == self.ERR_USB_WRITE:
+            self.add_report("Aborting: impossible to read the flash memory")
             self.closeDevice()
             return
 
         proc = self.getDeviceName(device_id)
         self.add_report(" - with PIC%s (id=0x%08X, rev.%01X)" % (proc, device_id, device_rev))
 
-        """
         if proc != self.board.proc:
-            self.add_report("Error: Program compiled for %s but device has %s" % (self.board.proc, proc))
+            self.add_report("Aborting: program compiled for %s but device has %s" % (self.board.proc, proc))
             self.closeDevice()
             return
-        """
+
+        #import sys
+        #reload(sys)
+        #sys.stdout.write("*** BREAKPOINT ***\r\n")
 
         # find out flash memory size
         # --------------------------------------------------------------
 
         memstart, memfree = self.getDeviceFlash()
         memend   = memstart + memfree
-        memstart = memstart + 0x80000000
-        memend   = memend   + 0x80000000
+        self.board.memstart = memstart + 0x80000000
+        self.board.memend   = memend   + 0x80000000
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
-        self.add_report(" - from 0x%08X to 0x%08X" % (memstart, memend))
+        self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
 
         # start erasing
         # --------------------------------------------------------------
@@ -571,7 +584,7 @@ class uploader32(baseUploader):
         #self.add_report("Erasing ..."
         status = self.eraseFlash()
         if status != self.ERR_NONE:
-            self.add_report("Erase Error!")
+            self.add_report("Aborting: erase error!")
             self.closeDevice()
             return
 
@@ -581,7 +594,7 @@ class uploader32(baseUploader):
         self.add_report("Uploading user program ...")
         status = self.hexWrite(self.filename, self.board)
         if status != self.ERR_NONE:
-            self.add_report("Write Error!")
+            self.add_report("Aborting: write error!")
             self.closeDevice()
             return
 
@@ -593,7 +606,10 @@ class uploader32(baseUploader):
         #self.add_report("Resetting ...")
         self.add_report("Starting user program ...")
         status = self.resetDevice()
+
         if status != self.ERR_NONE:
             self.closeDevice()
-            return
+        
+        return
+        
 # ----------------------------------------------------------------------

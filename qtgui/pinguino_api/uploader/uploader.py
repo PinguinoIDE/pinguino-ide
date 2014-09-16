@@ -67,7 +67,7 @@ class baseUploader(object):
 
 ########################################################################
 class Uploader(object):
-    """Universal uploder class"""
+    """Universal uploader class"""
 
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
