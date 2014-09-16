@@ -5,11 +5,13 @@ xxxxxx, 2014
 
 Features
 
-*
+* Added regression.sh to test all examples for one board
+  (still one bug to fix: AttributeError: 'Pinguino' object has no attribute 'MAKE')
 
 Improves
 
-*
+* uploader32.py (getDeviceID, getDeviceFlash, getDeviceFamily)
+* pinguino_tools.py (code size calculation)
 
 Bug Fixes
 

@@ -184,7 +184,6 @@ class PinguinoTools(object):
         uploader = Uploader(hex_file, board)
         result = uploader.write_hex()
 
-
         """
         if board.arch == 8:
             uploader = Uploader(hex_file, board)
@@ -211,10 +210,10 @@ class PinguinoTools(object):
             result = fichier.readlines()
             fichier.close()
         """
-
-        result = filter(lambda line:not line.isspace(), result)
+        
+        # Weed out blank lines with filter
+        result = filter(lambda line: not line.isspace(), result)
         return result
-
 
     #----------------------------------------------------------------------
     def get_regobject_libinstructions(self, arch):
@@ -794,13 +793,12 @@ class PinguinoTools(object):
 
         codesize = 0
         address_Hi = 0
+
         memfree = board.memend - board.memstart
-        #if board.arch == 32:
-        #    memfree = board.memend - board.ebase
-        #else:
-        #    memfree = board.memend - board.memstart
-        print "%X"%board.memstart
-        print "%X"%board.memend
+
+        #print "%X" % board.memstart
+        #print "%X" % board.memend
+
         fichier = open(filename, 'r')
         lines = fichier.readlines()
 
@@ -827,7 +825,6 @@ class PinguinoTools(object):
 
         fichier.close()
         return "code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
-
 
 
 # ------------------------------------------------------------------------------

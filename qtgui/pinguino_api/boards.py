@@ -236,7 +236,7 @@ class Pinguino32MX220(object):
     product = P32_ID
     memstart = 0x9D003180
     memend = 0x9D010000
-    shortarg = '-p32mx220'
+    shortarg = '-p220'
     longarg = '--pinguino32mx220'
 
 class Pinguino32MX250(object):
@@ -249,7 +249,7 @@ class Pinguino32MX250(object):
     product = P32_ID
     memstart = 0x9D003180
     memend = 0x9D020000
-    shortarg = '-p32mx250'
+    shortarg = '-p250'
     longarg = '--pinguino32mx250'
 
 class Pinguino32MX270(object):
@@ -262,7 +262,7 @@ class Pinguino32MX270(object):
     product = P32_ID
     memstart = 0x9D003180
     memend = 0x9D040000
-    shortarg = '-p32mx270'
+    shortarg = '-p270'
     longarg = '--pinguino32mx270'
 
 class PIC32_Pinguino(object):
@@ -273,9 +273,8 @@ class PIC32_Pinguino(object):
     board = 'PIC32_PINGUINO'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase = 0x9D005000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x40000
+    memstart = 0x9D005000
+    memend = 0x9D040000
     shortarg = '-o'
     longarg = '--olimex440'
 
@@ -287,9 +286,8 @@ class PIC32_Pinguino_OTG(object):
     board = 'PIC32_PINGUINO_OTG'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase = 0x9D005000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x40000
+    memstart = 0x9D005000
+    memend = 0x9D040000
     shortarg = '-O'
     longarg = '--olimex440OTG'
 
@@ -301,9 +299,8 @@ class PIC32_Pinguino_Micro(object):
     board = 'PIC32_PINGUINO_MICRO'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase = 0x9D005000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x40000
+    memstart = 0x9D005000
+    memend = 0x9D040000
     shortarg = '-M'
     longarg = '--olimex440Micro'
 
@@ -315,9 +312,8 @@ class PIC32_Pinguino_T795(object):
     board = 'PIC32_PINGUINO_T795'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase = 0x9D005000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x80000
+    memstart = 0x9D005000
+    memend = 0x9D080000
     shortarg = '-T'
     longarg = '--olimexT795'
 
@@ -329,9 +325,8 @@ class PIC32_Pinguino_220(object):
     board = 'PIC32_PINGUINO_220'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase  =  0x9D003000
-    memstart = ebase + 0x00000
-    memend = ebase + 0x08000
+    memstart = 0x9D003000
+    memend = 0x9D008000
     shortarg = '-m'
     longarg = '--olimex220'
 
@@ -343,9 +338,8 @@ class Emperor_460(object):
     board = 'EMPEROR460'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase = 0x9D005000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x80000
+    memstart = 0x9D005000
+    memend = 0x9D080000
     shortarg = '-e'
     longarg = '--emperor460'
 
@@ -357,9 +351,8 @@ class Emperor_795(object):
     board = 'EMPEROR795'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase = 0x9D005000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x80000
+    memstart = 0x9D005000
+    memend = 0x9D080000
     shortarg = '-E'
     longarg = '--emperor795'
 
@@ -371,9 +364,8 @@ class UBW32_460(object):
     board = 'UBW32_460'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase = 0x9D005000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x80000
+    memstart = 0x9D005000
+    memend = 0x9D080000
     shortarg = '-u'
     longarg = '--ubw460'
 
@@ -385,9 +377,8 @@ class UBW32_795(object):
     board = 'UBW32_795'
     vendor = MICROCHIP_ID
     product = P32_ID
-    ebase = 0x9D005000
-    memstart=ebase + 0x00000
-    memend=ebase + 0x80000
+    memstart = 0x9D005000
+    memend = 0x9D080000
     shortarg = '-U'
     longarg = '--ubw795'
 

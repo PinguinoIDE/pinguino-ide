@@ -51,9 +51,14 @@ class Pinguino(PinguinoTools):
     #----------------------------------------------------------------------
     def upload(self):
 
+        # Régis : Tip from Yeison to get error message
+        import sys
+        reload(sys)
+        sys.stdout.write("BREAKPOINT\r\n")
+
         data = self.__upload__()
         data = "\n".join(data)
-        NO_UPLOATED_KEY_TEXT = ["Pinguino not found",
+        NO_UPLOADED_KEY_TEXT = ["Pinguino not found",
                                 "Error",
                                 "Upload not possible",
                                 "No target found",
@@ -61,7 +66,7 @@ class Pinguino(PinguinoTools):
                                 "Entity not found",
                                 ]
 
-        if False in [data.find(key)==-1 for key in NO_UPLOATED_KEY_TEXT]:
+        if False in [data.find(key)==-1 for key in NO_UPLOADED_KEY_TEXT]:
             if data.find("Error") != -1: data = data[data.find("Error"):]
             return False, data
         return True, data

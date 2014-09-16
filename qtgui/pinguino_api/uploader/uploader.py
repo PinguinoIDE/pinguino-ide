@@ -65,8 +65,6 @@ class baseUploader(object):
         """ Close currently-open USB device """
         self.handle.releaseInterface()
 
-
-
 ########################################################################
 class Uploader(object):
     """Universal uploder class"""
@@ -91,7 +89,6 @@ class Uploader(object):
 
         elif board.bldr == "microchip":
             from uploader32 import uploader32 as Uploader
-
 
         self.uploader = Uploader(hex_file, board)
 

@@ -501,6 +501,7 @@ class uploader8(baseUploader):
         memfree = self.board.memend - self.board.memstart;
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
         self.add_report("   from 0x%05X to 0x%05X" % (self.board.memstart, self.board.memend))
+
         # find out bootloader version
         # --------------------------------------------------------------
 
