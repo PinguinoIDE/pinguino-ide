@@ -23,7 +23,6 @@ from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
 from ..pinguino_api.pinguino_config import PinguinoConfig
 
-
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
@@ -137,6 +136,17 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         self.main.tabWidget_tools.setCurrentIndex(0)
         self.main.tabWidget_blocks_tools.setCurrentIndex(0)
+
+        side = self.configIDE.config("Main", "dock_tools", "RightDockWidgetArea")
+        self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_tools)
+        self.update_tab_position(self.main.tabWidget_tools, self.dockWidgetArea(self.main.dockWidget_tools))
+
+        side = self.configIDE.config("Main", "dock_blocks", "RightDockWidgetArea")
+        self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_blocks)
+        self.update_tab_position(self.main.tabWidget_blocks, self.dockWidgetArea(self.main.dockWidget_blocks))
+
+        side = self.configIDE.config("Main", "dock_shell", "BottomDockWidgetArea")
+        self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_output)
 
         PrettyFeatures.LineEdit_default_text(self.main.lineEdit_search, QtGui.QApplication.translate("Frame", "Search..."))
         PrettyFeatures.LineEdit_default_text(self.main.lineEdit_replace, QtGui.QApplication.translate("Frame", "Replace..."))
@@ -359,7 +369,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             self.main.menuIcons_theme.addAction(action)
 
         theme = self.configIDE.config("Main", "theme", "pinguino11")
-        if not QtGui.QIcon.hasThemeIcon(theme):
+        if not theme in valid_themes:
             theme = "pinguino11"
             self.configIDE.set("Main", "theme", "pinguino11")
         self.change_icon_theme(theme, dict_themes[theme])()
@@ -373,6 +383,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             QtGui.QIcon.setThemeName(theme)
             self.reload_toolbar_icons()
             self.configIDE.set("Main", "theme", theme)
+            self.configIDE.save_config()
 
             [act.setChecked(False) for act in self.main.menuIcons_theme.actions()]
             action.setChecked(True)

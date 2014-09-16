@@ -232,6 +232,15 @@ class EventMethods(Methods):
         self.configIDE.set("Main", "maximized", self.isMaximized())
         #self.configIDE.set("Main", "terminal_height", self.main.dockWidget_output.height())
 
+        side = self.dockWidgetArea(self.main.dockWidget_tools)
+        self.configIDE.set("Main", "dock_tools", side.name)
+
+        side = self.dockWidgetArea(self.main.dockWidget_blocks)
+        self.configIDE.set("Main", "dock_blocks", side.name)
+
+        side = self.dockWidgetArea(self.main.dockWidget_output)
+        self.configIDE.set("Main", "dock_shell", side.name)
+
         count = 1
         self.configIDE.clear_recents()
         for file_ in self.recent_files:
@@ -1215,3 +1224,12 @@ class EventMethods(Methods):
         self.main.dockWidget_output.setVisible(visible)
         self.update_mode_output(visible)
         #self.configIDE.config("Features", "terminal_on_text", visible)
+
+
+    #----------------------------------------------------------------------
+    def update_tab_position(self, tab, area):
+
+        if area.name == "RightDockWidgetArea":
+            tab.setTabPosition(QtGui.QTabWidget.West)
+        elif area.name == "LeftDockWidgetArea":
+            tab.setTabPosition(QtGui.QTabWidget.East)

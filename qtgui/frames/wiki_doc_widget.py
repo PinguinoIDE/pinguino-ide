@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/dev/developing/pinguino/pinguino-ide/qtgui/frames/wiki_doc_widget.ui'
 #
-# Created: Fri Sep  5 23:23:25 2014
-#      by: pyside-uic 0.2.14 running on PySide 1.2.1
+# Created: Sun Sep 14 22:40:37 2014
+#      by: pyside-uic 0.2.14 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -40,6 +40,10 @@ class Ui_WikiDocs(object):
         self.label_error.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_error.setObjectName("label_error")
         self.gridLayout_2.addWidget(self.label_error, 1, 0, 1, 1)
+        self.progressBar = QtGui.QProgressBar(self.centralwidget)
+        self.progressBar.setProperty("value", 24)
+        self.progressBar.setObjectName("progressBar")
+        self.gridLayout_2.addWidget(self.progressBar, 2, 0, 1, 1)
         WikiDocs.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(WikiDocs)

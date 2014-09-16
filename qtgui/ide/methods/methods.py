@@ -542,10 +542,10 @@ class Methods(SearchReplace):
     #----------------------------------------------------------------------
     def update_reserved_words(self):
 
-        libinstructions = self.pinguinoAPI.read_lib(8)[1]
+        libinstructions = self.pinguinoAPI.read_lib(8)
         name_spaces_8 = map(lambda x:x[0], libinstructions)
 
-        libinstructions = self.pinguinoAPI.read_lib(32)[1]
+        libinstructions = self.pinguinoAPI.read_lib(32)
         name_spaces_32 = map(lambda x:x[0], libinstructions)
 
         reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
@@ -562,16 +562,17 @@ class Methods(SearchReplace):
         namespaces = {"arch8": name_spaces_8, "arch32": name_spaces_32, "all": name_spaces_commun,}
         pickle.dump(namespaces, open(reserved_filename, "w"))
 
-        print("Write on %s" % reserved_filename)
+        logging.warning("Writing: " + reserved_filename)
+        return("Writing: " + reserved_filename)
 
 
     #----------------------------------------------------------------------
     def update_instaled_reserved_words(self):
 
-        libinstructions = self.pinguinoAPI.read_lib(8, include_default=False)[1]
+        libinstructions = self.pinguinoAPI.read_lib(8, include_default=False)
         name_spaces_8 = map(lambda x:x[0], libinstructions)
 
-        libinstructions = self.pinguinoAPI.read_lib(32, include_default=False)[1]
+        libinstructions = self.pinguinoAPI.read_lib(32, include_default=False)
         name_spaces_32 = map(lambda x:x[0], libinstructions)
 
         reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
@@ -594,7 +595,8 @@ class Methods(SearchReplace):
         #pickle.dump(olds, open(reserved_filename, "w"))
         pickle.dump(namespaces, open(reserved_filename, "w"))
 
-        print("Write on %s" % reserved_filename)
+        logging.warning("Writing: " + reserved_filename)
+        return("Writing: " + reserved_filename)
 
 
     ##----------------------------------------------------------------------

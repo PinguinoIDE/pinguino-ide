@@ -31,6 +31,7 @@ class WikiDock(QtGui.QMainWindow):
 
         self.main_widget = Ui_WikiDocs()
         self.main_widget.setupUi(self)
+        self.main_widget.progressBar.setVisible(False)
 
         self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
 
@@ -111,10 +112,13 @@ class WikiDock(QtGui.QMainWindow):
             if reply:
                 libs = self.update_from_wiki()
                 if libs:
-                    libs = self.update_from_wiki()
+                    #libs = self.update_from_wiki()
                     pickle.dump(libs, open(self.ide_wiki_docs, "w"))
+                    Dialogs.info_message(self, "Wiki documentation updated.")
+                    self.main_widget.progressBar.setVisible(False)
                 else:
                     Dialogs.info_message(self, "Impossible read Wiki page.\n"+"http://wiki.pinguino.cc")
+                    self.main_widget.progressBar.setVisible(False)
                 self.set_home(libs=libs)
                 return
             else:
@@ -229,14 +233,19 @@ class WikiDock(QtGui.QMainWindow):
         table = soup.find_all("table")[1]
 
         libs = []
-        for lib in table.find_all("a"):
+        all_libs = table.find_all("a")
+        self.main_widget.progressBar.setVisible(True)
+        self.main_widget.progressBar.setMaximum(len(all_libs))
+        for lib in all_libs:
             description, funtions = self.get_functions(url+lib.get("href"))
             libs.append({
                 "href": url+lib.get("href"),
                 "name": lib.text,
                 "functions": funtions,
                 "description": description,
-            })
+                })
+            self.main_widget.progressBar.setValue(all_libs.index(lib)+1)
+            print("%d/%d" % (all_libs.index(lib), len(all_libs)))
 
         return libs
 

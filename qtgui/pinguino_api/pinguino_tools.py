@@ -141,7 +141,7 @@ class PinguinoTools(object):
 
 
         retour, error_compile = self.compile(filename)
-        if retour!=0:
+        if retour != 0:
             DATA_RETURN["verified"] = False
             DATA_RETURN["compiling"] = error_compile
             return DATA_RETURN
@@ -334,31 +334,38 @@ class PinguinoTools(object):
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
         content = fichier.read()
         content = self.remove_comments(content)
-        content = content.split('\n')
+        #content = content.split('\n')
         nblines = 0
         libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
-        for line in content:
-            if not line.isspace() and line:
-                resultline = self.replace_word(line, libinstructions) + "\n"
-            else: resultline = "\n"
-            #FIXME: error line
-            #if resultline.find("error") == 1:
-                ##line = resultline
-                ##print "error " + resultline
-                ##self.displaymsg("error "+resultline,1)
-                #error.append(resultline)
-                #return False
-            file_line[nblines] = resultline
-            nblines += 1
+
+        content = self.replace_word(content, libinstructions) + "\n"
+        #for line in content:
+            #if not line.isspace() and line:
+                #resultline = self.replace_word(line, libinstructions) + "\n"
+            #else: resultline = "\n"
+            ##FIXME: error line
+            ##if resultline.find("error") == 1:
+                ###line = resultline
+                ###print "error " + resultline
+                ###self.displaymsg("error "+resultline,1)
+                ##error.append(resultline)
+                ##return False
+            #file_line[nblines] = resultline
+            #nblines += 1
+
         fichier.close()
 
 
         # save new tmp file
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
-        for i in range(0, nblines):
-            fichier.writelines(file_line[i])
+        fichier.writelines(content)
         fichier.writelines("\r\n")
         fichier.close()
+        #fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
+        #for i in range(0, nblines):
+            #fichier.writelines(file_line[i])
+        #fichier.writelines("\r\n")
+        #fichier.close()
 
         # sort define.h
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
@@ -395,7 +402,7 @@ class PinguinoTools(object):
         return True
 
     #----------------------------------------------------------------------
-    def replace_word(self, line, libinstructions=None):
+    def replace_word(self, content, libinstructions=None):
         """ convert pinguino language in C language """
 
         if libinstructions is None:
@@ -406,23 +413,12 @@ class PinguinoTools(object):
 
         # replace arduino/pinguino language and add #define or #include to define.h
         for instruction, cnvinstruction, include, define, regex in libinstructions:
-            if re.search(regex, line):
-                line = line.replace(instruction, cnvinstruction)
+            if re.search(regex, content):
+                content = content.replace(instruction, cnvinstruction)
                 if self.not_in_define(include): self.add_define(include)
                 if self.not_in_define(define): self.add_define(define)
 
-
-        #for i in range(len(libinstructions)):
-            #if re.search(regobject[i], line):
-                #line = line.replace(libinstructions[i][0], libinstructions[i][1])
-                ##print (str(self.libinstructions[i][0]), str(self.libinstructions[i][1]))
-                ##print (str(self.libinstructions[i][2]), str(self.libinstructions[i][3]))
-                #if self.not_in_define(libinstructions[i][2]):
-                    #self.add_define(libinstructions[i][2])
-                #if self.not_in_define(libinstructions[i][3]):
-                    #self.add_define(libinstructions[i][3])
-
-        return line
+        return content
 
 
 

@@ -3,7 +3,11 @@
 
 NAME = "Pinguino IDE"
 VERSION = "11.0"
+<<<<<<< HEAD
 SUBVERSION = "beta.3"
+=======
+SUBVERSION = "beta.2"
+>>>>>>> 2f20888274158bcaba181908d1c0314f7dea4eec
 #DESCRIPTION = ""
 #LONG_DESCRIPTION = ""
 
@@ -134,6 +138,7 @@ if __name__ == "__main__":
             from PySide.QtGui import QApplication
             QApplication.instance().exec_()
         else:
+            #sys.exit(app.exec_())
             app.exec_()
 
 
@@ -151,10 +156,8 @@ if __name__ == "__main__":
         PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
         PinguinoConfig.update_user_libs(pinguino)
 
-
         def printb(text, color):
             print(color + text + bcolors.ENDC)
-
 
         parser = pinguino.build_argparse()
 

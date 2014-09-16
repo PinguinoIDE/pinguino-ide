@@ -25,7 +25,7 @@ class Pinguino(PinguinoTools):
     def compile_file(self, file_name):
 
         #self.main.plainTextEdit_output.log_output("compile_file")
-        
+
         if os.path.isfile(file_name):
             data = self.verify(file_name)
             self.__compiled__ = data["verified"]
@@ -52,9 +52,9 @@ class Pinguino(PinguinoTools):
     def upload(self):
 
         # Régis : Tip from Yeison to get error message
-        import sys
-        reload(sys)
-        sys.stdout.write("BREAKPOINT\r\n")
+        #import sys
+        #reload(sys)
+        #sys.stdout.write("BREAKPOINT\r\n")
 
         data = self.__upload__()
         data = "\n".join(data)

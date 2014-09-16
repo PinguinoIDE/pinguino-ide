@@ -134,6 +134,9 @@ class PinguinoEvents(EventMethods, TimerMethods):
         #self.connect(self.main.dockWidget_blocks, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionBlocks_2.setChecked)
         #self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionPython_shell.setChecked)
 
+        self.connect(self.main.dockWidget_tools, QtCore.SIGNAL("dockLocationChanged(Qt::DockWidgetArea)"), lambda area:self.update_tab_position(self.main.tabWidget_tools, area))
+        self.connect(self.main.dockWidget_blocks, QtCore.SIGNAL("dockLocationChanged(Qt::DockWidgetArea)"), lambda area:self.update_tab_position(self.main.tabWidget_blocks, area))
+
         self.main.actionTools_2.setChecked(self.main.dockWidget_tools.isVisible())
         self.main.actionPython_shell.setChecked(self.main.dockWidget_output.isVisible())
         self.main.actionBlocks_2.setChecked(self.main.dockWidget_blocks.isVisible())
