@@ -14,11 +14,9 @@ Open source integrated development enviroment (IDE).
   * [pyusb==0.4.3] (http://sourceforge.net/projects/pyusb/files/PyUSB%200.x/0.4.3)
   
 #### optionals
-Used for Pinguino's library manager
   * [gitpython] (https://pypi.python.org/pypi/GitPython)
   * [hgapi] (https://pypi.python.org/pypi/hgapi)
   * [pysvn] (http://pysvn.tigris.org/project_downloads.html)
-Used for Pinguino's wiki documentation
   * [beautifulsoup4] (https://pypi.python.org/pypi/beautifulsoup4)
 
 
