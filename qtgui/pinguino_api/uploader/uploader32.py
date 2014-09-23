@@ -147,7 +147,7 @@ class uploader32(baseUploader):
 
     INTERFACE_ID                    =    0x00
     ACTIVE_CONFIG                   =    1
-    TIMEOUT                         =    5000
+    TIMEOUT                         =    1000
 
     # Memory's area
     # ----------------------------------------------------------------------
@@ -247,7 +247,7 @@ class uploader32(baseUploader):
         usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
         usbBuf = self.getResponse(usbBuf)
 
-        self.debug(str(usbBuf)[1:-1])
+        #self.debug(str(usbBuf)[1:-1])
 
         if usbBuf == self.ERR_USB_WRITE:
             return self.ERR_USB_WRITE
@@ -632,7 +632,7 @@ class uploader32(baseUploader):
     def writeHex(self):
 # ----------------------------------------------------------------------
 
-        self.debug("DEBUG MODE ACTIVATED")
+        #self.debug("DEBUG MODE ACTIVATED")
 
         # check file to upload
         # --------------------------------------------------------------
