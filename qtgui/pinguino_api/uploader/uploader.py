@@ -50,6 +50,10 @@ class baseUploader(object):
         """ display message in the log window """
         self.report.append(message)
 
+        import sys
+        reload(sys)
+        sys.stdout.write("DEBUG : " + message + "\r\n")
+
 # ------------------------------------------------------------------------------
     def getDevice(self):
         """ get list of USB devices and search for pinguino """
@@ -63,8 +67,11 @@ class baseUploader(object):
     # ------------------------------------------------------------------------------
     def closeDevice(self):
         """ Close currently-open USB device """
-        self.handle.releaseInterface()
-
+        try:
+            self.handle.releaseInterface()
+        except:
+            pass
+            
 ########################################################################
 class Uploader(object):
     """Universal uploader class"""

@@ -147,7 +147,7 @@ class uploader32(baseUploader):
 
     INTERFACE_ID                    =    0x00
     ACTIVE_CONFIG                   =    1
-    TIMEOUT                         =    1000
+    TIMEOUT                         =    2500
 
     # Memory's area
     # ----------------------------------------------------------------------
@@ -161,25 +161,17 @@ class uploader32(baseUploader):
     DEVICE_ID                       =    0xBF80F220
 
     # Table with supported USB devices
-    # device_id:[PIC name, flash size(in bytes), eeprom size (in bytes)] 
+    # device_id:['CPU name'] 
     #-----------------------------------------------------------------------
 
     devices_table = \
-    {  
-        0x04A00053: ['32MX220F032B' , 0x9D008000, 0x9D003180 ], #32K
-        0x04A04053: ['32MX220F032D' , 0x9D008000, 0x9D003000 ], #32K
-        0x04D00053: ['32MX250F128B' , 0x9D020000, 0x9D003180 ], #128K
-        0x06600053: ['32MX270F256B' , 0x9D040000, 0x9D003180 ], #256K
-        0x00952053: ['32MX440F256H' , 0x9D040000, 0x9D005000 ]  #256K
+    {
+        0x04A00053: ['32MX220F032B'],
+        0x04A04053: ['32MX220F032D'],
+        0x04D00053: ['32MX250F128B'],
+        0x06600053: ['32MX270F256B'],
+        0x00952053: ['32MX440F256H']
     }
-
-# ----------------------------------------------------------------------
-    def debug(self, message):
-# ----------------------------------------------------------------------
-        import sys
-        reload(sys)
-        sys.stdout.write(message)
-        sys.stdout.write("\r\n")
 
 # ----------------------------------------------------------------------
     def initDevice(self):
@@ -206,7 +198,13 @@ class uploader32(baseUploader):
 # ----------------------------------------------------------------------
         """ Reset device """
         usbBuf = [self.RESET_DEVICE_CMD] * self.MAXPACKETSIZE
-        return self.sendCMD(usbBuf)
+
+        try:
+            self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        except:
+            return self.ERR_USB_WRITE
+
+        return self.ERR_NONE
 
 # ----------------------------------------------------------------------
     def sendCMD(self, usbBuf):
@@ -224,20 +222,15 @@ class uploader32(baseUploader):
         """ Send a command and get a response from the bootloader """
         sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
 
-        #self.debug(str(usbBuf)[1:-1])
-
         if sent_bytes != len(usbBuf):
-            #self.debug("ERR_USB_WRITE")
             return self.ERR_USB_WRITE
 
         try:
             time.sleep(0.5)
             usbBuf = self.handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
         except:
-            #self.debug("ERR_USB_READ")
             return self.ERR_USB_READ
 
-        #self.debug(str(usbBuf)[1:-1])
         return usbBuf
 
 # ----------------------------------------------------------------------
@@ -246,8 +239,6 @@ class uploader32(baseUploader):
         """ Get device info """
         usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
         usbBuf = self.getResponse(usbBuf)
-
-        #self.debug(str(usbBuf)[1:-1])
 
         if usbBuf == self.ERR_USB_WRITE:
             return self.ERR_USB_WRITE
@@ -498,6 +489,7 @@ class uploader32(baseUploader):
             elif record_type == self.Data_Record:
 
                 address = address_Hi + address_Lo
+                self.add_report("address = 0x%08X" % address)
 
                 if (address >= board.memstart) and (address < board.memend):
 
@@ -583,7 +575,7 @@ class uploader32(baseUploader):
 
         for addr in range(board.memstart, max_k0pfm_address, self.DATABLOCKSIZE):
             index = addr - board.memstart
-            #self.add_report("address = 0x%08X" % addr)
+            #self.add_report("Writing block at 0x%08X" % addr)
             #self.add_report("index = %d" % index)
             #self.add_report("data = %s" % k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
             self.writeFlash(addr, k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
@@ -592,7 +584,7 @@ class uploader32(baseUploader):
         #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
         status = self.sendCMD(usbBuf)
 
-        self.add_report("%d bytes written" % codesize)
+        self.add_report("%d bytes written." % codesize)
 
         """
         # write blocks of DATABLOCKSIZE bytes in k0 bfm 
@@ -631,8 +623,6 @@ class uploader32(baseUploader):
 # ----------------------------------------------------------------------
     def writeHex(self):
 # ----------------------------------------------------------------------
-
-        #self.debug("DEBUG MODE ACTIVATED")
 
         # check file to upload
         # --------------------------------------------------------------
@@ -702,15 +692,28 @@ class uploader32(baseUploader):
         # --------------------------------------------------------------
 
         memstart, memfree = self.getDeviceFlash()
-        memend   = memstart + memfree + 0x80000000
+        memend   = memstart + memfree
+
+        # Convert Physical to Virtual address if necessary
+        memstart = memstart | 0x80000000
+        memend   = memend   | 0x80000000
+
+        #self.add_report("memstart=0x%08X" % memstart)
         #self.add_report("memend=0x%08X" % memend)
-        #self.add_report("self.board.memend=0x%08X" % self.board.memend)
-        self.board.memstart = memstart + 0x80000000
-        if memend < self.board.memend:
+        #self.add_report("memfree=0x%08X" % memfree)
+
+        if self.board.memstart != memstart:
+            self.add_report("Error : start address of user program should be 0x%08X but is 0x%08X" % (memstart, self.board.memstart))
+            self.add_report("This bug has been automatically fixed.")
+            self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
+            self.board.memstart = memstart
+
+        if self.board.memend != memend:
+            self.add_report("Error : end address of free memory should be 0x%08X but is 0x%08X" % (memend, self.board.memend))
+            self.add_report("This bug has been automatically fixed.")
+            self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
             self.board.memend = memend
 
-        memfree = self.board.memend - self.board.memstart
-        #self.add_report("self.board.memend=0x%08X" % self.board.memend)
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
         self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
 
@@ -734,7 +737,7 @@ class uploader32(baseUploader):
             self.closeDevice()
             return
 
-        self.add_report("%s successfully uploaded" % os.path.basename(self.filename))
+        self.add_report("%s successfully uploaded." % os.path.basename(self.filename))
 
         # reset and start start user's app.
         # --------------------------------------------------------------
@@ -742,7 +745,6 @@ class uploader32(baseUploader):
         #self.add_report("Resetting ...")
         self.add_report("Starting user program ...")
         status = self.resetDevice()
-
         if status != self.ERR_NONE:
             self.closeDevice()
         
