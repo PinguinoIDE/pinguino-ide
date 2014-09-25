@@ -3,7 +3,8 @@
 
 NAME = "Pinguino IDE"
 VERSION = "11.0"
-SUBVERSION = "beta.2"
+SUBVERSION = "beta.3"
+
 #DESCRIPTION = ""
 #LONG_DESCRIPTION = ""
 
@@ -238,6 +239,6 @@ if __name__ == "__main__":
                             printb(result, bcolors.Green)
                     except:
                         if pinguino.get_board().arch == 8:
-                            printb("ERROR: is possible that a parameter is incorrect, try another bootloader option.", bcolors.Red)
-                            printb("Boloader options: ", bcolors.Green),
+                            printb("ERROR: bootloader option might be incorrect.", bcolors.Red)
+                            printb("Bootloader options: ", bcolors.Green),
                             printb(", ".join(pinguino.dict_boot.keys()), bcolors.Green)

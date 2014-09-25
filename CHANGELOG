@@ -1,15 +1,24 @@
 Pinguino IDE 11.0 - Beta 3
 --------------------------
 
-xxxxxx, 2014
+Sept. 16, 2014
 
 Features
 
+* Added regression.sh to test all examples for one board
+  (still one bug to fix: AttributeError: 'Pinguino' object has no attribute 'MAKE')
+* Added debugging files
+
+Improves
+
+* uploader32.py (getDeviceID, getDeviceFlash, getDeviceFamily)
+* pinguino_tools.py (code size calculation)
 * Saving perspectives
 
 Improves
 
 * Hide autocompleter from taskbar
+
 
 Bug Fixes
 

@@ -54,8 +54,7 @@ class baseUploader(object):
         self.report.append(message)
         print(message)
 
-
-    # ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
     def getDevice(self):
         """ get list of USB devices and search for pinguino """
         busses = usb.busses()
@@ -68,13 +67,14 @@ class baseUploader(object):
     # ------------------------------------------------------------------------------
     def closeDevice(self):
         """ Close currently-open USB device """
-        self.handle.releaseInterface()
-
-
+        try:
+            self.handle.releaseInterface()
+        except:
+            pass
 
 ########################################################################
 class Uploader(object):
-    """Universal uploder class"""
+    """Universal uploader class"""
 
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
@@ -100,7 +100,6 @@ class Uploader(object):
 
         elif board.bldr == "microchip":
             from uploader32 import uploader32 as Uploader
-
 
         self.uploader = Uploader(hex_file, board)
 

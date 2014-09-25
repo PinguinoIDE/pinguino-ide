@@ -5,7 +5,6 @@ Open source integrated development enviroment (IDE).
 
   * [Requirements] (#Requirements)
   * [IDE](#ide)
-  * [Install (on custom directory)] (#install-on-custom-directory)
   * [Command line](#command-line)
   * [Python API](#python-api)
 
@@ -14,11 +13,9 @@ Open source integrated development enviroment (IDE).
   * [pyusb==0.4.3] (http://sourceforge.net/projects/pyusb/files/PyUSB%200.x/0.4.3)
   
 #### optionals
-Used for Pinguino's library manager
   * [gitpython] (https://pypi.python.org/pypi/GitPython)
   * [hgapi] (https://pypi.python.org/pypi/hgapi)
   * [pysvn] (http://pysvn.tigris.org/project_downloads.html)
-Used for Pinguino's wiki documentation
   * [beautifulsoup4] (https://pypi.python.org/pypi/beautifulsoup4)
 
 
@@ -30,20 +27,6 @@ $ python pinguino.py
 ![Pinguino IDE 11.0 - Text mode](https://lh4.googleusercontent.com/-XiJW0FCqZG4/UvryfpUEn1I/AAAAAAAAGUQ/8PWFdAopCEA/w700-h362-no/text_mode.png "Pinguino IDE 11.0 - Text mode")
 ![Pinguino IDE 11.0 - Graphical mode](https://lh3.googleusercontent.com/-KmOJjxGpdJE/UvryfjZ4BLI/AAAAAAAAGUU/wQt5UPeP614/w700-h365-no/graphical_mode.png "Pinguino IDE 11.0 - Graphical mode")
 
-## Install (on custom directory)
-  * Download [Compilers](https://github.com/PinguinoIDE/pinguino-compilers/releases/latest), [Libraries](https://github.com/PinguinoIDE/pinguino-libraries/releases/latest) and [IDE](https://github.com/PinguinoIDE/pinguino-ide/releases/latest) sources.
-  * Create a own directory, we use ```PINGUINO-DIR``` with absolute path ```/PATH/TO/PINGUINO-DIR```
-  * Uncompress ```pinguino-ide-x.x.x.zip``` and extract the content of ```pinguino-ide-x.x.x``` to ```PINGUINO-DIR```.
-  * Uncompress ```pinguino-libraries-x.x.zip``` and extract the content of ```pinguino-libraries-x.X``` to ```PINGUINO-DIR```.
-  * Uncompress ```linux.zip``` (win32.zip or macosx.zip) and move the ```linux``` (win32 or macosx) directory to ```PINGUINO-DIR```.
-  * Edit [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg) with ```install_path = /PATH/TO/PINGUINO-DIR```.
-  * Install [dependences](#requirements).
-  * Copy "source" directory (from ```PINGUINO-DIR```) to ```user_path```, see [paths.cfg](https://github.com/PinguinoIDE/pinguino-ide/blob/master/paths.cfg)
-  * Run ```python pinguino.py```.
-  * On menu ```pinguino >> Set paths```.
- 
-![Pinguino IDE 11.0 - Set paths dialog](https://lh3.googleusercontent.com/--H1cV_DYjWw/UzYyAUL6-yI/AAAAAAAAGsQ/nr3Tkc4CxFs/w550-h237-no/paths.png)
-  * Coding, compile and enjoy.
 
 ## Command line
 Command line tools for compile and upload *.pde files to Pinguino boards.
