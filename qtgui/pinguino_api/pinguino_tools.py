@@ -34,6 +34,7 @@ from .uploader.uploader import Uploader
 
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
+import debugger
 
 
 ########################################################################
@@ -41,6 +42,8 @@ class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def __init__(self):
+        sys.stderr = debugger.Debugger("stderr")
+        sys.stdout = debugger.Debugger("stdout")
 
         self.NoBoot = ("noboot", 0)
         self.Boot2 = ("boot2", 0x2000)

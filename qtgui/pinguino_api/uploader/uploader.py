@@ -2,6 +2,8 @@
 #-*- coding: utf-8 -*-
 
 import usb
+import sys
+import debugger
 
 
 ########################################################################
@@ -45,12 +47,15 @@ class baseUploader(object):
         self.board = board
         self.report = []
 
-# ------------------------------------------------------------------------------
+
+    # ------------------------------------------------------------------------------
     def add_report(self, message):
         """ display message in the log window """
         self.report.append(message)
+        print(message)
 
-# ------------------------------------------------------------------------------
+
+    # ------------------------------------------------------------------------------
     def getDevice(self):
         """ get list of USB devices and search for pinguino """
         busses = usb.busses()
@@ -73,6 +78,10 @@ class Uploader(object):
 
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
+
+        sys.stderr = debugger.Debugger("stderr")
+        sys.stdout = debugger.Debugger("stdout")
+
 
         if board.bldr == "noboot":
 
@@ -101,3 +110,4 @@ class Uploader(object):
 
         self.uploader.writeHex()
         return self.uploader.report
+

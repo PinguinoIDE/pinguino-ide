@@ -1,19 +1,14 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import sys
 import os
-#import sys
-#import codecs
-#import shutil
-#import logging
-#from ConfigParser import RawConfigParser
-
+import platform
 from PySide import QtGui, QtCore
 
 from .methods.backgrounds import BackgroundPallete
 from .events.events import PinguinoEvents
 from .methods.decorators import Decorator
-#from .methods.dialogs import Dialogs
 from .methods.config import Config
 from .code_editor.autocomplete_icons import CompleteIcons
 from .widgets.output_widget import PinguinoTerminal
@@ -22,6 +17,8 @@ from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
 from ..pinguino_api.pinguino_config import PinguinoConfig
+
+import debugger
 
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
@@ -118,9 +115,41 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("NAME"), os.getenv("VERSION")))
 
+
+        sys.stderr = debugger.Debugger("stderr")
+        sys.stdout = debugger.Debugger("stdout")
+
+        print(self.get_systeminfo())
+        print("Pinguino IDE started!")
+
+
     ##----------------------------------------------------------------------
     #def __str__(self):
         #return " ".join([os.getenv("NAME"), os.getenv("VERSION")])
+
+    #----------------------------------------------------------------------
+    def get_systeminfo(self):
+        """"""
+        data = {}
+        data["os.name"] = str(os.name)
+        data["os.environ"] = str(os.environ)
+        data["os.uname"] = str(os.uname())
+        data["sys.argv"] = str(sys.argv)
+        data["sys.flags"] = str(sys.flags)
+        data["sys.platform"] = str(sys.platform)
+        data["sys.version"] = str(sys.version)
+        data["platform.architecture"] = str(platform.architecture())
+        data["platform.dist"] = str(platform.dist())
+        data["platform.linux_distribution"] = str(platform.linux_distribution())
+        data["platform.mac_ver"] = str(platform.mac_ver())
+        data["platform.system"] = str(platform.system())
+        data["platform.win32_ver"] = str(platform.win32_ver())
+        data["platform.libc_ver()"] = str(platform.libc_ver())
+        data["platform.machine"] = str(platform.machine())
+        data["platform.platform"] = str(platform.platform())
+        data["platform.release"] = str(platform.release())
+
+        return "\n" + "#" + "-" * 80 + "\n#" + "-" * 80 + "\n" + "\n".join([": ".join(item) for item in data.items()]) + "\n#" + "-" * 80 + "\n#" + "-" * 80
 
 
     #----------------------------------------------------------------------

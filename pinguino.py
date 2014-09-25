@@ -34,6 +34,10 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 import os
 
+import debugger
+sys.stderr = debugger.Debugger("stderr")
+sys.stdout = debugger.Debugger("stdout")
+
 os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION
 os.environ["SUBVERSION"] = SUBVERSION
