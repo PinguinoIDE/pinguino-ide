@@ -194,12 +194,18 @@ class uploader8(baseUploader):
     def resetDevice(self):
 # ----------------------------------------------------------------------
         """ reset device """
+        #usbBuf = [self.RESET_DEVICE_CMD] * self.MAXPACKETSIZE
         usbBuf = [0] * self.MAXPACKETSIZE
         # command code
         usbBuf[self.BOOT_CMD] = self.RESET_CMD
         # write data packet
         #usbBuf = self.sendCMD(usbBuf)
-        self.handle.bulkWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        try:
+            self.handle.bulkWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        except:
+            return self.ERR_USB_WRITE
+
+        return self.ERR_NONE
 
 # ----------------------------------------------------------------------
     def getVersion(self):

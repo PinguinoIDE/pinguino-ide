@@ -489,7 +489,7 @@ class uploader32(baseUploader):
             elif record_type == self.Data_Record:
 
                 address = address_Hi + address_Lo
-                self.add_report("address = 0x%08X" % address)
+                #self.add_report("address = 0x%08X" % address)
 
                 if (address >= board.memstart) and (address < board.memend):
 
@@ -694,12 +694,15 @@ class uploader32(baseUploader):
         memstart, memfree = self.getDeviceFlash()
         memend   = memstart + memfree
 
+        self.add_report("memstart=0x%08X" % memstart)
+        self.add_report("memend=0x%08X" % memend)
+
         # Convert Physical to Virtual address if necessary
         memstart = memstart | 0x80000000
         memend   = memend   | 0x80000000
 
-        #self.add_report("memstart=0x%08X" % memstart)
-        #self.add_report("memend=0x%08X" % memend)
+        self.add_report("memstart=0x%08X" % memstart)
+        self.add_report("memend=0x%08X" % memend)
         #self.add_report("memfree=0x%08X" % memfree)
 
         if self.board.memstart != memstart:
