@@ -36,8 +36,8 @@ sys.setdefaultencoding("utf-8")
 import os
 
 import debugger
-sys.stderr = debugger.Debugger("stderr")
-sys.stdout = debugger.Debugger("stdout")
+sys.stderr = debugger.Debugger("stderr", clear=True)
+sys.stdout = debugger.Debugger("stdout", clear=True)
 
 os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION

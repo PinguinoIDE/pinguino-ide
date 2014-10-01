@@ -12,7 +12,7 @@ class Debugger(object):
     """"""
 
     #----------------------------------------------------------------------
-    def __init__(self, debug):
+    def __init__(self, debug, gui_output=None, clear=False):
         """Constructor"""
 
         config_paths = RawConfigParser()
@@ -38,7 +38,11 @@ class Debugger(object):
         if debug == "stderr":
             self.filename = os.path.join(user_dir, "pinguino.stderr")
 
-        if os.path.isfile(self.filename): os.remove(self.filename)
+        if clear:
+            if os.path.isfile(self.filename): os.remove(self.filename)
+
+
+        #self.gui_output = gui_output
 
 
     #----------------------------------------------------------------------
@@ -50,9 +54,7 @@ class Debugger(object):
         if not out.endswith("\n"): file.write("\n")
         file.close()
 
-
-
-
+        #if self.gui_output: self.gui_output(out)
 
 
 

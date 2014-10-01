@@ -117,7 +117,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
 
         sys.stderr = debugger.Debugger("stderr")
-        sys.stdout = debugger.Debugger("stdout")
+        sys.stdout = debugger.Debugger("stdout", self.write_log)
+
 
         print(self.get_systeminfo())
         print("Pinguino IDE started!")
