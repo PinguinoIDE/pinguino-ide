@@ -27,14 +27,16 @@ class Paths(QtGui.QDialog):
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.setWindowIcon(icon)
 
-        self.dialog_dirs = ((self.set_paths.lineEdit_gcc_bin, self.set_paths.pushButton_gcc_bin, "GCC_BIN"),
-                            (self.set_paths.lineEdit_sdcc_bin, self.set_paths.pushButton_sdcc_bin, "SDCC_BIN"),
+        self.dialog_dirs = (
+                            #(self.set_paths.lineEdit_sdcc_bin, self.set_paths.pushButton_sdcc_bin, "SDCC_BIN"),
+                            #(self.set_paths.lineEdit_gcc_bin, self.set_paths.pushButton_gcc_bin, "GCC_BIN"),
                             (self.set_paths.lineEdit_pinguino_8_libs, self.set_paths.pushButton_pinguino_8_libs, "PINGUINO_8_LIBS"),
                             (self.set_paths.lineEdit_pinguino_32_libs, self.set_paths.pushButton_pinguino_32_libs, "PINGUINO_32_LIBS"),
                             )
 
-        default_paths = {"SDCC_BIN": self.main.configIDE.get_path("sdcc_bin"),
-                         "GCC_BIN": self.main.configIDE.get_path("gcc_bin"),
+        default_paths = {
+                         #"SDCC_BIN": self.main.configIDE.get_path("sdcc_bin"),
+                         #"GCC_BIN": self.main.configIDE.get_path("gcc_bin"),
                          "PINGUINO_8_LIBS": self.main.configIDE.get_path("pinguino_8_libs"),
                          "PINGUINO_32_LIBS": self.main.configIDE.get_path("pinguino_32_libs"),
                          }
@@ -50,9 +52,9 @@ class Paths(QtGui.QDialog):
             #lineEdit.setStyleSheet("")
 
         self.connect(self.set_paths.pushButton_close, QtCore.SIGNAL("clicked()"), self.close)
-        self.connect(self.set_paths.pushButton_clear_sdcc_bin, QtCore.SIGNAL("clicked()"), lambda :self.reset_value("sdcc_bin"))
+        #self.connect(self.set_paths.pushButton_clear_sdcc_bin, QtCore.SIGNAL("clicked()"), lambda :self.reset_value("sdcc_bin"))
         self.connect(self.set_paths.pushButton_clear_8_libs, QtCore.SIGNAL("clicked()"), lambda :self.reset_value("pinguino_8_libs"))
-        self.connect(self.set_paths.pushButton_clear_gcc_bin, QtCore.SIGNAL("clicked()"), lambda :self.reset_value("gcc_bin"))
+        #self.connect(self.set_paths.pushButton_clear_gcc_bin, QtCore.SIGNAL("clicked()"), lambda :self.reset_value("gcc_bin"))
         self.connect(self.set_paths.pushButton_clear_32_libs, QtCore.SIGNAL("clicked()"), lambda :self.reset_value("pinguino_32_libs"))
 
         #self.update_comobox_theme()
@@ -64,20 +66,6 @@ class Paths(QtGui.QDialog):
         font-family: inherit;
         font-weight: normal;
 
-        """)
-
-        self.set_paths.groupBox.setStyleSheet("""
-        QGroupBox{
-            font-family: inherit;
-            font-weight: bold;
-        }
-        """)
-
-        self.set_paths.groupBox_2.setStyleSheet("""
-        QGroupBox{
-            font-family: inherit;
-            font-weight: bold;
-        }
         """)
 
         Dialogs.warning_message(self, QtGui.QApplication.translate("Dialogs", "This paths are very important don't try to edit it if you don't know what are you doing."))
