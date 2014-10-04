@@ -6,7 +6,7 @@
 
     (c) 2011-2014 Regis Blanchot <rblanchot@gmail.com>
     
-    last update : 16 Sept. 2014
+    last update : 02 Oct. 2014
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -101,14 +101,10 @@ class uploader32(baseUploader):
     };
     """
 
-    BOOT_ADDR                       =    1
-    BOOT_ADDR_LSBLO                 =    1
-    BOOT_ADDR_LSBHI                 =    2
-    BOOT_ADDR_MSBLO                 =    3
-    BOOT_ADDR_MSBHI                 =    4
-    BOOT_CMD_SIZE                   =    5
-    BOOT_CMD_PAD                    =    6
-    BOOT_CMD_DATA                   =    7
+    BOOT_ADDR                       =    1      # 4 bytes
+    BOOT_CMD_SIZE                   =    5      # 1 byte
+    BOOT_CMD_PAD                    =    6      # 2 bytes unsused
+    BOOT_CMD_DATA                   =    8      # 64 - 8 = 56 (DATABLOCKSIZE)
 
     # Command Definitions
     # ----------------------------------------------------------------------
@@ -210,9 +206,15 @@ class uploader32(baseUploader):
     def sendCMD(self, usbBuf):
 # ----------------------------------------------------------------------
         """ Send a command to the bootloader """
-        sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        try:
+            sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+
+        except:
+            return self.ERR_USB_WRITE
+
         if sent_bytes == len(usbBuf):
             return self.ERR_NONE
+
         else:
             return self.ERR_USB_WRITE
 
@@ -220,14 +222,22 @@ class uploader32(baseUploader):
     def getResponse(self, usbBuf):
 # ----------------------------------------------------------------------
         """ Send a command and get a response from the bootloader """
-        sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        try:
+            sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+
+        except:
+            return self.ERR_USB_WRITE
 
         if sent_bytes != len(usbBuf):
             return self.ERR_USB_WRITE
 
+        #self.add_report("Sent successfully %d bytes" % sent_bytes)
+
         try:
-            time.sleep(0.5)
+            #time.sleep(0.5)
             usbBuf = self.handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
+            #self.add_report(str(usbBuf).strip('[]'))
+            
         except:
             return self.ERR_USB_READ
 
@@ -334,20 +344,31 @@ class uploader32(baseUploader):
 # ----------------------------------------------------------------------
     def writeFlash(self, address, block):
 # ----------------------------------------------------------------------
-        """
-            Write a block of code
-            No matter if address is virtual or not.
-            NVMWriteWord (Microchip) or FlashWriteWord (Pinguino)
-            will convert virtual to physical address if necessary
-            as NVMADDR only accept physical address
-        """
+        """ Write a block of code """
+        
+        # Convert Virtual Address to Physical Address if necessary
+        # as NVMADDR only accept physical address
+        #address = address & 0x1FFFFFFF
 
         length = len(block)
+
+        #self.add_report("writing %d-byte block at 0x%08X" % (length, address))
 
         if length == 0:
             # Short data packets need flushing
             usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
             return self.sendCMD(usbBuf)
+
+        """
+        struct __attribute__ ((packed))
+        {
+            unsigned char Command;
+            unsigned long Address;
+            unsigned char Size;
+            unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];    
+            unsigned int Data[RequestDataBlockSize/WORDSIZE];
+        };
+        """
 
         # command code
         usbBuf = [self.PROGRAM_DEVICE_CMD] * self.MAXPACKETSIZE
@@ -367,18 +388,30 @@ class uploader32(baseUploader):
 
         # data's length
         usbBuf[self.BOOT_CMD_SIZE] = length
+        
+        # pad bytes
+        # 64 bytes (USB Packet Size ) - 6 bytes (Command) = 58 not divisible by 4
+        # 58 bytes - 2 bytes = 56 bytes (Data block size) which is divisible by 4
+        usbBuf[self.BOOT_CMD_PAD + 0] = 0
+        usbBuf[self.BOOT_CMD_PAD + 1] = 0
 
         # add data 'right justified' within packet
+        # note : the bootloader will 'left justified' all data at reception
         for i in range(length):
             usbBuf[self.MAXPACKETSIZE - length + i] = block[i]
 
+        #self.add_report(str(usbBuf).strip('[]'))
+
         # write data packet on usb device
         status = self.sendCMD(usbBuf)
+
         if (status == self.ERR_NONE) and (length < self.DATABLOCKSIZE):
             # Short data packets need flushing
+            self.add_report("Short data packet at 0x%08X flushed" % address)
             #usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
             usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
             status = self.sendCMD(usbBuf)
+
         return status
 
 # ----------------------------------------------------------------------
@@ -465,6 +498,7 @@ class uploader32(baseUploader):
 
             # checksum calculation
             # ----------------------------------------------------------
+
             end = 9 + byte_count * 2 # position of checksum at end of line
             checksum = int(line[end:end+2], 16)
 
@@ -479,6 +513,7 @@ class uploader32(baseUploader):
 
             # extended linear address record
             # ----------------------------------------------------------
+
             if record_type == self.Extended_Linear_Address_Record:
 
                 # upper 16 bits (bits 16-31) of the data address
@@ -486,6 +521,7 @@ class uploader32(baseUploader):
 
             # data record
             # ----------------------------------------------------------
+
             elif record_type == self.Data_Record:
 
                 address = address_Hi + address_Lo
@@ -540,6 +576,7 @@ class uploader32(baseUploader):
 
             # bootloader jump address
             # ----------------------------------------------------------
+
             elif record_type == self.Start_Linear_Address_Record:
 
                 #: 04 0000 05 BF C0 00 00 78
@@ -547,15 +584,17 @@ class uploader32(baseUploader):
 
             # end of file record
             # ----------------------------------------------------------
+
             elif record_type == self.End_Of_File_Record:
 
                 break
 
             # unsupported record type
             # ----------------------------------------------------------
+
             else:
 
-                self.add_report("Caution : unsupported record type in hex file")
+                self.add_report("Caution : unsupported record type (%d) in hex file" % record_type)
                 self.add_report("Line %s" % line)
                 #return self.ERR_HEX_RECORD
 
@@ -563,7 +602,10 @@ class uploader32(baseUploader):
         # --------------------------------------------------------------
 
         #max_k0pfm_address = max_k0pfm_address + self.MAXPACKETSIZE - (max_k0pfm_address % self.MAXPACKETSIZE)
-        max_k0pfm_address = max_k0pfm_address + 64 - (max_k0pfm_address % 64)
+
+        #max_k0pfm_address = max_k0pfm_address + 64 - (max_k0pfm_address % 64)
+        max_k0pfm_address = max_k0pfm_address + self.DATABLOCKSIZE - (max_k0pfm_address % self.DATABLOCKSIZE)
+
         #max_k0bfm_address = max_k0bfm_address + 64 - (max_k0bfm_address % 64)
         #max_k1bfm_address = max_k1bfm_address + 64 - (max_k1bfm_address % 64)
         #self.add_report("max_k0pfm_address = 0x%08X" % max_k0pfm_address)
@@ -578,7 +620,11 @@ class uploader32(baseUploader):
             #self.add_report("Writing block at 0x%08X" % addr)
             #self.add_report("index = %d" % index)
             #self.add_report("data = %s" % k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
-            self.writeFlash(addr, k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
+            status = self.writeFlash(addr, k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
+            if (status != self.ERR_NONE):
+                self.add_report("Error : impossible to write block at 0x%08X" % addr)
+            #else:
+            #    self.add_report("OK")
 
         usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
         #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
@@ -644,6 +690,7 @@ class uploader32(baseUploader):
         self.device = self.getDevice()
 
         if self.device == self.ERR_DEVICE_NOT_FOUND:
+
             self.add_report("Pinguino not found")
             self.add_report("If your device is connected switch to bootloader mode.")
             return
@@ -653,6 +700,7 @@ class uploader32(baseUploader):
         self.handle = self.initDevice()
 
         if self.handle == self.ERR_USB_INIT1:
+
             self.add_report("Upload not possible")
             self.add_report("Try to restart the bootloader mode")
             return
@@ -666,64 +714,78 @@ class uploader32(baseUploader):
         # find out processor
         # --------------------------------------------------------------
 
-        if self.getDeviceFamily() != self.DEVICE_FAMILY_PIC32:
-            self.add_report("Aborting : not a PIC32 family device.")
-            self.closeDevice()
-            return
+        fam = self.getDeviceFamily()
+        
+        # old bootloader version without GET_DATA and QUERRY_DEVICE commands
+        if fam == self.ERR_USB_READ:
 
-        device_id, device_rev = self.getDeviceID()
+            self.add_report("Please update your bootloader to a newer version.")
 
-        if device_id == self.ERR_USB_READ or device_id == self.ERR_USB_WRITE:
-            self.add_report("Impossible to read the flash memory.")
-            self.add_report("Your device is probably an Olimex PIC32 Pinguino.")
-            #self.closeDevice()
-            #return
         else:
-            proc = self.getDeviceName(device_id)
-            self.add_report(" - with PIC%s (ID 0x%08X, rev. A%01X)" % (proc, device_id, device_rev))
+            
+            if  fam != self.DEVICE_FAMILY_PIC32:
 
-            if proc != self.board.proc:
-                self.add_report("Aborting: program compiled for %s but device has %s" % (self.board.proc, proc))
+                self.add_report("Aborting : not a PIC32 family device.")
                 self.closeDevice()
                 return
 
-        # find out flash memory size
-        # addresses MUST BE virtual NOT physical
-        # --------------------------------------------------------------
+            device_id, device_rev = self.getDeviceID()
 
-        memstart, memfree = self.getDeviceFlash()
-        memend   = memstart + memfree
+            if device_id == self.ERR_USB_READ or device_id == self.ERR_USB_WRITE:
 
-        self.add_report("memstart=0x%08X" % memstart)
-        self.add_report("memend=0x%08X" % memend)
+                self.add_report("Impossible to read the flash memory.")
+                #self.closeDevice()
+                #return
 
-        # Convert Physical to Virtual address if necessary
-        memstart = memstart | 0x80000000
-        memend   = memend   | 0x80000000
+            else:
 
-        self.add_report("memstart=0x%08X" % memstart)
-        self.add_report("memend=0x%08X" % memend)
-        #self.add_report("memfree=0x%08X" % memfree)
+                proc = self.getDeviceName(device_id)
+                self.add_report(" - with PIC%s (ID 0x%08X, rev. A%01X)" % (proc, device_id, device_rev))
 
-        if self.board.memstart != memstart:
-            self.add_report("Error : start address of user program should be 0x%08X but is 0x%08X" % (memstart, self.board.memstart))
-            self.add_report("This bug has been automatically fixed.")
-            self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
-            self.board.memstart = memstart
+                if proc != self.board.proc:
 
-        if self.board.memend != memend:
-            self.add_report("Error : end address of free memory should be 0x%08X but is 0x%08X" % (memend, self.board.memend))
-            self.add_report("This bug has been automatically fixed.")
-            self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
-            self.board.memend = memend
+                    self.add_report("Aborting: program compiled for %s but device has %s" % (self.board.proc, proc))
+                    self.closeDevice()
+                    return
 
-        self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
-        self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
+                # find out flash memory size
+                # addresses MUST BE virtual NOT physical
+                # --------------------------------------------------------------
+
+                memstart, memfree = self.getDeviceFlash()
+                memend   = memstart + memfree
+
+                #self.add_report("memstart=0x%08X" % memstart)
+                #self.add_report("memend=0x%08X" % memend)
+
+                # Convert Physical to Virtual address if necessary
+                memstart = memstart | 0x80000000
+                memend   = memend   | 0x80000000
+
+                #self.add_report("memstart=0x%08X" % memstart)
+                #self.add_report("memend=0x%08X" % memend)
+                #self.add_report("board.memend=0x%08X" % self.board.memend)
+                #self.add_report("memfree=0x%08X" % memfree)
+
+                if self.board.memstart != memstart:
+                    self.add_report("Conflict : free flash memory should start at 0x%08X not 0x%08X" % (memstart, self.board.memstart))
+                    #self.add_report("This bug has been automatically fixed.")
+                    #self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
+                    #self.board.memstart = memstart
+
+                if self.board.memend != memend:
+                    self.add_report("Conflict : free flash memory should stop at 0x%08X not 0x%08X" % (memend, self.board.memend))
+                    #self.add_report("This bug has been automatically fixed.")
+                    #self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
+                    #self.board.memend = memend
+
+                self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
+                self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
 
         # start erasing
         # --------------------------------------------------------------
 
-        #self.add_report("Erasing ..."
+        self.add_report("Erasing flash memory ...")
         status = self.eraseFlash()
         if status != self.ERR_NONE:
             self.add_report("Aborting: erase error!")
