@@ -18,6 +18,7 @@ from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
 from ..pinguino_api.pinguino_config import PinguinoConfig
 
+import logging
 import debugger
 
 ########################################################################
@@ -26,6 +27,22 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     #@Decorator.debug_time()
     def __init__(self, splash_write):
         super(PinguinoIDE, self).__init__()
+
+
+        root = logging.getLogger()
+        root.setLevel(logging.DEBUG)
+
+        ch = logging.StreamHandler(sys.stdout)
+        ch.setLevel(logging.DEBUG)
+        #formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        formatter = logging.Formatter("%(message)s")
+        ch.setFormatter(formatter)
+        root.addHandler(ch)
+
+        sys.stderr = debugger.Debugger("stderr")
+        sys.stdout = debugger.Debugger("stdout", self.write_log)
+
+        print(self.get_systeminfo())
 
         QtCore.QTextCodec.setCodecForCStrings(QtCore.QTextCodec.codecForName("UTF-8"))
         QtCore.QTextCodec.setCodecForLocale(QtCore.QTextCodec.codecForName("UTF-8"))
@@ -98,7 +115,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading boards configuration"))
-        self.set_board()
+        #self.set_board() #called in self.get_status_board()
         self.statusbar_ide(self.get_status_board())
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading configuration"))
@@ -116,11 +133,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("NAME"), os.getenv("VERSION")))
 
 
-        sys.stderr = debugger.Debugger("stderr")
-        sys.stdout = debugger.Debugger("stdout", self.write_log)
-
-
-        print(self.get_systeminfo())
         print("Pinguino IDE started!")
 
 

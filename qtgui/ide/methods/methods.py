@@ -465,32 +465,37 @@ class Methods(SearchReplace):
             ext = ""
 
         if arch == 8:
-            compiler = os.path.exists(os.path.join(self.configIDE.get_path("sdcc_bin"), "sdcc" + ext))
-            libraries = os.path.exists(self.configIDE.get_path("pinguino_8_libs"))
+            compiler_path = os.path.join(self.configIDE.get_path("sdcc_bin"), "sdcc" + ext)
+            libraries_path = self.configIDE.get_path("pinguino_8_libs")
 
         elif arch == 32:
             #RB20140615:
             #- gcc toolchain has been renamed from mips-elf-gcc to p32-gcc
             #- the toolchain is now based on gcc 4.8.2
             #compiler = os.path.exists(os.path.join(self.configIDE.get_path("gcc_bin"), "mips-elf-gcc-4.5.2" + ext))
-            compiler = os.path.exists(os.path.join(self.configIDE.get_path("gcc_bin"), "p32-gcc" + ext))
-            libraries = os.path.exists(self.configIDE.get_path("pinguino_32_libs"))
+            compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "p32-gcc" + ext)
+            libraries_path = self.configIDE.get_path("pinguino_32_libs")
 
         status = ""
-        if not compiler:
+        if not os.path.exists(compiler_path):
             status = QtGui.QApplication.translate("Frame", "Missing compiler for %d-bit") % arch
+            logging.warning("Missing compiler for %d-bit: %s" % (arch, compiler_path))
 
-        elif  not libraries:
+        elif  not os.path.exists(libraries_path):
             status = QtGui.QApplication.translate("Frame", "Missing libraries for %d-bit") % arch
+            logging.warning("Missing libraries for %d-bit: %s" % (arch, libraries_path))
 
-        if not libraries and not compiler:
+        if not os.path.exists(libraries_path) and not os.path.exists(compiler_path):
             status = QtGui.QApplication.translate("Frame", "Missing libraries and compiler for %d-bit") % arch
+            logging.warning("Missing libraries and compiler for %d-bit: %s, %s" % (arch, compiler_path, libraries_path))
 
         if status:
             self.statusbar_warnning(status)
             os.environ["PINGUINO_CAN_COMPILE"] = "False"
         else:
             os.environ["PINGUINO_CAN_COMPILE"] = "True"
+            logging.debug("Found: %s" % compiler_path)
+            logging.info("Found: %s" % libraries_path)
 
 
     #----------------------------------------------------------------------

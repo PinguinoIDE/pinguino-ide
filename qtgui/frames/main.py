@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Thu Oct  2 13:25:28 2014
+# Created: Thu Oct  2 13:41:24 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,7 +55,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 28))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 25))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -607,7 +607,6 @@ class Ui_PinguinoIDE(object):
         self.menuPinguino.addAction(self.actionLibrary_manager)
         self.menuGitHub.addAction(self.actionIDE)
         self.menuGitHub.addAction(self.actionLibraries)
-        self.menuGitHub.addAction(self.actionCompilers)
         self.menuLinks.addAction(self.menuGitHub.menuAction())
         self.menuLinks.addAction(self.actionWebsite)
         self.menuLinks.addAction(self.actionWiki)
