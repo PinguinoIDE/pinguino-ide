@@ -28,7 +28,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def __init__(self, splash_write):
         super(PinguinoIDE, self).__init__()
 
-
         root = logging.getLogger()
         root.setLevel(logging.DEBUG)
 
