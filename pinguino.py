@@ -107,6 +107,7 @@ if __name__ == "__main__":
 
         #from PySide import QtGui
 
+
         pixmap = QPixmap(":/logo/art/splash.png")
         splash = QSplashScreen(pixmap, QtCore.Qt.WindowStaysOnTopHint)
 

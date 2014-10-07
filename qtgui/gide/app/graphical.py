@@ -15,8 +15,7 @@ from .tool_area import ToolArea
 #from .constant import os.getenv("NAME")
 #from ..bloques.color import setColor
 from ..py_bloques.get_blocks import all_sets
-from ..bloques import BlockLinear, BlockFunction, BlockNested, \
-     BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
+from ..bloques import BlockLinear, BlockFunction, BlockNested, BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
 from ...ide.methods.backgrounds import BackgroundPallete
 from ...ide.methods.decorators import Decorator
 from ...frames.blocks_widget import Ui_widgetBlock
