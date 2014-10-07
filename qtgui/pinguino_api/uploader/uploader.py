@@ -48,11 +48,14 @@ class baseUploader(object):
         self.report = []
 
 
-    # ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
     def add_report(self, message):
         """ display message in the log window """
         self.report.append(message)
-        print(message)
+
+        import sys
+        reload(sys)
+        sys.stdout.write("DEBUG : " + message + "\r\n")
 
 # ------------------------------------------------------------------------------
     def getDevice(self):
@@ -64,7 +67,7 @@ class baseUploader(object):
                     return device
         return self.ERR_DEVICE_NOT_FOUND
 
-    # ------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
     def closeDevice(self):
         """ Close currently-open USB device """
         try:
