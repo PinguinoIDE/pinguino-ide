@@ -1,6 +1,6 @@
 [Icon Theme]
 Name=Pinguino11
-Inherits=gnome
+Inherits=breeze
 Comment=Icon theme built for Pinguino IDE 11.
 Directories=icons/16,icons/24,icons/32,icons/48
 

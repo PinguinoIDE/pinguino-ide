@@ -213,7 +213,7 @@ class PinguinoTools(object):
             result = fichier.readlines()
             fichier.close()
         """
-        
+
         # Weed out blank lines with filter
         result = filter(lambda line: not line.isspace(), result)
         return result
@@ -767,7 +767,8 @@ class PinguinoTools(object):
         fichier.close()
 
         if sys.platform == "win32":
-            if board.board in ["PIC32_PINGUINO_220", "GENERIC32MX250F128", "GENERIC32MX220F032"]:
+            #if board.board in ["PIC32_PINGUINO_220", "GENERIC32MX250F128", "GENERIC32MX220F032"]:
+            if board.board in ["PIC32_PINGUINO_220", "Pinguino32MX220", "Pinguino32MX250", "Pinguino32MX270"]:
                 badrecord = ":040000059D0040001A\n"
             else:
                 badrecord = ":040000059D006000FA\n"
