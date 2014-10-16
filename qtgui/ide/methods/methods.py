@@ -307,14 +307,11 @@ class Methods(SearchReplace):
             size = self.configIDE.config("Main", "size", "(1050, 550)")
             self.resize(*eval(size))
 
-        ##self.main.plainTextEdit_output.resize(self.main.plainTextEdit_output.size()+
-                                              ##QtCore.QSize(0, self.configIDE.config("Main", "terminal_height", 80))
-                                              ##)
 
-        #self.main.dockWidget_output.resize(100, 100)
-
-
-        #self.configIDE.set("Main", "terminal_height", self.main.plainTextEdit_output.height())
+        visible = self.configIDE.config("Main", "menubar", True)
+        self.main.actionMenubar.setChecked(visible)
+        self.main.menubar.setVisible(visible)
+        self.main.toolBar_system.setVisible(not visible)
 
 
     #----------------------------------------------------------------------
@@ -625,19 +622,23 @@ class Methods(SearchReplace):
 
 
     #----------------------------------------------------------------------
-    def exapand_editor(self, exapand):
+    def expand_editor(self, expand):
 
-        self.toggle_toolbars(not exapand)
-        self.main.dockWidget_output.setVisible(not exapand)
-        self.main.actionToolbars.setChecked(not exapand)
+        self.toggle_toolbars(not expand)
+        self.main.dockWidget_output.setVisible(not expand)
+        self.main.actionToolbars.setChecked(not expand)
 
-        self.main.statusBar.setVisible(not exapand)
+        if expand:
+            self.main.menubar.setVisible(expand)
+            self.main.actionMenubar.setChecked(expand)
+
+        self.main.statusBar.setVisible(not expand)
 
         if self.is_graphical():
-            self.main.dockWidget_blocks.setVisible(not exapand)
+            self.main.dockWidget_blocks.setVisible(not expand)
             self.main.dockWidget_tools.setVisible(False)
         else:
-            self.main.dockWidget_tools.setVisible(not exapand)
+            self.main.dockWidget_tools.setVisible(not expand)
             self.main.dockWidget_blocks.setVisible(False)
 
     #----------------------------------------------------------------------
@@ -654,12 +655,20 @@ class Methods(SearchReplace):
             self.main.toolBar_pinguino.setVisible(True)
 
             visible = self.is_graphical()
-
             self.main.toolBar_edit.setVisible(not visible)
             self.main.toolBar_graphical.setVisible(visible)
             self.main.toolBar_search_replace.setVisible(not visible)
             self.main.toolBar_undo_redo.setVisible(not visible)
 
+        self.main.toolBar_system.setVisible(not self.main.menubar.isVisible())
+
+    #----------------------------------------------------------------------
+    def toggle_menubar(self):
+        """"""
+        self.main.menubar.setVisible(not self.main.menubar.isVisible())
+        if not self.main.menubar.isVisible():
+            self.toggle_toolbars(not self.main.menubar.isVisible())
+        self.main.toolBar_system.setVisible(not self.main.menubar.isVisible())
 
     #----------------------------------------------------------------------
     def check_backup_file(self, *args, **kwargs):

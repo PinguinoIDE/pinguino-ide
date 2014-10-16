@@ -36,7 +36,8 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionSearch_and_replace, QtCore.SIGNAL("triggered()"), self.set_tab_search)
 
         # Menu View
-        self.connect(self.main.actionMaximize_editor, QtCore.SIGNAL("toggled(bool)"), self.exapand_editor)
+        self.connect(self.main.actionMenubar, QtCore.SIGNAL("toggled(bool)"), self.toggle_menubar)
+        self.connect(self.main.actionMaximize_editor, QtCore.SIGNAL("toggled(bool)"), self.expand_editor)
         self.connect(self.main.actionToolbars, QtCore.SIGNAL("toggled(bool)"), self.toggle_toolbars)
         self.connect(self.main.actionTools_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_tools.setVisible)
         self.connect(self.main.actionBlocks_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_blocks.setVisible)

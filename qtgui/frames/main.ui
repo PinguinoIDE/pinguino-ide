@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1088</width>
-    <height>699</height>
+    <height>701</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -211,12 +211,13 @@
     <addaction name="actionIndent"/>
     <addaction name="actionDedent"/>
    </widget>
-   <widget class="QMenu" name="menuConfiguration">
+   <widget class="QMenu" name="menuView">
     <property name="title">
      <string>View</string>
     </property>
     <addaction name="actionHex_code"/>
     <addaction name="separator"/>
+    <addaction name="actionMenubar"/>
     <addaction name="actionTools_2"/>
     <addaction name="actionBlocks_2"/>
     <addaction name="actionPython_shell"/>
@@ -268,7 +269,7 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
-   <addaction name="menuConfiguration"/>
+   <addaction name="menuView"/>
    <addaction name="menuSettings"/>
    <addaction name="menuSource"/>
    <addaction name="menuPinguino"/>
@@ -1031,6 +1032,30 @@
    </attribute>
    <addaction name="actionSave_image"/>
   </widget>
+  <widget class="QToolBar" name="toolBar_system">
+   <property name="windowTitle">
+    <string>System menu</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar_switch">
    <property name="windowTitle">
     <string>Switch mode</string>
@@ -1047,6 +1072,9 @@
      <height>32</height>
     </size>
    </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
@@ -1055,7 +1083,6 @@
    </attribute>
    <addaction name="actionSwitch_ide"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNew_file">
    <property name="icon">
     <iconset theme="document-new">
@@ -1640,6 +1667,17 @@
    <property name="text">
     <string>Upload .hex directly
 </string>
+   </property>
+  </action>
+  <action name="actionMenubar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Menubar</string>
    </property>
   </action>
  </widget>

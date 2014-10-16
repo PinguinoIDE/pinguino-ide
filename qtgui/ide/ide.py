@@ -73,6 +73,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.ICONS = CompleteIcons()
 
         splash_write(QtGui.QApplication.translate("Splash", "Setting theme"))
+        self.build_menutoolbar()
         self.set_icon_theme()
         self.reload_toolbar_icons()
 
@@ -117,10 +118,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         #self.set_board() #called in self.get_status_board()
         self.statusbar_ide(self.get_status_board())
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading configuration"))
-        self.load_main_config()
         splash_write(QtGui.QApplication.translate("Splash", "Connecting events"))
         self.connect_events()
+        splash_write(QtGui.QApplication.translate("Splash", "Loading configuration"))
+        self.load_main_config()
 
         os_name = os.getenv("PINGUINO_OS_NAME")
         if os_name == "windows":
@@ -130,14 +131,39 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
 
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("NAME"), os.getenv("VERSION")))
-
-
         print("Pinguino IDE started!")
 
 
     ##----------------------------------------------------------------------
     #def __str__(self):
         #return " ".join([os.getenv("NAME"), os.getenv("VERSION")])
+
+
+    #----------------------------------------------------------------------
+    def build_menutoolbar(self):
+
+        self.toolbutton_menutoolbar = QtGui.QToolButton(self)
+        self.toolbutton_menutoolbar.setPopupMode(QtGui.QToolButton.MenuButtonPopup)
+        menu = QtGui.QMenu()
+
+        icon = QtGui.QIcon.fromTheme("preferences-system")
+        self.toolbutton_menutoolbar.setIcon(icon)
+
+        menu.addMenu(self.main.menuFile)
+        menu.addMenu(self.main.menuEdit)
+        menu.addMenu(self.main.menuView)
+        menu.addMenu(self.main.menuSettings)
+        menu.addMenu(self.main.menuSource)
+        menu.addMenu(self.main.menuPinguino)
+        menu.addMenu(self.main.menuGraphical)
+        menu.addMenu(self.main.menuHelp)
+
+        menu.addSeparator()
+        menu.addAction(self.main.actionMenubar)
+
+        self.toolbutton_menutoolbar.setMenu(menu)
+        self.main.toolBar_system.addWidget(self.toolbutton_menutoolbar)
+
 
     #----------------------------------------------------------------------
     def get_systeminfo(self):
@@ -288,6 +314,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             update_reserved = self.update_reserved_words
             update_installed_reserved = self.update_instaled_reserved_words
 
+            @classmethod
+            def update(self):
+                self.update_reserved()
+                self.update_installed_reserved()
+
+
             functions = ["update_reserved",
                          "update_installed_reserved",
                          ]
@@ -357,6 +389,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
                          self.main.toolBar_search_replace,
                          self.main.toolBar_switch,
                          self.main.toolBar_undo_redo,
+                         self.main.toolBar_system,
                          ]
 
         for toolbar in self.toolbars:
@@ -384,6 +417,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
                          (self.main.actionUpload, "emblem-downloads"),
 
                          (self.main.actionSave_image, "applets-screenshooter"),
+
+
+                         (self.toolbutton_menutoolbar, "preferences-system"),
 
                         ]
 
@@ -460,6 +496,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             [act.setChecked(False) for act in self.main.menuIcons_size.actions()]
             action.setChecked(True)
             self.configIDE.set("Main", "icons_size", size)
+
+            self.toolbutton_menutoolbar.setIconSize(QtCore.QSize(size, size))
 
         return resize_icons
 

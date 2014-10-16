@@ -241,6 +241,8 @@ class EventMethods(Methods):
         side = self.dockWidgetArea(self.main.dockWidget_output)
         self.configIDE.set("Main", "dock_shell", side.name)
 
+        self.configIDE.set("Main", "menubar", self.main.menubar.isVisible())
+
         count = 1
         self.configIDE.clear_recents()
         for file_ in self.recent_files:
@@ -325,6 +327,9 @@ class EventMethods(Methods):
     def set_tab_search(self):
         self.main.tabWidget_tools.setCurrentIndex(2)
         self.main.lineEdit_search.setFocus()
+        editor = self.main.tabWidget_files.currentWidget()
+        cursor = editor.text_edit.textCursor()
+        self.main.lineEdit_search.setText(cursor.selectedText())
 
 
     # Menu Source
@@ -879,7 +884,7 @@ class EventMethods(Methods):
     def switch_color_theme(self, pinguino_color=True):
         default_pallete = ["toolBar_edit", "toolBar_files", "toolBar_search_replace",
                            "toolBar_undo_redo", "toolBar_pinguino", "toolBar_pinguino",
-                           "toolBar_graphical", "toolBar_switch", "statusBar"]
+                           "toolBar_graphical", "toolBar_switch", "statusBar", "toolBar_system"]
 
         pinguino_pallete = ["dockWidget_output", "dockWidget_tools", "dockWidget_blocks"]
 
