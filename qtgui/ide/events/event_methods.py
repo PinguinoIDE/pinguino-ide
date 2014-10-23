@@ -884,7 +884,8 @@ class EventMethods(Methods):
     def switch_color_theme(self, pinguino_color=True):
         default_pallete = ["toolBar_edit", "toolBar_files", "toolBar_search_replace",
                            "toolBar_undo_redo", "toolBar_pinguino", "toolBar_pinguino",
-                           "toolBar_graphical", "toolBar_switch", "statusBar", "toolBar_system"]
+                           "toolBar_graphical", "toolBar_switch", "statusBar", "toolBar_system",
+                           "menubar"]
 
         pinguino_pallete = ["dockWidget_output", "dockWidget_tools", "dockWidget_blocks"]
 
@@ -1033,24 +1034,24 @@ class EventMethods(Methods):
     #----------------------------------------------------------------------
     @Decorator.clear_highlighted_lines()
     def jump_function_header(self, row):
-        item = self.main.tableWidget_functions.item(row, 2).text()
-        line = item[:item.find("-")]
+        item = self.main.tableWidget_functions.verticalHeaderItem(row).text()
+        line = item[item.find(":")+1:][:item[item.find(":")+1:].find("-")]
         self.jump_to_line(int(line))
 
 
     #----------------------------------------------------------------------
     @Decorator.clear_highlighted_lines()
     def jump_directive_header(self, row):
-        item = self.main.tableWidget_directives.item(row, 2).text()
-        line = item
+        item = self.main.tableWidget_directives.verticalHeaderItem(row).text()
+        line = item[item.find(":")+1:]
         self.jump_to_line(int(line))
 
 
     #----------------------------------------------------------------------
     @Decorator.clear_highlighted_lines()
     def jump_variable_header(self, row):
-        item = self.main.tableWidget_variables.item(row, 1).text()
-        line = item
+        item = self.main.tableWidget_variables.verticalHeaderItem(row).text()
+        line = item[item.find(":")+1:]
         self.jump_to_line(int(line))
 
 

@@ -8,6 +8,7 @@ from PySide.QtGui import QListWidget, QListWidgetItem
 from PySide import QtCore, QtGui
 
 from .autocomplete_icons import CompleteIcons
+from ..methods.config import Config
 
 
 class PinguinoAutoCompleter(QListWidget):
@@ -59,12 +60,19 @@ class PinguinoAutoCompleter(QListWidget):
         icons = CompleteIcons()
         self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
         del icons
+        self.set_arch_autocompleter()
+
+        configIDE = Config()
+        selection_color = configIDE.config("Styles", "selection_color", "#FFFFFF")
+        selection_bg_color = configIDE.config("Styles", "selection_foreground_color", "#57AAFF")
 
         self.setStyleSheet("""
         font-family: inherit;
         font-weight: normal;
+        selection-color: %s;
+        selection-background-color: %s;
+        """%(selection_color, selection_bg_color))
 
-        """)
 
     #----------------------------------------------------------------------
     def set_arch_autocompleter(self):
@@ -92,7 +100,7 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def show(self, *args):
-        self.set_arch_autocompleter()  #FIXME: move this call
+        #self.set_arch_autocompleter()  #FIXME: move this call
         self.activateWindow()
         super(PinguinoAutoCompleter, self).show(*args)
 

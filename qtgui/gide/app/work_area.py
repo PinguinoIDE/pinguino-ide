@@ -316,16 +316,17 @@ class WorkArea(QtGui.QWidget):
 
 
             self.SelectArea.show()
+            under = self.SelectionAbs[:]
 
-            if self.SelectArea.isVisible():
-                under = self.SelectionAbs[:]
+            if self.SelectArea.isVisible() and (child in under):
 
-                self.SelectArea.hide()
+                #self.SelectArea.hide()
 
                 if len(under) > 1:
                     self.SelectArea.show()
                     selected = under
-                    if child in selected: selected.remove(child)
+                    #if child in selected: selected.remove(child)
+                    selected.remove(child)
                     for Id in selected:
                         if Id.metadata.from_ == []:
                             #print Id
@@ -336,6 +337,9 @@ class WorkArea(QtGui.QWidget):
                             self.move_group(Id, relative)
                             #self.moveGroupInside(Id, relative)
                     self.SelectArea.move(self.SelectArea.pos()+relative)
+
+            else:
+                self.SelectArea.hide()
 
 
             child.metadata.pos_ = point
@@ -539,12 +543,14 @@ class WorkArea(QtGui.QWidget):
 
 
             pos = child.pos()
+            self.global_close_hand = [child.childAt(child.mapFromGlobal(event.globalPos()))]
 
             if event.modifiers() == QtCore.Qt.ControlModifier:
+                #Copy full block
                 if child.metadata.parent != "None":
                     pos += child.metadata.parent.metadata.widget.pos()
                 fullw = map(lambda wdg:wdg.metadata.basename, child.metadata.inside)
-                #if not fullw: fullw = [False]
+                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.ClosedHandCursor)
                 child = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=fullw)[0]
 
 
@@ -552,6 +558,7 @@ class WorkArea(QtGui.QWidget):
                 #Copy a basic block
                 if child.metadata.parent != "None":
                     pos += child.metadata.parent.metadata.widget.pos()
+                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.ClosedHandCursor)
                 child = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=[False])[0]
 
 
@@ -576,6 +583,9 @@ class WorkArea(QtGui.QWidget):
         if self.CHILD != None:
             if self.CHILD.childAt(self.CHILD.mapFromGlobal(event.globalPos())):
                 self.CHILD.childAt(self.CHILD.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.OpenHandCursor)
+                for ch in self.global_close_hand:
+                    ch.setCursor(QtCore.Qt.OpenHandCursor)
+
             self.frame.main.actionSave_file.setEnabled(True)
 
         if self.getUnderSelection() == []:

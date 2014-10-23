@@ -314,12 +314,17 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         tc = self.textCursor()
 
-        #if self.get_format() in ["comment", "quotation"]:
-            #self.completer.hide()
-            #return
+        if self.get_format() in ["comment", "quotation"]:
+            self.completer.hide()
+            return
 
         self.smart_under_selection(tc)
         selected = tc.selectedText().split()
+
+        if re.match('^[\w.]+$', selected[-1]) is None:
+            self.completer.hide()
+            return
+
 
         if selected: self.last_w = selected[-1]
 
@@ -346,7 +351,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         contex_color = {"#7f0000": "quotation",
                         "#cc0000": "quotation",
-                        "#007F00": "comment",
+                        "#007f00": "comment",
                         "#c81818": "comment",}
 
         tc = self.textCursor()
@@ -358,7 +363,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         for format_ in formats:
             if pos >= format_.start and pos <= format_.start + format_.length:
-                return contex_color.get(format_.format.foreground().color().name(), None)
+                return contex_color.get(format_.format.foreground().color().name().lower(), None)
 
 
 

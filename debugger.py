@@ -7,13 +7,15 @@ import sys
 import codecs
 from datetime import datetime
 
+
 ########################################################################
-class Debugger(object):
+class sys_redirect(object):
     """"""
 
     #----------------------------------------------------------------------
-    def __init__(self, debug, gui_output=None, clear=False):
+    def __init__(self, debug, clear):
         """Constructor"""
+
 
         config_paths = RawConfigParser()
         config_paths.readfp(open(os.path.join(os.path.abspath(sys.path[0]), "paths.cfg"), "r"))
@@ -42,9 +44,6 @@ class Debugger(object):
             if os.path.isfile(self.filename): os.remove(self.filename)
 
 
-        #self.gui_output = gui_output
-
-
     #----------------------------------------------------------------------
     def write(self, out):
         if not out or out.isspace(): return
@@ -58,3 +57,23 @@ class Debugger(object):
 
 
 
+########################################################################
+class Debugger(object):
+    """"""
+
+    argvs = ["-style"]
+
+    #----------------------------------------------------------------------
+    def __init__(self, sys_, clear=False):
+        """Constructor"""
+        if len(sys.argv) == 1 or self.ignore(sys.argv):
+            sys.stderr = sys_redirect("stderr", clear)
+            sys.stdout = sys_redirect("stdout", clear)
+
+
+
+    #----------------------------------------------------------------------
+    def ignore(self, sys_argv):
+        """"""
+        for argv in self.argvs:
+            if argv in sys_argv: return True

@@ -164,19 +164,20 @@ class Pinguino(PinguinoTools):
         #hex_file.close()
         return open(self.__data__["hex_file"], "r")
 
-    #----------------------------------------------------------------------
-    def build_argparse(self):
 
-        parser = argparse.ArgumentParser(description="*** %s ***"%os.getenv("NAME"))
-        parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("NAME"))
-        parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("NAME"))
-        parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
-        parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
-        parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
-        parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
+    ##----------------------------------------------------------------------
+    #def build_argparse(self):
 
-        for board in AllBoards:
-            parser.add_argument(board.shortarg, board.longarg, dest="board", const=board, action="store_const", default=False,
-                                help="compile code for " + board.board + " board")
+        #parser = argparse.ArgumentParser(description="*** %s ***"%os.getenv("NAME"))
+        #parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("NAME"))
+        #parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("NAME"))
+        #parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
+        #parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
+        #parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
+        #parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
 
-        return parser.parse_args()
+        #for board in AllBoards:
+            #parser.add_argument(board.shortarg, board.longarg, dest="board", const=board, action="store_const", default=False,
+                                #help="compile code for " + board.board + " board")
+
+        #return parser.parse_args()

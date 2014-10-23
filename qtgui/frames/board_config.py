@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/frames/board_config.ui'
 #
-# Created: Thu Oct 16 02:28:17 2014
+# Created: Thu Oct 23 00:06:10 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_BoardConfig(object):
     def setupUi(self, BoardConfig):
         BoardConfig.setObjectName("BoardConfig")
-        BoardConfig.resize(336, 424)
+        BoardConfig.resize(330, 454)
         self.gridLayout_5 = QtGui.QGridLayout(BoardConfig)
         self.gridLayout_5.setVerticalSpacing(14)
         self.gridLayout_5.setObjectName("gridLayout_5")
@@ -20,8 +20,6 @@ class Ui_BoardConfig(object):
         self.groupBox_arch.setAutoFillBackground(False)
         self.groupBox_arch.setObjectName("groupBox_arch")
         self.gridLayout = QtGui.QGridLayout(self.groupBox_arch)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.radioButton_arch_8 = QtGui.QRadioButton(self.groupBox_arch)
         self.radioButton_arch_8.setChecked(True)
@@ -34,8 +32,6 @@ class Ui_BoardConfig(object):
         self.groupBox_mode = QtGui.QGroupBox(BoardConfig)
         self.groupBox_mode.setObjectName("groupBox_mode")
         self.gridLayout_2 = QtGui.QGridLayout(self.groupBox_mode)
-        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_2.setSpacing(0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.radioButton_mode_icsp = QtGui.QRadioButton(self.groupBox_mode)
         self.radioButton_mode_icsp.setText("ICSP")
@@ -51,8 +47,6 @@ class Ui_BoardConfig(object):
         self.groupBox_devices_8 = QtGui.QGroupBox(BoardConfig)
         self.groupBox_devices_8.setObjectName("groupBox_devices_8")
         self.gridLayout_4 = QtGui.QGridLayout(self.groupBox_devices_8)
-        self.gridLayout_4.setSpacing(0)
-        self.gridLayout_4.setContentsMargins(0, -1, 0, 0)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.gridLayout_device_8 = QtGui.QGridLayout()
         self.gridLayout_device_8.setObjectName("gridLayout_device_8")
@@ -61,8 +55,6 @@ class Ui_BoardConfig(object):
         self.groupBox_bootloader = QtGui.QGroupBox(BoardConfig)
         self.groupBox_bootloader.setObjectName("groupBox_bootloader")
         self.gridLayout_3 = QtGui.QGridLayout(self.groupBox_bootloader)
-        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_3.setSpacing(0)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.radioButton_bootloader_v1_v2 = QtGui.QRadioButton(self.groupBox_bootloader)
         self.radioButton_bootloader_v1_v2.setText("v1.x or v2.x")
@@ -97,8 +89,6 @@ class Ui_BoardConfig(object):
         self.groupBox_devices_32 = QtGui.QGroupBox(BoardConfig)
         self.groupBox_devices_32.setObjectName("groupBox_devices_32")
         self.gridLayout_7 = QtGui.QGridLayout(self.groupBox_devices_32)
-        self.gridLayout_7.setSpacing(0)
-        self.gridLayout_7.setContentsMargins(0, -1, 0, 0)
         self.gridLayout_7.setObjectName("gridLayout_7")
         self.gridLayout_device_32 = QtGui.QGridLayout()
         self.gridLayout_device_32.setObjectName("gridLayout_device_32")

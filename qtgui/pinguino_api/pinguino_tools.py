@@ -42,8 +42,9 @@ class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def __init__(self):
-        sys.stderr = debugger.Debugger("stderr")
-        sys.stdout = debugger.Debugger("stdout")
+        #sys.stderr = debugger.Debugger("stderr")
+        #sys.stdout = debugger.Debugger("stdout")
+        debugger.Debugger(sys)
 
         self.NoBoot = ("noboot", 0)
         self.Boot2 = ("boot2", 0x2000)

@@ -295,10 +295,12 @@ class Methods(SearchReplace):
 
 
     #----------------------------------------------------------------------
+    @Decorator.call_later()
     def load_main_config(self):
 
         if self.configIDE.config("Main", "maximized", True):
             self.showMaximized()
+            self.setWindowState(QtCore.Qt.WindowMaximized)
 
         else:
             pos = self.configIDE.config("Main", "position", "(0, 0)")
@@ -312,6 +314,8 @@ class Methods(SearchReplace):
         self.main.actionMenubar.setChecked(visible)
         self.main.menubar.setVisible(visible)
         self.main.toolBar_system.setVisible(not visible)
+
+        self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
 
 
     #----------------------------------------------------------------------

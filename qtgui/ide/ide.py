@@ -38,8 +38,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         ch.setFormatter(formatter)
         root.addHandler(ch)
 
-        sys.stderr = debugger.Debugger("stderr")
-        sys.stdout = debugger.Debugger("stdout", self.write_log)
+        #sys.stderr = debugger.Debugger("stderr")
+        #sys.stdout = debugger.Debugger("stdout")
+        debugger.Debugger(sys)
 
         print(self.get_systeminfo())
 
@@ -247,6 +248,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         bg_color = self.configIDE.config("Styles", "background_color", "#FFFFFF")
         alternate_bg_color = self.configIDE.config("Styles", "alternate_background_color", "#DDE8FF")
+        selection_color = self.configIDE.config("Styles", "selection_color", "#FFFFFF")
+        selection_bg_color = self.configIDE.config("Styles", "selection_foreground_color", "#57AAFF")
 
         self.main.tableWidget_functions.setStyleSheet("""
         QTableWidget {
@@ -274,8 +277,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.setStyleSheet("""
         font-family: inherit;
         font-weight: normal;
-
-        """)
+        selection-color: %s;
+        selection-background-color: %s;
+        """%(selection_color, selection_bg_color))
 
         self.main.groupBox_replace.setStyleSheet("""
         QGroupBox{
@@ -300,7 +304,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             font-weight: normal;
             font-size: 10pt;
         }
-
         """)
 
 

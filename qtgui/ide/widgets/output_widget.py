@@ -40,6 +40,9 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
 
 
+        self.setFrameShape(QtGui.QFrame.NoFrame)
+
+
 
     #----------------------------------------------------------------------
     def log_output(self, text):

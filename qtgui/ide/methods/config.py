@@ -82,7 +82,7 @@ class Config(RawConfigParser, object):
 
         files = []
         for option in options:
-            if option.startswith("recent_"):
+            if option.startswith("recent_") and self.get("Recents", option):
                 files.append(self.get("Recents", option))
 
         return files
@@ -94,7 +94,7 @@ class Config(RawConfigParser, object):
 
         files = []
         for option in options:
-            if option.startswith("open_"):
+            if option.startswith("open_") and self.get("Recents", option):
                 files.append(self.get("Recents", option))
 
         return files

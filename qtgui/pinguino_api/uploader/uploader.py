@@ -82,8 +82,9 @@ class Uploader(object):
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
 
-        sys.stderr = debugger.Debugger("stderr")
-        sys.stdout = debugger.Debugger("stdout")
+        #sys.stderr = debugger.Debugger("stderr")
+        #sys.stdout = debugger.Debugger("stdout")
+        debugger.Debugger(sys)
 
 
         if board.bldr == "noboot":

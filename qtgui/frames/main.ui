@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1088</width>
-    <height>701</height>
+    <height>758</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -116,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>1088</width>
-     <height>25</height>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -303,7 +303,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="Files">
         <attribute name="title">
@@ -382,7 +382,7 @@
             <enum>QTabWidget::South</enum>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="Variables">
             <attribute name="title">
@@ -421,11 +421,6 @@
                <column>
                 <property name="text">
                  <string>Type</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Line</string>
                 </property>
                </column>
               </widget>
@@ -477,11 +472,6 @@
                <column>
                 <property name="text">
                  <string>Args</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Line</string>
                 </property>
                </column>
               </widget>
@@ -569,11 +559,6 @@
                  <string>Value</string>
                 </property>
                </column>
-               <column>
-                <property name="text">
-                 <string>Line</string>
-                </property>
-               </column>
               </widget>
              </item>
             </layout>
@@ -593,7 +578,7 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <property name="spacing">
+         <property name="horizontalSpacing">
           <number>0</number>
          </property>
          <item row="1" column="0">
@@ -602,18 +587,6 @@
             <string>Replace</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_11">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <property name="spacing">
-             <number>0</number>
-            </property>
             <item row="0" column="0" colspan="2">
              <widget class="QLineEdit" name="lineEdit_replace"/>
             </item>
@@ -662,18 +635,6 @@
             <string>Search</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_10">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <property name="spacing">
-             <number>0</number>
-            </property>
             <item row="0" column="0" colspan="2">
              <widget class="QLineEdit" name="lineEdit_search">
               <property name="text">

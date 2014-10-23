@@ -32,16 +32,16 @@ class TimerMethods(object):
         for funtion in functions_parse:
             item = QtGui.QTableWidgetItem()
             self.main.tableWidget_functions.setVerticalHeaderItem(index, item)
-            item.setText(funtion["name"])
+            item.setText(funtion["name"] + ":" + "-".join(funtion["line"]))
             self.completer_funtions.append(funtion["name"])
 
             self.main.tableWidget_functions.setItem(index, 0, QtGui.QTableWidgetItem())
             self.main.tableWidget_functions.setItem(index, 1, QtGui.QTableWidgetItem())
-            self.main.tableWidget_functions.setItem(index, 2, QtGui.QTableWidgetItem())
+            #self.main.tableWidget_functions.setItem(index, 2, QtGui.QTableWidgetItem())
 
             self.main.tableWidget_functions.item(index, 0).setText(funtion["return"])
             self.main.tableWidget_functions.item(index, 1).setText(funtion["args"])
-            self.main.tableWidget_functions.item(index, 2).setText("-".join(funtion["line"]))
+            #self.main.tableWidget_functions.item(index, 2).setText("-".join(funtion["line"]))
 
             index += 1
 
@@ -64,16 +64,16 @@ class TimerMethods(object):
         for directive in directives_parse:
             item = QtGui.QTableWidgetItem()
             self.main.tableWidget_directives.setVerticalHeaderItem(index, item)
-            item.setText(directive["name"])
+            item.setText(directive["name"] + ":" + directive["line"])
             self.completer_directives.append(directive["name"])
 
             self.main.tableWidget_directives.setItem(index, 0, QtGui.QTableWidgetItem())
             self.main.tableWidget_directives.setItem(index, 1, QtGui.QTableWidgetItem())
-            self.main.tableWidget_directives.setItem(index, 2, QtGui.QTableWidgetItem())
+            #self.main.tableWidget_directives.setItem(index, 2, QtGui.QTableWidgetItem())
 
             self.main.tableWidget_directives.item(index, 0).setText(directive["type"])
             self.main.tableWidget_directives.item(index, 1).setText(directive["value"])
-            self.main.tableWidget_directives.item(index, 2).setText(directive["line"])
+            #self.main.tableWidget_directives.item(index, 2).setText(directive["line"])
             index += 1
 
 
@@ -96,16 +96,14 @@ class TimerMethods(object):
         for variable in variables_parse:
             item = QtGui.QTableWidgetItem()
             self.main.tableWidget_variables.setVerticalHeaderItem(index, item)
-            item.setText(variable["name"])
+            item.setText(variable["name"] + ":" + variable["line"])
             self.completer_variables.append([variable["name"], variable["type"]])
 
             self.main.tableWidget_variables.setItem(index, 0, QtGui.QTableWidgetItem())
-            self.main.tableWidget_variables.setItem(index, 1, QtGui.QTableWidgetItem())
-            #self.main.tableWidget_variables.setItem(index, 2, QtGui.QTableWidgetItem())
+            #self.main.tableWidget_variables.setItem(index, 1, QtGui.QTableWidgetItem())
 
             self.main.tableWidget_variables.item(index, 0).setText(variable["type"])
-            #self.main.tableWidget_variables.item(index, 1).setText(variable["value"])
-            self.main.tableWidget_variables.item(index, 1).setText(variable["line"])
+            #self.main.tableWidget_variables.item(index, 1).setText(variable["line"])
             index += 1
 
 

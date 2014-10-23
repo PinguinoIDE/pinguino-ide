@@ -36,8 +36,9 @@ sys.setdefaultencoding("utf-8")
 import os
 
 import debugger
-sys.stderr = debugger.Debugger("stderr", clear=True)
-sys.stdout = debugger.Debugger("stdout", clear=True)
+#sys.stderr = debugger.Debugger("stderr", clear=True)
+#sys.stdout = debugger.Debugger("stdout", clear=True)
+debugger.Debugger(sys, clear=True)
 
 os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION
@@ -61,6 +62,33 @@ class bcolors:
     Cyan = "\033[0;36m"
     LightGray = "\033[0;37m"
     ENDC = "\033[0m"
+
+import argparse
+from qtgui.pinguino_api.boards import boardlist
+
+#----------------------------------------------------------------------
+def build_argparse():
+
+    parser = argparse.ArgumentParser(description="*** %s ***"%os.getenv("NAME"))
+    parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("NAME"))
+    parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("NAME"))
+    parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
+    parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
+    parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
+    parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
+
+    for board in boardlist:
+        parser.add_argument(board.shortarg, board.longarg, dest="board", const=board, action="store_const", default=False,
+                            help="compile code for " + board.board + " board")
+
+    return parser.parse_args()
+
+try:
+    parser = build_argparse()
+    parser_state = True
+except:
+    parser_state = False
+
 
 
 if __name__ == "__main__":
@@ -99,7 +127,7 @@ if __name__ == "__main__":
             if translations_file + ".qm" in os.listdir(translations_path):
                 translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
 
-    if len(sys.argv) == 1:
+    if len(sys.argv) == 1 or not parser_state:
         from qtgui.ide import PinguinoIDE
         from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
 
@@ -144,7 +172,7 @@ if __name__ == "__main__":
             app.exec_()
 
 
-    else:  #command line
+    elif parser_state:  #command line
 
         from qtgui.pinguino_api.pinguino import Pinguino
         from qtgui.pinguino_api.pinguino_config import PinguinoConfig
@@ -161,7 +189,7 @@ if __name__ == "__main__":
         def printb(text, color):
             print(color + text + bcolors.ENDC)
 
-        parser = pinguino.build_argparse()
+        #parser = pinguino.build_argparse()
 
         if parser.version:
             printb("\t" + VERSION, bcolors.Green)
