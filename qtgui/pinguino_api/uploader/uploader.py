@@ -3,6 +3,7 @@
 
 import usb
 import sys
+import logging
 import debugger
 
 
@@ -53,9 +54,8 @@ class baseUploader(object):
         """ display message in the log window """
         self.report.append(message)
 
-        import sys
-        reload(sys)
-        sys.stdout.write("DEBUG : " + message + "\r\n")
+        # logging.debug(message)
+        print("DEBUG : " + message + "\r\n")
 
 # ------------------------------------------------------------------------------
     def getDevice(self):
@@ -82,10 +82,7 @@ class Uploader(object):
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
 
-        #sys.stderr = debugger.Debugger("stderr")
-        #sys.stdout = debugger.Debugger("stdout")
         debugger.Debugger(sys)
-
 
         if board.bldr == "noboot":
 

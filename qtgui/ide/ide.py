@@ -28,19 +28,16 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def __init__(self, splash_write):
         super(PinguinoIDE, self).__init__()
 
+        debugger.Debugger(sys)
+
         root = logging.getLogger()
         root.setLevel(logging.DEBUG)
 
-        ch = logging.StreamHandler(sys.stdout)
+        ch = logging.StreamHandler(debugger.sys_redirect("stdout", False))
         ch.setLevel(logging.DEBUG)
-        #formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         formatter = logging.Formatter("%(message)s")
         ch.setFormatter(formatter)
         root.addHandler(ch)
-
-        #sys.stderr = debugger.Debugger("stderr")
-        #sys.stdout = debugger.Debugger("stdout")
-        debugger.Debugger(sys)
 
         print(self.get_systeminfo())
 
