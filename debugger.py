@@ -32,6 +32,8 @@ class sys_redirect(object):
 
         #load path from paths.conf
         user_dir = os.path.expanduser(config_paths.get("paths-%s"%os_name, "user_path"))
+        if not os.path.exists(user_dir):
+            os.mkdir(user_dir)
 
 
         if debug == "stdout":
@@ -61,19 +63,9 @@ class sys_redirect(object):
 class Debugger(object):
     """"""
 
-    argvs = ["-style"]
-
     #----------------------------------------------------------------------
     def __init__(self, sys_, clear=False):
         """Constructor"""
-        if len(sys.argv) == 1 or self.ignore(sys.argv):
-            sys.stderr = sys_redirect("stderr", clear)
-            sys.stdout = sys_redirect("stdout", clear)
+        sys.stderr = sys_redirect("stderr", clear)
+        sys.stdout = sys_redirect("stdout", clear)
 
-
-
-    #----------------------------------------------------------------------
-    def ignore(self, sys_argv):
-        """"""
-        for argv in self.argvs:
-            if argv in sys_argv: return True

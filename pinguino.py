@@ -35,11 +35,6 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 import os
 
-import debugger
-#sys.stderr = debugger.Debugger("stderr", clear=True)
-#sys.stdout = debugger.Debugger("stdout", clear=True)
-debugger.Debugger(sys, clear=True)
-
 os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION
 os.environ["SUBVERSION"] = SUBVERSION
@@ -69,7 +64,9 @@ from qtgui.pinguino_api.boards import boardlist
 #----------------------------------------------------------------------
 def build_argparse():
 
-    parser = argparse.ArgumentParser(description="*** %s ***"%os.getenv("NAME"))
+    parser = argparse.ArgumentParser(description="*** %s:Command line ***"%os.getenv("NAME"))
+
+    #command line args
     parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("NAME"))
     parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("NAME"))
     parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
@@ -81,61 +78,72 @@ def build_argparse():
         parser.add_argument(board.shortarg, board.longarg, dest="board", const=board, action="store_const", default=False,
                             help="compile code for " + board.board + " board")
 
-    return parser.parse_args()
+    #IDE args
+    parsergui = argparse.ArgumentParser(description="*** %s:GUI ***"%os.getenv("NAME"))
+    parsergui.add_argument("--lang", dest="lang", nargs=1, default=False, help="set IDE language")
+    parsergui.add_argument("-style")
 
-try:
-    parser = build_argparse()
-    parser_state = True
-except:
-    parser_state = False
+    parsed_c, others_c = parser.parse_known_args()
+    parsed_g, others_g = parsergui.parse_known_args()
+
+    if others_c and not others_g:
+        return parsed_g, True #Return command line arguments
+    elif others_g and not others_c:
+        return parsed_c, False #Return GUI arguments
+    elif others_g:
+        parser.print_help()
+        parsergui.print_help()
+        sys.exit()
+    else:
+        return parsed_g, True #Return command line arguments
 
 
+parser, use_gui = build_argparse()
+
+python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python_requirements")
+if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
+
+sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
 if __name__ == "__main__":
 
-    sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
+    if use_gui:
 
-    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python_requirements")
-    if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
+        import debugger
+        debugger.Debugger(sys, clear=True)
 
-    #from qtgui.ide import PinguinoIDE #overwrite locale ¿?
-    #from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
-    from PySide import QtCore
-    #import locale
+        from PySide import QtCore
+        from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
 
-    sys_locale = QtCore.QLocale.system().name()
-    #sys_locale = "en"  #force language
-    translator = QtCore.QTranslator()
+        from qtgui.ide import PinguinoIDE
 
-    #load intern dialogs translations
-    qtTranslator = QtCore.QTranslator()
-    qtTranslator.load("qt_" + sys_locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
+        if parser.lang: sys_locale = parser.lang[0]
+        else: sys_locale = QtCore.QLocale.system().name()
+        translator = QtCore.QTranslator()
 
-    #load translations files
-    translations_path = os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage")
-    trasnlations = os.path.exists(translations_path)
+        #load intern dialogs translations
+        qtTranslator = QtCore.QTranslator()
+        qtTranslator.load("qt_" + sys_locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
 
-    if trasnlations:
-        translations_file = "pinguino_" + sys_locale
+        #load translations files
+        translations_path = os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage")
+        trasnlations = os.path.exists(translations_path)
 
-        if translations_file + ".qm" in os.listdir(translations_path):
-            translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
-
-        elif "_" in sys_locale:
-            sys_locale = sys_locale[:sys_locale.find("_")]
+        if trasnlations:
             translations_file = "pinguino_" + sys_locale
+
             if translations_file + ".qm" in os.listdir(translations_path):
                 translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
 
-    if len(sys.argv) == 1 or not parser_state:
-        from qtgui.ide import PinguinoIDE
-        from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
+            elif "_" in sys_locale:
+                sys_locale = sys_locale[:sys_locale.find("_")]
+                translations_file = "pinguino_" + sys_locale
+                if translations_file + ".qm" in os.listdir(translations_path):
+                    translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
 
         app = QApplication(sys.argv)
 
-        #from PySide import QtGui
-
-
+        #Splash
         pixmap = QPixmap(":/logo/art/splash.png")
         splash = QSplashScreen(pixmap, QtCore.Qt.WindowStaysOnTopHint)
 
@@ -144,8 +152,7 @@ if __name__ == "__main__":
             font-family: inherit;
             font-weight: normal;
             font-size: 11pt;
-
-        """)
+            """)
 
         def splash_write(msg):
             if not splash is None:
@@ -172,7 +179,7 @@ if __name__ == "__main__":
             app.exec_()
 
 
-    elif parser_state:  #command line
+    else:  #command line
 
         from qtgui.pinguino_api.pinguino import Pinguino
         from qtgui.pinguino_api.pinguino_config import PinguinoConfig
