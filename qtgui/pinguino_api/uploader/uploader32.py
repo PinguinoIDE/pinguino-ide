@@ -143,7 +143,7 @@ class uploader32(baseUploader):
 
     INTERFACE_ID                    =    0x00
     ACTIVE_CONFIG                   =    0x01
-    TIMEOUT                         =    1000
+    TIMEOUT                         =    10000
 
     # Memory's area
     # ----------------------------------------------------------------------
@@ -197,6 +197,7 @@ class uploader32(baseUploader):
 
         try:
             self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+
         except:
             return self.ERR_USB_WRITE
 
@@ -415,7 +416,7 @@ class uploader32(baseUploader):
         #usbBuf[self.BOOT_ADDR + 2] = int(address[2:4], 16)
         #usbBuf[self.BOOT_ADDR + 3] = int(address[0:2], 16)
 
-        # data's length
+        # data's length in bytes
         usbBuf[self.BOOT_CMD_SIZE] = length
         
         # pad bytes
@@ -654,7 +655,9 @@ class uploader32(baseUploader):
             index = addr - board.memstart
             #self.add_report("Writing block at 0x%08X" % addr)
             #self.add_report("index = %d" % index)
-            #self.add_report("data = %s" % k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
+            #self.add_report("Block=")
+            #for i in range(self.DATABLOCKSIZE):
+            #    self.add_report("[%x]" % k0_prog_flash_memory[index+i])
             status = self.writeFlash(addr, k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
             if (status != self.ERR_NONE):
                 return status
@@ -825,7 +828,8 @@ class uploader32(baseUploader):
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
         self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
 
-      #return
+        #self.closeDevice()
+        #return
 
         # start erasing
         # --------------------------------------------------------------

@@ -42,9 +42,8 @@ class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def __init__(self):
-        #sys.stderr = debugger.Debugger("stderr")
-        #sys.stdout = debugger.Debugger("stdout")
-        debugger.Debugger(sys)
+        sys.stderr = debugger.Debugger("stderr")
+        sys.stdout = debugger.Debugger("stdout")
 
         self.NoBoot = ("noboot", 0)
         self.Boot2 = ("boot2", 0x2000)
@@ -71,6 +70,12 @@ class PinguinoTools(object):
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
             #self.p8 = 'picpgm.exe'
             self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
+
+            # RB : 2014-11-14 
+            # Windows installer should download and install GnuWin32
+            # and add path to the System Path, something like :
+            # set PATH=%PATH%;C:\Program Files\GnuWin32\bin
+            #self.MAKE = "make.exe"
             self.MAKE = os.path.join(self.P32_BIN, "make.exe")
 
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
@@ -214,7 +219,7 @@ class PinguinoTools(object):
             result = fichier.readlines()
             fichier.close()
         """
-
+        
         # Weed out blank lines with filter
         result = filter(lambda line: not line.isspace(), result)
         return result
@@ -608,6 +613,12 @@ class PinguinoTools(object):
         return sortie.poll(), ERROR
 
 
+    # ------------------------------------------------------------------------------
+    def report(self, message):
+        import sys
+        reload(sys)
+        sys.stdout.write("DEBUG : " + message + "\r\n")
+
     #----------------------------------------------------------------------
     def link(self, filename):
         """Link.
@@ -738,6 +749,8 @@ class PinguinoTools(object):
             if user_imports32: _IDE_USERLIBS_ = ["_IDE_USERLIBS_=" + user_imports32]
             else: _IDE_USERLIBS_ = []
 
+            #self.report(makefile)
+
             sortie = Popen([self.MAKE,
                             "--makefile=" + makefile,
 
@@ -748,7 +761,6 @@ class PinguinoTools(object):
                             "_IDE_P32DIR_=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
                             "_IDE_SRCDIR_=" + self.SOURCE_DIR,
                             "_IDE_USERHOMEDIR_=" + os.getenv("PINGUINO_USER_PATH"),  #default ~/.pinguino
-
                             "_IDE_HEAP_SIZE_=" + self.HEAPSIZE,
                             "_IDE_MIPS16_ENABLE_=" + self.MIPS16,
                             "_IDE_OPTIMIZATION_=" + self.OPTIMIZATION,
@@ -768,8 +780,7 @@ class PinguinoTools(object):
         fichier.close()
 
         if sys.platform == "win32":
-            #if board.board in ["PIC32_PINGUINO_220", "GENERIC32MX250F128", "GENERIC32MX220F032"]:
-            if board.board in ["PIC32_PINGUINO_220", "Pinguino32MX220", "Pinguino32MX250", "Pinguino32MX270"]:
+            if board.board in ["PIC32_PINGUINO_220", "GENERIC32MX250F128", "GENERIC32MX220F032"]:
                 badrecord = ":040000059D0040001A\n"
             else:
                 badrecord = ":040000059D006000FA\n"
