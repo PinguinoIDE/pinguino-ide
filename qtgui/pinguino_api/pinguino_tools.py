@@ -754,7 +754,6 @@ class PinguinoTools(object):
 
             sortie = Popen([self.MAKE,
                             "--makefile=" + makefile,
-
                             "_IDE_PDEDIR_=" + os.path.dirname(filename),
                             "_IDE_PROC_=" + board.proc,
                             "_IDE_BOARD_=" + board.board,
@@ -762,6 +761,7 @@ class PinguinoTools(object):
                             "_IDE_P32DIR_=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
                             "_IDE_SRCDIR_=" + self.SOURCE_DIR,
                             "_IDE_USERHOMEDIR_=" + os.getenv("PINGUINO_USER_PATH"),  #default ~/.pinguino
+                            "_IDE_OSARCH_=" + os.getenv("PINGUINO_OS_ARCH"),
                             "_IDE_HEAP_SIZE_=" + self.HEAPSIZE,
                             "_IDE_MIPS16_ENABLE_=" + self.MIPS16,
                             "_IDE_OPTIMIZATION_=" + self.OPTIMIZATION,

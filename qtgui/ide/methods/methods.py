@@ -470,11 +470,13 @@ class Methods(SearchReplace):
             libraries_path = self.configIDE.get_path("pinguino_8_libs")
 
         elif arch == 32:
-            #RB20140615:
+            #RB20140615 + RB20141116:
             #- gcc toolchain has been renamed from mips-elf-gcc to p32-gcc
-            #- the toolchain is now based on gcc 4.8.2
-            #compiler = os.path.exists(os.path.join(self.configIDE.get_path("gcc_bin"), "mips-elf-gcc-4.5.2" + ext))
             compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "p32-gcc" + ext)
+            #- except for 32-bit Windows
+            if os.getenv("PINGUINO_OS_NAME") == "windows":
+                if os.getenv("PINGUINO_OS_ARCH") == "32bit":
+                    compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "mips-gcc" + ext)
             libraries_path = self.configIDE.get_path("pinguino_32_libs")
 
         status = ""

@@ -5,6 +5,7 @@ import os
 import logging
 import shutil
 import sys
+import platform
 from ConfigParser import RawConfigParser
 
 ########################################################################
@@ -20,6 +21,10 @@ class PinguinoConfig(object):
 
         config_paths = RawConfigParser()
         config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"), "r"))
+
+        #RB20141116 : get the “bitness” of the current OS
+        bitness,linkage = platform.architecture()
+        os.environ["PINGUINO_OS_ARCH"] = bitness
 
         if os.name == "posix": #GNU/Linux
             os.environ["PINGUINO_OS_NAME"] = "linux"
