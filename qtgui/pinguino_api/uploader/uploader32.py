@@ -828,8 +828,13 @@ class uploader32(baseUploader):
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
         self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
 
+
+        ################################################################
+        # Uncomment to test only the QUERY_DEVICE and GET_DATA commands
+        ################################################################
         #self.closeDevice()
         #return
+        ################################################################
 
         # start erasing
         # --------------------------------------------------------------

@@ -70,7 +70,7 @@ class PinguinoTools(object):
         if os.getenv("PINGUINO_OS_NAME") == "windows":
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
             #self.p8 = 'picpgm.exe'
-            self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
+            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
 
             # RB : 2014-11-14 
             # Windows installer should download and install GnuWin32
@@ -83,13 +83,13 @@ class PinguinoTools(object):
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
             #self.p8 = 'picpgm'
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
-            self.UPLOADER_32 = os.path.join(self.P32_BIN, "pic32prog")
+            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "pic32prog")
             self.MAKE = "make"
 
         elif os.getenv("PINGUINO_OS_NAME") == "mac":
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
             #self.p8 = 'picpgm'
-            self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash")
+            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash")
             self.MAKE = "make"
 
 

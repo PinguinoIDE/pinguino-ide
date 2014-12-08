@@ -1,3 +1,3 @@
 @ECHO OFF
-CD C:\pinguino-ide\v11\
+CD C:\pinguino-11\
 C:\Python27\python.exe pinguino.py

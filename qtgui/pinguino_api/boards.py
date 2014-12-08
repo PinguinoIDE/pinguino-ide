@@ -260,7 +260,7 @@ class Pinguino32MX270(object):
     board = 'PINGUINO32MX270'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D007000
+    memstart = 0x9D003800
     memend = 0x9D040000
     shortarg = '-p270'
     longarg = '--pinguino32mx270'

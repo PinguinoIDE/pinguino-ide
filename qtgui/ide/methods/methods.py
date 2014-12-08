@@ -474,9 +474,9 @@ class Methods(SearchReplace):
             #- gcc toolchain has been renamed from mips-elf-gcc to p32-gcc
             compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "p32-gcc" + ext)
             #- except for 32-bit Windows
-            if os.getenv("PINGUINO_OS_NAME") == "windows":
-                if os.getenv("PINGUINO_OS_ARCH") == "32bit":
-                    compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "mips-gcc" + ext)
+            #if os.getenv("PINGUINO_OS_NAME") == "windows":
+            #    if os.getenv("PINGUINO_OS_ARCH") == "32bit":
+            #        compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "mips-gcc" + ext)
             libraries_path = self.configIDE.get_path("pinguino_32_libs")
 
         status = ""
