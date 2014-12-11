@@ -111,7 +111,7 @@ class BoardConfig(QtGui.QDialog):
 
         mode = self.main.configIDE.config("Board", "mode", "bootloader")
         self.board_config.radioButton_mode_bootloader.setChecked(mode == "bootloader")
-        self.board_config.radioButton_mode_icsp.setChecked(arch == "icsp")
+        self.board_config.radioButton_mode_icsp.setChecked(mode == "icsp")
 
         bootloader = self.main.configIDE.config("Board", "bootloader", "v1_v2")
         self.board_config.radioButton_bootloader_v1_v2.setChecked(bootloader == "v1_v2")

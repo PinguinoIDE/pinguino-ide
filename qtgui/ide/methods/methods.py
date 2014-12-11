@@ -443,27 +443,40 @@ class Methods(SearchReplace):
     #----------------------------------------------------------------------
     def set_board(self):
 
+        # config data
         board_name = self.configIDE.config("Board", "board", "Pinguino 2550")
+        arch = self.configIDE.config("Board", "arch", 8)
+        mode = self.configIDE.config("Board", "mode", "boot")
+        bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
+
+
+        # set board
         for board in self.pinguinoAPI._boards_:
             if board.name == board_name:
                 self.pinguinoAPI.set_board(board)
 
-        arch = self.configIDE.config("Board", "arch", 8)
-        if arch == 8:
-            bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
+
+        # set mode and bootloader
+        if arch == 8 and mode == "bootloader":
             if bootloader == "v1_v2":
                 self.pinguinoAPI.set_bootloader(self.pinguinoAPI.Boot2)
             else:
                 self.pinguinoAPI.set_bootloader(self.pinguinoAPI.Boot4)
 
+        # no configuration bootloader for 32 bits
+
+        if mode == "icsp":
+            # if mode is icsp overwrite all configuration
+            self.pinguinoAPI.set_bootloader(self.pinguinoAPI.NoBoot)
+
+
+        # update environment
         os.environ["PINGUINO_BOARD_ARCH"] = str(arch)
 
-        compiler = self.configIDE.get_path("sdcc_bin"), "sdcc"
 
-        if os.getenv("PINGUINO_OS_NAME") == "windows":
-            ext = ".exe"
-        elif os.getenv("PINGUINO_OS_NAME") == "linux":
-            ext = ""
+        # set compilers and libraries for each arch
+        if os.getenv("PINGUINO_OS_NAME") == "windows": ext = ".exe"
+        elif os.getenv("PINGUINO_OS_NAME") == "linux": ext = ""
 
         if arch == 8:
             compiler_path = os.path.join(self.configIDE.get_path("sdcc_bin"), "sdcc" + ext)
@@ -479,6 +492,8 @@ class Methods(SearchReplace):
             #        compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "mips-gcc" + ext)
             libraries_path = self.configIDE.get_path("pinguino_32_libs")
 
+
+        # generate messages
         status = ""
         if not os.path.exists(compiler_path):
             status = QtGui.QApplication.translate("Frame", "Missing compiler for %d-bit") % arch
@@ -520,8 +535,10 @@ class Methods(SearchReplace):
 
         if board.arch == 8 and board.bldr == "boot4":
             board_config += "Boootloader: v4\n"
-        if board.arch == 8 and board.bldr == "boot2":
+        elif board.arch == 8 and board.bldr == "boot2":
             board_config += "Boootloader: v1 & v2\n"
+        elif board.arch == 8 and board.bldr == "noboot":
+            board_config += "Mode: ICSP\n"
 
         return board_config
 

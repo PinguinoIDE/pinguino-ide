@@ -66,6 +66,8 @@ class Debugger(object):
     #----------------------------------------------------------------------
     def __init__(self, sys_, clear=False):
         """Constructor"""
-        sys.stderr = sys_redirect("stderr", clear)
-        sys.stdout = sys_redirect("stdout", clear)
+        # sys.stderr = sys_redirect("stderr", clear)
+        # sys.stdout = sys_redirect("stdout", clear)
+
+
 
