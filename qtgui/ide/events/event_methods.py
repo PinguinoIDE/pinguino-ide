@@ -6,6 +6,8 @@ import codecs
 import webbrowser
 import shutil
 
+from math import ceil
+
 from PySide import QtCore, QtGui
 
 from ..code_editor.pinguino_code_editor import PinguinoCodeEditor
@@ -14,6 +16,7 @@ from ..methods.dialogs import Dialogs
 from ..methods.decorators import Decorator
 #from ..methods import constants as Constants
 from ..methods.methods import Methods
+from ..methods.intel_hex import IntelHex
 from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
 from ..child_windows.plain_text_out import PlainOut
@@ -655,8 +658,21 @@ class EventMethods(Methods):
             Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
             return
         if os.path.isfile(hex_filename):
-            self.frame_hex_viewer = HexViewer(self, hex_filename)
-            self.frame_hex_viewer.show()
+
+            hex_obj = IntelHex(open(hex_filename, "r"))
+            hex_dict = hex_obj.todict()
+            rows = int(ceil(max(hex_dict.keys()) / float(0x18)))
+
+            if rows < 1e3:
+                self.frame_hex_viewer = HexViewer(self, hex_obj, hex_filename)
+                self.frame_hex_viewer.show()
+            else:
+                file_ = codecs.open(hex_filename, "r", "utf-8")
+                content = file_.readlines()
+                file_.close
+                self.frame_hex_plain = PlainOut(hex_filename, "".join(content), highlight=True)
+                self.frame_hex_plain.show()
+
         else:
             Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/frames/hex_viewer_widget.ui'
 #
-# Created: Thu Oct 23 00:06:09 2014
+# Created: Thu Dec 11 16:58:05 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -117,7 +117,7 @@ class Ui_HexViewer(object):
         self.pushButton_close.setObjectName("pushButton_close")
         self.horizontalLayout_2.addWidget(self.pushButton_close)
         self.pushButton_save_changes = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_save_changes.setEnabled(False)
+        self.pushButton_save_changes.setEnabled(True)
         self.pushButton_save_changes.setObjectName("pushButton_save_changes")
         self.horizontalLayout_2.addWidget(self.pushButton_save_changes)
         self.gridLayout.addLayout(self.horizontalLayout_2, 2, 0, 1, 1)

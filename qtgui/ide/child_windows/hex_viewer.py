@@ -4,11 +4,10 @@
 import os
 from math import ceil
 
-#from intelhex import IntelHex
-from ..methods.intel_hex import IntelHex
 from PySide import QtGui, QtCore
 
 #from ..methods.constants import NAME, os.getenv("NAME")
+from ..methods.intel_hex import IntelHex
 from ..methods.dialogs import Dialogs
 from ...frames.hex_viewer_widget import Ui_HexViewer
 
@@ -16,7 +15,7 @@ from ...frames.hex_viewer_widget import Ui_HexViewer
 ########################################################################
 class HexViewer(QtGui.QMainWindow):
 
-    def __init__(self, parent, file_path):
+    def __init__(self, parent, hex_obj, file_path):
         #QtGui.QMainWindow.__init__(self)
         super(HexViewer, self).__init__()
         #self.setWindowFlags(QtCore.Qt.Tool)
@@ -37,17 +36,19 @@ class HexViewer(QtGui.QMainWindow):
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.setWindowIcon(icon)
 
+
         self.original_filename = file_path
 
-        self.hex_obj = IntelHex(open(file_path, "r"))
+        # self.hex_obj = IntelHex(open(file_path, "r"))
+        self.hex_obj = hex_obj
 
-        try:
-            self.update_viewer()
-        except MemoryError:
-            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Impossible show 32-bit hex files."))
-            self.deleteLater()
-            #FIXME: deleteLater is not good solution here
-            #self.close()  #not work, why?
+        self.update_viewer()
+        # try:
+        # except MemoryError:
+            # Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Impossible show 32-bit hex files."))
+            # self.deleteLater()
+            # #FIXME: deleteLater is not good solution here
+            # #self.close()  #not work, why?
 
         self.connect(self.hex_viewer.comboBox_view, QtCore.SIGNAL("currentIndexChanged(QString)"), self.update_viewer)
         self.connect(self.hex_viewer.tableWidget_viewer, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), lambda :self.hex_viewer.pushButton_save_changes.setEnabled(True))
@@ -75,7 +76,7 @@ class HexViewer(QtGui.QMainWindow):
                 os.path.join(QtCore.QDir.home().path(), self.original_filename.replace(".hex", "_copy.hex")),
                 "Hex files (*.hex;;All Files (*)")
 
-        if save_filename:
+        if save_filename[0]:
             new_hex.write_hex_file(save_filename[0])
 
     #----------------------------------------------------------------------
@@ -103,7 +104,7 @@ class HexViewer(QtGui.QMainWindow):
         hex_dict = self.hex_obj.todict()
         rows = int(ceil(max(hex_dict.keys()) / float(0x18)))
 
-        if rows > 1e6: raise MemoryError
+        # if rows > 1e3: raise MemoryError
 
         self.hex_viewer.tableWidget_viewer.setRowCount(rows)
 
@@ -142,7 +143,7 @@ class HexViewer(QtGui.QMainWindow):
     def update_width(self):
 
         value = self.hex_viewer.tableWidget_viewer.item(0, 0).text()
-        self.hex_viewer.tableWidget_viewer.horizontalHeader().setDefaultSectionSize(len(value)*12)
+        self.hex_viewer.tableWidget_viewer.horizontalHeader().setDefaultSectionSize((len(value)+1)*12)
         self.hex_viewer.tableWidget_viewer.verticalHeader().setDefaultSectionSize(20)
 
 
