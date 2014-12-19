@@ -4,7 +4,19 @@
 import os
 import logging
 import pickle
-import urllib2
+
+import sys
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    import urllib.request as urllib2
+else:
+    #Python2
+    import urllib2
+
+
+
 
 from PySide import QtCore, QtGui
 
@@ -255,9 +267,9 @@ class WikiDock(QtGui.QMainWindow):
         html = self.get_html_from_url(url)
         soup = BeautifulSoup(html)
 
-        print "\n" + "*" * 70
-        print url
-        print "*" * 70 + "\n"
+        print("\n" + "*" * 70)
+        print(url)
+        print("*" * 70 + "\n")
 
         mw_pages = soup.find_all("div", attrs={"id":"mw-pages"})
 

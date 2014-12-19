@@ -36,13 +36,13 @@ PinguinoConfig.update_user_libs(Pinguino)
 Pinguino.set_os_variables()
 
 
-########################################################################
-class TestEnvironment(unittest.TestCase):
+# ########################################################################
+# class TestEnvironment(unittest.TestCase):
 
-    #----------------------------------------------------------------------
-    def test_python_version(self):
+    # #----------------------------------------------------------------------
+    # def test_python_version(self):
 
-        self.assertTrue((3, 0) > sys.version_info > (2, 6), "Environment: Python version recommended > 2.6 and < 3.0")
+        # self.assertTrue((3, 0) > sys.version_info > (2, 6), "Environment: Python version recommended > 2.6 and < 3.0")
 
 
 

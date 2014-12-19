@@ -3,10 +3,17 @@
 
 import os
 import shutil
-#import re
+import sys
 from zipfile import ZipFile
-from ConfigParser import RawConfigParser
 import webbrowser
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from configparser import RawConfigParser
+else:
+    #Python2
+    from ConfigParser import RawConfigParser
 #import logging
 
 from PySide import QtGui, QtCore

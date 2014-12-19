@@ -356,8 +356,8 @@ class Methods(SearchReplace):
 
             len_ = 40
             if len(file_) > len_:
-                file_path_1 = file_[:len_/2]
-                file_path_2 = file_[-len_/2:]
+                file_path_1 = file_[:int(len_/2)]
+                file_path_2 = file_[int(-len_/2):]
                 file_path = file_path_1 + "..." + file_path_2
             else: file_path = file_
 

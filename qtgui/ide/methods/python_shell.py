@@ -1,11 +1,21 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-import __builtin__
 import sys
+import os
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    import builtins
+    from io import StringIO
+else:
+    #Python2
+    import __builtin__
+    from cStringIO import StringIO
+
 import traceback
 import types
-from cStringIO import StringIO
 
 ########################################################################
 class PythonShell(object):
@@ -14,7 +24,7 @@ class PythonShell(object):
     def __init__(self):
 
         self.statement_module = types.ModuleType("__main__")
-        self.statement_module.__builtins__ = __builtin__
+        # self.statement_module.__builtins__ = builtins.__builtins__
 
         sys.modules['__main__'] = self.statement_module
         self.statement_module.__name__ = '__main__'
@@ -28,7 +38,8 @@ class PythonShell(object):
 
         try:
             compiled = compile(command, '<string>', 'single')
-            exec compiled in self.statement_module.__dict__
+            exec(compiled, self.statement_module.__dict__)
+
         except: log.write(traceback.format_exc())
         return log.getvalue()
 

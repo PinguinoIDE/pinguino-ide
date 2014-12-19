@@ -360,6 +360,8 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buildChoice(self, widget, curr, opc):
+
+        opc = list(opc)
         widgetChoice = QtGui.QWidget(widget)
         choice = ControlSpin()
         choice.setupUi(widgetChoice)

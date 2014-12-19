@@ -4,7 +4,15 @@
 import os
 import re
 import logging
-from ConfigParser import RawConfigParser
+
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from configparser import RawConfigParser
+else:
+    #Python2
+    from ConfigParser import RawConfigParser
 
 ########################################################################
 class Config(RawConfigParser, object):

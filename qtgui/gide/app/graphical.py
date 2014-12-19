@@ -4,7 +4,16 @@
 import codecs
 import os
 import re
-from ConfigParser import RawConfigParser
+import sys
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from configparser import RawConfigParser
+else:
+    #Python2
+    from ConfigParser import RawConfigParser
+
 import logging
 
 from PySide import QtGui, QtCore
@@ -318,7 +327,7 @@ class GraphicalIDE(object):
             for i in range(len(inside)):
                 if inside[i]: inside[i] = widgets.pop(0)
         else:
-            raise Exception, "¬¬"
+            raise Exception("¬¬")
 
         return inside
 

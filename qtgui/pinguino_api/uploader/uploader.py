@@ -12,12 +12,20 @@ class baseUploader(object):
 
     # Hex format record types
     # --------------------------------------------------------------------------
-    Data_Record = 00
-    End_Of_File_Record = 01
-    Extended_Segment_Address_Record = 02
-    Start_Segment_Address_Record = 03
-    Extended_Linear_Address_Record = 04
-    Start_Linear_Address_Record = 05
+    # Data_Record = 00
+    # End_Of_File_Record = 01
+    # Extended_Segment_Address_Record = 02
+    # Start_Segment_Address_Record = 03
+    # Extended_Linear_Address_Record = 04
+    # Start_Linear_Address_Record = 05
+
+    # Python3 compatibility (octals)
+    Data_Record = 0o0
+    End_Of_File_Record = 0o1
+    Extended_Segment_Address_Record = 0o2
+    Start_Segment_Address_Record = 0o3
+    Extended_Linear_Address_Record = 0o4
+    Start_Linear_Address_Record = 0o5
 
 
     # Error codes returned by various functions
@@ -89,7 +97,7 @@ class Uploader(object):
 
             # TODO : interface here something like PICpgm (http://www.members.aon.at/electronics/pic/picpgm/)
             #self.logwindow("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board", 1)
-            raise Exception, "You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board"
+            raise Exception("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board")
 
         elif board.bldr == "boot2":
             from uploaderVSC import uploaderVSC as Uploader

@@ -31,7 +31,7 @@ class Pinguino(PinguinoTools):
             self.__compiled__ = data["verified"]
             self.__data__ = data
         else:
-            raise Exception, "No such file or directory: %s" % file_name
+            raise Exception("No such file or directory: %s" % file_name)
 
 
     #----------------------------------------------------------------------
@@ -78,7 +78,7 @@ class Pinguino(PinguinoTools):
             self.__current_board__.bldr = boot[0]
             self.__current_board__.memstart = boot[1]
         else:
-            raise Exception, "No bootloader options for 32 bits."
+            raise Exception("No bootloader options for 32 bits.")
 
     #----------------------------------------------------------------------
     def compiled(self):

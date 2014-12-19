@@ -55,7 +55,12 @@ class PinguinoAutoCompleter(QListWidget):
                          "arch32" : [],
                          }
 
-        self.namespaces = pickle.load(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "r"))
+        # file_reserved = open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "r")
+
+
+        with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
+            self.namespaces = pickle.load(file_reserved)
+
 
         icons = CompleteIcons()
         self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)

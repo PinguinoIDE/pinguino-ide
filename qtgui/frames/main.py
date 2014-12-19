@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Thu Dec 11 16:58:04 2014
+# Created: Wed Dec 17 22:16:52 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(1088, 758)
+        PinguinoIDE.resize(1088, 775)
         PinguinoIDE.setWindowTitle("Pinguino 11")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -55,7 +55,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 31))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 33))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -572,6 +572,8 @@ class Ui_PinguinoIDE(object):
         self.actionMenubar.setCheckable(True)
         self.actionMenubar.setChecked(True)
         self.actionMenubar.setObjectName("actionMenubar")
+        self.actionEnvironment = QtGui.QAction(PinguinoIDE)
+        self.actionEnvironment.setObjectName("actionEnvironment")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
@@ -625,14 +627,14 @@ class Ui_PinguinoIDE(object):
         self.menuSource.addAction(self.actionIndent)
         self.menuSource.addAction(self.actionDedent)
         self.menuView.addAction(self.actionHex_code)
+        self.menuView.addAction(self.actionEnvironment)
+        self.menuView.addAction(self.actionStdout)
         self.menuView.addSeparator()
         self.menuView.addAction(self.actionMenubar)
         self.menuView.addAction(self.actionTools_2)
         self.menuView.addAction(self.actionBlocks_2)
         self.menuView.addAction(self.actionPython_shell)
         self.menuView.addAction(self.actionToolbars)
-        self.menuView.addSeparator()
-        self.menuView.addAction(self.actionStdout)
         self.menuView.addSeparator()
         self.menuView.addAction(self.actionMain_c)
         self.menuView.addAction(self.actionUser_c)
@@ -855,5 +857,6 @@ class Ui_PinguinoIDE(object):
         self.actionUpload_hex_directly.setText(QtGui.QApplication.translate("PinguinoIDE", "Upload .hex directly\n"
 "", None, QtGui.QApplication.UnicodeUTF8))
         self.actionMenubar.setText(QtGui.QApplication.translate("PinguinoIDE", "Menubar", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionEnvironment.setText(QtGui.QApplication.translate("PinguinoIDE", "Environment", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

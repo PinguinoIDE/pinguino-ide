@@ -16,7 +16,15 @@ from ..methods.dialogs import Dialogs
 from ..methods.decorators import Decorator
 #from ..methods import constants as Constants
 from ..methods.methods import Methods
-from ..methods.intel_hex import IntelHex
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from ..methods.intel_hex3 import IntelHex
+else:
+    #Python2
+    from ..methods.intel_hex import IntelHex
+
 from ..child_windows.about import About
 from ..child_windows.board_config import BoardConfig
 from ..child_windows.plain_text_out import PlainOut
@@ -25,6 +33,7 @@ from ..child_windows.paths import Paths
 from ..child_windows.hex_viewer import HexViewer
 from ..child_windows.insert_block_dialog import InsertBlock
 from ..child_windows.wiki_librarires import WikiDock
+from ..child_windows.environ_viewer import EnvironViewer
 
 
 ########################################################################
@@ -236,13 +245,13 @@ class EventMethods(Methods):
         #self.configIDE.set("Main", "terminal_height", self.main.dockWidget_output.height())
 
         side = self.dockWidgetArea(self.main.dockWidget_tools)
-        self.configIDE.set("Main", "dock_tools", side.name)
+        self.configIDE.set("Main", "dock_tools", side.name.decode())
 
         side = self.dockWidgetArea(self.main.dockWidget_blocks)
-        self.configIDE.set("Main", "dock_blocks", side.name)
+        self.configIDE.set("Main", "dock_blocks", side.name.decode())
 
         side = self.dockWidgetArea(self.main.dockWidget_output)
-        self.configIDE.set("Main", "dock_shell", side.name)
+        self.configIDE.set("Main", "dock_shell", side.name.decode())
 
         self.configIDE.set("Main", "menubar", self.main.menubar.isVisible())
 
@@ -681,6 +690,11 @@ class EventMethods(Methods):
     def __show_stdout__(self):
         self.frame_stdout = PlainOut("Stdout")
         self.frame_stdout.show()
+
+    #----------------------------------------------------------------------
+    def __show_environ__(self):
+        self.frame_environ = EnvironViewer()
+        self.frame_environ.show()
 
 
     #----------------------------------------------------------------------

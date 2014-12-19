@@ -1,8 +1,15 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from ConfigParser import RawConfigParser
 import os
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from configparser import RawConfigParser
+else:
+    #Python2
+    from ConfigParser import RawConfigParser
+
 import sys
 import codecs
 from datetime import datetime

@@ -31,9 +31,24 @@ SUBVERSION = "beta.3"
 ################################################################################
 
 import sys
-reload(sys)
-sys.setdefaultencoding("utf-8")
 import os
+
+if sys.version_info >= (3, ):
+    #Python3
+    os.environ["PINGUINO_PYTHON"] = "3"
+else:
+    #Python2
+    os.environ["PINGUINO_PYTHON"] = "2"
+
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    import imp
+    imp.reload(sys)
+else:
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
+
 
 os.environ["NAME"] = NAME
 os.environ["VERSION"] = VERSION
@@ -100,7 +115,17 @@ def build_argparse():
 
 parser, use_gui = build_argparse()
 
-python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python_requirements")
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python3_requirements")
+else:
+    #Python2
+    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python_requirements")
+
+
+
 if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
 
 sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))

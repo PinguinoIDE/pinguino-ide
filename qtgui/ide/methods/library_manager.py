@@ -2,7 +2,15 @@
 #-*- coding: utf-8 -*-
 
 import os
-from ConfigParser import RawConfigParser
+import sys
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from configparser import ConfigParser
+else:
+    #Python2
+    from ConfigParser import RawConfigParser
 import logging
 import shutil
 

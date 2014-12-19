@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1088</width>
-    <height>758</height>
+    <height>775</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -116,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>1088</width>
-     <height>31</height>
+     <height>33</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -216,14 +216,14 @@
      <string>View</string>
     </property>
     <addaction name="actionHex_code"/>
+    <addaction name="actionEnvironment"/>
+    <addaction name="actionStdout"/>
     <addaction name="separator"/>
     <addaction name="actionMenubar"/>
     <addaction name="actionTools_2"/>
     <addaction name="actionBlocks_2"/>
     <addaction name="actionPython_shell"/>
     <addaction name="actionToolbars"/>
-    <addaction name="separator"/>
-    <addaction name="actionStdout"/>
     <addaction name="separator"/>
     <addaction name="actionMain_c"/>
     <addaction name="actionUser_c"/>
@@ -1639,6 +1639,11 @@
    </property>
    <property name="text">
     <string>Menubar</string>
+   </property>
+  </action>
+  <action name="actionEnvironment">
+   <property name="text">
+    <string>Environment</string>
    </property>
   </action>
  </widget>
