@@ -168,9 +168,9 @@ class Pinguino(PinguinoTools):
     ##----------------------------------------------------------------------
     #def build_argparse(self):
 
-        #parser = argparse.ArgumentParser(description="*** %s ***"%os.getenv("NAME"))
-        #parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("NAME"))
-        #parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("NAME"))
+        #parser = argparse.ArgumentParser(description="*** %s ***"%os.getenv("PINGUINO_NAME"))
+        #parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("PINGUINO_NAME"))
+        #parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("PINGUINO_NAME"))
         #parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
         #parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
         #parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")

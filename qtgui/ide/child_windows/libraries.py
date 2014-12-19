@@ -19,7 +19,7 @@ else:
 from PySide import QtGui, QtCore
 
 from ..methods.config_libs import ConfigLibsGroup
-#from ..methods.constants import os.getenv("NAME"), NAME
+#from ..methods.constants import os.getenv("PINGUINO_NAME"), NAME
 from ..methods.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
 from ..methods.repositories import PinguinoLibrary, ErrorModules
@@ -64,7 +64,7 @@ class LibManager(QtGui.QMainWindow):
 
         self.ConfigLibs = ConfigLibsGroup()
 
-        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+self.windowTitle())
 
         self.connect(self.libframe.pushButton_add, QtCore.SIGNAL("clicked()"), self.add_source)
         #self.connect(self.libframe.lineEdit_source, QtCore.SIGNAL("editingFinished()"), self.add_source)
@@ -200,7 +200,7 @@ class LibManager(QtGui.QMainWindow):
     #----------------------------------------------------------------------
     def install_from_zip(self):
         open_files = QtGui.QFileDialog.getOpenFileNames(self,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
                 QtCore.QDir.home().path(),
                 QtGui.QApplication.translate("Dialogs", "Zip Files (*.zip)"))
 

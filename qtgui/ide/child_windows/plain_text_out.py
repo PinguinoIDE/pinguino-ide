@@ -6,7 +6,7 @@ import os
 
 from PySide import QtGui, QtCore
 
-#from ..methods.constants import os.getenv("NAME")
+#from ..methods.constants import os.getenv("PINGUINO_NAME")
 #from ..methods.constants import PINGUINO_STDOUT_FILE
 from ...frames.stdout import Ui_PlainOut
 from ..code_editor.pinguino_highlighter import Highlighter
@@ -31,7 +31,7 @@ class PlainOut(QtGui.QDialog):
 
         """)
 
-        self.setWindowTitle(os.getenv("NAME")+" - "+title)
+        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+title)
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

@@ -45,7 +45,7 @@ class WikiDock(QtGui.QMainWindow):
         self.main_widget.setupUi(self)
         self.main_widget.progressBar.setVisible(False)
 
-        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+self.windowTitle())
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

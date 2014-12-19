@@ -6,7 +6,7 @@ from math import ceil
 
 from PySide import QtGui, QtCore
 
-#from ..methods.constants import NAME, os.getenv("NAME")
+#from ..methods.constants import NAME, os.getenv("PINGUINO_NAME")
 import sys
 
 # Python3 compatibility
@@ -39,7 +39,7 @@ class HexViewer(QtGui.QMainWindow):
 
         """)
 
-        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+self.windowTitle())
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -81,7 +81,7 @@ class HexViewer(QtGui.QMainWindow):
         new_hex.fromdict(self.get_table_dict())
 
         save_filename = QtGui.QFileDialog.getSaveFileName(self,
-                os.getenv("NAME")+" - Save",
+                os.getenv("PINGUINO_NAME")+" - Save",
                 os.path.join(QtCore.QDir.home().path(), self.original_filename.replace(".hex", "_copy.hex")),
                 "Hex files (*.hex;;All Files (*)")
 

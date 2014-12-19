@@ -9,9 +9,9 @@ NAME = "Pinguino IDE"
 VERSION = "11.0"
 SUBVERSION = "beta.2"
 
-os.environ["NAME"] = NAME
-os.environ["VERSION"] = VERSION
-os.environ["SUBVERSION"] = SUBVERSION
+os.environ["PINGUINO_NAME"] = NAME
+os.environ["PINGUINO_VERSION"] = VERSION
+os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
 # For PyInstaller compatibility

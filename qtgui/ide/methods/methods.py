@@ -667,7 +667,7 @@ class Methods(SearchReplace):
     #----------------------------------------------------------------------
     def toggle_toolbars(self, visible):
 
-        if visible == False:
+        if not visible:
             for toolbar in self.toolbars:
                 toolbar.setVisible(visible)
 
@@ -685,12 +685,13 @@ class Methods(SearchReplace):
 
         self.main.toolBar_system.setVisible(not self.main.menubar.isVisible())
 
+
     #----------------------------------------------------------------------
     def toggle_menubar(self):
         """"""
         self.main.menubar.setVisible(not self.main.menubar.isVisible())
         if not self.main.menubar.isVisible():
-            self.toggle_toolbars(not self.main.menubar.isVisible())
+            self.toggle_toolbars(True)
         self.main.toolBar_system.setVisible(not self.main.menubar.isVisible())
 
     #----------------------------------------------------------------------

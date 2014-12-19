@@ -38,7 +38,7 @@ class BoardConfigAdvance(QtGui.QDialog):
 
         self.load_config()
 
-        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+self.windowTitle())
 
         self.connect(self.board_config.pushButton_accept, QtCore.SIGNAL("clicked()"), self.accept_config)
         self.connect(self.board_config.pushButton_defaul, QtCore.SIGNAL("clicked()"), self.restore_default)

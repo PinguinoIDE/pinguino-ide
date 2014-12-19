@@ -124,7 +124,7 @@ class EventMethods(Methods):
             setattr(editor, "path", save_path)
             self.main.tabWidget_files.setTabText(index, filename)
             self.main.tabWidget_files.setTabToolTip(index, save_path)
-            self.setWindowTitle(os.getenv("NAME")+" - "+save_path)
+            self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+save_path)
 
             self.update_recents(save_path)
 
@@ -179,7 +179,7 @@ class EventMethods(Methods):
         setattr(editor, "path", save_path)
         self.main.tabWidget_files.setTabText(index, filename)
         self.main.tabWidget_files.setTabToolTip(index, save_path)
-        self.setWindowTitle(os.getenv("NAME")+" - "+save_path)
+        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+save_path)
 
         self.__save_file__(editor=editor)
         return True
@@ -692,8 +692,8 @@ class EventMethods(Methods):
         self.frame_stdout.show()
 
     #----------------------------------------------------------------------
-    def __show_environ__(self):
-        self.frame_environ = EnvironViewer()
+    def __show_environ__(self, debug):
+        self.frame_environ = EnvironViewer(self, debug)
         self.frame_environ.show()
 
 
@@ -1100,8 +1100,8 @@ class EventMethods(Methods):
         self.main.actionClose_file.setEnabled(self.main.tabWidget_files.count() > 0)
 
         editor = self.main.tabWidget_files.currentWidget()
-        if getattr(editor, "path", None): self.setWindowTitle(os.getenv("NAME")+" - "+editor.path)
-        else: self.setWindowTitle(os.getenv("NAME"))
+        if getattr(editor, "path", None): self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+editor.path)
+        else: self.setWindowTitle(os.getenv("PINGUINO_NAME"))
 
         index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)
@@ -1141,12 +1141,17 @@ class EventMethods(Methods):
         self.main.tabWidget_graphical.setVisible(graphical and self.main.tabWidget_graphical.count() > 0)
         self.main.tabWidget_files.setVisible(not graphical and self.main.tabWidget_files.count() > 0)
 
+
+        menu = self.toolbutton_menutoolbar.menu()
         if graphical:
             self.update_actions_for_graphical()
+            menu.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
         else:
             self.update_actions_for_text()
+            menu.removeAction(self.main.menuGraphical.menuAction())
 
         self.tab_changed()
+
 
 
     # Events

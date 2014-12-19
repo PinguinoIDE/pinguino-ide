@@ -216,7 +216,6 @@
      <string>View</string>
     </property>
     <addaction name="actionHex_code"/>
-    <addaction name="actionEnvironment"/>
     <addaction name="actionStdout"/>
     <addaction name="separator"/>
     <addaction name="actionMenubar"/>
@@ -267,6 +266,13 @@
     <addaction name="menuIcons_theme"/>
     <addaction name="menuIcons_size"/>
    </widget>
+   <widget class="QMenu" name="menuDevelopment">
+    <property name="title">
+     <string>Development</string>
+    </property>
+    <addaction name="actionEnvironment"/>
+    <addaction name="actionVariables"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
@@ -275,6 +281,7 @@
    <addaction name="menuPinguino"/>
    <addaction name="menuGraphical"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuDevelopment"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget_tools">
    <property name="features">
@@ -1047,8 +1054,7 @@
   <action name="actionNew_file">
    <property name="icon">
     <iconset theme="document-new">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>New</string>
@@ -1060,8 +1066,7 @@
   <action name="actionOpen_file">
    <property name="icon">
     <iconset theme="document-open">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -1076,8 +1081,7 @@
    </property>
    <property name="icon">
     <iconset theme="document-save">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -1106,8 +1110,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-undo">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -1122,8 +1125,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-redo">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -1138,8 +1140,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-cut">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -1154,8 +1155,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-copy">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -1170,8 +1170,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-paste">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -1186,8 +1185,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-find">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Search</string>
@@ -1202,8 +1200,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-find-replace">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Search and replace</string>
@@ -1230,8 +1227,7 @@
    </property>
    <property name="icon">
     <iconset theme="system-run">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Compile</string>
@@ -1246,8 +1242,7 @@
    </property>
    <property name="icon">
     <iconset theme="emblem-downloads">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Upload</string>
@@ -1302,8 +1297,7 @@
    </property>
    <property name="icon">
     <iconset theme="insert-object">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Graphical mode</string>
@@ -1315,8 +1309,7 @@
   <action name="actionSave_image">
    <property name="icon">
     <iconset theme="applets-screenshooter">
-     <normaloff/>
-    </iconset>
+     <normaloff>../../../../../../../.designer/backup</normaloff>../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save image</string>
@@ -1646,6 +1639,11 @@
     <string>Environment</string>
    </property>
   </action>
+  <action name="actionVariables">
+   <property name="text">
+    <string>Variables</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>tabWidget_files</tabstop>
@@ -1666,6 +1664,7 @@
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>
+  <include location="../../../../../../../.designer/resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -5,7 +5,7 @@ import os
 
 from PySide import QtGui, QtCore
 
-#from setup import os.getenv("NAME")
+#from setup import os.getenv("PINGUINO_NAME")
 
 ########################################################################
 class Dialogs(object):
@@ -16,7 +16,7 @@ class Dialogs(object):
         if filename.endswith("*"): filename = filename[:-1]
         ext = os.path.splitext(os.path.split(filename)[1])[1]
         save_filename = QtGui.QFileDialog.getSaveFileName(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Save"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Save"),
                 os.path.join(QtCore.QDir.home().path(), filename),
                 QtGui.QApplication.translate("Dialogs", "Pinguino files (*%s);;All Files (*)")%ext)
         if save_filename: return save_filename[0], os.path.split(save_filename[0])[1]
@@ -27,7 +27,7 @@ class Dialogs(object):
     @classmethod
     def set_open_file(cls, parent, path):
         open_files = QtGui.QFileDialog.getOpenFileNames(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
                 #QtCore.QDir.home().path(),
                 path,
                 QtGui.QApplication.translate("Dialogs", "Pinguino Files (*.pde *.gpde);;All Files (*)"))
@@ -38,7 +38,7 @@ class Dialogs(object):
     @classmethod
     def set_open_hex(cls, parent, path):
         open_file = QtGui.QFileDialog.getOpenFileName(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Select"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Select"),
                 #QtCore.QDir.home().path(),
                 path,
                 QtGui.QApplication.translate("Dialogs", "Hex Files (*.hex);;All Files (*)"))
@@ -52,7 +52,7 @@ class Dialogs(object):
 
         options = QtGui.QMessageBox.Yes | QtGui.QMessageBox.Discard | QtGui.QMessageBox.Cancel
         reply = QtGui.QMessageBox.question(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Save"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Save"),
                 QtGui.QApplication.translate("Dialogs", "This file has not been saved,\nWould you like to do?\n\n")+filename[:-1],
                 options)
 
@@ -66,7 +66,7 @@ class Dialogs(object):
     def set_open_dir(cls, parent):
 
         open_dir = QtGui.QFileDialog.getExistingDirectory(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Open directory"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open directory"),
                 QtCore.QDir.home().path())
 
         if open_dir: return open_dir
@@ -78,7 +78,7 @@ class Dialogs(object):
     def file_duplicated(cls, parent, filename):
 
         QtGui.QMessageBox.information(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - File already open"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - File already open"),
                 QtGui.QApplication.translate("Dialogs", "This file is already open in other tab.\n%s")%filename)
         return True
 
@@ -88,7 +88,7 @@ class Dialogs(object):
     def error_message(cls, parent, message):
 
         QtGui.QMessageBox.warning(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Error"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"),
                 message)
         return True
 
@@ -99,7 +99,7 @@ class Dialogs(object):
 
         options = QtGui.QMessageBox.Yes | QtGui.QMessageBox.Cancel
         reply = QtGui.QMessageBox.question(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Confirmation"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Confirmation"),
                 message,
                 options)
 
@@ -113,7 +113,7 @@ class Dialogs(object):
     def info_message(cls, parent, message):
 
         QtGui.QMessageBox.information(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Information"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Information"),
                 message)
         return True
 
@@ -123,7 +123,7 @@ class Dialogs(object):
     def warning_message(cls, parent, message):
 
         QtGui.QMessageBox.warning(parent,
-                                  os.getenv("NAME") + QtGui.QApplication.translate("Dialogs", " - Warning"),
+                                  os.getenv("PINGUINO_NAME") + QtGui.QApplication.translate("Dialogs", " - Warning"),
                                   message)
 
         return True
@@ -134,7 +134,7 @@ class Dialogs(object):
     def save_before_compile(cls, parent):
 
         QtGui.QMessageBox.information(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Save file first."),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Save file first."),
                 QtGui.QApplication.translate("Dialogs", "You must save the file before compiling."))
         return True
 
@@ -152,7 +152,7 @@ class Dialogs(object):
 
         msg_box = QtGui.QMessageBox()
         msg_box.setIcon(QtGui.QMessageBox.Question)
-        msg_box.setWindowTitle(os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Config board"))
+        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Config board"))
         msg_box.setText(board_config+QtGui.QApplication.translate("Dialogs", "\nUse this board config?\n"))
 
         cancel = QtGui.QPushButton()
@@ -207,7 +207,7 @@ class Dialogs(object):
 
         msg_box = QtGui.QMessageBox(parent)
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while compiling."))
 
         stdout = QtGui.QPushButton()
@@ -239,7 +239,7 @@ class Dialogs(object):
 
         msg_box = QtGui.QMessageBox(parent)
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while linking."))
 
         stdout = QtGui.QPushButton()
@@ -272,7 +272,7 @@ class Dialogs(object):
 
         msg_box = QtGui.QMessageBox(parent)
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         if exist:
             msg_box.setText(QtGui.QApplication.translate("Dialogs", "This file has changed on disk.")+"\n"+filename)
         else:
@@ -309,7 +309,7 @@ class Dialogs(object):
 
         msg_box = QtGui.QMessageBox(parent)
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while preprocess."))
 
         stdout = QtGui.QPushButton()
@@ -342,7 +342,7 @@ class Dialogs(object):
 
         msg_box = QtGui.QMessageBox(parent)
         msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
+        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Unknow error."))
 
         stdout = QtGui.QPushButton()
@@ -375,7 +375,7 @@ class Dialogs(object):
 
         msg_box = QtGui.QMessageBox(parent)
         msg_box.setIcon(QtGui.QMessageBox.Information)
-        msg_box.setWindowTitle(os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Compiled"))
+        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Compiled"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Compilation done!"))
 
         upload = QtGui.QPushButton()
@@ -406,7 +406,7 @@ class Dialogs(object):
     def upload_done(cls, parent):
 
         QtGui.QMessageBox.information(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Upload done"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Upload done"),
                 QtGui.QApplication.translate("Dialogs", "File sucessfully uploaded to Pinguino."))
         return True
 
@@ -417,7 +417,7 @@ class Dialogs(object):
 
         msg_box = QtGui.QMessageBox(parent)
         msg_box.setIcon(QtGui.QMessageBox.Information)
-        msg_box.setWindowTitle(os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Upload fail"))
+        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Upload fail"))
         msg_box.setText(message)
 
         upload = QtGui.QPushButton()
@@ -448,7 +448,7 @@ class Dialogs(object):
     def set_save_image(cls, parent, filename):
 
         file_name = QtGui.QFileDialog.getSaveFileName(parent,
-                os.getenv("NAME")+QtGui.QApplication.translate("Dialogs", " - Save image"),
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Save image"),
                 filename,
                 QtGui.QApplication.translate("Dialogs", "Png files (*.png);;All Files (*)"))
 

@@ -1,3 +1,21 @@
+Pinguino IDE 11.0 - Beta 4
+--------------------------
+
+Dec. xx, 2014
+
+Features
+
+* Added Python3 compatibility
+* Added development mode (--dev commandline)
+* Hide menubar
+
+Bug Fixes
+
+* ICSP disabled
+* Last graphical or text mode used is not saved
+* Shell, Tools or Editors windows locations not saved (Icons Theme as well)
+
+
 Pinguino IDE 11.0 - Beta 3
 --------------------------
 
@@ -14,11 +32,7 @@ Improves
 * uploader32.py (getDeviceID, getDeviceFlash, getDeviceFamily)
 * pinguino_tools.py (code size calculation)
 * Saving perspectives
-
-Improves
-
 * Hide autocompleter from taskbar
-
 
 Bug Fixes
 

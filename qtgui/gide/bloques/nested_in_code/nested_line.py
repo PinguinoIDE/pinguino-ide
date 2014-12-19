@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/gide/bloques/nested_in_code/nested_line.ui'
 #
-# Created: Wed Dec 17 22:16:57 2014
+# Created: Fri Dec 19 15:43:22 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!

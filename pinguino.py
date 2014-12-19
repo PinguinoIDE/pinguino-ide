@@ -50,9 +50,9 @@ else:
     sys.setdefaultencoding("utf-8")
 
 
-os.environ["NAME"] = NAME
-os.environ["VERSION"] = VERSION
-os.environ["SUBVERSION"] = SUBVERSION
+os.environ["PINGUINO_NAME"] = NAME
+os.environ["PINGUINO_VERSION"] = VERSION
+os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
 # For PyInstaller compatibility
@@ -79,11 +79,11 @@ from qtgui.pinguino_api.boards import boardlist
 #----------------------------------------------------------------------
 def build_argparse():
 
-    parser = argparse.ArgumentParser(description="*** %s:Command line ***"%os.getenv("NAME"))
+    parser = argparse.ArgumentParser(description="*** %s:Command line ***"%os.getenv("PINGUINO_NAME"))
 
     #command line args
-    parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("NAME"))
-    parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("NAME"))
+    parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("PINGUINO_NAME"))
+    parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("PINGUINO_NAME"))
     parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
     parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
@@ -94,8 +94,9 @@ def build_argparse():
                             help="compile code for " + board.board + " board")
 
     #IDE args
-    parsergui = argparse.ArgumentParser(description="*** %s:GUI ***"%os.getenv("NAME"))
+    parsergui = argparse.ArgumentParser(description="*** %s:GUI ***"%os.getenv("PINGUINO_NAME"))
     parsergui.add_argument("--lang", dest="lang", nargs=1, default=False, help="set IDE language")
+    parsergui.add_argument("--dev", dest="devmode", action="store_true", default=False, help="set IDE developer mode")
     parsergui.add_argument("-style")
 
     parsed_c, others_c = parser.parse_known_args()
@@ -189,7 +190,7 @@ if __name__ == "__main__":
         app.installTranslator(qtTranslator)
         if trasnlations: app.installTranslator(translator)
 
-        frame = PinguinoIDE(splash_write=splash_write)
+        frame = PinguinoIDE(splash_write=splash_write, argvs=parser)
         frame.show()
 
         if not splash is None:

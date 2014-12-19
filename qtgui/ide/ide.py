@@ -25,7 +25,7 @@ import debugger
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
     #@Decorator.debug_time()
-    def __init__(self, splash_write):
+    def __init__(self, splash_write, argvs):
         super(PinguinoIDE, self).__init__()
 
         debugger.Debugger(sys)
@@ -39,7 +39,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         ch.setFormatter(formatter)
         root.addHandler(ch)
 
-        print(self.get_systeminfo())
+        # print(self.get_systeminfo())
 
         QtCore.QTextCodec.setCodecForCStrings(QtCore.QTextCodec.codecForName("UTF-8"))
         QtCore.QTextCodec.setCodecForLocale(QtCore.QTextCodec.codecForName("UTF-8"))
@@ -47,6 +47,11 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         self.main = Ui_PinguinoIDE()
         self.main.setupUi(self)
+
+        self.argvs = argvs
+
+        if not self.argvs.devmode:
+            self.main.menubar.removeAction(self.main.menuDevelopment.menuAction())
 
         #set_environ_vars()
         #self.check_user_files()
@@ -84,7 +89,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
         self.pinguinoAPI.set_os_variables()
 
-        self.setWindowTitle(os.getenv("NAME")+" "+os.getenv("VERSION"))
+        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" "+os.getenv("PINGUINO_VERSION"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Opening last files"))
         self.open_last_files()
@@ -128,13 +133,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         elif os_name == "linux":
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
 
-        splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("NAME"), os.getenv("VERSION")))
+        splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("PINGUINO_NAME"), os.getenv("PINGUINO_VERSION")))
         print("Pinguino IDE started!")
 
 
     ##----------------------------------------------------------------------
     #def __str__(self):
-        #return " ".join([os.getenv("NAME"), os.getenv("VERSION")])
+        #return " ".join([os.getenv("PINGUINO_NAME"), os.getenv("PINGUINO_VERSION")])
 
 
     #----------------------------------------------------------------------
@@ -155,6 +160,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         menu.addMenu(self.main.menuPinguino)
         menu.addMenu(self.main.menuGraphical)
         menu.addMenu(self.main.menuHelp)
+        if self.argvs.devmode:
+            menu.addMenu(self.main.menuDevelopment)
 
         menu.addSeparator()
         menu.addAction(self.main.actionMenubar)
@@ -347,7 +354,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     #----------------------------------------------------------------------
     def update_actions_for_text(self):
         normal = False
-        self.main.menuGraphical.setEnabled(normal)
+        # self.main.menuGraphical.setEnabled(normal
+        self.main.menubar.removeAction(self.main.menuGraphical.menuAction())
 
         self.main.dockWidget_blocks.setVisible(normal)
         self.main.dockWidget_tools.setVisible(not normal)
@@ -365,7 +373,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     #----------------------------------------------------------------------
     def update_actions_for_graphical(self):
         normal = True
-        self.main.menuGraphical.setEnabled(normal)
+        # self.main.menuGraphical.setEnabled(normal)
+        self.main.menubar.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
 
         self.main.dockWidget_blocks.setVisible(normal)
         self.main.dockWidget_tools.setVisible(not normal)

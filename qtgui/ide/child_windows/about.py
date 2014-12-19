@@ -20,9 +20,9 @@ class About(QtGui.QDialog):
         self.about = Ui_About()
         self.about.setupUi(self)
 
-        self.setWindowTitle(os.getenv("NAME")+" - "+self.windowTitle())
+        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+self.windowTitle())
 
-        self.about.label_name.setText(os.getenv("NAME")+" "+os.getenv("VERSION")+"-"+os.getenv("SUBVERSION"))
+        self.about.label_name.setText(os.getenv("PINGUINO_NAME")+" "+os.getenv("PINGUINO_VERSION")+"-"+os.getenv("PINGUINO_SUBVERSION"))
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
