@@ -1,31 +1,16 @@
-Pinguino IDE 11.0 - Beta 4
+Pinguino IDE 11.0 - Beta 3
 --------------------------
 
 Dec. 22, 2014
 
 Features
 
-* Added Python3 compatibility
-* Added development mode (--dev commandline)
-* Hide menubar
-
-Bug Fixes
-
-* ICSP disabled
-* Last graphical or text mode used is not saved
-* Shell, Tools or Editors windows locations not saved (Icons Theme as well)
-
-
-Pinguino IDE 11.0 - Beta 3
---------------------------
-
-Sept. 16, 2014
-
-Features
-
 * Added regression.sh to test all examples for one board
   (still one bug to fix: AttributeError: 'Pinguino' object has no attribute 'MAKE')
 * Added debugging files
+* Added Python3 compatibility
+* Added development mode (--dev commandline)
+* Hide menubar
 
 Improves
 
@@ -41,7 +26,9 @@ Bug Fixes
 * Python shell and tools close when minimize
 * Insert block dialog only search on labels
 * Bad code generation in graphic development interface
-
+* ICSP disabled
+* Last graphical or text mode used is not saved
+* Shell, Tools or Editors windows locations not saved (Icons Theme as well)
 
 
 Pinguino IDE 11.0 - Beta 2
