@@ -141,7 +141,7 @@ if __name__ == "__main__":
         from PySide import QtCore
         from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
 
-        from qtgui.ide import PinguinoIDE
+        from qtgui.ide.ide import PinguinoIDE
 
         if parser.lang: sys_locale = parser.lang[0]
         else: sys_locale = QtCore.QLocale.system().name()
