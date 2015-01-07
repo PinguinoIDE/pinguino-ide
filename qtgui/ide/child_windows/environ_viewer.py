@@ -6,7 +6,7 @@ import os
 from PySide import QtGui, QtCore
 
 
-#from ...frames.environ_viewer import Ui_EnvironViewer
+from ...frames.environ_viewer import Ui_EnvironViewer
 
 
 ########################################################################
