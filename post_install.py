@@ -18,12 +18,12 @@ else:
 PinguinoConfig.set_environ_vars()
 
 #Remove files and directories
-if os.path.isdir(os.path.join(os.getenv["PINGUINO_USER_PATH"], "source")):
-    shutil.rmtree(os.path.join(os.getenv["PINGUINO_USER_PATH"], "source"))
+if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")):
+    shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
 
 #Remove old files
-os.remove(os.path.join(os.getenv["PINGUINO_USER_PATH"], "reserved.pickle"))
+os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
 os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
 
