@@ -475,17 +475,24 @@ class Methods(SearchReplace):
 
 
         # set compilers and libraries for each arch
-        if os.getenv("PINGUINO_OS_NAME") == "windows": ext = ".exe"
-        elif os.getenv("PINGUINO_OS_NAME") == "linux": ext = ""
-
+        # RB20150127 : modified until I can compile p32-gcc for mac os x
+        #elif os.getenv("PINGUINO_OS_NAME") == "linux":
+        if os.getenv("PINGUINO_OS_NAME") == "windows":
+            ext = ".exe"
+        else :
+            ext = ""
+            
         if arch == 8:
             compiler_path = os.path.join(self.configIDE.get_path("sdcc_bin"), "sdcc" + ext)
             libraries_path = self.configIDE.get_path("pinguino_8_libs")
 
         elif arch == 32:
-            #RB20140615 + RB20141116:
-            #- gcc toolchain has been renamed from mips-elf-gcc to p32-gcc
-            compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "p32-gcc" + ext)
+            #RB20140615 + RB20141116 + RB20150127 :
+            #- gcc toolchain has been renamed from mips-elf-gcc to p32-gcc except for MAC OS X
+            if os.getenv("PINGUINO_OS_NAME") == "macosx":
+                compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "mips-elf-gcc" + ext)
+            else:
+                compiler_path = os.path.join(self.configIDE.get_path("gcc_bin"), "p32-gcc" + ext)
             #- except for 32-bit Windows
             #if os.getenv("PINGUINO_OS_NAME") == "windows":
             #    if os.getenv("PINGUINO_OS_ARCH") == "32bit":

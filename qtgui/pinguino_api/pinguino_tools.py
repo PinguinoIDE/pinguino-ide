@@ -58,7 +58,7 @@ class PinguinoTools(object):
         #self.P32_DIR = "p32"
         #self.P8_DIR = "p8"
 
-
+    # RB 2015-01-27 : Still useful ? See also methods.py/set_board
     #----------------------------------------------------------------------
     def set_os_variables(self):
 
@@ -69,6 +69,7 @@ class PinguinoTools(object):
 
         if os.getenv("PINGUINO_OS_NAME") == "windows":
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
+
             #self.p8 = 'picpgm.exe'
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
 
@@ -77,6 +78,7 @@ class PinguinoTools(object):
             # and add path to the System Path, something like :
             # set PATH=%PATH%;C:\Program Files\GnuWin32\bin
             #self.MAKE = "make.exe"
+
             self.MAKE = os.path.join(self.P32_BIN, "make.exe")
 
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
@@ -86,7 +88,7 @@ class PinguinoTools(object):
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "pic32prog")
             self.MAKE = "make"
 
-        elif os.getenv("PINGUINO_OS_NAME") == "mac":
+        elif os.getenv("PINGUINO_OS_NAME") == "macosx":
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
             #self.p8 = 'picpgm'
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash")
