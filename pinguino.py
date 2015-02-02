@@ -209,7 +209,7 @@ if __name__ == "__main__":
 
         from qtgui.pinguino_api.pinguino import Pinguino
         from qtgui.pinguino_api.pinguino_config import PinguinoConfig
-        from qtgui.ide.methods.config import Config
+        from qtgui.pinguino_api.config import Config
 
         pinguino = Pinguino()
         PinguinoConfig.set_environ_vars()

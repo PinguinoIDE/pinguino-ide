@@ -77,8 +77,8 @@ class Pinguino(PinguinoTools):
         if self.__current_board__.arch == 8:
             self.__current_board__.bldr = boot[0]
             self.__current_board__.memstart = boot[1]
-        else:
-            raise Exception("No bootloader options for 32 bits.")
+        #else:
+            #raise Exception("No bootloader options for 32 bits.")
 
     #----------------------------------------------------------------------
     def compiled(self):

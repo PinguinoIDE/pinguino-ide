@@ -24,7 +24,7 @@ sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
 from qtgui.pinguino_api.pinguino import Pinguino, AllBoards
 from qtgui.pinguino_api.pinguino_config import PinguinoConfig
-from qtgui.ide.methods.config import Config
+from qtgui.pinguino_api.config import Config
 
 Pinguino = Pinguino()
 PinguinoConfig.set_environ_vars()

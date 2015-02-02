@@ -9,7 +9,6 @@ from PySide import QtGui, QtCore
 from .methods.backgrounds import BackgroundPallete
 from .events.events import PinguinoEvents
 from .methods.decorators import Decorator
-from .methods.config import Config
 from .code_editor.autocomplete_icons import CompleteIcons
 from .widgets.output_widget import PinguinoTerminal
 from .methods.widgets_features import PrettyFeatures
@@ -17,6 +16,7 @@ from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
 from ..pinguino_api.pinguino_config import PinguinoConfig
+from ..pinguino_api.config import Config
 
 import logging
 import debugger
@@ -87,7 +87,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         PinguinoConfig.update_pinguino_extra_options(self.configIDE, self.pinguinoAPI)
         splash_write(QtGui.QApplication.translate("Splash", "Searching user libraries"))
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
-        
+
         # RB 2015-01-27 : Still useful ? See also methods.py/set_board
         self.pinguinoAPI.set_os_variables()
 
