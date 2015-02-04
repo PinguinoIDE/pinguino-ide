@@ -611,7 +611,9 @@ class uploader32(baseUploader):
 
             elif record_type == self.Start_Linear_Address_Record:
 
-                #: 04 0000 05 BF C0 00 00 78
+                #: 04 0000 >05< BFC00000 78
+                #: 04 0000 >05< 9D004000 1A
+
                 break
 
             # end of file record
