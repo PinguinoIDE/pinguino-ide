@@ -116,7 +116,7 @@
      <x>0</x>
      <y>0</y>
      <width>1088</width>
-     <height>33</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -1002,7 +1002,7 @@
   </widget>
   <widget class="QToolBar" name="toolBar_system">
    <property name="windowTitle">
-    <string>System menu</string>
+    <string notr="true">System menu</string>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -1664,7 +1664,7 @@
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>
-  <include location="../../../../../../../.designer/resources/resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

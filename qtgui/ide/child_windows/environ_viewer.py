@@ -54,7 +54,6 @@ class EnvironViewer(QtGui.QMainWindow):
 
     #----------------------------------------------------------------------
     def show_env(self):
-        """"""
 
         data = os.environ
         self.env_viewer.tableWidget.setRowCount(len(data))
@@ -92,7 +91,6 @@ class EnvironViewer(QtGui.QMainWindow):
 
     #----------------------------------------------------------------------
     def show_variables(self):
-        """"""
 
         # data = self.main.__dict__
         data = dict(inspect.getmembers(self.main, predicate=inspect.ismethod))

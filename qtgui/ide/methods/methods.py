@@ -481,7 +481,7 @@ class Methods(SearchReplace):
             ext = ".exe"
         else :
             ext = ""
-            
+
         if arch == 8:
             compiler_path = os.path.join(self.configIDE.get_path("sdcc_bin"), "sdcc" + ext)
             libraries_path = self.configIDE.get_path("pinguino_8_libs")
@@ -695,11 +695,12 @@ class Methods(SearchReplace):
 
     #----------------------------------------------------------------------
     def toggle_menubar(self):
-        """"""
+
         self.main.menubar.setVisible(not self.main.menubar.isVisible())
         if not self.main.menubar.isVisible():
             self.toggle_toolbars(True)
         self.main.toolBar_system.setVisible(not self.main.menubar.isVisible())
+
 
     #----------------------------------------------------------------------
     def check_backup_file(self, *args, **kwargs):

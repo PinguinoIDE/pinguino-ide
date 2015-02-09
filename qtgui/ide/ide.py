@@ -174,7 +174,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
     #----------------------------------------------------------------------
     def get_systeminfo(self):
-        """"""
+
         data = {}
         try: data["os.name"] = str(os.name)
         except: pass
