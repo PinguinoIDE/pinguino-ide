@@ -73,7 +73,7 @@ class PinguinoTools(object):
             #self.p8 = 'picpgm.exe'
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
 
-            # RB : 2014-11-14 
+            # RB : 2014-11-14
             # Windows installer should download and install GnuWin32
             # and add path to the System Path, something like :
             # set PATH=%PATH%;C:\Program Files\GnuWin32\bin
@@ -222,7 +222,7 @@ class PinguinoTools(object):
             result = fichier.readlines()
             fichier.close()
         """
-        
+
         # Weed out blank lines with filter
         result = filter(lambda line: not line.isspace(), result)
         return result
@@ -289,8 +289,7 @@ class PinguinoTools(object):
 
                 if not instruction: continue
 
-
-                regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])%s\W" % re.escape(instruction))
+                regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])%s\W*\(" % re.escape(instruction))
                 #regobject.append(regex)
 
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
@@ -394,44 +393,27 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
-    def add_define(self, chaine):
-        """ add #define in define.h file """
-        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
-        fichier.writelines(chaine)
-        fichier.writelines("\r\n")
-        fichier.close()
-
-    #----------------------------------------------------------------------
-    def not_in_define(self, chaine):
-        """ verify if #define exists in define.h file """
-        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
-        for line in fichier.readlines():
-            # chaine has been found ?
-            if line.find(chaine) != -1:
-                fichier.close()
-                return False
-        fichier.close()
-        return True
-
-    #----------------------------------------------------------------------
     def replace_word(self, content, libinstructions=None):
         """ convert pinguino language in C language """
 
         if libinstructions is None:
             libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
-        ##libinstructions content
-        ##instruction, cnvinstruction, include, define, regex
+        defines = set()
 
         # replace arduino/pinguino language and add #define or #include to define.h
         for instruction, cnvinstruction, include, define, regex in libinstructions:
             if re.search(regex, content):
-                content = content.replace(instruction, cnvinstruction)
-                if self.not_in_define(include): self.add_define(include)
-                if self.not_in_define(define): self.add_define(define)
+                #content = content.replace(instruction, cnvinstruction) #bugged
+                content = re.sub(regex, cnvinstruction+"(", content)  #safe
+                defines.add(include+"\n")
+                defines.add(define+"\n")
+
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "w")
+        fichier.writelines(defines)
+        fichier.close()
 
         return content
-
 
 
     #----------------------------------------------------------------------
