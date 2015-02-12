@@ -541,9 +541,9 @@ class Methods(SearchReplace):
             board_config += "Optimization: %s\n" % self.configIDE.config("Board", "optimization", "-O3")
 
         if board.arch == 8 and board.bldr == "boot4":
-            board_config += "Boootloader: v4\n"
+            board_config += "Bootloader: v4\n"
         elif board.arch == 8 and board.bldr == "boot2":
-            board_config += "Boootloader: v1 & v2\n"
+            board_config += "Bootloader: v1 & v2\n"
         elif board.arch == 8 and board.bldr == "noboot":
             board_config += "Mode: ICSP\n"
 
@@ -558,9 +558,9 @@ class Methods(SearchReplace):
         board_config = board.name
 
         if board.arch == 8 and board.bldr == "boot4":
-            board_config += " - Boootloader: v4"
+            board_config += " - Bootloader: v4"
         if board.arch == 8 and board.bldr == "boot2":
-            board_config += " - Boootloader: v1 & v2"
+            board_config += " - Bootloader: v1 & v2"
 
         return board_config
 

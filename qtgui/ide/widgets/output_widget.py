@@ -10,7 +10,7 @@ from .python_highlighter import Highlighter
 from ..methods.python_shell import PythonShell
 
 HEAD = os.getenv("PINGUINO_NAME") + " " + os.getenv("PINGUINO_VERSION") + "\n" + "Python " + sys.version + " on " + sys.platform
-HELP = QtGui.QApplication.translate("PythonShell", "can also use the commands:") + ' "clear", "restart"'
+HELP = QtGui.QApplication.translate("PythonShell", "Commands available:") + ' "clear", "restart"'
 
 START = ">>> "
 NEW_LINE = "... "
