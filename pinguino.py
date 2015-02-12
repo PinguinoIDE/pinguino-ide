@@ -115,6 +115,7 @@ def build_argparse():
 
 
 parser, use_gui = build_argparse()
+os.environ["PINGUINO_DEBUGMODE"] = str(parser.devmode)
 
 
 # Python3 compatibility

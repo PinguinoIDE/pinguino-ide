@@ -321,19 +321,22 @@ class PinguinoTools(object):
 
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
         i=0
+        defines = set()
         file_line = {}
         readlines = fichier.readlines()
         readlines = self.remove_comments(readlines)
         for line in readlines:
             if line.find("#include")!=-1 or line.find("#define")!=-1:
                 line = line[:line.find('//')]   # Ignores C++ comments, fixing Issue 11
-                self.add_define(line)    # add to define.h
+                defines.add(line+"\n")    # add to define.h
                 file_line[i] = " \n"   # delete from user.c
                 i += 1
             else:
                 file_line[i] = line
                 i += 1
         fichier.close()
+
+        self.update_define(defines, mode="w")
 
         # rewrite file user.c without #include and #define
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
@@ -393,6 +396,14 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    def update_define(self, defines, mode="a"):
+        """"""
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), mode)
+        fichier.writelines(defines)
+        fichier.close()
+
+
+    #----------------------------------------------------------------------
     def replace_word(self, content, libinstructions=None):
         """ convert pinguino language in C language """
 
@@ -409,9 +420,8 @@ class PinguinoTools(object):
                 defines.add(include+"\n")
                 defines.add(define+"\n")
 
-        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "w")
-        fichier.writelines(defines)
-        fichier.close()
+
+        self.update_define(defines, mode="a")
 
         return content
 

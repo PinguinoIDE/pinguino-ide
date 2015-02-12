@@ -116,7 +116,7 @@ class TestPreprocess(unittest.TestCase):
 
 
 ########################################################################
-class TestCompilation(unittest.TestCase):
+class TestBareMinumumCompilation(unittest.TestCase):
 
     #----------------------------------------------------------------------
     @classmethod
@@ -149,7 +149,13 @@ class TestCompilation(unittest.TestCase):
 
 for board in AllBoards:
     test_name = "test_compile_%s" % str(board.name.replace(" ", "_").replace(".", "_"))
-    setattr(TestCompilation, test_name, TestCompilation.compilation(board))
+    setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board))
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
