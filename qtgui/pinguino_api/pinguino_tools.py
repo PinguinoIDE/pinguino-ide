@@ -289,13 +289,36 @@ class PinguinoTools(object):
 
                 if not instruction: continue
 
-                regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])%s\W*\(" % re.escape(instruction))
-                #regobject.append(regex)
+                #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])*%s\s*\(" % re.escape(instruction))
+                regex = re.compile(r"%s\s*\(" % re.escape(instruction))
 
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
 
 
         return libinstructions[:]
+
+    #----------------------------------------------------------------------
+    def remove_strings(self, content):
+
+        strings = re.findall(r'"[^"\\]*[\\.[^"\\]*]*"', content)
+        content = re.sub(r'"[^"\\]*(\\.[^"\\]*)*"', '"<PINGUINO_STRING>"', content)
+
+        index = 0
+        keys = {}
+        for string in strings:
+            content = content.replace('"<PINGUINO_STRING>"', '"<PINGUINO_STRING:%d>"' % index, 1)
+            keys['"<PINGUINO_STRING:%d>"' % index] = string
+            index += 1
+
+        return content, keys
+
+
+    #----------------------------------------------------------------------
+    def recove_strings(self, content, keys):
+
+        for key in keys.keys():
+            content = content.replace(key, keys[key])
+        return content
 
 
     #----------------------------------------------------------------------
@@ -348,11 +371,14 @@ class PinguinoTools(object):
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
         content = fichier.read()
         content = self.remove_comments(content)
+        content_nostrings, keys = self.remove_strings(content)
         #content = content.split('\n')
         nblines = 0
         libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
-        content = self.replace_word(content, libinstructions) + "\n"
+        content_nostrings = self.replace_word(content_nostrings, libinstructions) + "\n"
+        content = self.recove_strings(content_nostrings, keys)
+
         #for line in content:
             #if not line.isspace() and line:
                 #resultline = self.replace_word(line, libinstructions) + "\n"
