@@ -19,7 +19,7 @@ from ..pinguino_api.pinguino_config import PinguinoConfig
 from ..pinguino_api.config import Config
 
 import logging
-import debugger
+#import debugger
 
 ########################################################################
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
@@ -28,16 +28,16 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def __init__(self, splash_write, argvs):
         super(PinguinoIDE, self).__init__()
 
-        debugger.Debugger(sys)
+        #debugger.Debugger(sys)
 
         root = logging.getLogger()
         root.setLevel(logging.DEBUG)
 
-        ch = logging.StreamHandler(debugger.sys_redirect("stdout", False))
-        ch.setLevel(logging.DEBUG)
-        formatter = logging.Formatter("%(message)s")
-        ch.setFormatter(formatter)
-        root.addHandler(ch)
+        #ch = logging.StreamHandler(debugger.sys_redirect("stdout", False))
+        #ch.setLevel(logging.DEBUG)
+        #formatter = logging.Formatter("%(message)s")
+        #ch.setFormatter(formatter)
+        #root.addHandler(ch)
 
         # print(self.get_systeminfo())
 

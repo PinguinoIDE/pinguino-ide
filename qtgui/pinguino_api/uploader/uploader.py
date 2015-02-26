@@ -4,7 +4,7 @@
 import usb
 import sys
 import logging
-import debugger
+#import debugger
 
 
 ########################################################################

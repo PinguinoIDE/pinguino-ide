@@ -136,8 +136,8 @@ if __name__ == "__main__":
 
     if use_gui:
 
-        import debugger
-        debugger.Debugger(sys, clear=True)
+        #import debugger
+        #debugger.Debugger(sys, clear=True)
 
         from PySide import QtCore
         from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter

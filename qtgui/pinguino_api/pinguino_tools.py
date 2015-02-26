@@ -252,6 +252,7 @@ class PinguinoTools(object):
 
         regobject = []
         libinstructions = []
+        libinstructions_single = []
 
         all_pdls = self.USER_PDL
 
@@ -290,18 +291,29 @@ class PinguinoTools(object):
                 if not instruction: continue
 
                 #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])*%s\s*\(" % re.escape(instruction))
-                regex = re.compile(r"%s\s*\(" % re.escape(instruction))
+                #regex = re.compile(r"%s\s*\(" % re.escape(instruction))
+                regex = re.compile(r"%s" % re.escape(instruction))
 
-                libinstructions.append([instruction, cnvinstruction, include, define, regex])
+                if instruction.count("."):
+                    libinstructions.append([instruction, cnvinstruction, include, define, regex])
+                else:
+                    libinstructions_single.append([instruction, cnvinstruction, include, define, regex])
 
 
-        return libinstructions[:]
+        libinstructions_single.sort(lambda x,y: cmp(len(x[1]), len(y[1])))
+        libinstructions_single.reverse()
+
+        libinstructions.sort(lambda x,y: cmp(len(x[1]), len(y[1])))
+        libinstructions.reverse()
+
+        return libinstructions_single[:] + libinstructions[:]
+
 
     #----------------------------------------------------------------------
     def remove_strings(self, content):
 
-        strings = re.findall(r'"[^"\\]*[\\.[^"\\]*]*"', content)
-        content = re.sub(r'"[^"\\]*(\\.[^"\\]*)*"', '"<PINGUINO_STRING>"', content)
+        strings = re.findall(r'"[^"]*"', content)
+        content = re.sub(r'"[^"]*"', '"<PINGUINO_STRING>"', content)
 
         index = 0
         keys = {}
@@ -442,7 +454,8 @@ class PinguinoTools(object):
         for instruction, cnvinstruction, include, define, regex in libinstructions:
             if re.search(regex, content):
                 #content = content.replace(instruction, cnvinstruction) #bugged
-                content = re.sub(regex, cnvinstruction+"(", content)  #safe
+                #content = re.sub(regex, cnvinstruction+"(", content)  #safe
+                content = re.sub(regex, cnvinstruction, content)  #safe
                 defines.add(include+"\n")
                 defines.add(define+"\n")
 
