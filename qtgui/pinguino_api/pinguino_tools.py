@@ -252,7 +252,6 @@ class PinguinoTools(object):
 
         regobject = []
         libinstructions = []
-        libinstructions_single = []
 
         all_pdls = self.USER_PDL
 
@@ -294,19 +293,13 @@ class PinguinoTools(object):
                 #regex = re.compile(r"%s\s*\(" % re.escape(instruction))
                 regex = re.compile(r"%s" % re.escape(instruction))
 
-                if instruction.count("."):
-                    libinstructions.append([instruction, cnvinstruction, include, define, regex])
-                else:
-                    libinstructions_single.append([instruction, cnvinstruction, include, define, regex])
+                libinstructions.append([instruction, cnvinstruction, include, define, regex])
 
 
-        libinstructions_single.sort(lambda x,y: cmp(len(x[1]), len(y[1])))
-        libinstructions_single.reverse()
-
-        libinstructions.sort(lambda x,y: cmp(len(x[1]), len(y[1])))
+        libinstructions.sort(lambda x,y: cmp(len(x[0]), len(y[0])))
         libinstructions.reverse()
 
-        return libinstructions_single[:] + libinstructions[:]
+        return libinstructions[:]
 
 
     #----------------------------------------------------------------------
@@ -449,16 +442,25 @@ class PinguinoTools(object):
             libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
         defines = set()
+        keys = {}
+        index = 0
 
         # replace arduino/pinguino language and add #define or #include to define.h
         for instruction, cnvinstruction, include, define, regex in libinstructions:
             if re.search(regex, content):
                 #content = content.replace(instruction, cnvinstruction) #bugged
                 #content = re.sub(regex, cnvinstruction+"(", content)  #safe
-                content = re.sub(regex, cnvinstruction, content)  #safe
+                #content = re.sub(regex, cnvinstruction, content)  #safe
+                content = re.sub(regex, '<PINGUINO_RESERTED:%d>' % index, content)  #safe
+
+                keys['<PINGUINO_RESERTED:%d>' % index] = cnvinstruction
+                index += 1
+
                 defines.add(include+"\n")
                 defines.add(define+"\n")
 
+
+        content = self.recove_strings(content, keys)
 
         self.update_define(defines, mode="a")
 
