@@ -10,7 +10,7 @@ from .python_highlighter import Highlighter
 from ..methods.python_shell import PythonShell
 
 HEAD = os.getenv("PINGUINO_NAME") + " " + os.getenv("PINGUINO_VERSION") + "\n" + "Python " + sys.version + " on " + sys.platform
-HELP = QtGui.QApplication.translate("PythonShell", "Commands available:") + ' "clear", "restart"'
+HELP = QtGui.QApplication.translate("PythonShell", "Commands available:") + ' "clear", "restart"\n'
 
 START = ">>> "
 NEW_LINE = "... "
@@ -20,8 +20,8 @@ NEW_LINE = "... "
 class PinguinoTerminal(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
-    def __init__(self, *args, **kwargs):
-        super(PinguinoTerminal, self).__init__(*args, **kwargs)
+    def __init__(self, widget, checkbox):
+        super(PinguinoTerminal, self).__init__(widget)
 
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
@@ -39,6 +39,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
         self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
 
+        self.checkbox = checkbox
 
         self.setFrameShape(QtGui.QFrame.NoFrame)
 
@@ -50,6 +51,21 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             self.moveCursor(QtGui.QTextCursor.End)
             self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
             self.insertPlainText(START)
+            self.moveCursor(QtGui.QTextCursor.End)
+
+        self.repaint()
+
+
+    #----------------------------------------------------------------------
+    def write(self, text):
+        if not self.checkbox.isChecked() : return
+        text = text[:-1]
+        text = text.replace("\n", "\n[DEBUG] ")
+        text = text.replace("\\n", "\\n[DEBUG] ")
+        if text:
+            self.moveCursor(QtGui.QTextCursor.StartOfLine)
+            self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
+            #self.insertPlainText(START)
             self.moveCursor(QtGui.QTextCursor.End)
 
         self.repaint()
@@ -223,8 +239,6 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             font-size: %dpt;
         }
         """%size)
-
-
 
 
     #----------------------------------------------------------------------

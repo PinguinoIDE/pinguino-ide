@@ -269,6 +269,8 @@ class EventMethods(Methods):
 
         self.configIDE.set("Features", "graphical", self.is_graphical())
 
+        self.configIDE.set("Features", "debug_in_output", self.main.checkBox_output_debug.isChecked())
+
         self.configIDE.save_config()
 
         self.close()

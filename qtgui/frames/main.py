@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Fri Dec 19 15:43:23 2014
+# Created: Fri Feb 27 23:36:05 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,7 +55,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_15.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 33))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1088, 29))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -287,6 +287,30 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_3.setSpacing(0)
         self.gridLayout_3.setObjectName("gridLayout_3")
+        self.widget = QtGui.QWidget(self.dockWidgetContents_2)
+        self.widget.setObjectName("widget")
+        self.verticalLayout_3 = QtGui.QVBoxLayout(self.widget)
+        self.verticalLayout_3.setSpacing(0)
+        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.widget_output = QtGui.QWidget(self.widget)
+        self.widget_output.setObjectName("widget_output")
+        self.gridLayout_17 = QtGui.QGridLayout(self.widget_output)
+        self.gridLayout_17.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_17.setObjectName("gridLayout_17")
+        self.verticalLayout_3.addWidget(self.widget_output)
+        self.frame = QtGui.QFrame(self.widget)
+        self.frame.setFrameShape(QtGui.QFrame.NoFrame)
+        self.frame.setFrameShadow(QtGui.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.horizontalLayout = QtGui.QHBoxLayout(self.frame)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.checkBox_output_debug = QtGui.QCheckBox(self.frame)
+        self.checkBox_output_debug.setStyleSheet("color: rgb(255, 255, 255);")
+        self.checkBox_output_debug.setObjectName("checkBox_output_debug")
+        self.horizontalLayout.addWidget(self.checkBox_output_debug)
+        self.verticalLayout_3.addWidget(self.frame)
+        self.gridLayout_3.addWidget(self.widget, 0, 0, 1, 1)
         self.dockWidget_output.setWidget(self.dockWidgetContents_2)
         PinguinoIDE.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.dockWidget_output)
         self.toolBar_files = QtGui.QToolBar(PinguinoIDE)
@@ -377,6 +401,7 @@ class Ui_PinguinoIDE(object):
         self.toolBar_graphical.setObjectName("toolBar_graphical")
         PinguinoIDE.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar_graphical)
         self.toolBar_system = QtGui.QToolBar(PinguinoIDE)
+        self.toolBar_system.setWindowTitle("System menu")
         self.toolBar_system.setMovable(False)
         self.toolBar_system.setIconSize(QtCore.QSize(32, 32))
         self.toolBar_system.setFloatable(False)
@@ -748,6 +773,7 @@ class Ui_PinguinoIDE(object):
         self.checkBox_case_sensitive.setText(QtGui.QApplication.translate("PinguinoIDE", "Case sensitive", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.SearchReplace), QtGui.QApplication.translate("PinguinoIDE", "Search Replace", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_output.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Python Shell", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkBox_output_debug.setText(QtGui.QApplication.translate("PinguinoIDE", "Debug", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_files.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_undo_redo.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Undo Redo", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_edit.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Edit", None, QtGui.QApplication.UnicodeUTF8))
@@ -762,7 +788,6 @@ class Ui_PinguinoIDE(object):
         self.comboBox_filesg.setItemText(4, QtGui.QApplication.translate("PinguinoIDE", "Other...", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_blocks_tools.setTabText(self.tabWidget_blocks_tools.indexOf(self.Files1), QtGui.QApplication.translate("PinguinoIDE", "Files", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_graphical.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Graphical mode", None, QtGui.QApplication.UnicodeUTF8))
-        self.toolBar_system.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "System menu", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_switch.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Switch mode", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+N", None, QtGui.QApplication.UnicodeUTF8))
@@ -867,5 +892,4 @@ class Ui_PinguinoIDE(object):
         self.actionEnvironment.setText(QtGui.QApplication.translate("PinguinoIDE", "Environment", None, QtGui.QApplication.UnicodeUTF8))
         self.actionVariables.setText(QtGui.QApplication.translate("PinguinoIDE", "Variables", None, QtGui.QApplication.UnicodeUTF8))
 
-import resources_rc
 import resources_rc

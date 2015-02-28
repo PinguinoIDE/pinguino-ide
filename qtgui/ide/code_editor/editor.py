@@ -19,9 +19,9 @@ from ..methods.syntax import Autocompleter, Snippet
 class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
-    def __init__(self, *args, **kwargs):
+    def __init__(self, parent, linenumber):
 
-        super(CustomTextEdit, self).__init__(*args, **kwargs)
+        super(CustomTextEdit, self).__init__(parent)
         self.completer = PinguinoAutoCompleter()
         self.completer.text_edit = self
         self.cursorC = QtGui.QCursor()
@@ -32,6 +32,8 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.resize(500, 500)
         self.completer.setFont(self.font())
         #self.setAutoClose({})
+
+        self.linenumber = linenumber
 
         icons = CompleteIcons()
 
@@ -63,7 +65,7 @@ class CustomTextEdit(QtGui.QTextEdit):
             background-color: #FFF;
             font-family: mono;
             font-weight: normal;
-            font-size: 11pt;
+            font-size: 10pt;
             }
 
         """)
@@ -114,6 +116,15 @@ class CustomTextEdit(QtGui.QTextEdit):
             }
 
         """%size)
+
+
+        self.linenumber.setStyleSheet("""
+        font-family: mono;
+        font-weight: normal;
+        font-size: %dpt;
+
+        """%size)
+
 
 
     #----------------------------------------------------------------------

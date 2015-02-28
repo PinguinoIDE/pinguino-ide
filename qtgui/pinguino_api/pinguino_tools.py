@@ -28,13 +28,14 @@ import re
 import shutil
 import time
 import argparse
+import logging
 
 from .boards import boardlist as Boardlist
 from .uploader.uploader import Uploader
+from .tools import Debugger
 
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
-# import debugger
 
 
 ########################################################################
@@ -95,7 +96,6 @@ class PinguinoTools(object):
             self.MAKE = "make"
 
 
-
     #----------------------------------------------------------------------
     def set_board(self, board):
 
@@ -122,6 +122,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def verify(self, filename):
 
         DATA_RETURN = {}
@@ -188,6 +189,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def __upload__(self):
 
         hex_file = self.get_hex_file()
@@ -228,6 +230,7 @@ class PinguinoTools(object):
         return result
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def get_regobject_libinstructions(self, arch):
         """Return regobject and libinstructions for each architecture."""
         if arch == 8:
@@ -246,6 +249,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def read_lib(self, arch, include_default=True):
         """Load .pdl or .pdl32 files (keywords and libraries)
          trying to find PDL files to store reserved words."""
@@ -327,6 +331,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def preprocess(self, filename):
         """Read Pinguino File (.pde) and translate it into C language"""
 
@@ -435,6 +440,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def replace_word(self, content, libinstructions=None):
         """ convert pinguino language in C language """
 
@@ -468,6 +474,7 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def remove_comments(self, textinput):
         #FIXME: replace comment with white lines for debugger
 
@@ -513,6 +520,7 @@ class PinguinoTools(object):
         return " ".join(user_imports)
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def compile(self, filename):
         """ Compile.
 
@@ -651,11 +659,13 @@ class PinguinoTools(object):
 
     # ------------------------------------------------------------------------------
     def report(self, message):
-        import sys
-        reload(sys)
-        sys.stdout.write("DEBUG : " + message + "\r\n")
+        #import sys
+        #reload(sys)
+        #sys.stdout.write("DEBUG : " + message + "\r\n")
+        logging.info(message)
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def link(self, filename):
         """Link.
 

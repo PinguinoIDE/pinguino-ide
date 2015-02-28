@@ -6,6 +6,7 @@ import sys
 import logging
 #import debugger
 
+from ..tools import Debugger
 
 ########################################################################
 class baseUploader(object):
@@ -62,9 +63,10 @@ class baseUploader(object):
         """ display message in the log window """
         self.report.append(message)
 
-        import sys
-        reload(sys)
-        sys.stdout.write("DEBUG : " + message + "\r\n")
+        #import sys
+        #reload(sys)
+        #sys.stdout.write("DEBUG : " + message + "\r\n")
+        logging.info(message)
 
 # ------------------------------------------------------------------------------
     def getDevice(self):
@@ -91,7 +93,7 @@ class Uploader(object):
     #----------------------------------------------------------------------
     def __init__(self, hex_file, board):
 
-        debugger.Debugger(sys)
+        #debugger.Debugger(sys)
 
         if board.bldr == "noboot":
 
@@ -115,6 +117,7 @@ class Uploader(object):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def write_hex(self):
 
         self.uploader.writeHex()
