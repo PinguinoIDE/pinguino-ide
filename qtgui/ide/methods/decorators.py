@@ -246,19 +246,19 @@ class Decorator(object):
             return wrapped
         return actualdecorator
 
-    #----------------------------------------------------------------------
-    @classmethod
-    def debug_time(cls):
-        def actualdecorator(fn):
-            @functools.wraps(fn)
-            def wrapped(Pinguino, *args, **kwargs):
-                inicio = time.time()
-                retorno = fn(Pinguino, *args, **kwargs)
-                fin = time.time()
-                Pinguino.write_log("debug: " + fn.__name__ + "\nTime: %.7fs\n" %(fin - inicio))
-                return retorno
-            return wrapped
-        return actualdecorator
+    # #----------------------------------------------------------------------
+    # @classmethod
+    # def debug_time(cls):
+        # def actualdecorator(fn):
+            # @functools.wraps(fn)
+            # def wrapped(Pinguino, *args, **kwargs):
+                # inicio = time.time()
+                # retorno = fn(Pinguino, *args, **kwargs)
+                # fin = time.time()
+                # Pinguino.write_log("debug: " + fn.__name__ + "\nTime: %.7fs\n" %(fin - inicio))
+                # return retorno
+            # return wrapped
+        # return actualdecorator
 
 
     #----------------------------------------------------------------------

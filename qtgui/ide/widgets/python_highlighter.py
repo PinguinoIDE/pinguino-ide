@@ -15,6 +15,11 @@ from PySide import QtGui, QtCore
     #import __builtin__
     #FUNCTIONS_PYTHON = "|".join(__builtin__.__dict__.keys())
 
+MESSAGES = [
+    ("DEBUG", "#ffff00"),
+    ("OUT", "#00ff00")
+]
+
 
 RESERVED_PYTHON = "def|class|for|while|pass|try|except|if|else|elif"
 
@@ -57,9 +62,11 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         #sdcc_error_02.setForeground(color("#ef292a"))
         #self.highlightingRules.append(("\\b[\d]+: .*", sdcc_error_02))
 
-        debugger = QtGui.QTextCharFormat()
-        debugger.setForeground(color("#ffff00"))
-        self.highlightingRules.append(("\[DEBUG\] .*", debugger))
+        for msg, color_ in MESSAGES:
+            debugger = QtGui.QTextCharFormat()
+            debugger.setForeground(color(color_))
+            self.highlightingRules.append(("\[%s\] .*"%msg, debugger))
+
 
     #----------------------------------------------------------------------
     def highlightBlock(self, text):

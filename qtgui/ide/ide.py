@@ -150,7 +150,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         ch = logging.StreamHandler(self.main.plainTextEdit_output)
         #ch.setLevel(logging.INFO)
-        formatter = logging.Formatter("[DEBUG] %(message)s")
+        # formatter = logging.Formatter("[DEBUG] %(message)s")
+        formatter = logging.Formatter("%(message)s")
         ch.setFormatter(formatter)
 
         root.addHandler(ch)
@@ -224,12 +225,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         except: pass
 
         return "\n" + "#" + "-" * 80 + "\n#" + "-" * 80 + "\n" + "\n".join([": ".join(item) for item in data.items()]) + "\n#" + "-" * 80 + "\n#" + "-" * 80
-
-
-    #----------------------------------------------------------------------
-    @Decorator.debug_time()
-    def test_method(self):
-        """This method is called from Pinguino's terminal with the command: test_method()"""
 
 
     #----------------------------------------------------------------------
@@ -330,7 +325,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def build_output(self):
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))  #FIXME: move this
         self.main.checkBox_output_debug.setChecked(self.configIDE.config("Features", "debug_in_output", True))
-        self.main.plainTextEdit_output = PinguinoTerminal(widget=self.main.widget_output, checkbox=self.main.checkBox_output_debug)
+        self.main.checkBox_output_messages.setChecked(self.configIDE.config("Features", "out_in_output", True))
+
+        checkbox = {"checkbox_debug": self.main.checkBox_output_debug,
+                    "checkbox_out": self.main.checkBox_output_messages,
+                    }
+
+        self.main.plainTextEdit_output = PinguinoTerminal(widget=self.main.widget_output, checkbox=checkbox)
 
         self.main.frame.setStyleSheet("""
         QFrame {
@@ -339,24 +340,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         }
         """)
 
-
-        class DevTools(object):
-            update_reserved = self.update_reserved_words
-            update_installed_reserved = self.update_instaled_reserved_words
-
-            @classmethod
-            def update(self):
-                self.update_reserved()
-                self.update_installed_reserved()
-
-
-            functions = ["update_reserved",
-                         "update_installed_reserved",
-                         ]
-
-        self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self,
-                                                         "devmode": DevTools(),
-                                                         "test_method": self.test_method,})
+        self.main.plainTextEdit_output.set_extra_args(**{"pinguino": self})
         self.main.gridLayout_17.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
 
 

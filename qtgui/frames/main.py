@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Fri Feb 27 23:36:05 2015
+# Created: Wed Mar  4 01:39:55 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -309,6 +309,12 @@ class Ui_PinguinoIDE(object):
         self.checkBox_output_debug.setStyleSheet("color: rgb(255, 255, 255);")
         self.checkBox_output_debug.setObjectName("checkBox_output_debug")
         self.horizontalLayout.addWidget(self.checkBox_output_debug)
+        self.checkBox_output_messages = QtGui.QCheckBox(self.frame)
+        self.checkBox_output_messages.setStyleSheet("color: rgb(255, 255, 255);")
+        self.checkBox_output_messages.setObjectName("checkBox_output_messages")
+        self.horizontalLayout.addWidget(self.checkBox_output_messages)
+        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem4)
         self.verticalLayout_3.addWidget(self.frame)
         self.gridLayout_3.addWidget(self.widget, 0, 0, 1, 1)
         self.dockWidget_output.setWidget(self.dockWidgetContents_2)
@@ -774,6 +780,7 @@ class Ui_PinguinoIDE(object):
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.SearchReplace), QtGui.QApplication.translate("PinguinoIDE", "Search Replace", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_output.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Python Shell", None, QtGui.QApplication.UnicodeUTF8))
         self.checkBox_output_debug.setText(QtGui.QApplication.translate("PinguinoIDE", "Debug", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkBox_output_messages.setText(QtGui.QApplication.translate("PinguinoIDE", "Out", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_files.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_undo_redo.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Undo Redo", None, QtGui.QApplication.UnicodeUTF8))
         self.toolBar_edit.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Edit", None, QtGui.QApplication.UnicodeUTF8))

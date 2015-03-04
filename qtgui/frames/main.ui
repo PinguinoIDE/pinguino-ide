@@ -746,7 +746,6 @@
         <item>
          <widget class="QWidget" name="widget_output" native="true">
           <layout class="QGridLayout" name="gridLayout_17"/>
-          <zorder>checkBox_output_debug</zorder>
          </widget>
         </item>
         <item>
@@ -767,6 +766,29 @@
               <string>Debug</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_output_messages">
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>Out</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>

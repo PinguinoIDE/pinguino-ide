@@ -270,6 +270,7 @@ class EventMethods(Methods):
         self.configIDE.set("Features", "graphical", self.is_graphical())
 
         self.configIDE.set("Features", "debug_in_output", self.main.checkBox_output_debug.isChecked())
+        self.configIDE.set("Features", "out_in_output", self.main.checkBox_output_messages.isChecked())
 
         self.configIDE.save_config()
 
@@ -764,7 +765,7 @@ class EventMethods(Methods):
 
         self.write_log(QtGui.QApplication.translate("Frame", "Compiling: %s")%filename)
         self.write_log(self.get_description_board())
-        self.write_log("")
+        # self.write_log("")
 
         compile_code()
         self.post_compile(dialog_upload)

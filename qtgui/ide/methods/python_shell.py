@@ -7,11 +7,11 @@ import os
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
-    import builtins
+    # import builtins
     from io import StringIO
 else:
     #Python2
-    import __builtin__
+    # import __builtin__
     from cStringIO import StringIO
 
 import traceback
