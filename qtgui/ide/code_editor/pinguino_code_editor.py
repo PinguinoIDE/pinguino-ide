@@ -24,7 +24,7 @@ class PinguinoCodeEditor(QWidget):
         self.line_number.setMaximumSize(QtCore.QSize(51, 16777215))
         self.gridLayout_0.addWidget(self.line_number, 0, 0, 1, 1)
 
-        self.text_edit = CustomTextEdit(self)
+        self.text_edit = CustomTextEdit(self, self.line_number)
         self.text_edit.setFrameShape(QtGui.QFrame.NoFrame)
         self.gridLayout_0.addWidget(self.text_edit, 0, 3, 1, 1)
 

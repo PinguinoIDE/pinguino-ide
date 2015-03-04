@@ -408,21 +408,20 @@ class Methods(SearchReplace):
 
 
     #----------------------------------------------------------------------
-    def write_log(self, *args, **kwargs):
+    def write_log(self, data, level="OUT"):
 
         lines = ""
-        for line in args:
-            lines += line
-
-        for key in kwargs.keys():
+        if type(data) == type({}):
             line = key + ": " + kwargs[key]
             lines += line
 
-        #import sys
-        #reload(sys)
-        #sys.stdout.write(lines)
+        else:
+            lines = data
 
-        self.main.plainTextEdit_output.log_output(lines.replace("\n", "\n"+START))
+        # else:
+            # assert False, "No soported type"
+
+        self.main.plainTextEdit_output.log_output(lines, level=level)
         self.main.plainTextEdit_output.update()
 
         scroll = self.main.plainTextEdit_output.verticalScrollBar()
@@ -523,31 +522,33 @@ class Methods(SearchReplace):
             os.environ["PINGUINO_CAN_COMPILE"] = "False"
         else:
             os.environ["PINGUINO_CAN_COMPILE"] = "True"
-            logging.warning("Found: %s" % compiler_path)
-            logging.warning("Found: %s" % libraries_path)
+            # logging.warning("Found: %s" % compiler_path)
+            # logging.warning("Found: %s" % libraries_path)
 
 
     #----------------------------------------------------------------------
     def get_description_board(self):
 
+        board_config = []
+
         board = self.pinguinoAPI.get_board()
-        board_config = "Board: %s\n" % board.name
-        board_config += "Proc: %s\n" % board.proc
-        board_config += "Arch: %d\n" % board.arch
+        board_config.append("Board: %s" % board.name)
+        board_config.append("Proc: %s" % board.proc)
+        board_config.append("Arch: %d" % board.arch)
 
         if board.arch == 32:
-            board_config += "MIPS 16: %s\n" % str(self.configIDE.config("Board", "mips16", True))
-            board_config += "Heap size: %d bytes\n" % self.configIDE.config("Board", "heapsize", 512)
-            board_config += "Optimization: %s\n" % self.configIDE.config("Board", "optimization", "-O3")
+            board_config.append("MIPS 16: %s" % str(self.configIDE.config("Board", "mips16", True)))
+            board_config.append("Heap size: %d bytes" % self.configIDE.config("Board", "heapsize", 512))
+            board_config.append("Optimization: %s" % self.configIDE.config("Board", "optimization", "-O3"))
 
         if board.arch == 8 and board.bldr == "boot4":
-            board_config += "Bootloader: v4\n"
+            board_config.append("Bootloader: v4")
         elif board.arch == 8 and board.bldr == "boot2":
-            board_config += "Bootloader: v1 & v2\n"
+            board_config.append("Bootloader: v1 & v2")
         elif board.arch == 8 and board.bldr == "noboot":
-            board_config += "Mode: ICSP\n"
+            board_config.append("Mode: ICSP")
 
-        return board_config
+        return "\n".join(board_config)
 
 
     #----------------------------------------------------------------------

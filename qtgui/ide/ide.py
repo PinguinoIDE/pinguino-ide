@@ -30,8 +30,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         #debugger.Debugger(sys)
 
-        root = logging.getLogger()
-        root.setLevel(logging.DEBUG)
+        #root = logging.getLogger()
+        #root.setLevel(logging.DEBUG)
 
         #ch = logging.StreamHandler(debugger.sys_redirect("stdout", False))
         #ch.setLevel(logging.DEBUG)
@@ -139,9 +139,22 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         print("Pinguino IDE started!")
 
 
-    ##----------------------------------------------------------------------
-    #def __str__(self):
-        #return " ".join([os.getenv("PINGUINO_NAME"), os.getenv("PINGUINO_VERSION")])
+        self.enable_debugger()
+
+
+    #----------------------------------------------------------------------
+    def enable_debugger(self):
+
+        root = logging.getLogger()
+        root.setLevel(logging.DEBUG)
+
+        ch = logging.StreamHandler(self.main.plainTextEdit_output)
+        #ch.setLevel(logging.INFO)
+        # formatter = logging.Formatter("[DEBUG] %(message)s")
+        formatter = logging.Formatter("%(message)s")
+        ch.setFormatter(formatter)
+
+        root.addHandler(ch)
 
 
     #----------------------------------------------------------------------
@@ -212,12 +225,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         except: pass
 
         return "\n" + "#" + "-" * 80 + "\n#" + "-" * 80 + "\n" + "\n".join([": ".join(item) for item in data.items()]) + "\n#" + "-" * 80 + "\n#" + "-" * 80
-
-
-    #----------------------------------------------------------------------
-    @Decorator.debug_time()
-    def test_method(self):
-        """This method is called from Pinguino's terminal with the command: test_method()"""
 
 
     #----------------------------------------------------------------------
@@ -316,31 +323,31 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
     #----------------------------------------------------------------------
     def build_output(self):
-        self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
-        self.main.plainTextEdit_output = PinguinoTerminal(self.main.dockWidgetContents_2)
+        self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))  #FIXME: move this
+        self.main.checkBox_output_debug.setChecked(self.configIDE.config("Features", "debug_in_output", True))
+        self.main.checkBox_output_messages.setChecked(self.configIDE.config("Features", "out_in_output", True))
 
-        class DevTools(object):
-            update_reserved = self.update_reserved_words
-            update_installed_reserved = self.update_instaled_reserved_words
+        checkbox = {"checkbox_debug": self.main.checkBox_output_debug,
+                    "checkbox_out": self.main.checkBox_output_messages,
+                    }
 
-            @classmethod
-            def update(self):
-                self.update_reserved()
-                self.update_installed_reserved()
+        self.main.plainTextEdit_output = PinguinoTerminal(widget=self.main.widget_output, checkbox=checkbox)
 
+        self.main.frame.setStyleSheet("""
+        QFrame {
+            background-color: #333;
+            color: #FFFFFF;
+        }
+        """)
 
-            functions = ["update_reserved",
-                         "update_installed_reserved",
-                         ]
+        self.main.plainTextEdit_output.set_extra_args(**{"pinguino": self})
+        self.main.gridLayout_17.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
 
-        self.main.plainTextEdit_output.set_extra_args(**{"pinguino_main": self,
-                                                         "devmode": DevTools(),
-                                                         "test_method": self.test_method,})
-        self.main.gridLayout_3.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
 
     #----------------------------------------------------------------------
     def is_graphical(self):
         return self.main.actionSwitch_ide.isChecked()
+
 
     #----------------------------------------------------------------------
     def is_widget(self):
@@ -349,9 +356,11 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         if editor is None: return False
         return getattr(editor, "is_widget", False)
 
+
     #----------------------------------------------------------------------
     def is_autocomplete_enable(self):
         return self.main.actionAutocomplete.isChecked()
+
 
     #----------------------------------------------------------------------
     def update_actions_for_text(self):
@@ -389,6 +398,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.configIDE.save_config()
+
 
     #----------------------------------------------------------------------
     def reload_toolbar_icons(self):

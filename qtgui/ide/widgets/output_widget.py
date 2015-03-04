@@ -10,7 +10,7 @@ from .python_highlighter import Highlighter
 from ..methods.python_shell import PythonShell
 
 HEAD = os.getenv("PINGUINO_NAME") + " " + os.getenv("PINGUINO_VERSION") + "\n" + "Python " + sys.version + " on " + sys.platform
-HELP = QtGui.QApplication.translate("PythonShell", "Commands available:") + ' "clear", "restart"'
+HELP = QtGui.QApplication.translate("PythonShell", "Commands available:") + ' "clear", "restart"\n'
 
 START = ">>> "
 NEW_LINE = "... "
@@ -20,8 +20,8 @@ NEW_LINE = "... "
 class PinguinoTerminal(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
-    def __init__(self, *args, **kwargs):
-        super(PinguinoTerminal, self).__init__(*args, **kwargs)
+    def __init__(self, widget, checkbox):
+        super(PinguinoTerminal, self).__init__(widget)
 
         self.appendPlainText(HEAD)
         self.appendPlainText(HELP)
@@ -39,20 +39,38 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
         self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
 
+        for check in checkbox.keys():
+            setattr(self, check, checkbox[check])
+
+        self.checkbox = checkbox
 
         self.setFrameShape(QtGui.QFrame.NoFrame)
 
 
 
     #----------------------------------------------------------------------
-    def log_output(self, text):
+    def log_output(self, text, level=None):
+
+        if hasattr(self, "checkbox_%s" % level.lower()):
+            if not getattr(self, "checkbox_%s" % level.lower()).isChecked(): return
+
+        if level:
+            text = text.replace("\n", "\n[%s] "%level)
+            text = text.replace("\\n", "\\n[%s] "%level)
+            text = "[%s] "%level + text
         if text:
-            self.moveCursor(QtGui.QTextCursor.End)
+            self.moveCursor(QtGui.QTextCursor.StartOfLine)
             self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
-            self.insertPlainText(START)
+            # self.insertPlainText(START)
             self.moveCursor(QtGui.QTextCursor.End)
 
         self.repaint()
+
+
+    #----------------------------------------------------------------------
+    def write(self, text):
+        if not self.checkbox_debug.isChecked(): return
+        return self.log_output(text[:-1], level="DEBUG")
 
 
     #----------------------------------------------------------------------
@@ -142,6 +160,81 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
             if self.no_overwrite_start():
                 super(PinguinoTerminal, self).keyPressEvent(event)
 
+        elif event.key() == QtCore.Qt.Key_Tab:
+            tc = self.textCursor()
+            tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+            word = tc.selectedText()
+            object_ = None
+            attr_ = ""
+
+            tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+            n_word = tc.selectedText()
+
+            if n_word == ".":
+                tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+                object_ = tc.selectedText()
+
+            if n_word.startswith("."):
+                tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+                tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+                if tc.selectedText().startswith("."):
+                    while tc.selectedText().startswith("."):
+                        tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+                else:
+                    tc.movePosition(tc.WordRight, tc.KeepAnchor)
+
+                object_, attr_ = tc.selectedText().rsplit(".", 1)
+
+
+            if n_word.endswith("."):
+                tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+                if tc.selectedText().startswith("."):
+                    while tc.selectedText().startswith("."):
+                        tc.movePosition(tc.WordLeft, tc.KeepAnchor)
+                else:
+                    tc.movePosition(tc.WordRight, tc.KeepAnchor)
+
+                object_, attr_ = tc.selectedText().rsplit(".", 1)
+
+            if object_:
+                objects_ = object_.split(".")
+                s = self.shell.statement_module
+                for ob in objects_:
+                    s = getattr(s, ob)
+
+                options = filter(lambda x:x.startswith(attr_), s.__dict__.keys())
+
+            elif word:
+                s = self.shell.statement_module
+                options = filter(lambda x:x.startswith(word), s.__dict__.keys())
+
+            options = filter(lambda x:not x.startswith("__"), options)
+
+            common = os.path.commonprefix(options)
+            if common and word != common: options = [common]
+
+            if len(options) > 1:
+                self.moveCursor(tc.StartOfLine)
+                self.insertPlainText("\t".join(options)+"\n\n")
+                self.moveCursor(tc.End)
+
+            elif len(options) == 1:
+                self.moveCursor(tc.End)
+
+                if object_:
+                    tc.movePosition(tc.WordRight, tc.KeepAnchor)
+                    while "." in tc.selectedText():
+                        tc.movePosition(tc.WordRight, tc.KeepAnchor)
+                    tc.removeSelectedText()
+
+                elif word:
+                    tc.movePosition(tc.WordRight, tc.KeepAnchor)
+                    tc.removeSelectedText()
+
+                self.insertPlainText(options[0])
+                self.moveCursor(tc.End)
+
+
         else:
             super(PinguinoTerminal, self).keyPressEvent(event)
 
@@ -225,8 +318,6 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         """%size)
 
 
-
-
     #----------------------------------------------------------------------
     def set_extra_args(self, *args, **kwargs):
         for key in kwargs:
@@ -245,6 +336,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
     def no_overwrite_start(self):
+        """No move the cursor over >>>"""
         cursor = self.textCursor()
         position = cursor.position()
         plain = self.toPlainText()

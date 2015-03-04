@@ -23,11 +23,11 @@ if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")):
 
 
 #Remove old files
-#RB20150202 : each file must be checked before being deleted 
+#RB20150202 : each file must be checked before being deleted
 if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")):
     os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
-if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf")):
-    os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
+#if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf")):
+    #os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")):
     os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
 

@@ -29,7 +29,7 @@ class LineNumber(QWidget):
         self.setStyleSheet("""
         font-family: mono;
         font-weight: normal;
-        font-size: 11pt;
+        font-size: 10pt;
 
         """)
 

@@ -1,7 +1,27 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
+#import os
+
 from PySide import QtGui, QtCore
+
+## Python3 compatibility
+#if os.getenv("PINGUINO_PYTHON") is "3":
+    ##Python3
+    #import builtin
+    #FUNCTIONS_PYTHON = "|".join(builtin.__dict__.keys())
+#else:
+    ##Python2
+    #import __builtin__
+    #FUNCTIONS_PYTHON = "|".join(__builtin__.__dict__.keys())
+
+MESSAGES = [
+    ("DEBUG", "#ffff00"),
+    ("OUT", "#00ff00")
+]
+
+
+RESERVED_PYTHON = "def|class|for|while|pass|try|except|if|else|elif"
 
 ########################################################################
 class Highlighter(QtGui.QSyntaxHighlighter):
@@ -16,6 +36,15 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         operators = QtGui.QTextCharFormat()
         operators.setFontWeight(QtGui.QFont.Bold)
         self.highlightingRules.append(("[()\[\]{}<>=\-\+\*\\%#!~&^,/]", operators))
+
+        reserved = QtGui.QTextCharFormat()
+        reserved.setForeground(color("#8ae234"))
+        #self.highlightingRules.append(("\\b(None|False|True|def|class|for|while|pass|try|except|print|if)\\b", reserved))
+        self.highlightingRules.append(("\\b(%s)\\b" % RESERVED_PYTHON, reserved))
+
+        #functions = QtGui.QTextCharFormat()
+        #functions.setForeground(color("#aaffff"))
+        #self.highlightingRules.append(("\\b(%s)\\b" % FUNCTIONS_PYTHON, functions))
 
         start_command = QtGui.QTextCharFormat()
         start_command.setForeground(color("#729fcf"))
@@ -33,9 +62,10 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         #sdcc_error_02.setForeground(color("#ef292a"))
         #self.highlightingRules.append(("\\b[\d]+: .*", sdcc_error_02))
 
-        reserved = QtGui.QTextCharFormat()
-        reserved.setForeground(color("#8ae234"))
-        self.highlightingRules.append(("\\b(None|False|True|def|class)\\b", reserved))
+        for msg, color_ in MESSAGES:
+            debugger = QtGui.QTextCharFormat()
+            debugger.setForeground(color(color_))
+            self.highlightingRules.append(("\[%s\] .*"%msg, debugger))
 
 
     #----------------------------------------------------------------------
