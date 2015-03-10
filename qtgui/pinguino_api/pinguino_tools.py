@@ -293,9 +293,10 @@ class PinguinoTools(object):
 
                 if not instruction: continue
 
-                #regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])*%s\s*\(" % re.escape(instruction))
-                #regex = re.compile(r"%s\s*\(" % re.escape(instruction))
-                regex = re.compile(r"%s" % re.escape(instruction))
+                # regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])*%s\s*\(" % re.escape(instruction))
+                # regex = re.compile(r"%s\s*\(" % re.escape(instruction))
+                # regex = re.compile(r"%s" % re.escape(instruction))
+                regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])%s" % re.escape(instruction))
 
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
 
@@ -826,12 +827,12 @@ class PinguinoTools(object):
         fichier.close()
 
         if sys.platform == "win32":
-            
+
             if board.board in ["PIC32_PINGUINO_220", "Pinguino32MX220", "Pinguino32MX250", "Pinguino32MX270"]:
                 badrecord = ":040000059D0040001A\n"
             else:
                 badrecord = ":040000059D006000FA\n"
-                
+
             if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32tmp.hex")):
                 fichiersource = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32tmp.hex"), "r")
                 fichierdest = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32.hex"), "w+")
