@@ -37,7 +37,6 @@ from .tools import Debugger
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
 
-
 ########################################################################
 class PinguinoTools(object):
 
@@ -293,10 +292,8 @@ class PinguinoTools(object):
 
                 if not instruction: continue
 
-                # regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])*%s\s*\(" % re.escape(instruction))
-                # regex = re.compile(r"%s\s*\(" % re.escape(instruction))
-                # regex = re.compile(r"%s" % re.escape(instruction))
-                regex = re.compile(r"(^|[' ']|['=']|['{']|[',']|[\t]|['(']|['!'])%s" % re.escape(instruction))
+                # https://regex101.com/r/nH9nS9
+                regex = re.compile(ur"([^.\w])(%s)([^.\w])"%re.escape(instruction), re.MULTILINE | re.DOTALL)
 
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
 
@@ -455,12 +452,9 @@ class PinguinoTools(object):
         # replace arduino/pinguino language and add #define or #include to define.h
         for instruction, cnvinstruction, include, define, regex in libinstructions:
             if re.search(regex, content):
-                #content = content.replace(instruction, cnvinstruction) #bugged
-                #content = re.sub(regex, cnvinstruction+"(", content)  #safe
-                #content = re.sub(regex, cnvinstruction, content)  #safe
-                content = re.sub(regex, '<PINGUINO_RESERTED:%d>' % index, content)  #safe
+                content = re.sub(regex, '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content)  #safe
 
-                keys['<PINGUINO_RESERTED:%d>' % index] = cnvinstruction
+                keys['<PINGUINO_RESERVED:%d>' % index] = cnvinstruction
                 index += 1
 
                 defines.add(include+"\n")
