@@ -6,8 +6,8 @@ import os
 import sys
 
 NAME = "Pinguino IDE"
-VERSION = "11.0"
-SUBVERSION = "beta.2"
+VERSION = "11.1"
+SUBVERSION = ""
 
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
