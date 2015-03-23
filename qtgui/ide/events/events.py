@@ -47,6 +47,9 @@ class PinguinoEvents(EventMethods, TimerMethods):
 
         # Menu Project
         self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.add_existing_directory)
+        self.connect(self.main.actionNew_project, QtCore.SIGNAL("triggered()"), self.new_project)
+        self.connect(self.main.actionSave_project, QtCore.SIGNAL("triggered()"), self.save_project)
+        self.connect(self.main.actionAdd_current_file, QtCore.SIGNAL("triggered()"), self.add_current_file)
 
         #Menu Settings
         self.connect(self.main.actionAutocomplete, QtCore.SIGNAL("triggered()"), self.switch_autocomplete)

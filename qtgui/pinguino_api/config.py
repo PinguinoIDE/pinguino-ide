@@ -73,7 +73,6 @@ class Config(RawConfigParser, object):
     def load_config(self):
         self.readfp(open(self.ide_config_file, "r"))
 
-
     #----------------------------------------------------------------------
     def get_path(self, name):
         if self.has_option("Paths", name):

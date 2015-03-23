@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/gide/bloques/widgets/control_spin.ui'
 #
-# Created: Sun Mar 22 01:07:31 2015
+# Created: Mon Mar 23 17:37:55 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!

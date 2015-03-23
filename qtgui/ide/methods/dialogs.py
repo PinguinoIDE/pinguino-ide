@@ -30,7 +30,7 @@ class Dialogs(object):
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
                 #QtCore.QDir.home().path(),
                 path,
-                QtGui.QApplication.translate("Dialogs", "Pinguino Files (*.pde *.gpde);;All Files (*)"))
+                QtGui.QApplication.translate("Dialogs", "Pinguino Files (*.pde *.gpde *.ppde);;All Files (*)"))
         if open_files: return open_files[0]
         else: return None
 
@@ -455,3 +455,14 @@ class Dialogs(object):
         if file_name: return file_name[0]
         else: return None
 
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def get_text(self, parent, name, default=""):
+        """"""
+        text, ok = QtGui.QInputDialog.getText(parent,
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Input text"),
+                name+":", QtGui.QLineEdit.Normal,
+                default)
+        if ok and text != '': return text
+        else: return False

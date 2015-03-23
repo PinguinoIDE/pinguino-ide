@@ -18,7 +18,7 @@ from ..widgets.output_widget import START
 
 
 ########################################################################
-class Methods(SearchReplace, ProjectManager):
+class Methods(SearchReplace, ProjectManager, Files):
 
     #----------------------------------------------------------------------
     #@Decorator.debug_time()
@@ -175,12 +175,12 @@ class Methods(SearchReplace, ProjectManager):
 
     #----------------------------------------------------------------------
     def __update_path_files__(self, path):
-        Files.update_path_files(path, self.main.listWidget_files, self.main.label_path, exclude=".gpde")
+        self.update_path_files(path, self.main.listWidget_files, self.main.label_path, exclude=".gpde")
 
 
     #----------------------------------------------------------------------
     def __update_graphical_path_files__(self, path):
-        Files.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg, exclude=".pde")
+        self.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg, exclude=".pde")
 
 
     #----------------------------------------------------------------------
