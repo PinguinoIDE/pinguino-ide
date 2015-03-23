@@ -170,7 +170,7 @@ class PinguinoTools(object):
                 return DATA_RETURN
             else:
                 shutil.copy(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE), filename+".hex")
-                #self.displaymsg(_("compilation done"),0)
+                #self.displaymsg(_("Compilation done"),0)
                 #self.displaymsg(self.__get_code_size__(filename, self.curBoard),0)
                 #t = "%.1f" % ( time.time() - t0 )
                 #self.displaymsg( t + " "+_("seconds process time"),0)
@@ -879,7 +879,7 @@ class PinguinoTools(object):
                     codesize = codesize + byte_count
 
         fichier.close()
-        return "code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
+        return "Code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
 
 
 # ------------------------------------------------------------------------------

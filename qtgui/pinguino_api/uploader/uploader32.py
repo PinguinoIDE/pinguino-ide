@@ -6,7 +6,7 @@
 
     (c) 2011-2014 Regis Blanchot <rblanchot@gmail.com>
     
-    last update : 02 Oct. 2014
+    last update : 21 Mar. 2015
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -87,6 +87,9 @@ class uploader32(baseUploader):
     BOOT_DEVID3                     =    8
     BOOT_DEVID4                     =    9
 
+    BOOT_VER_MAJOR                  =    22
+    BOOT_VER_MINOR                  =    26
+    
     # Sent packet structure
     # ----------------------------------------------------------------------
 
@@ -141,8 +144,9 @@ class uploader32(baseUploader):
     # Configuration
     # ----------------------------------------------------------------------
 
-    INTERFACE_ID                    =    0x00
-    ACTIVE_CONFIG                   =    0x01
+    # RB 2015-03-20 : moved to uploader.py
+    #INTERFACE_ID                    =    0x00
+    #ACTIVE_CONFIG                   =    0x01
     TIMEOUT                         =    10000
 
     # Memory's area
@@ -154,7 +158,7 @@ class uploader32(baseUploader):
     KSEG1_BOOT_FLASH                =    0xBFC00000
     BOOT_FLASH_SIZE                 =    0x2FF0
     KSEG1_RAM                       =    0xA0000000
-    DEVICE_ID                       =    0xBF80F220
+    DEVICE_ID_ADDRESS               =    0xBF80F220
 
     # Table with supported USB devices
     # device_id:['CPU name'] 
@@ -170,26 +174,6 @@ class uploader32(baseUploader):
         0x00952053: ['32MX460F512L'],   # to be fixed
         0x00952053: ['32MX795F512H']    # to be fixed
     }
-
-# ----------------------------------------------------------------------
-    def initDevice(self):
-# ----------------------------------------------------------------------
-        """ Init pinguino device """
-        handle = self.device.open()
-        if handle:
-            try:
-                handle.detachKernelDriver(self.INTERFACE_ID)
-            
-            except:
-                #usb.USBError as msg:
-                #self.add_report(msg.message)
-                pass
-
-            handle.setConfiguration(self.ACTIVE_CONFIG)
-            handle.claimInterface(self.INTERFACE_ID)
-
-            return handle
-        return self.ERR_USB_INIT1
 
 # ----------------------------------------------------------------------
     def resetDevice(self):
@@ -227,6 +211,7 @@ class uploader32(baseUploader):
 # ----------------------------------------------------------------------
         """ Send a command and get a response from the bootloader """
         try:
+            # send a command
             sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
 
         except:
@@ -238,10 +223,13 @@ class uploader32(baseUploader):
         #self.add_report("%d bytes successfully sent." % sent_bytes)
 
         try:
+            # get the response
             #time.sleep(0.5)
             usbBuf = self.handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
-            self.add_report(hex(usbBuf).strip('[]'))
-            
+            """
+            for i in range(sent_bytes):
+                self.add_report("usbBuf[%d] = %s" % (i, hex(usbBuf[i])) )
+            """
         except:
             return self.ERR_USB_READ
 
@@ -294,7 +282,7 @@ class uploader32(baseUploader):
 # ----------------------------------------------------------------------
         """ Get 4-byte device ID """
 
-        usbBuf = self.readFlash(self.DEVICE_ID, 4)
+        usbBuf = self.readFlash(self.DEVICE_ID_ADDRESS, 4)
 
         if usbBuf == self.ERR_USB_WRITE:
             return self.ERR_USB_WRITE, self.ERR_USB_WRITE
@@ -302,10 +290,10 @@ class uploader32(baseUploader):
         if usbBuf == self.ERR_USB_READ:
             return self.ERR_USB_READ, self.ERR_USB_READ
 
-        devid = (usbBuf[60]      ) | \
-                (usbBuf[61] <<  8) | \
-                (usbBuf[62] << 16) | \
-                (usbBuf[63] << 24)
+        devid = (usbBuf[8]      ) | \
+                (usbBuf[9] <<  8) | \
+                (usbBuf[10] << 16) | \
+                (usbBuf[11] << 24)
 
         # mask device id to get revision number
         device_rev = ( ( devid >> 24 ) & 0xF0 ) >> 4
@@ -314,6 +302,24 @@ class uploader32(baseUploader):
         device_id  = devid & 0x0FFFFFFF
 
         return device_id, device_rev
+
+# ----------------------------------------------------------------------
+    def getVersion(self):
+# ----------------------------------------------------------------------
+        """ get bootloader version """
+        usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
+        usbBuf = self.getResponse(usbBuf)
+        
+        if usbBuf == self.ERR_USB_WRITE:
+            return self.ERR_USB_WRITE, self.ERR_USB_WRITE
+
+        if usbBuf == self.ERR_USB_READ:
+            return self.ERR_USB_READ, self.ERR_USB_READ
+
+        # major.minor
+        return str(usbBuf[self.BOOT_VER_MAJOR]) + "." + \
+               str(usbBuf[self.BOOT_VER_MINOR])
+
 
 # ----------------------------------------------------------------------
     def getDeviceFlash(self):
@@ -568,8 +574,9 @@ class uploader32(baseUploader):
                         #self.add_report("max_k0pfm_address = %d" % max_k0pfm_address)
 
                     # code size
-                    codesize = codesize + byte_count
-                    #self.add_report("codesize = %d" % codesize)
+                    if (address >= board.memstart):
+                        codesize = codesize + byte_count
+                        #self.add_report("codesize = %d" % codesize)
 
                     # pfm data append
                     for i in range(byte_count):
@@ -766,7 +773,7 @@ class uploader32(baseUploader):
 
         # recent bootloader with at least QUERRY_DEVICE command support
         else:
-            
+
             if  fam != self.DEVICE_FAMILY_PIC32:
 
                 self.add_report("Aborting : not a PIC32 family device.")
@@ -794,8 +801,8 @@ class uploader32(baseUploader):
             # Let's see if this bootloader have GET_DATA command support
             if fcpu != self.ERR_USB_READ and fcpu != self.ERR_USB_WRITE:
 
-                self.add_report(" - running at %08d Hz (%f Hz)" % (fcpu, fcpu/1000000.0))
-                self.add_report(" - peripherals are running at %08d Hz (%f Hz)" % (fpb, fpb/1000000.0))
+                self.add_report(" - running at %.3f MHz" % (fcpu/1000000.0))
+                self.add_report(" - peripherals are running at %.3f MHz" % (fpb/1000000.0))
 
             # find out flash memory size
             # addresses MUST BE virtual NOT physical
@@ -832,6 +839,12 @@ class uploader32(baseUploader):
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
         self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
 
+            
+        # find out bootloader version
+        version = self.getVersion())
+        # Let's see if this bootloader have QUERRY_DEVICE command support
+        if version != self.ERR_USB_READ and version != self.ERR_USB_WRITE:
+            self.add_report(" - with USB HID Bootloader v%s" % version)
 
         ################################################################
         # Uncomment to test only the QUERY_DEVICE and GET_DATA commands
@@ -856,7 +869,7 @@ class uploader32(baseUploader):
         self.add_report("Uploading user program ...")
         status = self.hexWrite(self.filename, self.board)
         if status != self.ERR_NONE:
-            self.add_report("Aborting: write error!")
+            self.add_report("Aborting: write error code %d" % status)
             self.closeDevice()
             return
 

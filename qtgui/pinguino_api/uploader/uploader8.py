@@ -96,8 +96,10 @@ class uploader8(baseUploader):
 
     # configuration
     # ------------------------------------------------------------------
-    ACTIVE_CONFIG                   =    0x01
-    INTERFACE_ID                    =    0x00
+
+    # RB 2015-03-20 : moved to uploader.py
+    #ACTIVE_CONFIG                   =    0x01
+    #INTERFACE_ID                    =    0x00
     TIMEOUT                         =    10000       # 1200
 
     # Table with Microchip 8-bit USB devices
@@ -160,19 +162,6 @@ class uploader8(baseUploader):
         0x1F40: ['18f86j55'],
         0x4220: ['18f87j50']
     }
-
-# ----------------------------------------------------------------------
-    def initDevice(self):
-# ----------------------------------------------------------------------
-#   TODO: to move in uploader.py ?
-# ----------------------------------------------------------------------
-        """ init pinguino device """
-        handle = self.device.open()
-        if handle:
-            handle.setConfiguration(self.ACTIVE_CONFIG)
-            handle.claimInterface(self.INTERFACE_ID)
-            return handle
-        return self.ERR_USB_INIT1
 
 # ----------------------------------------------------------------------
     def sendCMD(self, usbBuf):
