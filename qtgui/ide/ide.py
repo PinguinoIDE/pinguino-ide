@@ -170,6 +170,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         menu.addMenu(self.main.menuFile)
         menu.addMenu(self.main.menuEdit)
         menu.addMenu(self.main.menuView)
+        menu.addMenu(self.main.menuProject)
         menu.addMenu(self.main.menuSettings)
         menu.addMenu(self.main.menuSource)
         menu.addMenu(self.main.menuPinguino)

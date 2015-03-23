@@ -5,6 +5,7 @@ from PySide import QtGui
 
 from ..methods.decorators import Decorator
 
+
 ########################################################################
 class SearchReplace(object):
 

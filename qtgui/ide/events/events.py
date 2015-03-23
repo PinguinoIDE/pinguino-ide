@@ -45,6 +45,9 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionBlocks_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_blocks.setVisible)
         self.connect(self.main.actionPython_shell, QtCore.SIGNAL("toggled(bool)"), self.toggle_pythonshell)
 
+        # Menu Project
+        self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.add_existing_directory)
+
         #Menu Settings
         self.connect(self.main.actionAutocomplete, QtCore.SIGNAL("triggered()"), self.switch_autocomplete)
         self.connect(self.main.actionColor_theme, QtCore.SIGNAL("toggled(bool)"), self.switch_color_theme)

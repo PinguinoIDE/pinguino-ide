@@ -12,12 +12,13 @@ from .decorators import Decorator
 from .dialogs import Dialogs
 from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
-#from ..methods.library_manager import Librarymanager
+from ..tools.project_manager import ProjectManager
+# from ..methods.library_manager import Librarymanager
 from ..widgets.output_widget import START
 
 
 ########################################################################
-class Methods(SearchReplace):
+class Methods(SearchReplace, ProjectManager):
 
     #----------------------------------------------------------------------
     #@Decorator.debug_time()

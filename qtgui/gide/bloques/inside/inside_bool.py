@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/python/developing/pinguino/pinguino-ide/qtgui/gide/bloques/inside/inside_bool.ui'
 #
-# Created: Wed Mar  4 01:39:53 2015
+# Created: Sun Mar 22 01:07:29 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
