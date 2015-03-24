@@ -560,7 +560,8 @@ class uploader32(baseUploader):
             # data record
             # ----------------------------------------------------------
 
-            elif record_type == self.Data_Record:
+            elif record_type == self.Data_Record or \
+                 record_type == self.Start_Linear_Address_Record:
 
                 address = address_Hi + address_Lo
                 #self.add_report("address = 0x%08X" % address)
@@ -612,16 +613,6 @@ class uploader32(baseUploader):
                         k1_boot_flash_memory[address - self.KSEG1_BOOT_FLASH + i] = \
                             int(line[9 + (2 * i) : 11 + (2 * i)], 16)
                 """
-
-            # bootloader jump address
-            # ----------------------------------------------------------
-
-            elif record_type == self.Start_Linear_Address_Record:
-
-                #: 04 0000 >05< BFC00000 78
-                #: 04 0000 >05< 9D004000 1A
-
-                break
 
             # end of file record
             # ----------------------------------------------------------
@@ -801,8 +792,8 @@ class uploader32(baseUploader):
             # Let's see if this bootloader have GET_DATA command support
             if fcpu != self.ERR_USB_READ and fcpu != self.ERR_USB_WRITE:
 
-                self.add_report(" - running at %.3f MHz" % (fcpu/1000000.0))
-                self.add_report(" - peripherals are running at %.3f MHz" % (fpb/1000000.0))
+                self.add_report("   System  clock %.3f MHz" % ( fcpu/1000000.0 ))
+                self.add_report("   Periph. clock %.3f MHz" % (  fpb/1000000.0 ))
 
             # find out flash memory size
             # addresses MUST BE virtual NOT physical
@@ -841,7 +832,7 @@ class uploader32(baseUploader):
 
             
         # find out bootloader version
-        version = self.getVersion())
+        version = self.getVersion()
         # Let's see if this bootloader have QUERRY_DEVICE command support
         if version != self.ERR_USB_READ and version != self.ERR_USB_WRITE:
             self.add_report(" - with USB HID Bootloader v%s" % version)

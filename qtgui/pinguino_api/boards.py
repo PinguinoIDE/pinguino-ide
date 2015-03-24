@@ -260,7 +260,7 @@ class Pinguino32MX270(object):
     board = 'PINGUINO32MX270'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D004000           # EBASE (exception_mem) address
+    memstart = 0x9D000000           # EBASE (exception_mem) address
     memend = 0x9D040000
     shortarg = '-p270'
     longarg = '--pinguino32mx270'
