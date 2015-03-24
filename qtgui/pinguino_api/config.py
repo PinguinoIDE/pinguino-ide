@@ -74,13 +74,15 @@ class Config(RawConfigParser, object):
         self.readfp(open(self.ide_config_file, "r"))
 
     #----------------------------------------------------------------------
-    def get_path(self, name):
+    def get_path(self, name, prefix=None):
         if self.has_option("Paths", name):
-            return os.path.normpath(self.get("Paths", name))
+            if prefix:
+                return os.path.normpath(os.path.join(prefix, self.get("Paths", name)[1:]))
+            else:
+                return os.path.normpath(self.get("Paths", name))
         else:
             logging.warning("Missing '%s' for 'Paths' in config file: '%s'"%(name, self.ide_config_file))
             return ""
-
 
     #----------------------------------------------------------------------
     def get_recents(self):

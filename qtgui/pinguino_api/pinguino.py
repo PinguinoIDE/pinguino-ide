@@ -35,13 +35,12 @@ class Pinguino(PinguinoTools):
 
 
     #----------------------------------------------------------------------
-    def compile_string(self, code):
+    def compile_string(self, code, filename="temp_filename.pde"):
 
         temp_dir = os.path.join(os.getenv("PINGUINO_USER_PATH"), "temp")
-        if os.path.exists(temp_dir):
-            shutil.rmtree(temp_dir)
-        os.mkdir(temp_dir)
-        temp_file = os.path.join(temp_dir, "temp_filename.pde")
+        if not os.path.exists(temp_dir):
+            os.mkdir(temp_dir)
+        temp_file = os.path.join(temp_dir, filename)
         file_ = codecs.open(temp_file, "w", "utf-8")
         file_.write(code)
         file_.close()

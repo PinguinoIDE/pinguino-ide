@@ -298,7 +298,8 @@ class PinguinoTools(object):
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
 
 
-        libinstructions.sort(lambda x,y: cmp(len(x[0]), len(y[0])))
+        # libinstructions.sort(lambda x,y: cmp(len(x[0]), len(y[0])))
+        libinstructions = sorted(libinstructions, key=lambda x: len(x[0]))  #Python3 style
         libinstructions.reverse()
 
         return libinstructions[:]
