@@ -68,19 +68,28 @@ class baseUploader(object):
     def add_report(self, message):
         """ display message in the log window """
         self.report.append(message)
-
-        #import sys
-        #reload(sys)
-        #sys.stdout.write("DEBUG : " + message + "\r\n")
+        # DEBUGGING MESSAGE
         logging.info(message)
 
 # ------------------------------------------------------------------------------
     def getDevice(self):
-        """ Get a list of USB devices and search for a Pinguino board """
+        """ Scans connected USB devices until it finds a Pinguino board """
         busses = usb.busses()
         for bus in busses:
             for device in bus.devices:
-                if device.idVendor == self.board.vendor and device.idProduct == self.board.product:
+                logging.info("Found device %s:%s" % (hex(device.idVendor),hex(device.idProduct)))
+                if (device.idVendor, device.idProduct) == (self.board.vendor, self.board.product):
+                    """
+                    self.configuration = device.configurations[0]
+                    logging.info("Configuration = %s" % self.configuration)
+                    self.interface = self.configuration.interfaces[0][0]
+                    logging.info("Interface = %s" % self.interface)
+                    self.endpoints = []
+                    self.pipes = []
+                    for ep in self.interface.endpoints:
+                        self.endpoints.append(ep)
+                        self.pipes.append(ep.address)
+                    """
                     return device
         return self.ERR_DEVICE_NOT_FOUND
 
@@ -89,18 +98,35 @@ class baseUploader(object):
         """ Init a Pinguino device """
         handle = self.device.open()
         if handle:
+            
             try:
                 handle.detachKernelDriver(0)
-            except:
+            except usb.USBError:
                 pass
+
+            #handle.setConfiguration(self.ACTIVE_CONFIG)
+            #handle.setConfiguration(self.configuration)
             try:
                 handle.setConfiguration(self.ACTIVE_CONFIG)
-            except:
+            except usb.USBError:
                 pass
+                
+            #handle.claimInterface(self.INTERFACE_ID)
+            #handle.claimInterface(self.interface)
             try:
                 handle.claimInterface(self.INTERFACE_ID)
-            except:
+            except usb.USBError:
                 pass
+
+            """
+            #handle.setAltInterface(self.INTERFACE_ID)
+            #handle.setAltInterface(self.interface)
+            try:
+                handle.setAltInterface(self.INTERFACE_ID)
+            except usb.USBError:
+                pass
+            """
+
             return handle
         return self.ERR_USB_INIT1
 

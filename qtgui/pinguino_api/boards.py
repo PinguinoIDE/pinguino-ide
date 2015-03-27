@@ -252,6 +252,21 @@ class Pinguino32MX250(object):
     shortarg = '-p250'
     longarg = '--pinguino32mx250'
 
+""" TO USE ONLY WITH PINGUINO HID USB BOOTLOADER v1.1 or sup.
+class Pinguino32MX250(object):
+    name = 'Pinguino 32MX250'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX250F128B'
+    board = 'PINGUINO32MX250'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    memstart = 0x9D000000           # EBASE (exception_mem) address
+    memend = 0x9D020000
+    shortarg = '-p250'
+    longarg = '--pinguino32mx250'
+"""
+
 class Pinguino32MX270(object):
     name = 'Pinguino 32MX270'
     arch = 32
@@ -260,7 +275,7 @@ class Pinguino32MX270(object):
     board = 'PINGUINO32MX270'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D000000           # EBASE (exception_mem) address
+    memstart = 0x9D005000           # EBASE (exception_mem) address
     memend = 0x9D040000
     shortarg = '-p270'
     longarg = '--pinguino32mx270'
