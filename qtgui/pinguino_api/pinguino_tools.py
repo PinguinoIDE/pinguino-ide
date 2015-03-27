@@ -849,8 +849,11 @@ class PinguinoTools(object):
         codesize = 0
         address_Hi = 0
 
-        memfree = board.memend - board.memstart
-
+        if board.arch == 8:
+            memfree = board.memend - board.memstart
+        else:
+            memfree = board.memend - board.progstart
+            
         #print "%X" % board.memstart
         #print "%X" % board.memend
 
@@ -874,10 +877,13 @@ class PinguinoTools(object):
                 address = address_Hi + address_Lo
                 #self.displaymsg(_("address = %X" % address),0)
 
-                #if address >= board.memstart:
-                if (address >= board.memstart) and (address < board.memend):
-                    codesize = codesize + byte_count
-
+                if board.arch == 8:
+                    if (address >= board.memstart) and (address < board.memend):
+                        codesize = codesize + byte_count
+                else:
+                    if (address >= board.progstart) and (address < board.memend):
+                        codesize = codesize + byte_count
+                    
         fichier.close()
         return "Code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
 

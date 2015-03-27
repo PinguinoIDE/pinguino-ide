@@ -158,12 +158,16 @@ class uploader32(baseUploader):
     # Memory's area
     # ----------------------------------------------------------------------
 
-    KSEG0_PROGRAM_FLASH             =    0x9D000000
+    """
     KSEG1_PROGRAM_FLASH             =    0xBD000000
     KSEG0_BOOT_FLASH                =    0x9FC00000
     KSEG1_BOOT_FLASH                =    0xBFC00000
-    BOOT_FLASH_SIZE                 =    0x2FF0
     KSEG1_RAM                       =    0xA0000000
+    IVT_MEMSTART                    =    0x9D000000
+    IVT_SIZE                        =    0x1000
+    """
+    
+    PROGSTART                       =    0x9D000000
     DEVICE_ID_ADDRESS               =    0xBF80F220
 
     # Table with supported USB devices
@@ -481,7 +485,7 @@ class uploader32(baseUploader):
 
         if (status == self.ERR_NONE) and (length < self.DATABLOCKSIZE):
             # Short data packets need flushing
-            self.add_report("Short data packet at 0x%08X flushed" % address)
+            logging.info("Short data packet at 0x%08X flushed" % address)
             #usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
             usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
             status = self.sendCMD(usbBuf)
@@ -503,34 +507,26 @@ class uploader32(baseUploader):
                      03 + 00 + 30 + 00 + 02 + 33 + 7A = E2, 2's complement is 1E
         """
 
-        k0_prog_flash_memory = []
-        #k0_boot_flash_memory = []
-        #k1_boot_flash_memory = []
-        old_k0pfm_address = 0
-        #old_k0bfm_address = 0
-        #old_k1bfm_address = 0
-        max_k0pfm_address = 0
-        #max_k0bfm_address = 0
-        #max_k1bfm_address = 0
+        #ivt_memory = []
+        program_memory = []
+        old_program_address = 0
+        max_program_address = 0
+
         address_Hi  = 0
         codesize    = 0
-
-        #self.add_report("board.memstart = 0x%08X\r\n" % board.memstart)
-        #self.add_report("board.memend = 0x%08X\r\n" % board.memend)
 
         # image of the Program Flash Memory
         # --------------------------------------------------------------
 
         for i in range(board.memend - board.memstart):
-            k0_prog_flash_memory.append(0xFF)
-
-        # image of the Boot Flash Memory
-        # --------------------------------------------------------------
+            program_memory.append(0xFF)
 
         """
-        for i in range(self.BOOT_FLASH_SIZE):
-            k0_boot_flash_memory.append(0xFF)
-            k1_boot_flash_memory.append(0xFF)
+        # image of the IVT
+        # --------------------------------------------------------------
+
+        for i in range(self.IVT_SIZE):
+            ivt_memory.append(0xFF)
         """
         
         # load hex file
@@ -574,6 +570,8 @@ class uploader32(baseUploader):
                 address_Hi = int(line[9:13], 16) << 16
 
             # data record
+            # memstart = ebase (where IVT starts)
+            # PROGSTART = where program user is
             # ----------------------------------------------------------
 
             elif record_type == self.Data_Record or \
@@ -584,52 +582,31 @@ class uploader32(baseUploader):
 
                 if (address >= board.memstart) and (address < board.memend):
 
-                    # max pfm address
-                    if (address > old_k0pfm_address):
-                        max_k0pfm_address = address + byte_count
-                        old_k0pfm_address = address
-                        #self.add_report("max_k0pfm_address = %d" % max_k0pfm_address)
+                    # max program address
+                    if (address > old_program_address):
+                        max_program_address = address + byte_count
+                        old_program_address = address
+                        #logging.info("max_program_address = %d" % max_program_address)
 
                     # code size
-                    if (address >= board.memstart):
+                    if (address >= self.PROGSTART):
                         codesize = codesize + byte_count
-                        #self.add_report("codesize = %d" % codesize)
+                        #logging.info("codesize = %d" % codesize)
 
-                    # pfm data append
+                    # program data append
                     for i in range(byte_count):
-                        k0_prog_flash_memory[address - board.memstart + i] = \
+                        program_memory[address - board.memstart + i] = \
                             int(line[9 + (2 * i) : 11 + (2 * i)], 16)
 
                 """
-                if (address >= self.KSEG0_BOOT_FLASH) and \
-                   (address < (self.KSEG0_BOOT_FLASH + self.BOOT_FLASH_SIZE) ):
+                if (address >= self.IVT_MEMSTART) and (address < (self.IVT_MEMSTART + self.IVT_SIZE) ):
 
-                    # max k0 bfm address
-                    if (address > old_k0bfm_address):
-                        max_k0bfm_address = address + byte_count
-                        old_k0bfm_address = address
-                        #self.add_report("max_k0bfm_address = %d" % max_k0bfm_address)
-
-                    # k0 bfm data append
+                    # Ivt data append
                     for i in range(byte_count):
-                        k0_boot_flash_memory[address - self.KSEG0_BOOT_FLASH + i] = \
-                            int(line[9 + (2 * i) : 11 + (2 * i)], 16)
-
-                if (address >= self.KSEG1_BOOT_FLASH) and \
-                   (address < (self.KSEG1_BOOT_FLASH + self.BOOT_FLASH_SIZE) ):
-
-                    # max k1 bfm address
-                    if (address > old_k1bfm_address):
-                        max_k1bfm_address = address + byte_count
-                        old_k1bfm_address = address
-                        #self.add_report("max_k1bfm_address = %d" % max_k1bfm_address)
-
-                    # k1 bfm data append
-                    for i in range(byte_count):
-                        k1_boot_flash_memory[address - self.KSEG1_BOOT_FLASH + i] = \
+                        ivt_memory[address - self.IVT_MEMSTART + i] = \
                             int(line[9 + (2 * i) : 11 + (2 * i)], 16)
                 """
-
+                
             # end of file record
             # ----------------------------------------------------------
 
@@ -646,39 +623,36 @@ class uploader32(baseUploader):
                 self.add_report("Line %s" % line)
                 #return self.ERR_HEX_RECORD
 
-        # max_k0pfm_address must be divisible by self.DATABLOCKSIZE
+        # max_program_address must be divisible by self.DATABLOCKSIZE
         # --------------------------------------------------------------
 
-        #max_k0pfm_address = max_k0pfm_address + self.MAXPACKETSIZE - (max_k0pfm_address % self.MAXPACKETSIZE)
-
-        #max_k0pfm_address = max_k0pfm_address + 64 - (max_k0pfm_address % 64)
-        #max_k0pfm_address = max_k0pfm_address + self.DATABLOCKSIZE - (max_k0pfm_address % self.DATABLOCKSIZE)
+        # 13/10/2014 - fixed by André
+        max_program_address = max_program_address + self.DATABLOCKSIZE - (codesize % self.DATABLOCKSIZE)
         
-        #Correction André du 13/10/2014
-        max_k0pfm_address = max_k0pfm_address + self.DATABLOCKSIZE - (codesize % self.DATABLOCKSIZE)
-        
-        #Correction Régis du 13/10/2014
-        #max_k0pfm_address = self.DATABLOCKSIZE * ( 1 + int(max_k0pfm_address / self.DATABLOCKSIZE) )
-        
-        #max_k0bfm_address = max_k0bfm_address + 64 - (max_k0bfm_address % 64)
-        #max_k1bfm_address = max_k1bfm_address + 64 - (max_k1bfm_address % 64)
-        #self.add_report("max_k0pfm_address = 0x%08X" % max_k0pfm_address)
-        #self.add_report("max_k0bfm_address = 0x%08X" % max_k0bfm_address)
-        #self.add_report("max_k1bfm_address = 0x%08X" % max_k1bfm_address)
-
-        # write blocks of DATABLOCKSIZE bytes in k0 pfm
+        """
+        # write blocks of DATABLOCKSIZE bytes in IVT memory
         # --------------------------------------------------------------
 
-        for addr in range(board.memstart, max_k0pfm_address, self.DATABLOCKSIZE):
-            index = addr - board.memstart
-            #self.add_report("Writing block at 0x%08X" % addr)
-            #self.add_report("index = %d" % index)
-            #self.add_report("Block=")
-            #for i in range(self.DATABLOCKSIZE):
-            #    self.add_report("[%x]" % k0_prog_flash_memory[index+i])
-            status = self.writeFlash(addr, k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
+        logging.info("Writing Interrupt Vector Table ...")
+        for addr in range(self.IVT_MEMSTART, self.IVT_MEMSTART + self.IVT_SIZE, self.DATABLOCKSIZE):
+            index = addr - self.IVT_MEMSTART
+            status = self.writeFlash(addr, ivt_memory[index:index+self.DATABLOCKSIZE])
             if (status != self.ERR_NONE):
                 return status
+        """
+
+        # write blocks of DATABLOCKSIZE bytes in program memory
+        # --------------------------------------------------------------
+
+        logging.info("Writing program data ...")
+        for addr in range(board.memstart, max_program_address, self.DATABLOCKSIZE):
+            index = addr - board.memstart
+            status = self.writeFlash(addr, program_memory[index:index+self.DATABLOCKSIZE])
+            if (status != self.ERR_NONE):
+                return status
+
+        # end
+        # --------------------------------------------------------------
 
         logging.info("Writing process complete...")
         usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
@@ -686,37 +660,6 @@ class uploader32(baseUploader):
         status = self.sendCMD(usbBuf)
 
         self.add_report("%d bytes written." % codesize)
-
-        """
-        # write blocks of DATABLOCKSIZE bytes in k0 bfm 
-        # --------------------------------------------------------------
-
-        for addr in range(self.KSEG0_BOOT_FLASH, max_k0bfm_address, self.DATABLOCKSIZE):
-            index = addr - self.KSEG0_BOOT_FLASH
-            #self.add_report("index = %d" % index)
-            #self.add_report("data = %s" % k0_boot_flash_memory[index:index+self.DATABLOCKSIZE])
-            self.writeFlash(addr, k0_boot_flash_memory[index:index+self.DATABLOCKSIZE])
-
-        usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
-        #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
-        status = status + self.sendCMD(usbBuf)
-
-        # write blocks of DATABLOCKSIZE bytes in k1 bfm 
-        # --------------------------------------------------------------
-
-        for addr in range(self.KSEG1_BOOT_FLASH, max_k1bfm_address, self.DATABLOCKSIZE):
-            index = addr - self.KSEG1_BOOT_FLASH
-            #self.add_report("index = %d" % index)
-            #self.add_report("data = %s" % k1_boot_flash_memory[index:index+self.DATABLOCKSIZE])
-            self.writeFlash(addr, k1_boot_flash_memory[index:index+self.DATABLOCKSIZE])
-
-        usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
-        #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
-        status = status + self.sendCMD(usbBuf)
-        """
-        
-        # end
-        # --------------------------------------------------------------
 
         return status
         #return self.ERR_NONE
@@ -825,42 +768,39 @@ class uploader32(baseUploader):
         # --------------------------------------------------------------
 
         logging.info("Getting flash memory size ...")
-        memstart = self.getDeviceFlashStart()
+        self.PROGSTART = self.getDeviceFlashStart()
         memfree  = self.getDeviceFlashFree()
-        if memstart and memfree:
-            memend   = memstart + memfree
+        if self.PROGSTART and memfree:
+            memend   = self.PROGSTART + memfree
 
             # Convert KSEG1 to KSEG0
             # and Physical to Virtual address
-            if memstart > 0xBD000000:
-                memstart = memstart - 0x20000000
-            memstart = memstart | 0x80000000
+            if self.PROGSTART > 0xBD000000:
+                self.PROGSTART = self.PROGSTART - 0x20000000
+            self.PROGSTART = self.PROGSTART | 0x80000000
             if memend  > 0xBD000000:
                 memend   = memend   - 0x20000000
             memend   = memend   | 0x80000000
-            logging.info("memstart=0x%08X" % memstart)
-            logging.info("memend=0x%08X" % memend)
+            logging.info("User Program starts at 0x%08X" % self.PROGSTART)
+            logging.info("Flash Memory ends at 0x%08X" % memend)
 
-            #self.add_report("memstart=0x%08X" % memstart)
-            #self.add_report("memend=0x%08X" % memend)
-            #self.add_report("board.memend=0x%08X" % self.board.memend)
-            #self.add_report("memfree=0x%08X" % memfree)
-
+            """
             if self.board.memstart != memstart:
                 self.add_report("Conflict : free flash memory should start at 0x%08X not 0x%08X" % (memstart, self.board.memstart))
                 self.add_report("This issue has been automatically fixed.")
                 self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
                 self.board.memstart = memstart
-
+            """
+            
             if self.board.memend != memend:
                 self.add_report("Conflict : free flash memory should stop at 0x%08X not 0x%08X" % (memend, self.board.memend))
                 self.add_report("This issue has been automatically fixed.")
                 self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
                 self.board.memend = memend
 
-        memfree = self.board.memend - self.board.memstart
+        memfree = self.board.memend - self.PROGSTART
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
-        self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
+        self.add_report("   from 0x%08X to 0x%08X" % (self.PROGSTART, self.board.memend))
             
         # find out bootloader version
         # --------------------------------------------------------------
