@@ -57,12 +57,8 @@ class baseUploader(object):
     ACTIVE_CONFIG                   = 0x01
 
 # ------------------------------------------------------------------------------
-    def __init__(self, hex_file, board):
-        self.hex_file = hex_file
-        self.filename = hex_file
-        self.board = board
+    def __init__(self, hexfile, board):
         self.report = []
-
 
 # ------------------------------------------------------------------------------
     def add_report(self, message):
@@ -72,13 +68,14 @@ class baseUploader(object):
         logging.info(message)
 
 # ------------------------------------------------------------------------------
-    def getDevice(self):
+    def getDevice(self, board):
         """ Scans connected USB devices until it finds a Pinguino board """
+        logging.info("Looking for a Pinguino device ...")
         busses = usb.busses()
         for bus in busses:
             for device in bus.devices:
-                logging.info("Found device %s:%s" % (hex(device.idVendor),hex(device.idProduct)))
-                if (device.idVendor, device.idProduct) == (self.board.vendor, self.board.product):
+                logging.info("Found device 0x%04X:0x%04X" % (device.idVendor, device.idProduct))
+                if (device.idVendor, device.idProduct) == (board.vendor, board.product):
                     """
                     self.configuration = device.configurations[0]
                     logging.info("Configuration = %s" % self.configuration)
@@ -94,58 +91,73 @@ class baseUploader(object):
         return self.ERR_DEVICE_NOT_FOUND
 
 # ----------------------------------------------------------------------
-    def initDevice(self):
+    def initDevice(self, device):
         """ Init a Pinguino device """
-        handle = self.device.open()
+
+        handle = device.open()
+
         if handle:
             
             try:
-                handle.detachKernelDriver(0)
+                # make sure the hid kernel driver is not active
+                # functionality not available on Darwin or Windows
+                handle.detachKernelDriver(self.INTERFACE_ID)
             except usb.USBError:
                 pass
 
-            #handle.setConfiguration(self.ACTIVE_CONFIG)
-            #handle.setConfiguration(self.configuration)
+            logging.info("Kernel driver detached")
+            
             try:
+                #handle.setConfiguration(self.configuration)
                 handle.setConfiguration(self.ACTIVE_CONFIG)
             except usb.USBError:
                 pass
                 
-            #handle.claimInterface(self.INTERFACE_ID)
-            #handle.claimInterface(self.interface)
+            logging.info("Configuration set")
+
             try:
+                #handle.claimInterface(self.interface)
                 handle.claimInterface(self.INTERFACE_ID)
             except usb.USBError:
                 pass
 
-            """
-            #handle.setAltInterface(self.INTERFACE_ID)
-            #handle.setAltInterface(self.interface)
+            logging.info("Interface claimed")
+
             try:
+                #handle.setAltInterface(self.interface)
                 handle.setAltInterface(self.INTERFACE_ID)
             except usb.USBError:
                 pass
-            """
 
+            logging.info("Alt. Interface claimed")
+
+            logging.info("Everything OK so far")
             return handle
+
         return self.ERR_USB_INIT1
 
 # ------------------------------------------------------------------------------
-    def closeDevice(self):
+    def closeDevice(self, handle):
         """ Close currently-open USB device """
         try:
-            self.handle.releaseInterface()
-        except:
+            handle.releaseInterface()
+        except Exception as e:
+            logging.info(e)
             pass
+        logging.info("Device closed")
 
 ########################################################################
 class Uploader(object):
     """Universal uploader class"""
 
     #----------------------------------------------------------------------
-    def __init__(self, hex_file, board):
+    def __init__(self, hexfile, board):
 
         #debugger.Debugger(sys)
+
+        self.hexfile = hexfile
+        #self.filename = hexfile
+        self.board = board
 
         if board.bldr == "noboot":
 
@@ -165,13 +177,13 @@ class Uploader(object):
         elif board.bldr == "microchip":
             from uploader32 import uploader32 as Uploader
 
-        self.uploader = Uploader(hex_file, board)
+        self.uploader = Uploader(hexfile, board)
 
 
     #----------------------------------------------------------------------
     @Debugger.debug_method
-    def write_hex(self):
+    def upload(self):
 
-        self.uploader.writeHex()
+        self.uploader.uploadDevice(self.hexfile, self.board)
         return self.uploader.report
 

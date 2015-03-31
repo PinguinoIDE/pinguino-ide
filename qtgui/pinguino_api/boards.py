@@ -60,7 +60,7 @@ class Pinguino2455(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x6000
+    memend   = 0x6000
     shortarg = '-p2455'
     longarg = '--pinguino2455'
 
@@ -73,7 +73,7 @@ class Pinguino2550(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x2000       # bootloader offset
-    memend = 0x8000
+    memend   = 0x8000
     shortarg = '-p2550'
     longarg = '--pinguino2550'
 
@@ -86,7 +86,7 @@ class FreeJALduino(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x2000
-    memend = 0x8000
+    memend   = 0x8000
     config = 0x300000
     shortarg = '-J'
     longarg = '--freejalduino'
@@ -100,7 +100,7 @@ class Pinguino25k50(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x8000
+    memend   = 0x8000
     shortarg = '-p25k50'
     longarg = '--pinguino25k50'
 
@@ -113,7 +113,7 @@ class Pinguino26J50(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x10000
+    memend   = 0x10000
     shortarg = '-p26j50'
     longarg = '--pinguino26j50'
 
@@ -126,7 +126,7 @@ class Pinguino27J53(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x20000
+    memend   = 0x20000
     shortarg = '-p27j53'
     longarg = '--pinguino27j53'
 
@@ -139,7 +139,7 @@ class Pinguino4455(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x6000
+    memend   = 0x6000
     shortarg = '-p4455'
     longarg = '--pinguino4455'
 
@@ -152,7 +152,7 @@ class Pinguino4550(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x2000       # bootloader offset
-    memend = 0x8000
+    memend   = 0x8000
     shortarg = '-p4550'
     longarg = '--pinguino4550'
 
@@ -165,7 +165,7 @@ class PICuno_Equo(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x2000
-    memend = 0x8000
+    memend   = 0x8000
     config = 0x300000
     shortarg = '-eq'
     longarg = '--picunoequo'
@@ -179,7 +179,7 @@ class Pinguino45k50(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x8000
+    memend   = 0x8000
     shortarg = '-p45k50'
     longarg = '--pinguino45k50'
 
@@ -192,7 +192,7 @@ class CHRP3(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x8000
+    memend   = 0x8000
     shortarg = '-c'
     longarg = '--chrp3'
 
@@ -205,22 +205,22 @@ class Pinguino46J50(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x10000
+    memend   = 0x10000
     shortarg = '-p46j50'
     longarg = '--pinguino46j50'
 
-class Pinguino47J53A(object):
-    name = 'Pinguino 47J53-A'
+class Pinguino47J53(object):
+    name = 'Pinguino 47J53'
     arch = 8
     bldr = 'boot4'
     proc = '18f47j53'
-    board = 'PINGUINO47J53A'
+    board = 'PINGUINO47J53'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend = 0x20000
-    shortarg = '-p47j53A'
-    longarg = '--pinguino47j53a'
+    memend   = 0x20000
+    shortarg = '-p47j53'
+    longarg = '--pinguino47j53'
 
 """---------------------------------------------------------------------
     32-bit Boards
@@ -234,9 +234,9 @@ class Pinguino32MX220(object):
     board = 'PINGUINO32MX220'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D003000           # _ebase_address (exception_mem)
-    progstart = 0x9D005000          # kseg0_program_mem
-    memend = 0x9D008000
+    ivtstart = 0x9D003000           # _ebase_address (exception_mem)
+    memstart = 0x9D005000           # kseg0_program_mem
+    memend   = 0x9D008000
     shortarg = '-p220'
     longarg = '--pinguino32mx220'
 
@@ -248,9 +248,10 @@ class Pinguino32MX250(object):
     board = 'PINGUINO32MX250'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D003000           # _ebase_address (exception_mem)
-    progstart = 0x9D005000          # kseg0_program_mem
-    memend = 0x9D020000
+    ivtstart = 0x9D003000           # _ebase_address (exception_mem)
+    #memstart = 0x9D004A00           # kseg0_program_mem
+    memstart = 0x9D004010           # kseg0_program_mem
+    memend   = 0x9D020000
     shortarg = '-p250'
     longarg = '--pinguino32mx250'
 
@@ -262,11 +263,26 @@ class Pinguino32MX270(object):
     board = 'PINGUINO32MX270'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D003000           # _ebase_address (exception_mem)
-    progstart = 0x9D005000          # kseg0_program_mem
-    memend = 0x9D040000
+    ivtstart = 0x9D003000           # _ebase_address (exception_mem)
+    memstart = 0x9D004010           # kseg0_program_mem
+    memend   = 0x9D040000
     shortarg = '-p270'
     longarg = '--pinguino32mx270'
+
+class PIC32_Pinguino_220(object):
+    name = 'PIC32 Pinguino MX220'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX220F032D'
+    board = 'PIC32_PINGUINO_220'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    ivtstart = 0x9D003000           # _ebase_address (exception_mem)
+    memstart = 0x9D004010           # kseg0_program_mem
+    #memstart = 0x9D003000           # _ebase_address (exception_mem)
+    memend   = 0x9D008000
+    shortarg = '-m'
+    longarg = '--olimex220'
 
 class PIC32_Pinguino(object):
     name = 'PIC32 Pinguino'
@@ -276,9 +292,9 @@ class PIC32_Pinguino(object):
     board = 'PIC32_PINGUINO'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D005000           # _ebase_address (exception_mem)
-    progstart = 0x9D006A00          # kseg0_program_mem
-    memend = 0x9D040000
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006010           # kseg0_program_mem
+    memend   = 0x9D040000
     shortarg = '-o'
     longarg = '--olimex440'
 
@@ -290,9 +306,9 @@ class PIC32_Pinguino_OTG(object):
     board = 'PIC32_PINGUINO_OTG'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D005000           # _ebase_address (exception_mem)
-    progstart = 0x9D006A00          # kseg0_program_mem
-    memend = 0x9D040000
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006010           # kseg0_program_mem
+    memend   = 0x9D040000
     shortarg = '-O'
     longarg = '--olimex440OTG'
 
@@ -304,9 +320,9 @@ class PIC32_Pinguino_Micro(object):
     board = 'PIC32_PINGUINO_MICRO'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D005000           # _ebase_address (exception_mem)
-    progstart = 0x9D006A00          # kseg0_program_mem
-    memend = 0x9D040000
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006010           # kseg0_program_mem
+    memend   = 0x9D040000
     shortarg = '-M'
     longarg = '--olimex440Micro'
 
@@ -318,25 +334,11 @@ class PIC32_Pinguino_T795(object):
     board = 'PIC32_PINGUINO_T795'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D005000           # _ebase_address (exception_mem)
-    progstart = 0x9D006A00          # kseg0_program_mem
-    memend = 0x9D080000
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006A00           # kseg0_program_mem
+    memend   = 0x9D080000
     shortarg = '-T'
     longarg = '--olimexT795'
-
-class PIC32_Pinguino_220(object):
-    name = 'PIC32 Pinguino MX220'
-    arch = 32
-    bldr = 'microchip'
-    proc = '32MX220F032D'
-    board = 'PIC32_PINGUINO_220'
-    vendor = MICROCHIP_ID
-    product = P32_ID
-    memstart = 0x9D003000           # _ebase_address (exception_mem)
-    progstart = 0x9D005000          # kseg0_program_mem
-    memend = 0x9D008000
-    shortarg = '-m'
-    longarg = '--olimex220'
 
 class Emperor_460(object):
     name = 'Emperor 460'
@@ -346,9 +348,9 @@ class Emperor_460(object):
     board = 'EMPEROR460'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D005000           # _ebase_address (exception_mem)
-    progstart = 0x9D006A00          # kseg0_program_mem
-    memend = 0x9D080000
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006A00           # kseg0_program_mem
+    memend   = 0x9D080000
     shortarg = '-e'
     longarg = '--emperor460'
 
@@ -360,9 +362,9 @@ class Emperor_795(object):
     board = 'EMPEROR795'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D005000           # _ebase_address (exception_mem)
-    progstart = 0x9D006A00          # kseg0_program_mem
-    memend = 0x9D080000
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006A00           # kseg0_program_mem
+    memend   = 0x9D080000
     shortarg = '-E'
     longarg = '--emperor795'
 
@@ -374,9 +376,9 @@ class UBW32_460(object):
     board = 'UBW32_460'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D005000           # _ebase_address (exception_mem)
-    progstart = 0x9D006A00          # kseg0_program_mem
-    memend = 0x9D080000
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006A00           # kseg0_program_mem
+    memend   = 0x9D080000
     shortarg = '-u'
     longarg = '--ubw460'
 
@@ -388,9 +390,9 @@ class UBW32_795(object):
     board = 'UBW32_795'
     vendor = MICROCHIP_ID
     product = P32_ID
-    memstart = 0x9D005000           # _ebase_address (exception_mem)
-    progstart = 0x9D006A00          # kseg0_program_mem
-    memend = 0x9D080000
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006A00           # kseg0_program_mem
+    memend   = 0x9D080000
     shortarg = '-U'
     longarg = '--ubw795'
 
@@ -406,7 +408,7 @@ boardlist = [
     FreeJALduino,  PICuno_Equo, CHRP3,
     Pinguino25k50, Pinguino45k50,
     Pinguino26J50, Pinguino46J50,
-    Pinguino27J53, Pinguino47J53A,
+    Pinguino27J53, Pinguino47J53,
     Pinguino32MX220, Pinguino32MX250, Pinguino32MX270,
     PIC32_Pinguino, PIC32_Pinguino_OTG,
     PIC32_Pinguino_Micro, PIC32_Pinguino_T795,

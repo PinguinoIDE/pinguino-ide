@@ -195,7 +195,7 @@ class PinguinoTools(object):
         board = self.get_board()
 
         uploader = Uploader(hex_file, board)
-        result = uploader.write_hex()
+        result = uploader.upload()
 
         """
         if board.arch == 8:
@@ -849,10 +849,7 @@ class PinguinoTools(object):
         codesize = 0
         address_Hi = 0
 
-        if board.arch == 8:
-            memfree = board.memend - board.memstart
-        else:
-            memfree = board.memend - board.progstart
+        memfree = board.memend - board.memstart
             
         #print "%X" % board.memstart
         #print "%X" % board.memend
@@ -877,12 +874,8 @@ class PinguinoTools(object):
                 address = address_Hi + address_Lo
                 #self.displaymsg(_("address = %X" % address),0)
 
-                if board.arch == 8:
-                    if (address >= board.memstart) and (address < board.memend):
-                        codesize = codesize + byte_count
-                else:
-                    if (address >= board.progstart) and (address < board.memend):
-                        codesize = codesize + byte_count
+                if (address >= board.memstart) and (address < board.memend):
+                    codesize = codesize + byte_count
                     
         fichier.close()
         return "Code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
