@@ -4,6 +4,7 @@
 import usb
 import sys
 import logging
+import os
 #import debugger
 
 from ..tools import Debugger
@@ -98,14 +99,15 @@ class baseUploader(object):
 
         if handle:
             
-            try:
-                # make sure the hid kernel driver is not active
-                # functionality not available on Darwin or Windows
-                handle.detachKernelDriver(self.INTERFACE_ID)
-            except usb.USBError:
-                pass
+            if os.getenv("PINGUINO_OS_NAME") == "linux":
+                try:
+                    # make sure the hid kernel driver is not active
+                    # functionality not available on Darwin or Windows
+                    handle.detachKernelDriver(self.INTERFACE_ID)
+                except usb.USBError:
+                    pass
 
-            logging.info("Kernel driver detached")
+                logging.info("Kernel driver detached")
             
             try:
                 #handle.setConfiguration(self.configuration)
