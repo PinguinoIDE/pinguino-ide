@@ -235,7 +235,7 @@ class Pinguino32MX220(object):
     vendor = MICROCHIP_ID
     product = P32_ID
     ivtstart = 0x9D003000           # _ebase_address (exception_mem)
-    memstart = 0x9D005000           # kseg0_program_mem
+    memstart = 0x9D004010           # kseg0_program_mem
     memend   = 0x9D008000
     shortarg = '-p220'
     longarg = '--pinguino32mx220'
@@ -249,7 +249,6 @@ class Pinguino32MX250(object):
     vendor = MICROCHIP_ID
     product = P32_ID
     ivtstart = 0x9D003000           # _ebase_address (exception_mem)
-    #memstart = 0x9D004A00           # kseg0_program_mem
     memstart = 0x9D004010           # kseg0_program_mem
     memend   = 0x9D020000
     shortarg = '-p250'
@@ -279,7 +278,6 @@ class PIC32_Pinguino_220(object):
     product = P32_ID
     ivtstart = 0x9D003000           # _ebase_address (exception_mem)
     memstart = 0x9D004010           # kseg0_program_mem
-    #memstart = 0x9D003000           # _ebase_address (exception_mem)
     memend   = 0x9D008000
     shortarg = '-m'
     longarg = '--olimex220'
@@ -335,7 +333,7 @@ class PIC32_Pinguino_T795(object):
     vendor = MICROCHIP_ID
     product = P32_ID
     ivtstart = 0x9D005000           # _ebase_address (exception_mem)
-    memstart = 0x9D006A00           # kseg0_program_mem
+    memstart = 0x9D006010           # kseg0_program_mem
     memend   = 0x9D080000
     shortarg = '-T'
     longarg = '--olimexT795'
@@ -349,7 +347,7 @@ class Emperor_460(object):
     vendor = MICROCHIP_ID
     product = P32_ID
     ivtstart = 0x9D005000           # _ebase_address (exception_mem)
-    memstart = 0x9D006A00           # kseg0_program_mem
+    memstart = 0x9D006010           # kseg0_program_mem
     memend   = 0x9D080000
     shortarg = '-e'
     longarg = '--emperor460'
@@ -363,7 +361,7 @@ class Emperor_795(object):
     vendor = MICROCHIP_ID
     product = P32_ID
     ivtstart = 0x9D005000           # _ebase_address (exception_mem)
-    memstart = 0x9D006A00           # kseg0_program_mem
+    memstart = 0x9D006010           # kseg0_program_mem
     memend   = 0x9D080000
     shortarg = '-E'
     longarg = '--emperor795'
@@ -377,7 +375,7 @@ class UBW32_460(object):
     vendor = MICROCHIP_ID
     product = P32_ID
     ivtstart = 0x9D005000           # _ebase_address (exception_mem)
-    memstart = 0x9D006A00           # kseg0_program_mem
+    memstart = 0x9D006010           # kseg0_program_mem
     memend   = 0x9D080000
     shortarg = '-u'
     longarg = '--ubw460'
@@ -391,7 +389,7 @@ class UBW32_795(object):
     vendor = MICROCHIP_ID
     product = P32_ID
     ivtstart = 0x9D005000           # _ebase_address (exception_mem)
-    memstart = 0x9D006A00           # kseg0_program_mem
+    memstart = 0x9D006010           # kseg0_program_mem
     memend   = 0x9D080000
     shortarg = '-U'
     longarg = '--ubw795'
