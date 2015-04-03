@@ -622,7 +622,7 @@ class uploader32(baseUploader):
 
         # trim the memory image
         # --------------------------------------------------------------
-
+        """
         logging.info("first byte to write at 0x%08X" % min_address)
         logging.info("last  byte to write at 0x%08X" % max_address)
         logging.info("index min. = %d (0x%X)" % \
@@ -631,9 +631,11 @@ class uploader32(baseUploader):
         logging.info("index max. = %d (0x%X)" % \
             ((max_address - board.ivtstart),(max_address - board.ivtstart)))
         del program_memory[(max_address - board.ivtstart):]
-
+        """
         # write blocks of DATABLOCKSIZE bytes in program memory
         # --------------------------------------------------------------
+
+        min_address = board.ivtstart;
 
         logging.info("writing from 0x%08X to 0x%08X ..." % (min_address,max_address))
         for addr in range(min_address, max_address, self.DATABLOCKSIZE):
@@ -775,25 +777,25 @@ class uploader32(baseUploader):
         # find out flash memory size
         # --------------------------------------------------------------
         logging.info("Getting flash memory infos ...")
-        ivtstart = self.getDeviceFlashStart()
+        memstart = self.getDeviceFlashStart()
         memfree  = self.getDeviceFlashFree()
-        if ivtstart and memfree:
-            #logging.info("Yes, start = 0x%08X" % ivtstart)
+        if memstart and memfree:
+            logging.info("Yes, Prog. starts at 0x%08X" % memstart)
             #logging.info("Yes, free  = 0x%08X" % memfree)
             # Convert KSEG1 to KSEG0
             # and Physical to Virtual address
-            if ivtstart >= 0xBD000000:
-                ivtstart = ivtstart - 0x20000000
-            ivtstart = ivtstart | 0x80000000
-            memstart = board.memstart
-            memend   = ivtstart + memfree
-            memfree  = memend - memstart
+            if memstart >= 0xBD000000:
+                memstart = memstart - 0x20000000
+            memstart = memstart | 0x80000000
+            ivtstart = board.ivtstart
+            memend   = memstart + memfree
+            #memfree  = memend - memstart
             
-            if board.ivtstart != ivtstart:
-                logging.info("Conflict : ivtstart should be 0x%08X not 0x%08X" % (ivtstart, board.ivtstart))
+            if board.memstart != memstart:
+                logging.info("Conflict : memstart should be 0x%08X not 0x%08X" % (memstart, board.memstart))
                 logging.info("This issue has been automatically fixed.")
                 logging.info("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
-                board.ivtstart = ivtstart
+                board.memstart = memstart
 
             if board.memend != memend:
                 logging.info("Conflict : memend should be 0x%08X not 0x%08X" % (memend, board.memend))

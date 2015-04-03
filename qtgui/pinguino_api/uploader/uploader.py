@@ -99,39 +99,22 @@ class baseUploader(object):
 
         if handle:
             
-            if os.getenv("PINGUINO_OS_NAME") == "linux":
-                try:
-                    # make sure the hid kernel driver is not active
-                    # functionality not available on Darwin or Windows
-                    handle.detachKernelDriver(self.INTERFACE_ID)
-                except usb.USBError:
-                    pass
-
-                logging.info("Kernel driver detached")
+            logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
             
-            try:
-                #handle.setConfiguration(self.configuration)
-                handle.setConfiguration(self.ACTIVE_CONFIG)
-            except usb.USBError:
-                pass
-                
+            if os.getenv("PINGUINO_OS_NAME") == "linux":
+                # make sure the hid kernel driver is not active
+                # functionality not available on Darwin or Windows
+                handle.detachKernelDriver(self.INTERFACE_ID)
+                logging.info("Kernel driver detached")
+
+            
+            #handle.setConfiguration(self.configuration)
+            handle.setConfiguration(self.ACTIVE_CONFIG)
             logging.info("Configuration set")
 
-            try:
-                #handle.claimInterface(self.interface)
-                handle.claimInterface(self.INTERFACE_ID)
-            except usb.USBError:
-                pass
-
+            #handle.claimInterface(self.interface)
+            handle.claimInterface(self.INTERFACE_ID)
             logging.info("Interface claimed")
-
-            try:
-                #handle.setAltInterface(self.interface)
-                handle.setAltInterface(self.INTERFACE_ID)
-            except usb.USBError:
-                pass
-
-            logging.info("Alt. Interface claimed")
 
             logging.info("Everything OK so far")
             return handle
