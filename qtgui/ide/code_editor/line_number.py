@@ -23,7 +23,8 @@ class LineNumber(QWidget):
 
         palette = QtGui.QPalette(self.palette())
         self.setAutoFillBackground(True)
-        palette.setColor(QtGui.QPalette.Window, QtGui.QColor(175, 200, 225))
+        # palette.setColor(QtGui.QPalette.Window, QtGui.QColor(175, 200, 225))
+        palette.setColor(QtGui.QPalette.Window, QtGui.QColor("#E0E0E0"))
         self.setPalette(palette)
 
         self.setStyleSheet("""

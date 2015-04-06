@@ -124,7 +124,7 @@ class EventMethods(Methods):
             setattr(editor, "path", save_path)
             self.main.tabWidget_files.setTabText(index, filename)
             self.main.tabWidget_files.setTabToolTip(index, save_path)
-            self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+save_path)
+            self.setWindowTitle(os.getenv("PINGUINO_FULLNAME")+" - "+save_path)
 
             self.update_recents(save_path)
 
@@ -179,7 +179,7 @@ class EventMethods(Methods):
         setattr(editor, "path", save_path)
         self.main.tabWidget_files.setTabText(index, filename)
         self.main.tabWidget_files.setTabToolTip(index, save_path)
-        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+save_path)
+        self.setWindowTitle(os.getenv("PINGUINO_FULLNAME")+" - "+save_path)
 
         self.__save_file__(editor=editor)
         return True
@@ -339,13 +339,20 @@ class EventMethods(Methods):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    def set_tab_search(self):
-        self.main.tabWidget_tools.setCurrentIndex(2)
+    def set_tab_search(self, mode):
+
+        self.main.tabWidget_tools.setCurrentIndex(self.TAB_SEARCH)
+
         self.main.lineEdit_search.setFocus()
         editor = self.main.tabWidget_files.currentWidget()
         cursor = editor.text_edit.textCursor()
         self.main.lineEdit_search.setText(cursor.selectedText())
 
+        replace = (mode == "replace")
+        self.main.lineEdit_replace.setVisible(replace)
+        self.main.label_replace.setVisible(replace)
+        self.main.pushButton_replace.setVisible(replace)
+        self.main.pushButton_replace_all.setVisible(replace)
 
     # Menu Source
 
@@ -917,22 +924,22 @@ class EventMethods(Methods):
     def switch_color_theme(self, pinguino_color=True):
         default_pallete = ["toolBar_edit", "toolBar_files", "toolBar_search_replace",
                            "toolBar_undo_redo", "toolBar_pinguino", "toolBar_pinguino",
-                           "toolBar_graphical", "toolBar_switch", "statusBar", "toolBar_system",
-                           "menubar"]
+                           "toolBar_graphical", "toolBar_switch", "toolBar_system",
+                           "menubar", "statusBar"]
 
-        pinguino_pallete = ["dockWidget_output", "dockWidget_tools", "dockWidget_blocks"]
+        pinguino_pallete = ["dockWidget_output", "dockWidget_tools"]
 
         if pinguino_color:
+            self.PinguinoPallete.set_background_pinguino(self.main.centralwidget.parent())
             for element in pinguino_pallete:
                 self.PinguinoPallete.set_background_pinguino(getattr(self.main, element))
             for element in default_pallete:
                 self.PinguinoPallete.set_default_palette(getattr(self.main, element))
-            self.PinguinoPallete.set_background_pinguino(self.main.centralwidget.parent())
             self.main.label_logo.setPixmap(QtGui.QPixmap(":/logo/art/banner.png"))
         else:
+            self.PinguinoPallete.set_default_palette(self.main.centralwidget.parent())
             for element in default_pallete + pinguino_pallete:
                 self.PinguinoPallete.set_default_palette(getattr(self.main, element))
-            self.PinguinoPallete.set_default_palette(self.main.centralwidget.parent())
             self.main.label_logo.setPixmap(QtGui.QPixmap(":/logo/art/banner_blue.png"))
 
         self.configIDE.set("Main", "color_theme", pinguino_color)
@@ -1103,8 +1110,8 @@ class EventMethods(Methods):
         self.main.actionClose_file.setEnabled(self.main.tabWidget_files.count() > 0)
 
         editor = self.main.tabWidget_files.currentWidget()
-        if getattr(editor, "path", None): self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+editor.path)
-        else: self.setWindowTitle(os.getenv("PINGUINO_NAME"))
+        if getattr(editor, "path", None): self.setWindowTitle(os.getenv("PINGUINO_FULLNAME")+" - "+editor.path)
+        else: self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
 
         index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)

@@ -11,7 +11,7 @@ from .events.events import PinguinoEvents
 from .methods.decorators import Decorator
 from .code_editor.autocomplete_icons import CompleteIcons
 from .widgets.output_widget import PinguinoTerminal
-from .methods.widgets_features import PrettyFeatures
+# from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
@@ -28,18 +28,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
     def __init__(self, splash_write, argvs):
         super(PinguinoIDE, self).__init__()
 
-        #debugger.Debugger(sys)
-
-        #root = logging.getLogger()
-        #root.setLevel(logging.DEBUG)
-
-        #ch = logging.StreamHandler(debugger.sys_redirect("stdout", False))
-        #ch.setLevel(logging.DEBUG)
-        #formatter = logging.Formatter("%(message)s")
-        #ch.setFormatter(formatter)
-        #root.addHandler(ch)
-
-        # print(self.get_systeminfo())
+        os.environ["PINGUINO_PROJECT"] = ""
 
         QtCore.QTextCodec.setCodecForCStrings(QtCore.QTextCodec.codecForName("UTF-8"))
         QtCore.QTextCodec.setCodecForLocale(QtCore.QTextCodec.codecForName("UTF-8"))
@@ -53,8 +42,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         if not self.argvs.devmode:
             self.main.menubar.removeAction(self.main.menuDevelopment.menuAction())
 
-        #set_environ_vars()
-        #self.check_user_files()
         splash_write(QtGui.QApplication.translate("Splash", "Setting enviroment values"))
         PinguinoConfig.set_environ_vars()
         splash_write(QtGui.QApplication.translate("Splash", "Checking user files"))
@@ -70,7 +57,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         splash_write(QtGui.QApplication.translate("Splash", "Loading graphical mode"))
         self.PinguinoKIT = GraphicalIDE(self)
         self.main.tabWidget_graphical.setVisible(False)
-        self.main.dockWidget_blocks.setVisible(False)
+        # self.main.dockWidget_blocks.setVisible(False)
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading icons"))
         self.ICONS = CompleteIcons()
@@ -80,8 +67,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.set_icon_theme()
         self.reload_toolbar_icons()
 
-        #self.update_pinguino_paths()
-        #self.update_user_libs()
         splash_write(QtGui.QApplication.translate("Splash", "Linking paths for libraries and compilers"))
         PinguinoConfig.update_pinguino_paths(self.configIDE, self.pinguinoAPI)
         PinguinoConfig.update_pinguino_extra_options(self.configIDE, self.pinguinoAPI)
@@ -91,7 +76,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         # RB 2015-01-27 : Still useful ? See also methods.py/set_board
         self.pinguinoAPI.set_os_variables()
 
-        self.setWindowTitle(os.getenv("PINGUINO_NAME")+" "+os.getenv("PINGUINO_VERSION"))
+        self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Opening last files"))
         self.open_last_files()
@@ -117,7 +102,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
         self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
-        self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
+        # self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading boards configuration"))
         #self.set_board() #called in self.get_status_board()
@@ -127,6 +112,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.connect_events()
         splash_write(QtGui.QApplication.translate("Splash", "Loading configuration"))
         self.load_main_config()
+        self.update_project_status(None)
 
         os_name = os.getenv("PINGUINO_OS_NAME")
         if os_name == "windows":
@@ -137,7 +123,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("PINGUINO_NAME"), os.getenv("PINGUINO_VERSION")))
         print("Pinguino IDE started!")
-
 
         self.enable_debugger()
 
@@ -230,26 +215,37 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
     #----------------------------------------------------------------------
     def init_widgets(self):
+
+        self.TAB_FILES = 0
+        self.TAB_PROJECT = 1
+        self.TAB_SOURCE = 2
+        self.TAB_SEARCH = 3
+
         self.main.tabWidget_files.setVisible(False)
         self.main.toolBar_graphical.setVisible(False)
 
-        self.main.tabWidget_tools.setCurrentIndex(0)
-        self.main.tabWidget_blocks_tools.setCurrentIndex(0)
+        self.main.tabWidget_tools.setCurrentIndex(self.TAB_FILES)
 
-        side = self.configIDE.config("Main", "dock_tools", "RightDockWidgetArea")
-        self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_tools)
-        self.update_tab_position(self.main.tabWidget_tools, self.dockWidgetArea(self.main.dockWidget_tools))
 
-        side = self.configIDE.config("Main", "dock_blocks", "RightDockWidgetArea")
-        self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_blocks)
-        self.update_tab_position(self.main.tabWidget_blocks, self.dockWidgetArea(self.main.dockWidget_blocks))
+        self.main.dockWidget_tools.setTitleBarWidget(QtGui.QWidget())
+        self.main.dockWidget_output.setTitleBarWidget(QtGui.QWidget())
 
-        side = self.configIDE.config("Main", "dock_shell", "BottomDockWidgetArea")
-        self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_output)
+        # self.main.tabWidget_blocks_tools.setCurrentIndex(0)
 
-        PrettyFeatures.LineEdit_default_text(self.main.lineEdit_search, QtGui.QApplication.translate("Frame", "Search..."))
-        PrettyFeatures.LineEdit_default_text(self.main.lineEdit_replace, QtGui.QApplication.translate("Frame", "Replace..."))
-        PrettyFeatures.LineEdit_default_text(self.main.lineEdit_blocks_search, QtGui.QApplication.translate("Frame", "Search block..."))
+        # side = self.configIDE.config("Main", "dock_tools", "RightDockWidgetArea")
+        # self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_tools)
+        # self.update_tab_position(self.main.tabWidget_tools, self.dockWidgetArea(self.main.dockWidget_tools))
+
+        # side = self.configIDE.config("Main", "dock_blocks", "RightDockWidgetArea")
+        # # self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_blocks)
+        # # self.update_tab_position(self.main.tabWidget_blocks, self.dockWidgetArea(self.main.dockWidget_blocks))
+
+        # side = self.configIDE.config("Main", "dock_shell", "BottomDockWidgetArea")
+        # self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_output)
+
+        # PrettyFeatures.LineEdit_default_text(self.main.lineEdit_search, QtGui.QApplication.translate("Frame", "Search..."))
+        # PrettyFeatures.LineEdit_default_text(self.main.lineEdit_replace, QtGui.QApplication.translate("Frame", "Replace..."))
+        # PrettyFeatures.LineEdit_default_text(self.main.lineEdit_blocks_search, QtGui.QApplication.translate("Frame", "Search block..."))
 
 
     #----------------------------------------------------------------------
@@ -287,27 +283,28 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         """%(bg_color, alternate_bg_color))
 
 
-        #Global CSS styles
-        self.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
-        selection-color: %s;
-        selection-background-color: %s;
-        """%(selection_color, selection_bg_color))
+        # #Global CSS styles
+        # self.setStyleSheet("""
+        # font-family: inherit;
+        # font-weight: normal;
+        # selection-color: %s;
+        # selection-background-color: %s;
+        # """%(selection_color, selection_bg_color))
 
-        self.main.groupBox_replace.setStyleSheet("""
-        QGroupBox{
-            font-family: inherit;
-            font-weight: bold;
-        }
-        """)
 
-        self.main.groupBox_search.setStyleSheet("""
-        QGroupBox{
-            font-family: inherit;
-            font-weight: bold;
-        }
-        """)
+        # self.main.groupBox_replace.setStyleSheet("""
+        # QGroupBox{
+            # font-family: inherit;
+            # font-weight: bold;
+        # }
+        # """)
+
+        # self.main.groupBox_search.setStyleSheet("""
+        # QGroupBox{
+            # font-family: inherit;
+            # font-weight: bold;
+        # }
+        # """)
 
         #Python shell CSS styles
         self.main.plainTextEdit_output.setStyleSheet("""
@@ -369,8 +366,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         # self.main.menuGraphical.setEnabled(normal
         self.main.menubar.removeAction(self.main.menuGraphical.menuAction())
 
-        self.main.dockWidget_blocks.setVisible(normal)
-        self.main.dockWidget_tools.setVisible(not normal)
+        self.main.lineEdit_blocks_search.setVisible(normal)
+        self.main.label_search_block.setVisible(normal)
+        self.main.tabWidget_blocks.setVisible(normal)
+        self.main.tabWidget_tools.setVisible(not normal)
+
+        # self.main.dockWidget_blocks.setVisible(normal)
+        # self.main.dockWidget_tools.setVisible(not normal)
         self.main.toolBar_search_replace.setVisible(not normal)
         self.main.toolBar_edit.setVisible(not normal)
         self.main.toolBar_graphical.setVisible(normal)
@@ -388,8 +390,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         # self.main.menuGraphical.setEnabled(normal)
         self.main.menubar.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
 
-        self.main.dockWidget_blocks.setVisible(normal)
-        self.main.dockWidget_tools.setVisible(not normal)
+        self.main.lineEdit_blocks_search.setVisible(normal)
+        self.main.label_search_block.setVisible(normal)
+        self.main.tabWidget_blocks.setVisible(normal)
+        self.main.tabWidget_tools.setVisible(not normal)
+
+        # self.main.dockWidget_blocks.setVisible(normal)
+        # self.main.dockWidget_tools.setVisible(not normal)
         self.main.toolBar_search_replace.setVisible(not normal)
         self.main.toolBar_edit.setVisible(not normal)
         self.main.toolBar_graphical.setVisible(normal)

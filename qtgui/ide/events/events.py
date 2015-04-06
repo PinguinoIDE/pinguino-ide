@@ -12,6 +12,13 @@ class PinguinoEvents(EventMethods, TimerMethods):
     #----------------------------------------------------------------------
     def connect_events(self):
 
+
+        self.connect(self.main.treeWidget_explorer, QtCore.SIGNAL("itemExpanded(QTreeWidgetItem*)"), self.expand_tree)
+        self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemExpanded(QTreeWidgetItem*)"), self.expand_tree)
+
+        self.connect(self.main.treeWidget_explorer, QtCore.SIGNAL("itemDoubleClicked(QTreeWidgetItem*,int)"), self.open_from_tree)
+        self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemDoubleClicked(QTreeWidgetItem*,int)"), self.open_from_tree)
+
         # Menu File
         self.connect(self.main.actionNew_file, QtCore.SIGNAL("triggered()"), self.new_file)
         self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.open_files)
@@ -32,8 +39,8 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionPaste, QtCore.SIGNAL("triggered()"), self.paste)
         self.connect(self.main.actionDelete, QtCore.SIGNAL("triggered()"), self.delete)
         self.connect(self.main.actionSelect_all, QtCore.SIGNAL("triggered()"), self.select_all)
-        self.connect(self.main.actionSearch, QtCore.SIGNAL("triggered()"), self.set_tab_search)
-        self.connect(self.main.actionSearch_and_replace, QtCore.SIGNAL("triggered()"), self.set_tab_search)
+        self.connect(self.main.actionSearch, QtCore.SIGNAL("triggered()"), lambda :self.set_tab_search("search"))
+        self.connect(self.main.actionSearch_and_replace, QtCore.SIGNAL("triggered()"), lambda :self.set_tab_search("replace"))
 
         # Menu View
         self.connect(self.main.actionMenubar, QtCore.SIGNAL("toggled(bool)"), self.toggle_menubar)
@@ -42,12 +49,13 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionEnvironment, QtCore.SIGNAL("triggered()"), lambda :self.__show_environ__("environ"))
         self.connect(self.main.actionVariables, QtCore.SIGNAL("triggered()"), lambda :self.__show_environ__("variables"))
         self.connect(self.main.actionTools_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_tools.setVisible)
-        self.connect(self.main.actionBlocks_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_blocks.setVisible)
+        # self.connect(self.main.actionBlocks_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_blocks.setVisible)
         self.connect(self.main.actionPython_shell, QtCore.SIGNAL("toggled(bool)"), self.toggle_pythonshell)
 
         # Menu Project
         self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.add_existing_directory)
         self.connect(self.main.actionNew_project, QtCore.SIGNAL("triggered()"), self.new_project)
+        self.connect(self.main.pushButton_newproject, QtCore.SIGNAL("clicked()"), self.new_project)
         self.connect(self.main.actionSave_project, QtCore.SIGNAL("triggered()"), self.save_project)
         self.connect(self.main.actionAdd_current_file, QtCore.SIGNAL("triggered()"), self.add_current_file)
 
@@ -100,10 +108,10 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionAbout, QtCore.SIGNAL("triggered()"), self.__show_about__)
 
         # Tools Files
-        self.connect(self.main.listWidget_files, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.jump_dir_files)
-        self.connect(self.main.listWidget_filesg, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.jump_dir_filesg)
-        self.connect(self.main.comboBox_files, QtCore.SIGNAL("currentIndexChanged(int)"), self.change_dir_files)
-        self.connect(self.main.comboBox_filesg, QtCore.SIGNAL("currentIndexChanged(int)"), self.change_dir_filesg)
+        # self.connect(self.main.listWidget_files, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.jump_dir_files)
+        # self.connect(self.main.listWidget_filesg, QtCore.SIGNAL("itemActivated(QListWidgetItem*)"), self.jump_dir_filesg)
+        # self.connect(self.main.comboBox_files, QtCore.SIGNAL("currentIndexChanged(int)"), self.change_dir_files)
+        # self.connect(self.main.comboBox_filesg, QtCore.SIGNAL("currentIndexChanged(int)"), self.change_dir_filesg)
 
         # Tools Source
         self.connect(self.main.tableWidget_functions, QtCore.SIGNAL("doubleClicked(QModelIndex)"), self.jump_function)
@@ -144,11 +152,11 @@ class PinguinoEvents(EventMethods, TimerMethods):
         #self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionPython_shell.setChecked)
 
         self.connect(self.main.dockWidget_tools, QtCore.SIGNAL("dockLocationChanged(Qt::DockWidgetArea)"), lambda area:self.update_tab_position(self.main.tabWidget_tools, area))
-        self.connect(self.main.dockWidget_blocks, QtCore.SIGNAL("dockLocationChanged(Qt::DockWidgetArea)"), lambda area:self.update_tab_position(self.main.tabWidget_blocks, area))
+        # self.connect(self.main.dockWidget_blocks, QtCore.SIGNAL("dockLocationChanged(Qt::DockWidgetArea)"), lambda area:self.update_tab_position(self.main.tabWidget_blocks, area))
 
         self.main.actionTools_2.setChecked(self.main.dockWidget_tools.isVisible())
         self.main.actionPython_shell.setChecked(self.main.dockWidget_output.isVisible())
-        self.main.actionBlocks_2.setChecked(self.main.dockWidget_blocks.isVisible())
+        # self.main.actionBlocks_2.setChecked(self.main.dockWidget_blocks.isVisible())
         self.main.actionToolbars.setChecked(True)
         self.main.actionPython_shell.setChecked(True)
         self.main.actionConfirm_board.setChecked(self.configIDE.config("Features", "confirm_board", True))

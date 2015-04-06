@@ -20,8 +20,8 @@ class PinguinoCodeEditor(QWidget):
         self.gridLayout_0.setSpacing(0)
 
         self.line_number = LineNumber(self)
-        self.line_number.setMinimumSize(QtCore.QSize(51, 0))
-        self.line_number.setMaximumSize(QtCore.QSize(51, 16777215))
+        self.line_number.setMinimumSize(QtCore.QSize(41, 0))
+        self.line_number.setMaximumSize(QtCore.QSize(41, 16777215))
         self.gridLayout_0.addWidget(self.line_number, 0, 0, 1, 1)
 
         self.text_edit = CustomTextEdit(self, self.line_number)
@@ -35,7 +35,7 @@ class PinguinoCodeEditor(QWidget):
 
         palette = QtGui.QPalette(self.widget.palette())
         self.widget.setAutoFillBackground(True)
-        palette.setColor(QtGui.QPalette.Window, QtGui.QColor("#E7E7E7"))
+        palette.setColor(QtGui.QPalette.Window, QtGui.QColor("#F0F0F0"))
         self.widget.setPalette(palette)
 
         #palette = QtGui.QPalette(self.palette())
@@ -76,5 +76,36 @@ class PinguinoCodeEditor(QWidget):
         font.setFamily(font_family)
         font.setFixedPitch = fixed_pitch
         self.text_edit.setFont(font)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

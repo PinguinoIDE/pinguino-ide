@@ -49,11 +49,12 @@ else:
     reload(sys)
     sys.setdefaultencoding("utf-8")
 
-
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
 os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
+os.environ["PINGUINO_FULLNAME"] = " ".join([NAME, VERSION, SUBVERSION])
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
+
 
 # For PyInstaller compatibility
 if os.path.exists(os.path.abspath("pinguino_data")):

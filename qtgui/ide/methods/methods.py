@@ -175,12 +175,13 @@ class Methods(SearchReplace, ProjectManager, Files):
 
     #----------------------------------------------------------------------
     def __update_path_files__(self, path):
-        self.update_path_files(path, self.main.listWidget_files, self.main.label_path, exclude=".gpde")
+        self.update_path_files(path)
 
 
-    #----------------------------------------------------------------------
-    def __update_graphical_path_files__(self, path):
-        self.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg, exclude=".pde")
+    # #----------------------------------------------------------------------
+    # def __update_graphical_path_files__(self, path):
+        # """"""
+        # # self.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg, exclude=".pde")
 
 
     #----------------------------------------------------------------------

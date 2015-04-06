@@ -4,6 +4,7 @@
 from PySide import QtGui, QtCore
 
 import os
+import logging
 
 from ..methods.decorators import Decorator
 from ..methods.dialogs import Dialogs
@@ -27,14 +28,18 @@ class ProjectManager(object):
     def open_project(self):
         """"""
 
+        # self.update_project_status(project)
+
 
     #----------------------------------------------------------------------
     @Debugger.debug_method
     def add_existing_directory(self):
         """"""
         dir_project = Dialogs.set_open_dir(self)
-        parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_projects)
-        self.generate_tree(dir_project, parent)
+        flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsEditable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
+        parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_projects, dir_project, flags)
+        self.generate_tree(dir_project, parent, levels=50, flags=flags)
+        parent.setExpanded(True)
         self.add_dir_to_config(dir_project)
 
 
@@ -49,78 +54,14 @@ class ProjectManager(object):
         self.add_new_file_item(filename, parent)
 
 
-    #----------------------------------------------------------------------
-    def generate_tree(self, path, parent):
-        """"""
-        lisdir = os.listdir(path)
-
-        list_dirs = []
-        list_files = []
-
-        for item in lisdir:
-            fullpath = os.path.join(path, item)
-            if os.path.isdir(fullpath):
-                list_dirs.append(fullpath)
-            elif os.path.isfile(fullpath):
-                list_files.append(fullpath)
-
-        list_dirs.sort()
-        list_files.sort()
-
-        for dir_ in list_dirs:
-            dir_name = os.path.basename(dir_)
-            self.generate_tree(dir_, self.add_new_tree(dir_name, parent))
-
-        for file_ in list_files:
-            file_name = os.path.basename(file_)
-            self.add_new_file_item(file_name, parent)
-
-
-    #----------------------------------------------------------------------
-    def add_new_file_item(self, filename, parent):
-        """"""
-        file_item = QtGui.QTreeWidgetItem(parent)
-
-        file_item.setText(0, filename)
-
-        icon_file = QtGui.QIcon()
-        icon_file.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        #icon_file = QtGui.QIcon.fromTheme("text-x-generic")
-
-        icon_file_pde = QtGui.QIcon()
-        icon_file_pde.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file_pde.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        #icon_file_pde = QtGui.QIcon.fromTheme("text-x-generic")
-
-        icon_file_py = QtGui.QIcon()
-        icon_file_py.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file_py.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        #icon_file_py = QtGui.QIcon.fromTheme("text-x-generic")
-
-        if filename.endswith("py"): file_item.setIcon(0, icon_file_py)
-        elif filename.endswith("pde"): file_item.setIcon(0, icon_file_pde)
-        else: file_item.setIcon(0, icon_file)
-
-        file_item.setFlags(QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsEditable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled)
-
-
-
-    #----------------------------------------------------------------------
-    def add_new_tree(self, name, parent):
-        """"""
-        tree = QtGui.QTreeWidgetItem(parent)
-        tree.setText(0, name)
-        icon_dir = QtGui.QIcon()
-        icon_dir.addPixmap(QtGui.QPixmap(":/icons/icons/icon_dir.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        tree.setIcon(0, icon_dir)
-
-        return tree
-
 
     #----------------------------------------------------------------------
     def set_project_name(self):
         """"""
         project_name = Dialogs.get_text(self, "Project name", default="untitled_project")
         self.main.treeWidget_projects.setHeaderLabel(project_name)
-        self.main.treeWidget_projects.setHeaderLabel(project_name)
+        return project_name
+        # self.main.treeWidget_projects.setHeaderLabel(project_name)
 
 
     #----------------------------------------------------------------------
@@ -139,16 +80,24 @@ class ProjectManager(object):
         self.main.tabWidget_tools.setCurrentIndex(1)
         add_dir = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "Do you want add an existing directory now?"))
         if add_dir: self.add_existing_directory()
+        self.update_project_status(project_name)
+        self.project_saved = False
+
 
 
     #----------------------------------------------------------------------
-    def save_project(self):
+    def save_project(self, silent=False):
         """"""
-        save = Dialogs.set_save_file(self, self.get_project_name()+".ppde")
-        if save[0]:
-            path, filename = save
-            self.ConfigProject.filename = path
+        if self.project_saved:
             self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
+
+        elif not silent:
+            save = Dialogs.set_save_file(self, self.get_project_name()+".ppde")
+            if save[0]:
+                path, filename = save
+                self.ConfigProject.filename = path
+                self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
+                self.project_saved = True
 
 
     #----------------------------------------------------------------------
@@ -184,4 +133,53 @@ class ProjectManager(object):
             self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
 
 
+    #----------------------------------------------------------------------
+    def update_project_status(self, project="reload"):
+        """"""
+        if project == "reload": pass
+        elif project: os.environ["PINGUINO_PROJECT"] = project
+        else: os.environ["PINGUINO_PROJECT"] = ""
 
+        self.main.treeWidget_projects.setVisible(bool(project))
+        self.main.pushButton_newproject.setVisible(not bool(project))
+
+        self.main.treeWidget_projects.contextMenuEvent = self.project_context_menu
+
+
+    #----------------------------------------------------------------------
+    def get_current_item(self):
+        """"""
+        return self.main.treeWidget_projects.currentItem()
+
+
+
+
+    #----------------------------------------------------------------------
+    def project_context_menu(self, event):
+        menu = QtGui.QMenu()
+
+        if os.path.isfile(self.get_current_item().path):
+            menu.addAction("Set as main upload file", self.set_as_main_upload)
+
+        menu.addSeparator()
+
+        menu.setStyleSheet("""
+        QMenu {
+            font-family: inherit;
+            font-weight: normal;
+            }
+
+        """)
+
+        menu.exec_(event.globalPos())
+
+
+    #----------------------------------------------------------------------
+    def set_as_main_upload(self):
+        """"""
+        item = self.get_current_item()
+        item.setForeground(0, QtGui.QColor("#FF0000"))
+
+        if not self.ConfigProject.has_section("Settings"): self.ConfigProject.add_section("Settings")
+        self.ConfigProject.set("Settings", "main_upload", item.path)
+        self.save_project(True)
