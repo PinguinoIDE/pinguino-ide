@@ -102,10 +102,11 @@ class baseUploader(object):
             logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
             
             if os.getenv("PINGUINO_OS_NAME") == "linux":
-                # make sure the hid kernel driver is not active
-                # functionality not available on Darwin or Windows
-                handle.detachKernelDriver(self.INTERFACE_ID)
-                logging.info("Kernel driver detached")
+                if device.idProduct == 0x003C: #self.P32_ID:
+                    # make sure the hid kernel driver is not active
+                    # functionality not available on Darwin or Windows
+                    handle.detachKernelDriver(self.INTERFACE_ID)
+                    logging.info("Kernel driver detached")
 
             
             #handle.setConfiguration(self.configuration)
