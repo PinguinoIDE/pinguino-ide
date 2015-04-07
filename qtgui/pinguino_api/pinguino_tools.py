@@ -32,13 +32,12 @@ import logging
 
 from .boards import boardlist as Boardlist
 from .uploader.uploader import Uploader
-from .tools import Debugger
 
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
 
 ########################################################################
-class PinguinoTools(object):
+class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def __init__(self):
@@ -121,7 +120,6 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def verify(self, filename):
 
         DATA_RETURN = {}
@@ -188,48 +186,24 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def __upload__(self):
 
         hex_file = self.get_hex_file()
         board = self.get_board()
 
-        uploader = Uploader(hex_file, board)
-        result = uploader.write_hex()
+        # uploader = Uploader(hex_file, board)
+        # result = uploader.write_hex()
 
-        """
-        if board.arch == 8:
-            uploader = Uploader(hex_file, board)
-            result = uploader.write_hex()
-
-        elif board.arch == 32:
-            fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), 'stdout'), 'w+')
-
-            #RB 19-06-2014 : pic32prog
-            sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
-                          "-w",
-                          hex_file,
-                          "-r",
-                          "-n"],
-                         stdout=fichier, stderr=STDOUT)
-
-            #RB 19-06-2014 : ubw32/mhidflash
-            sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
-                          "-S", "-p", hex_file],
-                         stdout=fichier, stderr=STDOUT)
-
-            sortie.communicate()
-            fichier.seek(0)
-            result = fichier.readlines()
-            fichier.close()
-        """
+        # Since Pinguino IDE 11.1 Uploader is an inherited class, so is needed use method get_uploader
+        uploader = self.get_uploader(hex_file, board)
+        uploader.writeHex()
+        result = uploader.report
 
         # Weed out blank lines with filter
         result = filter(lambda line: not line.isspace(), result)
         return result
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def get_regobject_libinstructions(self, arch):
         """Return regobject and libinstructions for each architecture."""
         if arch == 8:
@@ -248,7 +222,6 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def read_lib(self, arch, include_default=True):
         """Load .pdl or .pdl32 files (keywords and libraries)
          trying to find PDL files to store reserved words."""
@@ -330,7 +303,6 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def preprocess(self, filename):
         """Read Pinguino File (.pde) and translate it into C language"""
 
@@ -439,7 +411,6 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def replace_word(self, content, libinstructions=None):
         """ convert pinguino language in C language """
 
@@ -470,7 +441,6 @@ class PinguinoTools(object):
 
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def remove_comments(self, textinput):
         #FIXME: replace comment with white lines for debugger
 
@@ -516,7 +486,6 @@ class PinguinoTools(object):
         return " ".join(user_imports)
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def compile(self, filename):
         """ Compile.
 
@@ -661,7 +630,6 @@ class PinguinoTools(object):
         logging.info(message)
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def link(self, filename):
         """Link.
 

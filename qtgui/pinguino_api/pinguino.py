@@ -24,8 +24,6 @@ class Pinguino(PinguinoTools):
     #----------------------------------------------------------------------
     def compile_file(self, file_name):
 
-        #self.main.plainTextEdit_output.log_output("compile_file")
-
         if os.path.isfile(file_name):
             data = self.verify(file_name)
             self.__compiled__ = data["verified"]

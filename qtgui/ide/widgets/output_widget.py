@@ -17,60 +17,66 @@ NEW_LINE = "... "
 
 
 ########################################################################
-class PinguinoTerminal(QtGui.QPlainTextEdit):
+class PinguinoTextEdit(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
-    def __init__(self, widget, checkbox):
-        super(PinguinoTerminal, self).__init__(widget)
+    def __init__(self, widget=None, shell=True):
+        super(PinguinoTextEdit, self).__init__(widget)
 
-        self.appendPlainText(HEAD)
-        self.appendPlainText(HELP)
-        self.appendPlainText(START)
-
-        self.extra_args = {}
         self.shell = PythonShell()
 
-        self.historial = []
-        self.index_historial = 0
+        if shell:
+            self.appendPlainText(HEAD)
+            self.appendPlainText(HELP)
+            self.appendPlainText(START)
 
-        self.multiline_commands = []
+            self.extra_args = {}
 
-        Highlighter(self.document(), [START, NEW_LINE])
+            self.historial = []
+            self.index_historial = 0
 
-        self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
+            self.multiline_commands = []
 
-        for check in checkbox.keys():
-            setattr(self, check, checkbox[check])
-
-        self.checkbox = checkbox
-
+        Highlighter(self.document(), extra=[START, NEW_LINE], python=shell)
+        # self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
         self.setFrameShape(QtGui.QFrame.NoFrame)
 
 
 
+    # #----------------------------------------------------------------------
+    # def log_output(self, text, prefix=None):
+
+        # if prefix:
+            # text = text.replace("\n", "\n[%s] "%prefix)
+            # text = text.replace("\\n", "\\n[%s] "%prefix)
+            # text = "[%s] "%prefix + text
+        # if text:
+            # self.moveCursor(QtGui.QTextCursor.StartOfLine)
+            # self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
+            # # self.insertPlainText(START)
+            # self.moveCursor(QtGui.QTextCursor.End)
+
+        # self.repaint()
+
+
     #----------------------------------------------------------------------
-    def log_output(self, text, level=None):
+    def write(self, text, prefix=""):
+        # if not self.checkbox_debug.isChecked(): return
+        # return self.log_output(text[:-1])
+        text = text.replace("\n", "\n%s"%prefix)
+        text = text.replace("\\n", "\\n%s"%prefix)
+        if prefix: text = "%s "%prefix + text
 
-        if hasattr(self, "checkbox_%s" % level.lower()):
-            if not getattr(self, "checkbox_%s" % level.lower()).isChecked(): return
+        if not text.endswith("\n"):
+            text += "\n"
 
-        if level:
-            text = text.replace("\n", "\n[%s] "%level)
-            text = text.replace("\\n", "\\n[%s] "%level)
-            text = "[%s] "%level + text
-        if text:
-            self.moveCursor(QtGui.QTextCursor.StartOfLine)
-            self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
-            # self.insertPlainText(START)
-            self.moveCursor(QtGui.QTextCursor.End)
+        self.moveCursor(QtGui.QTextCursor.StartOfLine)
+        # self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
+        self.insertPlainText(text)
+        # self.insertPlainText(START)
+        self.moveCursor(QtGui.QTextCursor.End)
 
         self.repaint()
-
-
-    #----------------------------------------------------------------------
-    def write(self, text):
-        if not self.checkbox_debug.isChecked(): return
-        return self.log_output(text[:-1], level="DEBUG")
 
 
     #----------------------------------------------------------------------
@@ -81,7 +87,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         if event.key() in (QtCore.Qt.Key_Enter, QtCore.Qt.Key_Enter-1):
             self.moveCursor(QtGui.QTextCursor.End)
             self.index_historial = 0
-            super(PinguinoTerminal, self).keyPressEvent(event)
+            super(PinguinoTextEdit, self).keyPressEvent(event)
 
             command = self.get_command()
 
@@ -127,7 +133,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
         elif event.key() == QtCore.Qt.Key_Backspace:
             if not self.get_command(): return
-            else: super(PinguinoTerminal, self).keyPressEvent(event)
+            else: super(PinguinoTextEdit, self).keyPressEvent(event)
 
         elif event.key() == QtCore.Qt.Key_Up:
             if len(self.historial) >= self.index_historial + 1:
@@ -158,7 +164,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
         elif event.key() == QtCore.Qt.Key_Left:
             if self.no_overwrite_start():
-                super(PinguinoTerminal, self).keyPressEvent(event)
+                super(PinguinoTextEdit, self).keyPressEvent(event)
 
         elif event.key() == QtCore.Qt.Key_Tab:
             tc = self.textCursor()
@@ -236,7 +242,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
 
 
         else:
-            super(PinguinoTerminal, self).keyPressEvent(event)
+            super(PinguinoTextEdit, self).keyPressEvent(event)
 
 
     #----------------------------------------------------------------------
@@ -251,7 +257,7 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
         if event.modifiers() == QtCore.Qt.ControlModifier:
             self.step_font_size(event.delta())
 
-        else: super(PinguinoTerminal, self).wheelEvent(event)
+        else: super(PinguinoTextEdit, self).wheelEvent(event)
 
 
     ##----------------------------------------------------------------------
@@ -263,30 +269,41 @@ class PinguinoTerminal(QtGui.QPlainTextEdit):
     def contextMenuEvent(self, event):
         menu = QtGui.QMenu()
 
-        if self.historial:
-            sub_menu = QtGui.QMenu(QtGui.QApplication.translate("PythonShell", "Last commands"))
-            rhistorial = self.historial[:]
+        if hasattr(self, "historial"):
+            if self.historial:
+                sub_menu = QtGui.QMenu(QtGui.QApplication.translate("PythonShell", "Last commands"))
+                rhistorial = self.historial[:]
 
-            rhistorial.reverse()
+                rhistorial.reverse()
 
-            rhistorial = filter(lambda cm: not cm.isspace(), rhistorial)
-            rhistorial = filter(lambda cm: not cm == "", rhistorial)
+                rhistorial = filter(lambda cm: not cm.isspace(), rhistorial)
+                rhistorial = filter(lambda cm: not cm == "", rhistorial)
 
-            for command in rhistorial[:10]:
-                sub_menu.addAction(command, lambda :self.insertPlainText(command))
-            menu.addMenu(sub_menu)
+                for command in rhistorial[:10]:
+                    sub_menu.addAction(command, lambda :self.insertPlainText(command))
+                menu.addMenu(sub_menu)
+                menu.addSeparator()
+
+        if self.isReadOnly():
+            # menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
+            # menu.addAction(QtGui.QApplication.translate("PythonShell", "Restart"), self.command_restart)
+            # menu.addSeparator()
+            # menu.addAction(QtGui.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
+            # menu.addAction(QtGui.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
+            # menu.addSeparator()
+
+        else:
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Restart"), self.command_restart)
             menu.addSeparator()
-
-
-        menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
-        menu.addAction(QtGui.QApplication.translate("PythonShell", "Restart"), self.command_restart)
-        menu.addSeparator()
-        menu.addAction(QtGui.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
-        menu.addAction(QtGui.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
-        menu.addAction(QtGui.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
-        menu.addAction(QtGui.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
-        menu.addSeparator()
-        #menu.addAction(self.main.actionComment_out_region)
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
+            # menu.addSeparator()
+            #menu.addAction(self.main.actionComment_out_region)
 
         menu.setStyleSheet("""
         QMenu {

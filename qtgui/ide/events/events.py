@@ -3,11 +3,10 @@
 
 from PySide import QtCore
 
-from .event_methods import EventMethods
-from .timer_methods import TimerMethods
+from ..methods.methods import Methods
 
 ########################################################################
-class PinguinoEvents(EventMethods, TimerMethods):
+class PinguinoEvents(Methods):
 
     #----------------------------------------------------------------------
     def connect_events(self):
@@ -48,9 +47,9 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.connect(self.main.actionToolbars, QtCore.SIGNAL("toggled(bool)"), self.toggle_toolbars)
         self.connect(self.main.actionEnvironment, QtCore.SIGNAL("triggered()"), lambda :self.__show_environ__("environ"))
         self.connect(self.main.actionVariables, QtCore.SIGNAL("triggered()"), lambda :self.__show_environ__("variables"))
-        self.connect(self.main.actionTools_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_tools.setVisible)
+        self.connect(self.main.actionTools_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_right.setVisible)
         # self.connect(self.main.actionBlocks_2, QtCore.SIGNAL("toggled(bool)"), self.main.dockWidget_blocks.setVisible)
-        self.connect(self.main.actionPython_shell, QtCore.SIGNAL("toggled(bool)"), self.toggle_pythonshell)
+        # self.connect(self.main.actionPython_shell, QtCore.SIGNAL("toggled(bool)"), self.toggle_pythonshell)
 
         # Menu Project
         self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.add_existing_directory)
@@ -147,15 +146,15 @@ class PinguinoEvents(EventMethods, TimerMethods):
         self.main.tabWidget_graphical.contextMenuEvent = self.tab_files_context_menu
 
         #self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.update_mode_output)
-        #self.connect(self.main.dockWidget_tools, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionTools_2.setChecked)
+        #self.connect(self.main.dockWidget_right, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionTools_2.setChecked)
         #self.connect(self.main.dockWidget_blocks, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionBlocks_2.setChecked)
         #self.connect(self.main.dockWidget_output, QtCore.SIGNAL("visibilityChanged(bool)"), self.main.actionPython_shell.setChecked)
 
-        self.connect(self.main.dockWidget_tools, QtCore.SIGNAL("dockLocationChanged(Qt::DockWidgetArea)"), lambda area:self.update_tab_position(self.main.tabWidget_tools, area))
+        self.connect(self.main.dockWidget_right, QtCore.SIGNAL("dockLocationChanged(Qt::DockWidgetArea)"), lambda area:self.update_tab_position(self.main.tabWidget_tools, area))
         # self.connect(self.main.dockWidget_blocks, QtCore.SIGNAL("dockLocationChanged(Qt::DockWidgetArea)"), lambda area:self.update_tab_position(self.main.tabWidget_blocks, area))
 
-        self.main.actionTools_2.setChecked(self.main.dockWidget_tools.isVisible())
-        self.main.actionPython_shell.setChecked(self.main.dockWidget_output.isVisible())
+        self.main.actionTools_2.setChecked(self.main.dockWidget_right.isVisible())
+        # self.main.actionPython_shell.setChecked(self.main.dockWidget_output.isVisible())
         # self.main.actionBlocks_2.setChecked(self.main.dockWidget_blocks.isVisible())
         self.main.actionToolbars.setChecked(True)
         self.main.actionPython_shell.setChecked(True)

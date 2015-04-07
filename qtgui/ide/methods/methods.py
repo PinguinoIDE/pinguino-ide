@@ -16,9 +16,12 @@ from ..tools.project_manager import ProjectManager
 # from ..methods.library_manager import Librarymanager
 from ..widgets.output_widget import START
 
+from .timed_methods import TimedMethods
+from .event_methods import EventMethods
+
 
 ########################################################################
-class Methods(SearchReplace, ProjectManager, Files):
+class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files):
 
     #----------------------------------------------------------------------
     #@Decorator.debug_time()
@@ -173,6 +176,7 @@ class Methods(SearchReplace, ProjectManager, Files):
         else: return self.main.tabWidget_files
 
 
+
     #----------------------------------------------------------------------
     def __update_path_files__(self, path):
         self.update_path_files(path)
@@ -184,20 +188,20 @@ class Methods(SearchReplace, ProjectManager, Files):
         # # self.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg, exclude=".pde")
 
 
-    #----------------------------------------------------------------------
-    def __update_current_dir_on_files__(self):
-        tab = self.get_tab()
-        if tab == self.main.tabWidget_files:
-            if self.main.comboBox_files.currentIndex() == 2:
-                editor = tab.currentWidget()
-                dir_ = getattr(editor, "path", None)
-                if dir_: self.__update_path_files__(os.path.split(dir_)[0])
+    # #----------------------------------------------------------------------
+    # def __update_current_dir_on_files__(self):
+        # tab = self.get_tab()
+        # if tab == self.main.tabWidget_files:
+            # if self.main.comboBox_files.currentIndex() == 2:
+                # editor = tab.currentWidget()
+                # dir_ = getattr(editor, "path", None)
+                # if dir_: self.__update_path_files__(os.path.split(dir_)[0])
 
-        else:
-            if self.main.comboBox_filesg.currentIndex == 2:
-                editor = tab.currentWidget()
-                dir_ = getattr(editor, "path", None)
-                if dir_: self.__update_graphical_path_files__(os.path.split(dir_)[0])
+        # else:
+            # if self.main.comboBox_filesg.currentIndex == 2:
+                # editor = tab.currentWidget()
+                # dir_ = getattr(editor, "path", None)
+                # if dir_: self.__update_graphical_path_files__(os.path.split(dir_)[0])
 
 
     #----------------------------------------------------------------------
@@ -410,7 +414,7 @@ class Methods(SearchReplace, ProjectManager, Files):
 
 
     #----------------------------------------------------------------------
-    def write_log(self, data, level="OUT"):
+    def write_log(self, data, prefix="[INFO]"):
 
         lines = ""
         if type(data) == type({}):
@@ -423,10 +427,10 @@ class Methods(SearchReplace, ProjectManager, Files):
         # else:
             # assert False, "No soported type"
 
-        self.main.plainTextEdit_output.log_output(lines, level=level)
-        self.main.plainTextEdit_output.update()
+        self.main.plainTextEdit_log.write(lines, prefix=prefix)
+        self.main.plainTextEdit_log.update()
 
-        scroll = self.main.plainTextEdit_output.verticalScrollBar()
+        scroll = self.main.plainTextEdit_log.verticalScrollBar()
         scroll.setValue(scroll.maximum())
 
 
@@ -669,9 +673,9 @@ class Methods(SearchReplace, ProjectManager, Files):
 
         if self.is_graphical():
             self.main.dockWidget_blocks.setVisible(not expand)
-            self.main.dockWidget_tools.setVisible(False)
+            self.main.dockWidget_right.setVisible(False)
         else:
-            self.main.dockWidget_tools.setVisible(not expand)
+            self.main.dockWidget_right.setVisible(not expand)
             self.main.dockWidget_blocks.setVisible(False)
 
     #----------------------------------------------------------------------

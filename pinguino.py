@@ -5,9 +5,6 @@ NAME = "Pinguino IDE"
 VERSION = "11.1"
 SUBVERSION = ""
 
-#DESCRIPTION = ""
-#LONG_DESCRIPTION = ""
-
 ################################################################################
 
 """-------------------------------------------------------------------------
@@ -198,6 +195,7 @@ if __name__ == "__main__":
         if not splash is None:
             splash.finish(frame)
 
+
         #For PyInstaller compatibility
         if app is None:
             from PySide.QtGui import QApplication
@@ -205,6 +203,7 @@ if __name__ == "__main__":
         else:
             #sys.exit(app.exec_())
             app.exec_()
+
 
 
     else:  #command line

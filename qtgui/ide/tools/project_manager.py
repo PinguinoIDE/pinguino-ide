@@ -9,7 +9,6 @@ import logging
 from ..methods.decorators import Decorator
 from ..methods.dialogs import Dialogs
 
-from ...pinguino_api.tools import Debugger
 
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
@@ -32,7 +31,6 @@ class ProjectManager(object):
 
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
     def add_existing_directory(self):
         """"""
         dir_project = Dialogs.set_open_dir(self)

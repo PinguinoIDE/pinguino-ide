@@ -6,8 +6,6 @@ import sys
 import logging
 #import debugger
 
-from ..tools import Debugger
-
 ########################################################################
 class baseUploader(object):
 
@@ -117,7 +115,8 @@ class Uploader(object):
     """Universal uploader class"""
 
     #----------------------------------------------------------------------
-    def __init__(self, hex_file, board):
+    def get_uploader(self, hex_file, board):
+        """Return an inicialiced Uploader class"""
 
         #debugger.Debugger(sys)
 
@@ -139,13 +138,12 @@ class Uploader(object):
         elif board.bldr == "microchip":
             from uploader32 import uploader32 as Uploader
 
-        self.uploader = Uploader(hex_file, board)
+        return Uploader(hex_file, board)
 
 
-    #----------------------------------------------------------------------
-    @Debugger.debug_method
-    def write_hex(self):
+    # #----------------------------------------------------------------------
+    # def write_hex(self):
 
-        self.uploader.writeHex()
-        return self.uploader.report
+        # self.uploader.writeHex()
+        # return self.uploader.report
 

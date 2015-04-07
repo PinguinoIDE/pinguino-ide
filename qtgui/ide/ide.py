@@ -4,13 +4,16 @@
 import sys
 import os
 import platform
+import inspect
+import types
+
 from PySide import QtGui, QtCore
 
 from .methods.backgrounds import BackgroundPallete
 from .events.events import PinguinoEvents
 from .methods.decorators import Decorator
 from .code_editor.autocomplete_icons import CompleteIcons
-from .widgets.output_widget import PinguinoTerminal
+from .widgets.output_widget import PinguinoTextEdit
 # from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
@@ -93,12 +96,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         #timer events
         splash_write(QtGui.QApplication.translate("Splash", "Starting timers"))
-        self.update_functions()
-        self.update_directives()
-        self.update_variables()
-        self.update_autocompleter()
-        self.check_external_changes()
-        self.save_backup_file()
+        # self.update_functions()
+        # self.update_directives()
+        # self.update_variables()
+        # self.update_autocompleter()
+        # self.check_external_changes()
+        # self.save_backup_file()
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
         self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
@@ -122,24 +125,20 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
 
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("PINGUINO_NAME"), os.getenv("PINGUINO_VERSION")))
-        print("Pinguino IDE started!")
 
         self.enable_debugger()
+        logging.info("Welcome to %s" % os.getenv("PINGUINO_FULLNAME"))
 
 
     #----------------------------------------------------------------------
     def enable_debugger(self):
 
-        root = logging.getLogger()
-        root.setLevel(logging.DEBUG)
-
-        ch = logging.StreamHandler(self.main.plainTextEdit_output)
-        #ch.setLevel(logging.INFO)
-        # formatter = logging.Formatter("[DEBUG] %(message)s")
-        formatter = logging.Formatter("%(message)s")
+        log = logging.getLogger()
+        log.setLevel(logging.DEBUG)
+        ch = logging.StreamHandler(self.main.plainTextEdit_log)
+        formatter = logging.Formatter("[%(levelname)s] %(message)s")
         ch.setFormatter(formatter)
-
-        root.addHandler(ch)
+        log.addHandler(ch)
 
 
     #----------------------------------------------------------------------
@@ -227,14 +226,14 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.tabWidget_tools.setCurrentIndex(self.TAB_FILES)
 
 
-        self.main.dockWidget_tools.setTitleBarWidget(QtGui.QWidget())
-        self.main.dockWidget_output.setTitleBarWidget(QtGui.QWidget())
+        self.main.dockWidget_right.setTitleBarWidget(QtGui.QWidget())
+        self.main.dockWidget_bottom.setTitleBarWidget(QtGui.QWidget())
 
         # self.main.tabWidget_blocks_tools.setCurrentIndex(0)
 
         # side = self.configIDE.config("Main", "dock_tools", "RightDockWidgetArea")
-        # self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_tools)
-        # self.update_tab_position(self.main.tabWidget_tools, self.dockWidgetArea(self.main.dockWidget_tools))
+        # self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_right)
+        # self.update_tab_position(self.main.tabWidget_tools, self.dockWidgetArea(self.main.dockWidget_right))
 
         # side = self.configIDE.config("Main", "dock_blocks", "RightDockWidgetArea")
         # # self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, side)), self.main.dockWidget_blocks)
@@ -291,6 +290,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         # selection-background-color: %s;
         # """%(selection_color, selection_bg_color))
 
+        self.main.statusBar.setStyleSheet("""
+        font-family: inherit;
+        font-weight: normal;
+        selection-color: %s;
+        selection-background-color: %s;
+        """%(selection_color, selection_bg_color))
+
 
         # self.main.groupBox_replace.setStyleSheet("""
         # QGroupBox{
@@ -309,7 +315,18 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         #Python shell CSS styles
         self.main.plainTextEdit_output.setStyleSheet("""
         QPlainTextEdit {
-            background-color: #333;
+            background-color: #000;
+            color: #FFFFFF;
+            font-family: mono;
+            font-weight: normal;
+            font-size: 10pt;
+        }
+        """)
+
+        #Log CSS styles
+        self.main.plainTextEdit_log.setStyleSheet("""
+        QPlainTextEdit {
+            background-color: #000;
             color: #FFFFFF;
             font-family: mono;
             font-weight: normal;
@@ -321,25 +338,34 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
     #----------------------------------------------------------------------
     def build_output(self):
+
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))  #FIXME: move this
-        self.main.checkBox_output_debug.setChecked(self.configIDE.config("Features", "debug_in_output", True))
-        self.main.checkBox_output_messages.setChecked(self.configIDE.config("Features", "out_in_output", True))
 
-        checkbox = {"checkbox_debug": self.main.checkBox_output_debug,
-                    "checkbox_out": self.main.checkBox_output_messages,
-                    }
+        # self.main.checkBox_output_debug.setChecked(self.configIDE.config("Features", "debug_in_output", True))
+        # self.main.checkBox_output_messages.setChecked(self.configIDE.config("Features", "out_in_output", True))
 
-        self.main.plainTextEdit_output = PinguinoTerminal(widget=self.main.widget_output, checkbox=checkbox)
+        # checkbox = {"checkbox_debug": self.main.checkBox_output_debug,
+                    # "checkbox_out": self.main.checkBox_output_messages,
+                    # }
 
-        self.main.frame.setStyleSheet("""
-        QFrame {
-            background-color: #333;
-            color: #FFFFFF;
-        }
-        """)
+        self.main.plainTextEdit_output = PinguinoTextEdit()
+        self.main.plainTextEdit_log = PinguinoTextEdit(shell=False)
+
+
+        self.main.plainTextEdit_log.setReadOnly(True)
+
+        # self.main.plainTextEdit_output = PinguinoTerminal(widget=self.main.widget_output)
+
+        # self.main.frame.setStyleSheet("""
+        # QFrame {
+            # background-color: #333;
+            # color: #FFFFFF;
+        # }
+        # """)
 
         self.main.plainTextEdit_output.set_extra_args(**{"pinguino": self})
-        self.main.gridLayout_17.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
+        self.main.gridLayout_shell.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
+        self.main.gridLayout_log.addWidget(self.main.plainTextEdit_log, 0, 0, 1, 1)
 
 
     #----------------------------------------------------------------------
@@ -372,15 +398,15 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.tabWidget_tools.setVisible(not normal)
 
         # self.main.dockWidget_blocks.setVisible(normal)
-        # self.main.dockWidget_tools.setVisible(not normal)
+        # self.main.dockWidget_right.setVisible(not normal)
         self.main.toolBar_search_replace.setVisible(not normal)
         self.main.toolBar_edit.setVisible(not normal)
         self.main.toolBar_graphical.setVisible(normal)
         self.main.toolBar_undo_redo.setVisible(not normal)
 
         #self.configIDE.set("Features", "terminal_on_graphical", self.main.dockWidget_output.isVisible())
-        self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_text", True))
-        self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_text", True))
+        # self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_text", True))
+        # self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_text", True))
         self.configIDE.save_config()
 
 
@@ -396,15 +422,15 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.main.tabWidget_tools.setVisible(not normal)
 
         # self.main.dockWidget_blocks.setVisible(normal)
-        # self.main.dockWidget_tools.setVisible(not normal)
+        # self.main.dockWidget_right.setVisible(not normal)
         self.main.toolBar_search_replace.setVisible(not normal)
         self.main.toolBar_edit.setVisible(not normal)
         self.main.toolBar_graphical.setVisible(normal)
         self.main.toolBar_undo_redo.setVisible(not normal)
 
         #self.configIDE.set("Features", "terminal_on_text", self.main.dockWidget_output.isVisible())
-        self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
-        self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_graphical", False))
+        # self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
+        # self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.configIDE.save_config()
 
 
@@ -530,3 +556,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         return resize_icons
 
+
+for name, fn in inspect.getmembers(PinguinoIDE):
+    if isinstance(fn, types.UnboundMethodType):
+        setattr(PinguinoIDE, name, Decorator.debug_method(fn))

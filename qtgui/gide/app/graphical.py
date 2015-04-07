@@ -43,27 +43,6 @@ class GraphicalIDE(object):
         self.main = ide.main
         self.ide = ide
 
-        #self.colorTheme = "['3a7fff', 'ffaa00', 'a861ff', 'bca6ff', '8ebbff', '8ebbff']"
-
-        #self.colorTheme = self.colorTheme.replace("[", "").replace("]", "").replace("'", "").replace(" ", "")
-        #self.colorTheme = self.colorTheme.split(",")
-
-        #self.colorEspecific = {"linear": self.colorTheme[0],
-                               #"function": self.colorTheme[1],
-                               #"nested": self.colorTheme[2],
-                               #"insidebool": self.colorTheme[3],
-                               #"inside": self.colorTheme[4],
-                               #"frame": self.colorTheme[5],}
-
-        #for key in self.colorEspecific.keys():
-            #setColor(self.colorEspecific[key], key)
-
-        #self.colorEspecific["output"] = self.colorTheme[4]
-        #self.colorEspecific["output-bool"] = self.colorTheme[3]
-        #self.colorEspecific["frame-edit"] = self.colorTheme[0]
-        #self.colorEspecific["frame-plot"] = self.colorTheme[0]
-
-
         self.highlightedRect = QtCore.QRect()
         self.inPlace = 0
         self.posY = 20
@@ -162,7 +141,7 @@ class GraphicalIDE(object):
         if filename.endswith("*"): self.main.actionSave_file.setEnabled(True)
         else: self.main.actionSave_file.setDisabled(True)
 
-        self.ide.__update_current_dir_on_files__()
+        # self.ide.__update_current_dir_on_files__()
 
 
     #----------------------------------------------------------------------

@@ -1,7 +1,7 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-#import os
+import exceptions
 
 from PySide import QtGui, QtCore
 
@@ -16,10 +16,14 @@ from PySide import QtGui, QtCore
     #FUNCTIONS_PYTHON = "|".join(__builtin__.__dict__.keys())
 
 MESSAGES = [
-    ("DEBUG", "#ffff00"),
-    ("OUT", "#00ff00")
+    ("CRITICAL", "#FF0000"),
+    ("DEBUG", "#00FF00"),
+    ("ERROR", "#FF0000"),
+    ("INFO", "#1E90FF"),
+    ("WARNING", "#FFA500"),
 ]
 
+EXCEPTIONS = [(f,"#FF0000") for f in exceptions.__dict__.keys()]
 
 RESERVED_PYTHON = "def|class|for|while|pass|try|except|if|else|elif"
 
@@ -27,45 +31,40 @@ RESERVED_PYTHON = "def|class|for|while|pass|try|except|if|else|elif"
 class Highlighter(QtGui.QSyntaxHighlighter):
 
     #----------------------------------------------------------------------
-    def __init__(self, parent, extra):
+    def __init__(self, parent, extra=[], python=True):
         super(Highlighter, self).__init__(parent)
         color = QtGui.QColor
 
         self.highlightingRules = []
 
-        operators = QtGui.QTextCharFormat()
-        operators.setFontWeight(QtGui.QFont.Bold)
-        self.highlightingRules.append(("[()\[\]{}<>=\-\+\*\\%#!~&^,/]", operators))
+        if python:
+            operators = QtGui.QTextCharFormat()
+            operators.setFontWeight(QtGui.QFont.Bold)
+            self.highlightingRules.append(("[()\[\]{}<>=\-\+\*\\%#!~&^,/]", operators))
 
-        reserved = QtGui.QTextCharFormat()
-        reserved.setForeground(color("#8ae234"))
-        #self.highlightingRules.append(("\\b(None|False|True|def|class|for|while|pass|try|except|print|if)\\b", reserved))
-        self.highlightingRules.append(("\\b(%s)\\b" % RESERVED_PYTHON, reserved))
+            reserved = QtGui.QTextCharFormat()
+            reserved.setForeground(color("#8ae234"))
+            #self.highlightingRules.append(("\\b(None|False|True|def|class|for|while|pass|try|except|print|if)\\b", reserved))
+            self.highlightingRules.append(("\\b(%s)\\b" % RESERVED_PYTHON, reserved))
 
-        #functions = QtGui.QTextCharFormat()
-        #functions.setForeground(color("#aaffff"))
-        #self.highlightingRules.append(("\\b(%s)\\b" % FUNCTIONS_PYTHON, functions))
-
-        start_command = QtGui.QTextCharFormat()
-        start_command.setForeground(color("#729fcf"))
-        self.highlightingRules.append((extra[0].replace(".", "\."), start_command))
-
-        #line_command = QtGui.QTextCharFormat()
-        #line_command.setForeground(color("#ef292a"))
-        #self.highlightingRules.append((extra[1].replace(".", "\."), line_command))
+        if extra:
+            start_command = QtGui.QTextCharFormat()
+            start_command.setForeground(color("#729fcf"))
+            self.highlightingRules.append((extra[0].replace(".", "\."), start_command))
 
         sdcc_error_01 = QtGui.QTextCharFormat()
         sdcc_error_01.setForeground(color("#ef292a"))
         self.highlightingRules.append(("ERROR: .*", sdcc_error_01))
 
-        #sdcc_error_02 = QtGui.QTextCharFormat()
-        #sdcc_error_02.setForeground(color("#ef292a"))
-        #self.highlightingRules.append(("\\b[\d]+: .*", sdcc_error_02))
-
         for msg, color_ in MESSAGES:
             debugger = QtGui.QTextCharFormat()
             debugger.setForeground(color(color_))
             self.highlightingRules.append(("\[%s\] .*"%msg, debugger))
+
+        for msg, color_ in EXCEPTIONS:
+            debugger = QtGui.QTextCharFormat()
+            debugger.setForeground(color(color_))
+            self.highlightingRules.append(("\\b(%s)\\b"%msg, debugger))
 
 
     #----------------------------------------------------------------------

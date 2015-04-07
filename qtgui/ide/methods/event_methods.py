@@ -15,7 +15,6 @@ from ..code_editor.pinguino_code_editor import PinguinoCodeEditor
 from ..methods.dialogs import Dialogs
 from ..methods.decorators import Decorator
 #from ..methods import constants as Constants
-from ..methods.methods import Methods
 
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
@@ -37,7 +36,7 @@ from ..child_windows.environ_viewer import EnvironViewer
 
 
 ########################################################################
-class EventMethods(Methods):
+class EventMethods(object):
 
     # Menu File
 
@@ -244,14 +243,14 @@ class EventMethods(Methods):
         self.configIDE.set("Main", "maximized", self.isMaximized())
         #self.configIDE.set("Main", "terminal_height", self.main.dockWidget_output.height())
 
-        side = self.dockWidgetArea(self.main.dockWidget_tools)
-        self.configIDE.set("Main", "dock_tools", side.name.decode())
+        # side = self.dockWidgetArea(self.main.dockWidget_right)
+        # self.configIDE.set("Main", "dock_tools", side.name.decode())
 
-        side = self.dockWidgetArea(self.main.dockWidget_blocks)
-        self.configIDE.set("Main", "dock_blocks", side.name.decode())
+        # side = self.dockWidgetArea(self.main.dockWidget_blocks)
+        # self.configIDE.set("Main", "dock_blocks", side.name.decode())
 
-        side = self.dockWidgetArea(self.main.dockWidget_output)
-        self.configIDE.set("Main", "dock_shell", side.name.decode())
+        # side = self.dockWidgetArea(self.main.dockWidget_output)
+        # self.configIDE.set("Main", "dock_shell", side.name.decode())
 
         self.configIDE.set("Main", "menubar", self.main.menubar.isVisible())
 
@@ -269,8 +268,8 @@ class EventMethods(Methods):
 
         self.configIDE.set("Features", "graphical", self.is_graphical())
 
-        self.configIDE.set("Features", "debug_in_output", self.main.checkBox_output_debug.isChecked())
-        self.configIDE.set("Features", "out_in_output", self.main.checkBox_output_messages.isChecked())
+        # self.configIDE.set("Features", "debug_in_output", self.main.checkBox_output_debug.isChecked())
+        # self.configIDE.set("Features", "out_in_output", self.main.checkBox_output_messages.isChecked())
 
         self.configIDE.save_config()
 
@@ -927,7 +926,7 @@ class EventMethods(Methods):
                            "toolBar_graphical", "toolBar_switch", "toolBar_system",
                            "menubar", "statusBar"]
 
-        pinguino_pallete = ["dockWidget_output", "dockWidget_tools"]
+        pinguino_pallete = ["dockWidget_bottom", "dockWidget_right"]
 
         if pinguino_color:
             self.PinguinoPallete.set_background_pinguino(self.main.centralwidget.parent())
@@ -1118,7 +1117,7 @@ class EventMethods(Methods):
         if filename.endswith("*"): self.main.actionSave_file.setEnabled(True)
         else: self.main.actionSave_file.setDisabled(True)
 
-        self.__update_current_dir_on_files__()
+        # self.__update_current_dir_on_files__()
 
 
     #----------------------------------------------------------------------
@@ -1270,11 +1269,11 @@ class EventMethods(Methods):
             self.configIDE.set("Features", "terminal_on_text", visible)
 
 
-    #----------------------------------------------------------------------
-    def toggle_pythonshell(self, visible):
-        self.main.dockWidget_output.setVisible(visible)
-        self.update_mode_output(visible)
-        #self.configIDE.config("Features", "terminal_on_text", visible)
+    # #----------------------------------------------------------------------
+    # def toggle_pythonshell(self, visible):
+        # self.main.dockWidget_output.setVisible(visible)
+        # self.update_mode_output(visible)
+        # #self.configIDE.config("Features", "terminal_on_text", visible)
 
 
     #----------------------------------------------------------------------

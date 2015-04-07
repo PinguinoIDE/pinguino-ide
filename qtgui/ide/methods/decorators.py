@@ -4,7 +4,8 @@
 import functools
 import time
 import os
-#import threading
+import logging
+import traceback
 
 from PySide import QtCore, QtGui
 
@@ -314,3 +315,29 @@ class Decorator(object):
 
             #return wrapped
         #return actualdecorator
+
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def debug_method(self, f):
+
+        def inset(*args, **kwaargs):
+            # logging.debug("Starting '%s' from '%s'" % (f.__name__, f.__module__))
+            # t1 = time.time()
+            try:
+                ret = f(*args, **kwaargs)
+            except:
+                error = traceback.format_exc()
+                # error = error.split("\n")
+                # error = "\n".join([error[0]] + error[7:])
+                logging.debug(error)
+                return
+            # t2 = time.time()
+            # logging.debug("Time spent for '%s': %.2f s" % (f.__name__, t2-t1))
+            # logging.debug("Ending '%s'" % f.__name__)
+            return ret
+        return inset
+
+
+
+
