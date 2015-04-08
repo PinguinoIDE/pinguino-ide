@@ -1,11 +1,11 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: iso-8859-15 -*-
 
 """-------------------------------------------------------------------------
     Pinguino Uploader for Pinguino 32
 
     (c) 2011-2014 Regis Blanchot <rblanchot@gmail.com>
-    
+
     last update : 21 Mar. 2015
 
     This library is free software; you can redistribute it and/or
@@ -61,7 +61,7 @@ class uploader32(baseUploader):
         unsigned long Length2;
         unsigned char Type3;        //End of sections list indicator goes here, when not programming the vectors, in that case fill with 0xFF.
         unsigned long Address3;
-        unsigned long Length3;            
+        unsigned long Length3;
         unsigned char Type4;        //End of sections list indicator goes here, fill with 0xFF.
         unsigned char ExtraPadBytes[33];
     };
@@ -89,7 +89,7 @@ class uploader32(baseUploader):
 
     BOOT_VER_MAJOR                  =    22
     BOOT_VER_MINOR                  =    26
-    
+
     # Sent packet structure
     # ----------------------------------------------------------------------
 
@@ -99,7 +99,7 @@ class uploader32(baseUploader):
         unsigned char Command;
         unsigned long Address;
         unsigned char Size;
-        unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];    
+        unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];
         unsigned int Data[RequestDataBlockSize/WORDSIZE];
     };
     """
@@ -161,7 +161,7 @@ class uploader32(baseUploader):
     DEVICE_ID_ADDRESS               =    0xBF80F220
 
     # Table with supported USB devices
-    # device_id:['CPU name'] 
+    # device_id:['CPU name']
     #-----------------------------------------------------------------------
 
     devices_table = \
@@ -309,7 +309,7 @@ class uploader32(baseUploader):
         """ get bootloader version """
         usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
         usbBuf = self.getResponse(usbBuf)
-        
+
         if usbBuf == self.ERR_USB_WRITE:
             return self.ERR_USB_WRITE, self.ERR_USB_WRITE
 
@@ -327,7 +327,7 @@ class uploader32(baseUploader):
         """ Get size of program memory area """
         usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
         usbBuf = self.getResponse(usbBuf)
-        
+
         if usbBuf == self.ERR_USB_WRITE:
             return self.ERR_USB_WRITE, self.ERR_USB_WRITE
 
@@ -356,12 +356,12 @@ class uploader32(baseUploader):
         bf = (usbBuf[self.BOOT_LEN1 + 0]      ) | \
              (usbBuf[self.BOOT_LEN1 + 1] <<  8) | \
              (usbBuf[self.BOOT_LEN1 + 2] << 16)
-         
+
         #      | \
         #     (usbBuf[BOOT_LEN1 + 3] << 24)
 
         return ps, bf
-        
+
 # ----------------------------------------------------------------------
     def getDeviceName(self, device_id):
 # ----------------------------------------------------------------------
@@ -383,7 +383,7 @@ class uploader32(baseUploader):
     def writeFlash(self, address, block):
 # ----------------------------------------------------------------------
         """ Write a block of code """
-        
+
         # Convert Virtual Address to Physical Address if necessary
         # as NVMADDR only accept physical address
         #address = address & 0x1FFFFFFF
@@ -403,7 +403,7 @@ class uploader32(baseUploader):
             unsigned char Command;
             unsigned long Address;
             unsigned char Size;
-            unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];    
+            unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];
             unsigned int Data[RequestDataBlockSize/WORDSIZE];
         };
         """
@@ -426,7 +426,7 @@ class uploader32(baseUploader):
 
         # data's length in bytes
         usbBuf[self.BOOT_CMD_SIZE] = length
-        
+
         # pad bytes
         # 64 bytes (USB Packet Size ) - 6 bytes (Command) = 58 not divisible by 4
         # 58 bytes - 2 bytes = 56 bytes (Data block size) which is divisible by 4
@@ -516,7 +516,7 @@ class uploader32(baseUploader):
             k0_boot_flash_memory.append(0xFF)
             k1_boot_flash_memory.append(0xFF)
         """
-        
+
         # load hex file
         # ----------------------------------------------------------------------
 
@@ -646,13 +646,13 @@ class uploader32(baseUploader):
 
         #max_k0pfm_address = max_k0pfm_address + 64 - (max_k0pfm_address % 64)
         #max_k0pfm_address = max_k0pfm_address + self.DATABLOCKSIZE - (max_k0pfm_address % self.DATABLOCKSIZE)
-        
+
         #Correction André du 13/10/2014
         max_k0pfm_address = max_k0pfm_address + self.DATABLOCKSIZE - (codesize % self.DATABLOCKSIZE)
-        
+
         #Correction Régis du 13/10/2014
         #max_k0pfm_address = self.DATABLOCKSIZE * ( 1 + int(max_k0pfm_address / self.DATABLOCKSIZE) )
-        
+
         #max_k0bfm_address = max_k0bfm_address + 64 - (max_k0bfm_address % 64)
         #max_k1bfm_address = max_k1bfm_address + 64 - (max_k1bfm_address % 64)
         #self.add_report("max_k0pfm_address = 0x%08X" % max_k0pfm_address)
@@ -680,7 +680,7 @@ class uploader32(baseUploader):
         self.add_report("%d bytes written." % codesize)
 
         """
-        # write blocks of DATABLOCKSIZE bytes in k0 bfm 
+        # write blocks of DATABLOCKSIZE bytes in k0 bfm
         # --------------------------------------------------------------
 
         for addr in range(self.KSEG0_BOOT_FLASH, max_k0bfm_address, self.DATABLOCKSIZE):
@@ -693,7 +693,7 @@ class uploader32(baseUploader):
         #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
         status = status + self.sendCMD(usbBuf)
 
-        # write blocks of DATABLOCKSIZE bytes in k1 bfm 
+        # write blocks of DATABLOCKSIZE bytes in k1 bfm
         # --------------------------------------------------------------
 
         for addr in range(self.KSEG1_BOOT_FLASH, max_k1bfm_address, self.DATABLOCKSIZE):
@@ -706,7 +706,7 @@ class uploader32(baseUploader):
         #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
         status = status + self.sendCMD(usbBuf)
         """
-        
+
         # end
         # --------------------------------------------------------------
 
@@ -839,7 +839,7 @@ class uploader32(baseUploader):
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
         self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
 
-            
+
         # find out bootloader version
         version = self.getVersion())
         # Let's see if this bootloader have QUERRY_DEVICE command support
@@ -883,7 +883,7 @@ class uploader32(baseUploader):
         status = self.resetDevice()
         if status != self.ERR_NONE:
             self.closeDevice()
-        
+
         return
-        
+
 # ----------------------------------------------------------------------

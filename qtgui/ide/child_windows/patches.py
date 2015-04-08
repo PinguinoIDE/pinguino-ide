@@ -1,14 +1,16 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
 import os
 import shutil
 import requests
 import urlparse
+import hashlib
 
 from PySide import QtGui, QtCore
 
 from ...frames.patches import Ui_Patches
+from ..methods.dialogs import Dialogs
 
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
@@ -57,7 +59,7 @@ class Patches(QtGui.QDialog):
         """)
 
         self.center_on_screen()
-        self.get_patches()
+
 
     #----------------------------------------------------------------------
     def center_on_screen(self):
@@ -84,7 +86,9 @@ class Patches(QtGui.QDialog):
         index = 0
         for patch in self.parser.sections():
 
-            if patch in self.main.configIDE.sections(): continue
+            if patch in self.main.configIDE.options("Patches"): continue
+
+            self.patches.tableWidget_patches.setRowCount(index+1)
 
             item = QtGui.QTableWidgetItem(self.parser.get(patch, "patch"))
             item.setCheckState(QtCore.Qt.Checked)
@@ -94,6 +98,7 @@ class Patches(QtGui.QDialog):
 
             index += 1
 
+        return index
 
 
     #----------------------------------------------------------------------
@@ -126,7 +131,21 @@ class Patches(QtGui.QDialog):
 
             src = os.path.join(dir_, filename)
             dst = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), path)
-            shutil.copyfile(src, dst)
 
+            src_hash = hashlib.md5(open(src, 'rb').read()).hexdigest()
+            dst_hash = hashlib.md5(open(dst, 'rb').read()).hexdigest()
 
-        # https://raw.githubusercontent.com/PinguinoIDE/pinguino-ide/8c69b22ef68ed50fb1f3b524ae3bf5bb775aba56/qtgui/ide/ide.py
+            if src_hash != dst_hash:
+                shutil.copyfile(src, dst)
+
+            self.main.configIDE.config("Patches", patch, self.parser.get(patch, "summary"))
+            self.main.configIDE.save_config()
+
+        self.hide()
+        reply = Dialogs.confirm_message(self.main, "You need restart for complete the update\nDo you want to restart Pinguino IDE now?")
+        if reply:
+            self.close()
+            self.main.restart_now()
+
+        else:
+            self.close()

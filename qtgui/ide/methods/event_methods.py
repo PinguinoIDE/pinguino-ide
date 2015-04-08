@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
 import os
@@ -678,7 +678,12 @@ class EventMethods(object):
     #----------------------------------------------------------------------
     def __show_patches__(self):
         self.patches = Patches(self)
-        self.patches.show()
+
+        if not self.patches.get_patches():
+            Dialogs.info_message(self, "There are no new updates available.\n %s is up to date" % os.getenv("PINGUINO_FULLNAME"))
+            self.patches.close()
+        else:
+            self.patches.show()
 
 
     #----------------------------------------------------------------------

@@ -1,12 +1,12 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: iso-8859-15 -*-
 
 """-------------------------------------------------------------------------
     Pinguino Bootloader Auto Detection
 
-    Author:          Regis Blanchot <rblanchot@gmail.com> 
+    Author:          Regis Blanchot <rblanchot@gmail.com>
     Last release:    2012-12-15
-    
+
     This library is free software you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -81,7 +81,7 @@ class autodetect(baseUploader):
     # USB Packet size
     # --------------------------------------------------------------------------
     MAXPACKETSIZE                   =    64
-    
+
     # bulk endpoints
     # --------------------------------------------------------------------------
     IN_EP                           =    0x81    # endpoint for Bulk reads
@@ -112,7 +112,7 @@ class autodetect(baseUploader):
             return handle
         return self.ERR_USB_INIT1
 # ------------------------------------------------------------------------------
-    def sendCMD(self, usbBuf):  
+    def sendCMD(self, usbBuf):
 # ------------------------------------------------------------------------------
         """ send command to the bootloader """
         sent_bytes = self.handle.bulkWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
@@ -121,7 +121,7 @@ class autodetect(baseUploader):
             #print "Block issued without problem."
             # whatever is returned, USB packet size is always 64 bytes long in high speed mode
             return self.handle.bulkRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
-        else:        
+        else:
             return self.ERR_USB_WRITE
 # ------------------------------------------------------------------------------
     def detect(self):
@@ -141,7 +141,7 @@ class autodetect(baseUploader):
         self.handle = self.initDevice()
         if self.handle == self.ERR_USB_INIT1:
             # wrong active config
-            # bootloader version is 1.x or 2.x 
+            # bootloader version is 1.x or 2.x
             return (2,12)
 
         # find out bootloader version

@@ -1,12 +1,12 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: iso-8859-15 -*-
 
 """-------------------------------------------------------------------------
 	Pinguino Universal Uploader
 
-	Author:			Regis Blanchot <rblanchot@gmail.com> 
+	Author:			Regis Blanchot <rblanchot@gmail.com>
 	Last release:	2012-01-24
-	
+
 	This library is free software you can redistribute it and/or
 	modify it under the terms of the GNU Lesser General Public
 	License as published by the Free Software Foundation; either
@@ -74,11 +74,11 @@ class uploaderDLN:
 	MAX_HID_RETRY					=	4
 
 	# Table with supported USB devices (from JAL USB HID Bootloader)
-	# device_id:[PIC name, flash size(in bytes), eeprom size (in bytes)] 
+	# device_id:[PIC name, flash size(in bytes), eeprom size (in bytes)]
 	# --------------------------------------------------------------------------
 
 	devices_table = \
-		{  
+		{
 			0x4740: ['18f13k50'	, 0x02000, 0x80 ],
 			0x4700: ['18lf13k50', 0x02000, 0x80 ],
 
@@ -91,32 +91,32 @@ class uploaderDLN:
 
 			0x4C00: ['18f24J50'	, 0x04000, 0x00 ],
 			0x4CC0: ['18lf24J50', 0x04000, 0x00 ],
-			
+
 			0x1240: ['18f2550'	, 0x08000, 0xFF ],
 			0x2A40: ['18f2553'	, 0x08000, 0xFF ],
 
 			0x4C20: ['18f25J50'	, 0x08000, 0x00 ],
 			0x4CE0: ['18lf25J50', 0x08000, 0x00 ],
-			
+
 			0x4C40: ['18f26J50'	, 0x10000, 0x00 ],
 			0x4D00: ['18lf26J50', 0x10000, 0x00 ],
-			
+
 			0x1200: ['18f4450'	, 0x04000, 0x00 ],  #FIXME: Duplicate key 0x1200
 			0x1220: ['18f4455'	, 0x06000, 0x00 ],
 			0x2A20: ['18f4458'	, 0x06000, 0xFF ],
-			
+
 			0x4C60: ['18f44J50'	, 0x04000, 0x00 ],
 			0x4D20: ['18lf44J50', 0x04000, 0x00 ],
-			
+
 			0x1200: ['18f4550'	, 0x08000, 0xFF ],  #FIXME: Duplicate key 0x1200
 			0x2A00: ['18f4553'	, 0x08000, 0xFF ],
-			
+
 			0x4C80: ['18f45J50'	, 0x08000, 0x00 ],
 			0x4D40: ['18lf45J50', 0x08000, 0x00 ],
-			
+
 			0x4CA0: ['18f46J50'	, 0x10000, 0x00 ],
 			0x4D60: ['18f46J50'	, 0x10000, 0x00 ],
-			
+
 			0x4100: ['18f65J50'	, 0x08000, 0x00 ],
 			0x1560: ['18f66J50'	, 0x10000, 0x00 ],
 			0x4160: ['18f66J55'	, 0x18000, 0x00 ],
@@ -147,7 +147,7 @@ class uploaderDLN:
 			return handle
 		return self.ERR_USB_INIT1
 # ------------------------------------------------------------------------------
-	def usbWrite(self, usbBuf):  
+	def usbWrite(self, usbBuf):
 # ------------------------------------------------------------------------------
 		"""
 		controlMsg(requestType, request, buffer, value=0, index=0, timeout=100) -> bytesWritten|buffer
@@ -161,7 +161,7 @@ class uploaderDLN:
 			request: specifies the request.
 				= SET_REPORT
 				= 0x9
-			buffer: if the transfer is a write transfer, buffer is a sequence 
+			buffer: if the transfer is a write transfer, buffer is a sequence
 				with the transfer data, otherwise, buffer is the number of
 				bytes to read.
 			value: specific information to pass to the device. (default: 0)
@@ -174,13 +174,13 @@ class uploaderDLN:
 		sent_bytes = handle.controlMsg(0x21, 0x09, usbBuf, 0x00, 0x00, self.DLN_TIMEOUT)
 		if sent_bytes == len(usbBuf):
 			return self.ERR_NONE
-		else:		
+		else:
 			return self.ERR_USB_WRITE
 # ------------------------------------------------------------------------------
 	def transaction(self, handle, usbBuf):
 # ------------------------------------------------------------------------------
 		"""
-		Write a data packet to currently-open USB device 
+		Write a data packet to currently-open USB device
 		Return 64 bytes from the device
 
 		interruptRead(endpoint, size, timeout=100) -> buffer
@@ -220,7 +220,7 @@ class uploaderDLN:
 		usbBuf = self.transaction(handle, usbBuf)
 		if usbBuf == self.ERR_USB_WRITE:
 			return self.ERR_USB_WRITE
-		else:		
+		else:
 			# major.minor.subminor
 			return	str(usbBuf[self.BOOT_VER_MAJOR]) + "." + \
 					str(usbBuf[self.BOOT_VER_MINOR]) + "." + \
@@ -236,7 +236,7 @@ class uploaderDLN:
 		usbBuf = self.transaction(handle, usbBuf)
 		if usbBuf == self.ERR_USB_WRITE:
 			return self.ERR_USB_WRITE
-		else:		
+		else:
 			dev1 = usbBuf[self.BOOT_CODE + 0]
 			dev2 = usbBuf[self.BOOT_CODE + 1]
 			device_id = ( int(dev2) << 8 ) + int(dev1)
@@ -248,7 +248,7 @@ class uploaderDLN:
 # ------------------------------------------------------------------------------
 		for n in self.devices_table:
 			if n == device_id:
-				return self.devices_table[n][1] - board.memstart			
+				return self.devices_table[n][1] - board.memstart
 		return self.ERR_DEVICE_NOT_FOUND
 # ------------------------------------------------------------------------------
 	def getDeviceName(self, device_id):
@@ -281,7 +281,7 @@ class uploaderDLN:
 # ------------------------------------------------------------------------------
 		""" write a block of code """
 		usbBuf = [0xFF] * 64
-		usbBuf[self.BOOT_CMD] = self.DLN_WRITE_FLASH_CMD 
+		usbBuf[self.BOOT_CMD] = self.DLN_WRITE_FLASH_CMD
 		# echo is used to link between command and response
 		usbBuf[self.BOOT_ECHO] = 123
 		# block's address (must be divisible by 2)
@@ -293,7 +293,7 @@ class uploaderDLN:
 		size = len(block)
 		if (size % 8 != 0):
 			size = (size / 8 + 1) * 8
-		usbBuf[self.BOOT_SIZE] = size 
+		usbBuf[self.BOOT_SIZE] = size
 		# add data to the packet
 		for i in range(size):
 			usbBuf[self.BOOT_CODE + i] = block[i]
@@ -337,7 +337,7 @@ class uploaderDLN:
 			byte_count = int(line[1:3], 16)
 			address_Lo = int(line[3:7], 16) # lower 16 bits (bits 0-15) of the data address
 			record_type= int(line[7:9], 16)
-			
+
 			address = (address_Hi << 16) + address_Lo
 
 			# checksum calculation
@@ -396,7 +396,7 @@ class uploaderDLN:
 						#print address - memstart + i
 						#print int(line[9 + (2 * i) : 11 + (2 * i)], 16)
 						data[address - board.memstart + i] = int(line[9 + (2 * i) : 11 + (2 * i)], 16)
-					
+
 			# end of file record
 			elif record_type == self.End_Of_File_Record:
 				break
@@ -410,7 +410,7 @@ class uploaderDLN:
 			else:
 				return self.ERR_HEX_RECORD
 
-		# erase memory from memstart to max_address 
+		# erase memory from memstart to max_address
 		# ----------------------------------------------------------------------
 
 		size64 = (max_address - board.memstart) / 64

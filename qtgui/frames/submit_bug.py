@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/submit_bug.ui'
 #
-# Created: Tue Apr  7 22:06:44 2015
+# Created: Wed Apr  8 03:21:01 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_SubmitBug(object):
     def setupUi(self, SubmitBug):
         SubmitBug.setObjectName("SubmitBug")
-        SubmitBug.resize(577, 438)
+        SubmitBug.resize(572, 438)
         self.verticalLayout_3 = QtGui.QVBoxLayout(SubmitBug)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.label = QtGui.QLabel(SubmitBug)

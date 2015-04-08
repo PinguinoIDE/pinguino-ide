@@ -1,15 +1,15 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
 all_sets = {}
 
 #----------------------------------------------------------------------
 def extractBlocks(model):
-    
+
     blocks = filter(lambda x:not x.startswith("__"), model.__dict__.keys())
     instanced = model()
     for key in blocks: all_sets[key] = getattr(instanced, key)()
-    
+
 
 from .pinguino import Pinguino
 extractBlocks(Pinguino)
@@ -25,7 +25,7 @@ extractBlocks(Widgets)
 
 from .invisible import NoVisible
 extractBlocks(NoVisible)
- 
+
 from .user import User
 extractBlocks(User)
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
 import os
@@ -733,5 +733,60 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files):
                 if reply:
                     editor.text_edit.setPlainText(content)
                     os.remove(filename_backup)
+
+
+
+    #----------------------------------------------------------------------
+    def restart_now(self):
+
+        import time
+        import sys
+        logging.warning("Restarting now...")
+        time.sleep(1)
+
+        python = sys.executable
+        file_ = os.path.join(os.getenv("PINGUINO_HOME"), "pinguino.py")
+
+        os.execv(file_, sys.argv)
+
+
+    #----------------------------------------------------------------------
+    def get_tabs_height(self):
+        """"""
+        return self.main.tabWidget_bottom.height() - self.main.plainTextEdit_log.height() - 4
+
+
+
+
+    #----------------------------------------------------------------------
+    def toggle_right_tabs(self, event):
+        """"""
+        if event:
+            h = 400
+            self.main.dockWidgetContents_rigth.setMaximumWidth(1000)
+            self.main.dockWidgetContents_rigth.setMinimumWidth(h)
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMinimumWidth(0))
+
+        else:
+            h = self.get_tabs_height()
+            self.main.dockWidgetContents_rigth.setMinimumWidth(0)
+            self.main.dockWidgetContents_rigth.setMaximumWidth(h)
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMaximumWidth(1000))
+
+
+
+    #----------------------------------------------------------------------
+    def toggle_bottom_tabs(self, event):
+        """"""
+        if event:
+            h = 200
+            self.main.dockWidgetContents_bottom.setMaximumHeight(1000)
+            self.main.dockWidgetContents_bottom.setMinimumHeight(h)
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMinimumHeight(0))
+        else:
+            h = self.get_tabs_height()
+            self.main.dockWidgetContents_bottom.setMinimumHeight(0)
+            self.main.dockWidgetContents_bottom.setMaximumHeight(h)
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMaximumHeight(1000))
 
 

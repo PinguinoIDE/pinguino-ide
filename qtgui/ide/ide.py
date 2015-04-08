@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
 import sys
@@ -130,6 +130,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         logging.info("Welcome to %s" % os.getenv("PINGUINO_FULLNAME"))
 
 
+
+        self.setCorner(QtCore.Qt.BottomRightCorner, QtCore.Qt.RightDockWidgetArea)
+        self.set_sise_hint()
+
+
+
     #----------------------------------------------------------------------
     def enable_debugger(self):
 
@@ -139,6 +145,20 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         formatter = logging.Formatter("[%(levelname)s] %(message)s")
         ch.setFormatter(formatter)
         log.addHandler(ch)
+
+
+    #----------------------------------------------------------------------
+    def set_sise_hint(self):
+        """"""
+        elements = ["dockWidget_bottom", "dockWidget_right", "plainTextEdit_log", "plainTextEdit_output", "tabWidget_bottom",
+                    "tabWidget_tools", "tabWidget_blocks", "comboBox_files", "treeWidget_explorer", "lineEdit_blocks_search",
+                    "label_search_block", "pushButton_newproject", "treeWidget_projects", "tableWidget_variables",
+                    "lineEdit_search", "lineEdit_replace", "checkBox_case_sensitive", "label_search", "label_replace",
+                    "pushButton_search_previous", "pushButton_search_next", "pushButton_replace", "pushButton_replace_all",
+                    "label_replace_info"]
+
+        for element in elements:
+            getattr(self.main, element).minimumSizeHint = lambda :QtCore.QSize(0, 0)
 
 
     #----------------------------------------------------------------------

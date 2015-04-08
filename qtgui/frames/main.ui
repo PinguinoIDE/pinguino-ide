@@ -217,9 +217,8 @@
     <addaction name="actionStdout"/>
     <addaction name="separator"/>
     <addaction name="actionMenubar"/>
-    <addaction name="actionTools_2"/>
-    <addaction name="actionBlocks_2"/>
-    <addaction name="actionPython_shell"/>
+    <addaction name="actionRight_tabs"/>
+    <addaction name="actionBottom_tabs"/>
     <addaction name="actionToolbars"/>
     <addaction name="separator"/>
     <addaction name="actionMain_c"/>
@@ -256,7 +255,6 @@
     <addaction name="actionSelect_board"/>
     <addaction name="actionSet_paths"/>
     <addaction name="separator"/>
-    <addaction name="actionMaximize_editor"/>
     <addaction name="actionAutocomplete"/>
     <addaction name="actionColor_theme"/>
     <addaction name="actionConfirm_board"/>
@@ -319,7 +317,7 @@
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
+   <widget class="QWidget" name="dockWidgetContents_rigth">
     <layout class="QGridLayout" name="gridLayout_4">
      <property name="margin">
       <number>0</number>
@@ -336,7 +334,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>1</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -663,7 +661,7 @@
          <item row="0" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="label_search">
              <property name="text">
               <string>Search:</string>
              </property>
@@ -1009,7 +1007,7 @@
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_3">
+   <widget class="QWidget" name="dockWidgetContents_bottom">
     <layout class="QGridLayout" name="gridLayout_2">
      <property name="leftMargin">
       <number>0</number>
@@ -1027,7 +1025,7 @@
       <number>0</number>
      </property>
      <item row="0" column="0">
-      <widget class="QTabWidget" name="tabWidget">
+      <widget class="QTabWidget" name="tabWidget_bottom">
        <property name="acceptDrops">
         <bool>true</bool>
        </property>
@@ -1503,12 +1501,18 @@
     <string>Ctrl+P</string>
    </property>
   </action>
-  <action name="actionTools_2">
+  <action name="actionRight_tabs">
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>Tools</string>
+    <string>Right tabs</string>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
    </property>
   </action>
   <action name="actionBlocks_2">
@@ -1519,12 +1523,18 @@
     <string>Blocks</string>
    </property>
   </action>
-  <action name="actionPython_shell">
+  <action name="actionBottom_tabs">
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>Python shell</string>
+    <string>Bottom tabs</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
   </action>
   <action name="actionMaximize_editor">

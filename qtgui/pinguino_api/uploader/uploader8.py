@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#! /usr/bin/python2
 #-*- coding: iso-8859-15 -*-
 
 """---------------------------------------------------------------------
@@ -156,7 +156,7 @@ class uploader8(baseUploader):
         0x1560: ['18f66j50'],
         0x4160: ['18f66j55'],
         0x4180: ['18f67j50'],
-        
+
         0x41A0: ['18f85j50'],
         0x41E0: ['18f86j50'],
         0x1F40: ['18f86j55'],
@@ -254,7 +254,7 @@ class uploader8(baseUploader):
         usbBuf[self.BOOT_ADDR_LO] = (address      ) & 0xFF
         usbBuf[self.BOOT_ADDR_HI] = (address >> 8 ) & 0xFF
         usbBuf[self.BOOT_ADDR_UP] = (address >> 16) & 0xFF
-        # write data packet   
+        # write data packet
         #return self.sendCMD(usbBuf)
         self.handle.bulkWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
 
@@ -264,7 +264,7 @@ class uploader8(baseUploader):
         """ read a block of flash """
         usbBuf = [0] * self.MAXPACKETSIZE
         # command code
-        usbBuf[self.BOOT_CMD] = self.READ_FLASH_CMD 
+        usbBuf[self.BOOT_CMD] = self.READ_FLASH_CMD
         # size of block in bytes
         usbBuf[self.BOOT_CMD_LEN] = length
         # address of the block
@@ -285,7 +285,7 @@ class uploader8(baseUploader):
             total length is then DATABLOCKSIZE + 5 """
         usbBuf = [0xFF] * self.MAXPACKETSIZE
         # command code
-        usbBuf[self.BOOT_CMD] = self.WRITE_FLASH_CMD 
+        usbBuf[self.BOOT_CMD] = self.WRITE_FLASH_CMD
         # size of block
         usbBuf[self.BOOT_CMD_LEN] = len(datablock)
         # block's address
@@ -361,7 +361,7 @@ class uploader8(baseUploader):
             # lower 16 bits (bits 0-15) of the data address
             address_Lo = int(line[3:7], 16)
             record_type= int(line[7:9], 16)
-            
+
             # checksum calculation
             end = 9 + byte_count * 2 # position of checksum at end of line
             checksum = int(line[end:end+2], 16)
@@ -411,7 +411,7 @@ class uploader8(baseUploader):
 
         max_address = max_address + erasedBlockSize - (max_address % erasedBlockSize)
 
-        # erase memory from self.board.memstart to max_address 
+        # erase memory from self.board.memstart to max_address
         # --------------------------------------------------------------
 
         numBlocksMax = (self.board.memend - self.board.memstart) / erasedBlockSize
@@ -487,7 +487,7 @@ class uploader8(baseUploader):
         device_id = self.getDeviceID()
         proc = self.getDeviceName(device_id)
         self.add_report(" - with PIC%s (id=%X)" % (proc, device_id))
-        
+
         if proc != self.board.proc:
             self.add_report("Aborting: program compiled for %s but device has %s" % (self.board.proc, proc))
             self.closeDevice()
@@ -517,17 +517,17 @@ class uploader8(baseUploader):
             self.add_report("Aborting: record error")
             self.closeDevice()
             return
-            
+
         elif status == self.ERR_HEX_CHECKSUM:
             self.add_report("Aborting: checksum error")
             self.closeDevice()
             return
-            
+
         elif status == self.ERR_USB_ERASE:
             self.add_report("Aborting: erase error")
             self.closeDevice()
             return
-            
+
         elif status == self.ERR_NONE:
             self.add_report(os.path.basename(self.filename) + " successfully uploaded")
 
@@ -539,7 +539,7 @@ class uploader8(baseUploader):
             self.resetDevice()
             self.closeDevice()
             return
-            
+
         else:
             self.add_report("Aborting: unknown error")
             return
