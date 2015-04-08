@@ -318,21 +318,6 @@ class Decorator(object):
         #return actualdecorator
 
 
-    # #----------------------------------------------------------------------
-    # @classmethod
-    # def debug_method(self, f):
-
-        # def inset(*args, **kwaargs):
-            # try:
-                # ret = f(*args, **kwaargs)
-            # except:
-                # error = traceback.format_exc()
-                # logging.debug(error)
-                # submit = SubmmitBug(None, summary=error)
-                # return
-            # return ret
-        # return inset
-
 
     #----------------------------------------------------------------------
     @classmethod
@@ -347,7 +332,7 @@ class Decorator(object):
                 except:
                     error = traceback.format_exc()
                     logging.debug(error)
-                    cls.submmit_bug = SubmmitBug(Pinguino, error)
+                    cls.submmit_bug = SubmitBug(Pinguino, error)
                     cls.submmit_bug.show()
                     return
 

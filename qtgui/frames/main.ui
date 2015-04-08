@@ -1727,11 +1727,6 @@
     <string>Set current file as main upload</string>
    </property>
   </action>
-  <action name="actionSubmmit_bug">
-   <property name="text">
-    <string>Submmit bug</string>
-   </property>
-  </action>
   <action name="actionSubmit_bug_report">
    <property name="text">
     <string>Submit bug report</string>

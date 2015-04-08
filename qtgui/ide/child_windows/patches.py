@@ -2,7 +2,9 @@
 #-*- coding: utf-8 -*-
 
 import os
+import shutil
 import requests
+import urlparse
 
 from PySide import QtGui, QtCore
 
@@ -22,6 +24,7 @@ else:
 # BRANCH = "master"
 BRANCH = "11.1"
 PATCHES = "https://raw.githubusercontent.com/PinguinoIDE/pinguino-ide/%s/patches" % BRANCH
+RAWFILE = "https://raw.githubusercontent.com/PinguinoIDE/pinguino-ide/%s/"
 
 
 ########################################################################
@@ -44,7 +47,7 @@ class Patches(QtGui.QDialog):
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.setWindowIcon(icon)
 
-        self.connect(self.patches.pushButton_install, QtCore.SIGNAL("clicked()"), self.install)
+        self.connect(self.patches.pushButton_install, QtCore.SIGNAL("clicked()"), self.install_patches)
         self.connect(self.patches.pushButton_cancel, QtCore.SIGNAL("clicked()"), self.close)
 
         self.setStyleSheet("""
@@ -65,32 +68,65 @@ class Patches(QtGui.QDialog):
 
 
     #----------------------------------------------------------------------
-    def install(self):
-        """"""
-
-
-
-    #----------------------------------------------------------------------
     def get_patches(self):
-        """"""
+
         r = requests.get(PATCHES)
         patches = r.text.decode(r.encoding)
+        r.close()
         buf = StringIO(patches)
-        parser = RawConfigParser()
-        parser.readfp(buf)
+        self.parser = RawConfigParser()
+        self.parser.readfp(buf)
         buf.close()
 
-        index = 0
-        for patch in parser.sections():
+        if not self.main.configIDE.has_section("Patches"):
+            self.main.configIDE.add_section("Patches")
 
-            item = QtGui.QTableWidgetItem(parser.get(patch, "patch"))
+        index = 0
+        for patch in self.parser.sections():
+
+            if patch in self.main.configIDE.sections(): continue
+
+            item = QtGui.QTableWidgetItem(self.parser.get(patch, "patch"))
             item.setCheckState(QtCore.Qt.Checked)
             self.patches.tableWidget_patches.setItem(index, 0, item)
-            item = QtGui.QTableWidgetItem(parser.get(patch, "summary"))
+            item = QtGui.QTableWidgetItem(self.parser.get(patch, "summary"))
             self.patches.tableWidget_patches.setItem(index, 1, item)
 
             index += 1
 
+
+
+    #----------------------------------------------------------------------
+    def install_patches(self):
+
+        for patch in self.parser.sections():
+            if patch in self.main.configIDE.sections(): continue
+
+            hash_ = self.parser.get(patch, "hash")
+            name = self.parser.get(patch, "summary")
+            name = (patch + "-" + name).replace(" ", "-").lower()
+
+            path = self.parser.get(patch, "patch")
+
+            dirname = os.path.dirname(path)
+            filename = os.path.basename(path)
+
+            dir_ = os.path.join(os.getenv("PINGUINO_USER_PATH"), "patches", os.getenv("PINGUINO_VERSION"), name, dirname)
+            os.makedirs(dir_)
+
+            host_file = RAWFILE % hash_ + path
+            r = requests.get(host_file)
+            content = r.text.decode(r.encoding)
+            r.close()
+
+            file_ = open(os.path.join(dir_, filename), mode="w")
+
+            file_.write(content)
+            file_.close()
+
+            src = os.path.join(dir_, filename)
+            dst = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), path)
+            shutil.copyfile(src, dst)
 
 
         # https://raw.githubusercontent.com/PinguinoIDE/pinguino-ide/8c69b22ef68ed50fb1f3b524ae3bf5bb775aba56/qtgui/ide/ide.py

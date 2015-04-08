@@ -558,9 +558,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
 
 
-classes = [PinguinoIDE, PinguinoTextEdit]
+# classes = [PinguinoIDE, PinguinoTextEdit]
 
-for cls in classes:
-    for name, fn in inspect.getmembers(cls):
-        if isinstance(fn, types.UnboundMethodType):
-            setattr(cls, name, Decorator.debug_method()(fn))
+# for cls in classes:
+    # for name, fn in inspect.getmembers(cls):
+        # if isinstance(fn, types.UnboundMethodType):
+            # setattr(cls, name, Decorator.debug_method()(fn))
