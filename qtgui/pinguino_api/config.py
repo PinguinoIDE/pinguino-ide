@@ -5,7 +5,6 @@ import os
 import re
 import logging
 
-
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
