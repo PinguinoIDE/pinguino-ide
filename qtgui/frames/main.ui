@@ -194,6 +194,9 @@
     <addaction name="actionWiki_docs"/>
     <addaction name="menuLinks"/>
     <addaction name="separator"/>
+    <addaction name="actionSubmit_bug_report"/>
+    <addaction name="actionCheck_for_patches"/>
+    <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuSource">
@@ -1722,6 +1725,21 @@
   <action name="actionSet_current_file_as_main_upload">
    <property name="text">
     <string>Set current file as main upload</string>
+   </property>
+  </action>
+  <action name="actionSubmmit_bug">
+   <property name="text">
+    <string>Submmit bug</string>
+   </property>
+  </action>
+  <action name="actionSubmit_bug_report">
+   <property name="text">
+    <string>Submit bug report</string>
+   </property>
+  </action>
+  <action name="actionCheck_for_patches">
+   <property name="text">
+    <string>Check for patches</string>
    </property>
   </action>
  </widget>

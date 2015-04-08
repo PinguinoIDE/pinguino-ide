@@ -63,8 +63,8 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
     def write(self, text, prefix=""):
         # if not self.checkbox_debug.isChecked(): return
         # return self.log_output(text[:-1])
-        text = text.replace("\n", "\n%s"%prefix)
-        text = text.replace("\\n", "\\n%s"%prefix)
+        text = text.replace("\n", "\n%s "%prefix)
+        text = text.replace("\\n", "\\n%s "%prefix)
         if prefix: text = "%s "%prefix + text
 
         if not text.endswith("\n"):
@@ -268,6 +268,8 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
     #----------------------------------------------------------------------
     def contextMenuEvent(self, event):
         menu = QtGui.QMenu()
+
+        5 / 0
 
         if hasattr(self, "historial"):
             if self.historial:

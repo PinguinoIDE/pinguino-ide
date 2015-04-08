@@ -10,6 +10,7 @@ import traceback
 from PySide import QtCore, QtGui
 
 from .dialogs import Dialogs
+from ..child_windows.submit_bug import SubmitBug
 
 ########################################################################
 class Decorator(object):
@@ -317,27 +318,41 @@ class Decorator(object):
         #return actualdecorator
 
 
+    # #----------------------------------------------------------------------
+    # @classmethod
+    # def debug_method(self, f):
+
+        # def inset(*args, **kwaargs):
+            # try:
+                # ret = f(*args, **kwaargs)
+            # except:
+                # error = traceback.format_exc()
+                # logging.debug(error)
+                # submit = SubmmitBug(None, summary=error)
+                # return
+            # return ret
+        # return inset
+
+
     #----------------------------------------------------------------------
     @classmethod
-    def debug_method(self, f):
+    def debug_method(cls):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
 
-        def inset(*args, **kwaargs):
-            # logging.debug("Starting '%s' from '%s'" % (f.__name__, f.__module__))
-            # t1 = time.time()
-            try:
-                ret = f(*args, **kwaargs)
-            except:
-                error = traceback.format_exc()
-                # error = error.split("\n")
-                # error = "\n".join([error[0]] + error[7:])
-                logging.debug(error)
-                return
-            # t2 = time.time()
-            # logging.debug("Time spent for '%s': %.2f s" % (f.__name__, t2-t1))
-            # logging.debug("Ending '%s'" % f.__name__)
-            return ret
-        return inset
+                # Pinguino.clear_highlighted_lines()
+                try:
+                    return fn(Pinguino, *args, **kwargs)
+                except:
+                    error = traceback.format_exc()
+                    logging.debug(error)
+                    cls.submmit_bug = SubmmitBug(Pinguino, error)
+                    cls.submmit_bug.show()
+                    return
 
+            return wrapped
+        return actualdecorator
 
 
 

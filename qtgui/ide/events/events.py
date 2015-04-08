@@ -95,6 +95,8 @@ class PinguinoEvents(Methods):
 
         # Help
         self.connect(self.main.actionWiki_docs, QtCore.SIGNAL("triggered()"), self.show_wiki_docs)
+        self.connect(self.main.actionSubmit_bug_report, QtCore.SIGNAL("triggered()"), self.__show_submit_bug__)
+        self.connect(self.main.actionCheck_for_patches, QtCore.SIGNAL("triggered()"), self.__show_patches__)
         self.connect(self.main.actionIDE, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-ide/releases/latest"))
         #self.connect(self.main.actionCompilers, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-compilers/releases/latest"))
         self.connect(self.main.actionLibraries, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-libraries"))

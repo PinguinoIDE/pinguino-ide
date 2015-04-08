@@ -33,6 +33,8 @@ from ..child_windows.hex_viewer import HexViewer
 from ..child_windows.insert_block_dialog import InsertBlock
 from ..child_windows.wiki_librarires import WikiDock
 from ..child_windows.environ_viewer import EnvironViewer
+from ..child_windows.submit_bug import SubmitBug
+from ..child_windows.patches import Patches
 
 
 ########################################################################
@@ -647,7 +649,6 @@ class EventMethods(object):
             editor.text_edit.setTextCursor(prevCursor)
 
 
-
     # Pinguino
 
     #----------------------------------------------------------------------
@@ -666,6 +667,18 @@ class EventMethods(object):
     def __show_board_config__(self):
         self.frame_board = BoardConfig(self)
         self.frame_board.show()
+
+
+    #----------------------------------------------------------------------
+    def __show_submit_bug__(self):
+        self.submit_bug = SubmitBug(self)
+        self.submit_bug.show()
+
+
+    #----------------------------------------------------------------------
+    def __show_patches__(self):
+        self.patches = Patches(self)
+        self.patches.show()
 
 
     #----------------------------------------------------------------------
@@ -699,6 +712,7 @@ class EventMethods(object):
     def __show_stdout__(self):
         self.frame_stdout = PlainOut("Stdout")
         self.frame_stdout.show()
+
 
     #----------------------------------------------------------------------
     def __show_environ__(self, debug):
@@ -946,7 +960,7 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
-    def switch_confirm_board(self):
+    def switch_confirm_board(self, event=None):
         enable = self.main.actionConfirm_board.isChecked()
         self.configIDE.set("Features", "confirm_board", enable)
         self.configIDE.save_config()
@@ -963,6 +977,7 @@ class EventMethods(object):
     #----------------------------------------------------------------------
     def open_web_site(self, url):
         webbrowser.open_new_tab(url)
+
 
     #----------------------------------------------------------------------
     def __show_about__(self):

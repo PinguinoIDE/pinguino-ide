@@ -96,12 +96,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         #timer events
         splash_write(QtGui.QApplication.translate("Splash", "Starting timers"))
-        # self.update_functions()
-        # self.update_directives()
-        # self.update_variables()
-        # self.update_autocompleter()
-        # self.check_external_changes()
-        # self.save_backup_file()
+        self.update_functions()
+        self.update_directives()
+        self.update_variables()
+        self.update_autocompleter()
+        self.check_external_changes()
+        self.save_backup_file()
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
         self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
@@ -557,6 +557,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         return resize_icons
 
 
-for name, fn in inspect.getmembers(PinguinoIDE):
-    if isinstance(fn, types.UnboundMethodType):
-        setattr(PinguinoIDE, name, Decorator.debug_method(fn))
+
+classes = [PinguinoIDE, PinguinoTextEdit]
+
+for cls in classes:
+    for name, fn in inspect.getmembers(cls):
+        if isinstance(fn, types.UnboundMethodType):
+            setattr(cls, name, Decorator.debug_method()(fn))

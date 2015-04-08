@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Apr  7 00:58:16 2015
+# Created: Tue Apr  7 19:55:52 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -602,6 +602,12 @@ class Ui_PinguinoIDE(object):
         self.actionOpen_from_project.setObjectName("actionOpen_from_project")
         self.actionSet_current_file_as_main_upload = QtGui.QAction(PinguinoIDE)
         self.actionSet_current_file_as_main_upload.setObjectName("actionSet_current_file_as_main_upload")
+        self.actionSubmmit_bug = QtGui.QAction(PinguinoIDE)
+        self.actionSubmmit_bug.setObjectName("actionSubmmit_bug")
+        self.actionSubmit_bug_report = QtGui.QAction(PinguinoIDE)
+        self.actionSubmit_bug_report.setObjectName("actionSubmit_bug_report")
+        self.actionCheck_for_patches = QtGui.QAction(PinguinoIDE)
+        self.actionCheck_for_patches.setObjectName("actionCheck_for_patches")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
@@ -648,6 +654,9 @@ class Ui_PinguinoIDE(object):
         self.menuLinks.addAction(self.actionShop)
         self.menuHelp.addAction(self.actionWiki_docs)
         self.menuHelp.addAction(self.menuLinks.menuAction())
+        self.menuHelp.addSeparator()
+        self.menuHelp.addAction(self.actionSubmit_bug_report)
+        self.menuHelp.addAction(self.actionCheck_for_patches)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
         self.menuSource.addAction(self.actionComment_out_region)
@@ -908,5 +917,8 @@ class Ui_PinguinoIDE(object):
         self.actionAdd_new_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Add new file", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen_from_project.setText(QtGui.QApplication.translate("PinguinoIDE", "Open from project", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSet_current_file_as_main_upload.setText(QtGui.QApplication.translate("PinguinoIDE", "Set current file as main upload", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSubmmit_bug.setText(QtGui.QApplication.translate("PinguinoIDE", "Submmit bug", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSubmit_bug_report.setText(QtGui.QApplication.translate("PinguinoIDE", "Submit bug report", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCheck_for_patches.setText(QtGui.QApplication.translate("PinguinoIDE", "Check for patches", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
