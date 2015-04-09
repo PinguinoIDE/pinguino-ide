@@ -269,8 +269,6 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
     def contextMenuEvent(self, event):
         menu = QtGui.QMenu()
 
-        5 / 0
-
         if hasattr(self, "historial"):
             if self.historial:
                 sub_menu = QtGui.QMenu(QtGui.QApplication.translate("PythonShell", "Last commands"))

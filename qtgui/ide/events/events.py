@@ -9,6 +9,13 @@ from ..methods.methods import Methods
 class PinguinoEvents(Methods):
 
     #----------------------------------------------------------------------
+    def __init__(self):
+        """"""
+        Methods.__init__(self)
+        # super(Methods, self).__init__()
+
+
+    #----------------------------------------------------------------------
     def connect_events(self):
 
 

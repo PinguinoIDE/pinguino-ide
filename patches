@@ -1,4 +1,0 @@
-[patch01]
-summary = Fix some bug
-patch = qtgui/ide/ide.py
-hash = 1277e6a19bdf1462fa2e09a6a01f5d0d0d45ad50

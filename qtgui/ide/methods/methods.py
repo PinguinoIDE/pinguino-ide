@@ -13,6 +13,7 @@ from .dialogs import Dialogs
 from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
 from ..tools.project_manager import ProjectManager
+from ..tools.boardconfig import BoardConfig
 # from ..methods.library_manager import Librarymanager
 from ..widgets.output_widget import START
 
@@ -21,12 +22,21 @@ from .event_methods import EventMethods
 
 
 ########################################################################
-class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files):
+class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig):
+
+    #----------------------------------------------------------------------
+    def __init__(self):
+        """"""
+        BoardConfig.__init__(self)
+        # super(BoardConfig, self).__init__()
+
 
     #----------------------------------------------------------------------
     #@Decorator.debug_time()
     def open_file_from_path(self, *args, **kwargs):
         filename = kwargs["filename"]
+        readonly = kwargs.get("readonly", False)
+
         if self.__check_duplicate_file__(filename): return
 
         self.update_recents(filename)
@@ -45,10 +55,13 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files):
         content = "".join(pde_file.readlines())
         pde_file.close()
         editor.text_edit.setPlainText(content)
+        editor.text_edit.setReadOnly(readonly)
         setattr(editor, "path", filename)
         setattr(editor, "last_saved", content)
         self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
-        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
+        if readonly: extra_name = " (r/o)"
+        else: extra_name = ""
+        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1]+extra_name)
         self.check_backup_file(editor=editor)
         self.tab_changed()
 
@@ -328,16 +341,14 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files):
     def get_all_open_files(self):
 
         opens = []
-        tab = self.main.tabWidget_files
-        widgets = map(tab.widget, range(tab.count()))
-        for widget in widgets:
-            path = getattr(widget, "path", False)
-            if path: opens.append(path)
-        tab = self.main.tabWidget_graphical
-        widgets = map(tab.widget, range(tab.count()))
-        for widget in widgets:
-            path = getattr(widget, "path", False)
-            if path: opens.append(path)
+
+        for tab in [self.main.tabWidget_files, self.main.tabWidget_graphical]:
+            widgets = map(tab.widget, range(tab.count()))
+            for widget in widgets:
+                if not tab.tabText(tab.indexOf(widget)).endswith("(r/o)"):
+                    path = getattr(widget, "path", False)
+                    if path: opens.append(path)
+
         return opens
 
 
@@ -434,10 +445,10 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files):
         scroll.setValue(scroll.maximum())
 
 
-    #----------------------------------------------------------------------
-    def statusbar_ide(self, status):
+    # #----------------------------------------------------------------------
+    # def statusbar_ide(self, status):
 
-        self.status_info.setText(status)
+        # self.status_info.setText(status)
 
     #----------------------------------------------------------------------
     def statusbar_warnning(self, status):
@@ -790,3 +801,42 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files):
             QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMaximumHeight(1000))
 
 
+    # #----------------------------------------------------------------------
+    # def pop_out(self, widget):
+        # """"""
+        # index = self.main.tabWidget_bottom.indexOf(widget)
+        # if index != -1:
+            # tab_name = self.main.tabWidget_bottom.tabText(index)
+            # self.main.tabWidget_bottom.removeTab(index)
+            # self.floating_tab = Window()
+            # self.floating_tab.tab.addTab(widget, tab_name)
+            # self.floating_tab.show()
+
+
+    #----------------------------------------------------------------------
+    @Decorator.alert_tab("tab_stdout")
+    def update_stdout(self):
+        """"""
+        file_ = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "stdout")
+        # self.alert_tab(self.main.tab_stdout)
+
+        if os.path.exists(file_):
+            stdout = codecs.open(file_, "r", "utf-8")
+            content = stdout.readlines()
+            stdout.close()
+            self.main.plainTextEdit_stdout.insertPlainText("".join(content))
+
+
+
+    # #----------------------------------------------------------------------
+    # def alert_tab(self, widget):
+
+        # tab = widget.parent().parent()
+        # index = tab.indexOf(widget)
+        # tabbar = tab.tabBar()
+        # orig_c = tabbar.tabTextColor(0)
+
+        # for i in range(0, 8, 2):
+            # QtCore.QTimer.singleShot(300*i, lambda :tabbar.setTabTextColor(index, orig_c))
+            # QtCore.QTimer.singleShot((300*i)+300, lambda :tabbar.setTabTextColor(index, QtCore.Qt.red))
+        # QtCore.QTimer.singleShot(500*20, lambda :tabbar.setTabTextColor(index, orig_c))

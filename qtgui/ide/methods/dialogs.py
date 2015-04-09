@@ -210,13 +210,13 @@ class Dialogs(object):
         msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while compiling."))
 
-        stdout = QtGui.QPushButton()
-        stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
+        # stdout = QtGui.QPushButton()
+        # stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
 
         ok = QtGui.QPushButton()
         ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
 
-        msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
+        # msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
 
         msg_box.setDefaultButton(ok)
@@ -229,8 +229,8 @@ class Dialogs(object):
 
         reply = msg_box.exec_()
 
-        if reply == 0: return True
-        elif reply == 1: return False
+        # if reply == 0: return True
+        # elif reply == 1: return False
 
 
     #----------------------------------------------------------------------
@@ -242,13 +242,13 @@ class Dialogs(object):
         msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while linking."))
 
-        stdout = QtGui.QPushButton()
-        stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
+        # stdout = QtGui.QPushButton()
+        # stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
 
         ok = QtGui.QPushButton()
         ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
 
-        msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
+        # msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
 
         msg_box.setDefaultButton(ok)
@@ -299,8 +299,8 @@ class Dialogs(object):
 
         reply = msg_box.exec_()
 
-        if reply == 0: return True
-        elif reply == 1: return False
+        # if reply == 0: return True
+        # elif reply == 1: return False
 
 
     #----------------------------------------------------------------------
@@ -312,13 +312,13 @@ class Dialogs(object):
         msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while preprocess."))
 
-        stdout = QtGui.QPushButton()
-        stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
+        # stdout = QtGui.QPushButton()
+        # stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
 
         ok = QtGui.QPushButton()
         ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
 
-        msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
+        # msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
 
         msg_box.setDefaultButton(ok)
@@ -331,8 +331,8 @@ class Dialogs(object):
 
         reply = msg_box.exec_()
 
-        if reply == 0: return True
-        elif reply == 1: return False
+        # if reply == 0: return True
+        # elif reply == 1: return False
 
 
 
@@ -345,13 +345,13 @@ class Dialogs(object):
         msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
         msg_box.setText(QtGui.QApplication.translate("Dialogs", "Unknow error."))
 
-        stdout = QtGui.QPushButton()
-        stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
+        # stdout = QtGui.QPushButton()
+        # stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
 
         ok = QtGui.QPushButton()
         ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
 
-        msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
+        # msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
         msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
 
         msg_box.setDefaultButton(ok)
@@ -364,8 +364,8 @@ class Dialogs(object):
 
         reply = msg_box.exec_()
 
-        if reply == 0: return True
-        elif reply == 1: return False
+        # if reply == 0: return True
+        # elif reply == 1: return False
 
 
 

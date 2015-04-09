@@ -88,8 +88,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         self.init_widgets()
         splash_write(QtGui.QApplication.translate("Splash", "Building status bar"))
         self.build_statusbar()
-        splash_write(QtGui.QApplication.translate("Splash", "Building Python Shell"))
-        self.build_output()
+        splash_write(QtGui.QApplication.translate("Splash", "Building tabs"))
+        self.build_tabs()
 
         splash_write(QtGui.QApplication.translate("Splash", "Overwriting stylesheets"))
         self.set_styleSheet()
@@ -109,7 +109,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading boards configuration"))
         #self.set_board() #called in self.get_status_board()
-        self.statusbar_ide(self.get_status_board())
+        self.status_info.setText(self.get_status_board())
 
         splash_write(QtGui.QApplication.translate("Splash", "Connecting events"))
         self.connect_events()
@@ -133,6 +133,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         self.setCorner(QtCore.Qt.BottomRightCorner, QtCore.Qt.RightDockWidgetArea)
         self.set_sise_hint()
+
+
+        PinguinoEvents.__init__(self)
 
 
 
@@ -354,34 +357,28 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
         }
         """)
 
+        #Log CSS styles
+        self.main.plainTextEdit_stdout.setStyleSheet("""
+        QPlainTextEdit {
+            background-color: #FFFFFF;
+            color: #000;
+            font-family: mono;
+            font-weight: normal;
+            font-size: 10pt;
+        }
+        """)
+
 
 
     #----------------------------------------------------------------------
-    def build_output(self):
+    def build_tabs(self):
 
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))  #FIXME: move this
-
-        # self.main.checkBox_output_debug.setChecked(self.configIDE.config("Features", "debug_in_output", True))
-        # self.main.checkBox_output_messages.setChecked(self.configIDE.config("Features", "out_in_output", True))
-
-        # checkbox = {"checkbox_debug": self.main.checkBox_output_debug,
-                    # "checkbox_out": self.main.checkBox_output_messages,
-                    # }
 
         self.main.plainTextEdit_output = PinguinoTextEdit()
         self.main.plainTextEdit_log = PinguinoTextEdit(shell=False)
 
-
         self.main.plainTextEdit_log.setReadOnly(True)
-
-        # self.main.plainTextEdit_output = PinguinoTerminal(widget=self.main.widget_output)
-
-        # self.main.frame.setStyleSheet("""
-        # QFrame {
-            # background-color: #333;
-            # color: #FFFFFF;
-        # }
-        # """)
 
         self.main.plainTextEdit_output.set_extra_args(**{"pinguino": self})
         self.main.gridLayout_shell.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)

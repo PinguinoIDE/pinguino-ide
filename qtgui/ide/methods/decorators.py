@@ -341,3 +341,52 @@ class Decorator(object):
 
 
 
+
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def alert_tab(cls, widget_name):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                if Pinguino.get_tab().count():
+
+                    widget = getattr(Pinguino.main, widget_name)
+
+                    tab = widget.parent().parent()
+                    index = tab.indexOf(widget)
+                    tabbar = tab.tabBar()
+                    orig_c = tabbar.tabTextColor(0)
+
+                    for i in range(0, 8, 2):
+                        QtCore.QTimer.singleShot(300*i, lambda :tabbar.setTabTextColor(index, orig_c))
+                        QtCore.QTimer.singleShot((300*i)+300, lambda :tabbar.setTabTextColor(index, QtCore.Qt.red))
+                    QtCore.QTimer.singleShot(500*20, lambda :tabbar.setTabTextColor(index, orig_c))
+
+                    return fn(Pinguino, *args, **kwargs)
+                else:
+                    #print("No files are open.")
+                    return None
+            return wrapped
+        return actualdecorator
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def show_tab(cls, widget_name):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                if Pinguino.get_tab().count():
+
+                    widget = getattr(Pinguino.main, widget_name)
+
+                    tab = widget.parent().parent()
+                    index = tab.indexOf(widget)
+                    tab.setCurrentIndex(index)
+
+                    return fn(Pinguino, *args, **kwargs)
+                else:
+                    #print("No files are open.")
+                    return None
+            return wrapped
+        return actualdecorator

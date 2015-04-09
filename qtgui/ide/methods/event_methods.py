@@ -25,8 +25,6 @@ else:
     from ..methods.intel_hex import IntelHex
 
 from ..child_windows.about import About
-from ..child_windows.board_config import BoardConfig
-from ..child_windows.plain_text_out import PlainOut
 from ..child_windows.libraries import LibManager
 from ..child_windows.paths import Paths
 from ..child_windows.hex_viewer import HexViewer
@@ -664,9 +662,9 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
+    @Decorator.show_tab("tab_boardconfig")
     def __show_board_config__(self):
-        self.frame_board = BoardConfig(self)
-        self.frame_board.show()
+        pass
 
 
     #----------------------------------------------------------------------
@@ -714,9 +712,11 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
+    @Decorator.show_tab("tab_stdout")
     def __show_stdout__(self):
-        self.frame_stdout = PlainOut("Stdout")
-        self.frame_stdout.show()
+        pass
+        # self.frame_stdout = PlainOut("Stdout")
+        # self.frame_stdout.show()
 
 
     #----------------------------------------------------------------------
@@ -727,41 +727,26 @@ class EventMethods(object):
 
     #----------------------------------------------------------------------
     def __show_main_c__(self):
+
         source = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")
         board = self.configIDE.config("Board", "arch", 8)
         if board == 32: extra = "32"
         else: extra = ""
         filename = os.path.join(source, "main%s.c"%extra)
+        self.open_file_from_path(filename=filename, readonly=True)
 
-        if os.path.isfile(filename):
-            file_ = codecs.open(filename, "r", "utf-8")
-            content = file_.readlines()
-            file_.close()
-            self.frame_main = PlainOut("Main.c", "".join(content), highlight=True)
-            self.frame_main.show()
 
     #----------------------------------------------------------------------
     def __show_define_h__(self):
+
         filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "define.h")
-
-        if os.path.isfile(filename):
-            file_ = codecs.open(filename, "r", "utf-8")
-            content = file_.readlines()
-            file_.close()
-            self.frame_define = PlainOut("Define.h", "".join(content), highlight=True)
-            self.frame_define.show()
-
+        self.open_file_from_path(filename=filename, readonly=True)
 
     #----------------------------------------------------------------------
     def __show_user_c__(self):
-        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "user.c")
 
-        if os.path.isfile(filename):
-            file_ = codecs.open(filename, "r", "utf-8")
-            content = file_.readlines()
-            file_.close()
-            self.frame_user = PlainOut("User.c", "".join(content), highlight=True)
-            self.frame_user.show()
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "user.c")
+        self.open_file_from_path(filename=filename, readonly=True)
 
 
     #----------------------------------------------------------------------
@@ -793,6 +778,7 @@ class EventMethods(object):
         # self.write_log("")
 
         compile_code()
+        self.update_stdout()
         self.post_compile(dialog_upload)
 
     #----------------------------------------------------------------------
@@ -829,18 +815,18 @@ class EventMethods(object):
 
 
             if errors_asm or errors_c:
-                if Dialogs.error_while_compiling(self):
-                    self.__show_stdout__()
+                Dialogs.error_while_compiling(self)
+                self.__show_stdout__()
             elif errors_linking:
-                if Dialogs.error_while_linking(self):
-                    self.__show_stdout__()
+                Dialogs.error_while_linking(self)
+                self.__show_stdout__()
             elif errors_preprocess:
-                if Dialogs.error_while_preprocess(self):
-                    self.__show_stdout__()
+                Dialogs.error_while_preprocess(self)
+                self.__show_stdout__()
 
             else:
-                if Dialogs.error_while_unknow(self):
-                    self.__show_stdout__()
+                Dialogs.error_while_unknow(self)
+                self.__show_stdout__()
 
         else:
             result = self.pinguinoAPI.get_result()
