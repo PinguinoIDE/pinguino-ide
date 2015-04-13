@@ -9,11 +9,12 @@ import types
 
 from PySide import QtGui, QtCore
 
-from .methods.backgrounds import BackgroundPallete
-from .events.events import PinguinoEvents
+from .commons.backgrounds import BackgroundPallete
+from .events import PinguinoEvents
 from .methods.decorators import Decorator
-from .code_editor.autocomplete_icons import CompleteIcons
-from .widgets.output_widget import PinguinoTextEdit
+from .custom_widgets.code_editor.autocomplete_icons import CompleteIcons
+from .custom_widgets import PinguinoTextEdit
+from .help.help import Help
 # from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
 from ..frames.main import Ui_PinguinoIDE
@@ -25,7 +26,7 @@ import logging
 #import debugger
 
 ########################################################################
-class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
+class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help):
 
     #@Decorator.debug_time()
     def __init__(self, splash_write, argvs):
@@ -176,12 +177,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents):
 
         menu.addMenu(self.main.menuFile)
         menu.addMenu(self.main.menuEdit)
-        menu.addMenu(self.main.menuView)
+        # menu.addMenu(self.main.menuView)
         menu.addMenu(self.main.menuProject)
         menu.addMenu(self.main.menuSettings)
         menu.addMenu(self.main.menuSource)
         menu.addMenu(self.main.menuPinguino)
         menu.addMenu(self.main.menuGraphical)
+        menu.addMenu(self.main.menuTools)
         menu.addMenu(self.main.menuHelp)
         if self.argvs.devmode:
             menu.addMenu(self.main.menuDevelopment)

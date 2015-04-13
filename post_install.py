@@ -30,6 +30,8 @@ PinguinoConfig.set_environ_vars()
 if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")):
     shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
+if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "patches")):
+    shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "patches"))
 
 #Remove old files
 #RB20150202 : each file must be checked before being deleted

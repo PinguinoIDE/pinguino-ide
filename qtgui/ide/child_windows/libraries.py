@@ -18,11 +18,11 @@ else:
 
 from PySide import QtGui, QtCore
 
-from ..methods.config_libs import ConfigLibsGroup
+from ..commons.config_libs import ConfigLibsGroup
 #from ..methods.constants import os.getenv("PINGUINO_NAME"), NAME
-from ..methods.widgets_features import PrettyFeatures
+from ..commons.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
-from ..methods.repositories import PinguinoLibrary, ErrorModules
+from ..commons.repositories import PinguinoLibrary, ErrorModules
 from ...frames.libraries_widget import Ui_LibraryManager
 from ...pinguino_api.pinguino_config import PinguinoConfig
 

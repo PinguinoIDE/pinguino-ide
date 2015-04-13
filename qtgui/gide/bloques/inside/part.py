@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/gide/bloques/inside/part.ui'
 #
-# Created: Thu Apr  9 15:27:18 2015
+# Created: Sun Apr 12 22:35:58 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!

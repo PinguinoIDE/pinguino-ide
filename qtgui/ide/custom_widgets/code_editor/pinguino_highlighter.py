@@ -9,7 +9,7 @@
 
 from PySide import QtGui, QtCore
 
-from ..methods.syntax import Autocompleter
+from .syntax import Autocompleter
 
 ########################################################################
 class Highlighter(QtGui.QSyntaxHighlighter):

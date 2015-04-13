@@ -139,66 +139,66 @@ class Dialogs(object):
         return True
 
 
-    #----------------------------------------------------------------------
-    @classmethod
-    def confirm_board(cls, parent):
+    # #----------------------------------------------------------------------
+    # @classmethod
+    # def confirm_board(cls, parent):
 
-        parent.set_board()
+        # parent.set_board()
 
-        confirm = parent.configIDE.config("Features", "confirm_board", True)
-        if not confirm: return True
+        # confirm = parent.configIDE.config("Features", "confirm_board", True)
+        # if not confirm: return True
 
-        board_config = parent.get_description_board()
+        # board_config = parent.get_description_board()
 
-        msg_box = QtGui.QMessageBox()
-        msg_box.setIcon(QtGui.QMessageBox.Question)
-        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Config board"))
-        msg_box.setText(board_config+QtGui.QApplication.translate("Dialogs", "\nUse this board config?\n"))
+        # msg_box = QtGui.QMessageBox()
+        # msg_box.setIcon(QtGui.QMessageBox.Question)
+        # msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Config board"))
+        # msg_box.setText(board_config+QtGui.QApplication.translate("Dialogs", "\nUse this board config?\n"))
 
-        cancel = QtGui.QPushButton()
-        cancel.setText(QtGui.QApplication.translate("Dialogs", "Cancel"))
+        # cancel = QtGui.QPushButton()
+        # cancel.setText(QtGui.QApplication.translate("Dialogs", "Cancel"))
 
-        change = QtGui.QPushButton()
-        change.setText(QtGui.QApplication.translate("Dialogs", "Change board"))
+        # change = QtGui.QPushButton()
+        # change.setText(QtGui.QApplication.translate("Dialogs", "Change board"))
 
-        compile_ = QtGui.QPushButton()
-        compile_.setText(QtGui.QApplication.translate("Dialogs", "Compile"))
+        # compile_ = QtGui.QPushButton()
+        # compile_.setText(QtGui.QApplication.translate("Dialogs", "Compile"))
 
-        checkbox = QtGui.QCheckBox()
-        checkbox.setText(QtGui.QApplication.translate("Dialogs", "Don't ask again"))
-        layout = msg_box.layout()
+        # checkbox = QtGui.QCheckBox()
+        # checkbox.setText(QtGui.QApplication.translate("Dialogs", "Don't ask again"))
+        # layout = msg_box.layout()
 
-        checkbox.setStyleSheet("""
-        font-family: inherit;
-        font-weight: bold;
+        # checkbox.setStyleSheet("""
+        # font-family: inherit;
+        # font-weight: bold;
 
-        """)
-        checkbox.setChecked(False)
-        layout.addWidget(checkbox, 1, 0, 1, 2)
+        # """)
+        # checkbox.setChecked(False)
+        # layout.addWidget(checkbox, 1, 0, 1, 2)
 
-        msg_box.addButton(cancel, QtGui.QMessageBox.RejectRole)
-        msg_box.addButton(change, QtGui.QMessageBox.NoRole)
-        msg_box.addButton(compile_, QtGui.QMessageBox.YesRole)
+        # msg_box.addButton(cancel, QtGui.QMessageBox.RejectRole)
+        # msg_box.addButton(change, QtGui.QMessageBox.NoRole)
+        # msg_box.addButton(compile_, QtGui.QMessageBox.YesRole)
 
-        msg_box.setDefaultButton(compile_)
+        # msg_box.setDefaultButton(compile_)
 
-        msg_box.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
+        # msg_box.setStyleSheet("""
+        # font-family: inherit;
+        # font-weight: normal;
 
-        """)
+        # """)
 
-        reply = msg_box.exec_()
+        # reply = msg_box.exec_()
 
-        show_again = checkbox.isChecked()
-        parent.configIDE.set("Features", "confirm_board", not show_again)
-        parent.main.actionConfirm_board.setChecked(not show_again)
-        parent.configIDE.save_config()
-        parent.configIDE.load_config()
+        # show_again = checkbox.isChecked()
+        # parent.configIDE.set("Features", "confirm_board", not show_again)
+        # parent.main.actionConfirm_board.setChecked(not show_again)
+        # parent.configIDE.save_config()
+        # parent.configIDE.load_config()
 
-        if reply == 2: return True
-        elif reply == 1: return False
-        else: return None
+        # if reply == 2: return True
+        # elif reply == 1: return False
+        # else: return None
 
 
     #----------------------------------------------------------------------

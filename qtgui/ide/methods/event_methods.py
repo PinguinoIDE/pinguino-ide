@@ -10,7 +10,7 @@ from math import ceil
 
 from PySide import QtCore, QtGui
 
-from ..code_editor.pinguino_code_editor import PinguinoCodeEditor
+from ..custom_widgets import PinguinoCodeEditor
 #from ..methods.syntax import Snippet
 from ..methods.dialogs import Dialogs
 from ..methods.decorators import Decorator
@@ -19,17 +19,16 @@ from ..methods.decorators import Decorator
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
-    from ..methods.intel_hex3 import IntelHex
+    from ..commons.intel_hex3 import IntelHex
 else:
     #Python2
-    from ..methods.intel_hex import IntelHex
+    from ..commons.intel_hex import IntelHex
 
 from ..child_windows.about import About
 from ..child_windows.libraries import LibManager
 from ..child_windows.paths import Paths
 from ..child_windows.hex_viewer import HexViewer
 from ..child_windows.insert_block_dialog import InsertBlock
-from ..child_windows.wiki_librarires import WikiDock
 from ..child_windows.environ_viewer import EnvironViewer
 from ..child_windows.submit_bug import SubmitBug
 from ..child_windows.patches import Patches
@@ -764,14 +763,14 @@ class EventMethods(object):
             compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
 
 
-        self.set_board()
-        reply = Dialogs.confirm_board(self)
+        # self.set_board()
+        # reply = Dialogs.confirm_board(self)
 
-        if reply == False:
-            self.__show_board_config__()
-            return False
-        elif reply == None:
-            return False
+        # if reply == False:
+            # self.__show_board_config__()
+            # return False
+        # elif reply == None:
+            # return False
 
         self.write_log(QtGui.QApplication.translate("Frame", "Compiling: %s")%filename)
         self.write_log(self.get_description_board())
@@ -958,12 +957,6 @@ class EventMethods(object):
 
 
     # Help
-
-    #----------------------------------------------------------------------
-    def show_wiki_docs(self):
-        self.frame_wiki_dock = WikiDock()
-        self.frame_wiki_dock.show()
-
 
     #----------------------------------------------------------------------
     def open_web_site(self, url):

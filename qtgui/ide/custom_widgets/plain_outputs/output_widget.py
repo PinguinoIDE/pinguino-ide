@@ -7,7 +7,7 @@ import sys
 from PySide import QtCore, QtGui
 
 from .python_highlighter import Highlighter
-from ..methods.python_shell import PythonShell
+from .python_shell import PythonShell
 
 HEAD = os.getenv("PINGUINO_NAME") + " " + os.getenv("PINGUINO_VERSION") + "\n" + "Python " + sys.version + " on " + sys.platform
 HELP = QtGui.QApplication.translate("PythonShell", "Commands available:") + ' "clear", "restart"\n'

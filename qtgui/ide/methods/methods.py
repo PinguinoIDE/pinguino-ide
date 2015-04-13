@@ -15,7 +15,7 @@ from ..tools.search_replace import SearchReplace
 from ..tools.project_manager import ProjectManager
 from ..tools.boardconfig import BoardConfig
 # from ..methods.library_manager import Librarymanager
-from ..widgets.output_widget import START
+# from ..widgets.output_widget import START
 
 from .timed_methods import TimedMethods
 from .event_methods import EventMethods
@@ -826,17 +826,3 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
             stdout.close()
             self.main.plainTextEdit_stdout.insertPlainText("".join(content))
 
-
-
-    # #----------------------------------------------------------------------
-    # def alert_tab(self, widget):
-
-        # tab = widget.parent().parent()
-        # index = tab.indexOf(widget)
-        # tabbar = tab.tabBar()
-        # orig_c = tabbar.tabTextColor(0)
-
-        # for i in range(0, 8, 2):
-            # QtCore.QTimer.singleShot(300*i, lambda :tabbar.setTabTextColor(index, orig_c))
-            # QtCore.QTimer.singleShot((300*i)+300, lambda :tabbar.setTabTextColor(index, QtCore.Qt.red))
-        # QtCore.QTimer.singleShot(500*20, lambda :tabbar.setTabTextColor(index, orig_c))

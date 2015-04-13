@@ -178,7 +178,7 @@ class PinguinoConfig(object):
     @classmethod
     def update_user_libs(cls, pinguino_object):
 
-        from ..ide.methods.library_manager import Librarymanager
+        from ..ide.commons.library_manager import Librarymanager
 
         libs = Librarymanager()
 

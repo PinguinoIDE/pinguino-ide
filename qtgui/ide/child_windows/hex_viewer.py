@@ -12,10 +12,10 @@ import sys
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
-    from ..methods.intel_hex3 import IntelHex
+    from ..commons.intel_hex3 import IntelHex
 else:
     #Python2
-    from ..methods.intel_hex import IntelHex
+    from ..commons.intel_hex import IntelHex
 
 from ..methods.dialogs import Dialogs
 from ...frames.hex_viewer_widget import Ui_HexViewer

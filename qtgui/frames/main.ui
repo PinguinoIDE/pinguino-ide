@@ -159,13 +159,21 @@
    </widget>
    <widget class="QMenu" name="menuPinguino">
     <property name="title">
-     <string notr="true">Pinguino</string>
+     <string notr="true">Debug</string>
     </property>
+    <addaction name="actionSelect_board"/>
+    <addaction name="actionSet_paths"/>
+    <addaction name="separator"/>
     <addaction name="actionCompile"/>
     <addaction name="actionUpload"/>
     <addaction name="actionUpload_hex_directly"/>
     <addaction name="actionIf_Compile_then_Upload"/>
     <addaction name="separator"/>
+    <addaction name="actionUser_c"/>
+    <addaction name="actionMain_c"/>
+    <addaction name="actionDefine_h"/>
+    <addaction name="separator"/>
+    <addaction name="actionHex_code"/>
     <addaction name="actionLibrary_manager"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -191,7 +199,7 @@
      <addaction name="actionGroup"/>
      <addaction name="actionShop"/>
     </widget>
-    <addaction name="actionWiki_docs"/>
+    <addaction name="actionHelp"/>
     <addaction name="menuLinks"/>
     <addaction name="separator"/>
     <addaction name="actionSubmit_bug_report"/>
@@ -203,30 +211,16 @@
     <property name="title">
      <string>Source</string>
     </property>
+    <addaction name="actionAutocomplete"/>
     <addaction name="actionComment_out_region"/>
     <addaction name="actionComment_Uncomment_region"/>
     <addaction name="separator"/>
     <addaction name="actionIndent"/>
     <addaction name="actionDedent"/>
    </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>View</string>
-    </property>
-    <addaction name="actionHex_code"/>
-    <addaction name="separator"/>
-    <addaction name="actionMenubar"/>
-    <addaction name="actionRight_tabs"/>
-    <addaction name="actionBottom_tabs"/>
-    <addaction name="actionToolbars"/>
-    <addaction name="separator"/>
-    <addaction name="actionMain_c"/>
-    <addaction name="actionUser_c"/>
-    <addaction name="actionDefine_h"/>
-   </widget>
    <widget class="QMenu" name="menuGraphical">
     <property name="title">
-     <string>Graphical mode</string>
+     <string>Graphical</string>
     </property>
     <addaction name="actionView_Pinguino_code"/>
     <addaction name="actionExport_code_to_editor"/>
@@ -251,13 +245,7 @@
      <addaction name="action32x32"/>
      <addaction name="action48x48"/>
     </widget>
-    <addaction name="actionSelect_board"/>
-    <addaction name="actionSet_paths"/>
-    <addaction name="separator"/>
-    <addaction name="actionAutocomplete"/>
     <addaction name="actionColor_theme"/>
-    <addaction name="actionConfirm_board"/>
-    <addaction name="separator"/>
     <addaction name="menuIcons_theme"/>
     <addaction name="menuIcons_size"/>
    </widget>
@@ -292,14 +280,34 @@
     <addaction name="separator"/>
     <addaction name="actionSet_current_file_as_main_upload"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionHide_vertical_tool_area"/>
+    <addaction name="actionHide_horizontal_tool_area"/>
+    <addaction name="actionMove_vertical_tool_area_to_right"/>
+    <addaction name="actionMaximize_editor_area"/>
+    <addaction name="actionToolbars"/>
+    <addaction name="actionMenubar"/>
+    <addaction name="separator"/>
+    <addaction name="actionPython_shell"/>
+    <addaction name="actionLogs"/>
+    <addaction name="actionStdout_2"/>
+    <addaction name="actionFiles"/>
+    <addaction name="actionProjects"/>
+    <addaction name="actionSource_Browser"/>
+    <addaction name="actionSeacrh"/>
+    <addaction name="actionBoards"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
-   <addaction name="menuView"/>
    <addaction name="menuProject"/>
    <addaction name="menuSettings"/>
    <addaction name="menuSource"/>
    <addaction name="menuPinguino"/>
    <addaction name="menuGraphical"/>
+   <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
    <addaction name="menuDevelopment"/>
   </widget>
@@ -1329,7 +1337,7 @@
         <bool>true</bool>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -1393,6 +1401,22 @@
          </item>
         </layout>
        </widget>
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
+         <string>Page</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_20">
+         <item row="0" column="0">
+          <widget class="QWebView" name="webView">
+           <property name="url">
+            <url>
+             <string>file:///home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/hola.html</string>
+            </url>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -1401,7 +1425,7 @@
   <action name="actionNew_file">
    <property name="icon">
     <iconset theme="document-new">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>New</string>
@@ -1413,7 +1437,7 @@
   <action name="actionOpen_file">
    <property name="icon">
     <iconset theme="document-open">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -1428,7 +1452,7 @@
    </property>
    <property name="icon">
     <iconset theme="document-save">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -1457,7 +1481,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-undo">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -1472,7 +1496,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-redo">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -1487,7 +1511,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-cut">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -1502,7 +1526,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-copy">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -1517,7 +1541,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-paste">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -1532,7 +1556,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-find">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Search</string>
@@ -1547,7 +1571,7 @@
    </property>
    <property name="icon">
     <iconset theme="edit-find-replace">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Search and replace</string>
@@ -1562,7 +1586,7 @@
      <normaloff>:/toolbar/toolbar/board.svg</normaloff>:/toolbar/toolbar/board.svg</iconset>
    </property>
    <property name="text">
-    <string>Board Configuration</string>
+    <string>Pinguino board selection</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+B</string>
@@ -1574,7 +1598,7 @@
    </property>
    <property name="icon">
     <iconset theme="system-run">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Compile</string>
@@ -1589,7 +1613,7 @@
    </property>
    <property name="icon">
     <iconset theme="emblem-downloads">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Upload</string>
@@ -1644,7 +1668,7 @@
    </property>
    <property name="icon">
     <iconset theme="insert-object">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Graphical mode</string>
@@ -1656,7 +1680,7 @@
   <action name="actionSave_image">
    <property name="icon">
     <iconset theme="applets-screenshooter">
-     <normaloff>../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../.designer/backup</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
    </property>
    <property name="text">
     <string>Save image</string>
@@ -1798,7 +1822,7 @@
   </action>
   <action name="actionDedent">
    <property name="text">
-    <string>Dedent</string>
+    <string>Outdent</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+&lt;</string>
@@ -1963,23 +1987,22 @@
   </action>
   <action name="actionMain_c">
    <property name="text">
-    <string>main.c</string>
+    <string>Open main.c</string>
    </property>
   </action>
   <action name="actionDefine_h">
    <property name="text">
-    <string>define.h</string>
+    <string>Open define.h</string>
    </property>
   </action>
   <action name="actionUser_c">
    <property name="text">
-    <string>user.c</string>
+    <string>Open user.c</string>
    </property>
   </action>
   <action name="actionUpload_hex_directly">
    <property name="text">
-    <string>Upload .hex directly
-</string>
+    <string>Upload .hex directly</string>
    </property>
   </action>
   <action name="actionMenubar">
@@ -2073,7 +2096,127 @@
     <string>Check for patches</string>
    </property>
   </action>
+  <action name="actionPython_shell">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Python shell</string>
+   </property>
+  </action>
+  <action name="actionLogs">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Logs</string>
+   </property>
+  </action>
+  <action name="actionStdout_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Stdout</string>
+   </property>
+  </action>
+  <action name="actionFiles">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Files</string>
+   </property>
+  </action>
+  <action name="actionProjects">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Projects</string>
+   </property>
+  </action>
+  <action name="actionSource_Browser">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Source browser</string>
+   </property>
+  </action>
+  <action name="actionSeacrh">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Search</string>
+   </property>
+  </action>
+  <action name="actionBoards">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Boards</string>
+   </property>
+  </action>
+  <action name="actionHide_vertical_tool_area">
+   <property name="text">
+    <string>Hide vertical tool area</string>
+   </property>
+  </action>
+  <action name="actionHide_horizontal_tool_area">
+   <property name="text">
+    <string>Hide horizontal tool area</string>
+   </property>
+  </action>
+  <action name="actionMove_vertical_tool_area_to_right">
+   <property name="text">
+    <string>Move vertical tool area to right</string>
+   </property>
+  </action>
+  <action name="actionMaximize_editor_area">
+   <property name="text">
+    <string>Maximize editor area</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>tabWidget_files</tabstop>
   <tabstop>tabWidget_tools</tabstop>
