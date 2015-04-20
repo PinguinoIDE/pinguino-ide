@@ -202,7 +202,7 @@
          <bool>true</bool>
         </property>
         <property name="text">
-         <string>Save changes as...</string>
+         <string>Save as...</string>
         </property>
        </widget>
       </item>

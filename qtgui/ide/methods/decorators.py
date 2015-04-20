@@ -110,7 +110,12 @@ class Decorator(object):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
                 if not Pinguino.is_graphical() and not Pinguino.is_widget():
-                    return fn(Pinguino, *args, **kwargs)
+
+
+                    editor = Pinguino.get_tab().currentWidget()
+                    if editor.objectName() == "PinguinoCodeEditor":
+                        return fn(Pinguino, *args, **kwargs)
+                    else: return None
                 else: return None
             return wrapped
         return actualdecorator

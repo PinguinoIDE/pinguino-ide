@@ -5,6 +5,7 @@ import os
 import codecs
 import webbrowser
 import shutil
+import logging
 
 from math import ceil
 
@@ -970,127 +971,9 @@ class EventMethods(object):
 
     # Tools Files
 
-    #----------------------------------------------------------------------
-    def jump_dir_files(self, list_widget_item):
-        if getattr(list_widget_item, "type_file") == "dir":
-            self.__update_path_files__(getattr(list_widget_item, "path_file"))
-        if getattr(list_widget_item, "type_file") == "file":
-            self.open_file_from_path(filename=getattr(list_widget_item, "path_file"))
-
-
-    #----------------------------------------------------------------------
-    def jump_dir_filesg(self, list_widget_item):
-        if getattr(list_widget_item, "type_file") == "dir":
-            self.__update_graphical_path_files__(getattr(list_widget_item, "path_file"))
-        if getattr(list_widget_item, "type_file") == "file":
-            self.open_file_from_path(filename=getattr(list_widget_item, "path_file"))
-
-
-
-    #----------------------------------------------------------------------
-    def change_dir_files(self, index):
-        to_dir = ["Examples", "Third", "Dir", "Home", "Other"][index]
-
-        if to_dir == "Examples":
-            self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
-
-        elif to_dir == "Home":
-            self.__update_path_files__(QtCore.QDir.home().path())
-
-        elif to_dir == "Dir":
-            editor = self.main.tabWidget_files.currentWidget()
-            dir_ = getattr(editor, "path", None)
-            if dir_: self.__update_path_files__(os.path.split(dir_)[0])
-
-        elif to_dir == "Third":
-            path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
-            if os.path.exists(path): self.__update_path_files__(path)
-
-        elif to_dir == "Other":
-            open_dir = Dialogs.set_open_dir(self)
-            if open_dir:
-                self.__update_path_files__(open_dir)
-
-
-    #----------------------------------------------------------------------
-    def change_dir_filesg(self, index):
-        to_dir = ["Examples", "Third", "Dir", "Home", "Other"][index]
-
-        if to_dir == "Examples":
-            self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
-
-        elif to_dir == "Home":
-            self.__update_graphical_path_files__(QtCore.QDir.home().path())
-
-        elif to_dir == "Dir":
-            editor = self.main.tabWidget_files.currentWidget()
-            dir_ = getattr(editor, "path", None)
-            if dir_: self.__update_graphical_path_files__(os.path.split(dir_)[0])
-
-        elif to_dir == "Third":
-            path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
-            if os.path.exists(path): self.__update_graphical_path_files__(path)
-
-        elif to_dir == "Other":
-            open_dir = Dialogs.set_open_dir(self)
-            if open_dir:
-                self.__update_graphical_path_files__(open_dir)
 
 
     # Tools Source
-
-    #----------------------------------------------------------------------
-    @Decorator.clear_highlighted_lines()
-    def jump_function(self, model_index):
-        column = model_index.column()
-        item = self.main.tableWidget_functions.itemFromIndex(model_index).text()
-        if column == 2:
-            line = item[:item.find("-")]
-            self.jump_to_line(int(line))
-
-
-    #----------------------------------------------------------------------
-    @Decorator.clear_highlighted_lines()
-    def jump_directive(self, model_index):
-        column = model_index.column()
-        item = self.main.tableWidget_directives.itemFromIndex(model_index).text()
-        if column == 2:
-            line = item
-            self.jump_to_line(int(line))
-
-
-    #----------------------------------------------------------------------
-    @Decorator.clear_highlighted_lines()
-    def jump_variable(self, model_index):
-        column = model_index.column()
-        item = self.main.tableWidget_variables.itemFromIndex(model_index).text()
-        if column == 1:
-            line = item
-            self.jump_to_line(int(line))
-
-
-    #----------------------------------------------------------------------
-    @Decorator.clear_highlighted_lines()
-    def jump_function_header(self, row):
-        item = self.main.tableWidget_functions.verticalHeaderItem(row).text()
-        line = item[item.find(":")+1:][:item[item.find(":")+1:].find("-")]
-        self.jump_to_line(int(line))
-
-
-    #----------------------------------------------------------------------
-    @Decorator.clear_highlighted_lines()
-    def jump_directive_header(self, row):
-        item = self.main.tableWidget_directives.verticalHeaderItem(row).text()
-        line = item[item.find(":")+1:]
-        self.jump_to_line(int(line))
-
-
-    #----------------------------------------------------------------------
-    @Decorator.clear_highlighted_lines()
-    def jump_variable_header(self, row):
-        item = self.main.tableWidget_variables.verticalHeaderItem(row).text()
-        line = item[item.find(":")+1:]
-        self.jump_to_line(int(line))
 
 
     # Tools Search
@@ -1144,6 +1027,24 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
+    def dialog_rename_file(self):
+        """"""
+        editor = self.get_tab().currentWidget()
+        new_name = Dialogs.get_text(self, "Rename file", os.path.basename(editor.path))
+        self.rename_file(editor, new_name)
+
+
+
+
+    #----------------------------------------------------------------------
+    def rename_file(self, editor, new_name):
+        """"""
+        filename = os.path.basename(editor.path)
+        logging.debug("Renamed {} for {}".format(filename, new_name) )
+
+
+
+    #----------------------------------------------------------------------
     def switch_ide_mode(self, graphical):
         self.main.actionSwitch_ide.setChecked(graphical)
         self.main.tabWidget_graphical.setVisible(graphical and self.main.tabWidget_graphical.count() > 0)
@@ -1185,6 +1086,8 @@ class EventMethods(object):
     #----------------------------------------------------------------------
     def tab_files_context_menu(self, event):
         menu = QtGui.QMenu()
+
+        menu.addAction("Rename", self.dialog_rename_file)
         menu.addAction(self.main.actionSave_file)
         menu.addAction(self.main.actionSave_as)
         menu.addAction(self.main.actionSave_all)
@@ -1275,10 +1178,10 @@ class EventMethods(object):
         # #self.configIDE.config("Features", "terminal_on_text", visible)
 
 
-    #----------------------------------------------------------------------
-    def update_tab_position(self, tab, area):
+    # #----------------------------------------------------------------------
+    # def update_tab_position(self, tab, area):
 
-        if area.name == "RightDockWidgetArea":
-            tab.setTabPosition(QtGui.QTabWidget.West)
-        elif area.name == "LeftDockWidgetArea":
-            tab.setTabPosition(QtGui.QTabWidget.East)
+        # if area.name == "RightDockWidgetArea":
+            # tab.setTabPosition(QtGui.QTabWidget.West)
+        # elif area.name == "LeftDockWidgetArea":
+            # tab.setTabPosition(QtGui.QTabWidget.East)

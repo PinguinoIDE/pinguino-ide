@@ -1,13 +1,28 @@
 #! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui
+from PySide import QtGui, QtCore
 
 from ..methods.decorators import Decorator
 
 
 ########################################################################
 class SearchReplace(object):
+
+    #----------------------------------------------------------------------
+    def __init__(self):
+
+        self.connect(self.main.actionSearch, QtCore.SIGNAL("triggered()"), lambda :self.set_tab_search("search"))
+        self.connect(self.main.actionSearch_and_replace, QtCore.SIGNAL("triggered()"), lambda :self.set_tab_search("replace"))
+
+        self.connect(self.main.pushButton_search_previous, QtCore.SIGNAL("clicked()"), self.search_previous)
+        self.connect(self.main.pushButton_search_next, QtCore.SIGNAL("clicked()"), self.search_next)
+        self.connect(self.main.pushButton_replace, QtCore.SIGNAL("clicked()"), self.replace)
+        self.connect(self.main.pushButton_replace_all, QtCore.SIGNAL("clicked()"), self.replaceall)
+        self.connect(self.main.lineEdit_search, QtCore.SIGNAL("textChanged(QString)"), self.search_instantaneous)
+        self.connect(self.main.lineEdit_replace, QtCore.SIGNAL("textChanged(QString)"), self.replace_instantaneous)
+
+
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()

@@ -13,7 +13,7 @@ from .commons.backgrounds import BackgroundPallete
 from .events import PinguinoEvents
 from .methods.decorators import Decorator
 from .custom_widgets.code_editor.autocomplete_icons import CompleteIcons
-from .custom_widgets import PinguinoTextEdit
+# from .custom_widgets import PinguinoTextEdit
 from .help.help import Help
 # from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
@@ -25,8 +25,12 @@ from ..pinguino_api.config import Config
 import logging
 #import debugger
 
+from .tools.python_shell import PythonShell
+from .tools.log import PinguinoLog
+from .tools.stdout import Stdout
+
 ########################################################################
-class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help):
+class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, PinguinoLog, Stdout):
 
     #@Decorator.debug_time()
     def __init__(self, splash_write, argvs):
@@ -40,6 +44,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help):
 
         self.main = Ui_PinguinoIDE()
         self.main.setupUi(self)
+        PythonShell.__init__(self)
+        PinguinoLog.__init__(self)
 
         self.argvs = argvs
 
@@ -105,7 +111,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help):
         self.save_backup_file()
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
-        self.__update_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
+        self.update_path_files(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
         # self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading boards configuration"))
@@ -130,25 +136,14 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help):
         self.enable_debugger()
         logging.info("Welcome to %s" % os.getenv("PINGUINO_FULLNAME"))
 
-
-
         self.setCorner(QtCore.Qt.BottomRightCorner, QtCore.Qt.RightDockWidgetArea)
+        self.setCorner(QtCore.Qt.BottomLeftCorner, QtCore.Qt.LeftDockWidgetArea)
         self.set_sise_hint()
 
 
         PinguinoEvents.__init__(self)
 
 
-
-    #----------------------------------------------------------------------
-    def enable_debugger(self):
-
-        log = logging.getLogger()
-        log.setLevel(logging.DEBUG)
-        ch = logging.StreamHandler(self.main.plainTextEdit_log)
-        formatter = logging.Formatter("[%(levelname)s] %(message)s")
-        ch.setFormatter(formatter)
-        log.addHandler(ch)
 
 
     #----------------------------------------------------------------------
@@ -159,7 +154,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help):
                     "label_search_block", "pushButton_newproject", "treeWidget_projects", "tableWidget_variables",
                     "lineEdit_search", "lineEdit_replace", "checkBox_case_sensitive", "label_search", "label_replace",
                     "pushButton_search_previous", "pushButton_search_next", "pushButton_replace", "pushButton_replace_all",
-                    "label_replace_info"]
+                    "label_replace_info", "plainTextEdit_stdout"]
 
         for element in elements:
             getattr(self.main, element).minimumSizeHint = lambda :QtCore.QSize(0, 0)
@@ -185,8 +180,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help):
         menu.addMenu(self.main.menuGraphical)
         menu.addMenu(self.main.menuTools)
         menu.addMenu(self.main.menuHelp)
-        if self.argvs.devmode:
-            menu.addMenu(self.main.menuDevelopment)
 
         menu.addSeparator()
         menu.addAction(self.main.actionMenubar)
@@ -376,15 +369,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help):
     def build_tabs(self):
 
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))  #FIXME: move this
-
-        self.main.plainTextEdit_output = PinguinoTextEdit()
-        self.main.plainTextEdit_log = PinguinoTextEdit(shell=False)
-
-        self.main.plainTextEdit_log.setReadOnly(True)
-
-        self.main.plainTextEdit_output.set_extra_args(**{"pinguino": self})
-        self.main.gridLayout_shell.addWidget(self.main.plainTextEdit_output, 0, 0, 1, 1)
-        self.main.gridLayout_log.addWidget(self.main.plainTextEdit_log, 0, 0, 1, 1)
 
 
     #----------------------------------------------------------------------

@@ -23,6 +23,22 @@ else:
 class ProjectManager(object):
     """"""
 
+
+    #----------------------------------------------------------------------
+    def __init__(self):
+        """"""
+        self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.add_existing_directory)
+        self.connect(self.main.actionNew_project, QtCore.SIGNAL("triggered()"), self.new_project)
+        self.connect(self.main.pushButton_newproject, QtCore.SIGNAL("clicked()"), self.new_project)
+        self.connect(self.main.actionSave_project, QtCore.SIGNAL("triggered()"), self.save_project)
+        self.connect(self.main.actionAdd_current_file, QtCore.SIGNAL("triggered()"), self.add_current_file)
+
+        self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemExpanded(QTreeWidgetItem*)"), self.expand_tree)
+        self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemClicked(QTreeWidgetItem*,int)"), self.open_from_tree)
+        # self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemDoubleClicked(QTreeWidgetItem*,int)"), self.open_from_tree)
+
+
+
     #----------------------------------------------------------------------
     def open_project(self):
         """"""

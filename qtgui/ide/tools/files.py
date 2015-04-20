@@ -2,11 +2,19 @@
 #-*- coding: utf-8 -*-
 
 import os
+from ..methods.dialogs import Dialogs
 
 from PySide import QtGui, QtCore
 
 ########################################################################
 class Files(object):
+
+    #----------------------------------------------------------------------
+    def __init__(self):
+        """"""
+        self.connect(self.main.comboBox_files, QtCore.SIGNAL("currentIndexChanged(int)"), self.change_dir_files)
+        self.connect(self.main.treeWidget_explorer, QtCore.SIGNAL("itemExpanded(QTreeWidgetItem*)"), self.expand_tree)
+        self.connect(self.main.treeWidget_explorer, QtCore.SIGNAL("itemDoubleClicked(QTreeWidgetItem*,int)"), self.open_from_tree)
 
 
     #----------------------------------------------------------------------
@@ -18,8 +26,6 @@ class Files(object):
         parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_explorer, dir_project, flags)
         self.generate_tree(dir_project, parent, levels=1, flags=flags)
         parent.setExpanded(True)
-
-
 
 
     #----------------------------------------------------------------------
@@ -121,3 +127,37 @@ class Files(object):
 
         if os.path.isfile(event.path):
             self.open_file_from_path(filename=event.path)
+
+
+    #----------------------------------------------------------------------
+    def jump_dir_files(self, list_widget_item):
+        if getattr(list_widget_item, "type_file") == "dir":
+            self.update_path_files(getattr(list_widget_item, "path_file"))
+        if getattr(list_widget_item, "type_file") == "file":
+            self.open_file_from_path(filename=getattr(list_widget_item, "path_file"))
+
+
+    #----------------------------------------------------------------------
+    def change_dir_files(self, index):
+        to_dir = ["Examples", "Dir", "Home", "Other"][index]
+
+        if to_dir == "Examples":
+            self.update_path_files(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
+
+        elif to_dir == "Home":
+            self.update_path_files(QtCore.QDir.home().path())
+
+        elif to_dir == "Dir":
+            editor = self.main.tabWidget_files.currentWidget()
+            dir_ = getattr(editor, "path", None)
+            if dir_: self.update_path_files(os.path.split(dir_)[0])
+
+        elif to_dir == "Third":
+            path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
+            if os.path.exists(path): self.update_path_files(path)
+
+        elif to_dir == "Other":
+            open_dir = Dialogs.set_open_dir(self)
+            if open_dir:
+                self.update_path_files(open_dir)
+

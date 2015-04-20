@@ -53,14 +53,14 @@
        <cursorShape>WhatsThisCursor</cursorShape>
       </property>
       <property name="text">
-       <string>How develop libraries</string>
+       <string>How to develop libraries?</string>
       </property>
      </widget>
     </item>
     <item row="0" column="0" colspan="4">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">

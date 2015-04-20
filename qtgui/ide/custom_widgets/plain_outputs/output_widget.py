@@ -42,7 +42,6 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
         self.setFrameShape(QtGui.QFrame.NoFrame)
 
 
-
     # #----------------------------------------------------------------------
     # def log_output(self, text, prefix=None):
 

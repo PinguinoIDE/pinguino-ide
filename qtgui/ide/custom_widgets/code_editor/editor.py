@@ -42,23 +42,10 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
 
-        #namespaces = pickle.load(open(Constants.IDE_NAMESPACES_FILE, "r"))
-        #self.completer.addItemsCompleter(namespaces["all"], icons.iconLibrary)
-
-        #palette = QtGui.QPalette(self.palette())
-        #self.setAutoFillBackground(True)
-        #palette.setColor(QtGui.QPalette.Base, QtGui.QColor("#FFFFFF"))
-        #self.initialize()
-        #self.setPalette(palette)
-
         self.last_w = ""
         self.next_ignore = None
 
-        #Highlighter(self)
-
         Highlighter(self.document())
-
-        #self.set_highlighter()
 
         self.setStyleSheet("""
         QTextEdit {
@@ -67,8 +54,9 @@ class CustomTextEdit(QtGui.QTextEdit):
             font-weight: normal;
             font-size: 10pt;
             }
-
         """)
+
+
 
 
 
@@ -331,6 +319,11 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         self.smart_under_selection(tc)
         selected = tc.selectedText().split()
+
+        if not selected:
+            self.completer.hide()
+            return
+
 
         if re.match('^[\w.]+$', selected[-1]) is None:
             self.completer.hide()

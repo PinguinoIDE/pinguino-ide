@@ -3,6 +3,10 @@
 
 import re
 
+from ..methods.decorators import Decorator
+
+from PySide import QtCore
+
 data_types = ["int", "float", "char", "double", "u8", "u16", "u32", "u64", "BOOL", "byte", "word", "void"]
 preprocessor_commands = ["define", "include", "error", "undef", "if", "else", "if", "elif", "ifdef", "ifndef", "line", "pragma"]  #endif
 
@@ -11,7 +15,17 @@ preprocessor_commands = ["define", "include", "error", "undef", "if", "else", "i
 class CodeNavigator(object):
 
     #----------------------------------------------------------------------
-    @classmethod
+    def __init__(self):
+
+        self.connect(self.main.tableWidget_functions, QtCore.SIGNAL("doubleClicked(QModelIndex)"), self.jump_function)
+        self.connect(self.main.tableWidget_directives, QtCore.SIGNAL("doubleClicked(QModelIndex)"), self.jump_directive)
+        self.connect(self.main.tableWidget_variables, QtCore.SIGNAL("doubleClicked(QModelIndex)"), self.jump_variable)
+        self.connect(self.main.tableWidget_functions.verticalHeader(), QtCore.SIGNAL("sectionClicked(int)"), self.jump_function_header)
+        self.connect(self.main.tableWidget_directives.verticalHeader(), QtCore.SIGNAL("sectionClicked(int)"), self.jump_directive_header)
+        self.connect(self.main.tableWidget_variables.verticalHeader(), QtCore.SIGNAL("sectionClicked(int)"), self.jump_variable_header)
+
+
+    #----------------------------------------------------------------------
     def remove_comments(cls, text):
 
         if type(text) == type([]):
@@ -40,7 +54,6 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    @classmethod
     def get_functions(cls, editor):
 
         regex_function = "[\s]*(unsigned|signed|long)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
@@ -89,7 +102,6 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    @classmethod
     def get_directives(cls, editor):
 
         regex_directive = "[\s]*#(" + "|".join(preprocessor_commands)+ ")[\s]+<?[\s]*([\w.]*)[\s]*>?[\s]*([\S]*)"
@@ -114,7 +126,6 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    @classmethod
     def get_variables(cls, editor):
 
         regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*([*])*[\s]*([ \w\[\]=,.{}\"'\*]*);"
@@ -167,3 +178,57 @@ class CodeNavigator(object):
                     variables.append(this_variable)
 
         return variables
+
+
+    #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
+    def jump_function(self, model_index):
+        column = model_index.column()
+        item = self.main.tableWidget_functions.itemFromIndex(model_index).text()
+        if column == 2:
+            line = item[:item.find("-")]
+            self.jump_to_line(int(line))
+
+
+    #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
+    def jump_directive(self, model_index):
+        column = model_index.column()
+        item = self.main.tableWidget_directives.itemFromIndex(model_index).text()
+        if column == 2:
+            line = item
+            self.jump_to_line(int(line))
+
+
+    #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
+    def jump_variable(self, model_index):
+        column = model_index.column()
+        item = self.main.tableWidget_variables.itemFromIndex(model_index).text()
+        if column == 1:
+            line = item
+            self.jump_to_line(int(line))
+
+
+    #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
+    def jump_function_header(self, row):
+        item = self.main.tableWidget_functions.verticalHeaderItem(row).text()
+        line = item[item.find(":")+1:][:item[item.find(":")+1:].find("-")]
+        self.jump_to_line(int(line))
+
+
+    #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
+    def jump_directive_header(self, row):
+        item = self.main.tableWidget_directives.verticalHeaderItem(row).text()
+        line = item[item.find(":")+1:]
+        self.jump_to_line(int(line))
+
+
+    #----------------------------------------------------------------------
+    @Decorator.clear_highlighted_lines()
+    def jump_variable_header(self, row):
+        item = self.main.tableWidget_variables.verticalHeaderItem(row).text()
+        line = item[item.find(":")+1:]
+        self.jump_to_line(int(line))

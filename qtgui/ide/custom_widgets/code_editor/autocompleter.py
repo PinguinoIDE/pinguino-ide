@@ -55,9 +55,6 @@ class PinguinoAutoCompleter(QListWidget):
                          "arch32" : [],
                          }
 
-        # file_reserved = open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "r")
-
-
         with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
             self.namespaces = pickle.load(file_reserved)
 
@@ -77,6 +74,7 @@ class PinguinoAutoCompleter(QListWidget):
         selection-color: %s;
         selection-background-color: %s;
         """%(selection_color, selection_bg_color))
+        self.setFrameShape(QtGui.QFrame.NoFrame)
 
 
     #----------------------------------------------------------------------

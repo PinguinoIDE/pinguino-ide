@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/hex_viewer_widget.ui'
 #
-# Created: Sun Apr 12 22:35:58 2015
+# Created: Sun Apr 19 21:04:54 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -129,5 +129,5 @@ class Ui_HexViewer(object):
     def retranslateUi(self, HexViewer):
         HexViewer.setWindowTitle(QtGui.QApplication.translate("HexViewer", "Hex Viewer", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("HexViewer", "Close", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_save_changes.setText(QtGui.QApplication.translate("HexViewer", "Save changes as...", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_save_changes.setText(QtGui.QApplication.translate("HexViewer", "Save as...", None, QtGui.QApplication.UnicodeUTF8))
 

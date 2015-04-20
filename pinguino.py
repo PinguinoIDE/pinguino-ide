@@ -137,7 +137,7 @@ if __name__ == "__main__":
         #import debugger
         #debugger.Debugger(sys, clear=True)
 
-        from PySide import QtCore
+        from PySide import QtCore, QtGui
         from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
 
         from qtgui.ide.ide import PinguinoIDE
@@ -181,7 +181,7 @@ if __name__ == "__main__":
 
         def splash_write(msg):
             if not splash is None:
-                splash.showMessage("\t"+msg+"\n", color=QtCore.Qt.white, alignment=QtCore.Qt.AlignBottom)
+                splash.showMessage("\t"+msg, color=QtGui.QColor("#4d4d4d"), alignment=QtCore.Qt.AlignBottom)
 
         splash_write(NAME+" "+VERSION)
         app.processEvents()

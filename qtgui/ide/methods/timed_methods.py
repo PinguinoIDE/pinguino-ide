@@ -7,7 +7,7 @@ import codecs
 from PySide import QtGui
 
 from ..methods.decorators import Decorator
-from ..tools.code_navigator import CodeNavigator
+# from ..tools.code_navigator import self
 from ..methods.dialogs import Dialogs
 
 ########################################################################
@@ -24,7 +24,7 @@ class TimedMethods(object):
     def update_functions(self):
 
         editor = self.main.tabWidget_files.currentWidget()
-        functions_parse = CodeNavigator.get_functions(editor)
+        functions_parse = self.get_functions(editor)
 
         index = 0
         self.main.tableWidget_functions.setRowCount(len(functions_parse))
@@ -56,7 +56,7 @@ class TimedMethods(object):
     def update_directives(self):
 
         editor = self.main.tabWidget_files.currentWidget()
-        directives_parse = CodeNavigator.get_directives(editor)
+        directives_parse = self.get_directives(editor)
 
         index = 0
         self.main.tableWidget_directives.setRowCount(len(directives_parse))
@@ -88,7 +88,7 @@ class TimedMethods(object):
     def update_variables(self):
 
         editor = self.main.tabWidget_files.currentWidget()
-        variables_parse = CodeNavigator.get_variables(editor)
+        variables_parse = self.get_variables(editor)
 
         index = 0
         self.main.tableWidget_variables.setRowCount(len(variables_parse))
@@ -119,19 +119,19 @@ class TimedMethods(object):
 
         if not getattr(self, "completer_funtions", False):
             self.completer_funtions = []
-            functions_parse = CodeNavigator.get_functions(editor)
+            functions_parse = self.get_functions(editor)
             for funtion in functions_parse:
                 self.completer_funtions.append(funtion["name"])
 
         if not getattr(self, "completer_variables", False):
             self.completer_variables = []
-            variables_parse = CodeNavigator.get_variables(editor)
+            variables_parse = self.get_variables(editor)
             for variable in variables_parse:
                 self.completer_variables.append([variable["name"], variable["type"]])
 
         if not getattr(self, "completer_directives", False):
             self.completer_directives = []
-            directives_parse = CodeNavigator.get_directives(editor)
+            directives_parse = self.get_directives(editor)
             for directive in directives_parse:
                 self.completer_directives.append(directive["name"])
 

@@ -172,9 +172,6 @@
     <addaction name="actionUser_c"/>
     <addaction name="actionMain_c"/>
     <addaction name="actionDefine_h"/>
-    <addaction name="separator"/>
-    <addaction name="actionHex_code"/>
-    <addaction name="actionLibrary_manager"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -249,13 +246,6 @@
     <addaction name="menuIcons_theme"/>
     <addaction name="menuIcons_size"/>
    </widget>
-   <widget class="QMenu" name="menuDevelopment">
-    <property name="title">
-     <string>Development</string>
-    </property>
-    <addaction name="actionEnvironment"/>
-    <addaction name="actionVariables"/>
-   </widget>
    <widget class="QMenu" name="menuProject">
     <property name="title">
      <string>Project</string>
@@ -284,10 +274,10 @@
     <property name="title">
      <string>Tools</string>
     </property>
-    <addaction name="actionHide_vertical_tool_area"/>
-    <addaction name="actionHide_horizontal_tool_area"/>
-    <addaction name="actionMove_vertical_tool_area_to_right"/>
-    <addaction name="actionMaximize_editor_area"/>
+    <addaction name="actionToggle_vertical_tool_area"/>
+    <addaction name="actionToggle_horizontal_tool_area"/>
+    <addaction name="actionMove_vertical_tool_area"/>
+    <addaction name="actionToggle_editor_area"/>
     <addaction name="actionToolbars"/>
     <addaction name="actionMenubar"/>
     <addaction name="separator"/>
@@ -299,6 +289,9 @@
     <addaction name="actionSource_Browser"/>
     <addaction name="actionSeacrh"/>
     <addaction name="actionBoards"/>
+    <addaction name="separator"/>
+    <addaction name="actionHex_code"/>
+    <addaction name="actionLibrary_manager"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -309,7 +302,6 @@
    <addaction name="menuGraphical"/>
    <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
-   <addaction name="menuDevelopment"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget_right">
    <property name="features">
@@ -368,7 +360,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>4</number>
+        <number>1</number>
        </property>
        <property name="documentMode">
         <bool>false</bool>
@@ -1337,7 +1329,7 @@
         <bool>true</bool>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>2</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -1398,22 +1390,6 @@
             </widget>
            </item>
           </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab">
-        <attribute name="title">
-         <string>Page</string>
-        </attribute>
-        <layout class="QGridLayout" name="gridLayout_20">
-         <item row="0" column="0">
-          <widget class="QWebView" name="webView">
-           <property name="url">
-            <url>
-             <string>file:///home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/hola.html</string>
-            </url>
-           </property>
-          </widget>
          </item>
         </layout>
        </widget>
@@ -1654,14 +1630,6 @@
     <string>Ctrl+/</string>
    </property>
   </action>
-  <action name="actionStdout">
-   <property name="text">
-    <string>Stdout</string>
-   </property>
-   <property name="shortcut">
-    <string>F9</string>
-   </property>
-  </action>
   <action name="actionSwitch_ide">
    <property name="checkable">
     <bool>true</bool>
@@ -1740,14 +1708,6 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
-   </property>
-  </action>
-  <action name="actionWiki_docs">
-   <property name="text">
-    <string>Wiki documentation</string>
-   </property>
-   <property name="shortcut">
-    <string>F1</string>
    </property>
   </action>
   <action name="actionAutocomplete">
@@ -1851,55 +1811,11 @@
     <string>Ctrl+P</string>
    </property>
   </action>
-  <action name="actionRight_tabs">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Right tabs</string>
-   </property>
-   <property name="shortcut">
-    <string>F2</string>
-   </property>
-  </action>
-  <action name="actionBlocks_2">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Blocks</string>
-   </property>
-  </action>
-  <action name="actionBottom_tabs">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Bottom tabs</string>
-   </property>
-   <property name="shortcut">
-    <string>F3</string>
-   </property>
-  </action>
-  <action name="actionMaximize_editor">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Maximize editor</string>
-   </property>
-   <property name="shortcut">
-    <string>Shift+F2</string>
-   </property>
-  </action>
   <action name="actionToolbars">
    <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
     <bool>true</bool>
    </property>
    <property name="text">
@@ -1914,17 +1830,6 @@
     <string>F7</string>
    </property>
   </action>
-  <action name="actionConfirm_board">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Confirm board when compiling</string>
-   </property>
-  </action>
   <action name="actionIDE">
    <property name="text">
     <string>IDE</string>
@@ -1933,11 +1838,6 @@
   <action name="actionLibraries">
    <property name="text">
     <string>Libraries</string>
-   </property>
-  </action>
-  <action name="actionCompilers">
-   <property name="text">
-    <string>Compilers</string>
    </property>
   </action>
   <action name="actionPinguino11">
@@ -1977,14 +1877,6 @@
     <string>48 x 48</string>
    </property>
   </action>
-  <action name="action22x22">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>22 x 22</string>
-   </property>
-  </action>
   <action name="actionMain_c">
    <property name="text">
     <string>Open main.c</string>
@@ -2014,16 +1906,6 @@
    </property>
    <property name="text">
     <string>Menubar</string>
-   </property>
-  </action>
-  <action name="actionEnvironment">
-   <property name="text">
-    <string>Environment</string>
-   </property>
-  </action>
-  <action name="actionVariables">
-   <property name="text">
-    <string>Variables</string>
    </property>
   </action>
   <action name="actionNew_project">
@@ -2184,24 +2066,39 @@
     <string>Boards</string>
    </property>
   </action>
-  <action name="actionHide_vertical_tool_area">
+  <action name="actionToggle_vertical_tool_area">
    <property name="text">
-    <string>Hide vertical tool area</string>
+    <string>Hide Vertical tool area</string>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
    </property>
   </action>
-  <action name="actionHide_horizontal_tool_area">
+  <action name="actionToggle_horizontal_tool_area">
    <property name="text">
     <string>Hide horizontal tool area</string>
    </property>
+   <property name="shortcut">
+    <string>F3</string>
+   </property>
   </action>
-  <action name="actionMove_vertical_tool_area_to_right">
+  <action name="actionMove_vertical_tool_area">
    <property name="text">
     <string>Move vertical tool area to right</string>
    </property>
   </action>
-  <action name="actionMaximize_editor_area">
+  <action name="actionToggle_editor_area">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Maximize editor area</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F2</string>
    </property>
   </action>
   <action name="actionHelp">
@@ -2210,13 +2107,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QWebView</class>
-   <extends>QWidget</extends>
-   <header>QtWebKit/QWebView</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>tabWidget_files</tabstop>
   <tabstop>tabWidget_tools</tabstop>

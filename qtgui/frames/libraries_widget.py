@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/libraries_widget.ui'
 #
-# Created: Sun Apr 12 22:35:59 2015
+# Created: Sun Apr 19 21:04:54 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -158,7 +158,7 @@ class Ui_LibraryManager(object):
         LibraryManager.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(LibraryManager)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(LibraryManager)
         LibraryManager.setTabOrder(self.lineEdit_source, self.pushButton_add)
         LibraryManager.setTabOrder(self.pushButton_add, self.pushButton_from_zip)
@@ -173,7 +173,7 @@ class Ui_LibraryManager(object):
     def retranslateUi(self, LibraryManager):
         LibraryManager.setWindowTitle(QtGui.QApplication.translate("LibraryManager", "Library Manager", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("LibraryManager", "Close", None, QtGui.QApplication.UnicodeUTF8))
-        self.commandLinkButton_how.setText(QtGui.QApplication.translate("LibraryManager", "How develop libraries", None, QtGui.QApplication.UnicodeUTF8))
+        self.commandLinkButton_how.setText(QtGui.QApplication.translate("LibraryManager", "How to develop libraries?", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_update.setToolTip(QtGui.QApplication.translate("LibraryManager", "Update library from their repository.", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_update.setText(QtGui.QApplication.translate("LibraryManager", "Update selected", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_remove.setToolTip(QtGui.QApplication.translate("LibraryManager", "Delete directory from disk.", None, QtGui.QApplication.UnicodeUTF8))

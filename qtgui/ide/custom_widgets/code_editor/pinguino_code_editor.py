@@ -15,6 +15,8 @@ class PinguinoCodeEditor(QWidget):
 
         super(PinguinoCodeEditor, self).__init__(*args, **kwargs)
 
+        self.setObjectName("PinguinoCodeEditor")
+
         self.gridLayout_0 = QtGui.QGridLayout(self)
         self.gridLayout_0.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_0.setSpacing(0)

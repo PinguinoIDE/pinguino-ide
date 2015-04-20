@@ -84,9 +84,7 @@ class LibManager(QtGui.QMainWindow):
 
         self.connect(self.libframe.commandLinkButton_how, QtCore.SIGNAL("clicked()"), self.open_tutorial)
 
-
         self.connect(self.libframe.tableWidget_sources, QtCore.SIGNAL("clicked(QModelIndex)"), self.open_link)
-
 
         self.default_line_edit_source = "e.g. git@github.com:repo/pinguinolib-library.git"
         PrettyFeatures.LineEdit_default_text(self.libframe.lineEdit_source, self.default_line_edit_source)
@@ -106,35 +104,35 @@ class LibManager(QtGui.QMainWindow):
         self.update_libraries_view()
         self.centrar()
 
-        self.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
+        # self.setStyleSheet("""
+        # font-family: inherit;
+        # font-weight: normal;
 
-        """)
+        # """)
 
-        self.libframe.tableWidget_libs.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
+        # self.libframe.tableWidget_libs.setStyleSheet("""
+        # font-family: inherit;
+        # font-weight: normal;
 
-        """)
+        # """)
 
-        self.libframe.tableWidget_sources.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
+        # self.libframe.tableWidget_sources.setStyleSheet("""
+        # font-family: inherit;
+        # font-weight: normal;
 
-        """)
+        # """)
 
-        self.libframe.label_help.setStyleSheet("""
-        font-family: inherit;
-        font-weight: bold;
+        # self.libframe.label_help.setStyleSheet("""
+        # font-family: inherit;
+        # font-weight: bold;
 
-        """)
+        # """)
 
-        self.libframe.commandLinkButton_how.setStyleSheet("""
-        font-family: inherit;
-        font-weight: bold;
+        # self.libframe.commandLinkButton_how.setStyleSheet("""
+        # font-family: inherit;
+        # font-weight: bold;
 
-        """)
+        # """)
 
         self.center_on_screen()
 

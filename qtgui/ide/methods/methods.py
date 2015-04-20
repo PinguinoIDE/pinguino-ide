@@ -14,6 +14,7 @@ from ..tools.files import Files
 from ..tools.search_replace import SearchReplace
 from ..tools.project_manager import ProjectManager
 from ..tools.boardconfig import BoardConfig
+from ..tools.code_navigator import CodeNavigator
 # from ..methods.library_manager import Librarymanager
 # from ..widgets.output_widget import START
 
@@ -22,12 +23,16 @@ from .event_methods import EventMethods
 
 
 ########################################################################
-class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig):
+class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig, CodeNavigator):
 
     #----------------------------------------------------------------------
     def __init__(self):
         """"""
         BoardConfig.__init__(self)
+        SearchReplace.__init__(self)
+        CodeNavigator.__init__(self)
+        Files.__init__(self)
+        ProjectManager.__init__(self)
         # super(BoardConfig, self).__init__()
 
 
@@ -189,34 +194,6 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
         else: return self.main.tabWidget_files
 
 
-
-    #----------------------------------------------------------------------
-    def __update_path_files__(self, path):
-        self.update_path_files(path)
-
-
-    # #----------------------------------------------------------------------
-    # def __update_graphical_path_files__(self, path):
-        # """"""
-        # # self.update_path_files(path, self.main.listWidget_filesg, self.main.label_pathg, exclude=".pde")
-
-
-    # #----------------------------------------------------------------------
-    # def __update_current_dir_on_files__(self):
-        # tab = self.get_tab()
-        # if tab == self.main.tabWidget_files:
-            # if self.main.comboBox_files.currentIndex() == 2:
-                # editor = tab.currentWidget()
-                # dir_ = getattr(editor, "path", None)
-                # if dir_: self.__update_path_files__(os.path.split(dir_)[0])
-
-        # else:
-            # if self.main.comboBox_filesg.currentIndex == 2:
-                # editor = tab.currentWidget()
-                # dir_ = getattr(editor, "path", None)
-                # if dir_: self.__update_graphical_path_files__(os.path.split(dir_)[0])
-
-
     #----------------------------------------------------------------------
     @Decorator.connect_features()
     def __save_file__(self, *args, **kwargs):
@@ -307,7 +284,7 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
 
         filenames = [getattr(self.get_tab().widget(i), "path", None) for i in range(self.get_tab().count())]
         if filename in filenames:
-            Dialogs.file_duplicated(self, filename)
+            # Dialogs.file_duplicated(self, filename)
             self.get_tab().setCurrentIndex(filenames.index(filename))
             return True
         return False
@@ -423,26 +400,6 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
         self.main.statusBar.addPermanentWidget(self.status_info, 1)
         self.main.statusBar.addPermanentWidget(self.status_warnnig, 2)
 
-
-    #----------------------------------------------------------------------
-    def write_log(self, data, prefix="[INFO]"):
-
-        lines = ""
-        if type(data) == type({}):
-            line = key + ": " + kwargs[key]
-            lines += line
-
-        else:
-            lines = data
-
-        # else:
-            # assert False, "No soported type"
-
-        self.main.plainTextEdit_log.write(lines, prefix=prefix)
-        self.main.plainTextEdit_log.update()
-
-        scroll = self.main.plainTextEdit_log.verticalScrollBar()
-        scroll.setValue(scroll.maximum())
 
 
     # #----------------------------------------------------------------------
@@ -653,22 +610,6 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
         return("Writing: " + reserved_filename)
 
 
-    ##----------------------------------------------------------------------
-    #def load_fonts(self):
-
-        ##fonts_dir = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "ide", "qtgui", "resources", "fonts")
-        #fonts_dir = os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources", "fonts")
-        #if not os.path.exists(fonts_dir):
-            #logging.warning("Missing: "+fonts_dir)
-            #return
-
-        #for dir_font in os.listdir(fonts_dir):
-            #for ttf in filter(lambda file:file.endswith(".ttf") or file.endswith(".otf"), os.listdir(os.path.join(fonts_dir, dir_font))):
-                ##print QtGui.QFontDatabase.addApplicationFontFromData(os.path.join(fonts_dir, dir_font, ttf))
-                #status = QtGui.QFontDatabase.addApplicationFont(os.path.join(fonts_dir, dir_font, ttf))
-                #if status == -1: logging.warning("Error loading: "+os.path.join(fonts_dir, dir_font, ttf))
-
-
     #----------------------------------------------------------------------
     def expand_editor(self, expand):
 
@@ -689,6 +630,7 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
             self.main.dockWidget_right.setVisible(not expand)
             self.main.dockWidget_blocks.setVisible(False)
 
+
     #----------------------------------------------------------------------
     def toggle_toolbars(self, visible):
 
@@ -697,7 +639,6 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
                 toolbar.setVisible(visible)
 
         else:
-
             self.main.toolBar_switch.setVisible(True)
             self.main.toolBar_files.setVisible(True)
             self.main.toolBar_pinguino.setVisible(True)
@@ -763,42 +704,109 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
 
     #----------------------------------------------------------------------
     def get_tabs_height(self):
-        """"""
-        return self.main.tabWidget_bottom.height() - self.main.plainTextEdit_log.height() - 4
 
-
+        return self.main.tabWidget_bottom.tabBar().height()
 
 
     #----------------------------------------------------------------------
-    def toggle_right_tabs(self, event):
-        """"""
-        if event:
-            h = 400
+    def toggle_right_area(self, expand=None):
+
+        if expand is None:
+            expand = (self.main.dockWidgetContents_rigth.width() <= (self.get_tabs_height()) + 5)
+        min_ = self.get_tabs_height()
+
+        if expand:
+            h = self.configIDE.config("Main", "right_area_width", 400)
+            if h <= (self.get_tabs_height() + 5):
+                h = 400
+                self.configIDE.set("Main", "right_area_width", 400)
+
             self.main.dockWidgetContents_rigth.setMaximumWidth(1000)
             self.main.dockWidgetContents_rigth.setMinimumWidth(h)
-            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMinimumWidth(0))
-
+            self.main.actionToggle_vertical_tool_area.setText("Hide vertical tool area")
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMinimumWidth(min_))
         else:
-            h = self.get_tabs_height()
+            self.configIDE.set("Main", "right_area_width", self.main.dockWidgetContents_rigth.width())
             self.main.dockWidgetContents_rigth.setMinimumWidth(0)
-            self.main.dockWidgetContents_rigth.setMaximumWidth(h)
+            self.main.dockWidgetContents_rigth.setMaximumWidth(min_)
+            self.main.actionToggle_vertical_tool_area.setText("Show vertical tool area")
             QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMaximumWidth(1000))
 
 
-
     #----------------------------------------------------------------------
-    def toggle_bottom_tabs(self, event):
-        """"""
-        if event:
-            h = 200
+    def toggle_bottom_area(self, expand=None):
+
+        if expand is None:
+            expand = (self.main.dockWidgetContents_bottom.height() <= (self.get_tabs_height()) + 5)
+        min_ = self.get_tabs_height()
+
+        if expand:
+            h = self.configIDE.config("Main", "bottom_area_height", 200)
+            if h <= (self.get_tabs_height() + 5):
+                h = 200
+                self.configIDE.set("Main", "bottom_area_height", 200)
+
             self.main.dockWidgetContents_bottom.setMaximumHeight(1000)
             self.main.dockWidgetContents_bottom.setMinimumHeight(h)
-            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMinimumHeight(0))
+            self.main.actionToggle_horizontal_tool_area.setText("Hide horizontal tool area")
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMinimumHeight(min_))
         else:
-            h = self.get_tabs_height()
+            self.configIDE.set("Main", "bottom_area_height", self.main.dockWidgetContents_bottom.height()-3)
             self.main.dockWidgetContents_bottom.setMinimumHeight(0)
-            self.main.dockWidgetContents_bottom.setMaximumHeight(h)
+            self.main.dockWidgetContents_bottom.setMaximumHeight(min_)
+            self.main.actionToggle_horizontal_tool_area.setText("Show horizontal tool area")
             QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMaximumHeight(1000))
+
+
+    #----------------------------------------------------------------------
+    def tab_right_changed(self, event):
+
+        self.toggle_right_area(expand=True)
+
+
+    #----------------------------------------------------------------------
+    def tab_tools_resize(self, event):
+        self.configIDE.set("Main", "right_area_width", self.main.dockWidgetContents_rigth.width())
+        self.configIDE.set("Main", "bottom_area_height", self.main.dockWidgetContents_bottom.height()-3)
+        return False
+
+
+    #----------------------------------------------------------------------
+    def tab_bottoms_changed(self, event):
+
+        self.toggle_bottom_area(expand=True)
+
+
+    #----------------------------------------------------------------------
+    def toggle_editor_area(self, expand):
+
+        self.toggle_right_area(not expand)
+        self.toggle_bottom_area(not expand)
+        self.toggle_toolbars(not expand)
+        self.main.actionToolbars.setChecked(not expand)
+
+
+    #----------------------------------------------------------------------
+    def move_side_dock(self):
+
+        side = self.dockWidgetArea(self.main.dockWidget_right)
+        self.configIDE.set("Main", "dock_tools", side.name)
+
+        if side.name == "RightDockWidgetArea":
+            self.addDockWidget(QtCore.Qt.DockWidgetArea(QtCore.Qt.LeftDockWidgetArea), self.main.dockWidget_right)
+            self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.East)
+            self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to right")
+        else:
+            self.addDockWidget(QtCore.Qt.DockWidgetArea(QtCore.Qt.RightDockWidgetArea), self.main.dockWidget_right)
+            self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.West)
+            self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to left")
+
+
+    #----------------------------------------------------------------------
+    def drag_tab(self, *args, **kwargs):
+        """"""
+        logging.debug("DRAG")
+
 
 
     # #----------------------------------------------------------------------
@@ -811,18 +819,4 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
             # self.floating_tab = Window()
             # self.floating_tab.tab.addTab(widget, tab_name)
             # self.floating_tab.show()
-
-
-    #----------------------------------------------------------------------
-    @Decorator.alert_tab("tab_stdout")
-    def update_stdout(self):
-        """"""
-        file_ = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "stdout")
-        # self.alert_tab(self.main.tab_stdout)
-
-        if os.path.exists(file_):
-            stdout = codecs.open(file_, "r", "utf-8")
-            content = stdout.readlines()
-            stdout.close()
-            self.main.plainTextEdit_stdout.insertPlainText("".join(content))
 
