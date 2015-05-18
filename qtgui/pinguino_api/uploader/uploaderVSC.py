@@ -81,7 +81,7 @@ class uploaderVSC(baseUploader):
         else:
             return self.ERR_USB_WRITE
 # ------------------------------------------------------------------------------
-    def eraseBlock(self, address):
+    def eraseBlock(self, handle, address):
 # ------------------------------------------------------------------------------
         """ erase 64 bytes of flash memory """
         # command
@@ -93,7 +93,7 @@ class uploaderVSC(baseUploader):
         addr_up = int(address[0:2],16)
         # write data packet
         usbBuf = chr(cmd) + chr(addr_lo) + chr(addr_hi) + chr(addr_up)
-        self.writeFlash(handle, usbBuf)
+        self.usbWrite(handle, usbBuf)
 # ------------------------------------------------------------------------------
     #def issueBlock(self, address, block):
     def writeFlash(self, handle, address, datablock):
@@ -108,8 +108,8 @@ class uploaderVSC(baseUploader):
         readbyte3 = int(address[0:2], 16)
         # add data to the packet
         usbBuf = chr(cmd) + chr(readbyte1) + chr(readbyte2) + chr(readbyte3)
-        for i in range(len(block)):
-            usbBuf = usbBuf + chr(block[i])
+        for i in range(len(datablock)):
+            usbBuf = usbBuf + chr(datablock[i])
         # write data packet on usb device
         self.usbWrite(handle, usbBuf)
 # ------------------------------------------------------------------------------
@@ -222,15 +222,15 @@ class uploaderVSC(baseUploader):
         # ----------------------------------------------------------------------
 
         usbBuf = []
-        for i in range(board.memstart, max_address + 64):
-            if i % 64 == 0:
-                self.eraseBlock(handle, i)
-            if i % self.VSC_BLOCKSIZE == 0:
+        for addr in range(board.memstart, max_address + 64):
+            if addr % 64 == 0:
+                self.eraseBlock(handle, addr)
+            if addr % self.VSC_BLOCKSIZE == 0:
                 if usbBuf != []:
-                    self.writeFlash(handle, i - self.VSC_BLOCKSIZE, usbBuf)
+                    self.writeFlash(handle, addr - self.VSC_BLOCKSIZE, usbBuf)
                 usbBuf = []
-            if data[i - board.memstart] != []:
-                usbBuf.append(data[i - board.memstart])
+            if data[addr - board.memstart] != []:
+                usbBuf.append(data[addr - board.memstart])
 
         return self.ERR_NONE
 # ------------------------------------------------------------------------------
