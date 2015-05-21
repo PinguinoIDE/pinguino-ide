@@ -1,0 +1,37 @@
+MCP23017.init MCP23017_init#include <MCP23017.c>
+
+MCP23017.write_Byte MCP23017_write_B#include <MCP23017.c>
+MCP23017.write_Word MCP23017_write_W#include <MCP23017.c>
+MCP23017.write_Array MCP23017_write_A#include <MCP23017.c>
+
+MCP23017.read_Byte MCP23017_read_B#include <MCP23017.c>
+MCP23017.read_Word  MCP23017_read_W#include <MCP23017.c>
+MCP23017.read_Array MCP23017_read_A#include <MCP23017.c>
+
+MCP23017.readGPIO_A MCP23017_readGPIO_A#include <MCP23017.c>
+MCP23017.readGPIO_B MCP23017_readGPIO_B#include <MCP23017.c>
+MCP23017.readGPIO_AB MCP23017_readGPIO_AB#include <MCP23017.c>
+
+
+MCP23017.writeGPIO_A MCP23017_writeGPIO_A#include <MCP23017.c>
+MCP23017.writeGPIO_B MCP23017_writeGPIO_B#include <MCP23017.c>
+MCP23017.writeGPIO_AB MCP23017_writeGPIO_AB#include <MCP23017.c>
+
+MCP23017.writeIODIR_A MCP23017_writeIODIR_A#include <MCP23017.c>
+MCP23017.writeIODIR_B MCP23017_writeIODIR_B#include <MCP23017.c>
+MCP23017.writeIODIR_AB MCP23017_writeIODIR_AB#include <MCP23017.c>
+
+MCP23017.writeGPPU_A MCP23017_writeGPPU_A#include <MCP23017.c>
+MCP23017.writeGPPU_B MCP23017_writeGPPU_B#include <MCP23017.c>
+MCP23017.writeGPPU_AB MCP23017_writeGPPU_AB#include <MCP23017.c>
+
+MCP23017.writeIPOL_A MCP23017_writeIPOL_A#include <MCP23017.c>
+MCP23017.writeIPOL_B MCP23017_writeIPOL_B#include <MCP23017.c>
+MCP23017.writeIPOL_AB MCP23017_writeIPOL_AB#include <MCP23017.c>
+
+
+MCP23017.digitalRead MCP23017_digitalRead#include <MCP23017.c>
+MCP23017.pinMode MCP23017_pinMode#include <MCP23017.c>
+MCP23017.pullUp MCP23017_pullUp#include <MCP23017.c>
+MCP23017.inputPol MCP23017_inputPol#include <MCP23017.c>
+MCP23017.digitalWrite MCP23017_digitalWrite#include <MCP23017.c>

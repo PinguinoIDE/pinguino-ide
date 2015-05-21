@@ -1,0 +1,2 @@
+DHTXX KS_DHT_Data#include <ks_dht.c>
+DHT.read KS_DHTRead#include <ks_dht.c>

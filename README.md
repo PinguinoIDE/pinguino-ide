@@ -1,7 +1,8 @@
 Pinguino IDE
 ===========
 Open source integrated development enviroment (IDE).
-
+## Homebrew branch
+This branch is meant as a way to install pinguino-IDE with [homebrew](http://brew.sh/)
 
   * [Requirements] (#Requirements)
   * [IDE](#ide)
@@ -11,7 +12,7 @@ Open source integrated development enviroment (IDE).
 ## Requirements
   * [pyside] (https://pypi.python.org/pypi/PySide)
   * [pyusb==0.4.3] (http://sourceforge.net/projects/pyusb/files/PyUSB%200.x/0.4.3)
-  
+
 #### optionals
   * [gitpython] (https://pypi.python.org/pypi/GitPython)
   * [hgapi] (https://pypi.python.org/pypi/hgapi)
@@ -37,7 +38,7 @@ $ python pinguino.py -f ~/Desktop/test.pde -l v2 -p2550
 using Pinguino 2550 board
 using boot2 bootloader
 compilation time: 1.383
-compiled to: ~/Desktop/test.hex 
+compiled to: ~/Desktop/test.hex
 ```
 
 <br>
@@ -47,7 +48,7 @@ $ python pinguino.py -f ~/Desktop/test.pde -l v4 -p2550
 using Pinguino 2550 board
 using boot2 bootloader
 compilation time: 1.383
-compiled to: ~/Desktop/test.hex 
+compiled to: ~/Desktop/test.hex
 ```
 
 <br>
@@ -134,7 +135,7 @@ Pinguino 32MX250      -p32mx250 --pinguino32mx250
 Pinguino 32MX220      -p32mx220 --pinguino32mx220
 
       Other boards supported
-     
+
 FreeJALduino          -J        --freejalduino
 PICuno Equo           -eq       --picunoequo
 PIC32 Pinguino        -o        --olimex440
@@ -163,13 +164,13 @@ True
 >>> result = project.get_result()
 >>> for key in result:
     print(key+": "+result[key])https://github.com/PinguinoIDE/pinguino-ide/edit/master/README.md#
-...     
+...
 hex_file: Desktop/test.hex
 code_size: code size: 0 / 262144 bytes (0% used)
 time: 1.189
 >>> project.upload()
 (True, "UBW32 found: 241664 bytes free\n\nErasing...\n\nWriting hex file 'Escritorio/test.hex':............................................................\n\nResetting device...\n")
->>> 
+>>>
 ```
 
 
@@ -184,5 +185,5 @@ time: 1.189
 False
 >>> project.get_errors()
 {'preprocess': [], 'compiling': {'c': [], 'asm': []}, 'linking': ["[PATH_TO_PINGUINOIDE]/pinguinoide/pinguino/source/user.c:3:1: error: 'hi' undeclared (first use in this function)\n"]}
->>> 
+>>>
 ```

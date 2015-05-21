@@ -1,0 +1,12 @@
+PMP.setAddress PMP_setAddress#include <pmp.c>
+PMP.setMode PMP_setMode#include <pmp.c>
+PMP.setWidth PMP_setWidth#include <pmp.c>
+PMP.setPolarity PMP_setPolarity#include <pmp.c>
+PMP.setControl PMP_setControl#include <pmp.c>
+PMP.autoIncrement PMP_autoIncrement#include <pmp.c>
+PMP.setMux PMP_setMux#include <pmp.c>
+PMP.init PMP_init#include <pmp.c>
+PMP.write PMP_write#include <pmp.c>
+PMP.read PMP_read#include <pmp.c>
+PMP.sendAddress PMP_sendAddress#include <pmp.c>
+PMP.wait PMP_wait#include <pmp.c>

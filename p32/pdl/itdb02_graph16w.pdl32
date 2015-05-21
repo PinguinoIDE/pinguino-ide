@@ -1,0 +1,26 @@
+ENABLE_tinyFAT_INTEGRATION ENABLE_tinyFAT_INTEGRATION#define _ENABLE_tinyFAT_INTEGRATION_
+myGLCD16w.InitLCD InitLCD#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.clrScr clrScr#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.fillScr fillScr#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.setPixel setPixel#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.setColor setColor#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.setBackColor setBackColor#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.drawPixel drawPixel#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.drawLine drawLine#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.drawRect drawRect#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.drawRoundRect drawRoundRect#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.fillRect fillRect#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.fillRoundRect fillRoundRect#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.drawCircle drawCircle#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.fillCircle fillCircle#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.print myGLCD16w_print#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.printNumI printNumI#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.printNumF printNumF#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.fontSize fontSize#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.drawBitmap drawBitmap#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.drawBitmapR drawBitmapR#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.loadBitmap loadBitmap#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.setXY setXY#include <itdb02/itdb02_graph16w.c>
+myGLCD16w.fastWriteLow fastWriteLow #include <itdb02/itdb02_graph16w.c>
+myGLCD16w.fastWriteHigh fastWriteHigh #include <itdb02/itdb02_graph16w.c>
+myGLCD16w.writeData LCD_Write_DATA #include <itdb02/itdb02_graph16w.c>

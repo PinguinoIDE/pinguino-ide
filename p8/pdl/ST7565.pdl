@@ -1,0 +1,11 @@
+ST7565.init ST7565_init#include <ST7565.c>
+ST7565.clear ST7565_clear#include <ST7565.c>
+ST7565.refresh ST7565_refresh#include <ST7565.c>
+ST7565.setPixel ST7565_setPixel#include <ST7565.c>
+ST7565.fillCircle ST7565_fillCircle#include <ST7565.c>
+ST7565.drawChar ST7565_drawChar#include <ST7565.c>
+ST7565.drawString ST7565_drawString#include <ST7565.c>
+ST7565.drawLine ST7565_drawLine#include <ST7565.c>
+ST7565.drawRect ST7565_drawRect#include <ST7565.c>
+ST7565.fillRect ST7565_fillRect#include <ST7565.c>
+ST7565.drawBitmap ST7565_drawBitmap#include <ST7565.c>

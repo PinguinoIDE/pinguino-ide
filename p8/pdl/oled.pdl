@@ -1,0 +1,53 @@
+SSD1306.sendCommand SSD1306_sendCommand#include <SSD1306.c>
+SSD1306.sendData SSD1306_sendData#include <SSD1306.c>
+SSD1306.displayOff SSD1306_displayOff#include <SSD1306.c>
+SSD1306.displayOn SSD1306_displayOn#include <SSD1306.c>
+SSD1306.sleep SSD1306_sleep#include <SSD1306.c>
+SSD1306.wake SSD1306_wake#include <SSD1306.c>
+SSD1306.setInverse SSD1306_setInverse#include <SSD1306.c>
+SSD1306.setDisplayOffset SSD1306_setDisplayOffset#include <SSD1306.c>
+SSD1306.setContrast SSD1306_setContrast#include <SSD1306.c>
+SSD1306.setDisplayStartLine SSD1306_setDisplayStartLine#include <SSD1306.c>
+SSD1306.setSegmentRemap SSD1306_setSegmentRemap#include <SSD1306.c>
+SSD1306.setMultiplexRatio SSD1306_setMultiplexRatio#include <SSD1306.c>
+SSD1306.setComOutputScanDirection SSD1306_setComOutputScanDirection#include <SSD1306.c>
+SSD1306.setComPinsHardwareConfiguration SSD1306_setComPinsHardwareConfiguration#include <SSD1306.c>
+SSD1306.startHorizontalScroll SSD1306_startHorizontalScroll#include <SSD1306.c>
+SSD1306.startVerticalAndHorizontalScroll SSD1306_startVerticalAndHorizontalScroll#include <SSD1306.c>
+SSD1306.stopScroll SSD1306_stopScroll#include <SSD1306.c>
+SSD1306.pamSetStartAddress SSD1306_pamSetStartAddress#include <SSD1306.c>
+SSD1306.setMemoryAddressingMode SSD1306_setMemoryAddressingMode#include <SSD1306.c>
+SSD1306.hvSetColumnAddress SSD1306_hvSetColumnAddress#include <SSD1306.c>
+SSD1306.hvSetPageAddress SSD1306_hvSetPageAddress#include <SSD1306.c>
+SSD1306.pamSetPageStart SSD1306_pamSetPageStart#include <SSD1306.c>
+SSD1306.setDisplayClockRatioAndFrequency SSD1306_setDisplayClockRatioAndFrequency#include <SSD1306.c>
+SSD1306.setPrechargePeriod SSD1306_setPrechargePeriod#include <SSD1306.c>
+SSD1306.setVcomhDeselectLevel SSD1306_setVcomhDeselectLevel#include <SSD1306.c>
+SSD1306.nop SSD1306_nop#include <SSD1306.c>
+SSD1306.setChargePumpEnable SSD1306_setChargePumpEnable#include <SSD1306.c>
+SSD1306.getFontWidth SSD1306_getFontWidth#include <SSD1306.c>
+SSD1306.getFontHeight SSD1306_getFontHeight#include <SSD1306.c>
+SSD1306.invertDisplay SSD1306_invertDisplay#include <SSD1306.c>
+SSD1306.normalDisplay SSD1306_normalDisplay#include <SSD1306.c>
+SSD1306.init SSD1306_init#include <SSD1306.c>
+SSD1306.refresh SSD1306_refresh#include <SSD1306.c>
+SSD1306.clearScreen SSD1306_clearScreen#include <SSD1306.c>
+SSD1306.scrollRight SSD1306_scrollRight#include <SSD1306.c>
+SSD1306.scrollLeft SSD1306_scrollLeft#include <SSD1306.c>
+SSD1306.scrollUp SSD1306_scrollUp#include <SSD1306.c>
+SSD1306.scrollDown SSD1306_scrollDown#include <SSD1306.c>
+SSD1306.setFont SSD1306_setFont#include <SSD1306.c>
+SSD1306.printChar SSD1306_printChar#include <SSD1306.c>
+SSD1306.print SSD1306_print#include <SSD1306.c>#define SSD1306PRINT
+SSD1306.println SSD1306_println#include <SSD1306.c>#define SSD1306PRINTLN
+SSD1306.printNumber SSD1306_printNumber#include <SSD1306.c>#define SSD1306PRINTNUMBER
+SSD1306.printFloat SSD1306_printFloat#include <SSD1306.c>#define SSD1306PRINTFLOAT
+SSD1306.printf SSD1306_printf#include <SSD1306.c>#define SSD1306PRINTF
+SSD1306.setCursor SSD1306_setCursor#include <SSD1306.c>
+SSD1306.drawPixel SSD1306_drawPixel#include <SSD1306.c>#define SSD1306GRAPHICS
+SSD1306.clearPixel SSD1306_clearPixel#include <SSD1306.c>#define SSD1306GRAPHICS
+SSD1306.getColor SSD1306_getColor#include <SSD1306.c>#define SSD1306GRAPHICS
+SSD1306.drawBitmap SSD1306_drawBitmap#include <SSD1306.c>#define SSD1306GRAPHICS
+SSD1306.drawCircle SSD1306_drawCircle#include <SSD1306.c>#define SSD1306GRAPHICS
+SSD1306.fillCircle SSD1306_fillCircle#include <SSD1306.c>#define SSD1306GRAPHICS
+SSD1306.drawLine SSD1306_drawLine#include <SSD1306.c>#define SSD1306GRAPHICS

@@ -1,0 +1,506 @@
+[Block-1]
+self_id = 0x7fe414287830
+from = []
+name = function
+constructor = [['label', 'loop'], ['syntax', '()']]
+position = (38, 387)
+basename = loop
+inside = []
+to = []
+nested = ['0x7fe417e03998']
+
+[Block-2]
+self_id = 0x7fe417e03368
+from = []
+name = frame-edit
+constructor = ['loop(){\n    if(digitalRead(button_0))\n    {\n        while(digitalRead(button_0)){}\n        PWM_value=(PWM_value+10);\n        analogWrite(LED,PWM_value);\n        }\n    \n    if(digitalRead(button_1))\n    {\n        while(digitalRead(button_1)){}\n        PWM_value=(PWM_value-10);\n        analogWrite(LED,PWM_value);\n        }\n    \n    }', ['resize', 500, 412]]
+position = (594, 512)
+basename = frameEdit
+inside = []
+to = []
+nested = []
+
+[Block-3]
+self_id = 0x7fe417e03998
+from = ['0x7fe414287830']
+name = nested
+constructor = [['label', 'if'], ['syntax', '('], ['space_bool'], ['syntax', ')']]
+position = (50, 426)
+basename = if_
+inside = ['0x7fe417de87a0']
+to = ['0x7fe41427ae18']
+nested = ['0x7fe41427f488']
+
+[Block-4]
+self_id = 0x7fe417de87a0
+from = ['0x7fe417e03998']
+name = output-bool
+constructor = [['label', 'digitalRead'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (192, 477)
+basename = digitalRead_b
+inside = ['0x7fe417df2050']
+to = []
+nested = []
+
+[Block-5]
+self_id = 0x7fe417df2050
+from = ['0x7fe417de87a0']
+name = output
+constructor = [['edit', 'button_0', None, (255, 255, 255)]]
+position = (323, 477)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-6]
+self_id = 0x7fe417df2638
+from = []
+name = frame-edit
+constructor = ['int button_0=0;\nint button_1=1;\nint LED=2;\nint PWM_value=0;', ['resize', 300, 212]]
+position = (557, 22)
+basename = frameEdit
+inside = []
+to = []
+nested = []
+
+[Block-7]
+self_id = 0x7fe417df2c20
+from = []
+name = frame-edit
+constructor = ['setup(){\n    digitalWrite(button_0,INPUT);\n    digitalWrite(button_1,INPUT);\n    }', ['resize', 400, 212]]
+position = (558, 262)
+basename = frameEdit
+inside = []
+to = []
+nested = []
+
+[Block-8]
+self_id = 0x7fe41427a290
+from = []
+name = function
+constructor = [['label', 'global'], ['syntax', ' variables']]
+position = (41, 12)
+basename = global_vars
+inside = []
+to = []
+nested = ['0x7fe427878710']
+
+[Block-9]
+self_id = 0x7fe41427ae18
+from = ['0x7fe417e03998']
+name = nested
+constructor = [['label', 'if'], ['syntax', '('], ['space_bool'], ['syntax', ')']]
+position = (50, 699)
+basename = if_
+inside = ['0x7fe4142850e0']
+to = ['0x7fe426473440']
+nested = ['0x7fe414278710']
+
+[Block-10]
+self_id = 0x7fe4142850e0
+from = ['0x7fe41427ae18']
+name = output-bool
+constructor = [['label', 'digitalRead'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (111, 630)
+basename = digitalRead_b
+inside = ['0x7fe4142847a0']
+to = []
+nested = []
+
+[Block-11]
+self_id = 0x7fe4142847a0
+from = ['0x7fe4142850e0']
+name = output
+constructor = [['edit', 'button_1', None, (255, 255, 255)]]
+position = (242, 662)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-12]
+self_id = 0x7fe4142841b8
+from = []
+name = function
+constructor = [['label', 'setup'], ['syntax', '()']]
+position = (36, 239)
+basename = setup
+inside = []
+to = []
+nested = ['0x7fe417dffbd8']
+
+[Block-13]
+self_id = 0x7fe41427f488
+from = ['0x7fe417e03998']
+name = nested
+constructor = [['label', 'while'], ['syntax', '('], ['space_bool'], ['syntax', ')']]
+position = (62, 465)
+basename = while_
+inside = ['0x7fe41427c200']
+to = ['0x7fe417df4c20']
+nested = []
+
+[Block-14]
+self_id = 0x7fe41427c200
+from = ['0x7fe41427f488']
+name = output-bool
+constructor = [['label', 'digitalRead'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (153, 443)
+basename = digitalRead_b
+inside = ['0x7fe414278e60']
+to = []
+nested = []
+
+[Block-15]
+self_id = 0x7fe414278e60
+from = ['0x7fe41427c200']
+name = output
+constructor = [['edit', 'button_0', None, (255, 255, 255)]]
+position = (284, 443)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-16]
+self_id = 0x7fe414278710
+from = ['0x7fe41427ae18']
+name = nested
+constructor = [['label', 'while'], ['syntax', '('], ['space_bool'], ['syntax', ')']]
+position = (62, 738)
+basename = while
+inside = ['0x7fe414275878']
+to = []
+nested = []
+
+[Block-17]
+self_id = 0x7fe414275878
+from = ['0x7fe414278710']
+name = output-bool
+constructor = [['label', 'digitalRead'], ['syntax', '('], ['space'], ['syntax', ')']]
+position = (552, 814)
+basename = digitalRead_b
+inside = ['0x7fe417e065a8']
+to = []
+nested = []
+
+[Block-18]
+self_id = 0x7fe417e065a8
+from = ['0x7fe414275878']
+name = output
+constructor = [['edit', 'button_1', None, (255, 255, 255)]]
+position = (293, 701)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-19]
+self_id = 0x7fe4142b0a28
+from = ['0x7fe426473440']
+name = linear
+constructor = [['label', 'analogWrite'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (50, 933)
+basename = analogWrite
+inside = ['0x7fe4142b3440', '0x7fe4142b3b00']
+to = []
+nested = []
+
+[Block-20]
+self_id = 0x7fe4142b3440
+from = ['0x7fe4142b0a28']
+name = output
+constructor = [['edit', 'LED', None, (255, 255, 255)]]
+position = (209, 857)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-21]
+self_id = 0x7fe4142b3b00
+from = ['0x7fe4142b0a28']
+name = output
+constructor = [['edit', 'PWM_value', None, (255, 255, 255)]]
+position = (265, 857)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-22]
+self_id = 0x7fe417defdd0
+from = ['0x7fe4278795a8']
+name = linear
+constructor = [['edit', 'LED', None, (255, 255, 255)], ['label', '='], ['space']]
+position = (53, 129)
+basename = asign
+inside = ['0x7fe4142b01b8']
+to = ['0x7fe417dea050']
+nested = []
+
+[Block-23]
+self_id = 0x7fe4142b01b8
+from = ['0x7fe417defdd0']
+name = output
+constructor = [['spin_int', '2', -100, 100]]
+position = (381, 134)
+basename = spin_int
+inside = []
+to = []
+nested = []
+
+[Block-24]
+self_id = 0x7fe417df4c20
+from = ['0x7fe41427f488']
+name = linear
+constructor = [['edit', 'PWM_value', None, (255, 255, 255)], ['label', '='], ['space']]
+position = (62, 582)
+basename = asign
+inside = ['0x7fe417df1cf8']
+to = ['0x7fe417e063b0']
+nested = []
+
+[Block-25]
+self_id = 0x7fe417df1cf8
+from = ['0x7fe417df4c20']
+name = output
+constructor = [['syntax', '('], ['space'], ['label', '+'], ['space'], ['syntax', ')']]
+position = (191, 560)
+basename = add
+inside = ['0x7fe417dec7a0', '0x7fe417dec368']
+to = []
+nested = []
+
+[Block-26]
+self_id = 0x7fe417dec7a0
+from = ['0x7fe417df1cf8']
+name = output
+constructor = [['edit', 'PWM_value', None, (255, 255, 255)]]
+position = (203, 560)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-27]
+self_id = 0x7fe417dec368
+from = ['0x7fe417df1cf8']
+name = output
+constructor = [['spin_int', '10', -100, 100]]
+position = (330, 560)
+basename = spin_int
+inside = []
+to = []
+nested = []
+
+[Block-28]
+self_id = 0x7fe417dea050
+from = ['0x7fe417defdd0']
+name = linear
+constructor = [['edit', 'PWM_value', None, (255, 255, 255)], ['label', '='], ['space']]
+position = (53, 168)
+basename = asign
+inside = ['0x7fe417dd7e18']
+to = []
+nested = []
+
+[Block-29]
+self_id = 0x7fe417dd7e18
+from = ['0x7fe417dea050']
+name = output
+constructor = [['spin_int', '0', -100, 100]]
+position = (264, 139)
+basename = spin_int
+inside = []
+to = []
+nested = []
+
+[Block-30]
+self_id = 0x7fe417dfac20
+from = ['0x7fe417dffbd8']
+name = linear
+constructor = [['label', 'digitalWrite'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (48, 317)
+basename = digitalWrite
+inside = ['0x7fe417df82d8', '0x7fe417df8710']
+to = []
+nested = []
+
+[Block-31]
+self_id = 0x7fe417df82d8
+from = ['0x7fe417dfac20']
+name = output
+constructor = [['edit', 'button_1', None, (255, 255, 255)]]
+position = (283, 293)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-32]
+self_id = 0x7fe417df8710
+from = ['0x7fe417dfac20']
+name = output
+constructor = [['spin_choice', 'INPUT', ['INPUT', 'OUTPUT']]]
+position = (389, 293)
+basename = choice_io
+inside = []
+to = []
+nested = []
+
+[Block-33]
+self_id = 0x7fe417dffbd8
+from = ['0x7fe4142841b8']
+name = linear
+constructor = [['label', 'digitalWrite'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (48, 278)
+basename = digitalWrite
+inside = ['0x7fe417dff170', '0x7fe417dfd248']
+to = ['0x7fe417dfac20']
+nested = []
+
+[Block-34]
+self_id = 0x7fe417dff170
+from = ['0x7fe417dffbd8']
+name = output
+constructor = [['edit', 'button_0', None, (255, 255, 255)]]
+position = (283, 254)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-35]
+self_id = 0x7fe417dfd248
+from = ['0x7fe417dffbd8']
+name = output
+constructor = [['spin_choice', 'INPUT', ['INPUT', 'OUTPUT']]]
+position = (389, 254)
+basename = choice_io
+inside = []
+to = []
+nested = []
+
+[Block-36]
+self_id = 0x7fe4278795a8
+from = ['0x7fe427878710']
+name = linear
+constructor = [['edit', 'button_1', None, (255, 255, 255)], ['label', '='], ['space']]
+position = (53, 90)
+basename = asign
+inside = ['0x7fe417e02680']
+to = ['0x7fe417defdd0']
+nested = []
+
+[Block-37]
+self_id = 0x7fe417e02680
+from = ['0x7fe4278795a8']
+name = output
+constructor = [['spin_int', '1', -100, 100]]
+position = (252, 104)
+basename = spin_int
+inside = []
+to = []
+nested = []
+
+[Block-38]
+self_id = 0x7fe427878710
+from = ['0x7fe41427a290']
+name = linear
+constructor = [['edit', 'button_0', None, (255, 255, 255)], ['label', '='], ['space']]
+position = (53, 51)
+basename = asign
+inside = ['0x7fe426475998']
+to = ['0x7fe4278795a8']
+nested = []
+
+[Block-39]
+self_id = 0x7fe426475998
+from = ['0x7fe427878710']
+name = output
+constructor = [['spin_int', '0', -100, 100]]
+position = (252, 65)
+basename = spin_int
+inside = []
+to = []
+nested = []
+
+[Block-40]
+self_id = 0x7fe426473440
+from = ['0x7fe41427ae18']
+name = linear
+constructor = [['edit', 'PWM_value', None, (255, 255, 255)], ['label', '='], ['space']]
+position = (50, 894)
+basename = asign
+inside = ['0x7fe4264765f0']
+to = ['0x7fe4142b0a28']
+nested = []
+
+[Block-41]
+self_id = 0x7fe4264765f0
+from = ['0x7fe426473440']
+name = output
+constructor = [['syntax', '('], ['space'], ['label', '-'], ['space'], ['syntax', ')']]
+position = (341, 898)
+basename = sub
+inside = ['0x7fe4264d78c0', '0x7fe426474758']
+to = []
+nested = []
+
+[Block-42]
+self_id = 0x7fe4264d78c0
+from = ['0x7fe4264765f0']
+name = output
+constructor = [['edit', 'PWM_value', None, (255, 255, 255)]]
+position = (455, 858)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-43]
+self_id = 0x7fe426474758
+from = ['0x7fe4264765f0']
+name = output
+constructor = [['spin_int', '10', -100, 100]]
+position = (631, 857)
+basename = spin-int
+inside = []
+to = []
+nested = []
+
+[Block-44]
+self_id = 0x7fe417e063b0
+from = ['0x7fe417df4c20']
+name = linear
+constructor = [['label', 'analogWrite'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
+position = (62, 621)
+basename = analogWrite
+inside = ['0x7fe417e047a0', '0x7fe4263a42d8']
+to = []
+nested = []
+
+[Block-45]
+self_id = 0x7fe417e047a0
+from = ['0x7fe417e063b0']
+name = output
+constructor = [['edit', 'LED', None, (255, 255, 255)]]
+position = (209, 623)
+basename = User
+inside = []
+to = []
+nested = []
+
+[Block-46]
+self_id = 0x7fe4263a42d8
+from = ['0x7fe417e063b0']
+name = output
+constructor = [['edit', 'PWM_value', None, (255, 255, 255)]]
+position = (265, 623)
+basename = User
+inside = []
+to = []
+nested = []
+

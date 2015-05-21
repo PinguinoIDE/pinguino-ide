@@ -1,0 +1,8 @@
+MCP342x.init MCP342x_init#include "MCP342x.c"
+
+MCP342x.startCh MCP342x_startCh#include "MCP342x.c"
+MCP342x.stopCh MCP342x_stopCh#include "MCP342x.c"
+
+MCP342x.loop MCP342x_loop#include "MCP342x.c"
+
+MCP342x.getData MCP342x_getData#include "MCP342x.c"

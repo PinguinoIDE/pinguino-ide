@@ -1,0 +1,4 @@
+digitalWrite digitalwrite#include <digitalw.c>
+digitalRead digitalread#include <digitalr.c>
+pinMode pinmode#include <digitalp.c>
+toggle toggle#include <digitalt.c>

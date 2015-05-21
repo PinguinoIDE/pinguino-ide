@@ -1,0 +1,3 @@
+analogRead analogread#include <analog.c>#define ANALOGREAD
+analogReference analogreference#include <analog.c>#define ANALOGREFERENCE
+analogWrite analogwrite#include <analog.c>#define ANALOGWRITE

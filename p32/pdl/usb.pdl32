@@ -1,0 +1,12 @@
+CDC.write CDC_print#include <__cdc.c>#define CDCWRITE
+CDC.print CDC_print#include <__cdc.c>#define CDCPRINT
+CDC.println CDC_println#include <__cdc.c>#define CDCPRINTLN
+CDC.printf CDC_printf#include <__cdc.c>#define CDCPRINTF
+CDC.printNumber CDC_printNumber#include <__cdc.c>#define CDCPRINTNUMBER
+CDC.printFloat CDC_printFloat#include <__cdc.c>#define CDCPRINTFLOAT
+CDC.read cdc_getc#include <__cdc.c>
+CDC.getKey CDC_getkey#include <__cdc.c>#define CDCGETKEY
+CDC.getString CDC_getstring#include <__cdc.c>#define CDCGETSTRING
+CDC.isConnected CDC_isConnected#include <__cdc.c>
+CDC.available CDC_available#include <__cdc.c>
+CDC.isReady cdc_is_tx_ready#include <__cdc.c>
