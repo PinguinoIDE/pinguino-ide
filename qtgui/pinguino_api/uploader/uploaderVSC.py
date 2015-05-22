@@ -55,8 +55,6 @@ class uploaderVSC(baseUploader):
     VSC_OUT_EP						=	0x01	# endpoint for Bulk writes
 
     # configuration
-    VSC_INTERFACE_ID				=	0x00
-    VSC_ACTIVE_CONFIG				=	0x02
     VSC_TIMEOUT						=	200
 
     # Table with supported USB devices

@@ -56,6 +56,7 @@ class baseUploader(object):
 
     INTERFACE_ID                    = 0x00
     ACTIVE_CONFIG                   = 0x01
+    VSC_ACTIVE_CONFIG               = 0x02
 
 # ------------------------------------------------------------------------------
     def __init__(self, hexfile, board):
@@ -88,6 +89,9 @@ class baseUploader(object):
                         self.endpoints.append(ep)
                         self.pipes.append(ep.address)
                     """
+                    if board.bldr == "boot2":
+                        self.ACTIVE_CONFIG = self.VSC_ACTIVE_CONFIG
+
                     return device
         return self.ERR_DEVICE_NOT_FOUND
 
