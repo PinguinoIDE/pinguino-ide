@@ -16,11 +16,11 @@ class TimedMethods(object):
 
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
-    @Decorator.requiere_main_focus()
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Functions")
     @Decorator.requiere_tools_tab("SourceBrowser")
+    @Decorator.requiere_main_focus()
     def update_functions(self):
 
         editor = self.main.tabWidget_files.currentWidget()
@@ -48,11 +48,11 @@ class TimedMethods(object):
 
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
-    @Decorator.requiere_main_focus()
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Directives")
     @Decorator.requiere_tools_tab("SourceBrowser")
+    @Decorator.requiere_main_focus()
     def update_directives(self):
 
         editor = self.main.tabWidget_files.currentWidget()
@@ -64,7 +64,8 @@ class TimedMethods(object):
         for directive in directives_parse:
             item = QtGui.QTableWidgetItem()
             self.main.tableWidget_directives.setVerticalHeaderItem(index, item)
-            item.setText(directive["name"] + ":" + directive["line"])
+            # item.setText(directive["name"] + ":" + directive["line"])
+            item.setText(directive["name"])
             self.completer_directives.append(directive["name"])
 
             self.main.tableWidget_directives.setItem(index, 0, QtGui.QTableWidgetItem())
@@ -80,11 +81,11 @@ class TimedMethods(object):
 
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
-    @Decorator.requiere_main_focus()
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Variables")
     @Decorator.requiere_tools_tab("SourceBrowser")
+    @Decorator.requiere_main_focus()
     def update_variables(self):
 
         editor = self.main.tabWidget_files.currentWidget()
@@ -109,10 +110,10 @@ class TimedMethods(object):
 
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
-    @Decorator.requiere_main_focus()
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     @Decorator.if_autocomplete_is_enable()
+    @Decorator.requiere_main_focus()
     def update_autocompleter(self):
 
         editor = self.main.tabWidget_files.currentWidget()
@@ -161,9 +162,9 @@ class TimedMethods(object):
 
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
-    @Decorator.requiere_main_focus()
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_main_focus()
     def check_external_changes(self):
 
         editor = self.main.tabWidget_files.currentWidget()
@@ -189,9 +190,9 @@ class TimedMethods(object):
 
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
-    @Decorator.requiere_main_focus()
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
+    @Decorator.requiere_main_focus()
     def save_backup_file(self):
 
         editor = self.main.tabWidget_files.currentWidget()

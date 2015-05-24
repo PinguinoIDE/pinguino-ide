@@ -17,10 +17,11 @@ from .custom_widgets.code_editor.autocomplete_icons import CompleteIcons
 from .help.help import Help
 # from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
-from ..frames.main import Ui_PinguinoIDE
 from ..pinguino_api.pinguino import Pinguino, AllBoards
 from ..pinguino_api.pinguino_config import PinguinoConfig
 from ..pinguino_api.config import Config
+from ..frames.main import Ui_PinguinoIDE
+
 
 import logging
 #import debugger
@@ -43,14 +44,16 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         QtCore.QTextCodec.setCodecForTr(QtCore.QTextCodec.codecForName("UTF-8"))
 
         self.main = Ui_PinguinoIDE()
+
         self.main.setupUi(self)
         PythonShell.__init__(self)
         PinguinoLog.__init__(self)
+        Help.__init__(self)
 
-        self.argvs = argvs
+        # self.argvs = argvs
 
-        if not self.argvs.devmode:
-            self.main.menubar.removeAction(self.main.menuDevelopment.menuAction())
+        # if not self.argvs.devmode:
+            # self.main.menubar.removeAction(self.main.menuDevelopment.menuAction())
 
         splash_write(QtGui.QApplication.translate("Splash", "Setting enviroment values"))
         PinguinoConfig.set_environ_vars()
@@ -172,7 +175,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
         menu.addMenu(self.main.menuFile)
         menu.addMenu(self.main.menuEdit)
-        # menu.addMenu(self.main.menuView)
         menu.addMenu(self.main.menuProject)
         menu.addMenu(self.main.menuSettings)
         menu.addMenu(self.main.menuSource)
@@ -185,7 +187,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         menu.addAction(self.main.actionMenubar)
 
         self.toolbutton_menutoolbar.setMenu(menu)
-        self.main.toolBar_system.addWidget(self.toolbutton_menutoolbar)
+        self.main.toolBar_menu.addWidget(self.toolbutton_menutoolbar)
 
 
     #----------------------------------------------------------------------
@@ -238,11 +240,11 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         self.TAB_SOURCE = 2
         self.TAB_SEARCH = 3
 
-        self.main.tabWidget_files.setVisible(False)
-        self.main.toolBar_graphical.setVisible(False)
+        # self.main.tabWidget_files.setVisible(True)
+        # self.main.toolBar_graphical.setVisible(False)
 
-        self.main.tabWidget_tools.setCurrentIndex(self.TAB_FILES)
-
+        self.main.tabWidget_tools.setCurrentWidget(self.main.Files)
+        self.main.tabWidget_bottom.setCurrentWidget(self.main.Log)
 
         self.main.dockWidget_right.setTitleBarWidget(QtGui.QWidget())
         self.main.dockWidget_bottom.setTitleBarWidget(QtGui.QWidget())
@@ -402,10 +404,18 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
         # self.main.dockWidget_blocks.setVisible(normal)
         # self.main.dockWidget_right.setVisible(not normal)
-        self.main.toolBar_search_replace.setVisible(not normal)
-        self.main.toolBar_edit.setVisible(not normal)
-        self.main.toolBar_graphical.setVisible(normal)
-        self.main.toolBar_undo_redo.setVisible(not normal)
+        # self.main.toolBar_search_replace.setVisible(not normal)
+        # self.main.toolBar_edit.setVisible(not normal)
+        # self.main.toolBar_graphical.setVisible(normal)
+        # self.main.toolBar_undo_redo.setVisible(not normal)
+
+        self.main.actionSave_image.setVisible(normal)
+        self.main.actionUndo.setVisible(not normal)
+        self.main.actionRedo.setVisible(not normal)
+        self.main.actionCopy.setVisible(not normal)
+        self.main.actionCut.setVisible(not normal)
+        self.main.actionPaste.setVisible(not normal)
+        self.main.actionSearch.setVisible(not normal)
 
         #self.configIDE.set("Features", "terminal_on_graphical", self.main.dockWidget_output.isVisible())
         # self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_text", True))
@@ -426,10 +436,19 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
         # self.main.dockWidget_blocks.setVisible(normal)
         # self.main.dockWidget_right.setVisible(not normal)
-        self.main.toolBar_search_replace.setVisible(not normal)
-        self.main.toolBar_edit.setVisible(not normal)
-        self.main.toolBar_graphical.setVisible(normal)
-        self.main.toolBar_undo_redo.setVisible(not normal)
+        # self.main.toolBar_search_replace.setVisible(not normal)
+        # self.main.toolBar_edit.setVisible(not normal)
+        # self.main.toolBar_graphical.setVisible(normal)
+        # self.main.toolBar_undo_redo.setVisible(not normal)
+
+
+        self.main.actionSave_image.setVisible(normal)
+        self.main.actionUndo.setVisible(not normal)
+        self.main.actionRedo.setVisible(not normal)
+        self.main.actionCopy.setVisible(not normal)
+        self.main.actionCut.setVisible(not normal)
+        self.main.actionPaste.setVisible(not normal)
+        self.main.actionSearch.setVisible(not normal)
 
         #self.configIDE.set("Features", "terminal_on_text", self.main.dockWidget_output.isVisible())
         # self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
@@ -440,14 +459,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
     #----------------------------------------------------------------------
     def reload_toolbar_icons(self):
 
-        self.toolbars = [self.main.toolBar_edit,
-                         self.main.toolBar_files,
-                         self.main.toolBar_graphical,
-                         self.main.toolBar_pinguino,
-                         self.main.toolBar_search_replace,
+        self.toolbars = [self.main.toolBar,
+                         self.main.toolBar_menu,
                          self.main.toolBar_switch,
-                         self.main.toolBar_undo_redo,
-                         self.main.toolBar_system,
                          ]
 
         for toolbar in self.toolbars:
@@ -468,14 +482,13 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
                          (self.main.actionPaste, "edit-paste"),
 
                          (self.main.actionSearch, "edit-find"),
-                         (self.main.actionSearch_and_replace, "edit-find-replace"),
+                         # (self.main.actionSearch_and_replace, "edit-find"),
 
                          (self.main.actionSelect_board, "applications-electronics"),
                          (self.main.actionCompile, "system-run"),
                          (self.main.actionUpload, "emblem-downloads"),
 
                          (self.main.actionSave_image, "applets-screenshooter"),
-
 
                          (self.toolbutton_menutoolbar, "preferences-system"),
 
@@ -561,9 +574,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
 
 
-# classes = [PinguinoIDE, PinguinoTextEdit]
-
-# for cls in classes:
-    # for name, fn in inspect.getmembers(cls):
-        # if isinstance(fn, types.UnboundMethodType):
-            # setattr(cls, name, Decorator.debug_method()(fn))
+# for name, fn in inspect.getmembers(PinguinoIDE):
+    # if isinstance(fn, types.UnboundMethodType):
+        # setattr(PinguinoIDE, name, Decorator.debug_method()(fn))

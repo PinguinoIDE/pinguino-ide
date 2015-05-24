@@ -62,17 +62,24 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
     def write(self, text, prefix=""):
         # if not self.checkbox_debug.isChecked(): return
         # return self.log_output(text[:-1])
-        text = text.replace("\n", "\n%s "%prefix)
-        text = text.replace("\\n", "\\n%s "%prefix)
-        if prefix: text = "%s "%prefix + text
 
-        if not text.endswith("\n"):
+        if prefix:
+            text = text.replace("\n", "\n{} ".format(prefix))
+            text = text.replace("\\n", "\\n{} ".format(prefix))
+            text = "{} {}".format(prefix, text)
+        else:
+            text = text.replace("\n", "\n")
+            text = text.replace("\\n", "\\n")
+
+
+        if not (text.endswith("\n") or text.endswith("\n ")):
             text += "\n"
 
-        self.moveCursor(QtGui.QTextCursor.StartOfLine)
-        # self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
+        # for i in range(100): print(i)
+
+        self.moveCursor(QtGui.QTextCursor.EndOfLine)
         self.insertPlainText(text)
-        # self.insertPlainText(START)
+        # self.appendPlainText(text)
         self.moveCursor(QtGui.QTextCursor.End)
 
         self.repaint()
@@ -126,7 +133,8 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
 
             if not command.isspace():
                 self.moveCursor(QtGui.QTextCursor.End)
-                self.insertPlainText(self.shell.run(command))
+                # self.insertPlainText(self.shell.run(command))
+                self.shell.run(command, self)
             self.insertPlainText(START)
             self.moveCursor(QtGui.QTextCursor.End)
 

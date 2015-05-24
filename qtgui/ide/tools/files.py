@@ -3,6 +3,7 @@
 
 import os
 from ..methods.dialogs import Dialogs
+from ..methods.decorators import Decorator
 
 from PySide import QtGui, QtCore
 
@@ -29,7 +30,7 @@ class Files(object):
 
 
     #----------------------------------------------------------------------
-    def generate_tree(self, path, parent, levels=0, currentlevel=1, flags=None):
+    def generate_tree(self, path, parent, levels=0, currentlevel=1, flags=None, to_ignore=[], inherits_status=dict()):
 
         if currentlevel > levels:
             if os.listdir(path):
@@ -39,15 +40,19 @@ class Files(object):
         lisdir = os.listdir(path)
 
         # Filters
-
         lisdir = filter(lambda f:not f.startswith("."), lisdir)
         lisdir = filter(lambda f:not f.endswith(".ppde"), lisdir)
+        lisdir = filter(lambda f:not f.endswith(".hex"), lisdir)
 
         list_dirs = []
         list_files = []
 
         for item in lisdir:
             fullpath = os.path.join(path, item)
+
+            if fullpath in to_ignore: continue
+            # print path in to_ignore, path, to_ignore
+
             if os.path.isdir(fullpath):
                 list_dirs.append(fullpath)
             elif os.path.isfile(fullpath):
@@ -56,17 +61,35 @@ class Files(object):
         list_dirs.sort()
         list_files.sort()
 
+        files_from_tree = []
         for dir_ in list_dirs:
             dir_name = os.path.basename(dir_)
-            self.generate_tree(dir_, self.add_new_tree(dir_name, parent, dir_, flags), currentlevel=currentlevel+1, levels=levels)
+            ft = self.generate_tree(dir_, self.add_new_tree(dir_name, parent, dir_, flags), currentlevel=currentlevel+1, levels=levels, to_ignore=to_ignore, inherits_status=inherits_status)
+            if ft: files_from_tree.extend(ft)
 
         for file_ in list_files:
             file_name = os.path.basename(file_)
-            self.add_new_file_item(file_name, parent, file_, flags)
+            if inherits_status and type(inherits_status) == dict:
+                if file_ in inherits_status: check = inherits_status[file_]
+                else: check = False
+            elif type(inherits_status) == bool:
+                check = inherits_status
+            else:
+                check = None
+
+            if file_name.endswith(".pde") or file_name.endswith(".h") or file_name.endswith(".c") or file_name.endswith(".cpp"):
+                self.add_new_file_item(file_name, parent, file_, flags, check)
+            else:
+                self.add_new_file_item(file_name, parent, file_, flags, None)
+
+        list_files.extend(files_from_tree)
+        list_files.sort()
+
+        return list_files
 
 
     #----------------------------------------------------------------------
-    def add_new_file_item(self, filename, parent, fullpath, flags):
+    def add_new_file_item(self, filename, parent, fullpath, flags=None, check=None):
         """"""
         file_item = QtGui.QTreeWidgetItem(parent)
 
@@ -92,10 +115,16 @@ class Files(object):
         if flags:
             file_item.setFlags(flags)
 
+        if not check is None:
+            if check:
+                file_item.setCheckState(0, QtCore.Qt.Checked)
+            else:
+                file_item.setCheckState(0, QtCore.Qt.Unchecked)
+
 
 
     #----------------------------------------------------------------------
-    def add_new_tree(self, name, parent, fullpath, flags):
+    def add_new_tree(self, name, parent, fullpath, flags=None):
         """"""
         tree = QtGui.QTreeWidgetItem(parent)
         tree.setText(0, name)

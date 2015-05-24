@@ -10,7 +10,7 @@ from PySide.QtCore import QPoint
 from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons
 from .pinguino_highlighter import Highlighter
-from .syntax import Autocompleter, Snippet
+from .syntax import Autocompleter, Snippet, Helpers
 #from ..methods import constants as Constants
 #from ..methods.decorators import Decorator
 
@@ -132,7 +132,27 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         tc.removeSelectedText()
 
-        if completion in Snippet.keys():
+        if completion in Helpers.keys():
+            pos = tc.position()
+
+            # text_position = Snippet[completion].find("[!]")
+            text_insert = Helpers[completion].replace("{{", "").replace("}}", "")
+            position_in_line = tc.positionInBlock()
+
+            start_position = Helpers[completion].find("{{")
+            end_position = Helpers[completion].find("}}")
+
+            tc.insertText(text_insert.replace("\n", "\n"+" "*position_in_line))
+            tc.setPosition(pos + start_position)
+
+            select = Helpers[completion][(start_position + 2):end_position]
+            tc.beginEditBlock()
+            self.moveCursor(tc.StartOfLine)
+            self.find(select)
+            tc.endEditBlock()
+
+
+        elif completion in Snippet.keys():
             pos = tc.position()
 
             text_position = Snippet[completion].find("[!]")
@@ -143,6 +163,7 @@ class CustomTextEdit(QtGui.QTextEdit):
             tc.setPosition(pos + text_position)
 
             self.setTextCursor(tc)
+
         elif re.match("(.+) +\[.+\]", str(completion)) != None:
             ins = re.match("(.+) +\[.+\]", str(completion)).group(1)
             tc.insertText(ins)

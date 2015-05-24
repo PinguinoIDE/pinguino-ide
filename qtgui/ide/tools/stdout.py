@@ -10,7 +10,7 @@ class Stdout(object):
     """"""
 
     #----------------------------------------------------------------------
-    @Decorator.alert_tab("tab_stdout")
+    @Decorator.alert_tab("Stdout")
     def update_stdout(self):
         """"""
         file_ = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "stdout")

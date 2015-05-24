@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1385</width>
+    <width>1129</width>
     <height>917</height>
    </rect>
   </property>
@@ -41,6 +41,54 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QFrame" name="frame_logo">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="2" column="0">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="label_logo">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="../../../pinguino-extra/resources/resources.qrc">:/logo/art/banner_blue.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget_files">
       <property name="currentIndex">
@@ -54,54 +102,6 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0">
-     <widget class="QFrame" name="frame_logo">
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label_logo">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../../../pinguino-extra/resources/resources.qrc">:/logo/art/banner_blue.png</pixmap>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -109,7 +109,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1385</width>
+     <width>1129</width>
      <height>29</height>
     </rect>
    </property>
@@ -196,7 +196,9 @@
      <addaction name="actionGroup"/>
      <addaction name="actionShop"/>
     </widget>
-    <addaction name="actionHelp"/>
+    <addaction name="actionPinguino_ide_manual"/>
+    <addaction name="actionLibraries_help"/>
+    <addaction name="separator"/>
     <addaction name="menuLinks"/>
     <addaction name="separator"/>
     <addaction name="actionSubmit_bug_report"/>
@@ -257,7 +259,7 @@
      <addaction name="action_list_recent"/>
     </widget>
     <addaction name="actionNew_project"/>
-    <addaction name="actionSave_as_project"/>
+    <addaction name="actionOpen_project"/>
     <addaction name="menuRecent"/>
     <addaction name="actionSave_project"/>
     <addaction name="actionSave_project_as"/>
@@ -806,7 +808,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_boardconfig">
+       <widget class="QWidget" name="BoardConfig">
         <attribute name="title">
          <string>Boards</string>
         </attribute>
@@ -1111,9 +1113,9 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QToolBar" name="toolBar_files">
+  <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
-    <string>File</string>
+    <string>Toolbar</string>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -1133,169 +1135,18 @@
    <addaction name="actionNew_file"/>
    <addaction name="actionOpen_file"/>
    <addaction name="actionSave_file"/>
-  </widget>
-  <widget class="QToolBar" name="toolBar_undo_redo">
-   <property name="windowTitle">
-    <string>Undo Redo</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>32</width>
-     <height>32</height>
-    </size>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
    <addaction name="actionUndo"/>
    <addaction name="actionRedo"/>
-  </widget>
-  <widget class="QToolBar" name="toolBar_edit">
-   <property name="windowTitle">
-    <string>Edit</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>32</width>
-     <height>32</height>
-    </size>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
    <addaction name="actionCut"/>
    <addaction name="actionCopy"/>
    <addaction name="actionPaste"/>
-  </widget>
-  <widget class="QToolBar" name="toolBar_search_replace">
-   <property name="windowTitle">
-    <string>Search Replace</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>32</width>
-     <height>32</height>
-    </size>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
    <addaction name="actionSearch"/>
-   <addaction name="actionSearch_and_replace"/>
-  </widget>
-  <widget class="QToolBar" name="toolBar_pinguino">
-   <property name="windowTitle">
-    <string>Pinguino</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>32</width>
-     <height>32</height>
-    </size>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
    <addaction name="actionSelect_board"/>
    <addaction name="actionCompile"/>
    <addaction name="actionUpload"/>
-  </widget>
-  <widget class="QToolBar" name="toolBar_graphical">
-   <property name="windowTitle">
-    <string>Graphical mode</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>32</width>
-     <height>32</height>
-    </size>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
    <addaction name="actionSave_image"/>
   </widget>
-  <widget class="QToolBar" name="toolBar_system">
-   <property name="windowTitle">
-    <string notr="true">System menu</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>32</width>
-     <height>32</height>
-    </size>
-   </property>
-   <property name="floatable">
-    <bool>false</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QToolBar" name="toolBar_switch">
-   <property name="windowTitle">
-    <string>Switch mode</string>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::RightToLeft</enum>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>32</width>
-     <height>32</height>
-    </size>
-   </property>
-   <property name="floatable">
-    <bool>false</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="actionSwitch_ide"/>
-  </widget>
   <widget class="QDockWidget" name="dockWidget_bottom">
    <property name="features">
     <set>QDockWidget::NoDockWidgetFeatures</set>
@@ -1334,7 +1185,7 @@
        <property name="movable">
         <bool>true</bool>
        </property>
-       <widget class="QWidget" name="tab_shell">
+       <widget class="QWidget" name="Shell">
         <attribute name="title">
          <string>Python Shell</string>
         </attribute>
@@ -1350,7 +1201,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_log">
+       <widget class="QWidget" name="Log">
         <attribute name="title">
          <string>Log</string>
         </attribute>
@@ -1366,7 +1217,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_stdout">
+       <widget class="QWidget" name="Stdout">
         <attribute name="title">
          <string>Stdout</string>
         </attribute>
@@ -1398,10 +1249,54 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QToolBar" name="toolBar_menu">
+   <property name="windowTitle">
+    <string>Toolbar Menu</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QToolBar" name="toolBar_switch">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionSwitch_ide"/>
+  </widget>
   <action name="actionNew_file">
    <property name="icon">
-    <iconset theme="document-new">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</iconset>
    </property>
    <property name="text">
     <string>New</string>
@@ -1412,8 +1307,8 @@
   </action>
   <action name="actionOpen_file">
    <property name="icon">
-    <iconset theme="document-open">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -1427,8 +1322,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="document-save">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -1456,8 +1351,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="edit-undo">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -1471,8 +1366,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="edit-redo">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -1486,8 +1381,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="edit-cut">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -1501,8 +1396,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="edit-copy">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -1516,8 +1411,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="edit-paste">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -1531,8 +1426,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="edit-find">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
    </property>
    <property name="text">
     <string>Search</string>
@@ -1545,10 +1440,6 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
-   <property name="icon">
-    <iconset theme="edit-find-replace">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
-   </property>
    <property name="text">
     <string>Search and replace</string>
    </property>
@@ -1558,8 +1449,8 @@
   </action>
   <action name="actionSelect_board">
    <property name="icon">
-    <iconset theme="applications-electronics">
-     <normaloff>:/toolbar/toolbar/board.svg</normaloff>:/toolbar/toolbar/board.svg</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</iconset>
    </property>
    <property name="text">
     <string>Pinguino board selection</string>
@@ -1573,8 +1464,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="system-run">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</iconset>
    </property>
    <property name="text">
     <string>Compile</string>
@@ -1588,8 +1479,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset theme="emblem-downloads">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</iconset>
    </property>
    <property name="text">
     <string>Upload</string>
@@ -1635,8 +1526,8 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset theme="insert-object">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</iconset>
    </property>
    <property name="text">
     <string>Graphical mode</string>
@@ -1647,8 +1538,8 @@
   </action>
   <action name="actionSave_image">
    <property name="icon">
-    <iconset theme="applets-screenshooter">
-     <normaloff>../../../../../../../../../../../../../../../../../.designer/backup</normaloff>../../../../../../../../../../../../../../../../../.designer/backup</iconset>
+    <iconset>
+     <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</iconset>
    </property>
    <property name="text">
     <string>Save image</string>
@@ -1913,7 +1804,7 @@
     <string>New project</string>
    </property>
   </action>
-  <action name="actionSave_as_project">
+  <action name="actionOpen_project">
    <property name="text">
     <string>Open project</string>
    </property>
@@ -2101,14 +1992,18 @@
     <string>Shift+F2</string>
    </property>
   </action>
-  <action name="actionHelp">
+  <action name="actionPinguino_ide_manual">
    <property name="text">
-    <string>Help</string>
+    <string>Pinguino IDE manual</string>
+   </property>
+  </action>
+  <action name="actionLibraries_help">
+   <property name="text">
+    <string>Libraries help</string>
    </property>
   </action>
  </widget>
  <tabstops>
-  <tabstop>tabWidget_files</tabstop>
   <tabstop>tabWidget_tools</tabstop>
   <tabstop>tabWidget_browser</tabstop>
   <tabstop>comboBox_files</tabstop>

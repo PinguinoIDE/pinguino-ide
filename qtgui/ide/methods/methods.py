@@ -66,7 +66,7 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
         self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
         if readonly: extra_name = " (r/o)"
         else: extra_name = ""
-        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1]+extra_name)
+        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.basename(filename)+extra_name)
         self.check_backup_file(editor=editor)
         self.tab_changed()
 
@@ -80,7 +80,9 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
         self.update_recents_menu()
 
         opens = self.configIDE.get_recents_open()
-        if not opens: return
+        if not opens:
+            self.pinguino_ide_manual()
+            return
 
         #files = "\n".join(opens)
         #dialogtext = QtGui.QApplication.translate("Dialogs", "Do you want open files of last sesion?")
@@ -308,8 +310,8 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
 
         visible = self.configIDE.config("Main", "menubar", True)
         self.main.actionMenubar.setChecked(visible)
-        self.main.menubar.setVisible(visible)
-        self.main.toolBar_system.setVisible(not visible)
+        self.main.menubar.setVisible(not visible)
+        self.main.actionMenubar.setVisible(visible)
 
         self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
 
@@ -432,15 +434,15 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
         # set mode and bootloader
         if arch == 8 and mode == "bootloader":
             if bootloader == "v1_v2":
-                self.pinguinoAPI.set_bootloader(self.pinguinoAPI.Boot2)
+                self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.Boot2)
             else:
-                self.pinguinoAPI.set_bootloader(self.pinguinoAPI.Boot4)
+                self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.Boot4)
 
         # no configuration bootloader for 32 bits
 
         if mode == "icsp":
             # if mode is icsp overwrite all configuration
-            self.pinguinoAPI.set_bootloader(self.pinguinoAPI.NoBoot)
+            self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.NoBoot)
 
 
         # update environment
@@ -611,54 +613,24 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
 
 
     #----------------------------------------------------------------------
-    def expand_editor(self, expand):
-
-        self.toggle_toolbars(not expand)
-        self.main.dockWidget_output.setVisible(not expand)
-        self.main.actionToolbars.setChecked(not expand)
-
-        if expand:
-            self.main.menubar.setVisible(expand)
-            self.main.actionMenubar.setChecked(expand)
-
-        self.main.statusBar.setVisible(not expand)
-
-        if self.is_graphical():
-            self.main.dockWidget_blocks.setVisible(not expand)
-            self.main.dockWidget_right.setVisible(False)
-        else:
-            self.main.dockWidget_right.setVisible(not expand)
-            self.main.dockWidget_blocks.setVisible(False)
-
-
-    #----------------------------------------------------------------------
     def toggle_toolbars(self, visible):
 
-        if not visible:
-            for toolbar in self.toolbars:
-                toolbar.setVisible(visible)
+        for toolbar in self.toolbars:
+            toolbar.setVisible(visible)
 
+        if self.is_graphical():
+            self.update_actions_for_graphical()
         else:
-            self.main.toolBar_switch.setVisible(True)
-            self.main.toolBar_files.setVisible(True)
-            self.main.toolBar_pinguino.setVisible(True)
-
-            visible = self.is_graphical()
-            self.main.toolBar_edit.setVisible(not visible)
-            self.main.toolBar_graphical.setVisible(visible)
-            self.main.toolBar_search_replace.setVisible(not visible)
-            self.main.toolBar_undo_redo.setVisible(not visible)
-
-        self.main.toolBar_system.setVisible(not self.main.menubar.isVisible())
+            self.update_actions_for_text()
 
 
     #----------------------------------------------------------------------
-    def toggle_menubar(self):
+    def toggle_menubar(self, event=None):
 
         self.main.menubar.setVisible(not self.main.menubar.isVisible())
         if not self.main.menubar.isVisible():
             self.toggle_toolbars(True)
-        self.main.toolBar_system.setVisible(not self.main.menubar.isVisible())
+        self.main.toolBar_menu.setVisible(not self.main.menubar.isVisible())
 
 
     #----------------------------------------------------------------------
@@ -785,6 +757,10 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
         self.toggle_toolbars(not expand)
         self.main.actionToolbars.setChecked(not expand)
 
+        self.main.actionMenubar.setChecked(not expand)
+        self.main.menubar.setVisible(expand)
+        self.main.actionMenubar.setVisible(not expand)
+
 
     #----------------------------------------------------------------------
     def move_side_dock(self):
@@ -820,3 +796,28 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
             # self.floating_tab.tab.addTab(widget, tab_name)
             # self.floating_tab.show()
 
+
+
+    #----------------------------------------------------------------------
+    def get_current_editor(self):
+        """"""
+        return self.main.tabWidget_files.currentWidget()
+
+
+    #----------------------------------------------------------------------
+    def set_editable(self):
+        """"""
+        editor = self.get_current_editor()
+        editor.text_edit.setReadOnly(False)
+        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.basename(editor.path))
+
+
+    # #----------------------------------------------------------------------
+    # def open_as_blocks(self):
+        # """"""
+        # editor = self.get_current_editor()
+        # code = editor.text_edit.toPlainText()
+        # code = self.pinguinoAPI.remove_comments(code)
+        # blocks = self.PinguinoKIT.code_to_blocks(code)
+        # self.PinguinoKIT.open_from_source(blocks)
+        # self.switch_ide_mode(graphical=True)

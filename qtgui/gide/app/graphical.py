@@ -10,14 +10,17 @@ import sys
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
     from configparser import RawConfigParser
+    from io import StringIO
 else:
     #Python2
     from ConfigParser import RawConfigParser
+    from cStringIO import StringIO
 
 import logging
 
 from PySide import QtGui, QtCore
 
+# from .code2blocks import Code2Blocks
 from .blocks import Blocks
 from .work_area import WorkArea
 from .tool_area import ToolArea
@@ -32,6 +35,7 @@ from ...frames.grafical_widget import Ui_Form_graphical
 from ...ide.methods.dialogs import Dialogs
 
 from ..py_bloques.user_blocks import UserBlocks
+
 
 
 ########################################################################
@@ -228,7 +232,11 @@ class GraphicalIDE(object):
         blocks_set = []
 
         file_parser = RawConfigParser()
-        file_parser.readfp(codecs.open(filename, "r", "utf-8"))
+
+        if type(filename) in [str, unicode]:
+            file_parser.readfp(codecs.open(filename, "r", "utf-8"))
+        else:
+            file_parser = filename
 
         sections = file_parser.sections()
         for section in sections:
@@ -237,7 +245,7 @@ class GraphicalIDE(object):
             for option in options:
                 file_parser.get(section, option)
                 value = file_parser.get(section, option)
-                if value[0] in ["[", "("]:
+                if (type(value) in [str, unicode]) and (value[0] in ["[", "("]):
                     block[option] = eval(file_parser.get(section, option))
                 else:
                     block[option] = file_parser.get(section, option)
@@ -355,7 +363,6 @@ class GraphicalIDE(object):
 
         self.ide.tab_changed()
 
-
     #----------------------------------------------------------------------
     def load_blocks(self, set_blocks):
 
@@ -434,6 +441,7 @@ class GraphicalIDE(object):
             block.metadata.inside = map(self.get_widget_from_id, block.metadata.inside)
             block.metadata.nested = map(self.get_widget_from_id, block.metadata.nested)
 
+
     #----------------------------------------------------------------------
     def get_widget_from_id(self, id_):
 
@@ -470,6 +478,44 @@ class GraphicalIDE(object):
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
 
         self.ide.tab_changed()
+
+
+    #----------------------------------------------------------------------
+    def open_from_source(self, source):
+        """"""
+        filename = self.ide.__get_name__(ext=".gpde")
+
+        self.new_file(filename)
+        editor = self.main.tabWidget_graphical.currentWidget()
+        set_blocks = self.read_raw_parser(source)
+        self.load_blocks(set_blocks)
+
+        editor = self.main.tabWidget_graphical.currentWidget()
+        editor.path = filename
+        setattr(editor, "path", filename)
+        self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
+        self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
+        self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
+
+        self.ide.tab_changed()
+
+        self.init_positions()
+
+
+    #----------------------------------------------------------------------
+    def init_positions(self):
+        """"""
+        editor = self.main.tabWidget_graphical.currentWidget()
+        for block in editor.graphical_area.get_project_blocks():
+            if block.metadata.from_:
+
+                if block.metadata.name in ["output"]: continue
+
+                if editor.graphical_area.get_type_magnetic(block, block.metadata.from_[0]):
+                    pos = editor.graphical_area.get_type_magnetic(block, block.metadata.from_[0])[0][0]
+                    block.move(pos)
+
+
 
 
     ##----------------------------------------------------------------------
@@ -650,8 +696,8 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     @Decorator.timer(50)
     @Decorator.requiere_open_files()
-    @Decorator.requiere_main_focus()
     @Decorator.requiere_graphical_mode()
+    @Decorator.requiere_main_focus()
     def constant_update(self):
         editor = self.main.tabWidget_graphical.currentWidget()
         editor.graphical_area.constant_update()
@@ -660,8 +706,8 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     @Decorator.timer(500)
     @Decorator.requiere_open_files()
-    @Decorator.requiere_main_focus()
     @Decorator.requiere_graphical_mode()
+    @Decorator.requiere_main_focus()
     def constant_auto_raise(self):
         editor = self.main.tabWidget_graphical.currentWidget()
         if not editor.graphical_area.isDragging:
@@ -688,3 +734,4 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     def get_all_sets(self):
         return all_sets
+

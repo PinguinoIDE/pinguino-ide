@@ -30,9 +30,9 @@ class PythonShell(object):
         self.statement_module.__name__ = '__main__'
 
     #----------------------------------------------------------------------
-    def run(self, command):
+    def run(self, command, log=None):
 
-        log = StringIO()
+        if log is None: log = StringIO()
         sys.stdout = log
         sys.stderr = log
 
@@ -41,7 +41,7 @@ class PythonShell(object):
             exec(compiled, self.statement_module.__dict__)
 
         except: log.write(traceback.format_exc())
-        return log.getvalue()
+        # return log.getvalue()
 
     #----------------------------------------------------------------------
     def restart(self):

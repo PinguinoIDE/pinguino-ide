@@ -7,6 +7,8 @@ from PySide import QtGui, QtCore
 
 #from setup import os.getenv("PINGUINO_NAME")
 
+HOME_PATH = QtCore.QDir.home().path()
+
 ########################################################################
 class Dialogs(object):
 
@@ -25,18 +27,21 @@ class Dialogs(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def set_open_file(cls, parent, path):
+    def set_open_file(cls, parent, path=HOME_PATH):
         open_files = QtGui.QFileDialog.getOpenFileNames(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
                 #QtCore.QDir.home().path(),
                 path,
                 QtGui.QApplication.translate("Dialogs", "Pinguino Files (*.pde *.gpde *.ppde);;All Files (*)"))
-        if open_files: return open_files[0]
+        if open_files:
+            if len(open_files[0]) == 1: return str(open_files[0][0])
+            else: return open_files[0]
         else: return None
+
 
     #----------------------------------------------------------------------
     @classmethod
-    def set_open_hex(cls, parent, path):
+    def set_open_hex(cls, parent, path=HOME_PATH):
         open_file = QtGui.QFileDialog.getOpenFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Select"),
                 #QtCore.QDir.home().path(),

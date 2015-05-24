@@ -5,20 +5,21 @@ import unittest
 import os
 import sys
 
-NAME = "Pinguino IDE"
-VERSION = "11.1"
-SUBVERSION = ""
+from version import NAME, VERSION, SUBVERSION
+# NAME = "Pinguino IDE"
+# VERSION = "11.1"
+# SUBVERSION = ""
 
-os.environ["PINGUINO_NAME"] = NAME
-os.environ["PINGUINO_VERSION"] = VERSION
-os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
-os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
+# os.environ["PINGUINO_NAME"] = NAME
+# os.environ["PINGUINO_VERSION"] = VERSION
+# os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
+# os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
-# For PyInstaller compatibility
-if os.path.exists(os.path.abspath("pinguino_data")):
-    os.environ["PINGUINO_DATA"] = os.path.abspath("pinguino_data")
-else:
-    os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")
+# # For PyInstaller compatibility
+# if os.path.exists(os.path.abspath("pinguino_data")):
+    # os.environ["PINGUINO_DATA"] = os.path.abspath("pinguino_data")
+# else:
+    # os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")
 
 sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
@@ -86,9 +87,9 @@ class TestPreprocess(unittest.TestCase):
         libinstructions = Pinguino.get_regobject_libinstructions(arch)
 
         for line, expected, include, define, regex in libinstructions:
-            got = Pinguino.replace_word(line, libinstructions)
+            got, d = Pinguino.replace_word(line, libinstructions)
             if got != expected:
-                got = Pinguino.replace_word(line, libinstructions)
+                got, d = Pinguino.replace_word(line, libinstructions)
 
             self.assertEqual(got, expected,
                              "Preprocess: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
@@ -125,7 +126,7 @@ class TestBareMinumumCompilation(unittest.TestCase):
             if board.arch == 8:
                 for key in Pinguino.dict_boot.keys():
                     boot = Pinguino.dict_boot[key]
-                    Pinguino.set_bootloader(boot)
+                    Pinguino.set_bootloader(*boot)
                     try: Pinguino.compile_string(code)
                     except BaseException, msg:
                         self.fail("Compilation: impossible compile for %s, %sbits, boot:%s\n%s" % (board.name, board.arch, str(msg), key))

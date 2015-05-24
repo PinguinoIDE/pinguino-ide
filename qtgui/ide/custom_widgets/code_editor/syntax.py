@@ -72,3 +72,22 @@ Snippet["file {snippet}"] = """/*-----------------------------------------------
 
 for key in Snippet.keys():
     Snippet[key] = Snippet[key].replace("\t", " "*4)
+
+
+Helpers = {
+    "pinMode": "pinMode({{USERLED, OUTPUT}});",
+    "digitalRead": "digitalRead({{PIN}});",
+    "analogRead": "analogRead({{PIN}});",
+    "digitalWrite": "digitalWrite({{USERLED, HIGH}});",
+    "analogWrite": "digitalWrite({{PIN, 256}});",
+    "delay": "delay{{MILLISECONDS}}",
+
+    "toggle": "toggle({{USERLED}});",
+    "random": "random({{1, 10}});",
+
+    "Serial.begin": "Serial.begin({{9600}});",
+    "Serial.printNumber": "Serial.printNumber({{256, DEC}});",
+
+    "lcd.pins": "lcd.pins({{0, 1, 2, 3, 4, 5, 0, 0, 0, 0}}); // RS, E, D4 ~ D8",
+    "lcd.begin": "lcd.begin({{16, 2}});"
+}

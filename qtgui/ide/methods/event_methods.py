@@ -252,7 +252,7 @@ class EventMethods(object):
         # side = self.dockWidgetArea(self.main.dockWidget_output)
         # self.configIDE.set("Main", "dock_shell", side.name.decode())
 
-        self.configIDE.set("Main", "menubar", self.main.menubar.isVisible())
+        self.configIDE.set("Main", "menubar", self.main.actionMenubar.isVisible())
 
         count = 1
         self.configIDE.clear_recents()
@@ -293,8 +293,8 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def cut(self):
         editor = self.main.tabWidget_files.currentWidget()
         #index = self.main.tabWidget_files.currentIndex()
@@ -302,8 +302,8 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def copy(self):
         editor = self.main.tabWidget_files.currentWidget()
         #index = self.main.tabWidget_files.currentIndex()
@@ -311,16 +311,16 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def paste(self):
         editor = self.main.tabWidget_files.currentWidget()
         #index = self.main.tabWidget_files.currentIndex()
         editor.text_edit.paste()
 
     #----------------------------------------------------------------------
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def delete(self):
         editor = self.main.tabWidget_files.currentWidget()
         #index = self.main.tabWidget_files.currentIndex()
@@ -328,8 +328,8 @@ class EventMethods(object):
         if tc.selectedText(): tc.removeSelectedText()
 
     #----------------------------------------------------------------------
-    @Decorator.requiere_text_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     def select_all(self):
         editor = self.main.tabWidget_files.currentWidget()
         #index = self.main.tabWidget_files.currentIndex()
@@ -340,7 +340,7 @@ class EventMethods(object):
     @Decorator.requiere_open_files()
     def set_tab_search(self, mode):
 
-        self.main.tabWidget_tools.setCurrentIndex(self.TAB_SEARCH)
+        self.main.tabWidget_tools.setCurrentWidget(self.main.SearchReplace)
 
         self.main.lineEdit_search.setFocus()
         editor = self.main.tabWidget_files.currentWidget()
@@ -662,7 +662,7 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.show_tab("tab_boardconfig")
+    @Decorator.show_tab("BoardConfig")
     def __show_board_config__(self):
         pass
 
@@ -712,7 +712,7 @@ class EventMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.show_tab("tab_stdout")
+    @Decorator.show_tab("Stdout")
     def __show_stdout__(self):
         pass
         # self.frame_stdout = PlainOut("Stdout")
@@ -758,24 +758,18 @@ class EventMethods(object):
         filename = self.get_tab().currentWidget().path
 
         if not self.is_graphical():
-            compile_code = lambda :self.pinguinoAPI.compile_file(filename)
+            if os.getenv("PINGUINO_PROJECT"):
+                filenames = self.get_project_files()
+                compile_code = lambda :self.pinguinoAPI.compile_file(filenames)
+            else:
+                compile_code = lambda :self.pinguinoAPI.compile_file([filename])
 
         else:
             compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
 
 
-        # self.set_board()
-        # reply = Dialogs.confirm_board(self)
-
-        # if reply == False:
-            # self.__show_board_config__()
-            # return False
-        # elif reply == None:
-            # return False
-
         self.write_log(QtGui.QApplication.translate("Frame", "Compiling: %s")%filename)
         self.write_log(self.get_description_board())
-        # self.write_log("")
 
         compile_code()
         self.update_stdout()
@@ -787,14 +781,14 @@ class EventMethods(object):
         self.main.actionUpload.setEnabled(self.pinguinoAPI.compiled())
         if not self.pinguinoAPI.compiled():
 
-            errors_preprocess = self.pinguinoAPI.get_errors_preprocess()
-            if errors_preprocess:
-                for error in errors_preprocess["preprocess"]:
-                    self.write_log("ERROR: "+error)
+            # errors_preprocess = self.pinguinoAPI.get_errors_preprocess()
+            # if errors_preprocess:
+                # for error in errors_preprocess:
+                    # self.write_log("ERROR: {}".format(errors_preprocess))
 
             errors_c = self.pinguinoAPI.get_errors_compiling_c()
             if errors_c:
-                self.write_log("ERROR: "+errors_c["complete_message"])
+                self.write_log("ERROR: {complete_message}".format(**errors_c))
                 line_errors = errors_c["line_numbers"]
                 for line_error in line_errors:
                     self.highligh_line(line_error, "#ff7f7f")
@@ -802,7 +796,7 @@ class EventMethods(object):
             errors_asm = self.pinguinoAPI.get_errors_compiling_asm()
             if errors_asm:
                 for error in errors_asm["error_symbols"]:
-                    self.write_log("ERROR: "+error)
+                    self.write_log("ERROR: {}".format(error))
 
             errors_linking = self.pinguinoAPI.get_errors_linking()
             if errors_linking:
@@ -907,8 +901,8 @@ class EventMethods(object):
         area.export_code_to_pinguino_editor()
 
     #----------------------------------------------------------------------
-    @Decorator.requiere_graphical_mode()
     @Decorator.requiere_open_files()
+    @Decorator.requiere_graphical_mode()
     def __insert_block__(self):
         self.frame_insert_block = InsertBlock(self.PinguinoKIT)
         self.frame_insert_block.show()
@@ -926,10 +920,7 @@ class EventMethods(object):
 
     #----------------------------------------------------------------------
     def switch_color_theme(self, pinguino_color=True):
-        default_pallete = ["toolBar_edit", "toolBar_files", "toolBar_search_replace",
-                           "toolBar_undo_redo", "toolBar_pinguino", "toolBar_pinguino",
-                           "toolBar_graphical", "toolBar_switch", "toolBar_system",
-                           "menubar", "statusBar"]
+        default_pallete = ["toolBar", "toolBar_switch", "menubar", "statusBar"]
 
         pinguino_pallete = ["dockWidget_bottom", "dockWidget_right"]
 
@@ -1083,11 +1074,20 @@ class EventMethods(object):
                 self.open_file_from_path(filename=path.path())
 
 
+
     #----------------------------------------------------------------------
     def tab_files_context_menu(self, event):
         menu = QtGui.QMenu()
 
-        menu.addAction("Rename", self.dialog_rename_file)
+        editor = self.get_current_editor()
+
+        if editor.text_edit.isReadOnly():
+            menu.addAction("Set editable", self.set_editable)
+
+        else:
+            menu.addAction("Rename", self.dialog_rename_file)
+
+
         menu.addAction(self.main.actionSave_file)
         menu.addAction(self.main.actionSave_as)
         menu.addAction(self.main.actionSave_all)
@@ -1135,13 +1135,14 @@ class EventMethods(object):
         menu.addAction(self.main.actionUpload)
         menu.addAction(self.main.actionIf_Compile_then_Upload)
         menu.addSeparator()
-        menu.addAction(self.main.actionWiki_docs)
+        # menu.addAction(self.main.actionWiki_docs)
         menu.addAction(self.main.actionLibrary_manager)
         menu.addAction(self.main.actionHex_code)
         menu.addAction(self.main.actionSet_paths)
-        menu.addAction(self.main.actionStdout)
+        # menu.addAction(self.main.actionStdout)
         menu.addSeparator()
         menu.addAction(self.main.actionAutocomplete)
+        # menu.addAction("Generate blocks", self.open_as_blocks)
 
         menu.setStyleSheet("""
         QMenu {

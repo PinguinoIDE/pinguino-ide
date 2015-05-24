@@ -26,8 +26,8 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    @Decorator.requiere_line_edit_content("main.lineEdit_replace")
     @Decorator.requiere_text_mode()
+    @Decorator.requiere_line_edit_content("main.lineEdit_replace")
     def replace_instantaneous(self, text_to_replace):
         empty = not text_to_replace == QtGui.QApplication.translate("Frame", "Replace...")
         self.main.pushButton_replace.setEnabled(empty)
@@ -37,8 +37,8 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_text_mode()
+    @Decorator.requiere_line_edit_content("main.lineEdit_search")
     def search_instantaneous(self, text_to_search):
         empty = not text_to_search == QtGui.QApplication.translate("Frame", "Search...")
         self.main.pushButton_search_previous.setEnabled(empty)
@@ -82,8 +82,8 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_text_mode()
+    @Decorator.requiere_line_edit_content("main.lineEdit_search")
     def search_previous(self):
         self.find_match(word=self.main.lineEdit_search.text(),
                         back=True,
@@ -92,8 +92,8 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
-    @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_text_mode()
+    @Decorator.requiere_line_edit_content("main.lineEdit_search")
     def search_next(self):
         self.find_match(word=self.main.lineEdit_search.text(),
                         back=False,
@@ -102,9 +102,9 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_line_edit_content("main.lineEdit_replace")
-    @Decorator.requiere_text_mode()
     def replace(self):
         editor = self.main.tabWidget_files.currentWidget()
         text_cur = editor.text_edit.textCursor()
@@ -116,9 +116,9 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_line_edit_content("main.lineEdit_replace")
-    @Decorator.requiere_text_mode()
     def replaceall(self):
         self.replace_all_match(wordOld=self.main.lineEdit_search.text(),
                                wordNew=self.main.lineEdit_replace.text(),
@@ -132,7 +132,7 @@ class SearchReplace(object):
         text_cur = editor.text_edit.textCursor()
         s = text_doc.FindCaseSensitively if sensitive else 0
         w = text_doc.FindWholeWords if whole else 0
-        editor.text_edit.moveCursor(text_cur.NoMove, text_cur.KeepAnchor)
+        # editor.text_edit.moveCursor(text_cur.NoMove, text_cur.KeepAnchor)
         text_cur.beginEditBlock()
         editor.text_edit.moveCursor(text_cur.Start)
         count = 0
@@ -157,7 +157,7 @@ class SearchReplace(object):
         b = text_doc.FindBackward if back else 0
         s = text_doc.FindCaseSensitively if sensitive else 0
         w = text_doc.FindWholeWords if whole else 0
-        editor.text_edit.moveCursor(text_cur.NoMove, text_cur.KeepAnchor)
+        # editor.text_edit.moveCursor(text_cur.NoMove, text_cur.KeepAnchor)
         if back or sensitive or whole: editor.text_edit.find(word, b | s | w)
         else:  editor.text_edit.find(word)
         self.highligh_line(line=None, color="#ffff7f", text_cursor=editor.text_edit.textCursor())

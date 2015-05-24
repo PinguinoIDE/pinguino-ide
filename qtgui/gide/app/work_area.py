@@ -127,28 +127,41 @@ class WorkArea(QtGui.QWidget):
 
 
     #----------------------------------------------------------------------
-    def get_type_magnetic(self, child):
+    def get_type_magnetic(self, child, parent=None):
 
         pos = []
         localType = child.metadata.type_
-        for blk in self.get_project_blocks():
+        if parent is None:
+
+            for blk in self.get_project_blocks():
+                blk.metadata.object_.updatePoints()
+
+
+                if localType in blk.metadata.to_type.keys() and blk != child:
+                    for i in blk.metadata.to_type[localType]:
+
+                        if child.metadata.type_ in ["tipo5", "tipo2"]:
+                            _pos_ = self.mapFromGlobal(i)
+
+
+                        else: _pos_ = i+blk.pos()
+
+                        pos.append([_pos_, blk])
+
+        else:
+            blk = parent
             blk.metadata.object_.updatePoints()
 
-
-            #print "@" * 50
             if localType in blk.metadata.to_type.keys() and blk != child:
                 for i in blk.metadata.to_type[localType]:
 
                     if child.metadata.type_ in ["tipo5", "tipo2"]:
                         _pos_ = self.mapFromGlobal(i)
-                        #print _pos_
-
 
                     else: _pos_ = i+blk.pos()
 
                     pos.append([_pos_, blk])
-        #for d in pos:
-            #print d
+
 
         return pos
 

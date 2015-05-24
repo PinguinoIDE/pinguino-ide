@@ -92,7 +92,6 @@ class PinguinoEvents(Methods):
 
 
         # Help
-        self.connect(self.main.actionHelp, QtCore.SIGNAL("triggered()"), self.help)
         self.connect(self.main.actionIDE, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-ide/releases/latest"))
         self.connect(self.main.actionLibraries, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-libraries"))
         self.connect(self.main.actionWebsite, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://www.pinguino.cc/"))
@@ -126,8 +125,6 @@ class PinguinoEvents(Methods):
         # Initialize
         self.main.actionToolbars.setChecked(True)
         # self.main.actionConfirm_board.setChecked(self.configIDE.config("Features", "confirm_board", True))
-
-
 
 
         # self.connect(self.main.dockWidget_right, QtCore.SIGNAL("featuresChanged(QDockWidget::DockWidgetFeatures)"), self.tab_right_mouseRelease)
