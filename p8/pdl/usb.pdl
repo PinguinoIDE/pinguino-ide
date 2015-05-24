@@ -1,0 +1,22 @@
+CDC.write CDCwrite#include <__cdc.c>#define CDCWRITE
+CDC.print CDCprint#include <__cdc.c>#define CDCPRINT
+CDC.println CDCprintln#include <__cdc.c>#define CDCPRINTLN
+CDC.printNumber CDCprintNumber#include <__cdc.c>#define CDCPRINTNUMBER
+CDC.printFloat CDCprintFloat#include <__cdc.c>#define CDCPRINTFLOAT
+CDC.printf CDCprintf#include <__cdc.c>#define CDCPRINTF
+CDC.read CDCgets#include <__cdc.c>#define CDCGETS
+CDC.getKey CDCgetkey#include <__cdc.c>#define CDCGETKEY
+CDC.getString CDCgetstring#include <__cdc.c>#define CDCGETSTRING
+BULK.read BULK_read#include <__bulk.c>
+BULK.write BULK_write#include <__bulk.c>
+BULK.printf BULK_printf#include <__bulk.c>
+BULK.available BULK_available#include <__bulk.c>
+BULK.gets BULKgets#include <__bulk.c>
+BULK.puts BULKputs#include <__bulk.c>
+USB.read BULK_read#include <__bulk.c>
+USB.write BULK_write#include <__bulk.c>
+USB.send BULK_write#include <__bulk.c>
+USB.printf BULK_printf#include <__bulk.c>
+USB.available BULK_available#include <__bulk.c>
+USB.gets BULKgets#include <__bulk.c>
+USB.puts BULKputs#include <__bulk.c>

@@ -1,0 +1,6 @@
+servo.attach ServoAttach#include <servos.c>
+servo.detach ServoDetach#include <servos.c>
+servo.write ServoWrite#include <servos.c>
+servo.read ServoRead#include <servos.c>
+servo.setMinimumPulse ServoMinimumPulse#include <servos.c>
+servo.setMaximumPulse ServoMaximumPulse#include <servos.c>

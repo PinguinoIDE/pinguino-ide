@@ -1,0 +1,9 @@
+System.isMclrReset SystemIsMclrReset#include <reset.c>
+System.isPowerOnReset SystemIsPowerOnReset#include <reset.c>
+System.isConfigMismatchReset SystemIsConfigMismatchReset#include <reset.c>
+System.isSleepInstructionReset SystemIsSleepInstructionReset#include <reset.c>
+System.isBrownOutReset SystemIsBrownOutReset#include <reset.c>
+System.isWatchdogTimeoutReset SystemIsWatchdogTimeoutReset#include <reset.c>
+System.isResetInstructionReset SystemIsResetInstructionReset#include <reset.c>
+System.isStackFullReset SystemIsStackFullReset#include <reset.c>
+System.isStackUnderflowReset SystemIsStackUnderflowReset#include <reset.c>

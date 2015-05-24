@@ -1,0 +1,37 @@
+MCP23S17.init MCP23S17_init#include <MCP23S17.c>
+
+MCP23S17.write_Byte MCP23S17_write_B#include <MCP23S17.c>
+MCP23S17.write_Word MCP23S17_write_W#include <MCP23S17.c>
+MCP23S17.write_Array MCP23S17_write_A#include <MCP23S17.c>
+
+MCP23S17.read_Byte MCP23S17_read_B#include <MCP23S17.c>
+MCP23S17.read_Word  MCP23S17_read_W#include <MCP23S17.c>
+MCP23S17.read_Array MCP23S17_read_A#include <MCP23S17.c>
+
+MCP23S17.readGPIO_A MCP23S17_readGPIO_A#include <MCP23S17.c>
+MCP23S17.readGPIO_B MCP23S17_readGPIO_B#include <MCP23S17.c>
+MCP23S17.readGPIO_AB MCP23S17_readGPIO_AB#include <MCP23S17.c>
+
+
+MCP23S17.writeGPIO_A MCP23S17_writeGPIO_A#include <MCP23S17.c>
+MCP23S17.writeGPIO_B MCP23S17_writeGPIO_B#include <MCP23S17.c>
+MCP23S17.writeGPIO_AB MCP23S17_writeGPIO_AB#include <MCP23S17.c>
+
+MCP23S17.writeIODIR_A MCP23S17_writeIODIR_A#include <MCP23S17.c>
+MCP23S17.writeIODIR_B MCP23S17_writeIODIR_B#include <MCP23S17.c>
+MCP23S17.writeIODIR_AB MCP23S17_writeIODIR_AB#include <MCP23S17.c>
+
+MCP23S17.writeGPPU_A MCP23S17_writeGPPU_A#include <MCP23S17.c>
+MCP23S17.writeGPPU_B MCP23S17_writeGPPU_B#include <MCP23S17.c>
+MCP23S17.writeGPPU_AB MCP23S17_writeGPPU_AB#include <MCP23S17.c>
+
+MCP23S17.writeIPOL_A MCP23S17_writeIPOL_A#include <MCP23S17.c>
+MCP23S17.writeIPOL_B MCP23S17_writeIPOL_B#include <MCP23S17.c>
+MCP23S17.writeIPOL_AB MCP23S17_writeIPOL_AB#include <MCP23S17.c>
+
+
+MCP23S17.digitalRead MCP23S17_digitalRead#include <MCP23S17.c>
+MCP23S17.pinMode MCP23S17_pinMode#include <MCP23S17.c>
+MCP23S17.pullUp MCP23S17_pullUp#include <MCP23S17.c>
+MCP23S17.inputPol MCP23S17_inputPol#include <MCP23S17.c>
+MCP23S17.digitalWrite MCP23S17_digitalWrite#include <MCP23S17.c>

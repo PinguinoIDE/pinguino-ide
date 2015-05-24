@@ -1,0 +1,4 @@
+Ethernet.init eth_init#include <ethernet/ethernet.c>
+Ethernet.read enc28j60PacketReceive#include <ethernet/ethernet.c>
+Ethernet.write www_server_reply#include <ethernet/ethernet.c>
+Ethernet.requestAnalysis packetloop_icmp_tcp#include <ethernet/ethernet.c>

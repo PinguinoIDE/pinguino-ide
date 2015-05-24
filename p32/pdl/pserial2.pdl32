@@ -1,0 +1,15 @@
+Serial2.init serial2init#include <serial2.c>#define ENABLE_UART2
+Serial2.begin serial2init#include <serial2.c>#define ENABLE_UART2
+Serial2.write serial2write#include <serial2.c>
+Serial2.print serial2print#include <serial2.c>#define SERIALPRINT
+Serial2.println serial2println#include <serial2.c>#define SERIALPRINTLN
+Serial2.printNumber serial2printNumber#include <serial2.c>#define SERIALPRINTNUMBER
+Serial2.printFLoat serial2printFloat#include <serial2.c>#define SERIALPRINTFLOAT
+Serial2.printf serial2printf#include <serial2.c>#define SERIALPRINTF
+Serial2.getKey serial2getkey#include <serial2.c>
+Serial2.getString serial2getstring#include <serial2.c>
+Serial2.available serial2available#include <serial2.c>
+Serial2.read serial2read#include <serial2.c>
+Serial2.flush serial2flush#include <serial2.c>
+Serial2.ClearRxError serial2clearrxerror#include <serial2.c>
+

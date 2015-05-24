@@ -1,0 +1,42 @@
+SD_Fs FATFS#include <sd/fileio.c>
+SD_File FIL#include <sd/fileio.c>
+SD_Dir DIR#include <sd/fileio.c>
+SD_FileInfo FILINFO#include <sd/fileio.c>
+SD_Error FRESULT#include <sd/fileio.c>
+
+SD.readSector readSECTOR#include <sd/sdmmc.c>
+SD.writeSector writeSECTOR#include <sd/sdmmc.c>
+SD.readDisk disk_read#include <sd/diskio.c>
+SD.writeDisk disk_write#include <sd/diskio.c>
+
+SD.begin    mount#include <sd/fileio.c>
+SD.init     mount#include <sd/fileio.c>
+SD.mount    mount#include <sd/fileio.c>
+SD.unmount  unmount#include <sd/fileio.c>
+
+SD.openDir  f_opendir#include <sd/fileio.c>
+SD.readDir  f_readdir#include <sd/fileio.c>
+SD.mkdir    f_mkdir#include <sd/fileio.c>
+SD.findDir  findDIR#include <sd/fileio.c>
+
+SD.open     f_open#include <sd/fileio.c>
+SD.read     f_read#include <sd/fileio.c>
+SD.write    f_write#include <sd/fileio.c>
+SD.print    f_write#include <sd/fileio.c>
+SD.println  f_println#include <sd/fileio.c>
+SD.printf   f_printf#include <sd/fileio.c>
+SD.remove   f_unlink#include <sd/fileio.c>
+SD.unlink   f_unlink#include <sd/fileio.c>
+SD.delete   f_unlink#include <sd/fileio.c>
+SD.seek     f_lseek#include <sd/fileio.c>
+SD.size     f_size#include <sd/fileio.c>
+SD.position f_tell#include <sd/fileio.c>
+SD.flush    f_sync#include <sd/fileio.c>
+SD.save     f_sync#include <sd/fileio.c>
+SD.close    f_close#include <sd/fileio.c>
+
+SD.isDir    isDirectory#include <sd/fileio.c>
+SD.isRO     isReadOnly#include <sd/fileio.c>
+SD.isHidden isHidden#include <sd/fileio.c>
+SD.isSys    isSystem#include <sd/fileio.c>
+SD.isArch   isArchive#include <sd/fileio.c>

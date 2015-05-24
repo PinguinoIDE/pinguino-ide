@@ -1,0 +1,18 @@
+System.unlock SystemUnlock#include <system.c>
+System.lock SystemLock#include <system.c>
+System.reset SystemReset#include <system.c>#define SYSTEMRESET
+System.getCpuFrequency GetSystemClock#include <system.c>
+System.getPeripheralFrequency GetPeripheralClock#include <system.c>
+System.setCpuFrequency SystemSetSystemClock#include <system.c>
+System.setPeripheralFrequency SystemSetPeripheralClock#include <system.c>
+System.config SystemConfig#include <system.c>
+System.setFlashWaitStates SetFlashWaitStates#include <system.c>
+System.getCP0Count GetCP0Count#include <system.c>
+System.setCP0Count SetCP0Count#include <system.c>
+System.disableInterrupt DisableInterrupt#include <mips.h>
+System.enableInterrupt EnableInterrupt#include <mips.h>
+System.resetCoreTimer ResetCoreTimer#include <mips.h>
+System.readCoreTimer ReadCoreTimer#include <mips.h>
+System.readCoreRegister ReadCoreRegister#include <mips.h>
+System.writeCoreRegister WriteCoreRegister#include <mips.h>
+System.restoreIterruptStatus RestoreIterruptStatus#include <mips.h>

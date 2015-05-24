@@ -1,0 +1,45 @@
+PCD8544.height PCD8544_height#include <PCD8544.c>
+PCD8544.width PCD8544_width#include <PCD8544.c>
+PCD8544.init PCD8544_init#include <PCD8544.c>
+PCD8544.setContrast PCD8544_setContrast#include <PCD8544.c>
+PCD8544.clearScreen PCD8544_clearScreen#include <PCD8544.c>
+PCD8544.refresh PCD8544_refresh#include <PCD8544.c>
+PCD8544.setCursor PCD8544_setCursor#include <PCD8544.c>#define _PCD8544_USE_SETCURSOR
+PCD8544.setFont PCD8544_setFont#include <PCD8544.c>
+PCD8544.printChar PCD8544_printChar#include <PCD8544.c>#define PCD8544PRINTCHAR
+PCD8544.print PCD8544_print#include <PCD8544.c>#define PCD8544PRINT
+PCD8544.println PCD8544_println#include <PCD8544.c>#define PCD8544PRINTLN
+PCD8544.printf PCD8544_printf#include <PCD8544.c>#define PCD8544PRINTF
+PCD8544.printNumber PCD8544_printNumber#include <PCD8544.c>#define PCD8544PRINTNUMBER
+PCD8544.printFloat PCD8544_printFloat#include <PCD8544.c>#define PCD8544PRINTFLOAT
+
+PCD8544.displayOn PCD8544_displayOn#include <PCD8544.c>#define _PCD8544_USE_DISPLAYONOFF
+PCD8544.displayOff PCD8544_displayOff#include <PCD8544.c>#define _PCD8544_USE_DISPLAYONOFF
+PCD8544.setTextColor PCD8544_setTextColor#include <PCD8544.c>#define _PCD8544_USE_SETTEXTCOLOR
+PCD8544.setTextColor2 PCD8544_setTextColor2#include <PCD8544.c>#define _PCD8544_USE_SETTEXTCOLOR2
+PCD8544.setTextSize PCD8544_setTextSize#include <PCD8544.c>#define _PCD8544_USE_SETTEXTSIZE
+PCD8544.setTextWrap PCD8544_setTextWrap#include <PCD8544.c>#define _PCD8544_USE_SETTEXTWRAP
+
+PCD8544.setOrientation PCD8544_setOrientation#include <PCD8544.c>#define _PCD8544_USE_ORIENTATION
+PCD8544.getOrientation PCD8544_getOrientation#include <PCD8544.c>#define _PCD8544_USE_ORIENTATION
+
+PCD8544.drawPixel PCD8544_drawPixel#include <PCD8544.c>_PCD8544_USE_GRAPHICS
+PCD8544.getPixel PCD8544_getPixel#include <PCD8544.c>_PCD8544_USE_GRAPHICS
+PCD8544.drawCircle PCD8544_drawCircle#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.drawCircleHelper  PCD8544_drawCircleHelper#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.fillCircle PCD8544_fillCircle#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.fillCircleHelper PCD8544_fillCircleHelper#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.drawTriangle PCD8544_drawTriangle#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.fillTriangle PCD8544_fillTriangle#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.drawRoundRect PCD8544_drawRoundRect#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS 
+PCD8544.fillRoundRect PCD8544_fillRoundRect#include <PCD8544.c>#define __PCD8544_USE_GRAPHICS
+PCD8544.drawBitmap PCD8544_drawBitmap#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.drawLine PCD8544_drawLine#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.drawFastVLine PCD8544_drawFastVLine#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.drawFastHLine PCD8544_drawFastHLine#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.drawRect PCD8544_drawRect#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.fillRect PCD8544_fillRect#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+PCD8544.fillScreen PCD8544_fillScreen#include <PCD8544.c>#define _PCD8544_USE_GRAPHICS
+
+PCD8544.invertDisplay PCD8544_invertDisplay#include <PCD8544.c>#define _PCD8544_USE_INVERT
+PCD8544.updateBoundingBox PCD8544_updateBoundingBox#include <PCD8544.c>

@@ -1,0 +1,5 @@
+keyboard.begin keyboard_init#include <keyboard.h>
+keyboard.available keyboard_available#include <keyboard.h>
+keyboard.send keyboard_send#include <keyboard.h>
+keyboard.read keyboard_read#include <keyboard.h>
+keyboard.readLine keyboard_readline#include <keyboard.h>

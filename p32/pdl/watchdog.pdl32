@@ -1,0 +1,10 @@
+Watchdog.Init init_watchdog#include <watchdog.c>
+Watchdog.Enable EnableWDT#include <watchdog.c>
+Watchdog.Disable DisableWDT#include <watchdog.c>
+Watchdog.Clear ClearWDT#include <watchdog.c>
+Watchdog.ClearEvent ClearEventWDT#include <watchdog.c>
+Watchdog.ReadEvent ReadEventWDT#include <watchdog.c>
+Watchdog.ReadPostScaler ReadPostscalerWDT#include <watchdog.c>
+Watchdog.Event EventWDT#include <watchdog.c>
+
+

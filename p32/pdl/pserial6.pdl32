@@ -1,0 +1,15 @@
+Serial6.init serial6init#include <serial6.c>#define ENABLE_UART6
+Serial6.begin serial6init#include <serial6.c>#define ENABLE_UART6
+Serial6.write serial6write#include <serial6.c>
+Serial6.print serial6print#include <serial6.c>#define SERIALPRINT
+Serial6.println serial6println#include <serial6.c>#define SERIALPRINTLN
+Serial6.printNumber serial6printNumber#include <serial6.c>#define SERIALPRINTNUMBER
+Serial6.printFLoat serial6printFloat#include <serial6.c>#define SERIALPRINTFLOAT
+Serial6.printf serial6printf#include <serial6.c>#define SERIALPRINTF
+Serial6.getKey serial6getkey#include <serial6.c>
+Serial6.getString serial6getstring#include <serial6.c>
+Serial6.available serial6available#include <serial6.c>
+Serial6.read serial6read#include <serial6.c>
+Serial6.flush serial6flush#include <serial6.c>
+Serial6.ClearRxError serial6clearrxerror#include <serial6.c>
+

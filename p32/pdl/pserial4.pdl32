@@ -1,0 +1,15 @@
+Serial4.init serial4init#include <serial4.c>#define ENABLE_UART4
+Serial4.begin serial4init#include <serial4.c>#define ENABLE_UART4
+Serial4.write serial4write#include <serial4.c>
+Serial4.print serial4print#include <serial4.c>#define SERIALPRINT
+Serial4.println serial4println#include <serial4.c>#define SERIALPRINTLN
+Serial4.printNumber serial4printNumber#include <serial4.c>#define SERIALPRINTNUMBER
+Serial4.printFLoat serial4printFloat#include <serial4.c>#define SERIALPRINTFLOAT
+Serial4.printf serial4printf#include <serial4.c>#define SERIALPRINTF
+Serial4.getKey serial4getkey#include <serial4.c>
+Serial4.getString serial4getstring#include <serial4.c>
+Serial4.available serial4available#include <serial4.c>
+Serial4.read serial4read#include <serial4.c>
+Serial4.flush serial4flush#include <serial4.c>
+Serial4.ClearRxError serial4clearrxerror#include <serial4.c>
+

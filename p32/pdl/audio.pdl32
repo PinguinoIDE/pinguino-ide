@@ -1,0 +1,6 @@
+Audio.init Audio_init#include <audio.c>
+Audio.tone Audio_tone#include <audio.c>
+Audio.dualTone Audio_DTMF#include <audio.c>#define AUDIODTMF
+Audio.noTone Audio_noTone#include <audio.c>
+Audio.staccato Audio_staccato#include <audio.c>
+Audio.legato Audio_legato#include <audio.c>

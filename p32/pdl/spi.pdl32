@@ -1,0 +1,11 @@
+SPI.init SPI_init#include <spi.c>
+SPI.begin SPI_begin#include <spi.c>
+SPI.close SPI_close#include <spi.c>
+SPI.setMode SPI_setMode#include <spi.c>
+SPI.setBitOrder SPI_setBitOrder#include <spi.c>#define SPISETBITORDER
+SPI.setDataMode SPI_setDataMode#include <spi.c>
+SPI.setClock SPI_setClock#include <spi.c>
+SPI.setClockDivider SPI_setClockDivider#include <spi.c>
+SPI.write SPI_write#include <spi.c>
+SPI.transfer SPI_write#include <spi.c>
+SPI.read SPI_read#include <spi.c>

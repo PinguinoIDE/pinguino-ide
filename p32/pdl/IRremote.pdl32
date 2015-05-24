@@ -1,0 +1,27 @@
+IRremote.sendNEC IRsend_sendNEC#include <IRremote.c>#define IRSEND_SENDNEC
+IRremote.sendSony IRsend_sendSony#include <IRremote.c>#define IRSEND_SENDSONY
+IRremote.sendRaw IRsend_sendRaw#include <IRremote.c>#define IRSEND_SENDRAW
+IRremote.sendRC5 IRsend_sendRC5#include <IRremote.c>#define IRSEND_SENDRC5
+IRremote.sendRC6 IRsend_sendRC6#include <IRremote.c>#define IRSEND_SENDRC6
+IRremote.sendPanasonic IRsend_sendPanasonic#include <IRremote.c>#define IRSEND_SENDPANASONIC
+IRremote.sendJVC IRsend_sendJVC#include <IRremote.c>#define IRSEND_SENDJVC
+IRremote.mark IRsend_mark#include <IRremote.c>
+IRremote.space IRsend_space#include <IRremote.c>
+IRremote.enabeIROut IRsend_enableIROut#include <IRremote.c>#define IRSEND_ENABLEIROUT
+IRremote.enableIRIn IRrecv_enableIRIn#include <IRremote.c>#define __IRREMOTE__
+IRremote.blink IRrecv_blink13#include <IRremote.c>#define IRRECV_BLINK13
+IRremote.resume IRrecv_resume#include <IRremote.c>#define IRRECV_RESUME
+IRremote.getRClevel IRrecv_getRClevel#include <IRremote.c>
+IRremote.decode IRrecv_decode#include <IRremote.c>#define IRRECV_DECODE
+IRremote.decodeNEC IRrecv_decodeNEC#include <IRremote.c>#define IRRECV_DECODENEC
+IRremote.decodeSony IRrecv_decodeSony#include <IRremote.c>#define IRRECV_DECODESONY
+IRremote.decodeMitsubishi IRrecv_decodeMitsubishi#include <IRremote.c>#define IRRECV_DECODEMITSUBISHI
+IRremote.decodeSanyo IRrecv_decodeSanyo#include <IRremote.c>#define IRRECV_DECODESANYO
+IRremote.decodeRC5 IRrecv_decodeRC5#include <IRremote.c>#define IRRECV_DECODERC5
+IRremote.decodeRC6 IRrecv_decodeRC6#include <IRremote.c>#define IRRECV_DECODERC6
+IRremote.decodePanasonic IRrecv_decodePanasonic#include <IRremote.c>#define IRRECV_DECODEPANASONIC
+IRremote.decodeJVC IRrecv_decodeJVC#include <IRremote.c>#define IRRECV_DECODEJVC
+IRremote.decodeHash IRrecv_decodeHash#include <IRremote.c>#define IRRECV_DECODEHASH
+IRremote.Compare IRrecv_compare#include <IRremote.c>#define IRRECV_COMPARE
+IRremote.sendSharp IRsend_sendSharp#include <IRremote.c>#define IRSEND_SENDSHARP
+IRremote.sendDISH IRsend_sendDISH#include <IRremote.c>#define IRSEND_SENDDISH

@@ -1,0 +1,13 @@
+LedControl.init LedControl_init#include<ledcontrol.c>#define LEDCONTROL
+LedControl.shutdown LedControl_shutdown#include<ledcontrol.c>#define SHUTDOWN
+LedControl.setScanLimit LedControl_setScanLimit#include<ledcontrol.c>#define SETSCANLIMIT
+LedControl.setIntensity LedControl_setIntensity#include<ledcontrol.c>#define SETINTENSITY
+LedControl.clearDisplay LedControl_clearDisplay#include<ledcontrol.c>#define CLEARDISPLAY
+LedControl.setLed LedControl_setLed#include<ledcontrol.c>#define SETLED
+LedControl.setRow LedControl_setRow#include<ledcontrol.c>#define SETROW
+LedControl.setColumn LedControl_setColumn#include<ledcontrol.c>#define SETCOLUMN
+LedControl.setDigit LedControl_setDigit#include<ledcontrol.c>#define SETDIGIT
+LedControl.setChar LedControl_setChar#include<ledcontrol.c>#define SETCHAR
+LedControl.writeString LedControl_writeString#include<ledcontrol.c>#define WRITESTRING
+LedControl.displayChar LedControl_displayChar#include<ledcontrol.c>#define DISPLAYCHAR
+LedControl.scroll LedControl_scroll#include<ledcontrol.c>#define SCROLL
