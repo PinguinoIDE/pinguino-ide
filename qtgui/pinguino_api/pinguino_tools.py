@@ -1,4 +1,4 @@
-#! /usr/bin/python2
+#!/usr/bin/env python
 #  -*- coding: UTF-8 -*-
 
 """-------------------------------------------------------------------------
@@ -29,21 +29,22 @@ import shutil
 import time
 import argparse
 import logging
-import codecs
 
 from .boards import boardlist as Boardlist
 from .uploader.uploader import Uploader
-
-from StringIO import StringIO
+from .tools import Debugger
 
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
 
 ########################################################################
-class PinguinoTools(Uploader):
+class PinguinoTools(object):
 
     #----------------------------------------------------------------------
     def __init__(self):
+        # sys.stderr = debugger.Debugger("stderr")
+        # sys.stdout = debugger.Debugger("stdout")
+        # debugger.Debugger(sys)
 
         self.NoBoot = ("noboot", 0)
         self.Boot2 = ("boot2", 0x2000)
@@ -120,48 +121,66 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def verify(self, filenames):
+    @Debugger.debug_method
+    def verify(self, filename):
 
         DATA_RETURN = {}
         DATA_RETURN["compiling"] = {"c":[], "asm":[]}
         DATA_RETURN["linking"] = []
+        DATA_RETURN["preprocess"] = []
 
-        filename = filenames[0]
-        filenames.reverse()
         self.__filename__ = filename
-        filename = os.path.splitext(filename)[0]
 
+        #self.in_verify=1
         t0 = time.time()
 
-        if os.path.exists("{}.hex".format(filename)):
-            os.remove("{}.hex".format(filename))
+        filename = os.path.splitext(filename)[0]
+        if os.path.exists(filename + ".hex"): os.remove(filename + ".hex")
+        if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c")): os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"))
 
         cur_board = self.get_board()
-        self.preprocess(filenames)
+        retour, error_preprocess = self.preprocess(filename)
 
+        if not retour:
+            DATA_RETURN["verified"] = False
+            DATA_RETURN["preprocess"] = error_preprocess
+            return DATA_RETURN
+
+
+        # compilation
         if cur_board.arch == 8: MAIN_FILE="main.hex"
         else: MAIN_FILE="main32.hex"
 
-        retour, error_compile = self.compile()
+
+        retour, error_compile = self.compile(filename)
         if retour != 0:
             DATA_RETURN["verified"] = False
             DATA_RETURN["compiling"] = error_compile
             return DATA_RETURN
+            #self.displaymsg(_("error while compiling"),0)
+            #self.displaymsg(_("check highlighted lines in your code"),0)
+            #self.displaymsg(_("You can review the file stdout (F8) for more information."),0)
         else:
-            retour, error_link = self.link()
+            retour, error_link = self.link(filename)
             if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE)) != True:
                 DATA_RETURN["verified"] = False
                 DATA_RETURN["linking"] = error_link
+                #self.displaymsg(_("error while linking")+" "+filename+".o",0)
+                #self.displaymsg(_("You can review the file stdout (F8) for more information."),0)
                 return DATA_RETURN
             else:
                 shutil.copy(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE), filename+".hex")
+                #self.displaymsg(_("Compilation done"),0)
+                #self.displaymsg(self.__get_code_size__(filename, self.curBoard),0)
+                #t = "%.1f" % ( time.time() - t0 )
+                #self.displaymsg( t + " "+_("seconds process time"),0)
                 os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE))
                 self.__hex_file__ = filename+".hex"
 
                 DATA_RETURN["verified"] = True
-                DATA_RETURN["time"] = "{:.3f}".format( time.time() - t0)
+                DATA_RETURN["time"] = "%.3f" % ( time.time() - t0 )
                 DATA_RETURN["filename"] = self.get_filename()
-                DATA_RETURN["hex_file"] = "{}.hex".format(filename)
+                DATA_RETURN["hex_file"] = filename+".hex"
                 DATA_RETURN["code_size"] = self.get_code_size()
 
 
@@ -169,25 +188,48 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def __upload__(self):
 
         hex_file = self.get_hex_file()
         board = self.get_board()
 
-        # uploader = Uploader(hex_file, board)
-        # result = uploader.write_hex()
+        uploader = Uploader(hex_file, board)
+        result = uploader.write_hex()
 
-        # Since Pinguino IDE 11.1 Uploader is an inherited class, so now we must use method get_uploader
-        uploader = self.get_uploader(hex_file, board)
-        uploader.writeHex()
-        result = uploader.report
+        """
+        if board.arch == 8:
+            uploader = Uploader(hex_file, board)
+            result = uploader.write_hex()
+
+        elif board.arch == 32:
+            fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), 'stdout'), 'w+')
+
+            #RB 19-06-2014 : pic32prog
+            sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
+                          "-w",
+                          hex_file,
+                          "-r",
+                          "-n"],
+                         stdout=fichier, stderr=STDOUT)
+
+            #RB 19-06-2014 : ubw32/mhidflash
+            sortie=Popen([os.path.join(os.path.dirname(self.P32_BIN), self.UPLOADER_32),
+                          "-S", "-p", hex_file],
+                         stdout=fichier, stderr=STDOUT)
+
+            sortie.communicate()
+            fichier.seek(0)
+            result = fichier.readlines()
+            fichier.close()
+        """
 
         # Weed out blank lines with filter
         result = filter(lambda line: not line.isspace(), result)
         return result
 
-
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def get_regobject_libinstructions(self, arch):
         """Return regobject and libinstructions for each architecture."""
         if arch == 8:
@@ -206,6 +248,7 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def read_lib(self, arch, include_default=True):
         """Load .pdl or .pdl32 files (keywords and libraries)
          trying to find PDL files to store reserved words."""
@@ -255,8 +298,7 @@ class PinguinoTools(Uploader):
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
 
 
-        # libinstructions.sort(lambda x,y: cmp(len(x[0]), len(y[0])))
-        libinstructions = sorted(libinstructions, key=lambda x: len(x[0]))  #Python3 style
+        libinstructions.sort(lambda x,y: cmp(len(x[0]), len(y[0])))
         libinstructions.reverse()
 
         return libinstructions[:]
@@ -287,73 +329,116 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def preprocess(self, file_path, define_output=None, userc_output=None):
+    @Debugger.debug_method
+    def preprocess(self, filename):
         """Read Pinguino File (.pde) and translate it into C language"""
 
+        error = []
+        #defineword = {}
+        #index = 0
+
+        # delete old define.h and create a new one
+        if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h")):
+            os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"))
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "a")
+        fichier.close()
+
+        # rename .pde in user.c
+        #name = os.path.split(filename)[1]
+        shutil.copy(filename + ".pde", os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"))
+        #fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "a")
+        #fichier.close()
+
+
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
+        i=0
         defines = set()
-        user_content = ""
+        file_line = {}
+        readlines = fichier.readlines()
+        readlines = self.remove_comments(readlines)
+        for line in readlines:
+            if line.find("#include")!=-1 or line.find("#define")!=-1:
+                line = line[:line.find('//')]   # Ignores C++ comments, fixing Issue 11
+                defines.add(line+"\n")    # add to define.h
+                file_line[i] = " \n"   # delete from user.c
+                i += 1
+            else:
+                file_line[i] = line
+                i += 1
+        fichier.close()
 
-        for path in file_path:
+        self.update_define(defines, mode="w")
 
-            file_pde = codecs.open("{}".format(path), "r", "utf-8")
-            user_c = StringIO(file_pde.read())
-            file_pde.close()
+        # rewrite file user.c without #include and #define
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
+        for cpt in range(i):
+            fichier.write(file_line[cpt])
+        fichier.close()
 
-            readlines = user_c.readlines()
-            readlines = self.remove_comments(readlines)
-            user_c = StringIO()
-            for line in readlines:
-                if line.find("#include")!=-1 or line.find("#define")!=-1:
-                    defines.add(line+"\n")
-                    user_c.write("\n")
-                else:
-                    user_c.write(line)
+        # search and replace arduino keywords in file
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "r")
+        content = fichier.read()
+        content = self.remove_comments(content)
+        content_nostrings, keys = self.remove_strings(content)
+        #content = content.split('\n')
+        nblines = 0
+        libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+
+        content_nostrings = self.replace_word(content_nostrings, libinstructions) + "\n"
+        content = self.recove_strings(content_nostrings, keys)
+
+        #for line in content:
+            #if not line.isspace() and line:
+                #resultline = self.replace_word(line, libinstructions) + "\n"
+            #else: resultline = "\n"
+            ##FIXME: error line
+            ##if resultline.find("error") == 1:
+                ###line = resultline
+                ###print "error " + resultline
+                ###self.displaymsg("error "+resultline,1)
+                ##error.append(resultline)
+                ##return False
+            #file_line[nblines] = resultline
+            #nblines += 1
+
+        fichier.close()
 
 
-            # search and replace arduino keywords in file
-            content = user_c.getvalue()
-            content = self.remove_comments(content)
-            content_nostrings, keys = self.remove_strings(content)
-            nblines = 0
-            libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+        # save new tmp file
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
+        fichier.writelines(content)
+        fichier.writelines("\r\n")
+        fichier.close()
+        #fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c"), "w")
+        #for i in range(0, nblines):
+            #fichier.writelines(file_line[i])
+        #fichier.writelines("\r\n")
+        #fichier.close()
 
-            content_nostrings, defines_lib = self.replace_word(content_nostrings, libinstructions)
-            content = self.recove_strings(content_nostrings+"\n", keys)
+        # sort define.h
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "r")
+        lignes = fichier.readlines()
+        lignes.sort()
+        fichier.close()
 
+        # save sorted lines
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), "w")
+        fichier.writelines(lignes)
+        fichier.close()
 
-            defines = defines.union(defines_lib)
-            user_content += content
-
-
-        if userc_output is None:
-            userc_output = os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c")
-        if define_output is None:
-            define_output = os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h")
-
-        self.save_define(defines, define_output)
-        self.save_userc(user_content, userc_output)
-
+        return True, error
 
 
     #----------------------------------------------------------------------
-    def save_define(self, defines, file_path):
+    def update_define(self, defines, mode="a"):
         """"""
-        fichier = open(file_path, "w")
-        defines = sorted(list(defines))
+        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h"), mode)
         fichier.writelines(defines)
         fichier.close()
 
-    #----------------------------------------------------------------------
-    def save_userc(self, content, file_path):
-        """"""
-        fichier = open(file_path, "w")
-        fichier.write(content)
-        fichier.close()
-
-
-
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def replace_word(self, content, libinstructions=None):
         """ convert pinguino language in C language """
 
@@ -361,7 +446,7 @@ class PinguinoTools(Uploader):
             libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
         defines = set()
-        keys = dict()
+        keys = {}
         index = 0
 
         # replace arduino/pinguino language and add #define or #include to define.h
@@ -378,12 +463,13 @@ class PinguinoTools(Uploader):
 
         content = self.recove_strings(content, keys)
 
-        # self.update_define(defines, mode="a")
+        self.update_define(defines, mode="a")
 
-        return content, defines
+        return content
 
 
     #----------------------------------------------------------------------
+    @Debugger.debug_method
     def remove_comments(self, textinput):
         #FIXME: replace comment with white lines for debugger
 
@@ -429,19 +515,15 @@ class PinguinoTools(Uploader):
         return " ".join(user_imports)
 
     #----------------------------------------------------------------------
-    def compile(self, userc_output=None):
+    @Debugger.debug_method
+    def compile(self, filename):
         """ Compile.
 
-            NB :    "--opt-code-size"   deprecated
-                    "--use-non-free"    implicit -I and -L options for non-free headers and libs
-                    "-I" + os.path.join(self.P8_DIR, '..', 'sdcc', 'include', 'pic16'),\
-                    "-I" + os.path.join(self.P8_DIR, '..', 'sdcc', 'non-free', 'include', 'pic16'),\
-            """
-
-        filename = self.__filename__
-
-        if userc_output is None:
-            userc_output = os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c')
+        NB :    "--opt-code-size"   deprecated
+                "--use-non-free"    implicit -I and -L options for non-free headers and libs
+                "-I" + os.path.join(self.P8_DIR, '..', 'sdcc', 'include', 'pic16'),\
+                "-I" + os.path.join(self.P8_DIR, '..', 'sdcc', 'non-free', 'include', 'pic16'),\
+        """
 
         ERROR = {"c": {},
                  "asm": {},}
@@ -458,75 +540,75 @@ class PinguinoTools(Uploader):
 
         if board.bldr == 'boot2':
             sortie = Popen([self.COMPILER_8BIT,
-                            "--verbose",
-                            "-mpic16",
-                            "--denable-peeps",
-                            "--obanksel=9",
-                            "--optimize-cmp",
-                            "--optimize-df",
-                            "-p" + board.proc,
-                            "-D" + board.board,
-                            "-D" + board.bldr,
-                            "-DBOARD=\"" + board.board + "\"",
-                            "-DPROC=\"" + board.proc + "\"",
-                            "-DBOOT_VER=2",
-                            "--use-non-free",
-                            "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
-                            "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
-                            "-I" + os.path.dirname(filename),
-                            "--compile-only",
-                            "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),
-                            userc_output] + user_imports,
-                           stdout=fichier, stderr=STDOUT)
+                "--verbose",\
+                "-mpic16",\
+                "--denable-peeps",\
+                "--obanksel=9",\
+                "--optimize-cmp",\
+                "--optimize-df",\
+                "-p" + board.proc,\
+                "-D" + board.board,\
+                "-D" + board.bldr,\
+                "-DBOARD=\"" + board.board + "\"",\
+                "-DPROC=\"" + board.proc + "\"",\
+                "-DBOOT_VER=2",\
+                "--use-non-free",\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                "-I" + os.path.dirname(filename),\
+                "--compile-only",\
+                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
+                os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c')] + user_imports,\
+                stdout=fichier, stderr=STDOUT)
 
 
         elif board.bldr == 'boot4':
             sortie = Popen([self.COMPILER_8BIT,
-                            "--verbose",
-                            "-mpic16",
-                            "--denable-peeps",
-                            "--obanksel=9",
-                            "--optimize-cmp",
-                            "--optimize-df",
-                            # Do not remove --ivt-loc option
-                            "--ivt-loc=" + str(board.memstart),
-                            "-p" + board.proc,
-                            "-D" + board.board,
-                            "-D" + board.bldr,
-                            "-DBOARD=\"" + board.board + "\"",
-                            "-DPROC=\"" + board.proc + "\"",
-                            "-DBOOT_VER=4",
-                            "--use-non-free",
-                            "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
-                            "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
-                            "-I" + os.path.dirname(filename),
-                            "--compile-only",
-                            userc_output,
-                            "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,
-                           stdout=fichier, stderr=STDOUT)
+                "--verbose",\
+                "-mpic16",\
+                "--denable-peeps",\
+                "--obanksel=9",\
+                "--optimize-cmp",\
+                "--optimize-df",\
+                # Do not remove --ivt-loc option
+                "--ivt-loc=" + str(board.memstart),\
+                "-p" + board.proc,\
+                "-D" + board.board,\
+                "-D" + board.bldr,\
+                "-DBOARD=\"" + board.board + "\"",\
+                "-DPROC=\"" + board.proc + "\"",\
+                "-DBOOT_VER=4",\
+                "--use-non-free",\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                "-I" + os.path.dirname(filename),\
+                "--compile-only",\
+                os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
+                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
+                stdout=fichier, stderr=STDOUT)
 
         elif board.bldr == 'noboot':
             sortie = Popen([self.COMPILER_8BIT,
-                            "--verbose",
-                            "-mpic16",
-                            "--denable-peeps",
-                            "--obanksel=9",
-                            "--optimize-cmp",
-                            "--optimize-df",
-                            "-p" + board.proc,
-                            "-D" + board.board,
-                            "-D" + board.bldr,
-                            "-DBOARD=\"" + board.board + "\"",
-                            "-DPROC=\"" + board.proc + "\"",
-                            "-DBOOT_VER=0",
-                            "--use-non-free",
-                            "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
-                            "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
-                            "-I" + os.path.dirname(filename),
-                            "--compile-only",
-                            userc_output,
-                            "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,
-                           stdout=fichier, stderr=STDOUT)
+                "--verbose",\
+                "-mpic16",\
+                "--denable-peeps",\
+                "--obanksel=9",\
+                "--optimize-cmp",\
+                "--optimize-df",\
+                "-p" + board.proc,\
+                "-D" + board.board,\
+                "-D" + board.bldr,\
+                "-DBOARD=\"" + board.board + "\"",\
+                "-DPROC=\"" + board.proc + "\"",\
+                "-DBOOT_VER=0",\
+                "--use-non-free",\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                "-I" + os.path.dirname(filename),\
+                "--compile-only",\
+                os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c'),\
+                "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
+                stdout=fichier, stderr=STDOUT)
 
 
         sortie.communicate()
@@ -570,7 +652,6 @@ class PinguinoTools(Uploader):
         return sortie.poll(), ERROR
 
 
-
     # ------------------------------------------------------------------------------
     def report(self, message):
         #import sys
@@ -579,7 +660,8 @@ class PinguinoTools(Uploader):
         logging.info(message)
 
     #----------------------------------------------------------------------
-    def link(self):
+    @Debugger.debug_method
+    def link(self, filename):
         """Link.
 
         NB :  "--opt-code-size"   deprecated
@@ -597,8 +679,8 @@ class PinguinoTools(Uploader):
         fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
 
         user_imports = self.get_user_imports_p8()
-
-        file_dir = os.path.dirname(self.__filename__)
+        #for lib_dir in self.USER_P8_LIBS:
+            #user_imports.append("-I" + lib_dir)
 
         if board.arch == 8:
 
@@ -712,7 +794,7 @@ class PinguinoTools(Uploader):
 
             sortie = Popen([self.MAKE,
                             "--makefile=" + makefile,
-                            "_IDE_PDEDIR_=" + file_dir,
+                            "_IDE_PDEDIR_=" + os.path.dirname(filename),
                             "_IDE_PROC_=" + board.proc,
                             "_IDE_BOARD_=" + board.board,
                             "_IDE_BINDIR_=" + self.P32_BIN,  #default /usr/bin

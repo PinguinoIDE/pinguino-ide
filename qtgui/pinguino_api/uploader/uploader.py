@@ -1,10 +1,12 @@
-#! /usr/bin/python2
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
 import usb
 import sys
 import logging
 #import debugger
+
+from ..tools import Debugger
 
 ########################################################################
 class baseUploader(object):
@@ -115,8 +117,7 @@ class Uploader(object):
     """Universal uploader class"""
 
     #----------------------------------------------------------------------
-    def get_uploader(self, hex_file, board):
-        """Return an inicialiced Uploader class"""
+    def __init__(self, hex_file, board):
 
         #debugger.Debugger(sys)
 
@@ -138,12 +139,13 @@ class Uploader(object):
         elif board.bldr == "microchip":
             from uploader32 import uploader32 as Uploader
 
-        return Uploader(hex_file, board)
+        self.uploader = Uploader(hex_file, board)
 
 
-    # #----------------------------------------------------------------------
-    # def write_hex(self):
+    #----------------------------------------------------------------------
+    @Debugger.debug_method
+    def write_hex(self):
 
-        # self.uploader.writeHex()
-        # return self.uploader.report
+        self.uploader.writeHex()
+        return self.uploader.report
 
