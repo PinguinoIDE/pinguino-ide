@@ -19,6 +19,19 @@ class PinguinoEvents(Methods):
     def connect_events(self):
 
 
+        # Toggle Tabs
+        self.connect(self.main.actionTabBoards, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("BoardConfig"))
+        self.connect(self.main.actionTabFiles, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Files"))
+        self.connect(self.main.actionTabLogs, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Log"))
+        self.connect(self.main.actionTabProjects, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Project"))
+        self.connect(self.main.actionTabPython_shell, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Shell"))
+        self.connect(self.main.actionTabSeacrh, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SearchReplace"))
+        self.connect(self.main.actionTabSource_Browser, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SourceBrowser"))
+        self.connect(self.main.actionTabStdout, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Stdout"))
+
+
+
+
         # File related events
         self.connect(self.main.actionNew_file, QtCore.SIGNAL("triggered()"), self.new_file)
         self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.open_files)
@@ -92,8 +105,9 @@ class PinguinoEvents(Methods):
 
 
         # Help
-        self.connect(self.main.actionIDE, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-ide/releases/latest"))
-        self.connect(self.main.actionLibraries, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-libraries"))
+        self.connect(self.main.actionGitPinguinoIde, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-ide/releases/latest"))
+        self.connect(self.main.actionGitPinguinoLibraries, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-libraries"))
+        self.connect(self.main.actionGitPinguinoCompilers, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://github.com/PinguinoIDE/pinguino-compilers"))
         self.connect(self.main.actionWebsite, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://www.pinguino.cc/"))
         self.connect(self.main.actionWiki, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://wiki.pinguino.cc/"))
         self.connect(self.main.actionForum, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://forum.pinguino.cc/"))

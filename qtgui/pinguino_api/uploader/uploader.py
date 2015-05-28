@@ -6,7 +6,7 @@ import sys
 import logging
 #import debugger
 
-from ..tools import Debugger
+# from .. import Debugger
 
 ########################################################################
 class baseUploader(object):
@@ -143,7 +143,7 @@ class Uploader(object):
 
 
     #----------------------------------------------------------------------
-    @Debugger.debug_method
+    # @Debugger.debug_method
     def write_hex(self):
 
         self.uploader.writeHex()

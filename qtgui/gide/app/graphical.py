@@ -84,9 +84,9 @@ class GraphicalIDE(object):
         filename = os.path.split(path)[1]
 
         editor = QtGui.QWidget()
-
         widget = Ui_Form_graphical()
         widget.setupUi(editor)
+
         widget.widget.setMinimumSize(QtCore.QSize(2000, 2000))
 
         main_widget = widget.widget
@@ -574,8 +574,10 @@ class GraphicalIDE(object):
         if tabs is None: tabs = self.get_block_tabs()
         for tab in tabs:
             widget = QtGui.QWidget()
+
             ui = Ui_widgetBlock()
             ui.setupUi(widget)
+
             tool_area = ToolArea(ui.scrollArea, self.get_work_area, self.ide)
             ui.gridLayout_2.addWidget(tool_area, 0, 0, 1, 1)
             self.main.tabWidget_blocks.addTab(widget, tab)

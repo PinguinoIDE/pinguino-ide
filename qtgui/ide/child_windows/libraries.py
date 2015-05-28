@@ -33,6 +33,10 @@ class LibManager(QtGui.QMainWindow):
         super(LibManager, self).__init__()
 
         self.libframe = Ui_LibraryManager()
+        # file = QtCore.QFile(":ui/frames/librarieswidget.ui")
+        # file.open(QtCore.QFile.ReadOnly)
+        # self.libframe = loader.load(file, self)
+        # file.close()
         self.libframe.setupUi(self)
 
         self.main = IDE

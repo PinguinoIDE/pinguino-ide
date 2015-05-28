@@ -77,11 +77,11 @@ class WorkArea(QtGui.QWidget):
                          str(type("")): "char",
                          }
 
-
-
         self.SelectArea = QtGui.QWidget(self)
+
         select = Ui_Selection()
         select.setupUi(self.SelectArea)
+
         self.SelectArea.hide()
 
         self.contextMenuEvent = self.build_menu

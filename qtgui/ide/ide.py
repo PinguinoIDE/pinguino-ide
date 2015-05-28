@@ -22,7 +22,6 @@ from ..pinguino_api.pinguino_config import PinguinoConfig
 from ..pinguino_api.config import Config
 from ..frames.main import Ui_PinguinoIDE
 
-
 import logging
 #import debugger
 
@@ -44,8 +43,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         QtCore.QTextCodec.setCodecForTr(QtCore.QTextCodec.codecForName("UTF-8"))
 
         self.main = Ui_PinguinoIDE()
-
         self.main.setupUi(self)
+
         PythonShell.__init__(self)
         PinguinoLog.__init__(self)
         Help.__init__(self)

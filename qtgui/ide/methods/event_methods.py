@@ -30,7 +30,7 @@ from ..child_windows.libraries import LibManager
 from ..child_windows.paths import Paths
 from ..child_windows.hex_viewer import HexViewer
 from ..child_windows.insert_block_dialog import InsertBlock
-from ..child_windows.environ_viewer import EnvironViewer
+# from ..child_windows.environ_viewer import EnvironViewer
 from ..child_windows.submit_bug import SubmitBug
 from ..child_windows.patches import Patches
 
@@ -252,7 +252,7 @@ class EventMethods(object):
         # side = self.dockWidgetArea(self.main.dockWidget_output)
         # self.configIDE.set("Main", "dock_shell", side.name.decode())
 
-        self.configIDE.set("Main", "menubar", self.main.actionMenubar.isVisible())
+        self.configIDE.set("Main", "menubar", self.main.menubar.isVisible())
 
         count = 1
         self.configIDE.clear_recents()
@@ -719,10 +719,10 @@ class EventMethods(object):
         # self.frame_stdout.show()
 
 
-    #----------------------------------------------------------------------
-    def __show_environ__(self, debug):
-        self.frame_environ = EnvironViewer(self, debug)
-        self.frame_environ.show()
+    # #----------------------------------------------------------------------
+    # def __show_environ__(self, debug):
+        # self.frame_environ = EnvironViewer(self, debug)
+        # self.frame_environ.show()
 
 
     #----------------------------------------------------------------------
@@ -920,7 +920,7 @@ class EventMethods(object):
 
     #----------------------------------------------------------------------
     def switch_color_theme(self, pinguino_color=True):
-        default_pallete = ["toolBar", "toolBar_switch", "menubar", "statusBar"]
+        default_pallete = ["toolBar", "toolBar_switch", "toolBar_menu", "menubar", "statusBar"]
 
         pinguino_pallete = ["dockWidget_bottom", "dockWidget_right"]
 
@@ -1186,3 +1186,32 @@ class EventMethods(object):
             # tab.setTabPosition(QtGui.QTabWidget.West)
         # elif area.name == "LeftDockWidgetArea":
             # tab.setTabPosition(QtGui.QTabWidget.East)
+
+
+
+    #----------------------------------------------------------------------
+    def toggle_tab(self, tab_name):
+        """"""
+        widget = getattr(self.main, tab_name)
+
+        if self.main.tabWidget_bottom.indexOf(widget) != -1:
+            index = self.main.tabWidget_bottom.indexOf(widget)
+            # tab_name = self.main.tabWidget_bottom.tabText(index)
+            widget.tab_parent = self.main.tabWidget_bottom
+            widget.index = index
+            widget.label = self.main.tabWidget_bottom.tabText(index)
+            self.main.tabWidget_bottom.removeTab(index)
+
+        elif self.main.tabWidget_tools.indexOf(widget) != -1:
+            index = self.main.tabWidget_tools.indexOf(widget)
+            # tab_name = self.main.tabWidget_tools.tabText(index)
+            widget.tab_parent = self.main.tabWidget_tools
+            widget.index = index
+            widget.label = self.main.tabWidget_tools.tabText(index)
+            self.main.tabWidget_tools.removeTab(index)
+
+        else:
+            widget.tab_parent.addTab(widget, widget.label)
+            i = widget.tab_parent.indexOf(widget)
+            widget.tab_parent.tabBar().moveTab(i, widget.index)
+            widget.tab_parent.setCurrentIndex(widget.index)

@@ -4,6 +4,8 @@
 import os
 import sys
 
+from PySide import QtGui, QtCore
+
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
@@ -12,7 +14,6 @@ else:
     #Python2
     from ConfigParser import RawConfigParser
 
-from PySide import QtGui, QtCore
 
 from ..methods.dialogs import Dialogs
 from ...frames.paths import Ui_Paths

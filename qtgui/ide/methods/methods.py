@@ -309,9 +309,9 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
 
 
         visible = self.configIDE.config("Main", "menubar", True)
-        self.main.actionMenubar.setChecked(visible)
-        self.main.menubar.setVisible(not visible)
-        self.main.actionMenubar.setVisible(visible)
+        self.main.actionMenubar.setChecked(not visible)
+        self.main.menubar.setVisible(visible)
+        self.main.toolBar_menu.setVisible(not visible)
 
         self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
 
@@ -631,6 +631,8 @@ class Methods(EventMethods, TimedMethods, SearchReplace, ProjectManager, Files, 
         if not self.main.menubar.isVisible():
             self.toggle_toolbars(True)
         self.main.toolBar_menu.setVisible(not self.main.menubar.isVisible())
+        # self.configIDE.set("Main", "menubar", self.main.menubar.isVisible())
+        self.configIDE.save_config()
 
 
     #----------------------------------------------------------------------

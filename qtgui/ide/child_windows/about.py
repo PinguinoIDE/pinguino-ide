@@ -7,6 +7,8 @@ from PySide import QtGui, QtCore
 
 from ...frames.about import Ui_About
 
+import resources_rc
+
 ########################################################################
 class About(QtGui.QDialog):
 

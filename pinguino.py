@@ -62,6 +62,8 @@ if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
 
 sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
+import resources_rc
+
 if __name__ == "__main__":
 
     from PySide import QtCore, QtGui

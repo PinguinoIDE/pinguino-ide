@@ -41,6 +41,7 @@ class Patches(QtGui.QDialog):
 
         self.patches = Ui_Patches()
         self.patches.setupUi(self)
+
         self.main = parent
 
         self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+self.windowTitle())
