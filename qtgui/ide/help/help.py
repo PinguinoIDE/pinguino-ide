@@ -22,14 +22,14 @@ class Help(object):
     def help_libraries(self):
         """"""
         self.add_tab("Libraries")
-        self.web_view.load("documentation/libraries.html")
+        self.web_view.load("html-documentation/libraries.html")
 
 
     #----------------------------------------------------------------------
     def pinguino_ide_manual(self):
         """"""
         self.add_tab("Help")
-        self.web_view.load("documentation/index.html")
+        self.web_view.load("html-documentation/index.html")
 
 
     #----------------------------------------------------------------------
