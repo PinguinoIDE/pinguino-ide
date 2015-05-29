@@ -96,11 +96,11 @@ class PinguinoConfig(object):
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "pinguino.%s.conf"%os.getenv("PINGUINO_OS_NAME")),
                                     dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "reserved.pickle"),
-                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
+        # cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "reserved.pickle"),
+                                    # dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "wikidocs.pickle"),
-                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
+        # cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "wikidocs.pickle"),
+                                    # dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
 
 
     #----------------------------------------------------------------------

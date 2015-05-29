@@ -26,6 +26,9 @@ else:
 
 PinguinoConfig.set_environ_vars()
 
+#Check files and directories
+PinguinoConfig.check_user_files()
+
 #Remove files and directories
 if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")):
     shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
@@ -39,12 +42,8 @@ if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle
     os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
 if not os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf")):
     os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
-if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")):
-    os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
-
-
-#Check files and directories
-PinguinoConfig.check_user_files()
+# if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")):
+    # os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
 
 #Remove patches
 parser = RawConfigParser()

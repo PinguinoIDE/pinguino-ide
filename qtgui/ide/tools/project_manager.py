@@ -24,7 +24,6 @@ else:
 class ProjectManager(object):
     """"""
 
-
     #----------------------------------------------------------------------
     def __init__(self):
         """"""
@@ -42,19 +41,36 @@ class ProjectManager(object):
         self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemChanged(QTreeWidgetItem*,int)"), self.update_check_status)
 
 
-
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
     def open_project(self):
         """"""
         self.project_saved = True
 
-        file_project = Dialogs.set_open_file(self)
+        file_project = Dialogs.set_open_file(self, exts="*.ppde")
         if file_project is None: return
+        self.open_project_from_path(file_project)
 
+
+    #----------------------------------------------------------------------
+    @Decorator.show_tab("Project")
+    def open_project_from_path(self, filename):
+        """"""
+        self.project_saved = True
         self.ConfigProject = RawConfigParser()
-        self.ConfigProject.readfp(open(file_project, "r"))
-        self.ConfigProject.filename = file_project
+        self.ConfigProject.readfp(open(filename, "r"))
+        self.ConfigProject.filename = filename
+
+        project_name = self.reload_project()
+        logging.debug("Opening \"{}\" project.".format(project_name))
+
+        self.update_recents_projects(self.ConfigProject.filename)
+
+
+    #----------------------------------------------------------------------
+    def reload_project(self):
+        """"""
+        self.main.treeWidget_projects.clear()
 
         project_name = self.ConfigProject.get("Main", "name")
         self.main.treeWidget_projects.setHeaderLabel(project_name)
@@ -74,9 +90,7 @@ class ProjectManager(object):
             self.add_existing_file(path, check_duplicated=False, check=checked, open_=True)
 
         self.update_project_status(project_name)
-        logging.debug("Opening \"{}\" project.".format(project_name))
-
-
+        return project_name
 
 
     #----------------------------------------------------------------------
@@ -96,7 +110,7 @@ class ProjectManager(object):
             if dir_project in self.get_dirs_from_project(): return
 
         # flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsEditable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
-        flags = QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
+        flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
         parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_projects, dir_project, flags)
         inherits = self.generate_tree(dir_project, parent, levels=50, flags=flags, to_ignore=to_ignore, inherits_status=inherits_status)
         parent.setExpanded(True)
@@ -129,7 +143,8 @@ class ProjectManager(object):
 
         filename = os.path.split(path)[1]
         parent = self.main.treeWidget_projects
-        flags = QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
+        # flags = QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
+        flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
 
         self.add_new_file_item(filename, parent, path, flags, check=check)
 
@@ -205,6 +220,8 @@ class ProjectManager(object):
                 self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
                 self.project_saved = True
 
+        self.update_recents_projects(self.ConfigProject.filename)
+
 
     #----------------------------------------------------------------------
     def add_dir_to_config(self, dirpath):
@@ -271,7 +288,7 @@ class ProjectManager(object):
         self.ConfigProject.set("Ignore", "ignore_%d"%index, path)
 
         logging.debug("Removing \"{}\" from project.".format(path))
-        for path_inherit, option in self.get_inherits_option_from_config().items():
+        for path_inherit, option in self.get_inherits_option_from_project().items():
             if path_inherit.startswith(path):
                 self.ConfigProject.remove_option("Inherits", option)
                 self.ConfigProject.remove_option("Inherits", option+"_checked")
@@ -291,6 +308,20 @@ class ProjectManager(object):
         self.main.pushButton_newproject.setVisible(not bool(project))
 
         self.main.treeWidget_projects.contextMenuEvent = self.project_context_menu
+        Decorator.update_toolbar()
+
+        open_project = bool(os.environ["PINGUINO_PROJECT"])
+        self.main.actionNew_project.setEnabled(not open_project)
+        self.main.actionOpen_project.setEnabled(not open_project)
+        self.main.actionSave_project.setEnabled(open_project)
+        self.main.actionSave_project_as.setEnabled(open_project)
+        self.main.actionClose_project.setEnabled(open_project)
+        self.main.actionAdd_existing_directory.setEnabled(open_project)
+        self.main.actionAdd_current_file.setEnabled(open_project)
+        self.main.actionAdd_existing_file.setEnabled(open_project)
+        self.main.actionAdd_new_file.setEnabled(open_project)
+        self.main.actionSet_current_file_as_main_upload.setEnabled(open_project)
+
 
 
     #----------------------------------------------------------------------
@@ -308,7 +339,7 @@ class ProjectManager(object):
         if hasattr(self.get_current_item(), "path"):
             if os.path.isfile(self.get_current_item().path):
                 # option for files
-                menu.addAction("Set as main upload file", self.set_as_main_upload)
+                # menu.addAction("Set as main upload file", self.set_as_main_upload)
                 menu.addAction("Remove file", self.remove_file)
             else:
                 # option for dirs
@@ -318,10 +349,13 @@ class ProjectManager(object):
             menu.addAction("Remove exclude from project", self.remove_from_tree)
 
         # general options
-        menu.addAction("Add existing directory", self.select_existing_directory)
-
-
+        menu.addAction("Rename...", self.rename)
         menu.addSeparator()
+        menu.addAction("Add existing directory...", self.select_existing_directory)
+        menu.addAction("Add existing file...", self.add_existing_file)
+        menu.addSeparator()
+        menu.addAction("Add new file...", self.add_new_file)
+        menu.addAction("Add new directory...", self.add_new_directory)
 
         menu.setStyleSheet("""
         QMenu {
@@ -409,7 +443,7 @@ class ProjectManager(object):
 
 
     #----------------------------------------------------------------------
-    def get_files_option_from_config(self):
+    def get_files_option_from_project(self):
         """"""
         if not self.ConfigProject.has_section("Files"): return []
         if not self.ConfigProject.options("Files"): return []
@@ -418,7 +452,7 @@ class ProjectManager(object):
 
 
     #----------------------------------------------------------------------
-    def get_inherits_option_from_config(self):
+    def get_inherits_option_from_project(self):
         """"""
         if not self.ConfigProject.has_section("Inherits"): return []
         if not self.ConfigProject.options("Inherits"): return []
@@ -438,11 +472,11 @@ class ProjectManager(object):
 
             path = item.path
 
-            inherits = self.get_inherits_option_from_config()
+            inherits = self.get_inherits_option_from_project()
             if path in inherits:
                 self.ConfigProject.set("Inherits", inherits[path]+"_checked", status)
 
-            files = self.get_files_option_from_config()
+            files = self.get_files_option_from_project()
             if path in files:
                 self.ConfigProject.set("Files", files[path]+"_checked", status)
 
@@ -459,4 +493,99 @@ class ProjectManager(object):
         self.update_project_status("")
         logging.debug("Closing \"{}\" project.".format(name))
 
+
+    #----------------------------------------------------------------------
+    def add_new_file(self):
+        """"""
+        path = self.get_current_item().path
+        if os.path.isfile(path):
+            path = os.path.dirname(self.get_current_item().path)
+
+        filename = Dialogs.get_text(self, "New file", default="untitled-1.pde")
+        new_file = os.path.join(path, filename)
+        nf = open(new_file, "w")
+        nf.close()
+
+        if self.get_current_item().path in self.get_files_option_from_project():
+            self.add_existing_file(new_file)
+
+        self.reload_project()
+
+
+    #----------------------------------------------------------------------
+    def add_new_directory(self):
+        """"""
+        path = self.get_current_item().path
+        if os.path.isfile(path):
+            path = os.path.dirname(self.get_current_item().path)
+
+        dirname = Dialogs.get_text(self, "New directory", default="untitled-dir")
+        new_dir = os.path.join(path, dirname)
+        os.mkdir(new_dir)
+
+        if self.get_current_item().path in self.get_files_option_from_project():
+            self.add_existing_directory(new_dir)
+
+        self.reload_project()
+
+
+    #----------------------------------------------------------------------
+    def rename(self):
+        """"""
+        path = self.get_current_item().path
+        name = Dialogs.get_text(self, "New name", default=os.path.basename(self.get_current_item().path))
+        new_name = os.path.join(os.path.dirname(self.get_current_item().path), name)
+        files = self.get_files_option_from_project()
+        os.rename(path, new_name)
+
+        if path in files:
+            self.ConfigProject.set("Files", files[path], new_name)
+
+        self.reload_project()
+
+
+    #----------------------------------------------------------------------
+    def update_recents_projects(self, filename):
+
+        if filename in self.recent_projects:
+            self.recent_projects.remove(filename)
+        self.recent_projects.insert(0, filename)
+        self.recent_projects = self.recent_projects[:10]
+
+        self.update_recents_menu_project()
+
+
+    #----------------------------------------------------------------------
+    def update_recents_menu_project(self):
+
+        self.main.menuRecentProjects.clear()
+        for file_ in self.recent_projects:
+            action = QtGui.QAction(self)
+            filename = os.path.split(file_)[1]
+
+            len_ = 40
+            if len(file_) > len_:
+                file_path_1 = file_[:int(len_/2)]
+                file_path_2 = file_[int(-len_/2):]
+                file_path = file_path_1 + "..." + file_path_2
+            else: file_path = file_
+
+            if os.path.isfile(file_):
+                action.setText(filename+" ("+file_path+")")
+                self.connect(action, QtCore.SIGNAL("triggered()"), self.menu_recent_event(file_))
+                action.ActionEvent = self.menu_recent_event
+
+                self.main.menuRecentProjects.addAction(action)
+
+        self.main.menuRecentProjects.addSeparator()
+        self.main.menuRecentProjects.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_projects)
+
+
+    #----------------------------------------------------------------------
+    def clear_recents_projects(self):
+
+        self.main.menuRecentProjects.clear()
+        self.main.menuRecentProjects.addSeparator()
+        self.main.menuRecentProjects.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_projects)
+        self.recent_projects = []
 

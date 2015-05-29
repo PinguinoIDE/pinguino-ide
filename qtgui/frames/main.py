@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Wed May 27 21:39:35 2015
+# Created: Thu May 28 22:46:39 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -82,8 +82,8 @@ class Ui_PinguinoIDE(object):
         self.menuIcons_size.setObjectName("menuIcons_size")
         self.menuProject = QtGui.QMenu(self.menubar)
         self.menuProject.setObjectName("menuProject")
-        self.menuRecent = QtGui.QMenu(self.menuProject)
-        self.menuRecent.setObjectName("menuRecent")
+        self.menuRecentProjects = QtGui.QMenu(self.menuProject)
+        self.menuRecentProjects.setObjectName("menuRecentProjects")
         self.menuTools = QtGui.QMenu(self.menubar)
         self.menuTools.setObjectName("menuTools")
         PinguinoIDE.setMenuBar(self.menubar)
@@ -787,6 +787,8 @@ class Ui_PinguinoIDE(object):
         self.actionLibraries_help.setObjectName("actionLibraries_help")
         self.actionGitPinguinoCompilers = QtGui.QAction(PinguinoIDE)
         self.actionGitPinguinoCompilers.setObjectName("actionGitPinguinoCompilers")
+        self.actionReset_IDE_instalation = QtGui.QAction(PinguinoIDE)
+        self.actionReset_IDE_instalation.setObjectName("actionReset_IDE_instalation")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
@@ -863,10 +865,12 @@ class Ui_PinguinoIDE(object):
         self.menuSettings.addAction(self.actionColor_theme)
         self.menuSettings.addAction(self.menuIcons_theme.menuAction())
         self.menuSettings.addAction(self.menuIcons_size.menuAction())
-        self.menuRecent.addAction(self.action_list_recent)
+        self.menuSettings.addSeparator()
+        self.menuSettings.addAction(self.actionReset_IDE_instalation)
+        self.menuRecentProjects.addAction(self.action_list_recent)
         self.menuProject.addAction(self.actionNew_project)
         self.menuProject.addAction(self.actionOpen_project)
-        self.menuProject.addAction(self.menuRecent.menuAction())
+        self.menuProject.addAction(self.menuRecentProjects.menuAction())
         self.menuProject.addAction(self.actionSave_project)
         self.menuProject.addAction(self.actionSave_project_as)
         self.menuProject.addAction(self.actionClose_project)
@@ -875,8 +879,6 @@ class Ui_PinguinoIDE(object):
         self.menuProject.addAction(self.actionAdd_current_file)
         self.menuProject.addAction(self.actionAdd_existing_file)
         self.menuProject.addAction(self.actionAdd_new_file)
-        self.menuProject.addSeparator()
-        self.menuProject.addAction(self.actionSet_current_file_as_main_upload)
         self.menuTools.addAction(self.actionToggle_vertical_tool_area)
         self.menuTools.addAction(self.actionToggle_horizontal_tool_area)
         self.menuTools.addAction(self.actionMove_vertical_tool_area)
@@ -945,7 +947,7 @@ class Ui_PinguinoIDE(object):
         self.menuIcons_theme.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Icons theme", None, QtGui.QApplication.UnicodeUTF8))
         self.menuIcons_size.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Icons size", None, QtGui.QApplication.UnicodeUTF8))
         self.menuProject.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Project", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuRecent.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Recent", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuRecentProjects.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Recent", None, QtGui.QApplication.UnicodeUTF8))
         self.menuTools.setTitle(QtGui.QApplication.translate("PinguinoIDE", "Tools", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget_right.setWindowTitle(QtGui.QApplication.translate("PinguinoIDE", "Sidebar", None, QtGui.QApplication.UnicodeUTF8))
         self.label_search_block.setText(QtGui.QApplication.translate("PinguinoIDE", "Search block:", None, QtGui.QApplication.UnicodeUTF8))
@@ -1119,5 +1121,6 @@ class Ui_PinguinoIDE(object):
         self.actionPinguino_ide_manual.setText(QtGui.QApplication.translate("PinguinoIDE", "Pinguino IDE manual", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLibraries_help.setText(QtGui.QApplication.translate("PinguinoIDE", "Libraries help", None, QtGui.QApplication.UnicodeUTF8))
         self.actionGitPinguinoCompilers.setText(QtGui.QApplication.translate("PinguinoIDE", "pinguino-compilers", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionReset_IDE_instalation.setText(QtGui.QApplication.translate("PinguinoIDE", "Reset IDE instalation", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

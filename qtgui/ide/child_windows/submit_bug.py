@@ -17,11 +17,7 @@ class SubmitBug(QtGui.QDialog):
                             QtCore.Qt.WindowStaysOnTopHint |
                             QtCore.Qt.Tool)
 
-        file = QtCore.QFile(":ui/frames/submit_bug.ui")
-        file.open(QtCore.QFile.ReadOnly)
-        self.submit = loader.load(file, self)
-        file.close()
-
+        self.submit = Ui_SubmitBug()
         self.submit.setupUi(self)
         self.main = parent
 

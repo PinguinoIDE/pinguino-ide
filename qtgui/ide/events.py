@@ -3,20 +3,48 @@
 
 from PySide import QtCore
 
-from .methods.methods import Methods
+from .methods.core import PinguinoCore
 
 ########################################################################
-class PinguinoEvents(Methods):
+class PinguinoEvents(PinguinoCore):
 
     #----------------------------------------------------------------------
     def __init__(self):
         """"""
-        Methods.__init__(self)
-        # super(Methods, self).__init__()
+        PinguinoCore.__init__(self)
 
 
     #----------------------------------------------------------------------
     def connect_events(self):
+        """"""
+
+        # Triggers
+        self.connect(self.main.actionNew_file, QtCore.SIGNAL("triggered()"), self.new_file)
+        self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.open_files)
+        self.connect(self.main.actionSave_file, QtCore.SIGNAL("triggered()"), self.save_file)
+        self.connect(self.main.actionSave_as, QtCore.SIGNAL("triggered()"), self.save_as)
+        self.connect(self.main.actionSave_all, QtCore.SIGNAL("triggered()"), self.save_all)
+        self.connect(self.main.actionClose_file, QtCore.SIGNAL("triggered()"), self.close_file)
+        self.connect(self.main.actionClose_all, QtCore.SIGNAL("triggered()"), self.close_all)
+        self.connect(self.main.actionClose_others, QtCore.SIGNAL("triggered()"), self.close_others)
+        self.connect(self.main.actionPrint, QtCore.SIGNAL("triggered()"), self.print_file)
+        self.connect(self.main.actionQuit, QtCore.SIGNAL("triggered()"), self.__close_ide__)
+        self.connect(self.main.actionUndo, QtCore.SIGNAL("triggered()"), self.undo)
+        self.connect(self.main.actionRedo, QtCore.SIGNAL("triggered()"), self.redo)
+        self.connect(self.main.actionCut, QtCore.SIGNAL("triggered()"), self.cut)
+        self.connect(self.main.actionCopy, QtCore.SIGNAL("triggered()"), self.copy)
+        self.connect(self.main.actionPaste, QtCore.SIGNAL("triggered()"), self.paste)
+        self.connect(self.main.actionDelete, QtCore.SIGNAL("triggered()"), self.delete)
+        self.connect(self.main.actionSelect_all, QtCore.SIGNAL("triggered()"), self.select_all)
+        self.connect(self.main.actionComment_out_region, QtCore.SIGNAL("triggered()"), self.commentregion)
+        self.connect(self.main.actionComment_Uncomment_region, QtCore.SIGNAL("triggered()"), self.comment_uncomment)
+        self.connect(self.main.actionIndent, QtCore.SIGNAL("triggered()"), self.indentregion)
+        self.connect(self.main.actionDedent, QtCore.SIGNAL("triggered()"), self.dedentregion)
+        self.connect(self.main.actionHex_code, QtCore.SIGNAL("triggered()"), self.__show_hex_code__)
+        self.connect(self.main.actionMain_c, QtCore.SIGNAL("triggered()"), self.__show_main_c__)
+        self.connect(self.main.actionUser_c, QtCore.SIGNAL("triggered()"), self.__show_user_c__)
+        self.connect(self.main.actionDefine_h, QtCore.SIGNAL("triggered()"), self.__show_define_h__)
+        self.connect(self.main.actionReset_IDE_instalation, QtCore.SIGNAL("triggered()"), self.reset_instalation)
 
 
         # Toggle Tabs
@@ -30,39 +58,6 @@ class PinguinoEvents(Methods):
         self.connect(self.main.actionTabStdout, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Stdout"))
 
 
-
-
-        # File related events
-        self.connect(self.main.actionNew_file, QtCore.SIGNAL("triggered()"), self.new_file)
-        self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.open_files)
-        self.connect(self.main.actionSave_file, QtCore.SIGNAL("triggered()"), self.save_file)
-        self.connect(self.main.actionClose_file, QtCore.SIGNAL("triggered()"), self.close_file)
-        self.connect(self.main.actionSave_as, QtCore.SIGNAL("triggered()"), self.save_as)
-        self.connect(self.main.actionSave_all, QtCore.SIGNAL("triggered()"), self.save_all)
-        self.connect(self.main.actionClose_all, QtCore.SIGNAL("triggered()"), self.close_all)
-        self.connect(self.main.actionClose_others, QtCore.SIGNAL("triggered()"), self.close_others)
-        self.connect(self.main.actionQuit, QtCore.SIGNAL("triggered()"), self.__close_ide__)
-        self.connect(self.main.actionPrint, QtCore.SIGNAL("triggered()"), self.print_file)
-        self.connect(self.main.actionHex_code, QtCore.SIGNAL("triggered()"), self.__show_hex_code__)
-        self.connect(self.main.actionMain_c, QtCore.SIGNAL("triggered()"), self.__show_main_c__)
-        self.connect(self.main.actionUser_c, QtCore.SIGNAL("triggered()"), self.__show_user_c__)
-        self.connect(self.main.actionDefine_h, QtCore.SIGNAL("triggered()"), self.__show_define_h__)
-
-
-        # Edit related events
-        self.connect(self.main.actionUndo, QtCore.SIGNAL("triggered()"), self.undo)
-        self.connect(self.main.actionRedo, QtCore.SIGNAL("triggered()"), self.redo)
-        self.connect(self.main.actionCut, QtCore.SIGNAL("triggered()"), self.cut)
-        self.connect(self.main.actionCopy, QtCore.SIGNAL("triggered()"), self.copy)
-        self.connect(self.main.actionPaste, QtCore.SIGNAL("triggered()"), self.paste)
-        self.connect(self.main.actionDelete, QtCore.SIGNAL("triggered()"), self.delete)
-        self.connect(self.main.actionSelect_all, QtCore.SIGNAL("triggered()"), self.select_all)
-        self.connect(self.main.actionComment_out_region, QtCore.SIGNAL("triggered()"), self.commentregion)
-        self.connect(self.main.actionComment_Uncomment_region, QtCore.SIGNAL("triggered()"), self.comment_uncomment)
-        self.connect(self.main.actionIndent, QtCore.SIGNAL("triggered()"), self.indentregion)
-        self.connect(self.main.actionDedent, QtCore.SIGNAL("triggered()"), self.dedentregion)
-
-
         # Perspective related events
         self.connect(self.main.actionMenubar, QtCore.SIGNAL("toggled(bool)"), self.toggle_menubar)
         self.connect(self.main.actionToolbars, QtCore.SIGNAL("toggled(bool)"), self.toggle_toolbars)
@@ -73,9 +68,6 @@ class PinguinoEvents(Methods):
         self.connect(self.main.actionToggle_editor_area, QtCore.SIGNAL("toggled(bool)"), self.toggle_editor_area)
         self.connect(self.main.actionToggle_editor_area, QtCore.SIGNAL("toggled(bool)"), self.toggle_editor_area)
         self.connect(self.main.actionMove_vertical_tool_area, QtCore.SIGNAL("triggered()"), self.move_side_dock)
-
-        # maximize editor
-
 
 
         # Settings related events
@@ -140,8 +132,6 @@ class PinguinoEvents(Methods):
         self.main.actionToolbars.setChecked(True)
         # self.main.actionConfirm_board.setChecked(self.configIDE.config("Features", "confirm_board", True))
 
-
-        # self.connect(self.main.dockWidget_right, QtCore.SIGNAL("featuresChanged(QDockWidget::DockWidgetFeatures)"), self.tab_right_mouseRelease)
         self.main.dockWidget_right.resizeEvent = self.tab_tools_resize
         self.main.dockWidget_bottom.resizeEvent = self.tab_tools_resize
 

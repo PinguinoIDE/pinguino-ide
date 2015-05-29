@@ -84,49 +84,49 @@ class Config(RawConfigParser, object):
             return ""
 
     #----------------------------------------------------------------------
-    def get_recents(self):
-        if not self.has_section("Recents"): self.add_section("Recents")
-        options = self.options("Recents")
+    def get_recents(self, section="Recents"):
+        if not self.has_section(section): self.add_section(section)
+        options = self.options(section)
 
         files = []
         for option in options:
-            if option.startswith("recent_") and self.get("Recents", option):
-                files.append(self.get("Recents", option))
+            if option.startswith("recent_") and self.get(section, option):
+                files.append(self.get(section, option))
 
         return files
 
     #----------------------------------------------------------------------
-    def get_recents_open(self):
-        if not self.has_section("Recents"): self.add_section("Recents")
-        options = self.options("Recents")
+    def get_recents_open(self, section="Recents"):
+        if not self.has_section(section): self.add_section(section)
+        options = self.options(section)
 
         files = []
         for option in options:
-            if option.startswith("open_") and self.get("Recents", option):
-                files.append(self.get("Recents", option))
+            if option.startswith("open_") and self.get(section, option):
+                files.append(self.get(section, option))
 
         return files
 
     #----------------------------------------------------------------------
-    def clear_recents_open(self):
-        if not self.has_section("Recents"): self.add_section("Recents")
-        options = self.options("Recents")
+    def clear_recents_open(self, section="Recents"):
+        if not self.has_section(section): self.add_section(section)
+        options = self.options(section)
 
         files = []
         for option in options:
             if option.startswith("open_"):
-                files.append(self.set("Recents", option, ""))
+                files.append(self.set(section, option, ""))
 
         return files
 
     #----------------------------------------------------------------------
-    def clear_recents(self):
-        if not self.has_section("Recents"): self.add_section("Recents")
-        options = self.options("Recents")
+    def clear_recents(self, section="Recents"):
+        if not self.has_section(section): self.add_section(section)
+        options = self.options(section)
 
         files = []
         for option in options:
             if option.startswith("recent_"):
-                files.append(self.set("Recents", option, ""))
+                files.append(self.set(section, option, ""))
 
         return files

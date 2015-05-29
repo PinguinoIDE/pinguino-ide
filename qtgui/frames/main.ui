@@ -125,7 +125,6 @@
     </widget>
     <addaction name="actionNew_file"/>
     <addaction name="actionOpen_file"/>
-    <addaction name="actionOpen_from_project"/>
     <addaction name="menuRecents"/>
     <addaction name="separator"/>
     <addaction name="actionSave_file"/>
@@ -248,12 +247,14 @@
     <addaction name="actionColor_theme"/>
     <addaction name="menuIcons_theme"/>
     <addaction name="menuIcons_size"/>
+    <addaction name="separator"/>
+    <addaction name="actionReset_IDE_instalation"/>
    </widget>
    <widget class="QMenu" name="menuProject">
     <property name="title">
      <string>Project</string>
     </property>
-    <widget class="QMenu" name="menuRecent">
+    <widget class="QMenu" name="menuRecentProjects">
      <property name="title">
       <string>Recent</string>
      </property>
@@ -261,7 +262,7 @@
     </widget>
     <addaction name="actionNew_project"/>
     <addaction name="actionOpen_project"/>
-    <addaction name="menuRecent"/>
+    <addaction name="menuRecentProjects"/>
     <addaction name="actionSave_project"/>
     <addaction name="actionSave_project_as"/>
     <addaction name="actionClose_project"/>
@@ -270,8 +271,6 @@
     <addaction name="actionAdd_current_file"/>
     <addaction name="actionAdd_existing_file"/>
     <addaction name="actionAdd_new_file"/>
-    <addaction name="separator"/>
-    <addaction name="actionSet_current_file_as_main_upload"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
@@ -2006,6 +2005,11 @@
   <action name="actionGitPinguinoCompilers">
    <property name="text">
     <string>pinguino-compilers</string>
+   </property>
+  </action>
+  <action name="actionReset_IDE_instalation">
+   <property name="text">
+    <string>Reset IDE instalation</string>
    </property>
   </action>
  </widget>

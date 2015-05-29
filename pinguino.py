@@ -23,10 +23,10 @@ from version import NAME, SUBVERSION, VERSION
 
 import sys
 import os
-
 import argparse
-from qtgui.pinguino_api.boards import boardlist
 
+from PySide import QtCore, QtGui
+from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
 
 #----------------------------------------------------------------------
 def build_argparse():
@@ -61,15 +61,11 @@ else:
 if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
 
 sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
-
 import resources_rc
 
+from qtgui.ide.ide import PinguinoIDE
+
 if __name__ == "__main__":
-
-    from PySide import QtCore, QtGui
-    from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
-
-    from qtgui.ide.ide import PinguinoIDE
 
     if parser.lang: sys_locale = parser.lang[0]
     else: sys_locale = QtCore.QLocale.system().name()
@@ -123,7 +119,6 @@ if __name__ == "__main__":
 
     if not splash is None:
         splash.finish(frame)
-
 
     #For PyInstaller compatibility
     if app is None:

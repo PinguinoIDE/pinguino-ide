@@ -140,15 +140,15 @@ class Files(object):
 
 
     #----------------------------------------------------------------------
-    def expand_tree(self, event):
+    def expand_tree(self, item):
         """"""
-        dir_name = event.text(0)
-        dir_ = event.path
-        parent = event
+        dir_name = item.text(0)
+        dir_ = item.path
+        parent = item
 
-        if event.child(0).path == "empty":
+        if item.child(0) and item.child(0).path == "empty":
             self.generate_tree(dir_, parent, levels=1)
-            event.removeChild(event.child(0))
+            item.removeChild(item.child(0))
 
 
     #----------------------------------------------------------------------
