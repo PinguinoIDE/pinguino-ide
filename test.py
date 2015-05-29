@@ -129,7 +129,7 @@ class TestBareMinumumCompilation(unittest.TestCase):
                     Pinguino.set_bootloader(*boot)
                     try: Pinguino.compile_string(code)
                     except BaseException, msg:
-                        self.fail("Compilation: impossible compile for %s, %sbits, boot:%s\n%s" % (board.name, board.arch, str(msg), key))
+                        self.fail("Compilation: impossible compile for %s, %sbits, boot:%s\n%s" % (board.name, board.arch, key, str(msg)))
 
             if board.arch == 32:
                 try: Pinguino.compile_string(code)
