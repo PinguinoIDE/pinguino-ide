@@ -1998,6 +1998,9 @@
    </property>
   </action>
   <action name="actionLibraries_help">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Libraries help</string>
    </property>

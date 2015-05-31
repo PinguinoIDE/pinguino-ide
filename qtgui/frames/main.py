@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Thu May 28 22:46:39 2015
+# Created: Sat May 30 20:36:52 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -784,6 +784,7 @@ class Ui_PinguinoIDE(object):
         self.actionPinguino_ide_manual = QtGui.QAction(PinguinoIDE)
         self.actionPinguino_ide_manual.setObjectName("actionPinguino_ide_manual")
         self.actionLibraries_help = QtGui.QAction(PinguinoIDE)
+        self.actionLibraries_help.setEnabled(False)
         self.actionLibraries_help.setObjectName("actionLibraries_help")
         self.actionGitPinguinoCompilers = QtGui.QAction(PinguinoIDE)
         self.actionGitPinguinoCompilers.setObjectName("actionGitPinguinoCompilers")
@@ -792,7 +793,6 @@ class Ui_PinguinoIDE(object):
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionOpen_file)
-        self.menuFile.addAction(self.actionOpen_from_project)
         self.menuFile.addAction(self.menuRecents.menuAction())
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionSave_file)
