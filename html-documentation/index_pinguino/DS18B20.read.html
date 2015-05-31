@@ -1,0 +1,202 @@
+
+
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--<link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet">-->
+  <!--<link type="text/css" href="static/css/styles.css" rel="stylesheet">-->
+
+  <link type="text/css" href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" href="../static/css/styles.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="container-fluid">
+
+
+
+
+  <h1 class="text-primary">DS18B20 <small>DS18B20.read</small></h1>
+
+
+<ol class="breadcrumb">
+  
+  <li><a href="../index_pinguino/index.html">Index</a></li>
+  
+    <li><a href="../index_pinguino/DS18B20.html">DS18B20</a></li>
+  
+  <li class="active">DS18B20.read</li>
+  
+</ol>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-9">
+  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><table class="toc" id="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Name"><span class="tocnumber">1</span> <span class="toctext">Name</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Syntax"><span class="tocnumber">3</span> <span class="toctext">Syntax</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example"><span class="tocnumber">4</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Bugs"><span class="tocnumber">5</span> <span class="toctext">Bugs</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Comments"><span class="tocnumber">7</span> <span class="toctext">Comments</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Name"> Name </span></h2>
+<dl><dd><dl><dd><b>DS18B20.read</b>
+</dd></dl>
+</dd></dl>
+<h2> <span class="mw-headline" id="Description"> Description </span></h2>
+<p>Initiates a temperature measurement and reads the result from a DS18B20 device on the 1-wire bus.
+</p><p>If there are multiple devices on the 1-wire bus, then the address of the specific device must already have been set or read into the table of ROM codes by using the DS18B20.find function before this function is used.
+</p>
+<dl><dt> Since Beta 9.5
+</dt></dl>
+<h2> <span class="mw-headline" id="Syntax"> Syntax </span></h2>
+<pre><b>u8 DS18B20.read(u8 pin, u8 num, u8 resolution, TEMPERATURE * t)</b>
+</pre>
+<dl><dt> Parameters </dt><dd>
+</dd></dl>
+<ul><li>pin = pin number where one-wire bus is connected.
+</li><li>num = index of the sensor or SKIPROM ( = 0 ) if there is only one sensor on the bus.
+</li><li>resolution = 9 to 12 bit resolution (RES12BIT, RES11BIT, RES10BIT or RES9BIT)
+</li><li>t = temperature pointer
+</li></ul>
+<dl><dt> Returns/Output </dt><dd>
+</dd></dl>
+<ul><li> TRUE ( = !FALSE ) if a temperature measurement has been made <br/>or FALSE ( = 0 ) if no measurement has been made.
+</li><li> the measured temperature in the variable of data type TEMPERATURE identified by the pointer t.  <br/>The data type definition for data type TEMPERATURE is given below. 
+</li></ul>
+<pre>typedef struct
+{
+    u8  sign;		// sign (1=negative)
+    u8  integer;	// integer part
+    u16 fraction;	// fractional part
+} TEMPERATURE;
+</pre>
+<h2> <span class="mw-headline" id="Example"> Example </span></h2>
+<div class="mw-geshi mw-content-ltr" dir="ltr"><div class="c source-c" style="font-family:monospace;"><pre class="de1"><span class="co2">#define ONEWIREBUS	0		// 1-wire bus is on pin 0 (RB0), just change it to suit you </span>
+ 
+ 
+<span class="kw4">void</span> setup<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+<span class="br0">}</span>
+ 
+<span class="kw4">void</span> loop<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+	TEMPERATURE t<span class="sy0">;</span>
+	u8 temp<span class="br0">[</span>4<span class="br0">]</span><span class="sy0">;</span>
+ 
+	<span class="kw1">if</span> <span class="br0">(</span>DS18B20.<span class="me1">read</span><span class="br0">(</span>ONEWIREBUS<span class="sy0">,</span> SKIPROM<span class="sy0">,</span> RES12BIT<span class="sy0">,</span> <span class="sy0">&amp;</span>t<span class="br0">)</span><span class="br0">)</span>
+	<span class="br0">{</span>
+		<span class="co1">// send temperature on usb bus</span>
+		temp<span class="br0">[</span>0<span class="br0">]</span> <span class="sy0">=</span> t.<span class="me1">sign</span><span class="sy0">;</span>		<span class="co1">// t.sign is unsigned  char (1 byte)</span>
+		temp<span class="br0">[</span>1<span class="br0">]</span> <span class="sy0">=</span> t.<span class="me1">integer</span><span class="sy0">;</span>		<span class="co1">// t.integer  is unsigned  char (1 byte)</span>
+		temp<span class="br0">[</span>2<span class="br0">]</span> <span class="sy0">=</span> high8<span class="br0">(</span>t.<span class="me1">fraction</span><span class="br0">)</span><span class="sy0">;</span>	<span class="co1">// t.fraction is unsigned int (2 bytes)</span>
+		temp<span class="br0">[</span>3<span class="br0">]</span> <span class="sy0">=</span> low8<span class="br0">(</span>t.<span class="me1">fraction</span><span class="br0">)</span><span class="sy0">;</span>
+		USB.<span class="me1">send</span><span class="br0">(</span>temp<span class="sy0">,</span> 4<span class="br0">)</span><span class="sy0">;</span>		<span class="co1">// send 4-bit temp on usb bus</span>
+		delay<span class="br0">(</span>1000<span class="br0">)</span><span class="sy0">;</span>			<span class="co1">// wait for 1 sec. before next reading</span>
+	<span class="br0">}</span>
+<span class="br0">}</span></pre></div></div>
+<h2> <span class="mw-headline" id="Bugs"> Bugs </span></h2>
+<h2> <span class="mw-headline" id="See_also"> See also </span></h2>
+<h2> <span class="mw-headline" id="Comments"> Comments </span></h2>
+<!-- 
+NewPP limit report
+Preprocessor node count: 36/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<!-- Saved in parser cache with key pinguino:pcache:idhash:110-0!*!*!!en!*!* and timestamp 20150531180218 -->
+</div>
+</div>
+
+
+
+
+
+<div class="col-md-3 sidebar">
+<ul class="nav nav-pills nav-stacked">
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/DS18B20.configure.html">DS18B20.configure</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/DS18B20.crc.html">DS18B20.crc</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/DS18B20.find.html">DS18B20.find</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/DS18B20.getfirst.html">DS18B20.getfirst</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/DS18B20.getnext.html">DS18B20.getnext</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/DS18B20.matchrom.html">DS18B20.matchrom</a>
+    </li>
+
+  
+
+    <li role="presentation" class="active">
+      <a href="../index_pinguino/DS18B20.read.html">DS18B20.read</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/DS18B20.readrom.html">DS18B20.readrom</a>
+    </li>
+
+  
+</ul>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+

@@ -1,0 +1,143 @@
+
+
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--<link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet">-->
+  <!--<link type="text/css" href="static/css/styles.css" rel="stylesheet">-->
+
+  <link type="text/css" href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" href="../static/css/styles.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="container-fluid">
+
+
+
+
+  <h1 class="text-primary">Ethernet <small>Ethernet.requestAnalysis</small></h1>
+
+
+<ol class="breadcrumb">
+  
+  <li><a href="../index_pinguino/index.html">Index</a></li>
+  
+    <li><a href="../index_pinguino/Ethernet.html">Ethernet</a></li>
+  
+  <li class="active">Ethernet.requestAnalysis</li>
+  
+</ol>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-9">
+  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><p><br/>
+</p>
+<table class="toc" id="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Name"><span class="tocnumber">1</span> <span class="toctext">Name</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Syntax"><span class="tocnumber">3</span> <span class="toctext">Syntax</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example"><span class="tocnumber">4</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Bugs"><span class="tocnumber">5</span> <span class="toctext">Bugs</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_Also"><span class="tocnumber">6</span> <span class="toctext">See Also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Comments"><span class="tocnumber">7</span> <span class="toctext">Comments</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Name"> Name </span></h2>
+<p>Ethernet.requestAnalysis
+</p><p><br/>
+</p>
+<h2> <span class="mw-headline" id="Description"> Description </span></h2>
+<h2> <span class="mw-headline" id="Syntax"> Syntax </span></h2>
+<pre> u16 Ethernet.requestAnalysis(u8 *, u16)
+</pre>
+<h2> <span class="mw-headline" id="Example"> Example </span></h2>
+<div class="mw-geshi mw-content-ltr" dir="ltr"><div class="c source-c" style="font-family:monospace;"><pre class="de1"><span class="co2">#define BUFFER_SIZE 650</span>
+<span class="kw4">static</span> u8 buf<span class="br0">[</span>BUFFER_SIZE<span class="sy0">+</span>1<span class="br0">]</span><span class="sy0">;</span>
+<span class="kw4">void</span> loop<span class="br0">(</span><span class="br0">)</span><span class="br0">{</span>
+  u16 pl<span class="sy0">,</span> dat_p<span class="sy0">;</span>
+ 
+  pl <span class="sy0">=</span> Ethernet.<span class="me1">read</span><span class="br0">(</span>BUFFER_SIZE<span class="sy0">,</span> buf<span class="br0">)</span><span class="sy0">;</span><span class="co1">//enc28j60PacketReceive</span>
+<span class="co1">// pl will be unequal to zero if there is a valid packet (without crc error)</span>
+  dat_p<span class="sy0">=</span> Ethernet.<span class="me1">requestAnalysis</span><span class="br0">(</span>buf<span class="sy0">,</span>pl<span class="br0">)</span><span class="sy0">;</span><span class="co1">//packetloop_icmp_tcp</span>
+  ...
+<span class="br0">}</span></pre></div></div>
+<h2> <span class="mw-headline" id="Bugs"> Bugs </span></h2>
+<h2> <span class="mw-headline" id="See_Also"> See Also </span></h2>
+<h2> <span class="mw-headline" id="Comments"> Comments </span></h2>
+<!-- 
+NewPP limit report
+Preprocessor node count: 36/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<!-- Saved in parser cache with key pinguino:pcache:idhash:1875-0!*!*!!en!*!* and timestamp 20150531174624 -->
+</div>
+</div>
+
+
+
+
+
+<div class="col-md-3 sidebar">
+<ul class="nav nav-pills nav-stacked">
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/Ethernet.init.html">Ethernet.init</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/Ethernet.read.html">Ethernet.read</a>
+    </li>
+
+  
+
+    <li role="presentation" class="active">
+      <a href="../index_pinguino/Ethernet.requestAnalysis.html">Ethernet.requestAnalysis</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/Ethernet.write.html">Ethernet.write</a>
+    </li>
+
+  
+</ul>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+

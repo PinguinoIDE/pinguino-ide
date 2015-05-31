@@ -1,0 +1,200 @@
+
+
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--<link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet">-->
+  <!--<link type="text/css" href="static/css/styles.css" rel="stylesheet">-->
+
+  <link type="text/css" href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" href="../static/css/styles.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="container-fluid">
+
+
+
+
+  <h1 class="text-primary">PID <small>PID.setOutputLimits</small></h1>
+
+
+<ol class="breadcrumb">
+  
+  <li><a href="../index_pinguino/index.html">Index</a></li>
+  
+    <li><a href="../index_pinguino/PID.html">PID</a></li>
+  
+  <li class="active">PID.setOutputLimits</li>
+  
+</ol>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-9">
+  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><table class="toc" id="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Name"><span class="tocnumber">1</span> <span class="toctext">Name</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Syntax"><span class="tocnumber">3</span> <span class="toctext">Syntax</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example"><span class="tocnumber">4</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Bugs"><span class="tocnumber">5</span> <span class="toctext">Bugs</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_Also"><span class="tocnumber">6</span> <span class="toctext">See Also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Comments"><span class="tocnumber">7</span> <span class="toctext">Comments</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Name"> Name </span></h2>
+<p>PID.setOutputLimits
+</p>
+<h2> <span class="mw-headline" id="Description"> Description </span></h2>
+<dl><dt> void PID.SetOutputLimits( double Min, double Max )
+</dt><dd> The PID controller is designed to vary its output within a given range. By default this range is 0-255.
+</dd></dl>
+<h2> <span class="mw-headline" id="Syntax"> Syntax </span></h2>
+<pre> PID.setOutputLimits( min, max );
+</pre>
+<dl><dt>Parameters
+</dt><dd>min - Low end of the range. must be &lt; max (double)
+</dd><dd>max - High end of the range. must be &gt; min (double)
+</dd></dl>
+<dl><dt>Returns/Output
+</dt><dd>None
+</dd></dl>
+<h2> <span class="mw-headline" id="Example"> Example </span></h2>
+<p>To scale for use with Pinguino PWM library:
+</p>
+<pre> PID.setOutputLimits( 0 , 1023 )
+</pre>
+<p><br/>
+</p>
+<h2> <span class="mw-headline" id="Bugs"> Bugs </span></h2>
+<h2> <span class="mw-headline" id="See_Also"> See Also </span></h2>
+<h2> <span class="mw-headline" id="Comments"> Comments </span></h2>
+<!-- 
+NewPP limit report
+Preprocessor node count: 27/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<!-- Saved in parser cache with key pinguino:pcache:idhash:1579-0!*!*!!en!*!* and timestamp 20150531173447 -->
+</div>
+</div>
+
+
+
+
+
+<div class="col-md-3 sidebar">
+<ul class="nav nav-pills nav-stacked">
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.compute.html">PID.compute</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.getDirection.html">PID.getDirection</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.getKd.html">PID.getKd</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.getKi.html">PID.getKi</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.getKp.html">PID.getKp</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.getMode.html">PID.getMode</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.init.html">PID.init</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.initialize.html">PID.initialize</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.setControllerDirection.html">PID.setControllerDirection</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.setMode.html">PID.setMode</a>
+    </li>
+
+  
+
+    <li role="presentation" class="active">
+      <a href="../index_pinguino/PID.setOutputLimits.html">PID.setOutputLimits</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.setSampleTime.html">PID.setSampleTime</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/PID.setTunings.html">PID.setTunings</a>
+    </li>
+
+  
+</ul>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+

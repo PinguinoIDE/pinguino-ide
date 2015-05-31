@@ -1,0 +1,130 @@
+
+
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--<link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet">-->
+  <!--<link type="text/css" href="static/css/styles.css" rel="stylesheet">-->
+
+  <link type="text/css" href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" href="../static/css/styles.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="container-fluid">
+
+
+
+
+  <h1 class="text-primary">Function: Rand</h1>
+
+
+<ol class="breadcrumb">
+  
+  <li><a href="../index_pinguino/index.html">Index</a></li>
+  
+  <li class="active">Rand</li>
+  
+</ol>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-12">
+  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><table class="toc" id="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Name"><span class="tocnumber">1</span> <span class="toctext">Name</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Syntax"><span class="tocnumber">3</span> <span class="toctext">Syntax</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example"><span class="tocnumber">4</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Bugs"><span class="tocnumber">5</span> <span class="toctext">Bugs</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Comments"><span class="tocnumber">7</span> <span class="toctext">Comments</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Name"> Name </span></h2>
+<p>rand - pseudo-random number generator
+</p>
+<h2> <span class="mw-headline" id="Description"> Description </span></h2>
+<p>Returns a pseudo-random integer in the range [0, RAND_MAX]
+</p><p>RAND_MAX is 32767 on Pinguino
+</p>
+<h2> <span class="mw-headline" id="Syntax"> Syntax </span></h2>
+<p>value = rand();
+</p>
+<dl><dt> Output</dt><dd> A pseudo-random integer
+</dd></dl>
+<h2> <span class="mw-headline" id="Example"> Example </span></h2>
+<p>Blink a LED on port 11 for random periods.
+</p>
+<div class="mw-geshi mw-content-ltr" dir="ltr"><div class="c source-c" style="font-family:monospace;"><pre class="de1"><span class="co2">#define MYLED 11</span>
+ 
+<span class="co1">// Time to sleep</span>
+<span class="kw4">unsigned</span> <span class="kw4">short</span> pause<span class="sy0">;</span>
+ 
+<span class="kw4">void</span> setup<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span>
+<span class="br0">{</span>
+        pinMode<span class="br0">(</span>MYLED<span class="sy0">,</span>OUTPUT<span class="br0">)</span><span class="sy0">;</span>
+        <span class="co1">// Init random generator with a fixed random value</span>
+	randomSeed<span class="br0">(</span>55<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
+ 
+<span class="kw4">void</span> loop<span class="br0">(</span><span class="kw4">void</span><span class="br0">)</span>
+<span class="br0">{</span>
+        <span class="co1">// Pause is between 0 and 0b111 (7 in decimal)</span>
+	pause <span class="sy0">=</span> rand<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&amp;</span> <span class="nu12">0x007</span><span class="sy0">;</span>
+        <span class="co1">// Light ON</span>
+        digitalWrite<span class="br0">(</span>MYLED<span class="sy0">,</span>HIGH<span class="br0">)</span><span class="sy0">;</span>
+        <span class="co1">// delay is between 200ms and 1.6s</span>
+        delay<span class="br0">(</span>200 <span class="sy0">*</span> <span class="br0">(</span>pause <span class="sy0">+</span> 1<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="co1">// Light off</span>
+        digitalWrite<span class="br0">(</span>MYLED<span class="sy0">,</span>LOW<span class="br0">)</span><span class="sy0">;</span>
+        <span class="co1">// Delay 200ms</span>
+        delay<span class="br0">(</span>200<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<h2> <span class="mw-headline" id="Bugs"> Bugs </span></h2>
+<h2> <span class="mw-headline" id="See_also"> See also </span></h2>
+<ul><li> <a href="index_pinguino/RandomSeed" title="RandomSeed">randomSeed</a>
+</li></ul>
+<h2> <span class="mw-headline" id="Comments"> Comments </span></h2>
+<!-- 
+NewPP limit report
+Preprocessor node count: 36/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<!-- Saved in parser cache with key pinguino:pcache:idhash:76-0!*!0!!en!*!* and timestamp 20150531215649 -->
+</div>
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+

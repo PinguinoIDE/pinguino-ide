@@ -1,0 +1,170 @@
+
+
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--<link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet">-->
+  <!--<link type="text/css" href="static/css/styles.css" rel="stylesheet">-->
+
+  <link type="text/css" href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" href="../static/css/styles.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="container-fluid">
+
+
+
+
+  <h1 class="text-primary">KS DHTxx <small>DHTxx Example</small></h1>
+
+
+<ol class="breadcrumb">
+  
+  <li><a href="../index_pinguino/index.html">Index</a></li>
+  
+    <li><a href="../index_pinguino/KS%20DHTxx.html">KS DHTxx</a></li>
+  
+  <li class="active">DHTxx Example</li>
+  
+</ol>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-9">
+  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><p>Example for using a DHTxx sensor with a Pinguino.
+The library for this example can be downloaded from <a href="index_pinguino/DHTxx_Download" title="DHTxx Download">here</a>
+</p>
+<dl><dt>
+</dt></dl>
+<div class="mw-geshi mw-content-ltr" dir="ltr"><div class="c source-c" style="font-family:monospace;"><pre class="de1"><span class="coMULTI">/*	-----------------------------------------------------------------------
+Pinguino example to read DHT22 1wire humidity/temperature sensor
+IDE	 Pinguino &gt; b9.5
+ 
+-----------------------------------------------------------------------
+DHT22 wiring
+-----------------------------------------------------------------------
+pin 1: VDD (+5V)
+pin 2: DQ (Data in/out) must be connected to the PIC
+pin 3: NC
+pin 4: GND
+NB : 1-wire bus (DQ line) must have 10K pull-up 
+----------------------------------------------------------------------*/</span>
+ 
+<span class="co2">#define DHTPIN	18	 // DQ line	1</span>
+ 
+KSDHT22 dht<span class="sy0">;</span>
+ 
+u8 bErr<span class="sy0">;</span> <span class="co1">//para pasar el codigo de error de vuelta de las funciones</span>
+u8 DHTDAT<span class="br0">[</span>5<span class="br0">]</span><span class="sy0">;</span> <span class="co1">//Array with </span>
+u8 DHTCHECKSUM<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span> 
+u32 mil<span class="sy0">;</span>
+ 
+<span class="kw4">void</span> setup<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  pinMode<span class="br0">(</span>USERLED<span class="sy0">,</span> OUTPUT<span class="br0">)</span><span class="sy0">;</span>
+  pinMode<span class="br0">(</span>DHTPIN<span class="sy0">,</span>INPUT<span class="br0">)</span><span class="sy0">;</span>
+  digitalWrite<span class="br0">(</span>USERLED<span class="sy0">,</span>LOW<span class="br0">)</span><span class="sy0">;</span> 
+  delay<span class="br0">(</span>3000<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
+ 
+<span class="kw4">void</span> loop<span class="br0">(</span><span class="br0">)</span>
+<span class="br0">{</span>
+  bErr<span class="sy0">=</span>KS_DHT.<span class="me1">read</span><span class="br0">(</span>DHTPIN<span class="sy0">,&amp;</span>dht<span class="br0">)</span><span class="sy0">;</span> 
+  <span class="kw1">switch</span> <span class="br0">(</span>bErr<span class="br0">)</span>
+  <span class="br0">{</span>
+    <span class="kw1">case</span> <span class="nu0">0</span><span class="sy0">:</span> <span class="co1">//no error</span>
+      CDC.<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"Humidity: %02.2f "</span><span class="sy0">,</span>dht.<span class="me1">hum</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw1">if</span> <span class="br0">(</span>dht.<span class="me1">sign</span><span class="br0">)</span> CDC.<span class="me1">print</span><span class="br0">(</span><span class="st0">"-"</span><span class="br0">)</span><span class="sy0">;</span>
+      CDC.<span class="kw3">printf</span><span class="br0">(</span><span class="st0">"Temperature: %02.2f <span class="es1">\r</span><span class="es1">\n</span>"</span><span class="sy0">,</span>dht.<span class="me1">temp</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">1</span><span class="sy0">:</span>
+      CDC.<span class="me1">print</span><span class="br0">(</span><span class="st0">"start condition error 1.<span class="es1">\r</span><span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">2</span><span class="sy0">:</span>
+      CDC.<span class="me1">print</span><span class="br0">(</span><span class="st0">"start condition error 2.<span class="es1">\r</span><span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">3</span><span class="sy0">:</span>
+      CDC.<span class="me1">print</span><span class="br0">(</span><span class="st0">"no response signal.<span class="es1">\r</span><span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">4</span><span class="sy0">:</span>
+      CDC.<span class="me1">print</span><span class="br0">(</span><span class="st0">"preparation of data fails.<span class="es1">\r</span><span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">5</span><span class="sy0">:</span>
+      CDC.<span class="me1">print</span><span class="br0">(</span><span class="st0">"no data received.<span class="es1">\r</span><span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">6</span><span class="sy0">:</span>
+      CDC.<span class="me1">print</span><span class="br0">(</span><span class="st0">"data read error.<span class="es1">\r</span><span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">7</span><span class="sy0">:</span>
+      CDC.<span class="me1">print</span><span class="br0">(</span><span class="st0">"checksum error.<span class="es1">\r</span><span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span> 
+  <span class="br0">}</span> 
+ 
+digitalWrite<span class="br0">(</span>USERLED<span class="sy0">,</span>HIGH<span class="br0">)</span><span class="sy0">;</span>
+delay<span class="br0">(</span>2<span class="br0">)</span><span class="sy0">;</span>
+digitalWrite<span class="br0">(</span>USERLED<span class="sy0">,</span>LOW<span class="br0">)</span><span class="sy0">;</span>
+delay<span class="br0">(</span>5000<span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span></pre></div></div>
+<!-- 
+NewPP limit report
+Preprocessor node count: 4/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<!-- Saved in parser cache with key pinguino:pcache:idhash:1728-0!*!0!*!*!*!* and timestamp 20150531150426 -->
+</div>
+</div>
+
+
+
+
+
+<div class="col-md-3 sidebar">
+<ul class="nav nav-pills nav-stacked">
+  
+
+    <li role="presentation" class="active">
+      <a href="../index_pinguino/DHTxx%20Example.html">DHTxx Example</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/KS%20DHT.read.html">KS DHT.read</a>
+    </li>
+
+  
+</ul>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+

@@ -1,0 +1,199 @@
+
+
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--<link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet">-->
+  <!--<link type="text/css" href="static/css/styles.css" rel="stylesheet">-->
+
+  <link type="text/css" href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" href="../static/css/styles.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<div class="container-fluid">
+
+
+
+
+  <h1 class="text-primary">SPI <small>SPI.init</small></h1>
+
+
+<ol class="breadcrumb">
+  
+  <li><a href="../index_pinguino/index.html">Index</a></li>
+  
+    <li><a href="../index_pinguino/SPI.html">SPI</a></li>
+  
+  <li class="active">SPI.init</li>
+  
+</ol>
+
+<hr>
+
+<div class="row">
+
+<div class="col-md-9">
+  <div class="mw-content-ltr" dir="ltr" id="mw-content-text" lang="en"><table class="toc" id="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Name"><span class="tocnumber">1</span> <span class="toctext">Name</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Syntax"><span class="tocnumber">3</span> <span class="toctext">Syntax</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Example_1"><span class="tocnumber">4</span> <span class="toctext">Example 1</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Example_2"><span class="tocnumber">5</span> <span class="toctext">Example 2</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Bugs"><span class="tocnumber">6</span> <span class="toctext">Bugs</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Comments"><span class="tocnumber">8</span> <span class="toctext">Comments</span></a></li>
+</ul>
+</td></tr></table>
+<h2> <span class="mw-headline" id="Name"> Name </span></h2>
+<p>SPI.init - Initiate an SPI communication instance. Not totally equivalent to <a href="index_pinguino/SPI.begin" title="SPI.begin">SPI.begin</a>
+</p>
+<h2> <span class="mw-headline" id="Description"> Description </span></h2>
+<dl><dt> Since Beta X
+</dt></dl>
+<h2> <span class="mw-headline" id="Syntax"> Syntax </span></h2>
+<p>void SPI_init(u8 sync_mode, u8 bus_mode, u8 smp_phase)
+</p>
+<pre>   sync_mode
+    0 -&gt; SPI Master mode, clock = FOSC/4
+    1 -&gt; SPI Master mode, clock = FOSC/16
+    2 -&gt; SPI Master mode, clock = FOSC/64
+    4 -&gt; SPI Slave mode, clock = SCK pin, SS pin control enabled
+    5 -&gt; SPI Slave mode, clock = SCK pin, SS pin control disabled
+   bus_mode
+    0 -&gt; CKP=0, CKE=1
+    1 -&gt; CKP=0, CKE=0
+    2 -&gt; CKP=1, CKE=1
+    3 -&gt; CKP=1, CKE=0
+   smp_phase
+     Master mode
+       1 = Input data sampled at end of data output time
+       0 = Input data sampled at middle of data output time
+     Slave mode : 0 solely
+</pre>
+<h2> <span class="mw-headline" id="Example_1"> Example 1 </span></h2>
+<div class="mw-geshi mw-content-ltr" dir="ltr"><div class="c source-c" style="font-family:monospace;"><pre class="de1">   <span class="co2">#define SPIINIT // requested in order to confirm the function SPI.init as selection</span>
+   <span class="kw4">void</span> setup<span class="br0">(</span><span class="br0">)</span>
+   <span class="br0">{</span>
+	SPI.<span class="me1">init</span><span class="br0">(</span>2<span class="sy0">,</span>0<span class="sy0">,</span>0<span class="br0">)</span><span class="sy0">;</span><span class="co1">// master, clock=FOSC/64; CKP=0,CKE=1; sampled at middle</span>
+   <span class="br0">}</span></pre></div></div>
+<h2> <span class="mw-headline" id="Example_2"> Example 2 </span></h2>
+<div class="mw-geshi mw-content-ltr" dir="ltr"><div class="c source-c" style="font-family:monospace;"><pre class="de1">   <span class="co2">#define SPIINIT // requested in order to confirm the function SPI.init as selection</span>
+   <span class="kw4">void</span> setup<span class="br0">(</span><span class="br0">)</span>
+   <span class="br0">{</span>
+        SPI.<span class="me1">init</span><span class="br0">(</span>5<span class="sy0">,</span>1<span class="sy0">,</span>0<span class="br0">)</span><span class="sy0">;</span><span class="co1">//slave mode w/o SS; CKE=0,CKP=0; sampled at middle</span>
+   <span class="br0">}</span></pre></div></div>
+<h2> <span class="mw-headline" id="Bugs"> Bugs </span></h2>
+<h2> <span class="mw-headline" id="See_also"> See also </span></h2>
+<p><a href="index_pinguino/SPI.begin" title="SPI.begin">SPI.begin</a>
+</p>
+<h2> <span class="mw-headline" id="Comments"> Comments </span></h2>
+<!-- 
+NewPP limit report
+Preprocessor node count: 49/1000000
+Post‐expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+<!-- Saved in parser cache with key pinguino:pcache:idhash:277-0!*!0!!en!*!* and timestamp 20150531065849 -->
+</div>
+</div>
+
+
+
+
+
+<div class="col-md-3 sidebar">
+<ul class="nav nav-pills nav-stacked">
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.begin.html">SPI.begin</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.close.html">SPI.close</a>
+    </li>
+
+  
+
+    <li role="presentation" class="active">
+      <a href="../index_pinguino/SPI.init.html">SPI.init</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.printf.html">SPI.printf</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.read.html">SPI.read</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.setBitOrder.html">SPI.setBitOrder</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.setClockDivider.html">SPI.setClockDivider</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.setDataMode.html">SPI.setDataMode</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.transfer.html">SPI.transfer</a>
+    </li>
+
+  
+
+    <li role="presentation" class="">
+      <a href="../index_pinguino/SPI.write.html">SPI.write</a>
+    </li>
+
+  
+</ul>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+
+
