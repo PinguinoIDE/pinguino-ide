@@ -5,29 +5,22 @@ xxx. xx, 2015
 
 Features
 
-*
+* Separated Python shell and Debugger tabs
+* Moved stdout to bottom tab
+* Added Project manager
+* Moved boards selector to side tab
+* All tools are toggleable
+* Added IDE documentation
+* Added patch system
+* Added submmit bug report system
+
 
 Improves
 
-*
+* main.c, user.c, define.h can be opened as read only.
+* Tools areas can be fully resized
+* Help are now offline html files.
 
-Bug Fixes
-
-*
-
-
-Pinguino IDE 11.0 - Beta 4
---------------------------
-
-xxx. xx, 2015
-
-Features
-
-* Added debugger to Python shell
-
-Improves
-
-*
 
 Bug Fixes
 
