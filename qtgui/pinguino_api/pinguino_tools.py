@@ -225,8 +225,10 @@ class PinguinoTools(object):
         """
 
         # Weed out blank lines with filter
-        result = filter(lambda line: not line.isspace(), result)
-        return result
+        if result:
+            return filter(lambda line: not line.isspace(), result)
+        else:
+            return []
 
     #----------------------------------------------------------------------
     @Debugger.debug_method
@@ -850,7 +852,7 @@ class PinguinoTools(object):
         address_Hi = 0
 
         memfree = board.memend - board.memstart
-            
+
         #print "%X" % board.memstart
         #print "%X" % board.memend
 
@@ -876,7 +878,7 @@ class PinguinoTools(object):
 
                 if (address >= board.memstart) and (address < board.memend):
                     codesize = codesize + byte_count
-                    
+
         fichier.close()
         return "Code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
 

@@ -58,9 +58,9 @@ class baseUploader(object):
     ACTIVE_CONFIG                   = 0x01
     VSC_ACTIVE_CONFIG               = 0x02
 
-# ------------------------------------------------------------------------------
-    def __init__(self, hexfile, board):
-        self.report = []
+# # ------------------------------------------------------------------------------
+    # def __init__(self, hexfile, board):
+        # self.report = []
 
 # ------------------------------------------------------------------------------
     def add_report(self, message):
@@ -102,9 +102,9 @@ class baseUploader(object):
         handle = device.open()
 
         if handle:
-            
+
             logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
-            
+
             if os.getenv("PINGUINO_OS_NAME") == "linux":
                 if device.idProduct == 0x003C: #self.P32_ID:
                     # make sure the hid kernel driver is not active
@@ -112,7 +112,7 @@ class baseUploader(object):
                     handle.detachKernelDriver(self.INTERFACE_ID)
                     logging.info("Kernel driver detached")
 
-            
+
             #handle.setConfiguration(self.configuration)
             handle.setConfiguration(self.ACTIVE_CONFIG)
             logging.info("Configuration set")
@@ -167,13 +167,13 @@ class Uploader(object):
         elif board.bldr == "microchip":
             from uploader32 import uploader32 as Uploader
 
-        self.uploader = Uploader(hexfile, board)
+        self.uploader = Uploader()
 
 
     #----------------------------------------------------------------------
     @Debugger.debug_method
     def upload(self):
-
+        self.uploader.report = []
         self.uploader.uploadDevice(self.hexfile, self.board)
         return self.uploader.report
 
