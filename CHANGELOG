@@ -17,9 +17,10 @@ Features
 
 Improves
 
-* main.c, user.c, define.h can be opened as read only.
+* main.c, user.c, define.h can be opened as read only
 * Tools areas can be fully resized
-* Help are now offline html files.
+* Help are now offline html files
+* Script only for command line (pinguino_cmd.py)
 
 
 Bug Fixes

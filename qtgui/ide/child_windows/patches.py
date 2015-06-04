@@ -25,8 +25,8 @@ else:
 
 # BRANCH = "master"
 BRANCH = "11.1"
-PATCHES = "https://raw.githubusercontent.com/PinguinoIDE/pinguino-ide/%s/patches" % BRANCH
-RAWFILE = "https://raw.githubusercontent.com/PinguinoIDE/pinguino-ide/%s/"
+PATCHES = "https://raw.githubusercontent.com/PinguinoIDE/pinguino-ide/{}/patches".format(BRANCH)
+RAWFILE = "https://raw.githubusercontent.com/PinguinoIDE/pinguino-ide/{}/"
 
 
 ########################################################################
@@ -120,7 +120,7 @@ class Patches(QtGui.QDialog):
             dir_ = os.path.join(os.getenv("PINGUINO_USER_PATH"), "patches", os.getenv("PINGUINO_VERSION"), name, dirname)
             os.makedirs(dir_)
 
-            host_file = RAWFILE % hash_ + path
+            host_file = RAWFILE.format(hash_) + path
             r = requests.get(host_file)
             content = r.text.decode(r.encoding)
             r.close()
