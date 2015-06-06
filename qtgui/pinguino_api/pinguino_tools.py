@@ -183,8 +183,10 @@ class PinguinoTools(Uploader):
         result = uploader.report
 
         # Weed out blank lines with filter
-        result = filter(lambda line: not line.isspace(), result)
-        return result
+        if result:
+            return filter(lambda line: not line.isspace(), result)
+        else:
+            return []
 
 
     #----------------------------------------------------------------------

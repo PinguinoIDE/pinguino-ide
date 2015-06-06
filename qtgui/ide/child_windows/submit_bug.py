@@ -2,10 +2,15 @@
 #-*- coding: utf-8 -*-
 
 import os
+import requests
 
 from PySide import QtGui, QtCore
 
 from ...frames.submit_bug import Ui_SubmitBug
+
+
+SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/submit/"
+
 
 ########################################################################
 class SubmitBug(QtGui.QDialog):
@@ -58,4 +63,10 @@ class SubmitBug(QtGui.QDialog):
     #----------------------------------------------------------------------
     def submit_now(self):
         """"""
+        summary = self.submit.lineEdit_summary.text()
+        details = self.submit.plainTextEdit_details.toPlainText()
+        requests.post(SUBMIT_SERVER, data={"summary": summary, "details": details,})
+        self.close()
+
+
 
