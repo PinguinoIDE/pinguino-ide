@@ -6,6 +6,7 @@ import shutil
 import requests
 import urlparse
 import hashlib
+import logging
 
 from PySide import QtGui, QtCore
 
@@ -72,8 +73,13 @@ class Patches(QtGui.QDialog):
 
     #----------------------------------------------------------------------
     def get_patches(self):
+        try:
+            r = requests.get(PATCHES)
+        except requests.ConnectionError:
+            logging.error("ConnectionError")
+            self.close()
+            return None
 
-        r = requests.get(PATCHES)
         patches = r.text.decode(r.encoding)
         r.close()
         buf = StringIO(patches)

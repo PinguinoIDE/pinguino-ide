@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout">
@@ -93,7 +93,7 @@
           </size>
          </property>
          <property name="pixmap">
-          <pixmap resource="../resources/resources.qrc">:/logo/art/pinguino11.png</pixmap>
+          <pixmap>:/logo/art/pinguino11.png</pixmap>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -177,11 +177,8 @@
        </item>
        <item row="1" column="0">
         <widget class="QTabWidget" name="tabWidget">
-         <property name="tabPosition">
-          <enum>QTabWidget::North</enum>
-         </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">

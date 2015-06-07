@@ -1788,9 +1788,12 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
     #----------------------------------------------------------------------
     def __show_patches__(self):
         self.patches = Patches(self)
+        patches = self.patches.get_patches()
 
-        if not self.patches.get_patches():
+        if patches == 0:
             Dialogs.info_message(self, "There are no new updates available.\n %s is up to date" % os.getenv("PINGUINO_FULLNAME"))
+            self.patches.close()
+        if patches is None:
             self.patches.close()
         else:
             self.patches.show()

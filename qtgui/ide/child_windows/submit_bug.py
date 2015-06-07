@@ -3,6 +3,7 @@
 
 import os
 import requests
+import logging
 
 from PySide import QtGui, QtCore
 
@@ -63,10 +64,14 @@ class SubmitBug(QtGui.QDialog):
     #----------------------------------------------------------------------
     def submit_now(self):
         """"""
-        summary = self.submit.lineEdit_summary.text()
-        details = self.submit.plainTextEdit_details.toPlainText()
-        requests.post(SUBMIT_SERVER, data={"summary": summary, "details": details,})
-        self.close()
+        try:
+            summary = self.submit.lineEdit_summary.text()
+            details = self.submit.plainTextEdit_details.toPlainText()
+            requests.post(SUBMIT_SERVER, data={"summary": summary, "details": details,})
+
+        except requests.ConnectionError:
+            logging.error("ConnectionError")
+            self.close()
 
 
 

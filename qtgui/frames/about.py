@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Sat Jun  6 20:16:53 2015
+# Created: Sat Jun  6 21:05:40 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -77,7 +77,6 @@ class Ui_About(object):
         self.label_9.setObjectName("label_9")
         self.gridLayout_7.addWidget(self.label_9, 0, 0, 1, 1)
         self.tabWidget = QtGui.QTabWidget(self.page_2)
-        self.tabWidget.setTabPosition(QtGui.QTabWidget.North)
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtGui.QWidget()
         self.tab.setObjectName("tab")
@@ -169,8 +168,7 @@ class Ui_About(object):
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(About)
-        self.stackedWidget.setCurrentIndex(0)
-        self.tabWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(About)
 
     def retranslateUi(self, About):
