@@ -283,14 +283,14 @@
     <addaction name="actionToolbars"/>
     <addaction name="actionMenubar"/>
     <addaction name="separator"/>
-    <addaction name="actionTabPython_shell"/>
-    <addaction name="actionTabLogs"/>
+    <addaction name="actionTabShell"/>
+    <addaction name="actionTabLog"/>
     <addaction name="actionTabStdout"/>
     <addaction name="actionTabFiles"/>
-    <addaction name="actionTabProjects"/>
-    <addaction name="actionTabSource_Browser"/>
-    <addaction name="actionTabSeacrh"/>
-    <addaction name="actionTabBoards"/>
+    <addaction name="actionTabProject"/>
+    <addaction name="actionTabSourceBrowser"/>
+    <addaction name="actionTabSearchReplace"/>
+    <addaction name="actionTabBoardConfig"/>
     <addaction name="separator"/>
     <addaction name="actionHex_code"/>
     <addaction name="actionLibrary_manager"/>
@@ -1869,7 +1869,7 @@
     <string>Check for patches</string>
    </property>
   </action>
-  <action name="actionTabPython_shell">
+  <action name="actionTabShell">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1880,7 +1880,7 @@
     <string>Python shell</string>
    </property>
   </action>
-  <action name="actionTabLogs">
+  <action name="actionTabLog">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1913,7 +1913,7 @@
     <string>Files</string>
    </property>
   </action>
-  <action name="actionTabProjects">
+  <action name="actionTabProject">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1924,7 +1924,7 @@
     <string>Projects</string>
    </property>
   </action>
-  <action name="actionTabSource_Browser">
+  <action name="actionTabSourceBrowser">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1935,7 +1935,7 @@
     <string>Source browser</string>
    </property>
   </action>
-  <action name="actionTabSeacrh">
+  <action name="actionTabSearchReplace">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1946,7 +1946,7 @@
     <string>Search</string>
    </property>
   </action>
-  <action name="actionTabBoards">
+  <action name="actionTabBoardConfig">
    <property name="checkable">
     <bool>true</bool>
    </property>

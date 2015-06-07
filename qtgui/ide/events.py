@@ -48,14 +48,14 @@ class PinguinoEvents(PinguinoCore):
 
 
         # Toggle Tabs
-        self.connect(self.main.actionTabBoards, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("BoardConfig"))
+        self.connect(self.main.actionTabLog, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Log"))
         self.connect(self.main.actionTabFiles, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Files"))
-        self.connect(self.main.actionTabLogs, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Log"))
-        self.connect(self.main.actionTabProjects, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Project"))
-        self.connect(self.main.actionTabPython_shell, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Shell"))
-        self.connect(self.main.actionTabSeacrh, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SearchReplace"))
-        self.connect(self.main.actionTabSource_Browser, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SourceBrowser"))
+        self.connect(self.main.actionTabBoardConfig, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("BoardConfig"))
         self.connect(self.main.actionTabStdout, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Stdout"))
+        self.connect(self.main.actionTabSearchReplace, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SearchReplace"))
+        self.connect(self.main.actionTabProject, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Project"))
+        self.connect(self.main.actionTabShell, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Shell"))
+        self.connect(self.main.actionTabSourceBrowser, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SourceBrowser"))
 
 
         # Perspective related events

@@ -347,6 +347,8 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
 
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
 
+        self.load_tabs_config()
+
 
     #----------------------------------------------------------------------
     def get_all_open_files(self):
@@ -2306,22 +2308,47 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
 
         if self.main.tabWidget_bottom.indexOf(widget) != -1:
             index = self.main.tabWidget_bottom.indexOf(widget)
-            # tab_name = self.main.tabWidget_bottom.tabText(index)
             widget.tab_parent = self.main.tabWidget_bottom
             widget.index = index
             widget.label = self.main.tabWidget_bottom.tabText(index)
             self.main.tabWidget_bottom.removeTab(index)
+            self.configIDE.set("TABS", tab_name, False)
+            self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
 
         elif self.main.tabWidget_tools.indexOf(widget) != -1:
             index = self.main.tabWidget_tools.indexOf(widget)
-            # tab_name = self.main.tabWidget_tools.tabText(index)
             widget.tab_parent = self.main.tabWidget_tools
             widget.index = index
             widget.label = self.main.tabWidget_tools.tabText(index)
             self.main.tabWidget_tools.removeTab(index)
+            self.configIDE.set("TABS", tab_name, False)
+            self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
 
         else:
             widget.tab_parent.addTab(widget, widget.label)
             i = widget.tab_parent.indexOf(widget)
             widget.tab_parent.tabBar().moveTab(i, widget.index)
             widget.tab_parent.setCurrentIndex(widget.index)
+            self.configIDE.set("TABS", tab_name, True)
+            self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+
+
+    #----------------------------------------------------------------------
+    def load_tabs_config(self):
+        """"""
+        names = []
+        tabs = self.main.tabWidget_bottom.tabBar()
+        for index in range(tabs.count()):
+            names.append(self.main.tabWidget_bottom.widget(index).objectName())
+
+        tabs = self.main.tabWidget_tools.tabBar()
+        for index in range(tabs.count()):
+            names.append(self.main.tabWidget_tools.widget(index).objectName())
+
+        for name in names:
+            if not self.configIDE.config("TABS", name, True):
+                name = self.configIDE.config("TABS", "{}_name".format(name), None)
+                if hasattr(self.main, name):
+                    getattr(self.main, "actionTab{}".format(name)).setChecked(False)
+
+
