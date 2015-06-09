@@ -427,7 +427,7 @@ class uploader8(baseUploader):
             numBlocks = numBlocks - 255
             upperAddress = board.memstart + 255 * erasedBlockSize
             # from board.memstart to board.memstart + 255 x 64 = 0x3FC0
-            self.eraseFlash(board.memstart, 255)
+            self.eraseFlash(handle, board.memstart, 255)
             # erase flash memory from board.memstart + 0x3FC0 to max_address
             self.eraseFlash(handle, upperAddress, numBlocks)
 
