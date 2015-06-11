@@ -178,9 +178,9 @@ class PinguinoTools(Uploader):
         # result = uploader.write_hex()
 
         # Since Pinguino IDE 11.1 Uploader is an inherited class, so now we must use method get_uploader
-        uploader = self.get_uploader(hex_file, board)
-        uploader.writeHex()
-        result = uploader.report
+        self.init_uploader(hex_file, board)
+        result = self.upload_hex()
+        # result = uploader.report
 
         # Weed out blank lines with filter
         if result:

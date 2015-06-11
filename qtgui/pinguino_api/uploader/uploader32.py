@@ -5,8 +5,8 @@
     Pinguino Uploader for Pinguino 32
 
     (c) 2011-2014 Regis Blanchot <rblanchot@gmail.com>
-    
-    last update : 21 Mar. 2015
+
+    last update : 27 Mar. 2015
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -32,8 +32,10 @@
 #import sys
 import os
 import time
-#import usb
+import usb
+import logging
 
+from ..tools import Debugger
 from uploader import baseUploader
 
 class uploader32(baseUploader):
@@ -61,7 +63,7 @@ class uploader32(baseUploader):
         unsigned long Length2;
         unsigned char Type3;        //End of sections list indicator goes here, when not programming the vectors, in that case fill with 0xFF.
         unsigned long Address3;
-        unsigned long Length3;            
+        unsigned long Length3;
         unsigned char Type4;        //End of sections list indicator goes here, fill with 0xFF.
         unsigned char ExtraPadBytes[33];
     };
@@ -72,7 +74,9 @@ class uploader32(baseUploader):
     BOOT_DEVICE_FAMILY              =    2      # char = 1 byte
     BOOT_TYPE1                      =    3      # char = 1 byte
     BOOT_ADDR1                      =    4      # long = 4 bytes
+    BOOT_IVTSTART                   =    4      # long = 4 bytes
     BOOT_LEN1                       =    8      # long = 4 bytes
+    BOOT_MEMFREE                    =    8      # long = 4 bytes
     BOOT_TYPE2                      =    12     # char = 1 byte
     BOOT_ADDR2                      =    13     # long = 4 bytes
     BOOT_LEN2                       =    17     # long = 4 bytes
@@ -82,14 +86,12 @@ class uploader32(baseUploader):
 
     BOOT_TYPE_LEN                   =    9      # char + long + long = 9 bytes
 
-    BOOT_DEVID1                     =    6
-    BOOT_DEVID2                     =    7
-    BOOT_DEVID3                     =    8
-    BOOT_DEVID4                     =    9
+    BOOT_DEVID1                     =    8
+    BOOT_DEVID2                     =    60
 
     BOOT_VER_MAJOR                  =    22
     BOOT_VER_MINOR                  =    26
-    
+
     # Sent packet structure
     # ----------------------------------------------------------------------
 
@@ -99,7 +101,7 @@ class uploader32(baseUploader):
         unsigned char Command;
         unsigned long Address;
         unsigned char Size;
-        unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];    
+        unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];
         unsigned int Data[RequestDataBlockSize/WORDSIZE];
     };
     """
@@ -117,10 +119,15 @@ class uploader32(baseUploader):
     QUERY_DEVICE_CMD                =    0x02    # what regions can be programmed, and what type of memory is the region
     UNLOCK_CONFIG_CMD               =    0x03    # for both locking and unlocking the config bits
     ERASE_DEVICE_CMD                =    0x04    # to start an erase operation, firmware controls which pages should be erased
-    PROGRAM_DEVICE_CMD              =    0x05    # to send a full RequestDataBlockSize to be programmed
-    PROGRAM_COMPLETE_CMD            =    0x06    # if host send less than a RequestDataBlockSize to be programmed, or if it wished to program whatever was left in the buffer, it uses this command
-    GET_DATA_CMD                    =    0x07    # the host sends this command in order to read out memory from the device. Used during verify (and read/export hex operations)
+    WRITE_DEVICE_CMD                =    0x05    # to send a full RequestDataBlockSize to be programmed
+    WRITE_COMPLETE_CMD              =    0x06    # if host send less than a RequestDataBlockSize to be programmed, or if it wished to program whatever was left in the buffer, it uses this command
+    READ_DEVICE_CMD                 =    0x07    # the host sends this command in order to read out memory from the device. Used during verify (and read/export hex operations)
     RESET_DEVICE_CMD                =    0x08    # resets the microcontroller, so it can update the config bits (if they were programmed, and so as to leave the bootloader (and potentially go back into the main application)
+
+    READ_DEVICE_CMD_SUPPORTED       =   False
+    QUERY_DEVICE_CMD_SUPPORTED      =   False
+    READ_DEVICE_BUFFER              =   []
+    QUERY_DEVICE_BUFFER             =   []
 
     # Query Device Response
     # ----------------------------------------------------------------------
@@ -152,216 +159,232 @@ class uploader32(baseUploader):
     # Memory's area
     # ----------------------------------------------------------------------
 
-    KSEG0_PROGRAM_FLASH             =    0x9D000000
-    KSEG1_PROGRAM_FLASH             =    0xBD000000
-    KSEG0_BOOT_FLASH                =    0x9FC00000
-    KSEG1_BOOT_FLASH                =    0xBFC00000
-    BOOT_FLASH_SIZE                 =    0x2FF0
-    KSEG1_RAM                       =    0xA0000000
     DEVICE_ID_ADDRESS               =    0xBF80F220
 
     # Table with supported USB devices
-    # device_id:['CPU name'] 
+    # device_id:['CPU name']
     #-----------------------------------------------------------------------
 
     devices_table = \
-    {
-        0x04A00053: ['32MX220F032B'],
-        0x04A04053: ['32MX220F032D'],
-        0x04D00053: ['32MX250F128B'],
-        0x06600053: ['32MX270F256B'],
-        0x00952053: ['32MX440F256H'],
-        0x00952053: ['32MX460F512L'],   # to be fixed
-        0x00952053: ['32MX795F512H']    # to be fixed
-    }
+        {
+            0x04A00053: ['32MX220F032B'],
+            0x04A04053: ['32MX220F032D'],
+            0x04D00053: ['32MX250F128B'],
+            0x06600053: ['32MX270F256B'],
+            0x00952053: ['32MX440F256H'],
+            0x00978053: ['32MX460F512L'],
+            0x0030E053: ['32MX795F512H']    # RB20150328 : to be checked (could be 0x00300053)
+        }
 
 # ----------------------------------------------------------------------
-    def resetDevice(self):
+    def resetDevice(self, handle):
 # ----------------------------------------------------------------------
         """ Reset device """
         usbBuf = [self.RESET_DEVICE_CMD] * self.MAXPACKETSIZE
 
         try:
-            self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+            handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
 
-        except:
+        except Exception as e:
+            logging.info(e)
             return self.ERR_USB_WRITE
 
         return self.ERR_NONE
 
 # ----------------------------------------------------------------------
-    def sendCMD(self, usbBuf):
+    def sendPacket(self, handle, usbBuf):
 # ----------------------------------------------------------------------
-        """ Send a command to the bootloader """
-        try:
-            sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        """ Send a packet to the bootloader """
 
-        except:
+        try:
+            sent_bytes = handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        except Exception as e:
+            logging.info(e)
             return self.ERR_USB_WRITE
 
         if sent_bytes == len(usbBuf):
+            #logging.info("%d bytes successfully sent." % sent_bytes)
             return self.ERR_NONE
 
         else:
-            #self.add_report("Sent %d/%d bytes" % (sent_bytes, len(usbBuf)))
+            logging.info("Sent %d/%d bytes" % (sent_bytes, len(usbBuf)))
             return self.ERR_USB_WRITE
 
 # ----------------------------------------------------------------------
-    def getResponse(self, usbBuf):
+    def sendCommand(self, handle, command):
 # ----------------------------------------------------------------------
-        """ Send a command and get a response from the bootloader """
-        try:
-            # send a command
-            sent_bytes = self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        """ Send a command to the bootloader """
 
-        except:
-            return self.ERR_USB_WRITE
+        usbBuf = [command] * self.MAXPACKETSIZE
+        return self.sendPacket(handle, usbBuf)
 
-        if sent_bytes != len(usbBuf):
-            return self.ERR_USB_WRITE
-
-        #self.add_report("%d bytes successfully sent." % sent_bytes)
+# ----------------------------------------------------------------------
+    def getResponse(self, handle):
+# ----------------------------------------------------------------------
+        """ Get a response from the bootloader """
+        """ Assumes a command has been sent before """
 
         try:
-            # get the response
-            #time.sleep(0.5)
-            usbBuf = self.handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
-            """
-            for i in range(sent_bytes):
-                self.add_report("usbBuf[%d] = %s" % (i, hex(usbBuf[i])) )
-            """
-        except:
+            usbBuf = handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
+        except Exception as e:
+            logging.info("Received nothing : %s" % e)
             return self.ERR_USB_READ
 
+        logging.info("Received a packet")
+        """
+        logging.info("Received : %s" % str(usbBuf).strip('[]'))
+        for i in range(sent_bytes):
+            logging.info("usbBuf[%d] = %02X" % (i, usbBuf[i]) )
+        """
+
         return usbBuf
+
+# ----------------------------------------------------------------------
+    def getCommands(self, handle, board):
+# ----------------------------------------------------------------------
+        """ Get supported commands """
+
+        # 1/ try QUERY_DEVICE_CMD
+
+        logging.info("Trying with QUERY_DEVICE ...")
+        status = self.sendCommand(handle, self.QUERY_DEVICE_CMD)
+        if status == self.ERR_NONE:
+            self.QUERY_DEVICE_BUFFER = self.getResponse(handle)
+            if self.QUERY_DEVICE_BUFFER == self.ERR_USB_READ:
+                logging.info("QUERY_DEVICE not supported")
+                self.QUERY_DEVICE_CMD_SUPPORTED = False
+            else:
+                logging.info("QUERY_DEVICE supported")
+                self.QUERY_DEVICE_CMD_SUPPORTED = True
+        else :
+            return status
+
+        # 2/ try GET_DATA_CMD
+
+        if board.proc != '32MX220F032D' and \
+           board.proc != '32MX220F032B' and \
+           board.proc != '32MX250F128B':
+
+            logging.info("Trying with GET_DATA ...")
+            usbBuf = [self.READ_DEVICE_CMD] * self.MAXPACKETSIZE
+            usbBuf[self.BOOT_ADDR + 0] = (self.DEVICE_ID_ADDRESS      ) & 0xFF
+            usbBuf[self.BOOT_ADDR + 1] = (self.DEVICE_ID_ADDRESS >> 8 ) & 0xFF
+            usbBuf[self.BOOT_ADDR + 2] = (self.DEVICE_ID_ADDRESS >> 16) & 0xFF
+            usbBuf[self.BOOT_ADDR + 3] = (self.DEVICE_ID_ADDRESS >> 24) & 0xFF
+            usbBuf[self.BOOT_CMD_SIZE] = 4
+
+            status = self.sendPacket(handle, usbBuf)
+            if status == self.ERR_NONE:
+                self.READ_DEVICE_BUFFER = self.getResponse(handle)
+                if self.READ_DEVICE_BUFFER == self.ERR_USB_READ:
+                    logging.info("GET_DATA not supported")
+                    self.READ_DEVICE_CMD_SUPPORTED = False
+                else:
+                    logging.info("GET_DATA supported")
+                    self.READ_DEVICE_CMD_SUPPORTED = True
+            else :
+                return status
+
+        return self.ERR_NONE
 
 # ----------------------------------------------------------------------
     def getDeviceFamily(self):
 # ----------------------------------------------------------------------
         """ Get device info """
-        usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
-        usbBuf = self.getResponse(usbBuf)
-
-        if usbBuf == self.ERR_USB_WRITE:
-            return self.ERR_USB_WRITE
-
-        if usbBuf == self.ERR_USB_READ:
-            return self.ERR_USB_READ
-
-        return usbBuf[self.BOOT_DEVICE_FAMILY]
+        if self.QUERY_DEVICE_CMD_SUPPORTED == True:
+            return self.QUERY_DEVICE_BUFFER[self.BOOT_DEVICE_FAMILY]
+        else:
+            return False
 
 # ----------------------------------------------------------------------
-    def getDeviceFrequencies(self):
+    def getDeviceFCPU(self):
 # ----------------------------------------------------------------------
         """ Get device info """
-        usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
-        usbBuf = self.getResponse(usbBuf)
+        if self.QUERY_DEVICE_CMD_SUPPORTED == True:
+            # CPU frequency
+            fcpu = (self.QUERY_DEVICE_BUFFER[self.BOOT_ADDR2 + 0]      ) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_ADDR2 + 1] <<  8) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_ADDR2 + 2] << 16) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_ADDR2 + 3] << 24)
+            return fcpu
+        else:
+            return False
 
-        if usbBuf == self.ERR_USB_WRITE:
-            return self.ERR_USB_WRITE
-
-        if usbBuf == self.ERR_USB_READ:
-            return self.ERR_USB_READ
-
-        # CPU frequency
-        fcpu = (usbBuf[self.BOOT_ADDR2 + 0]      ) | \
-               (usbBuf[self.BOOT_ADDR2 + 1] <<  8) | \
-               (usbBuf[self.BOOT_ADDR2 + 2] << 16) | \
-               (usbBuf[self.BOOT_ADDR2 + 3] << 24)
-
-        # Peripheral frequency
-        fpb  = (usbBuf[self.BOOT_LEN2 + 0]      ) | \
-               (usbBuf[self.BOOT_LEN2 + 1] <<  8) | \
-               (usbBuf[self.BOOT_LEN2 + 2] << 16) | \
-               (usbBuf[self.BOOT_LEN2 + 3] << 24)
-
-        return fcpu, fpb
+# ----------------------------------------------------------------------
+    def getDeviceFPB(self):
+# ----------------------------------------------------------------------
+        """ Get device info """
+        if self.QUERY_DEVICE_CMD_SUPPORTED == True:
+            # Peripheral frequency
+            fpb  = (self.QUERY_DEVICE_BUFFER[self.BOOT_LEN2 + 0]      ) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_LEN2 + 1] <<  8) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_LEN2 + 2] << 16) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_LEN2 + 3] << 24)
+            return fpb
+        else:
+            return False
 
 # ----------------------------------------------------------------------
     def getDeviceID(self):
 # ----------------------------------------------------------------------
         """ Get 4-byte device ID """
-
-        usbBuf = self.readFlash(self.DEVICE_ID_ADDRESS, 4)
-
-        if usbBuf == self.ERR_USB_WRITE:
-            return self.ERR_USB_WRITE, self.ERR_USB_WRITE
-
-        if usbBuf == self.ERR_USB_READ:
-            return self.ERR_USB_READ, self.ERR_USB_READ
-
-        devid = (usbBuf[8]      ) | \
-                (usbBuf[9] <<  8) | \
-                (usbBuf[10] << 16) | \
-                (usbBuf[11] << 24)
-
-        # mask device id to get revision number
-        device_rev = ( ( devid >> 24 ) & 0xF0 ) >> 4
-
-        # mask revision number to get device id
-        device_id  = devid & 0x0FFFFFFF
-
-        return device_id, device_rev
+        if self.READ_DEVICE_CMD_SUPPORTED == True:
+            devid1 = (self.READ_DEVICE_BUFFER[self.BOOT_DEVID1 + 0]      ) | \
+                (self.READ_DEVICE_BUFFER[self.BOOT_DEVID1 + 1] <<  8) | \
+                (self.READ_DEVICE_BUFFER[self.BOOT_DEVID1 + 2] << 16) | \
+                (self.READ_DEVICE_BUFFER[self.BOOT_DEVID1 + 3] << 24)
+            devid2 = (self.READ_DEVICE_BUFFER[self.BOOT_DEVID2 + 0]      ) | \
+                (self.READ_DEVICE_BUFFER[self.BOOT_DEVID2 + 1] <<  8) | \
+                (self.READ_DEVICE_BUFFER[self.BOOT_DEVID2 + 2] << 16) | \
+                (self.READ_DEVICE_BUFFER[self.BOOT_DEVID2 + 3] << 24)
+            # at least one is null
+            devid = devid1 + devid2
+            return devid
+        else:
+            return False
 
 # ----------------------------------------------------------------------
     def getVersion(self):
 # ----------------------------------------------------------------------
         """ get bootloader version """
-        usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
-        usbBuf = self.getResponse(usbBuf)
-        
-        if usbBuf == self.ERR_USB_WRITE:
-            return self.ERR_USB_WRITE, self.ERR_USB_WRITE
-
-        if usbBuf == self.ERR_USB_READ:
-            return self.ERR_USB_READ, self.ERR_USB_READ
-
-        # major.minor
-        return str(usbBuf[self.BOOT_VER_MAJOR]) + "." + \
-               str(usbBuf[self.BOOT_VER_MINOR])
-
+        if self.QUERY_DEVICE_CMD_SUPPORTED == True:
+            major = self.QUERY_DEVICE_BUFFER[self.BOOT_VER_MAJOR]
+            minor = self.QUERY_DEVICE_BUFFER[self.BOOT_VER_MINOR]
+            if major == 0 and minor == 0:
+                logging.info("No")
+                return False
+            else:
+                logging.info("Yes, major = %d" % major)
+                logging.info("Yes, minor = %d" % minor)
+                return str(major) + "." + str(minor)
+        else:
+            return False
 
 # ----------------------------------------------------------------------
-    def getDeviceFlash(self):
+    def getDeviceFlashStart(self):
 # ----------------------------------------------------------------------
-        """ Get size of program memory area """
-        usbBuf = [self.QUERY_DEVICE_CMD] * self.MAXPACKETSIZE
-        usbBuf = self.getResponse(usbBuf)
-        
-        if usbBuf == self.ERR_USB_WRITE:
-            return self.ERR_USB_WRITE, self.ERR_USB_WRITE
+        """ Get user program start address """
+        if self.QUERY_DEVICE_CMD_SUPPORTED == True:
+            start = (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 0]      ) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 1] <<  8) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 2] << 16) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 3] << 24)
+            return start
+        else:
+            return False
 
-        if usbBuf == self.ERR_USB_READ:
-            return self.ERR_USB_READ, self.ERR_USB_READ
+# ----------------------------------------------------------------------
+    def getDeviceFlashFree(self):
+# ----------------------------------------------------------------------
+        """ Get available free memory """
+        if self.QUERY_DEVICE_CMD_SUPPORTED == True:
+            free = (self.QUERY_DEVICE_BUFFER[self.BOOT_MEMFREE + 0]      ) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_MEMFREE + 1] <<  8) | \
+                (self.QUERY_DEVICE_BUFFER[self.BOOT_MEMFREE + 2] << 16)
+            return free
+        else:
+            return False
 
-        """
-        bf=0
-        j=3
-        while usbBuf[j] != self.TypeEndOfTypeList:
-            if usbBuf[j] == self.TypeProgramMemory:
-                bf = (usbBuf[j + 5]      ) | \
-                     (usbBuf[j + 6] <<  8) | \
-                     (usbBuf[j + 7] << 16) | \
-                     (usbBuf[j + 8] << 24)
-            j = j + 9
-        """
-
-        # user program address
-        ps = (usbBuf[self.BOOT_ADDR1 + 0]      ) | \
-             (usbBuf[self.BOOT_ADDR1 + 1] <<  8) | \
-             (usbBuf[self.BOOT_ADDR1 + 2] << 16) | \
-             (usbBuf[self.BOOT_ADDR1 + 3] << 24)
-
-        # free memory
-        bf = (usbBuf[self.BOOT_LEN1 + 0]      ) | \
-             (usbBuf[self.BOOT_LEN1 + 1] <<  8) | \
-             (usbBuf[self.BOOT_LEN1 + 2] << 16)
-         
-        #      | \
-        #     (usbBuf[BOOT_LEN1 + 3] << 24)
-
-        return ps, bf
-        
 # ----------------------------------------------------------------------
     def getDeviceName(self, device_id):
 # ----------------------------------------------------------------------
@@ -372,93 +395,12 @@ class uploader32(baseUploader):
         return self.ERR_DEVICE_NOT_FOUND
 
 # ----------------------------------------------------------------------
-    def eraseFlash(self):
+    def readFlash(self, handle, address, length):
 # ----------------------------------------------------------------------
-        """ Erase the whole flash memory """
-        usbBuf = [self.ERASE_DEVICE_CMD] * self.MAXPACKETSIZE
-        #self.handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
-        return self.sendCMD(usbBuf)
-
-# ----------------------------------------------------------------------
-    def writeFlash(self, address, block):
-# ----------------------------------------------------------------------
-        """ Write a block of code """
-        
-        # Convert Virtual Address to Physical Address if necessary
-        # as NVMADDR only accept physical address
-        #address = address & 0x1FFFFFFF
-
-        length = len(block)
-
-        #self.add_report("writing %d-byte block at 0x%08X" % (length, address))
-
-        if length == 0:
-            # Short data packets need flushing
-            usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
-            return self.sendCMD(usbBuf)
-
-        """
-        struct __attribute__ ((packed))
-        {
-            unsigned char Command;
-            unsigned long Address;
-            unsigned char Size;
-            unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];    
-            unsigned int Data[RequestDataBlockSize/WORDSIZE];
-        };
-        """
+        """ read a block of bytes in flash memory"""
 
         # command code
-        usbBuf = [self.PROGRAM_DEVICE_CMD] * self.MAXPACKETSIZE
-
-        # block start address
-        usbBuf[self.BOOT_ADDR + 0] = (address      ) & 0xFF
-        usbBuf[self.BOOT_ADDR + 1] = (address >> 8 ) & 0xFF
-        usbBuf[self.BOOT_ADDR + 2] = (address >> 16) & 0xFF
-        usbBuf[self.BOOT_ADDR + 3] = (address >> 24) & 0xFF
-
-        # block's address (0x12345678 => "12345678")
-        #address = "%08X" % (address / self.BYTESPERADDRESS)
-        #usbBuf[self.BOOT_ADDR + 0] = int(address[6:8], 16)
-        #usbBuf[self.BOOT_ADDR + 1] = int(address[4:6], 16)
-        #usbBuf[self.BOOT_ADDR + 2] = int(address[2:4], 16)
-        #usbBuf[self.BOOT_ADDR + 3] = int(address[0:2], 16)
-
-        # data's length in bytes
-        usbBuf[self.BOOT_CMD_SIZE] = length
-        
-        # pad bytes
-        # 64 bytes (USB Packet Size ) - 6 bytes (Command) = 58 not divisible by 4
-        # 58 bytes - 2 bytes = 56 bytes (Data block size) which is divisible by 4
-        usbBuf[self.BOOT_CMD_PAD + 0] = 0
-        usbBuf[self.BOOT_CMD_PAD + 1] = 0
-
-        # add data 'right justified' within packet
-        # note : the bootloader will 'left justified' all data at reception
-        for i in range(length):
-            usbBuf[self.MAXPACKETSIZE - length + i] = block[i]
-
-        #self.add_report(str(usbBuf).strip('[]'))
-
-        # write data packet on usb device
-        status = self.sendCMD(usbBuf)
-
-        if (status == self.ERR_NONE) and (length < self.DATABLOCKSIZE):
-            # Short data packets need flushing
-            self.add_report("Short data packet at 0x%08X flushed" % address)
-            #usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
-            usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
-            status = self.sendCMD(usbBuf)
-
-        return status
-
-# ----------------------------------------------------------------------
-    def readFlash(self, address, length):
-# ----------------------------------------------------------------------
-        """ read a block of flash """
-
-        # command code
-        usbBuf = [self.GET_DATA_CMD] * self.MAXPACKETSIZE
+        usbBuf = [self.READ_DEVICE_CMD] * self.MAXPACKETSIZE
 
         # address
         usbBuf[self.BOOT_ADDR + 0] = (address      ) & 0xFF
@@ -470,10 +412,84 @@ class uploader32(baseUploader):
         usbBuf[self.BOOT_CMD_SIZE] = length
 
         # send request to the bootloader and return response
-        return self.getResponse(usbBuf)
+        return self.sendPacketWithResponse(usbBuf)
 
 # ----------------------------------------------------------------------
-    def hexWrite(self, filename, board):
+    def eraseFlash(self, handle):
+# ----------------------------------------------------------------------
+        """ Erase the whole flash memory """
+        return self.sendCommand(handle, self.ERASE_DEVICE_CMD)
+
+# ----------------------------------------------------------------------
+    def writeFlash(self, handle, address, block):
+# ----------------------------------------------------------------------
+        """ Write a block of code """
+
+        # Convert Virtual Address to Physical Address if necessary
+        # as NVMADDR only accept physical address
+        #address = address & 0x1FFFFFFF
+
+        length = len(block)
+
+        #logging.info("writing %d-byte block at 0x%08X" % (length, address))
+
+        #logging.info(str(block).strip('[]'))
+
+        if length == 0:
+            logging.info("Zero-length data packet at 0x%08X flushed" % address)
+            return self.sendCommand(handle, self.WRITE_COMPLETE_CMD)
+
+        """
+        struct __attribute__ ((packed))
+        {
+            unsigned char Command;
+            unsigned long Address;
+            unsigned char Size;
+            unsigned char PadBytes[(TotalPacketSize - 6) - (RequestDataBlockSize)];
+            unsigned int Data[RequestDataBlockSize/WORDSIZE];
+        };
+        """
+
+        # command code
+        usbBuf = [self.WRITE_DEVICE_CMD] * self.MAXPACKETSIZE
+
+        # block start address
+        usbBuf[self.BOOT_ADDR + 0] = (address      ) & 0xFF
+        usbBuf[self.BOOT_ADDR + 1] = (address >> 8 ) & 0xFF
+        usbBuf[self.BOOT_ADDR + 2] = (address >> 16) & 0xFF
+        usbBuf[self.BOOT_ADDR + 3] = (address >> 24) & 0xFF
+
+        # data's length in bytes
+        usbBuf[self.BOOT_CMD_SIZE] = length
+
+        # pad bytes
+        # 64 bytes (USB Packet Size ) - 6 bytes (Command) = 58 not divisible by 4
+        # 58 bytes - 2 bytes = 56 bytes (Data block size) which is divisible by 4
+        usbBuf[self.BOOT_CMD_PAD + 0] = 0
+        usbBuf[self.BOOT_CMD_PAD + 1] = 0
+
+        # add data 'right justified' within packet
+        # note : the bootloader will 'left justified' all data at reception
+        for i in range(length):
+            usbBuf[self.MAXPACKETSIZE - length + i] = block[i]
+
+        #logging.info(str(usbBuf).strip('[]'))
+
+        # write data packet on usb device
+        status = self.sendPacket(handle, usbBuf)
+        #logging.info("status = %d" % status)
+
+        if (status == self.ERR_NONE) and (length < self.DATABLOCKSIZE):
+            # Short data packets need flushing
+            logging.info("Short data packet at 0x%08X flushed" % address)
+            #usbBuf = [self.WRITE_COMPLETE_CMD] * self.MAXPACKETSIZE
+            #usbBuf[self.BOOT_CMD] = self.WRITE_COMPLETE_CMD
+            status = self.sendCommand(handle, self.WRITE_COMPLETE_CMD)
+
+        return status
+
+# ----------------------------------------------------------------------
+    def writeHex(self, handle, filename, board):
 # ----------------------------------------------------------------------
         """
             Parse the Hex File Format and send data to usb device
@@ -487,36 +503,20 @@ class uploader32(baseUploader):
                      03 + 00 + 30 + 00 + 02 + 33 + 7A = E2, 2's complement is 1E
         """
 
-        k0_prog_flash_memory = []
-        #k0_boot_flash_memory = []
-        #k1_boot_flash_memory = []
-        old_k0pfm_address = 0
-        #old_k0bfm_address = 0
-        #old_k1bfm_address = 0
-        max_k0pfm_address = 0
-        #max_k0bfm_address = 0
-        #max_k1bfm_address = 0
-        address_Hi  = 0
-        codesize    = 0
+        program_memory = []
+        last_address = 0
+        max_address  = 0
+        min_address  = 0xFFFFFFFF
+        address_Hi   = 0
+        codesize     = 0
 
-        #self.add_report("board.memstart = 0x%08X\r\n" % board.memstart)
-        #self.add_report("board.memend = 0x%08X\r\n" % board.memend)
-
-        # image of the Program Flash Memory
+        # Memory image (IVT + RESET VECTOR + STARTUP SEQUENCE + USER APP.)
         # --------------------------------------------------------------
 
-        for i in range(board.memend - board.memstart):
-            k0_prog_flash_memory.append(0xFF)
+        logging.info("writing from min 0x%08X to max 0x%08X ..." % (board.ivtstart,board.memend))
+        for i in range(board.memend - board.ivtstart):
+            program_memory.append(0xFF)
 
-        # image of the Boot Flash Memory
-        # --------------------------------------------------------------
-
-        """
-        for i in range(self.BOOT_FLASH_SIZE):
-            k0_boot_flash_memory.append(0xFF)
-            k1_boot_flash_memory.append(0xFF)
-        """
-        
         # load hex file
         # ----------------------------------------------------------------------
 
@@ -558,70 +558,43 @@ class uploader32(baseUploader):
                 address_Hi = int(line[9:13], 16) << 16
 
             # data record
+            # ivtstart = where IVT starts (eBase)
+            # memstart = where user's program starts
             # ----------------------------------------------------------
 
             elif record_type == self.Data_Record:
 
                 address = address_Hi + address_Lo
-                #self.add_report("address = 0x%08X" % address)
+                #logging.info("address = 0x%08X" % address)
 
-                if (address >= board.memstart) and (address < board.memend):
+                if (address >= board.ivtstart) and (address < board.memend):
 
-                    # max pfm address
-                    if (address > old_k0pfm_address):
-                        max_k0pfm_address = address + byte_count
-                        old_k0pfm_address = address
-                        #self.add_report("max_k0pfm_address = %d" % max_k0pfm_address)
+                    # min program address
+                    if (min_address > address):
+                        min_address = address
 
-                    # code size
+                    # max program address
+                    if (address > last_address):
+                        max_address = address + byte_count
+                        last_address = address
+                        #logging.info("max_address = 0x%08X" % max_address)
+
+                    # user's program code size
                     if (address >= board.memstart):
                         codesize = codesize + byte_count
-                        #self.add_report("codesize = %d" % codesize)
+                        #logging.info("codesize = %d" % codesize)
 
-                    # pfm data append
+                    # program data append
                     for i in range(byte_count):
-                        k0_prog_flash_memory[address - board.memstart + i] = \
+                        program_memory[address - board.ivtstart + i] = \
                             int(line[9 + (2 * i) : 11 + (2 * i)], 16)
 
-                """
-                if (address >= self.KSEG0_BOOT_FLASH) and \
-                   (address < (self.KSEG0_BOOT_FLASH + self.BOOT_FLASH_SIZE) ):
-
-                    # max k0 bfm address
-                    if (address > old_k0bfm_address):
-                        max_k0bfm_address = address + byte_count
-                        old_k0bfm_address = address
-                        #self.add_report("max_k0bfm_address = %d" % max_k0bfm_address)
-
-                    # k0 bfm data append
-                    for i in range(byte_count):
-                        k0_boot_flash_memory[address - self.KSEG0_BOOT_FLASH + i] = \
-                            int(line[9 + (2 * i) : 11 + (2 * i)], 16)
-
-                if (address >= self.KSEG1_BOOT_FLASH) and \
-                   (address < (self.KSEG1_BOOT_FLASH + self.BOOT_FLASH_SIZE) ):
-
-                    # max k1 bfm address
-                    if (address > old_k1bfm_address):
-                        max_k1bfm_address = address + byte_count
-                        old_k1bfm_address = address
-                        #self.add_report("max_k1bfm_address = %d" % max_k1bfm_address)
-
-                    # k1 bfm data append
-                    for i in range(byte_count):
-                        k1_boot_flash_memory[address - self.KSEG1_BOOT_FLASH + i] = \
-                            int(line[9 + (2 * i) : 11 + (2 * i)], 16)
-                """
-
-            # bootloader jump address
+            # Reset Vector
             # ----------------------------------------------------------
 
             elif record_type == self.Start_Linear_Address_Record:
 
-                #: 04 0000 >05< BFC00000 78
-                #: 04 0000 >05< 9D004000 1A
-
-                break
+                logging.info("Reset Vector = 0x%08X" % int(line[9:17], 16))
 
             # end of file record
             # ----------------------------------------------------------
@@ -639,95 +612,63 @@ class uploader32(baseUploader):
                 self.add_report("Line %s" % line)
                 #return self.ERR_HEX_RECORD
 
-        # max_k0pfm_address must be divisible by self.DATABLOCKSIZE
+        # min and max address must be divisible by self.DATABLOCKSIZE
         # --------------------------------------------------------------
 
-        #max_k0pfm_address = max_k0pfm_address + self.MAXPACKETSIZE - (max_k0pfm_address % self.MAXPACKETSIZE)
+        # 13/10/2014 - fixed by André
+        #max_address = max_address + self.DATABLOCKSIZE - (codesize % self.DATABLOCKSIZE)
+        #max_address = max_address + self.DATABLOCKSIZE - (max_address % self.DATABLOCKSIZE)
+        #logging.info("program max. address = 0x%08X" % max_address)
 
-        #max_k0pfm_address = max_k0pfm_address + 64 - (max_k0pfm_address % 64)
-        #max_k0pfm_address = max_k0pfm_address + self.DATABLOCKSIZE - (max_k0pfm_address % self.DATABLOCKSIZE)
-        
-        #Correction André du 13/10/2014
-        max_k0pfm_address = max_k0pfm_address + self.DATABLOCKSIZE - (codesize % self.DATABLOCKSIZE)
-        
-        #Correction Régis du 13/10/2014
-        #max_k0pfm_address = self.DATABLOCKSIZE * ( 1 + int(max_k0pfm_address / self.DATABLOCKSIZE) )
-        
-        #max_k0bfm_address = max_k0bfm_address + 64 - (max_k0bfm_address % 64)
-        #max_k1bfm_address = max_k1bfm_address + 64 - (max_k1bfm_address % 64)
-        #self.add_report("max_k0pfm_address = 0x%08X" % max_k0pfm_address)
-        #self.add_report("max_k0bfm_address = 0x%08X" % max_k0bfm_address)
-        #self.add_report("max_k1bfm_address = 0x%08X" % max_k1bfm_address)
-
-        # write blocks of DATABLOCKSIZE bytes in k0 pfm
+        # trim the memory image
+        # --------------------------------------------------------------
+        """
+        logging.info("first byte to write at 0x%08X" % min_address)
+        logging.info("last  byte to write at 0x%08X" % max_address)
+        logging.info("index min. = %d (0x%X)" % \
+            ((min_address - board.ivtstart),(min_address - board.ivtstart)))
+        del program_memory[:(min_address - board.ivtstart)]
+        logging.info("index max. = %d (0x%X)" % \
+            ((max_address - board.ivtstart),(max_address - board.ivtstart)))
+        del program_memory[(max_address - board.ivtstart):]
+        """
+        # write blocks of DATABLOCKSIZE bytes in program memory
         # --------------------------------------------------------------
 
-        for addr in range(board.memstart, max_k0pfm_address, self.DATABLOCKSIZE):
-            index = addr - board.memstart
-            #self.add_report("Writing block at 0x%08X" % addr)
-            #self.add_report("index = %d" % index)
-            #self.add_report("Block=")
-            #for i in range(self.DATABLOCKSIZE):
-            #    self.add_report("[%x]" % k0_prog_flash_memory[index+i])
-            status = self.writeFlash(addr, k0_prog_flash_memory[index:index+self.DATABLOCKSIZE])
+        min_address = board.ivtstart;
+
+        logging.info("writing from 0x%08X to 0x%08X ..." % (min_address,max_address))
+        for addr in range(min_address, max_address, self.DATABLOCKSIZE):
+            index = addr - min_address
+            #logging.info("address, index = 0x%08X, %d" % (addr, index))
+            status = self.writeFlash(handle, addr, program_memory[index:index+self.DATABLOCKSIZE])
             if (status != self.ERR_NONE):
                 return status
 
-        usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
-        #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
-        status = self.sendCMD(usbBuf)
-
-        self.add_report("%d bytes written." % codesize)
-
-        """
-        # write blocks of DATABLOCKSIZE bytes in k0 bfm 
-        # --------------------------------------------------------------
-
-        for addr in range(self.KSEG0_BOOT_FLASH, max_k0bfm_address, self.DATABLOCKSIZE):
-            index = addr - self.KSEG0_BOOT_FLASH
-            #self.add_report("index = %d" % index)
-            #self.add_report("data = %s" % k0_boot_flash_memory[index:index+self.DATABLOCKSIZE])
-            self.writeFlash(addr, k0_boot_flash_memory[index:index+self.DATABLOCKSIZE])
-
-        usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
-        #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
-        status = status + self.sendCMD(usbBuf)
-
-        # write blocks of DATABLOCKSIZE bytes in k1 bfm 
-        # --------------------------------------------------------------
-
-        for addr in range(self.KSEG1_BOOT_FLASH, max_k1bfm_address, self.DATABLOCKSIZE):
-            index = addr - self.KSEG1_BOOT_FLASH
-            #self.add_report("index = %d" % index)
-            #self.add_report("data = %s" % k1_boot_flash_memory[index:index+self.DATABLOCKSIZE])
-            self.writeFlash(addr, k1_boot_flash_memory[index:index+self.DATABLOCKSIZE])
-
-        usbBuf = [self.PROGRAM_COMPLETE_CMD] * self.MAXPACKETSIZE
-        #usbBuf[self.BOOT_CMD] = self.PROGRAM_COMPLETE_CMD
-        status = status + self.sendCMD(usbBuf)
-        """
-        
         # end
         # --------------------------------------------------------------
 
+        logging.info("Writing completed")
+        self.add_report("%d bytes written." % codesize)
+        status = self.sendCommand(handle, self.WRITE_COMPLETE_CMD)
+
         return status
-        #return self.ERR_NONE
 
 # ----------------------------------------------------------------------
-    def writeHex(self):
+    def uploadDevice(self, filename, board):
 # ----------------------------------------------------------------------
 
         # check file to upload
         # --------------------------------------------------------------
 
-        if self.filename == '':
+        if filename == '':
             self.add_report("No program to write")
             return
 
-        hexfile = open(self.filename, 'r')
+        hexfile = open(filename, 'r')
 
         if hexfile == "":
-            self.add_report("Unable to open %s" % self.filename)
+            self.add_report("Unable to open %s" % filename)
             return
 
         hexfile.close()
@@ -735,10 +676,9 @@ class uploader32(baseUploader):
         # search for a Pinguino board
         # --------------------------------------------------------------
 
-        self.device = self.getDevice()
-        #self.add_report("Device = %s" % self.device)
+        device = self.getDevice(board)
 
-        if self.device == self.ERR_DEVICE_NOT_FOUND:
+        if device == self.ERR_DEVICE_NOT_FOUND:
 
             self.add_report("Pinguino not found")
             self.add_report("If your device is connected switch to bootloader mode.")
@@ -746,144 +686,179 @@ class uploader32(baseUploader):
 
         self.add_report("Pinguino found ...")
 
-        self.handle = self.initDevice()
-        #self.add_report("Handle = %s" % self.handle)
+        handle = self.initDevice(device)
 
-        if self.handle == self.ERR_USB_INIT1:
+        if handle == self.ERR_USB_INIT1:
 
             self.add_report("Upload not possible")
             self.add_report("Try to restart the bootloader mode")
             return
 
-        #elif self.handle == None:
-        #    return
-
-        #self.add_report("%s - %s" % (handle.getString(device.iProduct, 30), handle.getString(device.iManufacturer, 30))
-        #self.add_report("%s" % handle.getString(device.iProduct, 30)
-
-        # find out processor
+        # find out supported commands
         # --------------------------------------------------------------
 
+        logging.info("Checking supported commands ...")
+        status = self.getCommands(handle, board)
+
+        if status == self.ERR_USB_WRITE:
+            self.add_report("Aborting : write error!")
+            self.closeDevice(handle)
+            return
+
+        """
+        if not self.READ_DEVICE_CMD_SUPPORTED or \
+           not self.QUERY_DEVICE_CMD_SUPPORTED:
+            logging.info("Reseting ...")
+            self.closeDevice(handle)
+            device = self.getDevice(board)
+            handle = self.initDevice(device)
+            #logging.info("Device reset")
+            #self.resetDevice(handle)
+            #handle.reset()
+            #time.sleep(5)
+            #handle.releaseInterface()
+            #time.sleep(5)
+            #handle.claimInterface(self.INTERFACE_ID)
+            #handle.clearHalt(self.IN_EP)
+            #handle.resetEndpoint(self.IN_EP)
+            #self.initDevice(device)
+        """
+
+        # find out processor family
+        # --------------------------------------------------------------
+
+        logging.info("Getting processor family ...")
         fam = self.getDeviceFamily()
-
-        # old bootloader version without GET_DATA and QUERRY_DEVICE commands support
-        if fam == self.ERR_USB_READ:
-
-            self.add_report("Please update your bootloader to a newer version.")
-
-        # recent bootloader with at least QUERRY_DEVICE command support
-        else:
-
+        if fam:
+            logging.info("Yes, Device family = %d" % fam)
             if  fam != self.DEVICE_FAMILY_PIC32:
-
                 self.add_report("Aborting : not a PIC32 family device.")
-                self.closeDevice()
+                self.closeDevice(handle)
                 return
+        else:
+            logging.info("No")
 
-            # Which PIC32 ?
-            device_id, device_rev = self.getDeviceID()
+        # find out processor name
+        # --------------------------------------------------------------
 
-            # Let's see if this bootloader have GET_DATA command support
-            if device_id != self.ERR_USB_READ and device_id != self.ERR_USB_WRITE:
+        logging.info("Getting processor name ...")
+        devid = self.getDeviceID()
+        if devid:
+            logging.info("Yes, Device ID = %08X" % devid)
+            # mask device id to get revision number
+            rev = ( ( devid >> 24 ) & 0xF0 ) >> 4
+            # mask revision number to get device id
+            pid  = devid & 0x0FFFFFFF
+            # get proc. name
+            proc = self.getDeviceName(pid)
+            self.add_report(" - with PIC%s (ID 0x%08X, rev. A%01X)" % (proc, pid, rev))
+            if proc != board.proc:
+                self.add_report("Aborting: program compiled for %s but device has %s" % (board.proc, proc))
+                self.closeDevice(handle)
+                return
+        else:
+            logging.info("No, assuming it's a PIC%s" % board.proc)
+            self.add_report(" - with supposed PIC%s" % board.proc)
 
-                proc = self.getDeviceName(device_id)
-                self.add_report(" - with PIC%s (ID 0x%08X, rev. A%01X)" % (proc, device_id, device_rev))
+        # find out clock frequencies
+        # --------------------------------------------------------------
 
-                if proc != self.board.proc:
+        logging.info("Getting clock frequencies ...")
+        fcpu = self.getDeviceFCPU()
+        fpb = self.getDeviceFPB()
+        if fcpu and fpb:
+            logging.info("Yes, FCPU = %dHz" % fcpu)
+            logging.info("Yes, FPB  = %dHz" % fpb)
+            self.add_report("   System  clock %.3f MHz" % ( fcpu/1000000.0 ))
+            self.add_report("   Periph. clock %.3f MHz" % (  fpb/1000000.0 ))
+        else:
+            logging.info("No")
 
-                    self.add_report("Aborting: program compiled for %s but device has %s" % (self.board.proc, proc))
-                    self.closeDevice()
-                    return
-
-            # Which frequencies ?
-            fcpu, fpb = self.getDeviceFrequencies()
-
-            # Let's see if this bootloader have GET_DATA command support
-            if fcpu != self.ERR_USB_READ and fcpu != self.ERR_USB_WRITE:
-
-                self.add_report(" - running at %.3f MHz" % (fcpu/1000000.0))
-                self.add_report(" - peripherals are running at %.3f MHz" % (fpb/1000000.0))
-
-            # find out flash memory size
-            # addresses MUST BE virtual NOT physical
-            # --------------------------------------------------------------
-
-            memstart, memfree = self.getDeviceFlash()
-            memend   = memstart + memfree
-
-            #self.add_report("memstart=0x%08X" % memstart)
-            #self.add_report("memend=0x%08X" % memend)
-
-            # Convert Physical to Virtual address if necessary
+        # find out flash memory size
+        # --------------------------------------------------------------
+        logging.info("Getting flash memory infos ...")
+        memstart = self.getDeviceFlashStart()
+        memfree  = self.getDeviceFlashFree()
+        if memstart and memfree:
+            logging.info("Yes, Prog. starts at 0x%08X" % memstart)
+            #logging.info("Yes, free  = 0x%08X" % memfree)
+            # Convert KSEG1 to KSEG0
+            # and Physical to Virtual address
+            if memstart >= 0xBD000000:
+                memstart = memstart - 0x20000000
             memstart = memstart | 0x80000000
-            memend   = memend   | 0x80000000
+            ivtstart = board.ivtstart
+            memend   = memstart + memfree
+            #memfree  = memend - memstart
 
-            #self.add_report("memstart=0x%08X" % memstart)
-            #self.add_report("memend=0x%08X" % memend)
-            #self.add_report("board.memend=0x%08X" % self.board.memend)
-            #self.add_report("memfree=0x%08X" % memfree)
+            if board.memstart != memstart:
+                logging.info("Conflict : memstart should be 0x%08X not 0x%08X" % (memstart, board.memstart))
+                logging.info("This issue has been automatically fixed.")
+                logging.info("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
+                board.memstart = memstart
 
-            if self.board.memstart != memstart:
-                self.add_report("Conflict : free flash memory should start at 0x%08X not 0x%08X" % (memstart, self.board.memstart))
-                #self.add_report("This bug has been automatically fixed.")
-                #self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
-                #self.board.memstart = memstart
+            if board.memend != memend:
+                logging.info("Conflict : memend should be 0x%08X not 0x%08X" % (memend, board.memend))
+                logging.info("This issue has been automatically fixed.")
+                logging.info("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
+                board.memend = memend
 
-            if self.board.memend != memend:
-                self.add_report("Conflict : free flash memory should stop at 0x%08X not 0x%08X" % (memend, self.board.memend))
-                #self.add_report("This bug has been automatically fixed.")
-                #self.add_report("Please report it at https://github.com/PinguinoIDE/pinguino-ide/issues")
-                #self.board.memend = memend
+            logging.info("Yes, ivtstart = 0x%08X" % ivtstart)
+            logging.info("Yes, memstart = 0x%08X" % memstart)
+            logging.info("Yes, memend   = 0x%08X" % memend)
+            logging.info("Yes, memfree  = 0x%X bytes free" % memfree)
 
-        memfree = self.board.memend - self.board.memstart
+        else:
+            logging.info("No")
+            memfree = board.memend - board.memstart
+
         self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
-        self.add_report("   from 0x%08X to 0x%08X" % (self.board.memstart, self.board.memend))
+        self.add_report("   from 0x%08X to 0x%08X" % (board.memstart, board.memend))
 
-            
         # find out bootloader version
-        version = self.getVersion())
-        # Let's see if this bootloader have QUERRY_DEVICE command support
-        if version != self.ERR_USB_READ and version != self.ERR_USB_WRITE:
-            self.add_report(" - with USB HID Bootloader v%s" % version)
+        # --------------------------------------------------------------
 
-        ################################################################
-        # Uncomment to test only the QUERY_DEVICE and GET_DATA commands
-        ################################################################
-        #self.closeDevice()
-        #return
-        ################################################################
+        logging.info("Getting bootloader version ...")
+        version = self.getVersion()
+        if version:
+            self.manufacturer = "Pinguino"
+            self.add_report(" - with Pinguino USB HID Bootloader v%s" % version)
+        else:
+            self.manufacturer = "Microchip"
+            self.add_report(" - with Microchip USB HID Bootloader")
 
         # start erasing
         # --------------------------------------------------------------
 
         self.add_report("Erasing flash memory ...")
-        status = self.eraseFlash()
+        status = self.eraseFlash(handle)
         if status != self.ERR_NONE:
             self.add_report("Aborting: erase error!")
-            self.closeDevice()
+            self.closeDevice(handle)
             return
 
         # start writing
         # --------------------------------------------------------------
 
         self.add_report("Uploading user program ...")
-        status = self.hexWrite(self.filename, self.board)
+        status = self.writeHex(handle, filename, board)
         if status != self.ERR_NONE:
             self.add_report("Aborting: write error code %d" % status)
-            self.closeDevice()
+            self.closeDevice(handle)
             return
 
-        self.add_report("%s successfully uploaded." % os.path.basename(self.filename))
+        self.add_report("%s successfully uploaded." % os.path.basename(filename))
 
-        # reset and start start user's app.
+        # reset and start user's app.
         # --------------------------------------------------------------
 
-        #self.add_report("Resetting ...")
+        logging.info("Sending Reset command ...")
         self.add_report("Starting user program ...")
-        status = self.resetDevice()
+        status = self.resetDevice(handle)
+        logging.info("Device Reset failed ...")
         if status != self.ERR_NONE:
-            self.closeDevice()
-        
+            self.closeDevice(handle)
+
         return
-        
+
 # ----------------------------------------------------------------------

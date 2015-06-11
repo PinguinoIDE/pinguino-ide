@@ -4,6 +4,7 @@
 import usb
 import sys
 import logging
+import os
 #import debugger
 
 # from .. import Debugger
@@ -55,13 +56,14 @@ class baseUploader(object):
 
     INTERFACE_ID                    = 0x00
     ACTIVE_CONFIG                   = 0x01
+    VSC_ACTIVE_CONFIG               = 0x02
 
-# ------------------------------------------------------------------------------
-    def __init__(self, hex_file, board):
-        self.hex_file = hex_file
-        self.filename = hex_file
-        self.board = board
-        self.report = []
+# # ------------------------------------------------------------------------------
+    # def __init__(self, hex_file, board):
+        # self.hex_file = hex_file
+        # self.filename = hex_file
+        # self.board = board
+        # self.report = []
 
 
 # ------------------------------------------------------------------------------
@@ -74,52 +76,130 @@ class baseUploader(object):
         #sys.stdout.write("DEBUG : " + message + "\r\n")
         logging.info(message)
 
-# ------------------------------------------------------------------------------
-    def getDevice(self):
-        """ Get a list of USB devices and search for a Pinguino board """
+# # ------------------------------------------------------------------------------
+    # def getDevice(self):
+        # """ Get a list of USB devices and search for a Pinguino board """
+        # busses = usb.busses()
+        # for bus in busses:
+            # for device in bus.devices:
+                # if device.idVendor == self.board.vendor and device.idProduct == self.board.product:
+                    # return device
+        # return self.ERR_DEVICE_NOT_FOUND
+
+    # ------------------------------------------------------------------------------
+    def getDevice(self, board):
+        """ Scans connected USB devices until it finds a Pinguino board """
+        logging.info("Looking for a Pinguino device ...")
         busses = usb.busses()
         for bus in busses:
             for device in bus.devices:
-                if device.idVendor == self.board.vendor and device.idProduct == self.board.product:
+                logging.info("Found device 0x%04X:0x%04X" % (device.idVendor, device.idProduct))
+                if (device.idVendor, device.idProduct) == (board.vendor, board.product):
+                    """
+                    self.configuration = device.configurations[0]
+                    logging.info("Configuration = %s" % self.configuration)
+                    self.interface = self.configuration.interfaces[0][0]
+                    logging.info("Interface = %s" % self.interface)
+                    self.endpoints = []
+                    self.pipes = []
+                    for ep in self.interface.endpoints:
+                        self.endpoints.append(ep)
+                        self.pipes.append(ep.address)
+                    """
+                    if board.bldr == "boot2":
+                        self.ACTIVE_CONFIG = self.VSC_ACTIVE_CONFIG
+
                     return device
         return self.ERR_DEVICE_NOT_FOUND
 
-# ----------------------------------------------------------------------
-    def initDevice(self):
+
+
+# # ----------------------------------------------------------------------
+    # def initDevice(self):
+        # """ Init a Pinguino device """
+        # handle = self.device.open()
+        # if handle:
+            # try:
+                # handle.detachKernelDriver(0)
+            # except:
+                # pass
+            # try:
+                # handle.setConfiguration(self.ACTIVE_CONFIG)
+            # except:
+                # pass
+            # try:
+                # handle.claimInterface(self.INTERFACE_ID)
+            # except:
+                # pass
+            # return handle
+        # return self.ERR_USB_INIT1
+
+
+    # ----------------------------------------------------------------------
+    def initDevice(self, device):
         """ Init a Pinguino device """
-        handle = self.device.open()
+
+        handle = device.open()
+
         if handle:
-            try:
-                handle.detachKernelDriver(0)
-            except:
-                pass
-            try:
-                handle.setConfiguration(self.ACTIVE_CONFIG)
-            except:
-                pass
-            try:
-                handle.claimInterface(self.INTERFACE_ID)
-            except:
-                pass
+
+            logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
+
+            if os.getenv("PINGUINO_OS_NAME") == "linux":
+                if device.idProduct == 0x003C: #self.P32_ID:
+                    # make sure the hid kernel driver is not active
+                    # functionality not available on Darwin or Windows
+                    handle.detachKernelDriver(self.INTERFACE_ID)
+                    logging.info("Kernel driver detached")
+
+
+            #handle.setConfiguration(self.configuration)
+            handle.setConfiguration(self.ACTIVE_CONFIG)
+            logging.info("Configuration set")
+
+            #handle.claimInterface(self.interface)
+            handle.claimInterface(self.INTERFACE_ID)
+            logging.info("Interface claimed")
+
+            logging.info("Everything OK so far")
             return handle
+
         return self.ERR_USB_INIT1
 
-# ------------------------------------------------------------------------------
-    def closeDevice(self):
+
+# # ------------------------------------------------------------------------------
+    # def closeDevice(self):
+        # """ Close currently-open USB device """
+        # try:
+            # self.handle.releaseInterface()
+        # except:
+            # pass
+
+
+    # ------------------------------------------------------------------------------
+    def closeDevice(self, handle):
         """ Close currently-open USB device """
         try:
-            self.handle.releaseInterface()
-        except:
+            handle.releaseInterface()
+        except Exception as e:
+            logging.info(e)
             pass
+        logging.info("Device closed")
+
+
 
 ########################################################################
 class Uploader(object):
     """Universal uploader class"""
 
     #----------------------------------------------------------------------
-    def __init__(self, hex_file, board):
+    def init_uploader(self, hex_file, board):
 
         #debugger.Debugger(sys)
+
+        self.hex_file = hex_file
+        # self.filename = hex_file
+        self.board = board
 
         if board.bldr == "noboot":
 
@@ -139,13 +219,14 @@ class Uploader(object):
         elif board.bldr == "microchip":
             from uploader32 import uploader32 as Uploader
 
-        self.uploader = Uploader(hex_file, board)
+        self.uploader = Uploader()
 
 
     #----------------------------------------------------------------------
     # @Debugger.debug_method
-    def write_hex(self):
-
-        self.uploader.writeHex()
+    def upload_hex(self):
+        self.uploader.report = []
+        # self.uploader.writeHex()
+        self.uploader.uploadDevice(self.hex_file, self.board)
         return self.uploader.report
 

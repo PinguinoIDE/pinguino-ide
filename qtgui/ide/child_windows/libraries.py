@@ -108,36 +108,6 @@ class LibManager(QtGui.QMainWindow):
         self.update_libraries_view()
         self.centrar()
 
-        # self.setStyleSheet("""
-        # font-family: inherit;
-        # font-weight: normal;
-
-        # """)
-
-        # self.libframe.tableWidget_libs.setStyleSheet("""
-        # font-family: inherit;
-        # font-weight: normal;
-
-        # """)
-
-        # self.libframe.tableWidget_sources.setStyleSheet("""
-        # font-family: inherit;
-        # font-weight: normal;
-
-        # """)
-
-        # self.libframe.label_help.setStyleSheet("""
-        # font-family: inherit;
-        # font-weight: bold;
-
-        # """)
-
-        # self.libframe.commandLinkButton_how.setStyleSheet("""
-        # font-family: inherit;
-        # font-weight: bold;
-
-        # """)
-
         self.center_on_screen()
 
 
