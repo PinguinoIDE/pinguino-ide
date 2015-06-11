@@ -33,7 +33,7 @@ from .tools.stdout import Stdout
 class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, PinguinoLog, Stdout):
 
     #@Decorator.debug_time()
-    def __init__(self, splash_write, argvs):
+    def __init__(self, splash_write):
         super(PinguinoIDE, self).__init__()
 
         os.environ["PINGUINO_PROJECT"] = ""
@@ -257,7 +257,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
 
 
-
-for name, fn in inspect.getmembers(PinguinoIDE):
-    if isinstance(fn, types.UnboundMethodType):
-        setattr(PinguinoIDE, name, Decorator.debug_method()(fn))
+if not "--dev" in sys.argv:
+    for name, fn in inspect.getmembers(PinguinoIDE):
+        if isinstance(fn, types.UnboundMethodType):
+            setattr(PinguinoIDE, name, Decorator.debug_method()(fn))

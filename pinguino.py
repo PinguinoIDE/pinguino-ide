@@ -114,7 +114,7 @@ if __name__ == "__main__":
     app.installTranslator(qtTranslator)
     if trasnlations: app.installTranslator(translator)
 
-    frame = PinguinoIDE(splash_write=splash_write, argvs=parser)
+    frame = PinguinoIDE(splash_write=splash_write)
     frame.show()
 
     if not splash is None:
