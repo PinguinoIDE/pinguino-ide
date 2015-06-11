@@ -21,12 +21,14 @@ class Files(object):
     #----------------------------------------------------------------------
     def update_path_files(self, path):
 
-        dir_project = path
+        if not type(path) is list: path = [path]
+
         flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
         self.main.treeWidget_explorer.clear()
-        parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_explorer, dir_project, flags)
-        self.generate_tree(dir_project, parent, levels=1, flags=flags)
-        parent.setExpanded(True)
+        for dir_project in path:
+            parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_explorer, dir_project, flags)
+            self.generate_tree(dir_project, parent, levels=1, flags=flags)
+            parent.setExpanded(True)
 
 
     #----------------------------------------------------------------------
@@ -171,7 +173,9 @@ class Files(object):
         to_dir = ["Examples", "Dir", "Home", "Other"][index]
 
         if to_dir == "Examples":
-            self.update_path_files(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
+            self.update_path_files([os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"),
+                                    os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"),
+                                    ])
 
         elif to_dir == "Home":
             self.update_path_files(QtCore.QDir.home().path())
@@ -181,9 +185,9 @@ class Files(object):
             dir_ = getattr(editor, "path", None)
             if dir_: self.update_path_files(os.path.split(dir_)[0])
 
-        elif to_dir == "Third":
-            path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
-            if os.path.exists(path): self.update_path_files(path)
+        # elif to_dir == "Third":
+            # path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples")
+            # if os.path.exists(path): self.update_path_files(path)
 
         elif to_dir == "Other":
             open_dir = Dialogs.set_open_dir(self)
