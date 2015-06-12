@@ -113,7 +113,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         self.save_backup_file()
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
-        self.update_path_files(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
+        self.update_path_files([os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"),
+                                os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples")])
         # self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading boards configuration"))
