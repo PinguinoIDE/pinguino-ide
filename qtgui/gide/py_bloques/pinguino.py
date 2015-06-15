@@ -54,7 +54,7 @@ class Pinguino(object):
         st.addSpace()
         st.addSyntax(" ")
         st.addSpace()
-        st.addSyntax(" //")
+        st.addSyntax(" //")  #fix the ; at line end, ugly byt works!
         st.fillWith(["edit-value", "edit-value"])
         return st.getBlock()
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Sat Jun  6 21:05:40 2015
+# Created: Fri Jun 12 20:47:36 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -169,6 +169,7 @@ class Ui_About(object):
 
         self.retranslateUi(About)
         self.stackedWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(About)
 
     def retranslateUi(self, About):

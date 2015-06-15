@@ -221,7 +221,6 @@
     <property name="title">
      <string>Graphical</string>
     </property>
-    <addaction name="actionView_Pinguino_code"/>
     <addaction name="actionExport_code_to_editor"/>
     <addaction name="actionInsert_Block"/>
    </widget>

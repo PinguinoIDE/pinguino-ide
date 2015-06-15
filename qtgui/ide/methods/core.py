@@ -339,9 +339,8 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
 
 
         visible = self.configIDE.config("Main", "menubar", True)
-        self.main.actionMenubar.setChecked(not visible)
-        self.main.menubar.setVisible(visible)
-        self.main.toolBar_menu.setVisible(not visible)
+        self.toggle_menubar(visible)
+        self.main.actionMenubar.setChecked(visible)
 
         self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
 
@@ -661,11 +660,14 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
     #----------------------------------------------------------------------
     def toggle_menubar(self, event=None):
 
-        self.main.menubar.setVisible(not self.main.menubar.isVisible())
-        if not self.main.menubar.isVisible():
+        if event is None:
+            event = not self.main.menubar.isVisible()
+
+        self.main.menubar.setVisible(event)
+        if not event:
             self.toggle_toolbars(True)
-        self.main.toolBar_menu.setVisible(not self.main.menubar.isVisible())
-        # self.configIDE.set("Main", "menubar", self.main.menubar.isVisible())
+        self.main.toolBar_menu.setVisible(not event)
+        self.configIDE.set("Main", "menubar", event)
         self.configIDE.save_config()
 
 
@@ -807,10 +809,12 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
         if side.name == "RightDockWidgetArea":
             self.addDockWidget(QtCore.Qt.DockWidgetArea(QtCore.Qt.LeftDockWidgetArea), self.main.dockWidget_right)
             self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.East)
+            self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.East)
             self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to right")
         else:
             self.addDockWidget(QtCore.Qt.DockWidgetArea(QtCore.Qt.RightDockWidgetArea), self.main.dockWidget_right)
             self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.West)
+            self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.West)
             self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to left")
 
 
@@ -2002,13 +2006,13 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
 
     # Graphical
 
-    #----------------------------------------------------------------------
-    def __show_pinguino_code__(self):
-        name = getattr(self.get_tab().currentWidget(), "path", "")
-        if name: name = " - " + name
-        self.frame_pinguino_code = PlainOut(QtGui.QApplication.translate("Dialogs", "Pinguino code"))
-        self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
-        self.frame_pinguino_code.show()
+    # #----------------------------------------------------------------------
+    # def __show_pinguino_code__(self):
+        # name = getattr(self.get_tab().currentWidget(), "path", "")
+        # if name: name = " - " + name
+        # self.frame_pinguino_code = PlainOut(QtGui.QApplication.translate("Dialogs", "Pinguino code"))
+        # self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
+        # self.frame_pinguino_code.show()
 
     #----------------------------------------------------------------------
     def __export_pinguino_code__(self):

@@ -439,9 +439,9 @@ class Constructor(object):
         """)
 
 
-        def updateEdit(value): edit.setText(str(value).rjust(4, "0"))
+        def updateEdit(value): edit.setText(str(value))
         QtCore.QObject.connect(slid, QtCore.SIGNAL("sliderMoved(int)"), updateEdit)
-        edit.setText(str(start).rjust(4, "0"))
+        edit.setText(str(start))
         slid.setValue(int(start))
 
         widgetSlider.setMinimumSize(180, widgetSlider.size().height())
@@ -778,7 +778,7 @@ class Constructor(object):
         widget_choide.setObjectName("BLOCK_CHOICE")
         self.layout.addWidget(widget_choide)
         lineEdit.contextMenuEvent = self.build_menu
-        self.set_as_draggable(lineEdit, widget)
+        # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["spin_choice"]+[str(lineEdit.text())]+add[2:])
 
     def addSpinInt(self, widget, add):
@@ -789,7 +789,7 @@ class Constructor(object):
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
         self.updateLine(lineEdit)
         lineEdit.contextMenuEvent = self.build_menu
-        self.set_as_draggable(lineEdit, widget)
+        # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["spin_int"]+[str(lineEdit.text())]+add[2:])
 
     def addSpinFloat(self, widget, add):
@@ -800,7 +800,7 @@ class Constructor(object):
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
         self.updateLine(lineEdit)
         lineEdit.contextMenuEvent = self.build_menu
-        self.set_as_draggable(lineEdit, widget)
+        # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["spin_float", str(lineEdit.text())]+add[2:])
 
     def addLineEdit(self, widget, add):
@@ -809,15 +809,16 @@ class Constructor(object):
         self.layout.addWidget(widgetEdit)
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
         self.updateLine(lineEdit)
-        self.set_as_draggable(lineEdit, widget)
+        # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["edit", str(lineEdit.text())] + add[2:])
+        # lineEdit.setCursor(QtCore.Qt.ArrowCursor)
 
     def addSlider(self, widget, add):
         widgetSlider, lineEdit = self.buildSliderInt(*[widget] + add[1:])
         widgetSlider.setObjectName("BLOCK_SLIDER")
         self.layout.addWidget(widgetSlider)
         lineEdit.contextMenuEvent = self.build_menu
-        self.set_as_draggable(lineEdit, widget)
+        # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["slider", str(lineEdit.text())])
 
     #def addButton(self, widget, add):
@@ -933,10 +934,11 @@ class Constructor(object):
         self.widget.setMinimumSize(self.widget.size()-QtCore.QSize(0, 100))
         self.widget.setMaximumSize(self.widget.size()-QtCore.QSize(0, 100))
 
-    #----------------------------------------------------------------------
-    def set_as_draggable(self, lineEdit, widget):
-        lineEdit.contextMenuEvent = self.build_menu
-        lineEdit.mouseMoveEvent = widget.mouseMoveEvent
-        lineEdit.mousePressEvent = widget.mousePressEvent
-        lineEdit.mouseReleaseEvent = widget.mouseReleaseEvent
-        lineEdit.setCursor(QtCore.Qt.OpenHandCursor)
+    # #----------------------------------------------------------------------
+    # def set_as_draggable(self, lineEdit, widget):
+        # """"""
+        # lineEdit.contextMenuEvent = self.build_menu
+        # lineEdit.mouseMoveEvent = widget.mouseMoveEvent
+        # lineEdit.mousePressEvent = widget.mousePressEvent
+        # lineEdit.mouseReleaseEvent = widget.mouseReleaseEvent
+        # lineEdit.setCursor(QtCore.Qt.OpenHandCursor)

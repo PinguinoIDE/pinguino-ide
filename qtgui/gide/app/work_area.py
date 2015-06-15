@@ -37,6 +37,9 @@ class WorkArea(QtGui.QWidget):
 
         super(WorkArea, self).__init__(parent)
 
+
+        # self.PdmPhysicalDpiY.
+
         self.main = ide.main
         self.ide = ide
         self.frame = frame
@@ -101,7 +104,7 @@ class WorkArea(QtGui.QWidget):
             #menu.addAction(QtGui.QApplication.translate("Graphical", "Export code to pinguino editor"), self.export_code_to_pinguino_editor)
             menu.addAction(self.main.actionExport_code_to_editor)
             menu.addAction(self.main.actionInsert_Block)
-            menu.addAction(self.main.actionView_Pinguino_code)
+            # menu.addAction(self.main.actionView_Pinguino_code)
 
         menu.setStyleSheet("""
         QMenu {
@@ -212,6 +215,8 @@ class WorkArea(QtGui.QWidget):
 
         newIcon = QtGui.QWidget(self)
 
+        # newIcon = QtGui.QPaintEngine(self)
+
         newIcon.NAME = name
         newIcon.ARGS = args
         newIcon.BASENAME = baseName
@@ -303,7 +308,7 @@ class WorkArea(QtGui.QWidget):
 
                 child.setParent(self)
 
-                child.move(eventPos+QtCore.QPoint(-5, -20))
+                child.move(eventPos + QtCore.QPoint(-5, -20))
                 child.metadata.pos_ = eventPos
                 child.metadata.object_.removeParent()
                 child.show()
@@ -312,6 +317,8 @@ class WorkArea(QtGui.QWidget):
 
             else:
                 point = eventPos - pos
+
+
 
 
             listPos = self.get_type_magnetic(child)
@@ -382,7 +389,7 @@ class WorkArea(QtGui.QWidget):
     def set_selection(self):
 
         if self.isSelecting:
-            s = self.selFin-self.selInicio
+            s = self.selFin - self.selInicio
             x = s.x()
             y = s.y()
             if x > 0 and y > 0: self.SelectArea.move(self.selInicio)
@@ -656,13 +663,14 @@ class WorkArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def paintEvent(self, event=None):
-        painter = QtGui.QPainter()
-        painter.begin(self)
-        painter.fillRect(self.rect(), QtCore.Qt.white)
+        self.painter = QtGui.QPainter()
+        self.painter.begin(self)
+        self.painter.fillRect(self.rect(), QtCore.Qt.white)
 
-        self.draw_grid(QtGui.QColor("#e6eef4"), painter, 15)
+        self.draw_grid(QtGui.QColor("#e6eef4"), self.painter, 15)
 
-        painter.end()
+        self.painter.end()
+
 
     #----------------------------------------------------------------------
     def draw_grid(self, color, painter, space):

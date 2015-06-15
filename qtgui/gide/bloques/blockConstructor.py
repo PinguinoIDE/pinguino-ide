@@ -61,20 +61,20 @@ class Properties(object):
             submenu.addAction("Decrement width", self.setDecrementWidth)
             submenu.addAction("Decrement height", self.setDecrementHigth)
             menu.addMenu(submenu)
-            menu.addSeparator()
+            # menu.addSeparator()
 
         if self.Type == "tipo4":
             menu.addSeparator()
             menu.addAction("Remove arg", self.rmArg)
             menu.addAction("Add arg", self.addArg)
-            menu.addSeparator()
+            # menu.addSeparator()
 
 
         #menu.addAction("Save Block", self.saveBlock)
 
 
-        menu.addAction("Send to back", self.sendBack)
-        menu.addAction("Bring to front", self.sendFront)
+        # menu.addAction("Send to back", self.sendBack)
+        # menu.addAction("Bring to front", self.sendFront)
 
         #menu.addSeparator()
         #menu.addAction("Clone with sublocks", )
@@ -127,13 +127,13 @@ class Properties(object):
         #os.remove(os.path.join("user_blocks", "saved", base))
         #self.menuRemoveBlock()
 
-    #----------------------------------------------------------------------
-    def sendBack(self):
-        self.widget.lower()
+    # #----------------------------------------------------------------------
+    # def sendBack(self):
+        # self.widget.lower()
 
-    #----------------------------------------------------------------------
-    def sendFront(self):
-        self.widget.raise_()
+    # #----------------------------------------------------------------------
+    # def sendFront(self):
+        # self.widget.raise_()
 
 
 
@@ -186,6 +186,12 @@ class BlockLinear(Constructor, Properties):
         widget.adjustSize()
         self.widget = widget
         self.widget.raise_()
+
+
+        # for element in [delay.frame, delay.area, delay.frame_3, widget]:
+            # element.setMinimumSize(element.size()*0.5)
+            # element.setMaximumSize(element.size()*0.5)
+
 
         #eff = QtGui.QGraphicsDropShadowEffect()
         #self.widget.setGraphicsEffect(eff)
@@ -924,6 +930,9 @@ class BlockFrameEdit(Constructor, Properties):
     def setDecrementHigth(self):
         self.widget.setMinimumSize(self.widget.size()-QtCore.QSize(0, 100))
         self.widget.setMaximumSize(self.widget.size()-QtCore.QSize(0, 100))
+
+
+
 
 
 
