@@ -21,6 +21,7 @@ class Help(object):
     #----------------------------------------------------------------------
     def help_libraries(self):
         """"""
+        self.switch_ide_mode(graphical=False)
         self.add_tab("Libraries")
         self.web_view.load("html-documentation/index_pinguino/index.html")
 
@@ -28,6 +29,7 @@ class Help(object):
     #----------------------------------------------------------------------
     def pinguino_ide_manual(self):
         """"""
+        self.switch_ide_mode(graphical=False)
         self.add_tab("Help")
         self.web_view.load("html-documentation/index/index.html")
 

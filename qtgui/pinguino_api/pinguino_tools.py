@@ -44,6 +44,10 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def __init__(self):
+        """Pinguino Tools.
+
+        Helper methods for preprocesing, compiling and updloading code to Pinguino.
+        """
 
         self.NoBoot = ("noboot", 0)
         self.Boot2 = ("boot2", 0x2000)
@@ -54,17 +58,11 @@ class PinguinoTools(Uploader):
                           "no": self.NoBoot,
                           }
 
-        #self.P32_DIR = "p32"
-        #self.P8_DIR = "p8"
 
-    # RB 2015-01-27 : Still useful ? See also methods.py/set_board
     #----------------------------------------------------------------------
     def set_os_variables(self):
-
-        #if sys.platform == 'darwin':
-            #self.c8 = 'sdcc'
-            #self.u32 = 'mphidflash'
-            #self.make = 'make'
+        """Set the compiler and makefile for each OS.
+        """
 
         if os.getenv("PINGUINO_OS_NAME") == "windows":
             self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
@@ -96,6 +94,13 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def set_board(self, board):
+        """Select Pinguino board for compiling and uploading.
+
+        Parameters
+        ----------
+        board: boards.BoardClass
+            Board class from .boards.
+        """
 
         self.__current_board__ = board
         #self.get_regobject_libinstructions(board.arch)
@@ -103,28 +108,64 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def get_board(self):
+        """Getter for current board selected.
+
+        Returns
+        -------
+        board: boards.BoardClass
+            Board class from .boards.
+        """
 
         return self.__current_board__
 
 
     #----------------------------------------------------------------------
     def get_filename(self):
+        """Getter for the current *.pde file.
+
+        Returns
+        -------
+        filename: str
+            Absolute path for current *.pde used.
+        """
 
         return self.__filename__
 
 
     #----------------------------------------------------------------------
     def get_hex_file(self):
+        """Getter for the *.hex generated.
 
+        Returns
+        -------
+        filename: str
+            Absolute path for *.hex generated.
+        """
         return self.__hex_file__
 
 
     #----------------------------------------------------------------------
     def verify(self, filenames):
+        """Start process for compiling files.
 
-        DATA_RETURN = {}
-        DATA_RETURN["compiling"] = {"c":[], "asm":[]}
-        DATA_RETURN["linking"] = []
+        1. Preprocess
+        2. Compile
+        3. Linking
+
+        Parameters
+        ----------
+        filenames: list of str
+            A list of files to compile.
+
+        Returns
+        -------
+        data_msg: dict
+            Dictionary with data about process result.
+        """
+
+        data_msg = {}
+        data_msg["compiling"] = {"c":[], "asm":[]}
+        data_msg["linking"] = []
 
         filename = filenames[0]
         filenames.reverse()
@@ -144,32 +185,39 @@ class PinguinoTools(Uploader):
 
         retour, error_compile = self.compile()
         if retour != 0:
-            DATA_RETURN["verified"] = False
-            DATA_RETURN["compiling"] = error_compile
-            return DATA_RETURN
+            data_msg["verified"] = False
+            data_msg["compiling"] = error_compile
+            return data_msg
         else:
             retour, error_link = self.link()
             if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE)) != True:
-                DATA_RETURN["verified"] = False
-                DATA_RETURN["linking"] = error_link
-                return DATA_RETURN
+                data_msg["verified"] = False
+                data_msg["linking"] = error_link
+                return data_msg
             else:
                 shutil.copy(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE), filename+".hex")
                 os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE))
                 self.__hex_file__ = filename+".hex"
 
-                DATA_RETURN["verified"] = True
-                DATA_RETURN["time"] = "{:.3f}".format( time.time() - t0)
-                DATA_RETURN["filename"] = self.get_filename()
-                DATA_RETURN["hex_file"] = "{}.hex".format(filename)
-                DATA_RETURN["code_size"] = self.get_code_size()
+                data_msg["verified"] = True
+                data_msg["time"] = "{:.3f}".format( time.time() - t0)
+                data_msg["filename"] = self.get_filename()
+                data_msg["hex_file"] = "{}.hex".format(filename)
+                data_msg["code_size"] = self.get_code_size()
 
 
-                return DATA_RETURN
+                return data_msg
 
 
     #----------------------------------------------------------------------
     def __upload__(self):
+        """Upload a conpiled file to Pinguino.
+
+        Returns
+        -------
+        result: list of strings
+            A list with debug information about upload process.
+        """
 
         hex_file = self.get_hex_file()
         board = self.get_board()
@@ -191,7 +239,21 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def get_regobject_libinstructions(self, arch):
-        """Return regobject and libinstructions for each architecture."""
+        """Return regobject and libinstructions for each architecture.
+
+        If libraries are not loaded yet then generate it, otherwise reuse existing.
+
+        Parameters
+        ----------
+        arch: int
+            Architecture, 8 or 32 bit.
+
+        Returns
+        -------
+        libinstructions: list
+            A list of libraries and functions from .pdl or .pdl32.
+        """
+
         if arch == 8:
             if getattr(self, "libinstructions_8", False):
                 return self.libinstructions_8
@@ -209,8 +271,22 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def read_lib(self, arch, include_default=True):
-        """Load .pdl or .pdl32 files (keywords and libraries)
-         trying to find PDL files to store reserved words."""
+        """Load .pdl or .pdl32 files (keywords and libraries).
+
+        Trying to find PDL files to store reserved words, store defines and includes.
+
+        Parameters
+        ----------
+        arch: int
+            Architecture, 8 or 32 bit.
+        include_default: bool, optional
+            Include default pdl for each arch or only instaled, default is True.
+
+        Returns
+        -------
+        libinstructions: list
+            A list of libraries and functions from .pdl or .pdl32.
+        """
 
         regobject = []
         libinstructions = []
@@ -220,7 +296,7 @@ class PinguinoTools(Uploader):
         if arch == 8:
             libext = ".pdl"
             libdir = self.P8_DIR
-        else:
+        else:  #32
             libext = ".pdl32"
             libdir = self.P32_DIR
 
@@ -240,19 +316,22 @@ class PinguinoTools(Uploader):
             regex_pdl = "[\s]*([.\w]*)[\s]*([\w]*)[\s]*(#include[\w\s\.\<\>/]*)*(#define.*)*[\s]*"
 
             for line in lines:
-                line = line[:line.find('//')]
+                line = line[:line.find('//')]  #ignore comments
                 if line.isspace() or not line: continue
 
                 reg = re.match(regex_pdl, line)
                 instruction, cnvinstruction, include, define = reg.groups()
-                include = "" if include is None else include
-                define = "" if define is None else define
+                include = "" if include is None else include  #if has includes
+                define = "" if define is None else define  #if has directives
                 cnvinstruction = instruction if cnvinstruction is "" else cnvinstruction
 
                 if not instruction: continue
 
                 # https://regex101.com/r/nH9nS9
                 regex = re.compile(ur"([^.\w])(%s)([^.\w])"%re.escape(instruction), re.MULTILINE | re.DOTALL)
+
+                # for Python3
+                # regex = re.compile(r"([^.\w])(%s)([^.\w])"%re.escape(instruction), re.MULTILINE | re.DOTALL)
 
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
 
@@ -266,6 +345,26 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def remove_strings(self, content):
+        """Remove strings from code.
+
+        This is necesary for exclude strings from preprocess.
+
+        Parameters
+        ----------
+        content: str
+            Code with strings.
+
+        Returns
+        -------
+        content: str
+            Content with keys instead strings.
+        keys: dict
+            Dictionay with key:string for all strings.
+
+        See Also
+        --------
+        recove_strings: Recove strings with code and keys.
+        """
 
         strings = re.findall(r'"[^"]*"', content)
         content = re.sub(r'"[^"]*"', '"<PINGUINO_STRING>"', content)
@@ -282,6 +381,24 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def recove_strings(self, content, keys):
+        """Recove strings with code and keys.
+
+        Parameters
+        ----------
+        content: str
+            Code without strings.
+        keys: dict
+            Dictionary with original strings.
+
+        Returns
+        -------
+        content: str
+            Code with original strings.
+
+        See Also
+        --------
+        remove_strings: Remove strings from code.
+        """
 
         for key in keys.keys():
             content = content.replace(key, keys[key])
@@ -290,7 +407,17 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def preprocess(self, file_path, define_output=None, userc_output=None):
-        """Read Pinguino File (.pde) and translate it into C language"""
+        """Read Pinguino File (.pde) and translate it into C language.
+
+        Parameters
+        ----------
+        file_path: list of str
+            List of absolute paths of *.pde files to preprocess.
+        define_output: str
+            Custom file for headers code.
+        userc_output: str
+            Custom file for preprocessed code.
+        """
 
         defines = set()
         user_content = ""
@@ -311,17 +438,15 @@ class PinguinoTools(Uploader):
                 else:
                     user_c.write(line)
 
-
             # search and replace arduino keywords in file
             content = user_c.getvalue()
             content = self.remove_comments(content)
             content_nostrings, keys = self.remove_strings(content)
             nblines = 0
-            libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+            # libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
-            content_nostrings, defines_lib = self.replace_word(content_nostrings, libinstructions)
+            content_nostrings, defines_lib = self.replace_word(content_nostrings)
             content = self.recove_strings(content_nostrings+"\n", keys)
-
 
             defines = defines.union(defines_lib)
             user_content += content
@@ -332,35 +457,72 @@ class PinguinoTools(Uploader):
         if define_output is None:
             define_output = os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h")
 
+        # Generate files
         self.save_define(defines, define_output)
         self.save_userc(user_content, userc_output)
 
 
-
     #----------------------------------------------------------------------
     def save_define(self, defines, file_path):
-        """"""
+        """Save headers file.
+
+        Parameters
+        ----------
+        defines: set of strings
+            A list of defines to write.
+        file_path: str
+            Destinty to write headers.
+
+        See Also
+        --------
+        save_userc: Save preprocessed code in file.
+        """
+
         fichier = open(file_path, "w")
         defines = sorted(list(defines))
         fichier.writelines(defines)
         fichier.close()
 
+
     #----------------------------------------------------------------------
     def save_userc(self, content, file_path):
-        """"""
+        """Save preprocessed code in file.
+
+        Parameters
+        ----------
+        content: str
+            Code after preprocess.
+        file_path: str
+            Destinty to write preprocess code.
+
+        See Also
+        --------
+        save_define: Save headers file.
+        """
+
         fichier = open(file_path, "w")
         fichier.write(content)
         fichier.close()
 
 
-
-
     #----------------------------------------------------------------------
-    def replace_word(self, content, libinstructions=None):
-        """ convert pinguino language in C language """
+    def replace_word(self, content):
+        """Convert Pinguino language in C language.
 
-        if libinstructions is None:
-            libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+        Parameters
+        ----------
+        content: str
+            Pinguino code.
+
+        Returns
+        -------
+        content: str
+            Pinguino code with real libraries/functions name.
+        defines: list
+            List with directives needed and finded.
+        """
+
+        libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
         defines = set()
         keys = dict()
@@ -377,19 +539,29 @@ class PinguinoTools(Uploader):
                 defines.add(include+"\n")
                 defines.add(define+"\n")
 
-
         content = self.recove_strings(content, keys)
-
-        # self.update_define(defines, mode="a")
 
         return content, defines
 
 
     #----------------------------------------------------------------------
     def remove_comments(self, textinput):
-        #FIXME: replace comment with white lines for debugger
+        """Remove comments of a code.
 
-        if type(textinput) == type([]):
+        Multiline comments are replaced with white lines, for correct interpretation of debug messages.
+
+        Parameters
+        ----------
+        textinput: str, list
+            Code or lines with code
+
+        Returns
+        -------
+        textout: str, list
+            Code without comments, in the same data type that textinput.
+        """
+
+        if type(textinput) == list:
             text = "".join(textinput)
         else:
             text = textinput
@@ -398,23 +570,19 @@ class PinguinoTools(Uploader):
             s = match.group(0)
 
             if s.startswith('/'):
-                #return "" #bug in line number in error info, multiline comments
                 return "" + "\n" * (s.count("\n"))
-
             else:
                 return s
 
-        pattern = re.compile(
-            r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
-            re.DOTALL | re.MULTILINE
-        )
+        pattern = re.compile(r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"', re.DOTALL|re.MULTILINE)
         textout = re.sub(pattern, replacer, text)
 
-        if type(textinput) == type([]):
+        if type(textinput) == list:
             textout = textout.split("\n")
             textout = map(lambda x:x+"\n", textout)
 
         return textout
+
 
     #----------------------------------------------------------------------
     def get_user_imports_p8(self):

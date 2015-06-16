@@ -66,8 +66,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.tabWidget_tools, QtCore.SIGNAL("currentChanged(int)"), self.tab_right_changed)
         self.connect(self.main.tabWidget_bottom, QtCore.SIGNAL("currentChanged(int)"), self.tab_bottoms_changed)
         self.connect(self.main.actionToggle_editor_area, QtCore.SIGNAL("toggled(bool)"), self.toggle_editor_area)
-        self.connect(self.main.actionToggle_editor_area, QtCore.SIGNAL("toggled(bool)"), self.toggle_editor_area)
-        self.connect(self.main.actionMove_vertical_tool_area, QtCore.SIGNAL("triggered()"), self.move_side_dock)
+        self.connect(self.main.actionMove_vertical_tool_area, QtCore.SIGNAL("triggered()"), self.toggle_side_vertical_area)
 
 
         # Settings related events

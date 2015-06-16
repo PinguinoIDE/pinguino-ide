@@ -110,7 +110,7 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
         self.update_recents_menu_project()
 
         opens = self.configIDE.get_recents_open()
-        if not opens:
+        if not filter(lambda f:f.endswith(".pde"), opens):
             self.pinguino_ide_manual()
             return
 
@@ -345,6 +345,8 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
         self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
 
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
+
+        self.toggle_side_vertical_area(load=True)
 
         self.load_tabs_config()
 
@@ -734,13 +736,14 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
             self.main.dockWidgetContents_rigth.setMaximumWidth(1000)
             self.main.dockWidgetContents_rigth.setMinimumWidth(h)
             self.main.actionToggle_vertical_tool_area.setText("Hide vertical tool area")
-            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMinimumWidth(min_))
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMinimumWidth(0))
         else:
             self.configIDE.set("Main", "right_area_width", self.main.dockWidgetContents_rigth.width())
             self.main.dockWidgetContents_rigth.setMinimumWidth(0)
             self.main.dockWidgetContents_rigth.setMaximumWidth(min_)
             self.main.actionToggle_vertical_tool_area.setText("Show vertical tool area")
             QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMaximumWidth(1000))
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_rigth.setMinimumWidth(0))
 
 
     #----------------------------------------------------------------------
@@ -759,13 +762,14 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
             self.main.dockWidgetContents_bottom.setMaximumHeight(1000)
             self.main.dockWidgetContents_bottom.setMinimumHeight(h)
             self.main.actionToggle_horizontal_tool_area.setText("Hide horizontal tool area")
-            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMinimumHeight(min_))
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMinimumHeight(0))
         else:
             self.configIDE.set("Main", "bottom_area_height", self.main.dockWidgetContents_bottom.height()-3)
             self.main.dockWidgetContents_bottom.setMinimumHeight(0)
             self.main.dockWidgetContents_bottom.setMaximumHeight(min_)
             self.main.actionToggle_horizontal_tool_area.setText("Show horizontal tool area")
             QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMaximumHeight(1000))
+            QtCore.QTimer.singleShot(100, lambda :self.main.dockWidgetContents_bottom.setMinimumHeight(0))
 
 
     #----------------------------------------------------------------------
@@ -775,16 +779,16 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
 
 
     #----------------------------------------------------------------------
-    def tab_tools_resize(self, event):
-        self.configIDE.set("Main", "right_area_width", self.main.dockWidgetContents_rigth.width())
-        self.configIDE.set("Main", "bottom_area_height", self.main.dockWidgetContents_bottom.height()-3)
-        return False
-
-
-    #----------------------------------------------------------------------
     def tab_bottoms_changed(self, event):
 
         self.toggle_bottom_area(expand=True)
+
+
+    #----------------------------------------------------------------------
+    def tab_tools_resize(self, event):
+
+        self.configIDE.set("Main", "right_area_width", self.main.dockWidgetContents_rigth.width())
+        self.configIDE.set("Main", "bottom_area_height", self.main.dockWidgetContents_bottom.height()-3)
 
 
     #----------------------------------------------------------------------
@@ -801,18 +805,25 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
 
 
     #----------------------------------------------------------------------
-    def move_side_dock(self):
+    def toggle_side_vertical_area(self, load=False):
 
-        side = self.dockWidgetArea(self.main.dockWidget_right)
-        self.configIDE.set("Main", "dock_tools", side.name)
+        if load:
+            position = self.configIDE.config("Main", "dock_tools", "RightDockWidgetArea")
+            # position = getattr(QtCore.Qt, position)
+        else:
+            # Invert current position and saved in position
+            side = self.dockWidgetArea(self.main.dockWidget_right)
+            position = {"RightDockWidgetArea": "LeftDockWidgetArea",
+                        "LeftDockWidgetArea": "RightDockWidgetArea",}[side.name]
+            self.configIDE.set("Main", "dock_tools", position)
 
-        if side.name == "RightDockWidgetArea":
-            self.addDockWidget(QtCore.Qt.DockWidgetArea(QtCore.Qt.LeftDockWidgetArea), self.main.dockWidget_right)
+        self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, position)), self.main.dockWidget_right)
+
+        if position == "LeftDockWidgetArea":
             self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.East)
             self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.East)
             self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to right")
         else:
-            self.addDockWidget(QtCore.Qt.DockWidgetArea(QtCore.Qt.RightDockWidgetArea), self.main.dockWidget_right)
             self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.West)
             self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.West)
             self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to left")
@@ -937,7 +948,7 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
     def update_actions_for_text(self):
         normal = False
         # self.main.menuGraphical.setEnabled(normal
-        self.main.menubar.removeAction(self.main.menuGraphical.menuAction())
+        # self.main.menubar.removeAction(self.main.menuGraphical.menuAction())
 
         self.main.lineEdit_blocks_search.setVisible(normal)
         self.main.label_search_block.setVisible(normal)
@@ -969,7 +980,7 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
     def update_actions_for_graphical(self):
         normal = True
         # self.main.menuGraphical.setEnabled(normal)
-        self.main.menubar.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
+        # self.main.menubar.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
 
         self.main.lineEdit_blocks_search.setVisible(normal)
         self.main.label_search_block.setVisible(normal)
@@ -1141,7 +1152,7 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
         menu.addMenu(self.main.menuSettings)
         menu.addMenu(self.main.menuSource)
         menu.addMenu(self.main.menuPinguino)
-        menu.addMenu(self.main.menuGraphical)
+        # menu.addMenu(self.main.menuGraphical)
         menu.addMenu(self.main.menuTools)
         menu.addMenu(self.main.menuHelp)
 
@@ -2164,10 +2175,13 @@ class PinguinoCore(TimedMethods, SearchReplace, ProjectManager, Files, BoardConf
         menu = self.toolbutton_menutoolbar.menu()
         if graphical:
             self.update_actions_for_graphical()
-            menu.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
+            # self.main.menubar.setVisible(False)
+            # self.toggle_toolbars(True)
+            # menu.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
         else:
             self.update_actions_for_text()
-            menu.removeAction(self.main.menuGraphical.menuAction())
+            # self.main.menubar.setVisible(True)
+            # menu.removeAction(self.main.menuGraphical.menuAction())
 
         self.tab_changed()
 

@@ -17,6 +17,10 @@ class Pinguino(PinguinoTools):
 
     #----------------------------------------------------------------------
     def __init__(self):
+        """Pinguino
+
+        Class for handle Pinguino from Python.
+        """
 
         super(Pinguino, self).__init__()
 
@@ -41,7 +45,6 @@ class Pinguino(PinguinoTools):
         data = self.verify(file_path)
         self.__compiled__ = data["verified"]
         self.__data__ = data
-
 
 
     #----------------------------------------------------------------------
@@ -85,14 +88,9 @@ class Pinguino(PinguinoTools):
          uploaded: bool
             Is True if file was uploaded succesffully, otherwise is False.
 
-        data:
-
-
-
-
+        data: list
+            List of messages reports.
         """
-
-        #FIXME: all here
 
         data = self.__upload__()
         data = "\n".join(data)
@@ -109,20 +107,21 @@ class Pinguino(PinguinoTools):
             return False, data
         return True, data
 
+
     #----------------------------------------------------------------------
     def set_bootloader(self, bldr, memstart):
         """Configure bootloader for current board selected.
 
         Parameters
         ----------
-        bldr: FIXME
-            ...
-        memstart:
+        bldr: str
+            "noboot", "boot2" or "boot4"
+        memstart: int
+            0, 0x2000 or 0x0C00
 
         See Also
         --------
         set_board: Set the board to use.
-
         """
 
         if self.__current_board__.arch == 8:
@@ -138,10 +137,10 @@ class Pinguino(PinguinoTools):
         -------
         compiled: bool
             True if file was successfully compiled, otherwise is False.
-
         """
 
         return self.__compiled__
+
 
     #----------------------------------------------------------------------
     def get_errors(self):
@@ -262,6 +261,7 @@ class Pinguino(PinguinoTools):
         result["hex_file"] = self.__data__["hex_file"]
         result["code_size"] = self.__data__["code_size"]
         return result
+
 
     #----------------------------------------------------------------------
     def get_hex(self):

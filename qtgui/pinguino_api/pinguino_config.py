@@ -21,6 +21,8 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def set_environ_vars(cls):
+        """Configure some environ variables about OS and architecture.
+        """
 
         if not os.path.exists(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg")):
             logging.error("Missing: "+os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"))
@@ -52,6 +54,7 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def check_user_files(cls):
+        """Check existence of depends directories and created if missed."""
 
         #check instalation path
         if not os.path.exists(os.getenv("PINGUINO_INSTALL_PATH")):
@@ -62,50 +65,44 @@ class PinguinoConfig(object):
         if not os.path.exists(os.getenv("PINGUINO_USER_PATH")):
             os.mkdir(os.getenv("PINGUINO_USER_PATH"))
 
-        #Check files
-        cls.check_dirs()
-        cls.check_config_files()
+        #Check files and directories
+        cls.check_locations()
 
 
     #----------------------------------------------------------------------
     @classmethod
-    def check_dirs(cls):
+    def check_locations(cls):
+        """If not exist some directory then copy them from installation path."""
 
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "examples"),
-                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"),
-                                    default_dir=True)
+                                   dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
 
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "graphical_examples"),
-                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"),
-                                    default_dir=True)
-
-        #cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_HOME"), "source"),
-                                    #dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
+                                   dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "source"),
-                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
+                                   dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p32", "obj"),
-                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "obj"))
-
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def check_config_files(cls):
+                                   dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "obj"))
 
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "pinguino.%s.conf"%os.getenv("PINGUINO_OS_NAME")),
-                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
-
-        # cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "reserved.pickle"),
-                                    # dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
-
-        # cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "wikidocs.pickle"),
-                                    # dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
+                                   dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 
 
     #----------------------------------------------------------------------
     @classmethod
-    def if_not_exist_then_copy(cls, src, dst, default_dir=False):
+    def if_not_exist_then_copy(cls, src, dst):
+        """The method name say all.
+
+        Parameters
+        ----------
+        src: str
+            Source file or directory.
+
+        dst: str
+            Destiny file or directory.
+        """
 
         #When src is a file
         if os.path.isfile(src):
@@ -140,6 +137,15 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def update_pinguino_extra_options(self, config, pinguino_object):
+        """Load on Pinguino Object the advance configuration for 32 bit.
+
+        Parameters
+        ----------
+        config: RawConfigParser
+            Config file.
+        pinguino_object: Pinguino()
+            Pinguino
+        """
 
         pinguino_object.MIPS16 = str(config.config("Board", "mips16", True)).lower()
         pinguino_object.HEAPSIZE = str(config.config("Board", "heapsize", 512))
@@ -149,6 +155,20 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def update_pinguino_paths(cls, config, pinguino_object, prefix=None, workspace=None):
+        """Load paths of libraries and compilers.
+
+        Parameters
+        ----------
+        config: RawConfigParser
+            Config file.
+        pinguino_object: Pinguino()
+            Pinguino
+        prefix: str, optional
+            Path for search libraries and compilers, default is absolute path from root.
+        workspace: str,optional
+            Path for makefiles and temp files, default is ~/.pinguino/source
+
+        """
 
         user_sdcc_bin = config.get_path("sdcc_bin", prefix)
         if user_sdcc_bin: pinguino_object.P8_BIN = user_sdcc_bin
@@ -177,6 +197,13 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def update_user_libs(cls, pinguino_object):
+        """Reload paths for user installed libraries.
+
+        Parameters
+        ----------
+        pinguino_object: Pinguino()
+            Pinguino
+        """
 
         from ..ide.commons.library_manager import Librarymanager
 
