@@ -19,32 +19,32 @@ class PinguinoEvents(PinguinoCore):
         """"""
 
         # Triggers
-        self.connect(self.main.actionNew_file, QtCore.SIGNAL("triggered()"), self.new_file)
-        self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.open_files)
-        self.connect(self.main.actionSave_file, QtCore.SIGNAL("triggered()"), self.save_file)
-        self.connect(self.main.actionSave_as, QtCore.SIGNAL("triggered()"), self.save_as)
-        self.connect(self.main.actionSave_all, QtCore.SIGNAL("triggered()"), self.save_all)
-        self.connect(self.main.actionClose_file, QtCore.SIGNAL("triggered()"), self.close_file)
-        self.connect(self.main.actionClose_all, QtCore.SIGNAL("triggered()"), self.close_all)
-        self.connect(self.main.actionClose_others, QtCore.SIGNAL("triggered()"), self.close_others)
-        self.connect(self.main.actionPrint, QtCore.SIGNAL("triggered()"), self.print_file)
-        self.connect(self.main.actionQuit, QtCore.SIGNAL("triggered()"), self.__close_ide__)
-        self.connect(self.main.actionUndo, QtCore.SIGNAL("triggered()"), self.undo)
-        self.connect(self.main.actionRedo, QtCore.SIGNAL("triggered()"), self.redo)
-        self.connect(self.main.actionCut, QtCore.SIGNAL("triggered()"), self.cut)
-        self.connect(self.main.actionCopy, QtCore.SIGNAL("triggered()"), self.copy)
-        self.connect(self.main.actionPaste, QtCore.SIGNAL("triggered()"), self.paste)
-        self.connect(self.main.actionDelete, QtCore.SIGNAL("triggered()"), self.delete)
-        self.connect(self.main.actionSelect_all, QtCore.SIGNAL("triggered()"), self.select_all)
-        self.connect(self.main.actionComment_out_region, QtCore.SIGNAL("triggered()"), self.commentregion)
-        self.connect(self.main.actionComment_Uncomment_region, QtCore.SIGNAL("triggered()"), self.comment_uncomment)
-        self.connect(self.main.actionIndent, QtCore.SIGNAL("triggered()"), self.indentregion)
-        self.connect(self.main.actionDedent, QtCore.SIGNAL("triggered()"), self.dedentregion)
+        self.connect(self.main.actionNew_file, QtCore.SIGNAL("triggered()"), self.ide_new_file)
+        self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.ide_open_files)
+        self.connect(self.main.actionSave_file, QtCore.SIGNAL("triggered()"), self.ide_save_file)
+        self.connect(self.main.actionSave_as, QtCore.SIGNAL("triggered()"), self.ide_save_as)
+        self.connect(self.main.actionSave_all, QtCore.SIGNAL("triggered()"), self.ide_save_all)
+        self.connect(self.main.actionClose_file, QtCore.SIGNAL("triggered()"), self.ide_close_file)
+        self.connect(self.main.actionClose_all, QtCore.SIGNAL("triggered()"), self.ide_close_all)
+        self.connect(self.main.actionClose_others, QtCore.SIGNAL("triggered()"), self.ide_close_others)
+        self.connect(self.main.actionPrint, QtCore.SIGNAL("triggered()"), self.editor_print_file)
+        self.connect(self.main.actionQuit, QtCore.SIGNAL("triggered()"), self.ide_close_ide)
+        self.connect(self.main.actionUndo, QtCore.SIGNAL("triggered()"), self.editor_undo)
+        self.connect(self.main.actionRedo, QtCore.SIGNAL("triggered()"), self.editor_redo)
+        self.connect(self.main.actionCut, QtCore.SIGNAL("triggered()"), self.editor_cut)
+        self.connect(self.main.actionCopy, QtCore.SIGNAL("triggered()"), self.editor_copy)
+        self.connect(self.main.actionPaste, QtCore.SIGNAL("triggered()"), self.editor_paste)
+        self.connect(self.main.actionDelete, QtCore.SIGNAL("triggered()"), self.editor_delete)
+        self.connect(self.main.actionSelect_all, QtCore.SIGNAL("triggered()"), self.editor_select_all)
+        self.connect(self.main.actionComment_out_region, QtCore.SIGNAL("triggered()"), self.editor_comment_region)
+        self.connect(self.main.actionComment_Uncomment_region, QtCore.SIGNAL("triggered()"), self.editor_comment_uncomment)
+        self.connect(self.main.actionIndent, QtCore.SIGNAL("triggered()"), self.editor_indent_region)
+        self.connect(self.main.actionDedent, QtCore.SIGNAL("triggered()"), self.editor_dedent_region)
         self.connect(self.main.actionHex_code, QtCore.SIGNAL("triggered()"), self.__show_hex_code__)
-        self.connect(self.main.actionMain_c, QtCore.SIGNAL("triggered()"), self.__show_main_c__)
-        self.connect(self.main.actionUser_c, QtCore.SIGNAL("triggered()"), self.__show_user_c__)
-        self.connect(self.main.actionDefine_h, QtCore.SIGNAL("triggered()"), self.__show_define_h__)
-        self.connect(self.main.actionReset_IDE_instalation, QtCore.SIGNAL("triggered()"), self.reset_instalation)
+        self.connect(self.main.actionMain_c, QtCore.SIGNAL("triggered()"), self.ide_show_main_c)
+        self.connect(self.main.actionUser_c, QtCore.SIGNAL("triggered()"), self.ide_show_user_c)
+        self.connect(self.main.actionDefine_h, QtCore.SIGNAL("triggered()"), self.ide_show_define_h)
+        self.connect(self.main.actionReset_IDE_instalation, QtCore.SIGNAL("triggered()"), self.ide_reset_instalation)
 
 
         # Toggle Tabs
@@ -81,9 +81,9 @@ class PinguinoEvents(PinguinoCore):
         # Child windows
         self.connect(self.main.actionLibrary_manager, QtCore.SIGNAL("triggered()"), self.__show_libmanager__)
         self.connect(self.main.actionSet_paths, QtCore.SIGNAL("triggered()"), self.__config_paths__)
-        self.connect(self.main.actionSelect_board, QtCore.SIGNAL("triggered()"), self.__show_board_config__)
+        self.connect(self.main.actionSelect_board, QtCore.SIGNAL("triggered()"), self.set_tab_board)
         # self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)
-        self.connect(self.main.actionInsert_Block, QtCore.SIGNAL("triggered()"), self.__insert_block__)
+        self.connect(self.main.actionInsert_Block, QtCore.SIGNAL("triggered()"), self.__show_insert_block__)
         self.connect(self.main.actionSubmit_bug_report, QtCore.SIGNAL("triggered()"), self.__show_submit_bug__)
         self.connect(self.main.actionCheck_for_patches, QtCore.SIGNAL("triggered()"), self.__show_patches__)
 
@@ -109,22 +109,22 @@ class PinguinoEvents(PinguinoCore):
 
 
         # Events
-        self.closeEvent = self.__close_ide__
+        self.closeEvent = self.ide_close_ide
         self.connect(self.main.actionSwitch_ide, QtCore.SIGNAL("toggled(bool)"), self.switch_ide_mode)
-        self.connect(self.main.tabWidget_files, QtCore.SIGNAL("currentChanged(int)"), self.tab_changed)
-        self.connect(self.main.tabWidget_files, QtCore.SIGNAL("tabCloseRequested(int)"), self.tab_close)
-        self.connect(self.main.tabWidget_graphical, QtCore.SIGNAL("currentChanged(int)"), self.tab_changed)
-        self.connect(self.main.tabWidget_graphical, QtCore.SIGNAL("tabCloseRequested(int)"), self.tab_close)
+        self.connect(self.main.tabWidget_files, QtCore.SIGNAL("currentChanged(int)"), self.ide_tab_changed)
+        self.connect(self.main.tabWidget_files, QtCore.SIGNAL("tabCloseRequested(int)"), self.ide_tab_close)
+        self.connect(self.main.tabWidget_graphical, QtCore.SIGNAL("currentChanged(int)"), self.ide_tab_changed)
+        self.connect(self.main.tabWidget_graphical, QtCore.SIGNAL("tabCloseRequested(int)"), self.ide_tab_close)
 
 
         # Graphical mode
-        self.connect(self.main.actionSave_image, QtCore.SIGNAL("triggered()"), self.save_screen_image)
+        self.connect(self.main.actionSave_image, QtCore.SIGNAL("triggered()"), self.editor_save_screen_image)
         self.connect(self.main.lineEdit_blocks_search, QtCore.SIGNAL("textChanged(QString)"), self.PinguinoKIT.update_blocks_search_tab)
-        self.connect(self.main.actionExport_code_to_editor, QtCore.SIGNAL("triggered()"), self.__export_pinguino_code__)
+        self.connect(self.main.actionExport_code_to_editor, QtCore.SIGNAL("triggered()"), self.editor_export_pinguino_code)
 
         # Context menu
-        self.main.tabWidget_files.contextMenuEvent = self.tab_files_context_menu
-        self.main.tabWidget_graphical.contextMenuEvent = self.tab_files_context_menu
+        self.main.tabWidget_files.contextMenuEvent = self.editor_tabfile_context_menu
+        self.main.tabWidget_graphical.contextMenuEvent = self.editor_tabfile_context_menu
 
 
         # Initialize

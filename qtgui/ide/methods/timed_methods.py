@@ -23,7 +23,7 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def update_functions(self):
 
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         functions_parse = self.get_functions(editor)
 
         index = 0
@@ -55,7 +55,7 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def update_directives(self):
 
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         directives_parse = self.get_directives(editor)
 
         index = 0
@@ -88,7 +88,7 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def update_variables(self):
 
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         variables_parse = self.get_variables(editor)
 
         index = 0
@@ -116,7 +116,7 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def update_autocompleter(self):
 
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
 
         if not getattr(self, "completer_funtions", False):
             self.completer_funtions = []
@@ -167,7 +167,7 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def check_external_changes(self):
 
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         filename = getattr(editor, "path", None)
         if not filename: return
         if os.path.exists(filename):
@@ -184,7 +184,7 @@ class TimedMethods(object):
         if content_file != last_saved:
             reload_ = Dialogs.overwrite_file(self, filename, exist)
 
-            if reload_: self.save_file()
+            if reload_: self.ide_save_file()
             else: self.reload_file()
 
 
@@ -195,7 +195,7 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def save_backup_file(self):
 
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         index = self.main.tabWidget_files.indexOf(editor)
         filename_tab = self.main.tabWidget_files.tabText(index)
         filename = getattr(editor, "path", None)

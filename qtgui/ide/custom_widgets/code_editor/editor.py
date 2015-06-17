@@ -255,6 +255,12 @@ class CustomTextEdit(QtGui.QTextEdit):
             self.next_ignore = None
             return
 
+        if not key_text:
+            self.completer.hide()
+            super(CustomTextEdit, self).keyPressEvent(event)
+            return
+
+
         if event.key() in (
             #QtCore.Qt.Key_Enter,
             QtCore.Qt.Key_Escape,
@@ -268,11 +274,11 @@ class CustomTextEdit(QtGui.QTextEdit):
             QtCore.Qt.Key_Right,
             QtCore.Qt.Key_Left,
             QtCore.Qt.Key_Backspace,
+            QtCore.Qt.Key_CapsLock,
             ) or event.modifiers() in (
             QtCore.Qt.ControlModifier,
-            #QtCore.Qt.ShiftModifier,
             QtCore.Qt.AltModifier,
-            ):
+            ):  # this is so sad!
             self.completer.hide()
             super(CustomTextEdit, self).keyPressEvent(event)
             return

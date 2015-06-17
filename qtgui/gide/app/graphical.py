@@ -79,8 +79,8 @@ class GraphicalIDE(object):
 
 
     #----------------------------------------------------------------------
-    def new_file(self, *args, **kwargs):
-        path = kwargs.get("filename", self.ide.__get_name__(ext=".gpde"))
+    def ide_new_file(self, *args, **kwargs):
+        path = kwargs.get("filename", self.ide.get_untitled_name(ext=".gpde"))
         filename = os.path.split(path)[1]
 
         editor = QtGui.QWidget()
@@ -131,7 +131,7 @@ class GraphicalIDE(object):
 
 
     #----------------------------------------------------------------------
-    def tab_changed(self, *args, **kwargs):
+    def ide_tab_changed(self, *args, **kwargs):
         self.main.tabWidget_graphical.setVisible(self.main.tabWidget_graphical.count() > 0)
         self.main.frame_logo.setVisible(not self.main.tabWidget_graphical.count() > 0)
         self.main.actionClose_file.setEnabled(self.main.tabWidget_graphical.count() > 0)
@@ -149,7 +149,7 @@ class GraphicalIDE(object):
 
 
     #----------------------------------------------------------------------
-    def save_file(self, *args, **kwargs):
+    def ide_save_file(self, *args, **kwargs):
 
         editor = kwargs.get("editor", None)
         if not editor: editor = self.ide.get_tab().currentWidget()
@@ -209,7 +209,7 @@ class GraphicalIDE(object):
         editor = kwargs.get("editor", self.ide.get_tab())
         content = self.get_gpde()
         self.save_raw_parser(content, editor.path)
-        self.ide.__text_saved__()
+        self.ide.editor_saved()
 
 
     #----------------------------------------------------------------------
@@ -343,16 +343,16 @@ class GraphicalIDE(object):
 
 
     #----------------------------------------------------------------------
-    def open_files(self, *args, **kwargs):
+    def ide_open_files(self, *args, **kwargs):
 
         #filenames = Dialogs.set_open_file(self.ide, ".gpde")
         #for filename in filenames:
 
         filename = kwargs["filename"]
 
-        if self.ide.__check_duplicate_file__(filename): return
+        if self.ide.ide_check_duplicate_file(filename): return
 
-        self.new_file(filename)
+        self.ide_new_file(filename)
         editor = self.main.tabWidget_graphical.currentWidget()
         set_blocks = self.read_raw_parser(filename)
         self.load_blocks(set_blocks)
@@ -361,7 +361,7 @@ class GraphicalIDE(object):
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
         setattr(editor, "path", filename)
 
-        self.ide.tab_changed()
+        self.ide.ide_tab_changed()
 
     #----------------------------------------------------------------------
     def load_blocks(self, set_blocks):
@@ -457,11 +457,11 @@ class GraphicalIDE(object):
 
 
     #----------------------------------------------------------------------
-    def open_file_from_path(self, *args, **kwargs):
+    def ide_open_file_from_path(self, *args, **kwargs):
 
         filename = kwargs["filename"]
 
-        if self.ide.__check_duplicate_file__(filename): return
+        if self.ide.ide_check_duplicate_file(filename): return
         self.new_file(filename)
         editor = self.main.tabWidget_graphical.currentWidget()
         set_blocks = self.read_raw_parser(filename)
@@ -477,15 +477,15 @@ class GraphicalIDE(object):
         self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
 
-        self.ide.tab_changed()
+        self.ide.ide_tab_changed()
 
 
     #----------------------------------------------------------------------
     def open_from_source(self, source):
         """"""
-        filename = self.ide.__get_name__(ext=".gpde")
+        filename = self.ide.get_untitled_name(ext=".gpde")
 
-        self.new_file(filename)
+        self.ide_new_file(filename)
         editor = self.main.tabWidget_graphical.currentWidget()
         set_blocks = self.read_raw_parser(source)
         self.load_blocks(set_blocks)
@@ -497,7 +497,7 @@ class GraphicalIDE(object):
         self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
 
-        self.ide.tab_changed()
+        self.ide.ide_tab_changed()
 
         self.init_positions()
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/submit_bug.ui'
 #
-# Created: Mon Jun 15 16:02:57 2015
+# Created: Wed Jun 17 13:56:28 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_SubmitBug(object):
     def setupUi(self, SubmitBug):
         SubmitBug.setObjectName("SubmitBug")
-        SubmitBug.resize(572, 438)
+        SubmitBug.resize(571, 365)
         self.verticalLayout_3 = QtGui.QVBoxLayout(SubmitBug)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.label = QtGui.QLabel(SubmitBug)
@@ -59,10 +59,12 @@ class Ui_SubmitBug(object):
 
     def retranslateUi(self, SubmitBug):
         SubmitBug.setWindowTitle(QtGui.QApplication.translate("SubmitBug", "Submit Bug", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("SubmitBug", "Please provide as much information as possible about wath caused the bug that you are reporting.", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("SubmitBug", "<html><head/><body>\n"
+"<p>Please provide as much information as possible about wath caused the bug that you are reporting.</p>\n"
+"<p>This feature could recollect extra information about system, like OS, architecture, PYTHONPATH,<br>username, etc.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("SubmitBug", "Summary:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("SubmitBug", "Details:", None, QtGui.QApplication.UnicodeUTF8))
-        self.checkBox_show_this_dialog.setText(QtGui.QApplication.translate("SubmitBug", "Show this dialog on unexpected errors", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkBox_show_this_dialog.setText(QtGui.QApplication.translate("SubmitBug", "Show this dialog on unexpected errors.", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_submit.setText(QtGui.QApplication.translate("SubmitBug", "Submit Now", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_cancel.setText(QtGui.QApplication.translate("SubmitBug", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
 

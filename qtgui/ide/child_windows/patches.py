@@ -152,7 +152,7 @@ class Patches(QtGui.QDialog):
         reply = Dialogs.confirm_message(self.main, "You need restart for complete the update\nDo you want to restart Pinguino IDE now?")
         if reply:
             self.close()
-            self.main.restart_now()
+            self.main.ide_restart_now()
 
         else:
             self.close()

@@ -415,7 +415,7 @@
          <string>Project</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_16">
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QTreeWidget" name="treeWidget_projects">
            <property name="midLineWidth">
             <number>1</number>
@@ -455,10 +455,49 @@
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QPushButton" name="pushButton_newproject">
-           <property name="text">
-            <string>New project</string>
-           </property>
+          <widget class="QWidget" name="widget_noproject" native="true">
+           <layout class="QGridLayout" name="gridLayout_20">
+            <item row="4" column="2">
+             <spacer name="verticalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="1" colspan="3">
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>60</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="1" colspan="3">
+             <widget class="QPushButton" name="pushButton_newproject">
+              <property name="text">
+               <string>New project</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" colspan="3">
+             <widget class="QPushButton" name="pushButton_openproject">
+              <property name="text">
+               <string>Open project</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
@@ -1302,7 +1341,7 @@
      <normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</normaloff>../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</iconset>
    </property>
    <property name="text">
-    <string>Open</string>
+    <string>Open...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -1586,7 +1625,7 @@
   </action>
   <action name="actionSave_as">
    <property name="text">
-    <string>Save as</string>
+    <string>Save as...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -1616,7 +1655,7 @@
   </action>
   <action name="actionLibrary_manager">
    <property name="text">
-    <string>Library manager</string>
+    <string>Library manager...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+L</string>
@@ -1624,7 +1663,7 @@
   </action>
   <action name="actionHex_code">
    <property name="text">
-    <string>Hex code</string>
+    <string>View hex code...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+H</string>
@@ -1632,7 +1671,7 @@
   </action>
   <action name="actionSet_paths">
    <property name="text">
-    <string>System paths</string>
+    <string>System paths...</string>
    </property>
    <property name="toolTip">
     <string>Set paths</string>
@@ -1687,7 +1726,7 @@
   </action>
   <action name="actionPrint">
    <property name="text">
-    <string>Print</string>
+    <string>Print...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
@@ -1776,7 +1815,7 @@
   </action>
   <action name="actionUpload_hex_directly">
    <property name="text">
-    <string>Upload .hex directly</string>
+    <string>Upload .hex...</string>
    </property>
   </action>
   <action name="actionMenubar">
@@ -1792,12 +1831,12 @@
   </action>
   <action name="actionNew_project">
    <property name="text">
-    <string>New project</string>
+    <string>New project...</string>
    </property>
   </action>
   <action name="actionOpen_project">
    <property name="text">
-    <string>Open project</string>
+    <string>Open project...</string>
    </property>
   </action>
   <action name="action_list_recent">
@@ -1822,7 +1861,7 @@
   </action>
   <action name="actionAdd_existing_directory">
    <property name="text">
-    <string>Add existing directory</string>
+    <string>Add existing directory...</string>
    </property>
   </action>
   <action name="actionAdd_current_file">
@@ -1832,12 +1871,12 @@
   </action>
   <action name="actionAdd_existing_file">
    <property name="text">
-    <string>Add existing file</string>
+    <string>Add existing file...</string>
    </property>
   </action>
   <action name="actionAdd_new_file">
    <property name="text">
-    <string>Add new file</string>
+    <string>Add new file...</string>
    </property>
   </action>
   <action name="actionOpen_from_project">
@@ -1852,12 +1891,12 @@
   </action>
   <action name="actionSubmit_bug_report">
    <property name="text">
-    <string>Submit bug report</string>
+    <string>Submit bug report...</string>
    </property>
   </action>
   <action name="actionCheck_for_patches">
    <property name="text">
-    <string>Check for patches</string>
+    <string>Check for patches...</string>
    </property>
   </action>
   <action name="actionTabShell">

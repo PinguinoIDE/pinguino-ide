@@ -30,6 +30,7 @@ class ProjectManager(object):
         self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.select_existing_directory)
         self.connect(self.main.actionNew_project, QtCore.SIGNAL("triggered()"), self.new_project)
         self.connect(self.main.pushButton_newproject, QtCore.SIGNAL("clicked()"), self.new_project)
+        self.connect(self.main.pushButton_openproject, QtCore.SIGNAL("clicked()"), self.open_project)
         self.connect(self.main.actionClose_project, QtCore.SIGNAL("triggered()"), self.close_project)
         self.connect(self.main.actionSave_project, QtCore.SIGNAL("triggered()"), self.save_project)
         self.connect(self.main.actionAdd_current_file, QtCore.SIGNAL("triggered()"), self.add_current_file)
@@ -305,7 +306,7 @@ class ProjectManager(object):
         else: os.environ["PINGUINO_PROJECT"] = ""
 
         self.main.treeWidget_projects.setVisible(bool(project))
-        self.main.pushButton_newproject.setVisible(not bool(project))
+        self.main.widget_noproject.setVisible(not bool(project))
 
         self.main.treeWidget_projects.contextMenuEvent = self.project_context_menu
         Decorator.update_toolbar()
@@ -356,6 +357,8 @@ class ProjectManager(object):
         menu.addSeparator()
         menu.addAction("Add new file...", self.add_new_file)
         menu.addAction("Add new directory...", self.add_new_directory)
+        menu.addAction("Close project", self.close_project)
+        menu.addAction("Open project...", self.open_project)
 
         menu.setStyleSheet("""
         QMenu {
@@ -572,8 +575,8 @@ class ProjectManager(object):
 
             if os.path.isfile(file_):
                 action.setText(filename+" ("+file_path+")")
-                self.connect(action, QtCore.SIGNAL("triggered()"), self.menu_recent_event(file_))
-                action.ActionEvent = self.menu_recent_event
+                self.connect(action, QtCore.SIGNAL("triggered()"), self.ide_menu_recent_event(file_))
+                action.ActionEvent = self.ide_menu_recent_event
 
                 self.main.menuRecentProjects.addAction(action)
 

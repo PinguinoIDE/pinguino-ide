@@ -91,7 +91,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Opening last files"))
-        self.open_last_files()
+        self.ide_open_last_files()
 
         splash_write(QtGui.QApplication.translate("Splash", "Starting widgets features"))
         self.init_widgets()
@@ -127,7 +127,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         self.load_main_config()
         self.update_project_status(None)
         splash_write(QtGui.QApplication.translate("Splash", "Checking configuration files"))
-        self.check_files()
+        self.ide_check_files()
 
         os_name = os.getenv("PINGUINO_OS_NAME")
         if os_name == "windows":

@@ -25,7 +25,7 @@ class Decorator(object):
                 Pinguino.main.actionSwitch_ide.setChecked(False)
                 Pinguino.main.tabWidget_files.setVisible(True)
                 Pinguino.main.tabWidget_graphical.setVisible(False)
-                Pinguino.tab_changed()
+                Pinguino.ide_tab_changed()
                 #Pinguino.main.frame_logo.setVisible(False)
                 return fn(Pinguino, *args, **kwargs)
             return wrapped
@@ -164,11 +164,11 @@ class Decorator(object):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
                 if Pinguino.is_graphical():
-                    saved = Pinguino.PinguinoKIT.save_file(*args, **kwargs)
+                    saved = Pinguino.PinguinoKIT.ide_save_file(*args, **kwargs)
                     if saved: fn(Pinguino, *args, **kwargs)
                     else: Dialogs.save_before_compile(Pinguino)
                 else:
-                    saved = Pinguino.save_file(*args, **kwargs)
+                    saved = Pinguino.ide_save_file(*args, **kwargs)
                     if saved: fn(Pinguino, *args, **kwargs)
                     else: Dialogs.save_before_compile(Pinguino)
             return wrapped
@@ -272,7 +272,7 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                Pinguino.clear_highlighted_lines()
+                Pinguino.editor_clear_highlighted_lines()
                 return fn(Pinguino, *args, **kwargs)
             return wrapped
         return actualdecorator

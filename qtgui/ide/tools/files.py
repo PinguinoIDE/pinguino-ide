@@ -39,6 +39,9 @@ class Files(object):
                 self.add_new_file_item("empty", parent, "empty", flags=None)
             return
 
+        if not os.path.exists(path):
+            return
+
         lisdir = os.listdir(path)
 
         # Filters
@@ -157,7 +160,7 @@ class Files(object):
     def open_from_tree(self, event, int_):
 
         if os.path.isfile(event.path):
-            self.open_file_from_path(filename=event.path)
+            self.ide_open_file_from_path(filename=event.path)
 
 
     #----------------------------------------------------------------------
@@ -165,7 +168,7 @@ class Files(object):
         if getattr(list_widget_item, "type_file") == "dir":
             self.update_path_files(getattr(list_widget_item, "path_file"))
         if getattr(list_widget_item, "type_file") == "file":
-            self.open_file_from_path(filename=getattr(list_widget_item, "path_file"))
+            self.ide_open_file_from_path(filename=getattr(list_widget_item, "path_file"))
 
 
     #----------------------------------------------------------------------
@@ -181,7 +184,7 @@ class Files(object):
             self.update_path_files(QtCore.QDir.home().path())
 
         elif to_dir == "Dir":
-            editor = self.main.tabWidget_files.currentWidget()
+            editor = self.get_current_editor()
             dir_ = getattr(editor, "path", None)
             if dir_: self.update_path_files(os.path.split(dir_)[0])
 

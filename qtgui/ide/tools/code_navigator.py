@@ -187,7 +187,7 @@ class CodeNavigator(object):
         item = self.main.tableWidget_functions.itemFromIndex(model_index).text()
         if column == 2:
             line = item[:item.find("-")]
-            self.jump_to_line(int(line))
+            self.editor_highligh_line(int(line), "#DBFFE3")
 
 
     #----------------------------------------------------------------------
@@ -197,7 +197,8 @@ class CodeNavigator(object):
         item = self.main.tableWidget_directives.itemFromIndex(model_index).text()
         if column == 2:
             line = item
-            self.jump_to_line(int(line))
+            self.editor_highligh_line(int(line), "#DBFFE3")
+
 
 
     #----------------------------------------------------------------------
@@ -207,7 +208,7 @@ class CodeNavigator(object):
         item = self.main.tableWidget_variables.itemFromIndex(model_index).text()
         if column == 1:
             line = item
-            self.jump_to_line(int(line))
+            self.editor_highligh_line(int(line), "#DBFFE3")
 
 
     #----------------------------------------------------------------------
@@ -215,7 +216,7 @@ class CodeNavigator(object):
     def jump_function_header(self, row):
         item = self.main.tableWidget_functions.verticalHeaderItem(row).text()
         line = item[item.find(":")+1:][:item[item.find(":")+1:].find("-")]
-        self.jump_to_line(int(line))
+        self.highligh_line(int(line), "#DBFFE3")
 
 
     #----------------------------------------------------------------------
@@ -223,7 +224,7 @@ class CodeNavigator(object):
     def jump_directive_header(self, row):
         item = self.main.tableWidget_directives.verticalHeaderItem(row).text()
         line = item[item.find(":")+1:]
-        self.jump_to_line(int(line))
+        self.editor_highligh_line(int(line), "#DBFFE3")
 
 
     #----------------------------------------------------------------------
@@ -231,4 +232,4 @@ class CodeNavigator(object):
     def jump_variable_header(self, row):
         item = self.main.tableWidget_variables.verticalHeaderItem(row).text()
         line = item[item.find(":")+1:]
-        self.jump_to_line(int(line))
+        self.editor_highligh_line(int(line), "#DBFFE3")

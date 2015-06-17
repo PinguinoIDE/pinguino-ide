@@ -123,9 +123,9 @@ class WorkArea(QtGui.QWidget):
         code = self.update_code()
 
         self.ide.switch_ide_mode(False)
-        self.ide.new_file()
+        self.ide.ide_new_file()
 
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.ide.get_current_editor()
         editor.text_edit.setText(code)
 
 

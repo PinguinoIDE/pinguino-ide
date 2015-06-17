@@ -44,7 +44,7 @@ class SearchReplace(object):
         self.main.pushButton_search_previous.setEnabled(empty)
         self.main.pushButton_search_next.setEnabled(empty)
 
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         editor.text_edit.setExtraSelections([])
         if not empty: return
 
@@ -106,13 +106,13 @@ class SearchReplace(object):
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
     @Decorator.requiere_line_edit_content("main.lineEdit_replace")
     def replace(self):
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         text_cur = editor.text_edit.textCursor()
         if text_cur.selectedText() == self.main.lineEdit_search.text():
             text_cur.removeSelectedText()
             text_cur.insertText(self.main.lineEdit_replace.text())
             text_cur.clearSelection()
-            self.highligh_line(line=None, color="#ffff7f")
+            self.editor_highligh_line(line=None, color="#ffff7f")
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
@@ -127,7 +127,7 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     def replace_all_match(self, wordOld, wordNew, sensitive=False, whole=False):
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         text_doc = editor.text_edit.document()
         text_cur = editor.text_edit.textCursor()
         s = text_doc.FindCaseSensitively if sensitive else 0
@@ -151,7 +151,7 @@ class SearchReplace(object):
 
     #----------------------------------------------------------------------
     def find_match(self, word, back, sensitive, whole):
-        editor = self.main.tabWidget_files.currentWidget()
+        editor = self.get_current_editor()
         text_doc = editor.text_edit.document()
         text_cur = editor.text_edit.textCursor()
         b = text_doc.FindBackward if back else 0
@@ -160,6 +160,6 @@ class SearchReplace(object):
         # editor.text_edit.moveCursor(text_cur.NoMove, text_cur.KeepAnchor)
         if back or sensitive or whole: editor.text_edit.find(word, b | s | w)
         else:  editor.text_edit.find(word)
-        self.highligh_line(line=None, color="#ffff7f", text_cursor=editor.text_edit.textCursor())
+        self.editor_highligh_line(line=None, color="#ffff7f", text_cursor=editor.text_edit.textCursor())
 
 

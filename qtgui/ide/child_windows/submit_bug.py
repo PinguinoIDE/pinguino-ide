@@ -66,7 +66,8 @@ class SubmitBug(QtGui.QDialog):
         """"""
         try:
             summary = self.submit.lineEdit_summary.text()
-            details = self.submit.plainTextEdit_details.toPlainText()
+            details = self.get_systeminfo() + "\n\nDetails:\n" + self.submit.plainTextEdit_details.toPlainText()
+            logging.info("Sending: {}".format(details))
             requests.post(SUBMIT_SERVER, data={"summary": summary, "details": details,})
 
         except requests.ConnectionError:
@@ -75,3 +76,44 @@ class SubmitBug(QtGui.QDialog):
 
 
 
+
+    #----------------------------------------------------------------------
+    def get_systeminfo(self):
+
+        data = {}
+        try: data["os.name"] = str(os.name)
+        except: pass
+        try: data["os.environ"] = str(os.environ)
+        except: pass
+        try: data["os.uname"] = str(os.uname())
+        except: pass
+        try: data["sys.argv"] = str(sys.argv)
+        except: pass
+        try: data["sys.flags"] = str(sys.flags)
+        except: pass
+        try: data["sys.platform"] = str(sys.platform)
+        except: pass
+        try: data["sys.version"] = str(sys.version)
+        except: pass
+        try: data["platform.architecture"] = str(platform.architecture())
+        except: pass
+        try: data["platform.dist"] = str(platform.dist())
+        except: pass
+        try: data["platform.linux_distribution"] = str(platform.linux_distribution())
+        except: pass
+        try: data["platform.mac_ver"] = str(platform.mac_ver())
+        except: pass
+        try: data["platform.system"] = str(platform.system())
+        except: pass
+        try: data["platform.win32_ver"] = str(platform.win32_ver())
+        except: pass
+        try: data["platform.libc_ver"] = str(platform.libc_ver())
+        except: pass
+        try: data["platform.machine"] = str(platform.machine())
+        except: pass
+        try: data["platform.platform"] = str(platform.platform())
+        except: pass
+        try: data["platform.release"] = str(platform.release())
+        except: pass
+
+        return "\n" + "#" + "-" * 80 + "\n#" + "-" * 80 + "\n" + "\n".join([": ".join(item) for item in data.items()]) + "\n#" + "-" * 80 + "\n#" + "-" * 80

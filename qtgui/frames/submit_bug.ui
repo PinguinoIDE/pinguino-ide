@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width>
-    <height>438</height>
+    <width>571</width>
+    <height>365</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,9 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Please provide as much information as possible about wath caused the bug that you are reporting.</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;Please provide as much information as possible about wath caused the bug that you are reporting.&lt;/p&gt;
+&lt;p&gt;This feature could recollect extra information about system, like OS, architecture, PYTHONPATH,&lt;br&gt;username, etc.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -68,7 +70,7 @@
    <item>
     <widget class="QCheckBox" name="checkBox_show_this_dialog">
      <property name="text">
-      <string>Show this dialog on unexpected errors</string>
+      <string>Show this dialog on unexpected errors.</string>
      </property>
      <property name="checked">
       <bool>true</bool>
