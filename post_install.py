@@ -38,15 +38,15 @@ if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "patches")):
 
 #Remove old files
 #RB20150202 : each file must be checked before being deleted
-if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")):
+if os.path.exists(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")):
     os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
-if not os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf")):
+if os.path.exists(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf")):
     os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 # if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")):
-    # os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle"))
+# shutil.copyfile(os.path.join(os.getenv("PINGUINO_INSTALL"), "wikidocs.pickle"))
 
-#Remove patches
-parser = RawConfigParser()
-parser.readfp(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"), "r"))
-parser.remove_section("Patches")
-parser.write(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"), "w"))
+# # Remove patches
+# parser = RawConfigParser()
+# parser.readfp(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"), "r"))
+# parser.remove_section("Patches")
+# parser.write(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"), "w"))

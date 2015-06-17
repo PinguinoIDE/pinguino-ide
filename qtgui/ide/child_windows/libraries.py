@@ -106,7 +106,6 @@ class LibManager(QtGui.QMainWindow):
 
         self.update_sources_view()
         self.update_libraries_view()
-        self.centrar()
 
         self.center_on_screen()
 
@@ -222,13 +221,6 @@ class LibManager(QtGui.QMainWindow):
 
         self.update_sources_view()
         self.update_libraries_view()
-
-
-    #----------------------------------------------------------------------
-    def centrar(self):
-        screen = QtGui.QDesktopWidget().screenGeometry()
-        size = self.geometry()
-        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 
 
     #----------------------------------------------------------------------
@@ -361,14 +353,11 @@ class LibManager(QtGui.QMainWindow):
             setattr(web_page, "url", url)
             self.libframe.tableWidget_sources.setItem(index, 2, web_page)
 
-
-
             self.libframe.tableWidget_sources.item(index, 0).setText(name)
             self.libframe.tableWidget_sources.item(index, 1).setText(repo)
             self.libframe.tableWidget_sources.item(index, 2).setText("Link")
 
             index += 1
-
 
         hh = self.libframe.tableWidget_sources.horizontalHeader()
         hh.resizeSection(0, 250)
