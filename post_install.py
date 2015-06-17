@@ -42,11 +42,4 @@ if os.path.exists(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle
     os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"))
 if os.path.exists(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf")):
     os.remove(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
-# if os.path.isfile(os.path.join(os.getenv("PINGUINO_USER_PATH"), "wikidocs.pickle")):
-# shutil.copyfile(os.path.join(os.getenv("PINGUINO_INSTALL"), "wikidocs.pickle"))
 
-# # Remove patches
-# parser = RawConfigParser()
-# parser.readfp(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"), "r"))
-# parser.remove_section("Patches")
-# parser.write(open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"), "w"))
