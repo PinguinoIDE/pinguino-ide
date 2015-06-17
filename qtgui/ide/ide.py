@@ -185,7 +185,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
         self.PinguinoPallete = BackgroundPallete()
         self.PinguinoPallete.save_palette(self.main.centralwidget.parent())
-        self.switch_color_theme(self.configIDE.config("Main", "color_theme", True))
+        self.switch_color_theme(self.configIDE.config("Main", "color_theme", False))
 
         bg_color = self.configIDE.config("Styles", "background_color", "#FFFFFF")
         alternate_bg_color = self.configIDE.config("Styles", "alternate_background_color", "#DDE8FF")
