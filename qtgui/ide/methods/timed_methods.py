@@ -15,7 +15,7 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(3000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Functions")
@@ -47,7 +47,7 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(3000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Directives")
@@ -80,7 +80,7 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(3000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Variables")
@@ -109,7 +109,7 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(5000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.if_autocomplete_is_enable()
@@ -161,7 +161,7 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(3000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_main_focus()
@@ -189,9 +189,9 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(3000)
     @Decorator.requiere_open_files()
-    @Decorator.requiere_text_mode()
+    # @Decorator.requiere_text_mode()
     @Decorator.requiere_main_focus()
     def save_backup_file(self):
 

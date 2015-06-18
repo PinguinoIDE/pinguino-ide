@@ -61,8 +61,8 @@ class GraphicalIDE(object):
 
         self.setup_bloques()
 
-        self.main.tabWidget_graphical.setCurrentIndex(0)
-        self.main.tabWidget_graphical.setMaximumSize(10000, 10e6)
+        self.main.tabWidget_files.setCurrentIndex(0)
+        self.main.tabWidget_files.setMaximumSize(10000, 10e6)
 
 
         self.set_tab("Pinguino")
@@ -103,13 +103,13 @@ class GraphicalIDE(object):
 
         editor.graphical_area = area
 
-        self.main.tabWidget_graphical.addTab(editor, filename)
+        self.main.tabWidget_files.addTab(editor, filename)
 
         editor.keyPressEvent = self.__keyPressEvent__
 
-        self.main.tabWidget_graphical.setCurrentWidget(editor)
-        index = self.main.tabWidget_graphical.currentIndex()
-        self.main.tabWidget_graphical.setTabText(index, filename[:-1])
+        self.main.tabWidget_files.setCurrentWidget(editor)
+        index = self.main.tabWidget_files.currentIndex()
+        self.main.tabWidget_files.setTabText(index, filename[:-1])
 
 
     #----------------------------------------------------------------------
@@ -121,7 +121,7 @@ class GraphicalIDE(object):
 
     #----------------------------------------------------------------------
     def __keyPressEvent__(self, event):
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         #editor.graphical_area
 
         if not editor.graphical_area.SelectArea.isVisible(): return
@@ -130,20 +130,20 @@ class GraphicalIDE(object):
             editor.graphical_area.dele_blocks()
 
 
-    #----------------------------------------------------------------------
-    def ide_tab_changed(self, *args, **kwargs):
-        self.main.tabWidget_graphical.setVisible(self.main.tabWidget_graphical.count() > 0)
-        self.main.frame_logo.setVisible(not self.main.tabWidget_graphical.count() > 0)
-        self.main.actionClose_file.setEnabled(self.main.tabWidget_graphical.count() > 0)
+    # #----------------------------------------------------------------------
+    # def ide_tab_changed(self, *args, **kwargs):
+        # self.main.tabWidget_files.setVisible(self.main.tabWidget_files.count() > 0)
+        # self.main.frame_logo.setVisible(not self.main.tabWidget_files.count() > 0)
+        # self.main.actionClose_file.setEnabled(self.main.tabWidget_files.count() > 0)
 
-        editor = self.main.tabWidget_graphical.currentWidget()
-        if getattr(editor, "path", None): self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+editor.path)
-        else: self.ide.setWindowTitle(os.getenv("PINGUINO_NAME"))
+        # editor = self.main.tabWidget_files.currentWidget()
+        # if getattr(editor, "path", None): self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+editor.path)
+        # else: self.ide.setWindowTitle(os.getenv("PINGUINO_NAME"))
 
-        index = self.main.tabWidget_graphical.currentIndex()
-        filename = self.main.tabWidget_graphical.tabText(index)
-        if filename.endswith("*"): self.main.actionSave_file.setEnabled(True)
-        else: self.main.actionSave_file.setDisabled(True)
+        # index = self.main.tabWidget_files.currentIndex()
+        # filename = self.main.tabWidget_files.tabText(index)
+        # if filename.endswith("*"): self.main.actionSave_file.setEnabled(True)
+        # else: self.main.actionSave_file.setDisabled(True)
 
         # self.ide.__update_current_dir_on_files__()
 
@@ -154,18 +154,20 @@ class GraphicalIDE(object):
         editor = kwargs.get("editor", None)
         if not editor: editor = self.ide.get_tab().currentWidget()
         index = self.ide.get_tab().indexOf(editor)
-        #editor = self.main.tabWidget_graphical.currentWidget()
-        #index = self.main.tabWidget_graphical.currentIndex()
-        filename = self.main.tabWidget_graphical.tabText(index)
+        #editor = self.main.tabWidget_files.currentWidget()
+        #index = self.main.tabWidget_files.currentIndex()
+        filename = self.main.tabWidget_files.tabText(index)
         save_path = getattr(editor, "path", None)
 
         if not save_path:
             save_path, filename = Dialogs.set_save_file(self.ide, filename)
             if not save_path: return False
             setattr(editor, "path", save_path)
-            self.main.tabWidget_graphical.setTabText(index, filename)
-            self.main.tabWidget_graphical.setTabToolTip(index, save_path)
+            self.main.tabWidget_files.setTabText(index, filename)
+            self.main.tabWidget_files.setTabToolTip(index, save_path)
             self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+save_path)
+
+
 
         self.__save_file__(editor=editor)
         return True
@@ -177,16 +179,16 @@ class GraphicalIDE(object):
         editor = kwargs.get("editor", None)
         if not editor: editor = self.ide.get_tab().currentWidget()
         index = self.ide.get_tab().indexOf(editor)
-        #editor = self.main.tabWidget_graphical.currentWidget()
-        #index = self.main.tabWidget_graphical.currentIndex()
-        filename = self.main.tabWidget_graphical.tabText(index)
+        #editor = self.main.tabWidget_files.currentWidget()
+        #index = self.main.tabWidget_files.currentIndex()
+        filename = self.main.tabWidget_files.tabText(index)
         save_path = getattr(editor, "path", None)
 
         save_path, filename = Dialogs.set_save_file(self.ide, filename)
         if not save_path: return False
         setattr(editor, "path", save_path)
-        self.main.tabWidget_graphical.setTabText(index, filename)
-        self.main.tabWidget_graphical.setTabToolTip(index, save_path)
+        self.main.tabWidget_files.setTabText(index, filename)
+        self.main.tabWidget_files.setTabToolTip(index, save_path)
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+save_path)
 
         self.__save_file__(editor=editor)
@@ -198,7 +200,7 @@ class GraphicalIDE(object):
     @Decorator.requiere_open_files()
     def get_pinguino_source_code(self):
 
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         #editor.graphical_area.update_code()
         return editor.graphical_area.update_code()
 
@@ -209,7 +211,12 @@ class GraphicalIDE(object):
         editor = kwargs.get("editor", self.ide.get_tab())
         content = self.get_gpde()
         self.save_raw_parser(content, editor.path)
+
+        setattr(editor, "last_saved", content)
+        self.ide.ide_remove_backup_file(editor=editor)
+
         self.ide.editor_saved()
+
 
 
     #----------------------------------------------------------------------
@@ -260,7 +267,7 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     def get_gpde(self):
 
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         blocks = editor.graphical_area.get_project_blocks()
 
         to_save = []
@@ -353,11 +360,11 @@ class GraphicalIDE(object):
         if self.ide.ide_check_duplicate_file(filename): return
 
         self.ide_new_file(filename)
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         set_blocks = self.read_raw_parser(filename)
         self.load_blocks(set_blocks)
-        self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
-        self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
+        self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
+        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
         setattr(editor, "path", filename)
 
@@ -366,7 +373,7 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     def load_blocks(self, set_blocks):
 
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         editor.graphical_area.isOpening = True
 
         toFitInside = []
@@ -434,7 +441,7 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     def replace_id_by_widgets(self):
 
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         for block in editor.graphical_area.get_project_blocks():
             block.metadata.to = map(self.get_widget_from_id, block.metadata.to)
             block.metadata.from_ = map(self.get_widget_from_id, block.metadata.from_)
@@ -448,7 +455,7 @@ class GraphicalIDE(object):
         if type(id_) != type(""): return id_
         if id_ is None: return id_
 
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         blocks = editor.graphical_area.get_project_blocks()
 
         for block in blocks:
@@ -462,19 +469,19 @@ class GraphicalIDE(object):
         filename = kwargs["filename"]
 
         if self.ide.ide_check_duplicate_file(filename): return
-        self.new_file(filename)
-        editor = self.main.tabWidget_graphical.currentWidget()
+        self.ide_new_file(filename)
+        editor = self.main.tabWidget_files.currentWidget()
         set_blocks = self.read_raw_parser(filename)
         self.load_blocks(set_blocks)
 
-        editor = self.main.tabWidget_graphical.currentWidget()
-        #index = self.main.tabWidget_graphical.currentIndex()
-        #self.main.tabWidget_graphical.setTabText(index, os.path.split(filename)[1])
-        #self.main.tabWidget_graphical.setTabToolTip(index, filename)
+        editor = self.main.tabWidget_files.currentWidget()
+        #index = self.main.tabWidget_files.currentIndex()
+        #self.main.tabWidget_files.setTabText(index, os.path.split(filename)[1])
+        #self.main.tabWidget_files.setTabToolTip(index, filename)
         editor.path = filename
         setattr(editor, "path", filename)
-        self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
-        self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
+        self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
+        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
 
         self.ide.ide_tab_changed()
@@ -486,15 +493,15 @@ class GraphicalIDE(object):
         filename = self.ide.get_untitled_name(ext=".gpde")
 
         self.ide_new_file(filename)
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         set_blocks = self.read_raw_parser(source)
         self.load_blocks(set_blocks)
 
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         editor.path = filename
         setattr(editor, "path", filename)
-        self.main.tabWidget_graphical.setTabToolTip(self.main.tabWidget_graphical.currentIndex(), filename)
-        self.main.tabWidget_graphical.setTabText(self.main.tabWidget_graphical.currentIndex(), os.path.split(filename)[1])
+        self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
+        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
 
         self.ide.ide_tab_changed()
@@ -505,7 +512,7 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     def init_positions(self):
         """"""
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         for block in editor.graphical_area.get_project_blocks():
             if block.metadata.from_:
 
@@ -521,7 +528,7 @@ class GraphicalIDE(object):
     ##----------------------------------------------------------------------
     #def save_as_pde(self):
 
-        #editor = self.main.tabWidget_graphical.currentWidget()
+        #editor = self.main.tabWidget_files.currentWidget()
         #filename = editor.path.replace(".gpde", ".pde")
         #file_pde = codecs.open(filename, "w", "utf-8")
         #file_pde.write(self.get_pinguino_source_code())
@@ -531,7 +538,7 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     @Decorator.requiere_graphical_mode()
     def get_work_area(self):
-        return self.main.tabWidget_graphical.currentWidget().graphical_area
+        return self.main.tabWidget_files.currentWidget().graphical_area
 
 
     #----------------------------------------------------------------------
@@ -701,8 +708,9 @@ class GraphicalIDE(object):
     @Decorator.requiere_graphical_mode()
     @Decorator.requiere_main_focus()
     def constant_update(self):
-        editor = self.main.tabWidget_graphical.currentWidget()
-        editor.graphical_area.constant_update()
+        if self.ide.is_graphical():
+            editor = self.main.tabWidget_files.currentWidget()
+            editor.graphical_area.constant_update()
 
 
     #----------------------------------------------------------------------
@@ -711,7 +719,7 @@ class GraphicalIDE(object):
     @Decorator.requiere_graphical_mode()
     @Decorator.requiere_main_focus()
     def constant_auto_raise(self):
-        editor = self.main.tabWidget_graphical.currentWidget()
+        editor = self.main.tabWidget_files.currentWidget()
         if not editor.graphical_area.isDragging:
             editor.graphical_area.auto_raise()
 

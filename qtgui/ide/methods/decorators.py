@@ -22,9 +22,9 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                Pinguino.main.actionSwitch_ide.setChecked(False)
+                # Pinguino.main.actionSwitch_ide.setChecked(False)
                 Pinguino.main.tabWidget_files.setVisible(True)
-                Pinguino.main.tabWidget_graphical.setVisible(False)
+                Pinguino.main.tabWidget_files.setVisible(False)
                 Pinguino.ide_tab_changed()
                 #Pinguino.main.frame_logo.setVisible(False)
                 return fn(Pinguino, *args, **kwargs)
@@ -381,6 +381,7 @@ class Decorator(object):
             def wrapped(Pinguino, *args, **kwargs):
                 if Pinguino.get_tab().count():
 
+                    Pinguino.main.tabWidget.setCurrentIndex(0)
                     widget = getattr(Pinguino.main, widget_name)
 
                     tab = widget.parent().parent()

@@ -68,7 +68,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading graphical mode"))
         self.PinguinoKIT = GraphicalIDE(self)
-        self.main.tabWidget_graphical.setVisible(False)
+        self.main.tabWidget_files.setVisible(False)
         # self.main.dockWidget_blocks.setVisible(False)
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading icons"))

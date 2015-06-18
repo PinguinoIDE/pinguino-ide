@@ -20,6 +20,7 @@ class PinguinoEvents(PinguinoCore):
 
         # Triggers
         self.connect(self.main.actionNew_file, QtCore.SIGNAL("triggered()"), self.ide_new_file)
+        self.connect(self.main.actionNew_blocks_file, QtCore.SIGNAL("triggered()"), self.PinguinoKIT.ide_new_file)
         self.connect(self.main.actionOpen_file, QtCore.SIGNAL("triggered()"), self.ide_open_files)
         self.connect(self.main.actionSave_file, QtCore.SIGNAL("triggered()"), self.ide_save_file)
         self.connect(self.main.actionSave_as, QtCore.SIGNAL("triggered()"), self.ide_save_as)
@@ -110,11 +111,11 @@ class PinguinoEvents(PinguinoCore):
 
         # Events
         self.closeEvent = self.ide_close_ide
-        self.connect(self.main.actionSwitch_ide, QtCore.SIGNAL("toggled(bool)"), self.switch_ide_mode)
+        # self.connect(self.main.actionSwitch_ide, QtCore.SIGNAL("toggled(bool)"), self.switch_ide_mode)
         self.connect(self.main.tabWidget_files, QtCore.SIGNAL("currentChanged(int)"), self.ide_tab_changed)
         self.connect(self.main.tabWidget_files, QtCore.SIGNAL("tabCloseRequested(int)"), self.ide_tab_close)
-        self.connect(self.main.tabWidget_graphical, QtCore.SIGNAL("currentChanged(int)"), self.ide_tab_changed)
-        self.connect(self.main.tabWidget_graphical, QtCore.SIGNAL("tabCloseRequested(int)"), self.ide_tab_close)
+        # self.connect(self.main.tabWidget_files, QtCore.SIGNAL("currentChanged(int)"), self.ide_tab_changed)
+        # self.connect(self.main.tabWidget_files, QtCore.SIGNAL("tabCloseRequested(int)"), self.ide_tab_close)
 
 
         # Graphical mode
@@ -124,7 +125,7 @@ class PinguinoEvents(PinguinoCore):
 
         # Context menu
         self.main.tabWidget_files.contextMenuEvent = self.editor_tabfile_context_menu
-        self.main.tabWidget_graphical.contextMenuEvent = self.editor_tabfile_context_menu
+        self.main.tabWidget_files.contextMenuEvent = self.editor_tabfile_context_menu
 
 
         # Initialize

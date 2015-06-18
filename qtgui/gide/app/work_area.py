@@ -117,12 +117,13 @@ class WorkArea(QtGui.QWidget):
         menu.exec_(event.globalPos())
 
 
-    #----------------------------------------------------------------------
+
+    #-------------------------          ---------------------------------------------
     def export_code_to_pinguino_editor(self):
 
         code = self.update_code()
 
-        self.ide.switch_ide_mode(False)
+        # self.ide.switch_ide_mode(False)
         self.ide.ide_new_file()
 
         editor = self.ide.get_current_editor()

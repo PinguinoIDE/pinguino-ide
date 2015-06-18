@@ -145,8 +145,7 @@ class PinguinoQueries(object):
 
     #----------------------------------------------------------------------
     def get_tab(self):
-        if self.main.actionSwitch_ide.isChecked(): return self.main.tabWidget_graphical
-        else: return self.main.tabWidget_files
+        return self.main.tabWidget_files
 
 
     #----------------------------------------------------------------------
@@ -176,7 +175,10 @@ class PinguinoQueries(object):
 
     #----------------------------------------------------------------------
     def is_graphical(self):
-        return self.main.actionSwitch_ide.isChecked()
+        editor = self.get_current_editor()
+        return hasattr(editor, "graphical_area")
+
+        # return self.main.actionSwitch_ide.isChecked()
 
 
     #----------------------------------------------------------------------
@@ -198,7 +200,7 @@ class PinguinoQueries(object):
 
         opens = []
 
-        for tab in [self.main.tabWidget_files, self.main.tabWidget_graphical]:
+        for tab in [self.main.tabWidget_files, self.main.tabWidget_files]:
             widgets = map(tab.widget, range(tab.count()))
             for widget in widgets:
                 if not tab.tabText(tab.indexOf(widget)).endswith("(r/o)"):
@@ -301,7 +303,7 @@ class PinguinoSettings(object):
         self.toggle_menubar(visible)
         self.main.actionMenubar.setChecked(visible)
 
-        self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
+        # self.switch_ide_mode(self.configIDE.config("Features", "graphical", False))
 
         self.main.actionAutocomplete.setChecked(self.configIDE.config("Features", "autocomplete", True))
 
@@ -339,7 +341,7 @@ class PinguinoSettings(object):
 
         self.toolbars = [self.main.toolBar,
                          self.main.toolBar_menu,
-                         self.main.toolBar_switch,
+                         # self.main.toolBar_switch,
                          ]
 
         for toolbar in self.toolbars:
@@ -350,6 +352,7 @@ class PinguinoSettings(object):
 
         icons_toolbar = [
                          (self.main.actionNew_file, "document-new"),
+                         (self.main.actionNew_blocks_file, "insert-object"),
                          (self.main.actionOpen_file, "document-open"),
                          (self.main.actionSave_file, "document-save"),
 
@@ -384,7 +387,7 @@ class PinguinoSettings(object):
         icon.addPixmap(QtGui.QIcon.fromTheme("insert-text").pixmap(size), QtGui.QIcon.Normal, QtGui.QIcon.On)
         icon.addPixmap(QtGui.QIcon.fromTheme("insert-object").pixmap(size), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-        self.main.actionSwitch_ide.setIcon(icon)
+        # self.main.actionSwitch_ide.setIcon(icon)
 
 
     #----------------------------------------------------------------------
@@ -448,7 +451,7 @@ class PinguinoSettings(object):
 
     #----------------------------------------------------------------------
     def switch_color_theme(self, pinguino_color=True):
-        default_pallete = ["toolBar", "toolBar_switch", "toolBar_menu", "menubar", "statusBar"]
+        default_pallete = ["toolBar", "toolBar_menu", "menubar", "statusBar"]
 
         pinguino_pallete = ["dockWidget_bottom", "dockWidget_right"]
 
@@ -477,25 +480,25 @@ class PinguinoSettings(object):
 
 
 
-    #----------------------------------------------------------------------
-    def switch_ide_mode(self, graphical):
-        self.main.actionSwitch_ide.setChecked(graphical)
-        self.main.tabWidget_graphical.setVisible(graphical and self.main.tabWidget_graphical.count() > 0)
-        self.main.tabWidget_files.setVisible(not graphical and self.main.tabWidget_files.count() > 0)
+    # #----------------------------------------------------------------------
+    # def switch_ide_mode(self, graphical):
+        # self.main.actionSwitch_ide.setChecked(graphical)
+        # self.main.tabWidget_files.setVisible(graphical and self.main.tabWidget_files.count() > 0)
+        # self.main.tabWidget_files.setVisible(not graphical and self.main.tabWidget_files.count() > 0)
 
 
-        menu = self.toolbutton_menutoolbar.menu()
-        if graphical:
-            self.update_actions_for_graphical()
-            # self.main.menubar.setVisible(False)
-            # self.toggle_toolbars(True)
-            # menu.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
-        else:
-            self.update_actions_for_text()
-            # self.main.menubar.setVisible(True)
-            # menu.removeAction(self.main.menuGraphical.menuAction())
+        # menu = self.toolbutton_menutoolbar.menu()
+        # if graphical:
+            # self.update_actions_for_graphical()
+            # # self.main.menubar.setVisible(False)
+            # # self.toggle_toolbars(True)
+            # # menu.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
+        # else:
+            # self.update_actions_for_text()
+            # # self.main.menubar.setVisible(True)
+            # # menu.removeAction(self.main.menuGraphical.menuAction())
 
-        self.ide_tab_changed()
+        # self.ide_tab_changed()
 
 
 
@@ -879,31 +882,33 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.update_recents(filename)
 
         if filename.endswith(".gpde"):
-            self.switch_ide_mode(True)
+            # self.switch_ide_mode(True)
             self.PinguinoKIT.ide_open_file_from_path(filename=filename)
-            return
-
-        if filename.endswith(".ppde"):
+            editor = self.get_current_editor()
+            pde_file = codecs.open(filename, "r", "utf-8")
+            content = "".join(pde_file.readlines())
+            pde_file.close()
+        elif filename.endswith(".ppde"):
             self.open_project_from_path(filename=filename)
             return
 
-        elif filename.endswith(".pde"):
-            self.switch_ide_mode(False)
+        else:
+            self.ide_new_file(filename=filename)
+            editor = self.get_current_editor()
+            #pde_file = open(path, mode="r")
+            pde_file = codecs.open(filename, "r", "utf-8")
+            content = "".join(pde_file.readlines())
+            pde_file.close()
+            editor.text_edit.setPlainText(content)
+            editor.text_edit.setReadOnly(readonly)
+            self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
+            if readonly: extra_name = " (r/o)"
+            else: extra_name = ""
+            self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.basename(filename)+extra_name)
 
-        self.ide_new_file(filename=filename)
-        editor = self.get_current_editor()
-        #pde_file = open(path, mode="r")
-        pde_file = codecs.open(filename, "r", "utf-8")
-        content = "".join(pde_file.readlines())
-        pde_file.close()
-        editor.text_edit.setPlainText(content)
-        editor.text_edit.setReadOnly(readonly)
         setattr(editor, "path", filename)
         setattr(editor, "last_saved", content)
-        self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
-        if readonly: extra_name = " (r/o)"
-        else: extra_name = ""
-        self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.basename(filename)+extra_name)
+
         self.ide_check_backup_file(editor=editor)
         self.ide_tab_changed()
 
@@ -935,8 +940,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 try: self.ide_open_file_from_path(filename=file_)
                 except: pass
 
-        self.main.actionSwitch_ide.setChecked(file_.endswith(".gpde"))
-        self.switch_ide_mode(file_.endswith(".gpde"))
+        # self.main.actionSwitch_ide.setChecked(file_.endswith(".gpde"))
+        # self.switch_ide_mode(file_.endswith(".gpde"))
         self.setCursor(QtCore.Qt.ArrowCursor)
 
 
@@ -1027,7 +1032,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
     #----------------------------------------------------------------------
     @Decorator.connect_features()
-    def ide_save_file(self, *args, **kwargs):
+    def __save_file__(self, *args, **kwargs):
 
         editor = kwargs.get("editor", self.get_tab())
         content = editor.text_edit.toPlainText()
@@ -1360,20 +1365,11 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def update_actions_for_text(self):
         normal = False
-        # self.main.menuGraphical.setEnabled(normal
-        # self.main.menubar.removeAction(self.main.menuGraphical.menuAction())
 
         self.main.lineEdit_blocks_search.setVisible(normal)
         self.main.label_search_block.setVisible(normal)
         self.main.tabWidget_blocks.setVisible(normal)
-        self.main.tabWidget_tools.setVisible(not normal)
-
-        # self.main.dockWidget_blocks.setVisible(normal)
-        # self.main.dockWidget_right.setVisible(not normal)
-        # self.main.toolBar_search_replace.setVisible(not normal)
-        # self.main.toolBar_edit.setVisible(not normal)
-        # self.main.toolBar_graphical.setVisible(normal)
-        # self.main.toolBar_undo_redo.setVisible(not normal)
+        # self.main.tabWidget_tools.setVisible(not normal)
 
         self.main.actionSave_image.setVisible(normal)
         self.main.actionUndo.setVisible(not normal)
@@ -1383,30 +1379,20 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.main.actionPaste.setVisible(not normal)
         self.main.actionSearch.setVisible(not normal)
 
-        #self.configIDE.set("Features", "terminal_on_graphical", self.main.dockWidget_output.isVisible())
-        # self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_text", True))
-        # self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_text", True))
         self.configIDE.save_config()
+
+        self.main.tabWidget.setCurrentIndex(0)
+        tabBar = self.main.tabWidget.tabBar()
+        tabBar.hide()
 
 
     #----------------------------------------------------------------------
     def update_actions_for_graphical(self):
         normal = True
-        # self.main.menuGraphical.setEnabled(normal)
-        # self.main.menubar.insertMenu(self.main.menuHelp.menuAction(), self.main.menuGraphical)
-
         self.main.lineEdit_blocks_search.setVisible(normal)
         self.main.label_search_block.setVisible(normal)
         self.main.tabWidget_blocks.setVisible(normal)
-        self.main.tabWidget_tools.setVisible(not normal)
-
-        # self.main.dockWidget_blocks.setVisible(normal)
-        # self.main.dockWidget_right.setVisible(not normal)
-        # self.main.toolBar_search_replace.setVisible(not normal)
-        # self.main.toolBar_edit.setVisible(not normal)
-        # self.main.toolBar_graphical.setVisible(normal)
-        # self.main.toolBar_undo_redo.setVisible(not normal)
-
+        # self.main.tabWidget_tools.setVisible(not normal)
 
         self.main.actionSave_image.setVisible(normal)
         self.main.actionUndo.setVisible(not normal)
@@ -1416,10 +1402,12 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.main.actionPaste.setVisible(not normal)
         self.main.actionSearch.setVisible(not normal)
 
-        #self.configIDE.set("Features", "terminal_on_text", self.main.dockWidget_output.isVisible())
-        # self.main.dockWidget_output.setVisible(self.configIDE.config("Features", "terminal_on_graphical", False))
-        # self.main.actionPython_shell.setChecked(self.configIDE.config("Features", "terminal_on_graphical", False))
         self.configIDE.save_config()
+
+        self.main.tabWidget.setCurrentIndex(1)
+        tabBar = self.main.tabWidget.tabBar()
+        tabBar.show()
+
 
 
 
@@ -1450,7 +1438,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.main.toolBar_menu.addWidget(self.toolbutton_menutoolbar)
 
     #----------------------------------------------------------------------
-    @Decorator.connect_features()
+    # @Decorator.connect_features()
     def ide_new_file(self, *args, **kwargs):
         path = kwargs.get("filename", self.get_untitled_name())
         filename = os.path.split(path)[1]
@@ -1494,11 +1482,11 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
             self.update_recents(filename)
             if filename.endswith(".gpde"):
-                self.switch_ide_mode(True)
+                # self.switch_ide_mode(True)
                 self.PinguinoKIT.ide_open_files(filename=filename)
                 return
-            elif filename.endswith(".pde"):
-                self.switch_ide_mode(False)
+            # elif filename.endswith(".pde"):
+                # self.switch_ide_mode(False)
 
             self.ide_new_file(os.path.split(filename)[1])
             editor = self.get_current_editor()
@@ -1536,7 +1524,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
             self.update_recents(save_path)
 
-        self.ide_save_file(editor=editor)
+        self.__save_file__(editor=editor)
         return True
 
 
@@ -2154,7 +2142,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
     #----------------------------------------------------------------------
     @Decorator.update_toolbar()
-    @Decorator.connect_features()
+    # @Decorator.connect_features()
     def ide_tab_changed(self, *args, **kwargs):
         self.main.tabWidget_files.setVisible(self.main.tabWidget_files.count() > 0)
         self.main.frame_logo.setVisible(not self.main.tabWidget_files.count() > 0)
@@ -2170,6 +2158,11 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         else: self.main.actionSave_file.setDisabled(True)
 
         # self.__update_current_dir_on_files__()
+
+        if self.is_graphical():
+            self.update_actions_for_graphical()
+        else:
+            self.update_actions_for_text()
 
 
     #----------------------------------------------------------------------
