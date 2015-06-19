@@ -699,7 +699,7 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     def is_graphical(self):
 
-        return self.ide.is_graphical()
+        return self.ide.is_graphical() is True
 
 
     #----------------------------------------------------------------------
@@ -708,7 +708,7 @@ class GraphicalIDE(object):
     @Decorator.requiere_graphical_mode()
     @Decorator.requiere_main_focus()
     def constant_update(self):
-        if self.ide.is_graphical():
+        if self.ide.is_graphical() is True:
             editor = self.main.tabWidget_files.currentWidget()
             editor.graphical_area.constant_update()
 

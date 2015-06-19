@@ -109,7 +109,7 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                if not Pinguino.is_graphical() and not Pinguino.is_widget():
+                if (Pinguino.is_graphical() is False) and (not Pinguino.is_widget()):
                     editor = Pinguino.get_tab().currentWidget()
                     if editor.objectName() == "PinguinoCodeEditor":
                         return fn(Pinguino, *args, **kwargs)
@@ -124,9 +124,10 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                if Pinguino.is_graphical():
+                if Pinguino.is_graphical() is True:
                     return fn(Pinguino, *args, **kwargs)
-                else: return None
+                elif Pinguino.is_graphical() is False:
+                    return None
             return wrapped
         return actualdecorator
 
@@ -163,11 +164,11 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                if Pinguino.is_graphical():
+                if Pinguino.is_graphical() is True:
                     saved = Pinguino.PinguinoKIT.ide_save_file(*args, **kwargs)
                     if saved: fn(Pinguino, *args, **kwargs)
                     else: Dialogs.save_before_compile(Pinguino)
-                else:
+                elif Pinguino.is_graphical() is False:
                     saved = Pinguino.ide_save_file(*args, **kwargs)
                     if saved: fn(Pinguino, *args, **kwargs)
                     else: Dialogs.save_before_compile(Pinguino)
@@ -231,9 +232,9 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                if Pinguino.is_graphical():
+                if Pinguino.is_graphical() is True:
                     return getattr(Pinguino.PinguinoKIT, fn.func_name)(Pinguino, *args, **kwargs)
-                else:
+                elif Pinguino.is_graphical() is False:
                     return fn(Pinguino, *args, **kwargs)
             return wrapped
         return actualdecorator

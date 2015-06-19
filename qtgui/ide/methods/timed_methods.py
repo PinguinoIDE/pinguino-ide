@@ -15,7 +15,7 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(3000)
+    @Decorator.timer(1000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Functions")
@@ -23,8 +23,7 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def update_functions(self):
 
-        editor = self.get_current_editor()
-        functions_parse = self.get_functions(editor)
+        functions_parse = self.get_functions()
 
         index = 0
         self.main.tableWidget_functions.setRowCount(len(functions_parse))
@@ -32,22 +31,30 @@ class TimedMethods(object):
         for funtion in functions_parse:
             item = QtGui.QTableWidgetItem()
             self.main.tableWidget_functions.setVerticalHeaderItem(index, item)
-            item.setText(funtion["name"] + ":" + "-".join(funtion["line"]))
+            item.setText(funtion["name"])
             self.completer_funtions.append(funtion["name"])
 
             self.main.tableWidget_functions.setItem(index, 0, QtGui.QTableWidgetItem())
             self.main.tableWidget_functions.setItem(index, 1, QtGui.QTableWidgetItem())
-            #self.main.tableWidget_functions.setItem(index, 2, QtGui.QTableWidgetItem())
+            self.main.tableWidget_functions.setItem(index, 2, QtGui.QTableWidgetItem())
 
-            self.main.tableWidget_functions.item(index, 0).setText(funtion["return"])
-            self.main.tableWidget_functions.item(index, 1).setText(funtion["args"])
-            #self.main.tableWidget_functions.item(index, 2).setText("-".join(funtion["line"]))
+            if funtion["filename"]:
+                self.main.tableWidget_functions.item(index, 0).setText(os.path.split(funtion["filename"])[1])
+            else:
+                self.main.tableWidget_functions.item(index, 0).setText(self.editor_filename())
+
+
+            self.main.tableWidget_functions.item(index, 1).setText(funtion["return"])
+            self.main.tableWidget_functions.item(index, 2).setText(funtion["args"])
+
+            setattr(item, "filename", funtion["filename"])
+            setattr(item, "line", funtion["line"])
 
             index += 1
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(3000)
+    @Decorator.timer(1000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Directives")
@@ -64,23 +71,29 @@ class TimedMethods(object):
         for directive in directives_parse:
             item = QtGui.QTableWidgetItem()
             self.main.tableWidget_directives.setVerticalHeaderItem(index, item)
-            # item.setText(directive["name"] + ":" + directive["line"])
             item.setText(directive["name"])
             self.completer_directives.append(directive["name"])
 
             self.main.tableWidget_directives.setItem(index, 0, QtGui.QTableWidgetItem())
             self.main.tableWidget_directives.setItem(index, 1, QtGui.QTableWidgetItem())
-            #self.main.tableWidget_directives.setItem(index, 2, QtGui.QTableWidgetItem())
+            self.main.tableWidget_directives.setItem(index, 2, QtGui.QTableWidgetItem())
 
-            self.main.tableWidget_directives.item(index, 0).setText(directive["type"])
-            self.main.tableWidget_directives.item(index, 1).setText(directive["value"])
-            #self.main.tableWidget_directives.item(index, 2).setText(directive["line"])
+            if directive["filename"]:
+                self.main.tableWidget_directives.item(index, 0).setText(os.path.split(directive["filename"])[1])
+            else:
+                self.main.tableWidget_directives.item(index, 0).setText(self.editor_filename())
+
+            self.main.tableWidget_directives.item(index, 1).setText(directive["type"])
+            self.main.tableWidget_directives.item(index, 2).setText(directive["value"])
+
+            setattr(item, "filename", directive["filename"])
+            setattr(item, "line", directive["line"])
             index += 1
 
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(3000)
+    @Decorator.timer(1000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Variables")
@@ -97,14 +110,21 @@ class TimedMethods(object):
         for variable in variables_parse:
             item = QtGui.QTableWidgetItem()
             self.main.tableWidget_variables.setVerticalHeaderItem(index, item)
-            item.setText(variable["name"] + ":" + variable["line"])
+            item.setText(variable["name"])
             self.completer_variables.append([variable["name"], variable["type"]])
 
             self.main.tableWidget_variables.setItem(index, 0, QtGui.QTableWidgetItem())
-            #self.main.tableWidget_variables.setItem(index, 1, QtGui.QTableWidgetItem())
+            self.main.tableWidget_variables.setItem(index, 1, QtGui.QTableWidgetItem())
 
-            self.main.tableWidget_variables.item(index, 0).setText(variable["type"])
-            #self.main.tableWidget_variables.item(index, 1).setText(variable["line"])
+            if variable["filename"]:
+                self.main.tableWidget_variables.item(index, 0).setText(os.path.split(variable["filename"])[1])
+            else:
+                self.main.tableWidget_variables.item(index, 0).setText(self.editor_filename())
+
+            self.main.tableWidget_variables.item(index, 1).setText(variable["type"])
+
+            setattr(item, "filename", variable["filename"])
+            setattr(item, "line", variable["line"])
             index += 1
 
 
@@ -120,7 +140,7 @@ class TimedMethods(object):
 
         if not getattr(self, "completer_funtions", False):
             self.completer_funtions = []
-            functions_parse = self.get_functions(editor)
+            functions_parse = self.get_functions()
             for funtion in functions_parse:
                 self.completer_funtions.append(funtion["name"])
 

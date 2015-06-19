@@ -176,7 +176,13 @@ class PinguinoQueries(object):
     #----------------------------------------------------------------------
     def is_graphical(self):
         editor = self.get_current_editor()
-        return hasattr(editor, "graphical_area")
+        if hasattr(editor, "graphical_area"):
+            return True
+        elif hasattr(editor, "text_edit"):
+            return False
+        else:
+            return None
+
 
         # return self.main.actionSwitch_ide.isChecked()
 
@@ -618,10 +624,12 @@ class PinguinoSettings(object):
         for toolbar in self.toolbars:
             toolbar.setVisible(visible)
 
-        if self.is_graphical():
-            self.update_actions_for_graphical()
-        else:
-            self.update_actions_for_text()
+        # if self.is_graphical():
+            # self.update_actions_for_graphical()
+        # else:
+            # self.update_actions_for_text()
+
+        self.update_actions()
 
 
     #----------------------------------------------------------------------
@@ -1362,24 +1370,47 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             self.ide_restart_now()
 
 
+
+
     #----------------------------------------------------------------------
-    def update_actions_for_text(self):
-        normal = False
+    def update_actions(self):
 
-        self.main.lineEdit_blocks_search.setVisible(normal)
-        self.main.label_search_block.setVisible(normal)
-        self.main.tabWidget_blocks.setVisible(normal)
-        # self.main.tabWidget_tools.setVisible(not normal)
+        # actionname: (Blocks, Code, HTML)
+        actions = {"actionSave_image":	(True, False, False),
+                   "actionSave_file":	(True, True, False),
+                   "actionUndo":		(False, True, False),
+                   "actionRedo":		(False, True, False),
+                   "actionCopy":		(False, True, False),
+                   "actionCut":			(False, True, False),
+                   "actionPaste":		(False, True, False),
+                   "actionSearch":		(False, True, False),
+                   "actionCompile":		(True, True, False),
+                   "actionUpload":		(True, True, False),
+                   "tabWidget_browser": (False, True, False),
+                   "SearchReplace":		(False, True, False),
 
-        self.main.actionSave_image.setVisible(normal)
-        self.main.actionUndo.setVisible(not normal)
-        self.main.actionRedo.setVisible(not normal)
-        self.main.actionCopy.setVisible(not normal)
-        self.main.actionCut.setVisible(not normal)
-        self.main.actionPaste.setVisible(not normal)
-        self.main.actionSearch.setVisible(not normal)
+                   }
 
-        self.configIDE.save_config()
+        if self.is_graphical() is True:
+            self.update_actions_for_graphical(actions, 0)
+
+        elif self.is_graphical() is False:
+            self.update_actions_for_text(actions, 1)
+
+        elif self.is_graphical() is None:
+            self.update_actions_for_html(actions, 2)
+
+
+
+    #----------------------------------------------------------------------
+    def update_actions_for_text(self, actions, index):
+
+        self.main.lineEdit_blocks_search.setVisible(False)
+        self.main.label_search_block.setVisible(False)
+        self.main.tabWidget_blocks.setVisible(False)
+
+        for action in actions:
+            getattr(self.main, action).setEnabled(actions[action][index])
 
         self.main.tabWidget.setCurrentIndex(0)
         tabBar = self.main.tabWidget.tabBar()
@@ -1387,28 +1418,33 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    def update_actions_for_graphical(self):
-        normal = True
-        self.main.lineEdit_blocks_search.setVisible(normal)
-        self.main.label_search_block.setVisible(normal)
-        self.main.tabWidget_blocks.setVisible(normal)
-        # self.main.tabWidget_tools.setVisible(not normal)
+    def update_actions_for_graphical(self, actions, index):
 
-        self.main.actionSave_image.setVisible(normal)
-        self.main.actionUndo.setVisible(not normal)
-        self.main.actionRedo.setVisible(not normal)
-        self.main.actionCopy.setVisible(not normal)
-        self.main.actionCut.setVisible(not normal)
-        self.main.actionPaste.setVisible(not normal)
-        self.main.actionSearch.setVisible(not normal)
+        self.main.lineEdit_blocks_search.setVisible(True)
+        self.main.label_search_block.setVisible(True)
+        self.main.tabWidget_blocks.setVisible(True)
 
-        self.configIDE.save_config()
+        for action in actions:
+            getattr(self.main, action).setEnabled(actions[action][index])
 
         self.main.tabWidget.setCurrentIndex(1)
         tabBar = self.main.tabWidget.tabBar()
         tabBar.show()
 
 
+    #----------------------------------------------------------------------
+    def update_actions_for_html(self, actions, index):
+
+        self.main.lineEdit_blocks_search.setVisible(False)
+        self.main.label_search_block.setVisible(False)
+        self.main.tabWidget_blocks.setVisible(False)
+
+        for action in actions:
+            getattr(self.main, action).setEnabled(actions[action][index])
+
+        self.main.tabWidget.setCurrentIndex(0)
+        tabBar = self.main.tabWidget.tabBar()
+        tabBar.hide()
 
 
     #----------------------------------------------------------------------
@@ -1427,7 +1463,6 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         menu.addMenu(self.main.menuSettings)
         menu.addMenu(self.main.menuSource)
         menu.addMenu(self.main.menuPinguino)
-        # menu.addMenu(self.main.menuGraphical)
         menu.addMenu(self.main.menuTools)
         menu.addMenu(self.main.menuHelp)
 
@@ -1669,7 +1704,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             self.configIDE.set("Recents", "open_"+str(count), file_)
             count += 1
 
-        self.configIDE.set("Features", "graphical", self.is_graphical())
+        # self.configIDE.set("Features", "graphical", self.is_graphical())
 
         # self.configIDE.set("Features", "debug_in_output", self.main.checkBox_output_debug.isChecked())
         # self.configIDE.set("Features", "out_in_output", self.main.checkBox_output_messages.isChecked())
@@ -2159,10 +2194,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         # self.__update_current_dir_on_files__()
 
-        if self.is_graphical():
-            self.update_actions_for_graphical()
-        else:
-            self.update_actions_for_text()
+        self.update_actions()
 
 
     #----------------------------------------------------------------------
@@ -2197,6 +2229,11 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         filename = os.path.basename(editor.path)
         logging.debug("Renamed {} for {}".format(filename, new_name) )
 
+
+    #----------------------------------------------------------------------
+    def editor_filename(self):
+        """"""
+        return str(self.get_tab().tabText(self.get_tab().currentIndex()))
 
 
 
