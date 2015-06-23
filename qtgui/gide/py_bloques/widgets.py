@@ -50,7 +50,7 @@ class Widgets(object):
     def choice_A(self):
 
         pm = Block.Output("Output")
-        pm.addSpinChoice("A0", map(lambda x:"A%d"%x, range(6)))
+        pm.addSpinChoice("A0", map(lambda x:"A{}".format(x), range(6)))
         return pm.getBlock()
 
 
@@ -58,7 +58,7 @@ class Widgets(object):
     def choice_D(self):
 
         pm = Block.Output("Output")
-        pm.addSpinChoice("D0", map(lambda x:"D%d"%x, range(14)))
+        pm.addSpinChoice("D0", map(lambda x:"D{}".format(x), range(14)))
         return pm.getBlock()
 
 

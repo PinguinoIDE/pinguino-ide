@@ -57,7 +57,7 @@ class SearchReplace(object):
 
         if count == 0: message = QtGui.QApplication.translate("Frame", "No words were found.")
         elif  count == 1: message = QtGui.QApplication.translate("Frame", "One word were found.")
-        else: message = QtGui.QApplication.translate("Frame", "%d words were found."%count)
+        else: message = QtGui.QApplication.translate("Frame", "{} words were found.".format(count))
         self.main.label_replace_info.setText(message)
 
         #for i in range(count): self.search_next()
@@ -147,7 +147,7 @@ class SearchReplace(object):
             else: break
             #replace = False
         text_cur.endEditBlock()
-        self.main.label_replace_info.setText("%d words were replaced."%count)
+        self.main.label_replace_info.setText("{} words were replaced.".format(count))
 
     #----------------------------------------------------------------------
     def find_match(self, word, back, sensitive, whole):

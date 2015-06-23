@@ -778,12 +778,12 @@ class WorkArea(QtGui.QWidget):
         header_code = """//------------------------------------------------------------------
 // Pinguino source code generated automatically.
 //
-// Created: %s
-// by: %s %s
+// Created: {}
+// by: {}
 //
 //  WARNING! All changes made in this file will be lost!
 //------------------------------------------------------------------\n
-"""% (datetime.today().strftime("%Y-%m-%d"), os.getenv("PINGUINO_NAME"), os.getenv("PINGUINO_VERSION"))
+""".format(datetime.today().strftime("%Y-%m-%d"), os.getenv("PINGUINO_FULLNAME"))
 
         pinguino_code = header_code + global_ + pinguino_code
 

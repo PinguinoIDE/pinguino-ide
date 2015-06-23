@@ -167,11 +167,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
     #----------------------------------------------------------------------
     def init_widgets(self):
 
-        self.TAB_FILES = 0
-        self.TAB_PROJECT = 1
-        self.TAB_SOURCE = 2
-        self.TAB_SEARCH = 3
-
         self.main.tabWidget_tools.setCurrentWidget(self.main.Files)
         self.main.tabWidget_bottom.setCurrentWidget(self.main.Log)
 

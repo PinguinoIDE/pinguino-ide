@@ -32,12 +32,12 @@ const = [ "PI", "HALF_PI", "TWO_PI", "DEG_TO_RAD", "RAD_TO_DEG", "NULL", "ON", "
 ]
 
 
-const += ["P1_%d"%p for p in range(1, 17)]
-const += ["P2_%d"%p for p in range(1, 17)]
-const += ["D%d"%p for p in range(14)]
-const += ["A%d"%p for p in range(8)]
-const += ["PWM%d"%p for p in range(5)]
-const += ["PWD%d"%p for p in range(8)]
+const += ["P1_{}".format(p) for p in range(1, 17)]
+const += ["P2_{}".format(p) for p in range(1, 17)]
+const += ["D{}".format(p) for p in range(14)]
+const += ["A{}".format(p) for p in range(8)]
+const += ["PWM{}".format(p) for p in range(5)]
+const += ["PWD{}".format(p) for p in range(8)]
 
 Autocompleter["reserved"] = const
 

@@ -11,9 +11,9 @@ from ..code_editor.editor import CustomTextEdit
 class PinguinoCodeEditor(QWidget):
 
     #----------------------------------------------------------------------
-    def __init__(self, *args, **kwargs):
+    def __init__(self, highlighter, autocompleter):
 
-        super(PinguinoCodeEditor, self).__init__(*args, **kwargs)
+        super(PinguinoCodeEditor, self).__init__()
 
         self.setObjectName("PinguinoCodeEditor")
 
@@ -26,7 +26,7 @@ class PinguinoCodeEditor(QWidget):
         self.line_number.setMaximumSize(QtCore.QSize(41, 16777215))
         self.gridLayout_0.addWidget(self.line_number, 0, 0, 1, 1)
 
-        self.text_edit = CustomTextEdit(self, self.line_number)
+        self.text_edit = CustomTextEdit(self, self.line_number, highlighter, autocompleter)
         self.text_edit.setFrameShape(QtGui.QFrame.NoFrame)
         self.gridLayout_0.addWidget(self.text_edit, 0, 3, 1, 1)
 

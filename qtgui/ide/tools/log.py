@@ -24,6 +24,7 @@ class PinguinoLog(object):
         log.setLevel(logging.DEBUG)
         ch = logging.StreamHandler(self.main.plainTextEdit_log)
         formatter = logging.Formatter("[%(levelname)s] %(message)s")
+        # formatter = logging.Formatter("[{levelname}] {message}")
         ch.setFormatter(formatter)
         log.addHandler(ch)
 

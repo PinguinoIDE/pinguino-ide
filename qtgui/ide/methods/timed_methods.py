@@ -41,7 +41,7 @@ class TimedMethods(object):
             if funtion["filename"]:
                 self.main.tableWidget_functions.item(index, 0).setText(os.path.split(funtion["filename"])[1])
             else:
-                self.main.tableWidget_functions.item(index, 0).setText(self.editor_filename())
+                self.main.tableWidget_functions.item(index, 0).setText(self.get_current_filename())
 
 
             self.main.tableWidget_functions.item(index, 1).setText(funtion["return"])
@@ -80,7 +80,7 @@ class TimedMethods(object):
             if directive["filename"]:
                 self.main.tableWidget_directives.item(index, 0).setText(os.path.split(directive["filename"])[1])
             else:
-                self.main.tableWidget_directives.item(index, 0).setText(self.editor_filename())
+                self.main.tableWidget_directives.item(index, 0).setText(self.get_current_filename())
 
             self.main.tableWidget_directives.item(index, 1).setText(directive["type"])
             self.main.tableWidget_directives.item(index, 2).setText(directive["value"])
@@ -117,7 +117,7 @@ class TimedMethods(object):
             if variable["filename"]:
                 self.main.tableWidget_variables.item(index, 0).setText(os.path.split(variable["filename"])[1])
             else:
-                self.main.tableWidget_variables.item(index, 0).setText(self.editor_filename())
+                self.main.tableWidget_variables.item(index, 0).setText(self.get_current_filename())
 
             self.main.tableWidget_variables.item(index, 1).setText(variable["type"])
 
@@ -135,6 +135,9 @@ class TimedMethods(object):
     def update_autocompleter(self):
 
         editor = self.get_current_editor()
+
+        if not hasattr(editor.text_edit, "completer"):
+            return
 
         if not getattr(self, "completer_funtions", False):
             self.completer_funtions = []

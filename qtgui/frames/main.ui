@@ -162,6 +162,7 @@
     <addaction name="actionUser_c"/>
     <addaction name="actionMain_c"/>
     <addaction name="actionDefine_h"/>
+    <addaction name="actionHex"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -2042,6 +2043,11 @@
   <action name="actionAdd_new_blocks_file">
    <property name="text">
     <string>Add new blocks file...</string>
+   </property>
+  </action>
+  <action name="actionHex">
+   <property name="text">
+    <string>Open .hex</string>
    </property>
   </action>
  </widget>

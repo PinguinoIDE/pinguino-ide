@@ -45,6 +45,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.actionMain_c, QtCore.SIGNAL("triggered()"), self.ide_show_main_c)
         self.connect(self.main.actionUser_c, QtCore.SIGNAL("triggered()"), self.ide_show_user_c)
         self.connect(self.main.actionDefine_h, QtCore.SIGNAL("triggered()"), self.ide_show_define_h)
+        self.connect(self.main.actionHex, QtCore.SIGNAL("triggered()"), self.ide_show_hex)
         self.connect(self.main.actionReset_IDE_instalation, QtCore.SIGNAL("triggered()"), self.ide_reset_instalation)
 
 

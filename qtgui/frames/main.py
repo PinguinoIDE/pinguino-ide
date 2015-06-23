@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Mon Jun 22 20:48:39 2015
+# Created: Tue Jun 23 18:07:20 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -806,6 +806,8 @@ class Ui_PinguinoIDE(object):
         self.actionNew_blocks_file.setObjectName("actionNew_blocks_file")
         self.actionAdd_new_blocks_file = QtGui.QAction(PinguinoIDE)
         self.actionAdd_new_blocks_file.setObjectName("actionAdd_new_blocks_file")
+        self.actionHex = QtGui.QAction(PinguinoIDE)
+        self.actionHex.setObjectName("actionHex")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionNew_blocks_file)
@@ -846,6 +848,7 @@ class Ui_PinguinoIDE(object):
         self.menuPinguino.addAction(self.actionUser_c)
         self.menuPinguino.addAction(self.actionMain_c)
         self.menuPinguino.addAction(self.actionDefine_h)
+        self.menuPinguino.addAction(self.actionHex)
         self.menuGitHub.addAction(self.actionGitPinguinoIde)
         self.menuGitHub.addAction(self.actionGitPinguinoLibraries)
         self.menuGitHub.addAction(self.actionGitPinguinoCompilers)
@@ -1135,6 +1138,7 @@ class Ui_PinguinoIDE(object):
         self.actionReset_IDE_instalation.setText(QtGui.QApplication.translate("PinguinoIDE", "Reset IDE instalation", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New blocks file", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAdd_new_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Add new blocks file...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionHex.setText(QtGui.QApplication.translate("PinguinoIDE", "Open .hex", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 import resources_rc

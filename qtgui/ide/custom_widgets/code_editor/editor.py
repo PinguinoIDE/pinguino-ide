@@ -19,33 +19,44 @@ from .syntax import Autocompleter, Snippet, Helpers
 class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
-    def __init__(self, parent, linenumber):
+    def __init__(self, parent, linenumber, highlighter, autocompleter):
 
         super(CustomTextEdit, self).__init__(parent)
-        self.completer = PinguinoAutoCompleter()
-        self.completer.text_edit = self
+        # self.completer = PinguinoAutoCompleter()
+        # self.cursorC = QtGui.QCursor()
+        # self.completer.text_edit = self
+        # self.mousePressEvent = self.mouseAction
+        # self.completer.setFont(self.font())
+        # self.connect(self.completer, QtCore.SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.insertItem)
+        # self.completer.keyPressEvent = self.keyPressEvent_autocompleter
+        # self.resize(500, 500)
+        # self.completer.setFont(self.font())
+
         self.cursorC = QtGui.QCursor()
-        self.mousePressEvent = self.mouseAction
-        self.completer.setFont(self.font())
-        self.connect(self.completer, QtCore.SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.insertItem)
-        self.completer.keyPressEvent = self.keyPressEvent_autocompleter
-        self.resize(500, 500)
-        self.completer.setFont(self.font())
-        #self.setAutoClose({})
+        # self.resize(500, 500)
 
         self.linenumber = linenumber
 
-        icons = CompleteIcons()
+        if autocompleter:
+            self.completer = PinguinoAutoCompleter()
+            self.completer.text_edit = self
+            self.mousePressEvent = self.mouseAction
+            self.completer.setFont(self.font())
+            self.connect(self.completer, QtCore.SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.insertItem)
+            self.completer.keyPressEvent = self.keyPressEvent_autocompleter
+            self.completer.setFont(self.font())
 
-        self.completer.addItemsCompleter(Autocompleter["directive"], icons.iconDirectives)
-        self.completer.addItemsCompleter(Autocompleter["reserved"], icons.iconReserved)
+            icons = CompleteIcons()
+            self.completer.addItemsCompleter(Autocompleter["directive"], icons.iconDirectives)
+            self.completer.addItemsCompleter(Autocompleter["reserved"], icons.iconReserved)
+            self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
+            self.last_w = ""
+            self.next_ignore = None
 
-        self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
 
-        self.last_w = ""
-        self.next_ignore = None
 
-        Highlighter(self.document())
+        if highlighter:
+            Highlighter(self.document())
 
         self.setStyleSheet("""
         QTextEdit {

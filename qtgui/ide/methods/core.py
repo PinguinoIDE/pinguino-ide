@@ -152,12 +152,12 @@ class PinguinoQueries(object):
     def get_untitled_name(self, ext=".pde"):
 
         index = 1
-        name = "untitled-%d" % index + ext
+        name = "untitled-{}".format(index) + ext
         #filenames = [self.main.tabWidget_files.tabText(i) for i in range(self.main.tabWidget_files.count())]
         filenames = [self.get_tab().tabText(i) for i in range(self.get_tab().count())]
         while name in filenames or name + "*" in filenames:
             index += 1
-            name = "untitled-%d" % index + ext
+            name = "untitled-{}".format(index) + ext
         return name + "*"
 
 
@@ -258,6 +258,33 @@ class PinguinoQueries(object):
 
 
 
+
+    #----------------------------------------------------------------------
+    def get_current_filename(self):
+        """"""
+        filename = str(self.get_tab().tabText(self.get_tab().currentIndex()))
+        if filename.endswith("*"):
+            filename = filename[:-1]
+        return filename
+
+
+    #----------------------------------------------------------------------
+    def get_current_hex(self):
+        """"""
+        editor = self.get_current_editor()
+        if hasattr(editor, "path"):
+            filename = editor.path.replace(".pde", ".hex").replace(".gpde", ".hex")
+            if os.path.exists(filename):
+                return filename
+            else:
+                return False
+        else:
+            return False
+
+
+
+
+
 ########################################################################
 class PinguinoSettings(object):
     """"""
@@ -353,8 +380,8 @@ class PinguinoSettings(object):
         for toolbar in self.toolbars:
             toolbar.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)  #explicit IconOnly for windows
             size = self.configIDE.config("Main", "icons_size", 24)
-            self.resize_toolbar(size, getattr(self.main, "action%dx%d"%(size, size)))()
-            getattr(self.main, "action%dx%d"%(size, size)).setChecked(True)
+            self.resize_toolbar(size, getattr(self.main, "action{}x{}".format(size, size)))()
+            getattr(self.main, "action{}x{}".format(size, size)).setChecked(True)
 
         icons_toolbar = [
                          (self.main.actionNew_file, "document-new"),
@@ -681,6 +708,7 @@ class PinguinoMain(object):
         compile_code()
         self.update_stdout()
         self.post_compile(dialog_upload)
+        self.main.actionHex.setVisible(bool(self.get_current_hex()))
 
 
     #----------------------------------------------------------------------
@@ -1420,7 +1448,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             tabBar = self.main.tabWidget.tabBar()
             tabBar.hide()
 
-
+        self.main.actionHex.setVisible(bool(self.get_current_hex()))
 
 
     #----------------------------------------------------------------------
@@ -1484,20 +1512,25 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     # @Decorator.connect_features()
     def ide_new_file(self, *args, **kwargs):
+
         path = kwargs.get("filename", self.get_untitled_name())
         filename = os.path.split(path)[1]
-        editor = PinguinoCodeEditor()
+        highlighter = filename.endswith(".pde") or filename.endswith(".c") or filename.endswith(".h") or filename.endswith(".cpp") or \
+                filename.endswith(".pde*") or filename.endswith(".c*") or filename.endswith(".h*") or filename.endswith(".cpp*")
+        autocompleter = highlighter
+        editor = PinguinoCodeEditor(highlighter=highlighter, autocompleter=autocompleter)
         self.main.tabWidget_files.addTab(editor, filename)
         #editor.text_edit.insertPlainText(Snippet["file {snippet}"][1].replace("\t", ""))
         #editor.text_edit.insertPlainText("\n")
         #editor.text_edit.insertPlainText(Snippet["Bare minimum {snippet}"][1].replace("\t", ""))
 
-        tc = editor.text_edit.textCursor()
-        editor.text_edit.insert("file {snippet}")
-        tc.movePosition(tc.End)
-        tc.insertText("\n\n")
-        editor.text_edit.setTextCursor(tc)
-        editor.text_edit.insert("Bare minimum {snippet}")
+        if highlighter:
+            tc = editor.text_edit.textCursor()
+            editor.text_edit.insert("file {snippet}")
+            tc.movePosition(tc.End)
+            tc.insertText("\n\n")
+            editor.text_edit.setTextCursor(tc)
+            editor.text_edit.insert("Bare minimum {snippet}")
 
         self.main.tabWidget_files.setCurrentWidget(editor)
         editor.text_edit.textChanged.connect(self.editor_changed)
@@ -2133,10 +2166,18 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "define.h")
         self.ide_open_file_from_path(filename=filename, readonly=True)
 
+
     #----------------------------------------------------------------------
     def ide_show_user_c(self):
 
         filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "user.c")
+        self.ide_open_file_from_path(filename=filename, readonly=True)
+
+
+    #----------------------------------------------------------------------
+    def ide_show_hex(self):
+
+        filename = self.get_current_hex()
         self.ide_open_file_from_path(filename=filename, readonly=True)
 
 
@@ -2241,22 +2282,13 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    def editor_filename(self):
-        """"""
-        filename = str(self.get_tab().tabText(self.get_tab().currentIndex()))
-        if filename.endswith("*"):
-            filename = filename[:-1]
-        return filename
-
-
-
-    #----------------------------------------------------------------------
     def editor_key_press(self, event):
         editor = self.get_current_editor()
-        if self.is_autocomplete_enable():
-            editor.text_edit.__keyPressEvent__(event)
-        else:
-            editor.text_edit.force_keyPressEvent(event)
+        if hasattr(editor.text_edit, "completer"):
+            if self.is_autocomplete_enable():
+                editor.text_edit.__keyPressEvent__(event)
+            else:
+                editor.text_edit.force_keyPressEvent(event)
 
 
     #----------------------------------------------------------------------
@@ -2277,7 +2309,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         if hasattr(editor, "path"):
             if self.is_graphical() is False:
                 if editor.text_edit.isReadOnly():
-                    menu.addAction("Set editable", self.editor_set_editable)
+                    menu.addAction("Remove read only", self.editor_set_editable)
                 else:
                     menu.addAction("Rename...", self.editor_rename_file)
 
