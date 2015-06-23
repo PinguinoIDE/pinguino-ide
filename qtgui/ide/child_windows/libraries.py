@@ -49,9 +49,9 @@ class LibManager(QtGui.QMainWindow):
             self.libframe.radioButton_repo_git.setEnabled(False)
             self.libframe.radioButton_repo_git.setToolTip("'gitpython' no installed")
 
-        if ErrorModules["pysvn"] == False:
-            self.libframe.radioButton_repo_svn.setEnabled(False)
-            self.libframe.radioButton_repo_svn.setToolTip("'pysvn' no installed")
+        # if ErrorModules["pysvn"] == False:
+            # self.libframe.radioButton_repo_svn.setEnabled(False)
+            # self.libframe.radioButton_repo_svn.setToolTip("'pysvn' no installed")
 
         if ErrorModules["hgapi"] == False:
             self.libframe.radioButton_repo_hg.setEnabled(False)
@@ -86,7 +86,7 @@ class LibManager(QtGui.QMainWindow):
         self.connect(self.libframe.checkBox_sources, QtCore.SIGNAL("clicked(bool)"), self.check_all_sources)
         self.connect(self.libframe.checkBox_libs, QtCore.SIGNAL("clicked(bool)"), self.check_all_libs)
 
-        self.connect(self.libframe.commandLinkButton_how, QtCore.SIGNAL("clicked()"), self.open_tutorial)
+        # self.connect(self.libframe.commandLinkButton_how, QtCore.SIGNAL("clicked()"), self.open_tutorial)
 
         self.connect(self.libframe.tableWidget_sources, QtCore.SIGNAL("clicked(QModelIndex)"), self.open_link)
 
@@ -95,8 +95,8 @@ class LibManager(QtGui.QMainWindow):
 
         bg_color = IDE.configIDE.config("Styles", "background_color", "#FFFFFF")
         alternate_bg_color = IDE.configIDE.config("Styles", "alternate_background_color", "#DDE8FF")
-        self.libframe.tableWidget_libs.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
-        self.libframe.tableWidget_sources.setStyleSheet("QTableWidget {background-color: %s;\nalternate-background-color: %s;}"%(bg_color, alternate_bg_color))
+        self.libframe.tableWidget_libs.setStyleSheet("QTableWidget {{background-color: {};\nalternate-background-color: {};}}".format(bg_color, alternate_bg_color))
+        self.libframe.tableWidget_sources.setStyleSheet("QTableWidget {{background-color: {};\nalternate-background-color: {};}}".format(bg_color, alternate_bg_color))
 
         self.handleItemClicked_source_count = 0
 
@@ -162,9 +162,9 @@ class LibManager(QtGui.QMainWindow):
                     self.main.write_log(QtGui.QApplication.translate("Frame", "Copied :")+x)
 
 
-    #----------------------------------------------------------------------
-    def open_tutorial(self):
-        webbrowser.open_new_tab("https://github.com/PinguinoIDE/pinguino-lib_template/wiki")
+    # #----------------------------------------------------------------------
+    # def open_tutorial(self):
+        # webbrowser.open_new_tab("https://github.com/PinguinoIDE/pinguino-lib_template/wiki")
 
 
 
@@ -523,7 +523,7 @@ class LibManager(QtGui.QMainWindow):
             Dialogs.info_message(self, sel+": "+QtGui.QApplication.translate("Dialogs", "Installed"))
             self.post_install(sel)
         else:
-            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Problems with")+" %s."%sel)
+            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "Problems with")+" {}.".format(sel))
 
         self.setCursor(QtCore.Qt.ArrowCursor)
 

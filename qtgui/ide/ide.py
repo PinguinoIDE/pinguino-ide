@@ -136,10 +136,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         elif os_name == "linux":
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
 
-        splash_write(QtGui.QApplication.translate("Splash", "Welcome to %s %s")%(os.getenv("PINGUINO_NAME"), os.getenv("PINGUINO_VERSION")))
+        splash_write(QtGui.QApplication.translate("Splash", "Welcome to {PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)))
 
         self.enable_debugger()
-        logging.info("Welcome to %s" % os.getenv("PINGUINO_FULLNAME"))
+        logging.info("Welcome to {PINGUINO_FULLNAME}".format(**os.environ))
 
         self.setCorner(QtCore.Qt.BottomRightCorner, QtCore.Qt.RightDockWidgetArea)
         self.setCorner(QtCore.Qt.BottomLeftCorner, QtCore.Qt.LeftDockWidgetArea)
@@ -155,10 +155,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         """"""
         elements = ["dockWidget_bottom", "dockWidget_right", "plainTextEdit_log", "plainTextEdit_output", "tabWidget_bottom",
                     "tabWidget_tools", "tabWidget_blocks", "comboBox_files", "treeWidget_explorer", "lineEdit_blocks_search",
-                    "label_search_block", "pushButton_newproject", "treeWidget_projects", "tableWidget_variables",
-                    "lineEdit_search", "lineEdit_replace", "checkBox_case_sensitive", "label_search", "label_replace",
-                    "pushButton_search_previous", "pushButton_search_next", "pushButton_replace", "pushButton_replace_all",
-                    "label_replace_info", "plainTextEdit_stdout"]
+                    "label_search_block", "pushButton_openproject", "pushButton_newproject", "treeWidget_projects",
+                    "tableWidget_variables", "lineEdit_search", "lineEdit_replace", "checkBox_case_sensitive", "label_search",
+                    "label_replace", "pushButton_search_previous", "pushButton_search_next", "pushButton_replace",
+                    "pushButton_replace_all", "label_replace_info", "plainTextEdit_stdout", "tabWidget"]
 
         for element in elements:
             getattr(self.main, element).minimumSizeHint = lambda :QtCore.QSize(0, 0)
@@ -193,33 +193,33 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         selection_bg_color = self.configIDE.config("Styles", "selection_foreground_color", "#57AAFF")
 
         self.main.tableWidget_functions.setStyleSheet("""
-        QTableWidget {
-            background-color: %s;
-            alternate-background-color: %s;
-        }
-        """%(bg_color, alternate_bg_color))
+        QTableWidget {{
+            background-color: {};
+            alternate-background-color: {};
+        }}
+        """.format(bg_color, alternate_bg_color))
 
         self.main.tableWidget_directives.setStyleSheet("""
-        QTableWidget {
-            background-color: %s;
-            alternate-background-color: %s;
-        }
-        """%(bg_color, alternate_bg_color))
+        QTableWidget {{
+            background-color: {};
+            alternate-background-color: {};
+        }}
+        """.format(bg_color, alternate_bg_color))
 
         self.main.tableWidget_variables.setStyleSheet("""
-        QTableWidget {
-            background-color: %s;
-            alternate-background-color: %s;
-        }
-        """%(bg_color, alternate_bg_color))
+        QTableWidget {{
+            background-color: {};
+            alternate-background-color: {};
+        }}
+        """.format(bg_color, alternate_bg_color))
 
 
         self.main.statusBar.setStyleSheet("""
         font-family: inherit;
         font-weight: normal;
-        selection-color: %s;
-        selection-background-color: %s;
-        """%(selection_color, selection_bg_color))
+        selection-color: {};
+        selection-background-color: {};
+        """.format(selection_color, selection_bg_color))
 
 
         #Python shell CSS styles

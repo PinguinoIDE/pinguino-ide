@@ -105,6 +105,22 @@ class Decorator(object):
 
     #----------------------------------------------------------------------
     @classmethod
+    def requiere_tab(cls, name):
+        def actualdecorator(fn):
+            @functools.wraps(fn)
+            def wrapped(Pinguino, *args, **kwargs):
+                current_tab_name = Pinguino.main.tabWidget.currentWidget().objectName()
+                if current_tab_name == name:
+                    return fn(Pinguino, *args, **kwargs)
+                else:
+                    #print(name + " not in focus.")
+                    return None
+            return wrapped
+        return actualdecorator
+
+
+    #----------------------------------------------------------------------
+    @classmethod
     def requiere_text_mode(cls):
         def actualdecorator(fn):
             @functools.wraps(fn)
@@ -380,18 +396,18 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                if Pinguino.get_tab().count():
+                # if Pinguino.get_tab().count():
 
-                    Pinguino.main.tabWidget.setCurrentIndex(0)
-                    widget = getattr(Pinguino.main, widget_name)
+                Pinguino.main.tabWidget.setCurrentIndex(0)
+                widget = getattr(Pinguino.main, widget_name)
 
-                    tab = widget.parent().parent()
-                    index = tab.indexOf(widget)
-                    tab.setCurrentIndex(index)
+                tab = widget.parent().parent()
+                index = tab.indexOf(widget)
+                tab.setCurrentIndex(index)
 
-                    return fn(Pinguino, *args, **kwargs)
-                else:
-                    #print("No files are open.")
-                    return None
+                return fn(Pinguino, *args, **kwargs)
+                # else:
+                    # #print("No files are open.")
+                    # return None
             return wrapped
         return actualdecorator

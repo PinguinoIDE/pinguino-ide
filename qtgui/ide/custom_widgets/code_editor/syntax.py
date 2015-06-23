@@ -63,12 +63,12 @@ Snippet["Bare minimum {snippet}"] = "void setup() {\n\t// put your setup code he
 
 
 Snippet["file {snippet}"] = """/*-----------------------------------------------------
-%s: [!] --<>
-%s: %s
-%s:
+{}: [!] --<>
+{}: {}
+{}:
 
 -----------------------------------------------------*/
-""" %("Author", "Date", today.strftime("%Y-%m-%d"), "Description")
+""".format("Author", "Date", today.strftime("%Y-%m-%d"), "Description")
 
 for key in Snippet.keys():
     Snippet[key] = Snippet[key].replace("\t", " "*4)

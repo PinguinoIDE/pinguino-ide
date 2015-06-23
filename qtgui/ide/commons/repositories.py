@@ -5,24 +5,24 @@ import os
 #import shutil
 import logging
 
-INFO = "%s is an optional dependence for Pinguino's Library Manager."
+INFO = "{} is an optional dependence for Pinguino's Library Manager."
 
 ErrorModules = {"gitpython": True, "pysvn": True, "hgapi": True,}
 
 try: import git
 except ImportError:
     ErrorModules["gitpython"] = False
-    logging.warning(INFO%"gitpython")
+    logging.warning(INFO.format("gitpython"))
 
-try: import pysvn
-except ImportError:
-    ErrorModules["pysvn"] = False
-    logging.warning(INFO%"pysvn")
+# try: import pysvn
+# except ImportError:
+    # ErrorModules["pysvn"] = False
+    # logging.warning(INFO%"pysvn")
 
 try: import hgapi
 except ImportError:
     ErrorModules["hgapi"] = False
-    logging.warning(INFO%"hgapi")
+    logging.warning(INFO.format("hgapi"))
 
 from ..commons.config_libs import ConfigLibsGroup
 
@@ -51,9 +51,9 @@ class PinguinoLibrary(object):
                               "file": ".hg",
                               "cv": HgRepo},
 
-                             {"name": "svn",
-                              "file": ".svn",
-                              "cv": SvnRepo},
+                             # {"name": "svn",
+                              # "file": ".svn",
+                              # "cv": SvnRepo},
                             ]
 
 
@@ -128,15 +128,16 @@ class HgRepo(object):
         repo.hg_update("default", clean=True)
 
 
-########################################################################
-class SvnRepo(object):
+# Since Google code down, this feature is not usefull
+# ########################################################################
+# class SvnRepo(object):
 
-    #----------------------------------------------------------------------
-    def clone(self, url, path):
-        client = pysvn.Client()
-        client.checkout(url, path)
+    # #----------------------------------------------------------------------
+    # def clone(self, url, path):
+        # client = pysvn.Client()
+        # client.checkout(url, path)
 
-    #----------------------------------------------------------------------
-    def update(self, path):
-        client = pysvn.Client()
-        client.update(path)
+    # #----------------------------------------------------------------------
+    # def update(self, path):
+        # client = pysvn.Client()
+        # client.update(path)

@@ -100,18 +100,18 @@ class CustomTextEdit(QtGui.QTextEdit):
             background-color: #FFF;
             font-family: mono;
             font-weight: normal;
-            font-size: %dpt;
+            font-size: {}dpt;
             }
 
-        """%size)
+        """.format(size))
 
 
         self.linenumber.setStyleSheet("""
         font-family: mono;
         font-weight: normal;
-        font-size: %dpt;
+        font-size: {}dpt;
 
-        """%size)
+        """.format(size))
 
 
 

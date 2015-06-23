@@ -9,7 +9,7 @@ from ..methods.decorators import Decorator
 
 from PySide import QtCore
 
-data_types = ["int", "float", "char", "double", "u8", "u16", "u32", "u64", "BOOL", "byte", "word", "void"]
+data_types = ["int", "float", "char", "double", "u8", "u16", "u32", "u64", "BOOL", "byte", "word", "void", "short", "long"]  # Yes I know, void is NOT a data type.
 preprocessor_commands = ["define", "include", "error", "undef", "if", "else", "if", "elif", "ifdef", "ifndef", "line", "pragma"]  #endif
 
 
@@ -59,7 +59,7 @@ class CodeNavigator(object):
     def get_functions(self):
 
         regex_function = "[\s]*(unsigned|signed|long)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
-        #regex_function_content = "[\s]*%s[\s]*\{[\s\S]*\}[\s]*"
+        #regex_function_content = "[\s]*{}[\s]*\{[\s\S]*\}[\s]*
 
         funtions = []
         files = self.get_files_to_explore()
@@ -112,7 +112,7 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    def get_directives(self, editor):
+    def get_directives(self):
 
         regex_directive = "[\s]*#(" + "|".join(preprocessor_commands)+ ")[\s]+<?[\s]*([\w.]*)[\s]*>?[\s]*([\S]*)"
 
@@ -144,9 +144,10 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    def get_variables(self, editor):
+    def get_variables(self):
 
-        regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*([*])*[\s]*([ \w\[\]=,.{}\"'\*]*);"
+        regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(" + "|".join(data_types) + ")+[\s]*( \* )*[\s]*([ \w\[\]=,.{}\"']*);"
+        # regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*+([*])*([ \w\[\]=,.{}\"'\*]*);"
 
         variables = []
         files = self.get_files_to_explore()
@@ -160,7 +161,7 @@ class CodeNavigator(object):
             for line in range(len(content)):
                 match = re.match(regex_variables, content[line])
                 if match:
-                    args = match.groups()[5]
+                    args = match.groups()[4]
                     l = []
                     index = 0
                     while index < len(args):
@@ -182,11 +183,12 @@ class CodeNavigator(object):
                     args = args.split(",")
                     args = map(lambda a:a[:a.find("=")] if "=" in a else a, args)
 
-                    type_ = " ".join([("" if not match.groups()[4] else "pointer to "),
+                    type_ = " ".join([("" if not match.groups()[3] else "pointer to "),
                                     ("" if not match.groups()[0] else match.groups()[0]),
                                     ("" if not match.groups()[1] else match.groups()[1]),
-                                    ("" if not match.groups()[2] else match.groups()[2]),
-                                    match.groups()[3]])
+                                    (match.groups()[2]),
+                                    # match.groups()[3]
+                                    ])
 
                     while type_.startswith(" "): type_ = type_[1:]
 

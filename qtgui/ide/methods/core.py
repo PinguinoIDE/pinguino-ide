@@ -35,13 +35,13 @@ from ..child_windows.insert_block_dialog import InsertBlock
 from ..child_windows.submit_bug import SubmitBug
 from ..child_windows.patches import Patches
 
-# Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
-    #Python3
-    from ..commons.intel_hex3 import IntelHex
-else:
-    #Python2
-    from ..commons.intel_hex import IntelHex
+# # Python3 compatibility
+# if os.getenv("PINGUINO_PYTHON") is "3":
+    # #Python3
+    # from ..commons.intel_hex3 import IntelHex
+# else:
+    # #Python2
+    # from ..commons.intel_hex import IntelHex
 
 
 ########################################################################
@@ -103,7 +103,7 @@ class PinguinoChilds(object):
         patches = self.patches.get_patches()
 
         if patches == 0:
-            Dialogs.info_message(self, "There are no new updates available.\n %s is up to date" % os.getenv("PINGUINO_FULLNAME"))
+            Dialogs.info_message(self, "There are no new updates available.\n {PINGUINO_FULLNAME} is up to date".format(**os.environ))
             self.patches.close()
         if patches is None:
             self.patches.close()
@@ -111,31 +111,31 @@ class PinguinoChilds(object):
             self.patches.show()
 
 
-    #----------------------------------------------------------------------
-    def __show_hex_code__(self):
-        if getattr(self.get_tab().currentWidget(), "path", False):
-            hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
-        else:
-            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
-            return
-        if os.path.isfile(hex_filename):
+    # #----------------------------------------------------------------------
+    # def __show_hex_code__(self):
+        # if getattr(self.get_tab().currentWidget(), "path", False):
+            # hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
+        # else:
+            # Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
+            # return
+        # if os.path.isfile(hex_filename):
 
-            hex_obj = IntelHex(open(hex_filename, "r"))
-            hex_dict = hex_obj.todict()
-            rows = int(ceil(max(hex_dict.keys()) / float(0x18)))
+            # hex_obj = IntelHex(open(hex_filename, "r"))
+            # hex_dict = hex_obj.todict()
+            # rows = int(ceil(max(hex_dict.keys()) / float(0x18)))
 
-            if rows < 1e3:
-                self.frame_hex_viewer = HexViewer(self, hex_obj, hex_filename)
-                self.frame_hex_viewer.show()
-            else:
-                file_ = codecs.open(hex_filename, "r", "utf-8")
-                content = file_.readlines()
-                file_.close
-                self.frame_hex_plain = PlainOut(hex_filename, "".join(content), highlight=True)
-                self.frame_hex_plain.show()
+            # if rows < 1e3:
+                # self.frame_hex_viewer = HexViewer(self, hex_obj, hex_filename)
+                # self.frame_hex_viewer.show()
+            # else:
+                # file_ = codecs.open(hex_filename, "r", "utf-8")
+                # content = file_.readlines()
+                # file_.close
+                # self.frame_hex_plain = PlainOut(hex_filename, "".join(content), highlight=True)
+                # self.frame_hex_plain.show()
 
-        else:
-            Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
+        # else:
+            # Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
 
 
 
@@ -223,14 +223,14 @@ class PinguinoQueries(object):
         board_config = []
 
         board = self.pinguinoAPI.get_board()
-        board_config.append("Board: %s" % board.name)
-        board_config.append("Proc: %s" % board.proc)
-        board_config.append("Arch: %d" % board.arch)
+        board_config.append("Board: {}".format(board.name))
+        board_config.append("Proc: {}".format(board.proc))
+        board_config.append("Arch: {}".format(board.arch))
 
         if board.arch == 32:
-            board_config.append("MIPS 16: %s" % str(self.configIDE.config("Board", "mips16", True)))
-            board_config.append("Heap size: %d bytes" % self.configIDE.config("Board", "heapsize", 512))
-            board_config.append("Optimization: %s" % self.configIDE.config("Board", "optimization", "-O3"))
+            board_config.append("MIPS 16: {}".format(self.configIDE.config("Board", "mips16", True)))
+            board_config.append("Heap size: {} bytes".format(self.configIDE.config("Board", "heapsize", 512)))
+            board_config.append("Optimization: {}".format(self.configIDE.config("Board", "optimization", "-O3")))
 
         if board.arch == 8 and board.bldr == "boot4":
             board_config.append("Bootloader: v4")
@@ -660,7 +660,7 @@ class PinguinoMain(object):
 
         filename = self.get_tab().currentWidget().path
 
-        if not self.is_graphical():
+        if self.is_graphical() is False:
             if os.getenv("PINGUINO_PROJECT"):
                 filenames = self.get_project_files()
                 compile_code = lambda :self.pinguinoAPI.compile_file(filenames)
@@ -668,15 +668,20 @@ class PinguinoMain(object):
                 compile_code = lambda :self.pinguinoAPI.compile_file([filename])
 
         else:
-            compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
+            if os.getenv("PINGUINO_PROJECT"):
+                filenames = self.get_project_files()
+                compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code(), filenames=filenames)
+            else:
+                compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
 
 
-        self.write_log(QtGui.QApplication.translate("Frame", "Compiling: %s")%filename)
+        self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(filename)))
         self.write_log(self.get_description_board())
 
         compile_code()
         self.update_stdout()
         self.post_compile(dialog_upload)
+
 
     #----------------------------------------------------------------------
     def post_compile(self, dialog_upload=True):
@@ -729,7 +734,7 @@ class PinguinoMain(object):
             result = self.pinguinoAPI.get_result()
             self.write_log(QtGui.QApplication.translate("Frame", "compilation done"))
             self.write_log(result["code_size"])
-            self.write_log(QtGui.QApplication.translate("Frame", "%s seconds process time")%result["time"])
+            self.write_log(QtGui.QApplication.translate("Frame", "{time} seconds process time".format(**result)))
 
             if dialog_upload:
                 if Dialogs.compilation_done(self):
@@ -776,7 +781,7 @@ class PinguinoMain(object):
             # return False
 
         board = self.pinguinoAPI.get_board()
-        reply = Dialogs.confirm_message(self, "Do you want upload '%s' to %s"%(filename, board.name))
+        reply = Dialogs.confirm_message(self, "Do you want upload '{}' to {}".format(filename, board.name))
 
         if reply:
             self.pinguinoAPI.__hex_file__ = filename
@@ -847,29 +852,23 @@ class PinguinoMain(object):
         # generate messages
         status = ""
         if not os.path.exists(compiler_path):
-            status = QtGui.QApplication.translate("Frame", "Missing compiler for %d-bit") % arch
-            logging.warning("Missing compiler for %d-bit" % arch)
-            logging.warning("Not found: %s" % compiler_path)
+            status = QtGui.QApplication.translate("Frame", "Missing compiler for {}-bit".format(arch))
+            logging.warning("Missing compiler for {}-bit".format(arch))
+            logging.warning("Not found: {}".format(compiler_path))
 
         if not os.path.exists(libraries_path):
-            status = QtGui.QApplication.translate("Frame", "Missing libraries for %d-bit") % arch
-            logging.warning("Missing libraries for %d-bit" % arch)
-            logging.warning("Not found: %s" % libraries_path)
+            status = QtGui.QApplication.translate("Frame", "Missing libraries for {}-bit".format(arch))
+            logging.warning("Missing libraries for {}-bit".format(arch))
+            logging.warning("Not found: {}".format(libraries_path))
 
         if not os.path.exists(libraries_path) and not os.path.exists(compiler_path):
-            status = QtGui.QApplication.translate("Frame", "Missing libraries and compiler for %d-bit") % arch
-            #logging.warning("Missing libraries and compiler for %d-bit" % arch)
-            #logging.warning("Missing: %s" % compiler_path)
-            #logging.warning("Missing: %s" % libraries_path)
+            status = QtGui.QApplication.translate("Frame", "Missing libraries and compiler for {}-bit".format(arch))
 
         if status:
-            # self.statusbar_warnning(status)
             self.status_warnnig.setText(status)
             os.environ["PINGUINO_CAN_COMPILE"] = "False"
         else:
             os.environ["PINGUINO_CAN_COMPILE"] = "True"
-            # logging.warning("Found: %s" % compiler_path)
-            # logging.warning("Found: %s" % libraries_path)
 
 
 
@@ -1273,6 +1272,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
+    @Decorator.requiere_text_mode()
     def ide_check_backup_file(self, *args, **kwargs):
 
         editor = kwargs.get("editor", self.get_tab())
@@ -1286,11 +1286,16 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 content = "".join(backup_file.readlines())
                 backup_file.close()
 
-                if editor.text_edit.toPlainText() == content:
-                    os.remove(filename_backup)
-                    return
+                # if self.is_graphical() is True:
+                    # content = self.PinguinoKIT.get_gpde()
+                    # content = self.PinguinoKIT.get_raw_parser(content)
 
-                reply = Dialogs.confirm_message(self, "%s\n"%filename + QtGui.QApplication.translate("Dialogs",
+                if self.is_graphical() is False:
+                    if editor.text_edit.toPlainText() == content:
+                        os.remove(filename_backup)
+                        return
+
+                reply = Dialogs.confirm_message(self, "{}\n".format(filename) + QtGui.QApplication.translate("Dialogs",
                         "Pinguino IDE has found changes that were not saved during your last session.\nDo you want recover it?."))
 
                 if reply:
@@ -1386,7 +1391,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                    "actionSearch":		(False, True, False),
                    "actionCompile":		(True, True, False),
                    "actionUpload":		(True, True, False),
-                   "tabWidget_browser": (False, True, False),
+                   "tabWidget_browser":	(True, True, False),
                    "SearchReplace":		(False, True, False),
 
                    }
@@ -1400,51 +1405,55 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         elif self.is_graphical() is None:
             self.update_actions_for_html(actions, 2)
 
+        graph = False
+        for i in range(self.get_tab().count()):
+            if self.get_tab().tabText(i).endswith(".gpde"):
+                graph = True
+                break
+
+        if graph:
+            # self.main.tabWidget.setCurrentIndex(1)
+            tabBar = self.main.tabWidget.tabBar()
+            tabBar.show()
+        else:
+            # self.main.tabWidget.setCurrentIndex(0)
+            tabBar = self.main.tabWidget.tabBar()
+            tabBar.hide()
+
+
 
 
     #----------------------------------------------------------------------
     def update_actions_for_text(self, actions, index):
 
-        self.main.lineEdit_blocks_search.setVisible(False)
-        self.main.label_search_block.setVisible(False)
-        self.main.tabWidget_blocks.setVisible(False)
+        # self.main.lineEdit_blocks_search.setVisible(False)
+        # self.main.label_search_block.setVisible(False)
+        # self.main.tabWidget_blocks.setVisible(False)
 
         for action in actions:
             getattr(self.main, action).setEnabled(actions[action][index])
-
-        self.main.tabWidget.setCurrentIndex(0)
-        tabBar = self.main.tabWidget.tabBar()
-        tabBar.hide()
 
 
     #----------------------------------------------------------------------
     def update_actions_for_graphical(self, actions, index):
 
-        self.main.lineEdit_blocks_search.setVisible(True)
-        self.main.label_search_block.setVisible(True)
-        self.main.tabWidget_blocks.setVisible(True)
+        # self.main.lineEdit_blocks_search.setVisible(True)
+        # self.main.label_search_block.setVisible(True)
+        # self.main.tabWidget_blocks.setVisible(True)
 
         for action in actions:
             getattr(self.main, action).setEnabled(actions[action][index])
-
-        self.main.tabWidget.setCurrentIndex(1)
-        tabBar = self.main.tabWidget.tabBar()
-        tabBar.show()
 
 
     #----------------------------------------------------------------------
     def update_actions_for_html(self, actions, index):
 
-        self.main.lineEdit_blocks_search.setVisible(False)
-        self.main.label_search_block.setVisible(False)
-        self.main.tabWidget_blocks.setVisible(False)
+        # self.main.lineEdit_blocks_search.setVisible(False)
+        # self.main.label_search_block.setVisible(False)
+        # self.main.tabWidget_blocks.setVisible(False)
 
         for action in actions:
             getattr(self.main, action).setEnabled(actions[action][index])
-
-        self.main.tabWidget.setCurrentIndex(0)
-        tabBar = self.main.tabWidget.tabBar()
-        tabBar.hide()
 
 
     #----------------------------------------------------------------------
@@ -1501,6 +1510,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         editor.text_edit.setAcceptRichText(False)
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), filename[:-1])
         editor.text_edit.setFocus()
+        self.update_actions()
 
 
     #----------------------------------------------------------------------
@@ -2113,7 +2123,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         board = self.configIDE.config("Board", "arch", 8)
         if board == 32: extra = "32"
         else: extra = ""
-        filename = os.path.join(source, "main%s.c"%extra)
+        filename = os.path.join(source, "main{}.c".format(extra))
         self.ide_open_file_from_path(filename=filename, readonly=True)
 
 
@@ -2233,12 +2243,11 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def editor_filename(self):
         """"""
-        return str(self.get_tab().tabText(self.get_tab().currentIndex()))
+        filename = str(self.get_tab().tabText(self.get_tab().currentIndex()))
+        if filename.endswith("*"):
+            filename = filename[:-1]
+        return filename
 
-
-
-
-    # Events
 
 
     #----------------------------------------------------------------------
@@ -2265,11 +2274,15 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         editor = self.get_current_editor()
 
-        if editor.text_edit.isReadOnly():
-            menu.addAction("Set editable", self.editor_set_editable)
+        if hasattr(editor, "path"):
+            if self.is_graphical() is False:
+                if editor.text_edit.isReadOnly():
+                    menu.addAction("Set editable", self.editor_set_editable)
+                else:
+                    menu.addAction("Rename...", self.editor_rename_file)
 
-        else:
-            menu.addAction("Rename...", self.editor_rename_file)
+            elif  self.is_graphical() is True:
+                menu.addAction("Rename...", self.editor_rename_file)
 
 
         menu.addAction(self.main.actionSave_file)
@@ -2318,12 +2331,6 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         menu.addAction(self.main.actionCompile)
         menu.addAction(self.main.actionUpload)
         menu.addAction(self.main.actionIf_Compile_then_Upload)
-        # menu.addSeparator()
-        # menu.addAction(self.main.actionWiki_docs)
-        # menu.addAction(self.main.actionLibrary_manager)
-        # menu.addAction(self.main.actionHex_code)
-        # menu.addAction(self.main.actionSet_paths)
-        # menu.addAction(self.main.actionStdout)
         menu.addSeparator()
         menu.addAction(self.main.actionAutocomplete)
         # menu.addAction("Generate blocks", self.open_as_blocks)
@@ -2340,37 +2347,28 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
+    def ide_tabs_context_menu(self, event):
+        """"""
+        menu = QtGui.QMenu()
+        menu.addAction(self.main.actionTabShell)
+        menu.addAction(self.main.actionTabLog)
+        menu.addAction(self.main.actionTabStdout)
+        menu.addSeparator()
+        menu.addAction(self.main.actionTabFiles)
+        menu.addAction(self.main.actionTabProject)
+        menu.addAction(self.main.actionTabSourceBrowser)
+        menu.addAction(self.main.actionTabSearchReplace)
+        menu.addAction(self.main.actionTabBoardConfig)
+        menu.exec_(event.globalPos())
+
+
+    #----------------------------------------------------------------------
     def editor_restore_example(self):
         editor = self.get_current_editor()
         filename = getattr(editor, "path", False)
         filename_install = filename.replace(os.getenv("PINGUINO_USER_PATH"), os.getenv("PINGUINO_INSTALL_PATH"))
         shutil.copyfile(filename_install, filename)
         self.editor_reload_file()
-
-
-    # #----------------------------------------------------------------------
-    # def update_mode_output(self, visible):
-        # if self.is_graphical():
-            # self.configIDE.set("Features", "terminal_on_graphical", visible)
-        # else:
-            # self.configIDE.set("Features", "terminal_on_text", visible)
-
-
-    # #----------------------------------------------------------------------
-    # def toggle_pythonshell(self, visible):
-        # self.main.dockWidget_output.setVisible(visible)
-        # self.update_mode_output(visible)
-        # #self.configIDE.config("Features", "terminal_on_text", visible)
-
-
-    # #----------------------------------------------------------------------
-    # def update_tab_position(self, tab, area):
-
-        # if area.name == "RightDockWidgetArea":
-            # tab.setTabPosition(QtGui.QTabWidget.West)
-        # elif area.name == "LeftDockWidgetArea":
-            # tab.setTabPosition(QtGui.QTabWidget.East)
-
 
 
     #----------------------------------------------------------------------

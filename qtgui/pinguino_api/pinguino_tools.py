@@ -328,10 +328,10 @@ class PinguinoTools(Uploader):
                 if not instruction: continue
 
                 # https://regex101.com/r/nH9nS9
-                regex = re.compile(ur"([^.\w])(%s)([^.\w])"%re.escape(instruction), re.MULTILINE | re.DOTALL)
+                regex = re.compile(ur"([^.\w])({})([^.\w])".format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
 
                 # for Python3
-                # regex = re.compile(r"([^.\w])(%s)([^.\w])"%re.escape(instruction), re.MULTILINE | re.DOTALL)
+                # regex = re.compile(r"([^.\w])({})([^.\w])".format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
 
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
 

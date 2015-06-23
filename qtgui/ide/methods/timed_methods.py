@@ -17,7 +17,7 @@ class TimedMethods(object):
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
     @Decorator.requiere_open_files()
-    @Decorator.requiere_text_mode()
+    # @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Functions")
     @Decorator.requiere_tools_tab("SourceBrowser")
     @Decorator.requiere_main_focus()
@@ -56,14 +56,13 @@ class TimedMethods(object):
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
     @Decorator.requiere_open_files()
-    @Decorator.requiere_text_mode()
+    # @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Directives")
     @Decorator.requiere_tools_tab("SourceBrowser")
     @Decorator.requiere_main_focus()
     def update_directives(self):
 
-        editor = self.get_current_editor()
-        directives_parse = self.get_directives(editor)
+        directives_parse = self.get_directives()
 
         index = 0
         self.main.tableWidget_directives.setRowCount(len(directives_parse))
@@ -95,14 +94,13 @@ class TimedMethods(object):
     #----------------------------------------------------------------------
     @Decorator.timer(1000)
     @Decorator.requiere_open_files()
-    @Decorator.requiere_text_mode()
+    # @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Variables")
     @Decorator.requiere_tools_tab("SourceBrowser")
     @Decorator.requiere_main_focus()
     def update_variables(self):
 
-        editor = self.get_current_editor()
-        variables_parse = self.get_variables(editor)
+        variables_parse = self.get_variables()
 
         index = 0
         self.main.tableWidget_variables.setRowCount(len(variables_parse))
@@ -146,13 +144,13 @@ class TimedMethods(object):
 
         if not getattr(self, "completer_variables", False):
             self.completer_variables = []
-            variables_parse = self.get_variables(editor)
+            variables_parse = self.get_variables()
             for variable in variables_parse:
                 self.completer_variables.append([variable["name"], variable["type"]])
 
         if not getattr(self, "completer_directives", False):
             self.completer_directives = []
-            directives_parse = self.get_directives(editor)
+            directives_parse = self.get_directives()
             for directive in directives_parse:
                 self.completer_directives.append(directive["name"])
 
@@ -183,7 +181,7 @@ class TimedMethods(object):
     #----------------------------------------------------------------------
     @Decorator.timer(3000)
     @Decorator.requiere_open_files()
-    @Decorator.requiere_text_mode()
+    # @Decorator.requiere_text_mode()
     @Decorator.requiere_main_focus()
     def check_external_changes(self):
 
@@ -221,13 +219,20 @@ class TimedMethods(object):
         filename = getattr(editor, "path", None)
         if not filename: return
         content_saved = getattr(editor, "last_saved", None)
-        content = editor.text_edit.toPlainText()
-        filename_backup = filename + "~"
-        #if os.path.exists(filename) and filename_tab.endswith("*"):
-        if os.path.exists(filename) and (content_saved != content):
-            file_ = codecs.open(filename_backup, "w", "utf-8")
-            file_.write(content)
-            file_.close()
+
+        if self.is_graphical() is True:
+
+            content = self.PinguinoKIT.get_gpde()
+            self.PinguinoKIT.save_raw_parser(content, editor.path+"~")
+
+        elif self.is_graphical() is False:
+            content = editor.text_edit.toPlainText()
+            filename_backup = filename + "~"
+            #if os.path.exists(filename) and filename_tab.endswith("*"):
+            if os.path.exists(filename) and (content_saved != content):
+                file_ = codecs.open(filename_backup, "w", "utf-8")
+                file_.write(content)
+                file_.close()
 
         elif content_saved == content and os.path.exists(filename_backup):
             os.remove(filename_backup)

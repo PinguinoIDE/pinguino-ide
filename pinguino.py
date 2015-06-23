@@ -31,10 +31,10 @@ from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
 #----------------------------------------------------------------------
 def build_argparse():
 
-    parser = argparse.ArgumentParser(description="*** %s:Command line ***"%os.getenv("PINGUINO_NAME"))
+    parser = argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
 
     #IDE args
-    parsergui = argparse.ArgumentParser(description="*** %s:GUI ***"%os.getenv("PINGUINO_NAME"))
+    parsergui = argparse.ArgumentParser(description="*** {PINGUINO_NAME}:GUI ***".format(**os.environ))
     parsergui.add_argument("--lang", dest="lang", nargs=1, default=False, help="set IDE language")
     parsergui.add_argument("--dev", dest="devmode", action="store_true", default=False, help="set IDE developer mode")
     parsergui.add_argument("-style")
@@ -83,13 +83,13 @@ if __name__ == "__main__":
         translations_file = "pinguino_" + sys_locale
 
         if translations_file + ".qm" in os.listdir(translations_path):
-            translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
+            translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_{}.qm".format(sys_locale)))
 
         elif "_" in sys_locale:
             sys_locale = sys_locale[:sys_locale.find("_")]
             translations_file = "pinguino_" + sys_locale
             if translations_file + ".qm" in os.listdir(translations_path):
-                translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_%s.qm" % sys_locale))
+                translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_{}.qm".format(sys_locale)))
 
     app = QApplication(sys.argv)
 

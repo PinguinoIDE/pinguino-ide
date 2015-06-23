@@ -16,6 +16,6 @@ for size in ["16", "24", "32", "48"]:
         os.mkdir(os.path.join(parent, size))
 
 
-    for file in files:
-        print("convert -resize %sx%s %s %s/%s/%s" % (size, size, file, parent, size, file.replace(".svg", ".png")))
-        os.system("convert -resize %sx%s %s %s/%s/%s" % (size, size, file, parent, size, file.replace(".svg", ".png")))
+    for file_ in files:
+        print("convert -resize {}x{} {} {}/{}/{}".format(size, size, file_, parent, size, file_.replace(".svg", ".png")))
+        os.system("convert -resize {}x{} {} {}/{}/{}".format(size, size, file_, parent, size, file_.replace(".svg", ".png")))

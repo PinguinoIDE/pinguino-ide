@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/libraries_widget.ui'
 #
-# Created: Thu Jun 18 21:02:01 2015
+# Created: Mon Jun 22 20:48:39 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_LibraryManager(object):
     def setupUi(self, LibraryManager):
         LibraryManager.setObjectName("LibraryManager")
-        LibraryManager.resize(833, 376)
+        LibraryManager.resize(734, 376)
         self.centralwidget = QtGui.QWidget(LibraryManager)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
@@ -21,13 +21,7 @@ class Ui_LibraryManager(object):
         self.pushButton_close.setMinimumSize(QtCore.QSize(165, 0))
         self.pushButton_close.setMaximumSize(QtCore.QSize(165, 16777215))
         self.pushButton_close.setObjectName("pushButton_close")
-        self.gridLayout.addWidget(self.pushButton_close, 1, 2, 1, 1)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 1, 1, 1, 1)
-        self.commandLinkButton_how = QtGui.QCommandLinkButton(self.centralwidget)
-        self.commandLinkButton_how.setCursor(QtCore.Qt.WhatsThisCursor)
-        self.commandLinkButton_how.setObjectName("commandLinkButton_how")
-        self.gridLayout.addWidget(self.commandLinkButton_how, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_close, 1, 1, 1, 1)
         self.tabWidget = QtGui.QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName("tabWidget")
         self.tab_2 = QtGui.QWidget()
@@ -56,8 +50,8 @@ class Ui_LibraryManager(object):
         self.checkBox_sources = QtGui.QCheckBox(self.tab_2)
         self.checkBox_sources.setObjectName("checkBox_sources")
         self.horizontalLayout_3.addWidget(self.checkBox_sources)
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem1)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem)
         self.gridLayout_3.addLayout(self.horizontalLayout_3, 3, 0, 1, 3)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -68,11 +62,8 @@ class Ui_LibraryManager(object):
         self.radioButton_repo_hg = QtGui.QRadioButton(self.tab_2)
         self.radioButton_repo_hg.setObjectName("radioButton_repo_hg")
         self.horizontalLayout_2.addWidget(self.radioButton_repo_hg)
-        self.radioButton_repo_svn = QtGui.QRadioButton(self.tab_2)
-        self.radioButton_repo_svn.setObjectName("radioButton_repo_svn")
-        self.horizontalLayout_2.addWidget(self.radioButton_repo_svn)
-        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem2)
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
         self.gridLayout_3.addLayout(self.horizontalLayout_2, 1, 0, 1, 3)
         self.pushButton_from_zip = QtGui.QPushButton(self.tab_2)
         self.pushButton_from_zip.setObjectName("pushButton_from_zip")
@@ -150,11 +141,13 @@ class Ui_LibraryManager(object):
         self.checkBox_libs = QtGui.QCheckBox(self.tab)
         self.checkBox_libs.setObjectName("checkBox_libs")
         self.horizontalLayout_4.addWidget(self.checkBox_libs)
-        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem3)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem2)
         self.gridLayout_2.addLayout(self.horizontalLayout_4, 2, 0, 1, 2)
         self.tabWidget.addTab(self.tab, "")
-        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 4)
+        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 2)
+        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem3, 1, 0, 1, 1)
         LibraryManager.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(LibraryManager)
@@ -167,13 +160,10 @@ class Ui_LibraryManager(object):
         LibraryManager.setTabOrder(self.pushButton_update, self.pushButton_remove)
         LibraryManager.setTabOrder(self.pushButton_remove, self.tabWidget)
         LibraryManager.setTabOrder(self.tabWidget, self.tableWidget_libs)
-        LibraryManager.setTabOrder(self.tableWidget_libs, self.commandLinkButton_how)
-        LibraryManager.setTabOrder(self.commandLinkButton_how, self.pushButton_close)
 
     def retranslateUi(self, LibraryManager):
         LibraryManager.setWindowTitle(QtGui.QApplication.translate("LibraryManager", "Library Manager", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_close.setText(QtGui.QApplication.translate("LibraryManager", "Close", None, QtGui.QApplication.UnicodeUTF8))
-        self.commandLinkButton_how.setText(QtGui.QApplication.translate("LibraryManager", "How to develop libraries?", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_update.setToolTip(QtGui.QApplication.translate("LibraryManager", "Update library from their repository.", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_update.setText(QtGui.QApplication.translate("LibraryManager", "Update selected", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_remove.setToolTip(QtGui.QApplication.translate("LibraryManager", "Delete directory from disk.", None, QtGui.QApplication.UnicodeUTF8))
@@ -182,7 +172,6 @@ class Ui_LibraryManager(object):
         self.checkBox_sources.setText(QtGui.QApplication.translate("LibraryManager", "Check/Uncheck all", None, QtGui.QApplication.UnicodeUTF8))
         self.radioButton_repo_git.setText(QtGui.QApplication.translate("LibraryManager", "Git", None, QtGui.QApplication.UnicodeUTF8))
         self.radioButton_repo_hg.setText(QtGui.QApplication.translate("LibraryManager", "Mercurial", None, QtGui.QApplication.UnicodeUTF8))
-        self.radioButton_repo_svn.setText(QtGui.QApplication.translate("LibraryManager", "Subversion", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_from_zip.setText(QtGui.QApplication.translate("LibraryManager", "Install from .zip", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_add.setText(QtGui.QApplication.translate("LibraryManager", "Add", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_sources.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("LibraryManager", "Name", None, QtGui.QApplication.UnicodeUTF8))

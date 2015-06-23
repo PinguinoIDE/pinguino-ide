@@ -78,7 +78,7 @@ class TestPreprocess(unittest.TestCase):
             got = Pinguino.remove_comments(case[0])
             expected = case[1]
             self.assertMultiLineEqual(got, expected,
-                                      "Remove comments: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
+                                      "Remove comments: Failure\ngot: '{}'\nexpected: '{}'".format(got, expected))
 
 
     #----------------------------------------------------------------------
@@ -92,7 +92,7 @@ class TestPreprocess(unittest.TestCase):
                 got, d = Pinguino.replace_word(line, libinstructions)
 
             self.assertEqual(got, expected,
-                             "Preprocess: Failure\ngot: '%s'\nexpected: '%s'"%(got, expected))
+                             "Preprocess: Failure\ngot: '{}'\nexpected: '{}'".format(got, expected))
 
 
     #----------------------------------------------------------------------
@@ -121,7 +121,7 @@ class TestBareMinumumCompilation(unittest.TestCase):
 
             try: Pinguino.set_board(board)
             except BaseException, msg:
-                raise BaseException("Compilation: imposible set board %s\n%s" % (board.name, str(msg)))
+                raise BaseException("Compilation: imposible set board {}\n{}".format(board.name, str(msg)))
 
             if board.arch == 8:
                 for key in Pinguino.dict_boot.keys():
@@ -129,19 +129,18 @@ class TestBareMinumumCompilation(unittest.TestCase):
                     Pinguino.set_bootloader(*boot)
                     try: Pinguino.compile_string(code)
                     except BaseException, msg:
-                        self.fail("Compilation: impossible compile for %s, %sbits, boot:%s\n%s" % (board.name, board.arch, key, str(msg)))
+                        self.fail("Compilation: impossible compile for {}, {}-bit, boot:{}\n{}".format(board.name, board.arch, key, str(msg)))
 
             if board.arch == 32:
                 try: Pinguino.compile_string(code)
                 except BaseException, msg:
-                    #raise BaseException("Compilation: impossible compile for %s, %sbits\n%s" % (board.name, board.arch, str(msg)))
-                    self.fail("Compilation: impossible compile for %s, %sbits\n%s" % (board.name, board.arch, str(msg)))
+                    self.fail("Compilation: impossible compile for {}, {}-bit\n{}".format(board.name, board.arch, str(msg)))
 
         return inter
 
 
 for board in AllBoards:
-    test_name = "test_compile_%s" % str(board.name.replace(" ", "_").replace(".", "_"))
+    test_name = "test_compile_{}".format(board.name.replace(" ", "_").replace(".", "_"))
     setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board))
 
 

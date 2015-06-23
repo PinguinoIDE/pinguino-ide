@@ -48,6 +48,7 @@ class Files(object):
         lisdir = filter(lambda f:not f.startswith("."), lisdir)
         lisdir = filter(lambda f:not f.endswith(".ppde"), lisdir)
         lisdir = filter(lambda f:not f.endswith(".hex"), lisdir)
+        lisdir = filter(lambda f:not f.endswith("~"), lisdir)
 
         list_dirs = []
         list_files = []

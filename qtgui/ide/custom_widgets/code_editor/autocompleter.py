@@ -70,9 +70,10 @@ class PinguinoAutoCompleter(QListWidget):
         self.setStyleSheet("""
         font-family: inherit;
         font-weight: normal;
-        selection-color: %s;
-        selection-background-color: %s;
-        """%(selection_color, selection_bg_color))
+        selection-color: {};
+        selection-background-color: {};
+        """.format(selection_color, selection_bg_color))
+
         self.setFrameShape(QtGui.QFrame.NoFrame)
 
 

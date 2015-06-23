@@ -20,7 +20,7 @@ class Dialogs(object):
         save_filename = QtGui.QFileDialog.getSaveFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Save"),
                 os.path.join(QtCore.QDir.home().path(), filename),
-                QtGui.QApplication.translate("Dialogs", "Pinguino files (*%s);;All Files (*)")%ext)
+                QtGui.QApplication.translate("Dialogs", "Pinguino files (*{});;All Files (*)".format(ext)))
         if save_filename: return save_filename[0], os.path.split(save_filename[0])[1]
         else: return None, None
 
@@ -84,7 +84,7 @@ class Dialogs(object):
 
         QtGui.QMessageBox.information(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - File already open"),
-                QtGui.QApplication.translate("Dialogs", "This file is already open in other tab.\n%s")%filename)
+                QtGui.QApplication.translate("Dialogs", "This file is already open in other tab.\n{}".format(filename)))
         return True
 
 

@@ -32,7 +32,7 @@ class Pinguino(PinguinoTools):
         Parameters
         ----------
         file_path: str, list
-            Full absolute or relative path of file.
+            Full absolute or relative path of file, list of files is project.
 
         See Also
         --------
@@ -48,15 +48,17 @@ class Pinguino(PinguinoTools):
 
 
     #----------------------------------------------------------------------
-    def compile_string(self, code, tmp_filename="temp_filename.pde"):
+    def compile_string(self, code, tmp_filename="temp_filename.pde", filenames=[]):
         """Compile from string.
 
         Parameters
         ----------
         code: str
             String with Pinguino Code for compile
-        filename: str, optional
+        tmp_filename: str, optional
             Temporal filename used for compile the code.
+        filenames: list of strings, optional
+            Environment files for projects.
 
         See Also
         --------
@@ -64,7 +66,7 @@ class Pinguino(PinguinoTools):
 
         Examples
         --------
-        >>> code = ""setup(){pinmode(0,OUTPUT);}loop(){toggle(0);delay(100);}"
+        >>> code = "setup(){pinmode(0,OUTPUT);}loop(){toggle(0);delay(100);}"
         >>> compile_string(code)
         """
 
@@ -75,7 +77,7 @@ class Pinguino(PinguinoTools):
         file_ = codecs.open(tmp_file, "w", "utf-8")
         file_.write(code)
         file_.close()
-        self.compile_file(tmp_file)
+        self.compile_file([tmp_file]+filenames)
 
 
     #----------------------------------------------------------------------

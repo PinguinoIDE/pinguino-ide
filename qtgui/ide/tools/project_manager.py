@@ -45,7 +45,7 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
     def open_project(self):
-        """"""
+
         self.project_saved = True
 
         file_project = Dialogs.set_open_file(self, exts="*.ppde")
@@ -107,6 +107,7 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     def add_existing_directory(self, dir_project, to_ignore=[], check_duplicated=True, inherits_status=dict(), open_=False):
         """"""
+        self.take_from_ignore(dir_project)
         if check_duplicated:
             if dir_project in self.get_dirs_from_project(): return
 
@@ -139,6 +140,7 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     def add_existing_file(self, path, check_duplicated=True, check=True, open_=False):
         """"""
+        self.take_from_ignore(path)
         if check_duplicated:
             if path in self.get_files_from_project(): return
 
@@ -147,10 +149,12 @@ class ProjectManager(object):
         # flags = QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
         flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
 
+        #FIXME: eliminar añadidos de lista de ignore, buena suerte YeisonEng del futuro.
         self.add_new_file_item(filename, parent, path, flags, check=check)
 
         if not open_:
             self.add_file_to_config(path)
+
 
 
     #----------------------------------------------------------------------
@@ -321,7 +325,7 @@ class ProjectManager(object):
         self.main.actionAdd_current_file.setEnabled(open_project)
         self.main.actionAdd_existing_file.setEnabled(open_project)
         self.main.actionAdd_new_file.setEnabled(open_project)
-        self.main.actionSet_current_file_as_main_upload.setEnabled(open_project)
+        # self.main.actionSet_current_file_as_main_upload.setEnabled(open_project)
 
 
 
@@ -353,12 +357,15 @@ class ProjectManager(object):
         menu.addAction("Rename...", self.rename)
         menu.addSeparator()
         menu.addAction("Add existing directory...", self.select_existing_directory)
-        menu.addAction("Add existing file...", self.add_existing_file)
+        menu.addAction("Add existing file...", self.select_existing_file)
         menu.addSeparator()
         menu.addAction("Add new file...", self.add_new_file)
+        menu.addAction("Add new blocks file...", self.add_new_blocks_file)
         menu.addAction("Add new directory...", self.add_new_directory)
         menu.addAction("Close project", self.close_project)
         menu.addAction("Open project...", self.open_project)
+        menu.addSeparator()
+        menu.addAction("Reload project", self.reload_project)
 
         menu.setStyleSheet("""
         QMenu {
@@ -409,6 +416,15 @@ class ProjectManager(object):
         item = self.get_current_item()
         self.hide_element_to_config(item.path)
         item.removeChild(item)
+
+
+    #----------------------------------------------------------------------
+    def take_from_ignore(self, path):
+        """"""
+        options = self.ConfigProject.options("Ignore")
+        for option in options:
+            if self.ConfigProject.get("Ignore", option) == path:
+                self.ConfigProject.remove_option("Ignore", option)
 
 
     #----------------------------------------------------------------------
@@ -504,7 +520,25 @@ class ProjectManager(object):
         if os.path.isfile(path):
             path = os.path.dirname(self.get_current_item().path)
 
-        filename = Dialogs.get_text(self, "New file", default="untitled-1.pde")
+        filename = Dialogs.get_text(self, "New file", default=self.get_untitled_name(ext=".pde")[:-1])
+        new_file = os.path.join(path, filename)
+        nf = open(new_file, "w")
+        nf.close()
+
+        if self.get_current_item().path in self.get_files_option_from_project():
+            self.add_existing_file(new_file)
+
+        self.reload_project()
+
+    #----------------------------------------------------------------------
+    def add_new_blocks_file(self):
+        """"""
+        path = self.get_current_item().path
+        if os.path.isfile(path):
+            path = os.path.dirname(self.get_current_item().path)
+
+
+        filename = Dialogs.get_text(self, "New blocks file", default=self.get_untitled_name(ext=".gpde")[:-1])
         new_file = os.path.join(path, filename)
         nf = open(new_file, "w")
         nf.close()

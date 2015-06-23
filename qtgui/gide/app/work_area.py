@@ -16,7 +16,7 @@ from ..py_bloques.get_blocks import all_sets
 from ..py_bloques import constructor
 from ...frames.select_area import Ui_Selection
 from ...ide.methods.dialogs import Dialogs
-#from ...ide.methods.decorators import Decorator
+from ...ide.methods.decorators import Decorator
 
 #TEMPLATES = {"and": {"python":"and", "pinguino":"&&",},
              #"not": {"python":"not", "pinguino":"!",},
@@ -88,6 +88,9 @@ class WorkArea(QtGui.QWidget):
         self.SelectArea.hide()
 
         self.contextMenuEvent = self.build_menu
+
+
+        self.update_user()
 
 
     #----------------------------------------------------------------------
@@ -622,7 +625,6 @@ class WorkArea(QtGui.QWidget):
         self.CHILD = None
         self.prepareAccept = None
         self.expand_all()
-        self.update_user()
 
         #self.paintEvent()
 
@@ -947,6 +949,11 @@ class WorkArea(QtGui.QWidget):
         return ["User", "call-var-%s"%name, tmp.getBlock()]
 
     #----------------------------------------------------------------------
+    @Decorator.timer(1000)
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_graphical_mode()
+    @Decorator.requiere_main_focus()
+    # @Decorator.requiere_tab("Blocks")
     def update_user(self):
 
         self.clearArea("User")
@@ -954,7 +961,6 @@ class WorkArea(QtGui.QWidget):
         new_blocks = []
 
         for block in self.get_project_blocks():
-        #for key in self.MetaData.keys():
 
             if block.metadata.basename == "user_function":
                 name = self.get_name_function(block)
@@ -963,6 +969,29 @@ class WorkArea(QtGui.QWidget):
             elif block.metadata.basename == "asign":
                 name = self.get_name_var(block)
                 new_blocks.append(self.add_variable(name))
+
+
+        if os.getenv("PINGUINO_PROJECT"):
+            functions = self.ide.get_functions()
+            for function in functions:
+                if function["name"] in ["setup", "loop"]: continue
+                name = function["name"]
+                if not function["args"]:
+                    args = 0
+                else:
+                    args = len(function["args"].split(","))
+                return_ = not (function["return"] == "void")
+                new_blocks.append(self.add_function(name, args, return_))
+
+
+            variables = self.ide.get_variables()
+            for variable in variables:
+                new_blocks.append(self.add_variable(variable["name"]))
+
+            directives = self.ide.get_directives()
+            for directive in directives:
+                new_blocks.append(self.add_variable(directive["name"]))
+
 
 
         self.add_group_blocks("User", new_blocks)
@@ -1107,3 +1136,13 @@ class WorkArea(QtGui.QWidget):
             widgets.append(layout.itemAt(index).widget())
         return filter(lambda obj:getattr(obj, "metadata", False), widgets)
 
+
+    #----------------------------------------------------------------------
+    def is_graphical(self):
+        """"""
+        return self.ide.is_graphical()
+
+    #----------------------------------------------------------------------
+    def get_tab(self):
+        """"""
+        return self.ide.get_tab()

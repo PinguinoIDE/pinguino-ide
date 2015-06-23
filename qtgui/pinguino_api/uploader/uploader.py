@@ -97,9 +97,9 @@ class baseUploader(object):
                 if (device.idVendor, device.idProduct) == (board.vendor, board.product):
                     """
                     self.configuration = device.configurations[0]
-                    logging.info("Configuration = %s" % self.configuration)
+                    logging.info("Configuration = {}".format(self.configuration))
                     self.interface = self.configuration.interfaces[0][0]
-                    logging.info("Interface = %s" % self.interface)
+                    logging.info("Interface = {}".format(self.interface))
                     self.endpoints = []
                     self.pipes = []
                     for ep in self.interface.endpoints:

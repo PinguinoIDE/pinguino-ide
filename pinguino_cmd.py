@@ -86,11 +86,11 @@ def printb(text, color):
 #----------------------------------------------------------------------
 def build_argparse():
 
-    parser = argparse.ArgumentParser(description="*** %s:Command line ***"%os.getenv("PINGUINO_NAME"))
+    parser = argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
 
     #command line args
-    parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show %s version and exit"%os.getenv("PINGUINO_NAME"))
-    parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this %s version and exit"%os.getenv("PINGUINO_NAME"))
+    parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show {PINGUINO_NAME} version and exit".format(**os.environ))
+    parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this {PINGUINO_NAME} version and exit".format(**os.environ))
     parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
     parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
@@ -121,12 +121,12 @@ if parser.author:
 
 if parser.board:
     pinguino.set_board(parser.board)
-    printb("using %s board" % parser.board.name, bcolors.Green)
+    printb("using {} board".format(parser.board.name), bcolors.Green)
 
     if parser.bootloader:
         bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.bldr)
         pinguino.set_bootloader(bootloader)
-    printb("using %s bootloader" % pinguino.get_board().bldr, bcolors.Green)
+    printb("using {} bootloader".format(pinguino.get_board().bldr), bcolors.Green)
 
     if not parser.filename:
         printb("ERROR: missing filename", bcolors.Red)
@@ -166,8 +166,8 @@ if parser.board:
 
         else:
             result = pinguino.get_result()
-            printb("compilation time: %s" % result["time"], bcolors.Yellow)
-            printb("compiled to: %s" % result["hex_file"], bcolors.Yellow)
+            printb("compilation time: {time}".format(**result), bcolors.Yellow)
+            printb("compiled to: {hex_file}".format(**result), bcolors.Yellow)
 
             if parser.hex_file:
                 hex_file = open(result["hex_file"], "r")

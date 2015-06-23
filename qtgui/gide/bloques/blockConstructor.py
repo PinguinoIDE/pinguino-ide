@@ -40,6 +40,9 @@ class Properties(object):
     #----------------------------------------------------------------------
     def build_menu(self, event):
 
+        if not hasattr(self, "ContexMenu"):
+            return
+
         if not self.ContexMenu:
             if self.Tab == "Saved":
                 menu = QtGui.QMenu()

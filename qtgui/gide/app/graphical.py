@@ -110,6 +110,7 @@ class GraphicalIDE(object):
         self.main.tabWidget_files.setCurrentWidget(editor)
         index = self.main.tabWidget_files.currentIndex()
         self.main.tabWidget_files.setTabText(index, filename[:-1])
+        self.ide.update_actions()
 
 
     #----------------------------------------------------------------------
@@ -212,8 +213,8 @@ class GraphicalIDE(object):
         content = self.get_gpde()
         self.save_raw_parser(content, editor.path)
 
-        setattr(editor, "last_saved", content)
-        self.ide.ide_remove_backup_file(editor=editor)
+        # setattr(editor, "last_saved", content)
+        # self.ide.ide_remove_backup_file(editor=editor)
 
         self.ide.editor_saved()
 
@@ -667,22 +668,27 @@ class GraphicalIDE(object):
         new_set = map(lambda x: [x[0], x[2]], new_set)
         self.add_blocks(name, tab_set + new_set)
 
+
     #----------------------------------------------------------------------
     def clear_area(self, area):
-        self.remove_tab(area)
-        self.build_block_tabs([area])
-        #widget = self.get_widget(area)
-        ##grid_layout = widget.grid_layout
 
-        ##for index in range(grid_layout.count()):
-            ##item = grid_layout.itemAt(index)
-            ##grid_layout.removeItem(item)
+        # index = self.main.tabWidget_blocks.currentIndex()
+        # self.remove_tab(area)
+        # self.build_block_tabs([area])
+        # self.main.tabWidget_blocks.setCurrentIndex(index)
 
-        #for wid in widget.content_widgets:
-            ##wid.close()
-            ##wid.destroy()
-            #wid.deleteLater()
-            #widget.content_widgets.remove(wid)
+        widget = self.get_widget(area)
+        #grid_layout = widget.grid_layout
+
+        #for index in range(grid_layout.count()):
+            #item = grid_layout.itemAt(index)
+            #grid_layout.removeItem(item)
+
+        for wid in widget.content_widgets:
+            #wid.close()
+            #wid.destroy()
+            wid.deleteLater()
+            widget.content_widgets.remove(wid)
 
 
 

@@ -42,20 +42,6 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
         self.setFrameShape(QtGui.QFrame.NoFrame)
 
 
-    # #----------------------------------------------------------------------
-    # def log_output(self, text, prefix=None):
-
-        # if prefix:
-            # text = text.replace("\n", "\n[%s] "%prefix)
-            # text = text.replace("\\n", "\\n[%s] "%prefix)
-            # text = "[%s] "%prefix + text
-        # if text:
-            # self.moveCursor(QtGui.QTextCursor.StartOfLine)
-            # self.insertPlainText(self.shell.run('print("""%s""")'%text.replace('"', "'")))
-            # # self.insertPlainText(START)
-            # self.moveCursor(QtGui.QTextCursor.End)
-
-        # self.repaint()
 
 
     #----------------------------------------------------------------------
@@ -337,9 +323,9 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
             color: #FFFFFF;
             font-family: mono;
             font-weight: normal;
-            font-size: %dpt;
+            font-size: {}dpt;
         }
-        """%size)
+        """.format(size))
 
 
     #----------------------------------------------------------------------

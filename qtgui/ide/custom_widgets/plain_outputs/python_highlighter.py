@@ -45,7 +45,7 @@ class Highlighter(QtGui.QSyntaxHighlighter):
             reserved = QtGui.QTextCharFormat()
             reserved.setForeground(color("#8ae234"))
             #self.highlightingRules.append(("\\b(None|False|True|def|class|for|while|pass|try|except|print|if)\\b", reserved))
-            self.highlightingRules.append(("\\b(%s)\\b" % RESERVED_PYTHON, reserved))
+            self.highlightingRules.append(("\\b({})\\b".format(RESERVED_PYTHON), reserved))
 
         if extra:
             start_command = QtGui.QTextCharFormat()
@@ -59,12 +59,12 @@ class Highlighter(QtGui.QSyntaxHighlighter):
         for msg, color_ in MESSAGES:
             debugger = QtGui.QTextCharFormat()
             debugger.setForeground(color(color_))
-            self.highlightingRules.append(("\[%s\] .*"%msg, debugger))
+            self.highlightingRules.append(("\[{}\] .*".format(msg), debugger))
 
         for msg, color_ in EXCEPTIONS:
             debugger = QtGui.QTextCharFormat()
             debugger.setForeground(color(color_))
-            self.highlightingRules.append(("\\b(%s)\\b"%msg, debugger))
+            self.highlightingRules.append(("\\b({})\\b".format(msg), debugger))
 
 
     #----------------------------------------------------------------------

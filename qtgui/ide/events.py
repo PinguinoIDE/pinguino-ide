@@ -41,7 +41,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.actionComment_Uncomment_region, QtCore.SIGNAL("triggered()"), self.editor_comment_uncomment)
         self.connect(self.main.actionIndent, QtCore.SIGNAL("triggered()"), self.editor_indent_region)
         self.connect(self.main.actionDedent, QtCore.SIGNAL("triggered()"), self.editor_dedent_region)
-        self.connect(self.main.actionHex_code, QtCore.SIGNAL("triggered()"), self.__show_hex_code__)
+        # self.connect(self.main.actionHex_code, QtCore.SIGNAL("triggered()"), self.__show_hex_code__)
         self.connect(self.main.actionMain_c, QtCore.SIGNAL("triggered()"), self.ide_show_main_c)
         self.connect(self.main.actionUser_c, QtCore.SIGNAL("triggered()"), self.ide_show_user_c)
         self.connect(self.main.actionDefine_h, QtCore.SIGNAL("triggered()"), self.ide_show_define_h)
@@ -114,7 +114,8 @@ class PinguinoEvents(PinguinoCore):
         # self.connect(self.main.actionSwitch_ide, QtCore.SIGNAL("toggled(bool)"), self.switch_ide_mode)
         self.connect(self.main.tabWidget_files, QtCore.SIGNAL("currentChanged(int)"), self.ide_tab_changed)
         self.connect(self.main.tabWidget_files, QtCore.SIGNAL("tabCloseRequested(int)"), self.ide_tab_close)
-        # self.connect(self.main.tabWidget_files, QtCore.SIGNAL("currentChanged(int)"), self.ide_tab_changed)
+        # self.connect(self.main.tabWidget_bottom, QtCore.SIGNAL("customContextMenuRequested(QPoint)"), self.ide_tabs_context_menu)
+        # self.connect(self.main.tabWidget_tools, QtCore.SIGNAL("customContextMenuRequested(QPoint)"), self.ide_tabs_context_menu)
         # self.connect(self.main.tabWidget_files, QtCore.SIGNAL("tabCloseRequested(int)"), self.ide_tab_close)
 
 
@@ -135,4 +136,7 @@ class PinguinoEvents(PinguinoCore):
         self.main.dockWidget_right.resizeEvent = self.tab_tools_resize
         self.main.dockWidget_bottom.resizeEvent = self.tab_tools_resize
 
-
+        self.main.tabWidget_bottom.contextMenuEvent = self.ide_tabs_context_menu
+        self.main.tabWidget_tools.contextMenuEvent = self.ide_tabs_context_menu
+        self.main.toolBar.contextMenuEvent = self.ide_tabs_context_menu
+        self.main.menubar.contextMenuEvent = self.ide_tabs_context_menu
