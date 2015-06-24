@@ -637,11 +637,11 @@ class PinguinoSettings(object):
 
         if position == "LeftDockWidgetArea":
             self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.East)
-            self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.East)
+            # self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.East)
             self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to right")
         else:
             self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.West)
-            self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.West)
+            # self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.West)
             self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to left")
 
 
@@ -1440,13 +1440,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 break
 
         if graph:
-            # self.main.tabWidget.setCurrentIndex(1)
-            tabBar = self.main.tabWidget.tabBar()
-            tabBar.show()
+            self.toggle_tab("Blocks", True)
         else:
-            # self.main.tabWidget.setCurrentIndex(0)
-            tabBar = self.main.tabWidget.tabBar()
-            tabBar.hide()
+            self.toggle_tab("Blocks", False)
 
         self.main.actionHex.setVisible(bool(self.get_current_hex()))
 
@@ -2404,33 +2400,79 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    def toggle_tab(self, tab_name):
+    def toggle_tab(self, tab_name, force=None):
         """"""
         widget = getattr(self.main, tab_name)
 
-        if self.main.tabWidget_bottom.indexOf(widget) != -1:
-            index = self.main.tabWidget_bottom.indexOf(widget)
-            widget.tab_parent = self.main.tabWidget_bottom
-            widget.index = index
-            widget.label = self.main.tabWidget_bottom.tabText(index)
-            self.main.tabWidget_bottom.removeTab(index)
-            self.configIDE.set("TABS", tab_name, False)
-            self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+        if force is None:
 
-        elif self.main.tabWidget_tools.indexOf(widget) != -1:
-            index = self.main.tabWidget_tools.indexOf(widget)
-            widget.tab_parent = self.main.tabWidget_tools
-            widget.index = index
-            widget.label = self.main.tabWidget_tools.tabText(index)
-            self.main.tabWidget_tools.removeTab(index)
-            self.configIDE.set("TABS", tab_name, False)
-            self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+            if self.main.tabWidget_bottom.indexOf(widget) != -1:
+                index = self.main.tabWidget_bottom.indexOf(widget)
+                widget.tab_parent = self.main.tabWidget_bottom
+                widget.index = index
+                widget.label = self.main.tabWidget_bottom.tabText(index)
+                self.main.tabWidget_bottom.removeTab(index)
+                self.configIDE.set("TABS", tab_name, False)
+                self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+
+            elif self.main.tabWidget_tools.indexOf(widget) != -1:
+                index = self.main.tabWidget_tools.indexOf(widget)
+                widget.tab_parent = self.main.tabWidget_tools
+                widget.index = index
+                widget.label = self.main.tabWidget_tools.tabText(index)
+                self.main.tabWidget_tools.removeTab(index)
+                self.configIDE.set("TABS", tab_name, False)
+                self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+
+            else:
+                widget.tab_parent.addTab(widget, widget.label)
+                i = widget.tab_parent.indexOf(widget)
+                widget.tab_parent.tabBar().moveTab(i, widget.index)
+                widget.tab_parent.setCurrentIndex(widget.index)
+                self.configIDE.set("TABS", tab_name, True)
+                self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
 
         else:
-            widget.tab_parent.addTab(widget, widget.label)
-            i = widget.tab_parent.indexOf(widget)
-            widget.tab_parent.tabBar().moveTab(i, widget.index)
-            widget.tab_parent.setCurrentIndex(widget.index)
-            self.configIDE.set("TABS", tab_name, True)
-            self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+            if force is True:
+
+                widget.tab_parent.addTab(widget, widget.label)
+                i = widget.tab_parent.indexOf(widget)
+                widget.tab_parent.tabBar().moveTab(i, widget.index)
+                # widget.tab_parent.setCurrentIndex(widget.index)
+                self.configIDE.set("TABS", tab_name, True)
+                self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+
+
+            elif force is False:
+
+                if self.main.tabWidget_bottom.indexOf(widget) != -1:
+                    index = self.main.tabWidget_bottom.indexOf(widget)
+                    widget.tab_parent = self.main.tabWidget_bottom
+                    widget.index = index
+                    widget.label = self.main.tabWidget_bottom.tabText(index)
+                    self.main.tabWidget_bottom.removeTab(index)
+                    self.configIDE.set("TABS", tab_name, False)
+                    self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+
+                elif self.main.tabWidget_tools.indexOf(widget) != -1:
+                    index = self.main.tabWidget_tools.indexOf(widget)
+                    widget.tab_parent = self.main.tabWidget_tools
+                    widget.index = index
+                    widget.label = self.main.tabWidget_tools.tabText(index)
+                    self.main.tabWidget_tools.removeTab(index)
+                    self.configIDE.set("TABS", tab_name, False)
+                    self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+
+
+
+    #----------------------------------------------------------------------
+    def set_block_tab(self, name):
+        """"""
+        widget = self.PinguinoKIT.get_widget(name)
+        self.main.stackedWidget.setCurrentWidget(widget)
+
+        for i in range(self.main.comboBox_blocks.count()):
+            if self.main.comboBox_blocks.itemText(i) == name:
+                self.main.comboBox_blocks.setCurrentIndex(i)
+                break
 

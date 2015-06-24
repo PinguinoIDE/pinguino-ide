@@ -154,11 +154,11 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
     def set_sise_hint(self):
         """"""
         elements = ["dockWidget_bottom", "dockWidget_right", "plainTextEdit_log", "plainTextEdit_output", "tabWidget_bottom",
-                    "tabWidget_tools", "tabWidget_blocks", "comboBox_files", "treeWidget_explorer", "lineEdit_blocks_search",
+                    "tabWidget_tools", "comboBox_files", "treeWidget_explorer", "lineEdit_blocks_search",
                     "label_search_block", "pushButton_openproject", "pushButton_newproject", "treeWidget_projects",
                     "tableWidget_variables", "lineEdit_search", "lineEdit_replace", "checkBox_case_sensitive", "label_search",
                     "label_replace", "pushButton_search_previous", "pushButton_search_next", "pushButton_replace",
-                    "pushButton_replace_all", "label_replace_info", "plainTextEdit_stdout", "tabWidget"]
+                    "pushButton_replace_all", "label_replace_info", "plainTextEdit_stdout"]
 
         for element in elements:
             getattr(self.main, element).minimumSizeHint = lambda :QtCore.QSize(0, 0)

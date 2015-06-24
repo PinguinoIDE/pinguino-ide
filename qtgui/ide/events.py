@@ -124,6 +124,8 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.actionSave_image, QtCore.SIGNAL("triggered()"), self.editor_save_screen_image)
         self.connect(self.main.lineEdit_blocks_search, QtCore.SIGNAL("textChanged(QString)"), self.PinguinoKIT.update_blocks_search_tab)
         self.connect(self.main.actionExport_code_to_editor, QtCore.SIGNAL("triggered()"), self.editor_export_pinguino_code)
+        self.connect(self.main.comboBox_blocks, QtCore.SIGNAL("activated(QString)"), self.set_block_tab)
+
 
         # Context menu
         self.main.tabWidget_files.contextMenuEvent = self.editor_tabfile_context_menu

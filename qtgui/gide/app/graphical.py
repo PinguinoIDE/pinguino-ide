@@ -64,18 +64,19 @@ class GraphicalIDE(object):
         self.main.tabWidget_files.setCurrentIndex(0)
         self.main.tabWidget_files.setMaximumSize(10000, 10e6)
 
-
-        self.set_tab("Pinguino")
-
+        widget = self.get_widget("Pinguino")
+        self.main.stackedWidget.setCurrentWidget(widget)
 
         self.constant_update()
         self.constant_auto_raise()
 
-    def set_tab(self, tab_name):
-        for index in range(self.main.tabWidget_blocks.count()):
-            if self.main.tabWidget_blocks.tabText(index) == tab_name:
-                self.main.tabWidget_blocks.setCurrentIndex(index)
-                break
+
+    # #----------------------------------------------------------------------
+    # def set_tab(self, tab_name):
+        # for index in range(self.main.tabWidget_blocks.count()):
+            # if self.main.tabWidget_blocks.tabText(index) == tab_name:
+                # self.main.tabWidget_blocks.setCurrentIndex(index)
+                # break
 
 
     #----------------------------------------------------------------------
@@ -549,6 +550,8 @@ class GraphicalIDE(object):
 
         self.build_block_tabs()
 
+        self.main.comboBox_blocks.addItems(self.get_block_tabs())
+
         for tab in self.get_block_tabs():
             tab_set = []
 
@@ -588,7 +591,11 @@ class GraphicalIDE(object):
 
             tool_area = ToolArea(ui.scrollArea, self.get_work_area, self.ide)
             ui.gridLayout_2.addWidget(tool_area, 0, 0, 1, 1)
-            self.main.tabWidget_blocks.addTab(widget, tab)
+
+            # self.main.tabWidget_blocks.addTab(widget, tab)
+            widget.setObjectName(tab)
+            self.main.stackedWidget.addWidget(widget)
+
             ui.gridLayout_2.setContentsMargins(9, 9, 9, 9)
             ui.gridLayout_2.setSpacing(10)
             widget.grid_layout = ui.gridLayout_2
@@ -624,19 +631,26 @@ class GraphicalIDE(object):
             widget.mouseReleaseEvent = tool_area.mouse_release_event
             widget.content_widgets = []
 
-    #----------------------------------------------------------------------
-    def remove_tab(self, tab_name):
-        for index in range(self.main.tabWidget_blocks.count()):
-            if self.main.tabWidget_blocks.tabText(index) == tab_name:
-                self.main.tabWidget_blocks.removeTab(index)
-                break
+    # #----------------------------------------------------------------------
+    # def remove_tab(self, tab_name):
+        # for index in range(self.main.tabWidget_blocks.count()):
+            # if self.main.tabWidget_blocks.tabText(index) == tab_name:
+                # self.main.tabWidget_blocks.removeTab(index)
+                # break
 
     #----------------------------------------------------------------------
     def get_widget(self, tab_name):
-        for index in range(self.main.tabWidget_blocks.count()):
-            if self.main.tabWidget_blocks.tabText(index) == tab_name:
-                widget = self.main.tabWidget_blocks.widget(index)
+        # for index in range(self.main.tabWidget_blocks.count()):
+            # if self.main.tabWidget_blocks.tabText(index) == tab_name:
+                # widget = self.main.tabWidget_blocks.widget(index)
+                # return widget
+
+        for index in range(self.main.stackedWidget.count()):
+            # self.main.stackedWidget
+            widget = self.main.stackedWidget.widget(index)
+            if widget.objectName() == tab_name:
                 return widget
+
 
     #----------------------------------------------------------------------
     def add_blocks(self, tab, tab_set, count=0, side=0, clear=False):
@@ -745,7 +759,7 @@ class GraphicalIDE(object):
 
         self.clear_area("Search")
         self.add_blocks("Search", bloques)
-        self.set_tab("Search")
+        self.ide.set_block_tab("Search")
 
     #----------------------------------------------------------------------
     def get_all_sets(self):

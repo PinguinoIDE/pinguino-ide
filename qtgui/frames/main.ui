@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1149</width>
-    <height>917</height>
+    <width>897</width>
+    <height>743</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,13 +24,26 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_15">
+   <layout class="QGridLayout" name="gridLayout_25">
     <property name="margin">
      <number>0</number>
     </property>
     <property name="spacing">
      <number>0</number>
     </property>
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget_files">
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="0">
      <widget class="QFrame" name="frame_logo">
       <property name="frameShape">
@@ -79,19 +92,6 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget_files">
-      <property name="currentIndex">
-       <number>-1</number>
-      </property>
-      <property name="tabsClosable">
-       <bool>true</bool>
-      </property>
-      <property name="movable">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -99,7 +99,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1149</width>
+     <width>897</width>
      <height>29</height>
     </rect>
    </property>
@@ -302,7 +302,7 @@
     <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_rigth">
-    <layout class="QGridLayout" name="gridLayout_26">
+    <layout class="QGridLayout" name="gridLayout_15">
      <property name="margin">
       <number>0</number>
      </property>
@@ -310,836 +310,364 @@
       <number>0</number>
      </property>
      <item row="0" column="0">
-      <widget class="QTabWidget" name="tabWidget">
+      <widget class="QTabWidget" name="tabWidget_tools">
+       <property name="acceptDrops">
+        <bool>true</bool>
+       </property>
        <property name="tabPosition">
-        <enum>QTabWidget::South</enum>
+        <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <property name="documentMode">
+       <property name="movable">
         <bool>true</bool>
        </property>
-       <widget class="QWidget" name="tab">
+       <widget class="QWidget" name="Files">
         <attribute name="title">
-         <string>Tools</string>
+         <string>Files</string>
         </attribute>
-        <layout class="QGridLayout" name="_2">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="spacing">
-          <number>0</number>
-         </property>
+        <layout class="QGridLayout" name="gridLayout_9">
          <item row="0" column="0">
-          <widget class="QTabWidget" name="tabWidget_tools">
-           <property name="acceptDrops">
+          <widget class="QComboBox" name="comboBox_files">
+           <item>
+            <property name="text">
+             <string>Examples</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Current file directory</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Home</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Other...</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QTreeWidget" name="treeWidget_explorer">
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+           <attribute name="headerVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="Project">
+        <attribute name="title">
+         <string>Project</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_16">
+         <item row="2" column="0">
+          <widget class="QTreeWidget" name="treeWidget_projects">
+           <property name="midLineWidth">
+            <number>1</number>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+           <property name="rootIsDecorated">
             <bool>true</bool>
            </property>
+           <property name="sortingEnabled">
+            <bool>false</bool>
+           </property>
+           <property name="animated">
+            <bool>true</bool>
+           </property>
+           <property name="columnCount">
+            <number>1</number>
+           </property>
+           <attribute name="headerDefaultSectionSize">
+            <number>100</number>
+           </attribute>
+           <attribute name="headerShowSortIndicator" stdset="0">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="headerStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string/>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QWidget" name="widget_noproject" native="true">
+           <layout class="QGridLayout" name="gridLayout_20">
+            <item row="4" column="2">
+             <spacer name="verticalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="1" colspan="3">
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>60</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="1" colspan="3">
+             <widget class="QPushButton" name="pushButton_newproject">
+              <property name="text">
+               <string>New project</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" colspan="3">
+             <widget class="QPushButton" name="pushButton_openproject">
+              <property name="text">
+               <string>Open project</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="SourceBrowser">
+        <attribute name="title">
+         <string>Source Browser</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <item row="0" column="0">
+          <widget class="QTabWidget" name="tabWidget_browser">
            <property name="tabPosition">
-            <enum>QTabWidget::West</enum>
+            <enum>QTabWidget::South</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
-           <property name="movable">
-            <bool>true</bool>
-           </property>
-           <widget class="QWidget" name="Files">
+           <widget class="QWidget" name="Variables">
             <attribute name="title">
-             <string>Files</string>
+             <string>Variables</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_9">
+            <layout class="QGridLayout" name="gridLayout_6">
+             <property name="margin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
              <item row="0" column="0">
-              <widget class="QComboBox" name="comboBox_files">
-               <item>
-                <property name="text">
-                 <string>Examples</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Current file directory</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Home</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Other...</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QTreeWidget" name="treeWidget_explorer">
-               <property name="iconSize">
-                <size>
-                 <width>25</width>
-                 <height>25</height>
-                </size>
+              <widget class="QTableWidget" name="tableWidget_variables">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
                </property>
-               <attribute name="headerVisible">
-                <bool>false</bool>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
+               <property name="alternatingRowColors">
+                <bool>true</bool>
+               </property>
+               <property name="selectionMode">
+                <enum>QAbstractItemView::NoSelection</enum>
+               </property>
+               <property name="horizontalScrollMode">
+                <enum>QAbstractItemView::ScrollPerPixel</enum>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::NoPen</enum>
+               </property>
+               <attribute name="horizontalHeaderStretchLastSection">
+                <bool>true</bool>
                </attribute>
                <column>
                 <property name="text">
-                 <string notr="true">1</string>
+                 <string>File</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Type</string>
                 </property>
                </column>
               </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="Project">
+           <widget class="QWidget" name="Functions">
             <attribute name="title">
-             <string>Project</string>
+             <string>Functions</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_16">
-             <item row="2" column="0">
-              <widget class="QTreeWidget" name="treeWidget_projects">
-               <property name="midLineWidth">
-                <number>1</number>
+            <layout class="QGridLayout" name="gridLayout_5">
+             <property name="margin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QTableWidget" name="tableWidget_functions">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
                </property>
-               <property name="iconSize">
-                <size>
-                 <width>25</width>
-                 <height>25</height>
-                </size>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
                </property>
-               <property name="rootIsDecorated">
+               <property name="alternatingRowColors">
                 <bool>true</bool>
                </property>
-               <property name="sortingEnabled">
-                <bool>false</bool>
+               <property name="selectionMode">
+                <enum>QAbstractItemView::NoSelection</enum>
                </property>
-               <property name="animated">
+               <property name="horizontalScrollMode">
+                <enum>QAbstractItemView::ScrollPerPixel</enum>
+               </property>
+               <property name="showGrid">
                 <bool>true</bool>
                </property>
-               <property name="columnCount">
-                <number>1</number>
+               <property name="gridStyle">
+                <enum>Qt::NoPen</enum>
                </property>
-               <attribute name="headerDefaultSectionSize">
-                <number>100</number>
-               </attribute>
-               <attribute name="headerShowSortIndicator" stdset="0">
-                <bool>false</bool>
-               </attribute>
-               <attribute name="headerStretchLastSection">
+               <attribute name="horizontalHeaderStretchLastSection">
                 <bool>true</bool>
                </attribute>
                <column>
                 <property name="text">
-                 <string/>
+                 <string>File</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Return</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Args</string>
                 </property>
                </column>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QWidget" name="widget_noproject" native="true">
-               <layout class="QGridLayout" name="gridLayout_20">
-                <item row="4" column="2">
-                 <spacer name="verticalSpacer_5">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="0" column="1" colspan="3">
-                 <spacer name="verticalSpacer_4">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>60</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="1" column="1" colspan="3">
-                 <widget class="QPushButton" name="pushButton_newproject">
-                  <property name="text">
-                   <string>New project</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1" colspan="3">
-                 <widget class="QPushButton" name="pushButton_openproject">
-                  <property name="text">
-                   <string>Open project</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="SourceBrowser">
+           <widget class="QWidget" name="Directives">
             <attribute name="title">
-             <string>Source Browser</string>
+             <string>Directives</string>
             </attribute>
-            <layout class="QGridLayout" name="gridLayout_8">
-             <item row="0" column="0">
-              <widget class="QTabWidget" name="tabWidget_browser">
-               <property name="tabPosition">
-                <enum>QTabWidget::South</enum>
-               </property>
-               <property name="currentIndex">
-                <number>1</number>
-               </property>
-               <widget class="QWidget" name="Variables">
-                <attribute name="title">
-                 <string>Variables</string>
-                </attribute>
-                <layout class="QGridLayout" name="gridLayout_6">
-                 <property name="margin">
-                  <number>0</number>
-                 </property>
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item row="0" column="0">
-                  <widget class="QTableWidget" name="tableWidget_variables">
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="editTriggers">
-                    <set>QAbstractItemView::NoEditTriggers</set>
-                   </property>
-                   <property name="alternatingRowColors">
-                    <bool>true</bool>
-                   </property>
-                   <property name="selectionMode">
-                    <enum>QAbstractItemView::NoSelection</enum>
-                   </property>
-                   <property name="horizontalScrollMode">
-                    <enum>QAbstractItemView::ScrollPerPixel</enum>
-                   </property>
-                   <property name="gridStyle">
-                    <enum>Qt::NoPen</enum>
-                   </property>
-                   <attribute name="horizontalHeaderStretchLastSection">
-                    <bool>true</bool>
-                   </attribute>
-                   <column>
-                    <property name="text">
-                     <string>File</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Type</string>
-                    </property>
-                   </column>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-               <widget class="QWidget" name="Functions">
-                <attribute name="title">
-                 <string>Functions</string>
-                </attribute>
-                <layout class="QGridLayout" name="gridLayout_5">
-                 <property name="margin">
-                  <number>0</number>
-                 </property>
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item row="0" column="0">
-                  <widget class="QTableWidget" name="tableWidget_functions">
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="editTriggers">
-                    <set>QAbstractItemView::NoEditTriggers</set>
-                   </property>
-                   <property name="alternatingRowColors">
-                    <bool>true</bool>
-                   </property>
-                   <property name="selectionMode">
-                    <enum>QAbstractItemView::NoSelection</enum>
-                   </property>
-                   <property name="horizontalScrollMode">
-                    <enum>QAbstractItemView::ScrollPerPixel</enum>
-                   </property>
-                   <property name="showGrid">
-                    <bool>true</bool>
-                   </property>
-                   <property name="gridStyle">
-                    <enum>Qt::NoPen</enum>
-                   </property>
-                   <attribute name="horizontalHeaderStretchLastSection">
-                    <bool>true</bool>
-                   </attribute>
-                   <column>
-                    <property name="text">
-                     <string>File</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Return</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Args</string>
-                    </property>
-                   </column>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-               <widget class="QWidget" name="Directives">
-                <attribute name="title">
-                 <string>Directives</string>
-                </attribute>
-                <layout class="QGridLayout" name="gridLayout_7">
-                 <property name="margin">
-                  <number>0</number>
-                 </property>
-                 <property name="spacing">
-                  <number>0</number>
-                 </property>
-                 <item row="0" column="0">
-                  <widget class="QTableWidget" name="tableWidget_directives">
-                   <property name="palette">
-                    <palette>
-                     <active>
-                      <colorrole role="AlternateBase">
-                       <brush brushstyle="SolidPattern">
-                        <color alpha="255">
-                         <red>255</red>
-                         <green>85</green>
-                         <blue>0</blue>
-                        </color>
-                       </brush>
-                      </colorrole>
-                     </active>
-                     <inactive>
-                      <colorrole role="AlternateBase">
-                       <brush brushstyle="SolidPattern">
-                        <color alpha="255">
-                         <red>255</red>
-                         <green>85</green>
-                         <blue>0</blue>
-                        </color>
-                       </brush>
-                      </colorrole>
-                     </inactive>
-                     <disabled>
-                      <colorrole role="AlternateBase">
-                       <brush brushstyle="SolidPattern">
-                        <color alpha="255">
-                         <red>255</red>
-                         <green>85</green>
-                         <blue>0</blue>
-                        </color>
-                       </brush>
-                      </colorrole>
-                     </disabled>
-                    </palette>
-                   </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="editTriggers">
-                    <set>QAbstractItemView::NoEditTriggers</set>
-                   </property>
-                   <property name="alternatingRowColors">
-                    <bool>true</bool>
-                   </property>
-                   <property name="selectionMode">
-                    <enum>QAbstractItemView::NoSelection</enum>
-                   </property>
-                   <property name="horizontalScrollMode">
-                    <enum>QAbstractItemView::ScrollPerPixel</enum>
-                   </property>
-                   <property name="gridStyle">
-                    <enum>Qt::NoPen</enum>
-                   </property>
-                   <attribute name="horizontalHeaderStretchLastSection">
-                    <bool>true</bool>
-                   </attribute>
-                   <column>
-                    <property name="text">
-                     <string>File</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Type</string>
-                    </property>
-                   </column>
-                   <column>
-                    <property name="text">
-                     <string>Value</string>
-                    </property>
-                   </column>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-           <widget class="QWidget" name="SearchReplace">
-            <attribute name="title">
-             <string>Search</string>
-            </attribute>
-            <layout class="QGridLayout" name="gridLayout_10">
-             <property name="bottomMargin">
+            <layout class="QGridLayout" name="gridLayout_7">
+             <property name="margin">
               <number>0</number>
              </property>
-             <property name="horizontalSpacing">
+             <property name="spacing">
               <number>0</number>
              </property>
-             <item row="2" column="0">
-              <widget class="QCheckBox" name="checkBox_case_sensitive">
-               <property name="text">
-                <string>Case sensitive</string>
-               </property>
-              </widget>
-             </item>
              <item row="0" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout_2">
-               <item>
-                <widget class="QLabel" name="label_search">
-                 <property name="text">
-                  <string>Search:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_search">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="1" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout_replace">
-               <item>
-                <widget class="QLabel" name="label_replace">
-                 <property name="text">
-                  <string>Replace:</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_replace"/>
-               </item>
-              </layout>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="label_replace_info">
-               <property name="text">
-                <string/>
+              <widget class="QTableWidget" name="tableWidget_directives">
+               <property name="palette">
+                <palette>
+                 <active>
+                  <colorrole role="AlternateBase">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>255</red>
+                     <green>85</green>
+                     <blue>0</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </active>
+                 <inactive>
+                  <colorrole role="AlternateBase">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>255</red>
+                     <green>85</green>
+                     <blue>0</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </inactive>
+                 <disabled>
+                  <colorrole role="AlternateBase">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>255</red>
+                     <green>85</green>
+                     <blue>0</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </disabled>
+                </palette>
                </property>
-              </widget>
-             </item>
-             <item row="6" column="0">
-              <spacer name="verticalSpacer">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item row="3" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <item>
-                <widget class="QPushButton" name="pushButton_search_previous">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string>Previous</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../../../pinguino-extra/resources/resources.qrc">
-                   <normaloff>:/icons/icons/icon_up.png</normaloff>:/icons/icons/icon_up.png</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_search_next">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string>Next</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../../../pinguino-extra/resources/resources.qrc">
-                   <normaloff>:/icons/icons/icon_down.png</normaloff>:/icons/icons/icon_down.png</iconset>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_replace">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string>Replace</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_replace_all">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string>Replace all</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="4" column="0">
-              <spacer name="verticalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
-           <widget class="QWidget" name="BoardConfig">
-            <attribute name="title">
-             <string>Boards</string>
-            </attribute>
-            <layout class="QVBoxLayout" name="verticalLayout">
-             <item>
-              <widget class="QFrame" name="frame_arch">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
                </property>
-               <layout class="QGridLayout" name="gridLayout_22">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_2">
-                  <property name="text">
-                   <string>Architecture:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <layout class="QGridLayout" name="gridLayout_21">
-                  <item row="0" column="0">
-                   <widget class="QRadioButton" name="radioButton_arch_8">
-                    <property name="text">
-                     <string>8-bit</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QRadioButton" name="radioButton_arch_32">
-                    <property name="text">
-                     <string>32-bit</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item row="2" column="0">
-                 <widget class="Line" name="line">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <property name="alternatingRowColors">
+                <bool>true</bool>
+               </property>
+               <property name="selectionMode">
+                <enum>QAbstractItemView::NoSelection</enum>
+               </property>
+               <property name="horizontalScrollMode">
+                <enum>QAbstractItemView::ScrollPerPixel</enum>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::NoPen</enum>
+               </property>
+               <attribute name="horizontalHeaderStretchLastSection">
+                <bool>true</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>File</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Type</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Value</string>
+                </property>
+               </column>
               </widget>
-             </item>
-             <item>
-              <widget class="QFrame" name="frame_prgmode">
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_23">
-                <item row="1" column="0">
-                 <layout class="QGridLayout" name="gridLayout_18">
-                  <item row="0" column="0">
-                   <widget class="QRadioButton" name="radioButton_mode_icsp">
-                    <property name="text">
-                     <string notr="true">ICSP</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QRadioButton" name="radioButton_mode_bootloader">
-                    <property name="text">
-                     <string>Bootloader</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label">
-                  <property name="text">
-                   <string>Programming mode:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="Line" name="line_2">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QFrame" name="frame_bootloader">
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_24">
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>Bootloader:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <layout class="QGridLayout" name="gridLayout_19">
-                  <item row="0" column="0">
-                   <widget class="QRadioButton" name="radioButton_bootloader_v1_v2">
-                    <property name="text">
-                     <string notr="true">v1.x or v2.x</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QRadioButton" name="radioButton_bootloader_v4">
-                    <property name="text">
-                     <string notr="true">v4.x</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item row="3" column="0">
-                 <widget class="Line" name="line_3">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QFrame" name="frame_devices_8">
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_3">
-                <item row="1" column="0">
-                 <layout class="QGridLayout" name="gridLayout_device_8"/>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_4">
-                  <property name="text">
-                   <string>Boards:</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QFrame" name="frame_devices_32">
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_14">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_5">
-                  <property name="text">
-                   <string>Boards:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <layout class="QGridLayout" name="gridLayout_device_32"/>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QFrame" name="frame_advance">
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_17">
-                <item row="2" column="0">
-                 <widget class="QCheckBox" name="checkBox_mips16">
-                  <property name="cursor">
-                   <cursorShape>WhatsThisCursor</cursorShape>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Checked: Less memory but also less speed.&lt;br&gt;Unchecked: More memory but also increase speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text">
-                   <string>Mips16</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_6">
-                  <property name="text">
-                   <string>Advance options:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <layout class="QHBoxLayout" name="horizontalLayout_7">
-                  <item>
-                   <widget class="QLabel" name="label_9">
-                    <property name="cursor">
-                     <cursorShape>WhatsThisCursor</cursorShape>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;-O2: The compiler will attempt to increase code performance without compromising on size, and without taking too much compilation time.&lt;/p&gt;&lt;p&gt;-O3: This is the highest level of optimization possible. It enables optimizations that are expensive in terms of compile time and memory usage, in many cases can slow down a system due to larger binaries and increased memory usage.&lt;/p&gt;&lt;p&gt;-Os: This option will optimize your code for size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="text">
-                     <string>Optimization:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="comboBox_optimization">
-                    <item>
-                     <property name="text">
-                      <string>-O2</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>-O3</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
-                      <string>-Os</string>
-                     </property>
-                    </item>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item row="3" column="0">
-                 <layout class="QHBoxLayout" name="horizontalLayout_6">
-                  <item>
-                   <widget class="QLabel" name="label_8">
-                    <property name="cursor">
-                     <cursorShape>WhatsThisCursor</cursorShape>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The amount of memory allocated to objects that are being defined.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="text">
-                     <string>Heap Size:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="comboBox_heapsize"/>
-                  </item>
-                 </layout>
-                </item>
-                <item row="0" column="0">
-                 <widget class="Line" name="line_5">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <spacer name="verticalSpacer_3">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
              </item>
             </layout>
            </widget>
@@ -1147,12 +675,458 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="BoardConfig">
+        <attribute name="title">
+         <string>Boards</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QFrame" name="frame_arch">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_22">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Architecture:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_21">
+              <item row="0" column="0">
+               <widget class="QRadioButton" name="radioButton_arch_8">
+                <property name="text">
+                 <string>8-bit</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QRadioButton" name="radioButton_arch_32">
+                <property name="text">
+                 <string>32-bit</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="2" column="0">
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame_prgmode">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_23">
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_18">
+              <item row="0" column="0">
+               <widget class="QRadioButton" name="radioButton_mode_icsp">
+                <property name="text">
+                 <string notr="true">ICSP</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QRadioButton" name="radioButton_mode_bootloader">
+                <property name="text">
+                 <string>Bootloader</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Programming mode:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame_bootloader">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_24">
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Bootloader:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <layout class="QGridLayout" name="gridLayout_19">
+              <item row="0" column="0">
+               <widget class="QRadioButton" name="radioButton_bootloader_v1_v2">
+                <property name="text">
+                 <string notr="true">v1.x or v2.x</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QRadioButton" name="radioButton_bootloader_v4">
+                <property name="text">
+                 <string notr="true">v4.x</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="3" column="0">
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame_devices_8">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_device_8"/>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>Boards:</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame_devices_32">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_14">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>Boards:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_device_32"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame_advance">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_17">
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="checkBox_mips16">
+              <property name="cursor">
+               <cursorShape>WhatsThisCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Checked: Less memory but also less speed.&lt;br&gt;Unchecked: More memory but also increase speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Mips16</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>Advance options:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <widget class="QLabel" name="label_9">
+                <property name="cursor">
+                 <cursorShape>WhatsThisCursor</cursorShape>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;-O2: The compiler will attempt to increase code performance without compromising on size, and without taking too much compilation time.&lt;/p&gt;&lt;p&gt;-O3: This is the highest level of optimization possible. It enables optimizations that are expensive in terms of compile time and memory usage, in many cases can slow down a system due to larger binaries and increased memory usage.&lt;/p&gt;&lt;p&gt;-Os: This option will optimize your code for size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Optimization:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_optimization">
+                <item>
+                 <property name="text">
+                  <string>-O2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>-O3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>-Os</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="3" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <item>
+               <widget class="QLabel" name="label_8">
+                <property name="cursor">
+                 <cursorShape>WhatsThisCursor</cursorShape>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The amount of memory allocated to objects that are being defined.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Heap Size:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="comboBox_heapsize"/>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="0">
+             <widget class="Line" name="line_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="SearchReplace">
+        <attribute name="title">
+         <string>Search</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_10">
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="horizontalSpacing">
+          <number>0</number>
+         </property>
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="checkBox_case_sensitive">
+           <property name="text">
+            <string>Case sensitive</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_search">
+             <property name="text">
+              <string>Search:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_search">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_replace">
+           <item>
+            <widget class="QLabel" name="label_replace">
+             <property name="text">
+              <string>Replace:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_replace"/>
+           </item>
+          </layout>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_replace_info">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="3" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QPushButton" name="pushButton_search_previous">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Previous</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../../../pinguino-extra/resources/resources.qrc">
+               <normaloff>:/icons/icons/icon_up.png</normaloff>:/icons/icons/icon_up.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_search_next">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Next</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../../../pinguino-extra/resources/resources.qrc">
+               <normaloff>:/icons/icons/icon_down.png</normaloff>:/icons/icons/icon_down.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_replace">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Replace</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_replace_all">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Replace all</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="4" column="0">
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="Blocks">
         <attribute name="title">
          <string>Blocks</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_25">
+        <layout class="QGridLayout" name="gridLayout_4">
          <item row="0" column="0">
+          <widget class="QComboBox" name="comboBox_blocks"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QStackedWidget" name="stackedWidget"/>
+         </item>
+         <item row="2" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QLabel" name="label_search_block">
@@ -1165,19 +1139,6 @@
             <widget class="QLineEdit" name="lineEdit_blocks_search"/>
            </item>
           </layout>
-         </item>
-         <item row="1" column="0">
-          <widget class="QTabWidget" name="tabWidget_blocks">
-           <property name="tabPosition">
-            <enum>QTabWidget::West</enum>
-           </property>
-           <property name="currentIndex">
-            <number>-1</number>
-           </property>
-           <property name="movable">
-            <bool>true</bool>
-           </property>
-          </widget>
          </item>
         </layout>
        </widget>
