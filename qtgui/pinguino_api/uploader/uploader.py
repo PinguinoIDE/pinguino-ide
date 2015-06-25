@@ -167,13 +167,13 @@ class Uploader(object):
         elif board.bldr == "microchip":
             from uploader32 import uploader32 as Uploader
 
-        self.uploader = Uploader()
+        self.uploader = Uploader(hexfile, board)
 
 
     #----------------------------------------------------------------------
     @Debugger.debug_method
     def upload(self):
-        self.uploader.report = []
+
         self.uploader.uploadDevice(self.hexfile, self.board)
         return self.uploader.report
 
