@@ -214,24 +214,3 @@ class BoardConfig(object):
             self.connect(radio, QtCore.SIGNAL("clicked()"), self.set_board_name(board.name, "32"))
             count += 1
 
-
-    # #----------------------------------------------------------------------
-    # def advance(self):
-
-        # self.frame_advance = BoardConfigAdvance(self.main, "BOARDNAME")
-        # self.frame_advance.show()
-
-    #----------------------------------------------------------------------
-    def close_advance(self):
-
-        try: assert self.frame_advance
-        except: return
-        self.frame_advance.close()
-
-
-    #----------------------------------------------------------------------
-    def center_on_screen(self):
-
-        screen = QtGui.QDesktopWidget().screenGeometry()
-        size = self.geometry()
-        self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)

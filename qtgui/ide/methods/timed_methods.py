@@ -184,7 +184,7 @@ class TimedMethods(object):
     #----------------------------------------------------------------------
     @Decorator.timer(3000)
     @Decorator.requiere_open_files()
-    # @Decorator.requiere_text_mode()
+    @Decorator.requiere_text_mode()
     @Decorator.requiere_main_focus()
     def check_external_changes(self):
 

@@ -280,7 +280,7 @@ class CodeNavigator(object):
 
 
         else:
-            if not self.is_graphical():
+            if self.is_graphical() is False:
                 return [{"filename": None,
                          "content": str(self.get_current_editor().text_edit.toPlainText())}]
             else:

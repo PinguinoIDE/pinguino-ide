@@ -351,6 +351,8 @@ class PinguinoSettings(object):
     def load_tabs_config(self):
         """"""
         names = []
+        exclude = ["Blocks"]
+
         tabs = self.main.tabWidget_bottom.tabBar()
         for index in range(tabs.count()):
             names.append(self.main.tabWidget_bottom.widget(index).objectName())
@@ -360,6 +362,8 @@ class PinguinoSettings(object):
             names.append(self.main.tabWidget_tools.widget(index).objectName())
 
         for name in names:
+            if name in exclude:
+                continue
             if not self.configIDE.config("TABS", name, True):
                 name = self.configIDE.config("TABS", "{}_name".format(name), None)
                 if hasattr(self.main, name):
@@ -1435,13 +1439,16 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         graph = False
         for i in range(self.get_tab().count()):
-            if self.get_tab().tabText(i).endswith(".gpde"):
+            if self.get_tab().tabText(i).endswith(".gpde") or self.get_tab().tabText(i).endswith(".gpde*"):
                 graph = True
                 break
 
         if graph:
-            self.toggle_tab("Blocks", True)
+            if not self.configIDE.config("TABS", "Blocks", False):
+                if hasattr(self.main.Blocks, "tab_parent"):
+                    self.toggle_tab("Blocks", True)
         else:
+            # if self.configIDE.config("TABS", "Blocks", True):
             self.toggle_tab("Blocks", False)
 
         self.main.actionHex.setVisible(bool(self.get_current_hex()))
@@ -1450,10 +1457,6 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def update_actions_for_text(self, actions, index):
 
-        # self.main.lineEdit_blocks_search.setVisible(False)
-        # self.main.label_search_block.setVisible(False)
-        # self.main.tabWidget_blocks.setVisible(False)
-
         for action in actions:
             getattr(self.main, action).setEnabled(actions[action][index])
 
@@ -1461,8 +1464,6 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def update_actions_for_graphical(self, actions, index):
 
-        # self.main.lineEdit_blocks_search.setVisible(True)
-        # self.main.label_search_block.setVisible(True)
         # self.main.tabWidget_blocks.setVisible(True)
 
         for action in actions:
@@ -1471,10 +1472,6 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
     #----------------------------------------------------------------------
     def update_actions_for_html(self, actions, index):
-
-        # self.main.lineEdit_blocks_search.setVisible(False)
-        # self.main.label_search_block.setVisible(False)
-        # self.main.tabWidget_blocks.setVisible(False)
 
         for action in actions:
             getattr(self.main, action).setEnabled(actions[action][index])
@@ -2402,6 +2399,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def toggle_tab(self, tab_name, force=None):
         """"""
+        # FIXME: this method is ugly!!
+
+
         widget = getattr(self.main, tab_name)
 
         if force is None:
@@ -2463,7 +2463,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                     self.configIDE.set("TABS", tab_name, False)
                     self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
 
-
+        self.configIDE.save_config()
 
     #----------------------------------------------------------------------
     def set_block_tab(self, name):

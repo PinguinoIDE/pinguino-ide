@@ -166,7 +166,7 @@ class ProjectManager(object):
         if not self.ConfigProject.has_section("Main"): self.ConfigProject.add_section("Main")
         options = self.ConfigProject.options("Main")
         self.ConfigProject.set("Main", "name", project_name)
-        self.save_project(silent=True)
+        # self.save_project(silent=True)
 
         logging.debug("Created \"{}\" project.".format(project_name))
 
@@ -359,9 +359,10 @@ class ProjectManager(object):
         menu.addAction("Add existing directory...", self.select_existing_directory)
         menu.addAction("Add existing file...", self.select_existing_file)
         menu.addSeparator()
-        menu.addAction("Add new file...", self.add_new_file)
-        menu.addAction("Add new blocks file...", self.add_new_blocks_file)
-        menu.addAction("Add new directory...", self.add_new_directory)
+        if hasattr(self.get_current_item(), "path"):
+            menu.addAction("Add new file...", self.add_new_file)
+            menu.addAction("Add new blocks file...", self.add_new_blocks_file)
+            menu.addAction("Add new directory...", self.add_new_directory)
         menu.addAction("Close project", self.close_project)
         menu.addAction("Open project...", self.open_project)
         menu.addSeparator()
@@ -421,10 +422,11 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     def take_from_ignore(self, path):
         """"""
-        options = self.ConfigProject.options("Ignore")
-        for option in options:
-            if self.ConfigProject.get("Ignore", option) == path:
-                self.ConfigProject.remove_option("Ignore", option)
+        if self.ConfigProject.has_section("Ignore"):
+            options = self.ConfigProject.options("Ignore")
+            for option in options:
+                if self.ConfigProject.get("Ignore", option) == path:
+                    self.ConfigProject.remove_option("Ignore", option)
 
 
     #----------------------------------------------------------------------
@@ -446,8 +448,8 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     def get_files_from_project(self):
         """"""
-        if not self.ConfigProject.has_section("Files"): return []
-        if not self.ConfigProject.options("Files"): return []
+        if not self.ConfigProject.has_section("Files"): return {}
+        if not self.ConfigProject.options("Files"): return {}
         return {self.ConfigProject.get("Files", option):bool(int(self.ConfigProject.get("Files", "{}_checked".format(option))))
                 for option in filter(lambda f:not f.endswith("_checked"), self.ConfigProject.options("Files"))}
 
@@ -455,8 +457,8 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     def get_inherits_from_project(self):
         """"""
-        if not self.ConfigProject.has_section("Inherits"): return []
-        if not self.ConfigProject.options("Inherits"): return []
+        if not self.ConfigProject.has_section("Inherits"): return {}
+        if not self.ConfigProject.options("Inherits"): return {}
         return {self.ConfigProject.get("Inherits", option):bool(int(self.ConfigProject.get("Inherits", "{}_checked".format(option))))
                 for option in filter(lambda f:not f.endswith("_checked"), self.ConfigProject.options("Inherits"))}
 
@@ -464,8 +466,8 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     def get_files_option_from_project(self):
         """"""
-        if not self.ConfigProject.has_section("Files"): return []
-        if not self.ConfigProject.options("Files"): return []
+        if not self.ConfigProject.has_section("Files"): return {}
+        if not self.ConfigProject.options("Files"): return {}
         return {self.ConfigProject.get("Files", option):option
                 for option in filter(lambda f:not f.endswith("_checked"), self.ConfigProject.options("Files"))}
 
@@ -473,8 +475,8 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     def get_inherits_option_from_project(self):
         """"""
-        if not self.ConfigProject.has_section("Inherits"): return []
-        if not self.ConfigProject.options("Inherits"): return []
+        if not self.ConfigProject.has_section("Inherits"): return {}
+        if not self.ConfigProject.options("Inherits"): return {}
         return {self.ConfigProject.get("Inherits", option):option
                 for option in filter(lambda f:not f.endswith("_checked"), self.ConfigProject.options("Inherits"))}
 

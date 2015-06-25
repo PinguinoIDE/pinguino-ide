@@ -953,10 +953,8 @@ class WorkArea(QtGui.QWidget):
     @Decorator.requiere_open_files()
     @Decorator.requiere_graphical_mode()
     @Decorator.requiere_main_focus()
-    # @Decorator.requiere_tab("Blocks")
+    @Decorator.requiere_tools_tab("Blocks")
     def update_user(self):
-
-        self.clearArea("User")
 
         new_blocks = []
 
@@ -992,10 +990,17 @@ class WorkArea(QtGui.QWidget):
             for directive in directives:
                 new_blocks.append(self.add_variable(directive["name"]))
 
+        if hasattr(self, "cache_blocks"):
+            if self.cache_blocks != new_blocks:
+                self.clearArea("User")
+                self.add_group_blocks("User", new_blocks)
+                return
+            else:
+                return
 
-
+        self.cache_blocks = new_blocks
+        self.clearArea("User")
         self.add_group_blocks("User", new_blocks)
-
 
     #----------------------------------------------------------------------
     def dele_blocks(self):

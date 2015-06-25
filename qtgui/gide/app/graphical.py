@@ -686,21 +686,9 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     def clear_area(self, area):
 
-        # index = self.main.tabWidget_blocks.currentIndex()
-        # self.remove_tab(area)
-        # self.build_block_tabs([area])
-        # self.main.tabWidget_blocks.setCurrentIndex(index)
-
         widget = self.get_widget(area)
-        #grid_layout = widget.grid_layout
-
-        #for index in range(grid_layout.count()):
-            #item = grid_layout.itemAt(index)
-            #grid_layout.removeItem(item)
 
         for wid in widget.content_widgets:
-            #wid.close()
-            #wid.destroy()
             wid.deleteLater()
             widget.content_widgets.remove(wid)
 

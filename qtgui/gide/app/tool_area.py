@@ -104,6 +104,9 @@ class ToolArea(QtGui.QWidget):
     @Decorator.requiere_open_files()
     def mouse_press_event(self, event):
 
+        if not self.workArea():
+            return
+
         self.workArea().forExpand = True
         child = self.widget_parent.childAt(event.pos())
         if child:
@@ -120,6 +123,9 @@ class ToolArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
     def mouse_release_event(self, event):
+
+        if not self.workArea():
+            return
 
         self.workArea().forExpand = False
         child = self.get_child_drag()[0]

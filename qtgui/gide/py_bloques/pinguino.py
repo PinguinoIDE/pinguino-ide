@@ -13,7 +13,7 @@ class Pinguino(object):
     delay = lambda n:Kit.addFunct("Pinguino", "delay", 1, fill=["spin-int"])
     delayMicroseconds = lambda n:Kit.addFunct("Pinguino", "delayMicroseconds", 1, fill=["spin-int"])
     toggle = lambda n:Kit.addFunct("Pinguino", "toggle", 1, fill=["spin-int"])
-    millis = lambda n:Kit.addFunct("Pinguino", "millis", 0)
+    millis = lambda n:Kit.addFunct("Pinguino", "millis", 0, t="output")
 
     digitalWrite = lambda n:Kit.addFunct("Pinguino", "digitalWrite", 2, fill=["spin-int", "choice-hl"])
     analogWrite = lambda n:Kit.addFunct("Pinguino", "analogWrite", 2, fill=["spin-int", "slider"])
@@ -25,6 +25,10 @@ class Pinguino(object):
 
     digitalRead_b = lambda n:Kit.addFunct("Pinguino", "digitalRead", 1, t="output-bool", fill=["spin-int"])
     analogRead_b = lambda n:Kit.addFunct("Pinguino", "analogRead", 1, t="output-bool", fill=["spin-int"])
+
+
+
+    OnTimer0 = lambda n:Kit.addFunct("Pinguino", "OnTimer0", 3, t="linear", fill=["spin-int", "interrupt_choice", "spin-int"])
 
 
     #----------------------------------------------------------------------

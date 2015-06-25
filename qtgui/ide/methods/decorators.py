@@ -103,20 +103,20 @@ class Decorator(object):
         return actualdecorator
 
 
-    #----------------------------------------------------------------------
-    @classmethod
-    def requiere_tab(cls, name):
-        def actualdecorator(fn):
-            @functools.wraps(fn)
-            def wrapped(Pinguino, *args, **kwargs):
-                current_tab_name = Pinguino.main.tabWidget.currentWidget().objectName()
-                if current_tab_name == name:
-                    return fn(Pinguino, *args, **kwargs)
-                else:
-                    #print(name + " not in focus.")
-                    return None
-            return wrapped
-        return actualdecorator
+    # #----------------------------------------------------------------------
+    # @classmethod
+    # def requiere_tab(cls, name):
+        # def actualdecorator(fn):
+            # @functools.wraps(fn)
+            # def wrapped(Pinguino, *args, **kwargs):
+                # current_tab_name = Pinguino.main.tabWidget.currentWidget().objectName()
+                # if current_tab_name == name:
+                    # return fn(Pinguino, *args, **kwargs)
+                # else:
+                    # #print(name + " not in focus.")
+                    # return None
+            # return wrapped
+        # return actualdecorator
 
 
     #----------------------------------------------------------------------
@@ -126,10 +126,14 @@ class Decorator(object):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
                 if (Pinguino.is_graphical() is False) and (not Pinguino.is_widget()):
-                    editor = Pinguino.get_tab().currentWidget()
-                    if editor.objectName() == "PinguinoCodeEditor":
+                    # editor = Pinguino.get_tab().currentWidget()
+                    # if editor.objectName() == "PinguinoCodeEditor":
+                        # return fn(Pinguino, *args, **kwargs)
+                    # else: return None
+                    if Pinguino.is_graphical() is False:
                         return fn(Pinguino, *args, **kwargs)
-                    else: return None
+                    elif Pinguino.is_graphical() is True:
+                        return None
                 else: return None
             return wrapped
         return actualdecorator
@@ -398,7 +402,7 @@ class Decorator(object):
             def wrapped(Pinguino, *args, **kwargs):
                 # if Pinguino.get_tab().count():
 
-                Pinguino.main.tabWidget.setCurrentIndex(0)
+                # Pinguino.main.tabWidget.setCurrentIndex(0)
                 widget = getattr(Pinguino.main, widget_name)
 
                 tab = widget.parent().parent()
