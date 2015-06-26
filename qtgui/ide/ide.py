@@ -17,9 +17,9 @@ from .custom_widgets.code_editor.autocomplete_icons import CompleteIcons
 from .help.help import Help
 # from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
-from ..pinguino_api.pinguino import Pinguino, AllBoards
-from ..pinguino_api.pinguino_config import PinguinoConfig
-from ..pinguino_api.config import Config
+from ..pinguino_core.pinguino import Pinguino, AllBoards
+from ..pinguino_core.pinguino_config import PinguinoConfig
+from ..pinguino_core.config import Config
 from ..frames.main import Ui_PinguinoIDE
 
 import logging
@@ -59,14 +59,14 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         splash_write(QtGui.QApplication.translate("Splash", "Checking user files"))
         PinguinoConfig.check_user_files()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading Pinguino API"))
+        splash_write(QtGui.QApplication.translate("Splash", "Loading Pinguino Core"))
         self.pinguinoAPI = Pinguino()
         self.pinguinoAPI._boards_ = AllBoards
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading configuration"))
         self.configIDE = Config()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading graphical mode"))
+        splash_write(QtGui.QApplication.translate("Splash", "Loading blocks programming"))
         self.PinguinoKIT = GraphicalIDE(self)
         self.main.tabWidget_files.setVisible(False)
         # self.main.dockWidget_blocks.setVisible(False)

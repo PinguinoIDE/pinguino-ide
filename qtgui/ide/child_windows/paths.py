@@ -17,7 +17,7 @@ else:
 
 from ..methods.dialogs import Dialogs
 from ...frames.paths import Ui_Paths
-from ...pinguino_api.pinguino_config import PinguinoConfig
+from ...pinguino_core.pinguino_config import PinguinoConfig
 
 
 ########################################################################

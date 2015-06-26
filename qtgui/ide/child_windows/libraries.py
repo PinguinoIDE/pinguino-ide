@@ -24,7 +24,7 @@ from ..commons.widgets_features import PrettyFeatures
 from ..methods.dialogs import Dialogs
 from ..commons.repositories import PinguinoLibrary, ErrorModules
 from ...frames.libraries_widget import Ui_LibraryManager
-from ...pinguino_api.pinguino_config import PinguinoConfig
+from ...pinguino_core.pinguino_config import PinguinoConfig
 
 ########################################################################
 class LibManager(QtGui.QMainWindow):
