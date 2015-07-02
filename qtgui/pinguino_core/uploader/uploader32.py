@@ -164,6 +164,126 @@ class uploader32(baseUploader):
     # Table with supported USB devices
     # device_id:['CPU name']
     #-----------------------------------------------------------------------
+    """
+    : ['32MX110F016B'], 0x04A07053
+    : ['32MX110F016C'], 0x04A09053
+    : ['32MX110F016D'], 0x04A0B053
+    : ['32MX120F032B'], 0x04A06053
+    : ['32MX120F032C'], 0x04A08053
+    : ['32MX120F032D'], 0x04A0A053
+    : ['32MX130F064B'], 0x04D07053
+    : ['32MX130F064C'], 0x04D09053
+    : ['32MX130F064D'], 0x04D0B053
+    : ['32MX150F128B'], 0x04D06053
+    : ['32MX150F128C'], 0x04D08053
+    : ['32MX150F128D'], 0x04D0A053
+    : ['32MX210F016B'], 0x04A01053
+    : ['32MX210F016C'], 0x04A03053
+    : ['32MX210F016D'], 0x04A05053
+    : ['32MX220F032B'], 0x04A00053
+    : ['32MX220F032C'], 0x04A02053
+    : ['32MX220F032D'], 0x04A04053
+    : ['32MX230F064B'], 0x04D01053
+    : ['32MX230F064C'], 0x04D03053
+    : ['32MX230F064D'], 0x04D05053
+    : ['32MX250F128B'], 0x04D00053
+    : ['32MX250F128C'], 0x04D02053
+    : ['32MX250F128D'], 0x04D04053
+
+    : ['32MX330F064H'], 0x05600053
+    : ['32MX330F064L'], 0x05601053
+    : ['32MX430F064H'], 0x05602053
+    : ['32MX430F064L'], 0x05603053
+    : ['32MX350F128H'], 0x0570C053
+    : ['32MX350F128L'], 0x0570D053
+    : ['32MX450F128H'], 0x0570E053
+    : ['32MX450F128L'], 0x0570F053
+    : ['32MX350F256H'], 0x05704053
+    : ['32MX350F256L'], 0x05705053
+    : ['32MX450F256H'], 0x05706053
+    : ['32MX450F256L'], 0x05707053
+    : ['32MX370F512H'], 0x05808053
+    : ['32MX370F512L'], 0x05809053
+    : ['32MX470F512H'], 0x0580A053
+    : ['32MX470F512L'], 0x0580B053
+
+    : ['32MX360F512L'], 0x00938053
+    : ['32MX360F256L'], 0x00934053
+    : ['32MX340F128L'], 0x0092D053
+    : ['32MX320F128L'], 0x0092A053
+    : ['32MX340F512H'], 0x00916053
+    : ['32MX340F256H'], 0x00912053
+    : ['32MX340F128H'], 0x0090D053
+    : ['32MX320F128H'], 0x0090A053
+    : ['32MX320F064H'], 0x00906053
+    : ['32MX320F032H'], 0x00902053
+    : ['32MX460F512L'], 0x00978053
+    : ['32MX460F256L'], 0x00974053
+    : ['32MX440F128L'], 0x0096D053
+    : ['32MX440F256H'], 0x00952053
+    : ['32MX440F512H'], 0x00956053
+    : ['32MX440F128H'], 0x0094D053
+    : ['32MX420F032H'], 0x00942053
+
+    : ['32MX534F064H'], 0x04400053
+    : ['32MX534F064L'], 0x0440C053
+    : ['32MX564F064H'], 0x04401053
+    : ['32MX564F064L'], 0x0440D053
+    : ['32MX564F128H'], 0x04403053
+    : ['32MX564F128L'], 0x0440F053
+    : ['32MX575F256H'], 0x04317053
+    : ['32MX575F256L'], 0x04333053
+    : ['32MX575F512H'], 0x04309053
+    : ['32MX575F512L'], 0x0430F053
+    : ['32MX664F064H'], 0x04405053
+    : ['32MX664F064L'], 0x04411053
+    : ['32MX664F128H'], 0x04407053
+    : ['32MX664F128L'], 0x04413053
+    : ['32MX675F256H'], 0x0430B053
+    : ['32MX675F256L'], 0x04305053
+    : ['32MX675F512H'], 0x0430C053
+    : ['32MX675F512L'], 0x04311053
+    : ['32MX695F512H'], 0x04325053
+    : ['32MX695F512L'], 0x04341053
+    : ['32MX764F128H'], 0x0440B053
+    : ['32MX764F128L'], 0x04417053
+    : ['32MX775F256H'], 0x04303053
+    : ['32MX775F256L'], 0x04312053
+    : ['32MX775F512H'], 0x0430D053
+    : ['32MX775F512L'], 0x04306053
+    : ['32MX795F512H'], 0x0430E053
+    : ['32MX795F512L'], 0x04307053
+
+    : ['32MZ1024ECG064'], 0x05103053
+    : ['32MZ1024ECG100'], 0x0510D053
+    : ['32MZ1024ECG124'], 0x05117053
+    : ['32MZ1024ECG144'], 0x05121053
+    : ['32MZ1024ECH064'], 0x05108053
+    : ['32MZ1024ECH100'], 0x05112053
+    : ['32MZ1024ECH124'], 0x0511C053
+    : ['32MZ1024ECH144'], 0x05126053
+    : ['32MZ2048ECG064'], 0x05104053
+    : ['32MZ2048ECG100'], 0x0510E053
+    : ['32MZ2048ECG124'], 0x05118053
+    : ['32MZ2048ECG144'], 0x05122053
+    : ['32MZ2048ECH064'], 0x05109053
+    : ['32MZ2048ECH100'], 0x05113053
+    : ['32MZ2048ECH124'], 0x0511D053
+    : ['32MZ2048ECH144'], 0x05127053
+    : ['32MZ1024ECM064'], 0x05130053
+    : ['32MZ2048ECM064'], 0x05131053
+    : ['32MZ1024ECM100'], 0x0513A053
+    : ['32MZ2048ECM100'], 0x0513B053
+    : ['32MZ1024ECM124'], 0x05144053
+    : ['32MZ2048ECM124'], 0x05145053
+    : ['32MZ1024ECM144'], 0x0514E053
+    : ['32MZ2048ECM144'], 0x0514F053
+
+    : ['32MX170F256B'], 0x06610053
+    : ['32MX170F256D'], 0x0661A053
+    : ['32MX270F256B'], 0x06600053
+    : ['32MX270F256D'], 0x0660A053
+    """
 
     devices_table = \
         {
@@ -173,7 +293,8 @@ class uploader32(baseUploader):
             0x06600053: ['32MX270F256B'],
             0x00952053: ['32MX440F256H'],
             0x00978053: ['32MX460F512L'],
-            0x0030E053: ['32MX795F512H']    # RB20150328 : to be checked (could be 0x00300053)
+            0x0430E053: ['32MX795F512H'],
+            0x04307053: ['32MX795F512L']
         }
 
 # ----------------------------------------------------------------------
@@ -498,7 +619,7 @@ class uploader32(baseUploader):
             [3:7]    Address, four hex digits, a 16-bit address of the beginning of the memory position for the data. Limited to 64 kilobytes, the limit is worked around by specifying higher bits via additional record types. This address is big endian.
             [7:9]    Record type, two hex digits, 00 to 05, defining the type of the data field.
             [9:*]    Data, a sequence of n bytes of the data themselves, represented by 2n hex digits.
-            [*:*]    Checksum, two hex digits - the least significant byte of the two's complement of the sum of the values of all fields except fields 1 and 6 (Start code ":" byte and two hex digits of the Checksum). It is calculated by adding together the hex-encoded bytes (hex digit pairs), then leaving only the least significant byte of the result, and making a 2's complement (either by subtracting the byte from 0x100, or inverting it by XOR-ing with 0xFF and adding 0x01). If you are not working with 8-bit variables, you must suppress the overflow by AND-ing the result with 0xFF. The overflow may occur since both 0x100-0 and (0x00 XOR 0xFF)+1 equal 0x100. If the checksum is correctly calculated, adding all the bytes (the Byte count, both bytes in Address, the Record type, each Data byte and the Checksum) together will always result in a value wherein the least significant byte is zero (0x00).
+            [*:*]    Checksum, two hex digits - the least significant byte of the two's complement of the sum of the values of all fields except fields 1 and 6 (Start code ":" byte and two hex digits of the Checksum). It is calculated by adding together the hex-encoded bytes (hex digit pairs), then leaving only the least significant byte of the result, and making a 2's complement (either by subtracting the byte from 0x100, or inverting it by XOR-ing with 0xFF and adding 0x01). If you are not working with 8-bit variables, you must suppress the overflow by AND-ing the result with 0xFF. The overflow may occur since both 0x100-0 and'], 0x00 XOR 0xFF)+1 equal 0x100. If the checksum is correctly calculated, adding all the bytes (the Byte count, both bytes in Address, the Record type, each Data byte and the Checksum) together will always result in a value wherein the least significant byte is zero'], 0x00).
                      For example, on :0300300002337A1E
                      03 + 00 + 30 + 00 + 02 + 33 + 7A = E2, 2's complement is 1E
         """
