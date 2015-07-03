@@ -128,6 +128,7 @@ class PinguinoTools(object):
         DATA_RETURN["compiling"] = {"c":[], "asm":[]}
         DATA_RETURN["linking"] = []
         DATA_RETURN["preprocess"] = []
+        DATA_RETURN["verified"] = False
 
         self.__filename__ = filename
 
