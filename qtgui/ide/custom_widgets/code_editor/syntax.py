@@ -80,7 +80,7 @@ Helpers = {
     "analogRead": "analogRead({{PIN}});",
     "digitalWrite": "digitalWrite({{USERLED, HIGH}});",
     "analogWrite": "digitalWrite({{PIN, 256}});",
-    "delay": "delay{{MILLISECONDS}}",
+    "delay": "delay({{MILLISECONDS}});",
 
     "toggle": "toggle({{USERLED}});",
     "random": "random({{1, 10}});",

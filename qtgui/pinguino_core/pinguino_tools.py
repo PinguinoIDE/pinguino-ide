@@ -166,6 +166,7 @@ class PinguinoTools(Uploader):
         data_msg = {}
         data_msg["compiling"] = {"c":[], "asm":[]}
         data_msg["linking"] = []
+        data_msg["verified"] = False
 
         filename = filenames[0]
         filenames.reverse()
