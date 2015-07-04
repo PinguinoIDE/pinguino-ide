@@ -37,6 +37,7 @@ class Help(object):
     #----------------------------------------------------------------------
     def add_tab(self, name):
         tab = QtGui.QWidget()
+        setattr(tab, "html", True)
         gridLayout = QtGui.QGridLayout(tab)
         gridLayout.setSpacing(0)
         gridLayout.setContentsMargins(0, 0, 0, 0)

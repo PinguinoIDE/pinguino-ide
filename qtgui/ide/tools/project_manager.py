@@ -33,6 +33,7 @@ class ProjectManager(object):
         self.connect(self.main.pushButton_openproject, QtCore.SIGNAL("clicked()"), self.open_project)
         self.connect(self.main.actionClose_project, QtCore.SIGNAL("triggered()"), self.close_project)
         self.connect(self.main.actionSave_project, QtCore.SIGNAL("triggered()"), self.save_project)
+        self.connect(self.main.actionSave_project_as, QtCore.SIGNAL("triggered()"), self.save_project_as)
         self.connect(self.main.actionAdd_current_file, QtCore.SIGNAL("triggered()"), self.add_current_file)
         self.connect(self.main.actionOpen_project, QtCore.SIGNAL("triggered()"), self.open_project)
         self.connect(self.main.actionAdd_existing_file, QtCore.SIGNAL("triggered()"), self.select_existing_file)
@@ -161,12 +162,16 @@ class ProjectManager(object):
     def set_project_name(self):
         """"""
         project_name = Dialogs.get_text(self, "Project name", default="untitled_project")
+
+        if project_name is False:
+            return
+
         self.main.treeWidget_projects.setHeaderLabel(project_name)
 
         if not self.ConfigProject.has_section("Main"): self.ConfigProject.add_section("Main")
         options = self.ConfigProject.options("Main")
         self.ConfigProject.set("Main", "name", project_name)
-        # self.save_project(silent=True)
+        self.save_project(default=True)
 
         logging.debug("Created \"{}\" project.".format(project_name))
 
@@ -210,10 +215,28 @@ class ProjectManager(object):
         self.update_project_status(project_name)
 
 
+    #----------------------------------------------------------------------
+    def save_project_as(self):
+        """"""
+        self.project_saved = False
+        self.save_project(silent=False)
+
+
 
     #----------------------------------------------------------------------
-    def save_project(self, silent=False):
+    def save_project(self, silent=False, default=False):
         """"""
+
+        if default:
+            default_path = os.path.join(os.getenv("PINGUINO_USER_PATH"), "projects")
+
+            if not os.path.exists(default_path):
+                os.mkdir(default_path)
+            self.ConfigProject.filename = os.path.join(default_path, self.get_project_name())
+            self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
+            self.project_saved = True
+            return
+
         if self.project_saved:
             self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
 

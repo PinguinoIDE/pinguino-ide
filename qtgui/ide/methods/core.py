@@ -174,6 +174,27 @@ class PinguinoQueries(object):
 
 
     #----------------------------------------------------------------------
+    def get_all_editors(self, text=True, blocks=False, html=False):
+
+        count = self.main.tabWidget_files.count()
+        editors = []
+        for i in range(count):
+            widget = self.main.tabWidget_files.widget(i)
+
+            if hasattr(widget, "graphical_area") and blocks:
+                editors.append(widget)
+
+            elif hasattr(widget, "text_edit") and text:
+                editors.append(widget)
+
+            elif hasattr(widget, "html") and html:
+                editors.append(widget)
+
+        return editors
+
+
+
+    #----------------------------------------------------------------------
     def is_graphical(self):
         editor = self.get_current_editor()
         if hasattr(editor, "graphical_area"):
@@ -1033,6 +1054,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     def editor_highligh_line(self, line=None, color="#ff0000", text_cursor=None):
+
         editor = self.get_current_editor()
 
         if line:
@@ -1063,11 +1085,15 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    @Decorator.requiere_open_files()
+    # @Decorator.requiere_text_mode()
     def editor_clear_highlighted_lines(self):
-        editor = self.get_current_editor()
-        editor.text_edit.setExtraSelections([])
 
+        if os.getenv("PINGUINO_PROJECT"):
+            for editor in self.get_all_editors(text=True):
+                editor.text_edit.setExtraSelections([])
+        else:
+            editor = self.get_current_editor()
+            editor.text_edit.setExtraSelections([])
 
     #----------------------------------------------------------------------
     @Decorator.connect_features()
