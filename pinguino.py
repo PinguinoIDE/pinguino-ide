@@ -79,7 +79,7 @@ if __name__ == "__main__":
     translations_path = os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage")
     trasnlations = os.path.exists(translations_path)
 
-    if trasnlations:
+    if trasnlations and (not parser.devmode):
         translations_file = "pinguino_" + sys_locale
 
         if translations_file + ".qm" in os.listdir(translations_path):
