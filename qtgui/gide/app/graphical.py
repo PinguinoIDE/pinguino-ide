@@ -679,7 +679,7 @@ class GraphicalIDE(object):
     #----------------------------------------------------------------------
     def add_group_blocks(self, name, new_set):
         tab_set = self.get_tab_set(name)
-        new_set = map(lambda x: [x[0], x[2]], new_set)
+        new_set = list(map(lambda x: [x[0], x[2]], new_set))
         self.add_blocks(name, tab_set + new_set)
 
 

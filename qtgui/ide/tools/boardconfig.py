@@ -24,7 +24,7 @@ class BoardConfig(object):
                          "1024 byte": 1024,}
 
         self.main.comboBox_heapsize.clear()
-        self.main.comboBox_heapsize.addItems(self.HEAPSIZE.keys())
+        self.main.comboBox_heapsize.addItems(list(self.HEAPSIZE.keys()))
 
         self.OPTIMIZATION = "-O2 -O3 -Os".split()
         self.main.comboBox_optimization.clear()
@@ -98,15 +98,13 @@ class BoardConfig(object):
         self.main.checkBox_mips16.setChecked(mips16)
 
         heapsize = self.configIDE.config("Board", "heapsize", 512)
-        heapsize_values = self.HEAPSIZE.values()
+        heapsize_values = list(self.HEAPSIZE.values())
         index = heapsize_values.index(heapsize)
         self.main.comboBox_heapsize.setCurrentIndex(index)
 
         optimization = self.configIDE.config("Board", "optimization", "-O3")
         index = self.OPTIMIZATION.index(optimization)
         self.main.comboBox_optimization.setCurrentIndex(index)
-
-
 
         self.update_mode()
 
@@ -175,13 +173,13 @@ class BoardConfig(object):
 
         #8bits
         name_checked = self.configIDE.config("Board", "board_8", "Pinguino 2550")
-        arch_8 = filter(lambda board:board.arch==8, self.pinguinoAPI._boards_)
-        arch_8.sort()
+        arch_8 = list(filter(lambda board:board.arch==8, self.pinguinoAPI._boards_))
+        # arch_8.sort()
 
         count = 0
         side = 0  #left
         for board in arch_8:
-            if arch_8.index(board) == (len(arch_8) / 2) + 1:
+            if arch_8.index(board) == (len(arch_8) // 2) + 1:
                 count = 0
                 side = 1  #rigth
 
@@ -196,13 +194,13 @@ class BoardConfig(object):
 
         #32bits
         name_checked = self.configIDE.config("Board", "board_32", "PIC32 Pinguino OTG")
-        arch_32 = filter(lambda board:board.arch==32, self.pinguinoAPI._boards_)
-        arch_32.sort()
+        arch_32 = list(filter(lambda board:board.arch==32, self.pinguinoAPI._boards_))
+        # arch_32.sort()
 
         count = 0
         side = 0  #left
         for board in arch_32:
-            if arch_32.index(board) == (len(arch_32) / 2) + 1:
+            if arch_32.index(board) == (len(arch_32) // 2) + 1:
                 count = 0
                 side = 1  #rigth
 

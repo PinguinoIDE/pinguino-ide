@@ -34,7 +34,13 @@ import codecs
 from .boards import boardlist as Boardlist
 from .uploader.uploader import Uploader
 
-from StringIO import StringIO
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from io import StringIO
+else:
+    #Python2
+    from cStringIO import StringIO
 
 HOME_DIR = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 
@@ -329,10 +335,16 @@ class PinguinoTools(Uploader):
                 if not instruction: continue
 
                 # https://regex101.com/r/nH9nS9
-                regex = re.compile(ur"([^.\w])({})([^.\w])".format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
+                regex_str = r"([^.\w])({})([^.\w])"
 
-                # for Python3
-                # regex = re.compile(r"([^.\w])({})([^.\w])".format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
+                # Python3 compatibility
+                if os.getenv("PINGUINO_PYTHON") is "3":
+                    #Python3
+                    regex = re.compile("{}".format(regex_str).format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
+
+                else:
+                    #Python2
+                    regex = re.compile(u"{}".format(regex_str).format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
 
                 libinstructions.append([instruction, cnvinstruction, include, define, regex])
 

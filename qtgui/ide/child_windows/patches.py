@@ -4,7 +4,6 @@
 import os
 import shutil
 import requests
-import urlparse
 import hashlib
 import logging
 
@@ -18,10 +17,12 @@ if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
     from configparser import RawConfigParser
     from io import StringIO
+    from urllib.parse import urlparse
 else:
     #Python2
     from ConfigParser import RawConfigParser
     from cStringIO import StringIO
+    import urlparse
 
 
 # BRANCH = "master"

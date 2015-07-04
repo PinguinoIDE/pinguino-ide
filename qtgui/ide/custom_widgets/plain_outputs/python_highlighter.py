@@ -1,19 +1,7 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-import exceptions
-
 from PySide import QtGui, QtCore
-
-## Python3 compatibility
-#if os.getenv("PINGUINO_PYTHON") is "3":
-    ##Python3
-    #import builtin
-    #FUNCTIONS_PYTHON = "|".join(builtin.__dict__.keys())
-#else:
-    ##Python2
-    #import __builtin__
-    #FUNCTIONS_PYTHON = "|".join(__builtin__.__dict__.keys())
 
 MESSAGES = [
     ("CRITICAL", "#FF0000"),
@@ -23,9 +11,60 @@ MESSAGES = [
     ("WARNING", "#FFA500"),
 ]
 
-EXCEPTIONS = [(f,"#FF0000") for f in exceptions.__dict__.keys()]
+exceptions = [
+    "GeneratorExit",
+    "ImportError",
+    "ReferenceError",
+    "RuntimeError",
+    "UnicodeTranslateError",
+    "KeyError",
+    "StopIteration",
+    "PendingDeprecationWarning",
+    "EnvironmentError",
+    "LookupError",
+    "BufferError",
+    "OSError",
+    "DeprecationWarning",
+    "UnicodeError",
+    "UnicodeEncodeError",
+    "FloatingPointError",
+    "UnicodeWarning",
+    "NameError",
+    "BytesWarning",
+    "IOError",
+    "SyntaxError",
+    "FutureWarning",
+    "ImportWarning",
+    "SystemExit",
+    "Exception",
+    "EOFError",
+    "StandardError",
+    "ValueError",
+    "TabError",
+    "ZeroDivisionError",
+    "SystemError",
+    "IndentationError",
+    "AssertionError",
+    "UnicodeDecodeError",
+    "TypeError",
+    "IndexError",
+    "RuntimeWarning",
+    "KeyboardInterrupt",
+    "UserWarning",
+    "SyntaxWarning",
+    "MemoryError",
+    "UnboundLocalError",
+    "ArithmeticError",
+    "Warning",
+    "NotImplementedError",
+    "AttributeError",
+    "OverflowError",
+    "BaseException",
+]
 
+EXCEPTIONS = [(f,"#FF0000") for f in exceptions]
 RESERVED_PYTHON = "def|class|for|while|pass|try|except|if|else|elif"
+
 
 ########################################################################
 class Highlighter(QtGui.QSyntaxHighlighter):
