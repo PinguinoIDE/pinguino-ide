@@ -12,7 +12,6 @@ from ...frames.submit_bug import Ui_SubmitBug
 
 SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/submit/"
 
-
 ########################################################################
 class SubmitBug(QtGui.QDialog):
 
@@ -72,7 +71,8 @@ class SubmitBug(QtGui.QDialog):
 
         except requests.ConnectionError:
             logging.error("ConnectionError")
-            self.close()
+
+        self.close()
 
 
 
