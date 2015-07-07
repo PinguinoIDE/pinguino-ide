@@ -318,7 +318,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -728,6 +728,53 @@
           </widget>
          </item>
          <item>
+          <widget class="QFrame" name="frame_compiler">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_27">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>Compiler</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_26">
+              <item row="0" column="0">
+               <widget class="QRadioButton" name="radioButton_compiler_sdcc">
+                <property name="text">
+                 <string>SDCC</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QRadioButton" name="radioButton_compiler_xc8">
+                <property name="text">
+                 <string>XC8</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="2" column="0">
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
           <widget class="QFrame" name="frame_prgmode">
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
@@ -736,6 +783,13 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
+            <item row="2" column="0">
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
             <item row="1" column="0">
              <layout class="QGridLayout" name="gridLayout_18">
               <item row="0" column="0">
@@ -761,13 +815,6 @@
              <widget class="QLabel" name="label">
               <property name="text">
                <string>Programming mode:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="Line" name="line_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>

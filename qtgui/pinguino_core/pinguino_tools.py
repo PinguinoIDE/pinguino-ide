@@ -30,6 +30,7 @@ import time
 import argparse
 import logging
 import codecs
+from .config import Config
 
 from .boards import boardlist as Boardlist
 from .uploader.uploader import Uploader
@@ -70,8 +71,14 @@ class PinguinoTools(Uploader):
         """Set the compiler and makefile for each OS.
         """
 
+        config = Config()
+        compiler = config.config("BOARD", "compiler", "XC8")
+
         if os.getenv("PINGUINO_OS_NAME") == "windows":
-            self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
+            if compiler == "SDCC":
+                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
+            elif compiler == "XC8":
+                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")  #change for xc8
 
             #self.p8 = 'picpgm.exe'
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
@@ -85,14 +92,21 @@ class PinguinoTools(Uploader):
             self.MAKE = os.path.join(self.P32_BIN, "make.exe")
 
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
-            self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
+            if compiler == "SDCC":
+                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
+            elif compiler == "XC8":
+                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")  #change for xc8
+
             #self.p8 = 'picpgm'
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "pic32prog")
             self.MAKE = "make"
 
         elif os.getenv("PINGUINO_OS_NAME") == "macosx":
-            self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
+            if compiler == "SDCC":
+                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
+            elif compiler == "XC8":
+                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")  #change for xc8
             #self.p8 = 'picpgm'
             #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash")
             self.MAKE = "make"

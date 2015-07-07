@@ -86,6 +86,10 @@ class BoardConfig(object):
         self.main.radioButton_arch_32.setChecked(arch == 32)
         self.main.frame_advance.setVisible(arch == 32)
 
+        compiler = self.configIDE.config("Board", "arch", "XC8")
+        self.main.radioButton_compiler_sdcc.setChecked(compiler=="SDCC")
+        self.main.radioButton_compiler_sdcc.setChecked(compiler=="XC8")
+
         mode = self.configIDE.config("Board", "mode", "bootloader")
         self.main.radioButton_mode_bootloader.setChecked(mode == "bootloader")
         self.main.radioButton_mode_icsp.setChecked(mode == "icsp")
@@ -116,6 +120,10 @@ class BoardConfig(object):
         else: arch = 32
         self.configIDE.set("Board", "arch", arch)
 
+        if self.main.radioButton_compiler_sdcc.isChecked(): compiler = "SDCC"
+        else: compiler = "XC8"
+        self.configIDE.set("Board", "compiler", compiler)
+
         if self.main.radioButton_mode_bootloader.isChecked(): mode = "bootloader"
         else: mode = "icsp"
         self.configIDE.set("Board", "mode", mode)
@@ -145,6 +153,13 @@ class BoardConfig(object):
 
         self.main.frame_devices_32.setVisible(not arch_8)
         self.main.frame_devices_8.setVisible(arch_8)
+        self.main.frame_compiler.setVisible(arch_8)
+
+        if self.main.radioButton_bootloader_v1_v2.isChecked() and arch_8 and mode_boot:
+            self.main.radioButton_compiler_sdcc.setChecked(True)
+            self.main.radioButton_compiler_xc8.setEnabled(False)
+        else:
+            self.main.radioButton_compiler_xc8.setEnabled(True)
 
         self.main.frame_advance.setVisible(not arch_8)
         self.save_config()
