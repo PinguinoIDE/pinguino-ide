@@ -183,6 +183,8 @@ class PinguinoTools(Uploader):
             Dictionary with data about process result.
         """
 
+        self.set_os_variables()
+
         data_msg = {}
         data_msg["compiling"] = {"c":[], "asm":[]}
         data_msg["linking"] = []

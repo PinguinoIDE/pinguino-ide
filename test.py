@@ -34,7 +34,7 @@ config = Config()
 PinguinoConfig.update_pinguino_paths(config, Pinguino)
 PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
 PinguinoConfig.update_user_libs(Pinguino)
-Pinguino.set_os_variables()
+# Pinguino.set_os_variables()
 
 ########################################################################
 class TestPreprocess(unittest.TestCase):

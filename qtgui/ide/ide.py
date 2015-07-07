@@ -86,7 +86,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
 
         # RB 2015-01-27 : Still useful ? See also methods.py/set_board
-        self.pinguinoAPI.set_os_variables()
+        # self.pinguinoAPI.set_os_variables()
 
         self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
 
