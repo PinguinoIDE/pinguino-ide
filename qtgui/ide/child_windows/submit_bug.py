@@ -9,8 +9,10 @@ from PySide import QtGui, QtCore
 
 from ...frames.submit_bug import Ui_SubmitBug
 
-
-SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/submit/"
+if os.getenv("PINGUINO_MODE") == "NORMAL":
+    SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/submit/"
+else:
+    SUBMIT_SERVER = "http://localhost:8000/submit/"
 
 ########################################################################
 class SubmitBug(QtGui.QDialog):
@@ -73,8 +75,6 @@ class SubmitBug(QtGui.QDialog):
             logging.error("ConnectionError")
 
         self.close()
-
-
 
 
     #----------------------------------------------------------------------

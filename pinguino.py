@@ -57,6 +57,11 @@ else:
     #Python2
     python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python_requirements")
 
+if parser.devmode:
+    os.environ["PINGUINO_MODE"] = "DEV"
+else:
+    os.environ["PINGUINO_MODE"] = "NORMAL"
+
 
 if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
 
@@ -79,7 +84,7 @@ if __name__ == "__main__":
     translations_path = os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage")
     trasnlations = os.path.exists(translations_path)
 
-    if trasnlations and (not parser.devmode):
+    if trasnlations and (os.getenv("PINGUINO_MODE") == "NORMAL"):
         translations_file = "pinguino_" + sys_locale
 
         if translations_file + ".qm" in os.listdir(translations_path):

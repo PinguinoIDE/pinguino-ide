@@ -253,7 +253,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
 
 
-if not "--dev" in sys.argv:
+if os.getenv("PINGUINO_MODE") == "DEV":
     for name, fn in inspect.getmembers(PinguinoIDE):
         if isinstance(fn, types.UnboundMethodType):
             setattr(PinguinoIDE, name, Decorator.debug_method()(fn))
