@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Tue Jul  7 12:43:31 2015
+# Created: Wed Jul  8 18:19:01 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(897, 743)
+        PinguinoIDE.resize(897, 816)
         PinguinoIDE.setWindowTitle("Pinguino 11.1")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -1149,7 +1149,7 @@ class Ui_PinguinoIDE(object):
         self.actionPinguino_ide_manual.setText(QtGui.QApplication.translate("PinguinoIDE", "Pinguino IDE manual", None, QtGui.QApplication.UnicodeUTF8))
         self.actionLibraries_help.setText(QtGui.QApplication.translate("PinguinoIDE", "Libraries help", None, QtGui.QApplication.UnicodeUTF8))
         self.actionGitPinguinoCompilers.setText(QtGui.QApplication.translate("PinguinoIDE", "pinguino-compilers", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionReset_IDE_instalation.setText(QtGui.QApplication.translate("PinguinoIDE", "Reset IDE instalation", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionReset_IDE_instalation.setText(QtGui.QApplication.translate("PinguinoIDE", "Reset IDE configuration", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New blocks file", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAdd_new_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Add new blocks file...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHex.setText(QtGui.QApplication.translate("PinguinoIDE", "Open .hex", None, QtGui.QApplication.UnicodeUTF8))

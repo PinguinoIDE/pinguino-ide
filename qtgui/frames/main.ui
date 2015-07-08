@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>897</width>
-    <height>743</height>
+    <height>816</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2036,7 +2036,7 @@
   </action>
   <action name="actionReset_IDE_instalation">
    <property name="text">
-    <string>Reset IDE instalation</string>
+    <string>Reset IDE configuration</string>
    </property>
   </action>
   <action name="actionNew_blocks_file">
