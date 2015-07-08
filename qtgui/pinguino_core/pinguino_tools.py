@@ -71,17 +71,16 @@ class PinguinoTools(Uploader):
         """Set the compiler and makefile for each OS.
         """
 
-        config = Config()
-        compiler = config.config("BOARD", "compiler", "XC8")
+        compiler = self.get_8bit_compiler()
 
         if os.getenv("PINGUINO_OS_NAME") == "windows":
             if compiler == "SDCC":
-                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")
+                self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc.exe")
             elif compiler == "XC8":
-                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc.exe")  #change for xc8
+                self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8.exe")  #change for xc8
 
             #self.p8 = 'picpgm.exe'
-            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash.exe")
+            #self.UPLOADER_32 = os.path.join(self.P32_GCC_BIN, "mphidflash.exe")
 
             # RB : 2014-11-14
             # Windows installer should download and install GnuWin32
@@ -89,27 +88,44 @@ class PinguinoTools(Uploader):
             # set PATH=%PATH%;C:\Program Files\GnuWin32\bin
             #self.MAKE = "make.exe"
 
-            self.MAKE = os.path.join(self.P32_BIN, "make.exe")
+            self.MAKE = os.path.join(self.P32_GCC_BIN, "make.exe")
 
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
             if compiler == "SDCC":
-                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
+                self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc")
             elif compiler == "XC8":
-                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")  #change for xc8
+                self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8")  #change for xc8
 
             #self.p8 = 'picpgm'
-            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "ubw32")
-            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "pic32prog")
+            #self.UPLOADER_32 = os.path.join(self.P32_GCC_BIN, "ubw32")
+            #self.UPLOADER_32 = os.path.join(self.P32_GCC_BIN, "pic32prog")
             self.MAKE = "make"
 
         elif os.getenv("PINGUINO_OS_NAME") == "macosx":
             if compiler == "SDCC":
-                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")
+                self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc")
             elif compiler == "XC8":
-                self.COMPILER_8BIT = os.path.join(self.P8_BIN, "sdcc")  #change for xc8
+                self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8")  #change for xc8
             #self.p8 = 'picpgm'
-            #self.UPLOADER_32 = os.path.join(self.P32_BIN, "mphidflash")
+            #self.UPLOADER_32 = os.path.join(self.P32_GCC_BIN, "mphidflash")
             self.MAKE = "make"
+
+
+    #----------------------------------------------------------------------
+    def get_8bit_compiler(self):
+        """"""
+        if hasattr(self, "COMPILER_8BIT"):  #if no setted
+            return getattr(self, "COMPILER_8BIT")
+        else:
+            config = Config()  #then, select from config
+            return config.config("BOARD", "compiler", "XC8")
+
+
+    #----------------------------------------------------------------------
+    def set_8bit_compiler(self, compiler):
+        """"""
+        assert compiler in ["SDCC", "XC8"], "Compiler must be SDCC or XC8"
+        self.COMPILER_8BIT = compiler
 
 
     #----------------------------------------------------------------------
@@ -914,7 +930,7 @@ class PinguinoTools(Uploader):
                             "_IDE_PDEDIR_=" + file_dir,
                             "_IDE_PROC_=" + board.proc,
                             "_IDE_BOARD_=" + board.board,
-                            "_IDE_BINDIR_=" + self.P32_BIN,  #default /usr/bin
+                            "_IDE_BINDIR_=" + self.P32_GCC_BIN,  #default /usr/bin
                             "_IDE_P32DIR_=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
                             "_IDE_SRCDIR_=" + self.SOURCE_DIR,
                             "_IDE_USERHOMEDIR_=" + os.getenv("PINGUINO_USER_PATH"),  #default ~/.pinguino

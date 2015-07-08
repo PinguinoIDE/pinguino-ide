@@ -171,11 +171,15 @@ class PinguinoConfig(object):
         """
 
         user_sdcc_bin = config.get_path("sdcc_bin", prefix)
-        if user_sdcc_bin: pinguino_object.P8_BIN = user_sdcc_bin
+        if user_sdcc_bin: pinguino_object.P8_SDCC_BIN = user_sdcc_bin
         else: logging.warning("Missing path to 'sdcc_bin': '%s'"%user_sdcc_bin)
 
+        user_sdcc_bin = config.get_path("xc8_bin", prefix)
+        if user_sdcc_bin: pinguino_object.P8_XC8_BIN = user_sdcc_bin
+        else: logging.warning("Missing path to 'xc8_bin': '%s'"%user_sdcc_bin)
+
         user_gcc_bin = config.get_path("gcc_bin", prefix)
-        if user_gcc_bin: pinguino_object.P32_BIN = user_gcc_bin
+        if user_gcc_bin: pinguino_object.P32_GCC_BIN = user_gcc_bin
         else: logging.warning("Missing path to 'gcc_bin': '%s'"%user_gcc_bin)
 
         if workspace:

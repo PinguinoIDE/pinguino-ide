@@ -105,38 +105,10 @@ class PinguinoChilds(object):
         if patches == 0:
             Dialogs.info_message(self, "There are no new updates available.\n {PINGUINO_FULLNAME} is up to date".format(**os.environ))
             self.patches.close()
-        if patches is None:
+        elif patches is None:
             self.patches.close()
         else:
             self.patches.show()
-
-
-    # #----------------------------------------------------------------------
-    # def __show_hex_code__(self):
-        # if getattr(self.get_tab().currentWidget(), "path", False):
-            # hex_filename = self.get_tab().currentWidget().path.replace(".gpde", ".pde").replace(".pde", ".hex")
-        # else:
-            # Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
-            # return
-        # if os.path.isfile(hex_filename):
-
-            # hex_obj = IntelHex(open(hex_filename, "r"))
-            # hex_dict = hex_obj.todict()
-            # rows = int(ceil(max(hex_dict.keys()) / float(0x18)))
-
-            # if rows < 1e3:
-                # self.frame_hex_viewer = HexViewer(self, hex_obj, hex_filename)
-                # self.frame_hex_viewer.show()
-            # else:
-                # file_ = codecs.open(hex_filename, "r", "utf-8")
-                # content = file_.readlines()
-                # file_.close
-                # self.frame_hex_plain = PlainOut(hex_filename, "".join(content), highlight=True)
-                # self.frame_hex_plain.show()
-
-        # else:
-            # Dialogs.error_message(self, QtGui.QApplication.translate("Dialogs", "You must compile before."))
-
 
 
 ########################################################################
