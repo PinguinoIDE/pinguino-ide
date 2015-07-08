@@ -32,29 +32,19 @@ class BoardConfig(object):
         self.init_groups()
 
 
-        self.connect(self.main.radioButton_mode_bootloader, QtCore.SIGNAL("clicked()"), self.update_mode)
-        self.connect(self.main.radioButton_mode_icsp, QtCore.SIGNAL("clicked()"), self.update_mode)
+        self.connect(self.main.radioButton_mode_bootloader, QtCore.SIGNAL("clicked()"), self.update_config)
+        self.connect(self.main.radioButton_mode_icsp, QtCore.SIGNAL("clicked()"), self.update_config)
 
-        self.connect(self.main.radioButton_arch_8, QtCore.SIGNAL("clicked()"), self.update_mode)
-        self.connect(self.main.radioButton_arch_32, QtCore.SIGNAL("clicked()"), self.update_mode)
+        self.connect(self.main.radioButton_compiler_sdcc, QtCore.SIGNAL("clicked()"), self.update_config)
+        self.connect(self.main.radioButton_compiler_xc8, QtCore.SIGNAL("clicked()"), self.update_config)
 
-        self.connect(self.main.radioButton_bootloader_v1_v2, QtCore.SIGNAL("clicked()"), self.update_mode)
-        self.connect(self.main.radioButton_bootloader_v4, QtCore.SIGNAL("clicked()"), self.update_mode)
+        self.connect(self.main.radioButton_arch_8, QtCore.SIGNAL("clicked()"), self.update_config)
+        self.connect(self.main.radioButton_arch_32, QtCore.SIGNAL("clicked()"), self.update_config)
 
-        # self.connect(self.main.pushButton_accept, QtCore.SIGNAL("clicked()"), self.accept_config)
-        # self.connect(self.main.pushButton_defaul, QtCore.SIGNAL("clicked()"), self.restore_default)
-
+        self.connect(self.main.radioButton_bootloader_v1_v2, QtCore.SIGNAL("clicked()"), self.update_config)
+        self.connect(self.main.radioButton_bootloader_v4, QtCore.SIGNAL("clicked()"), self.update_config)
 
         self.load_config()
-
-
-    # #----------------------------------------------------------------------
-    # def terminate_config(self, event=None):
-
-        # self.configIDE.load_config()
-        # self.close_advance()
-        # self.close()
-
 
     #----------------------------------------------------------------------
     def update_mips16(self):
@@ -64,16 +54,6 @@ class BoardConfig(object):
     #----------------------------------------------------------------------
     def update_heapsize(self):
         self.configIDE.set("Board", "heapsize", self.main.checkBox_heapsize.isChecked())
-
-
-    # #----------------------------------------------------------------------
-    # def accept_config(self):
-
-        # self.save_config()
-        # self.configIDE.save_config()
-        # self.main.statusbar_ide(self.main.get_status_board())
-        # self.close_advance()
-        # self.close()
 
 
     #----------------------------------------------------------------------
@@ -110,7 +90,7 @@ class BoardConfig(object):
         index = self.OPTIMIZATION.index(optimization)
         self.main.comboBox_optimization.setCurrentIndex(index)
 
-        self.update_mode()
+        self.update_config()
 
 
     #----------------------------------------------------------------------
@@ -140,12 +120,11 @@ class BoardConfig(object):
         self.configIDE.set("Board", "heapsize", heapsize)
         self.configIDE.set("Board", "optimization", self.main.comboBox_optimization.currentText())
 
-
         self.configIDE.save_config()
 
 
     #----------------------------------------------------------------------
-    def update_mode(self):
+    def update_config(self):
 
         mode_boot = self.main.radioButton_mode_bootloader.isChecked()
         arch_8 = self.main.radioButton_arch_8.isChecked()
@@ -179,7 +158,7 @@ class BoardConfig(object):
 
         def dummy():
             self.configIDE.set("Board", "board_"+arch, name)
-            self.update_mode()
+            self.update_config()
         return dummy
 
 

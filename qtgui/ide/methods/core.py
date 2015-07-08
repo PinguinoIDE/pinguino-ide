@@ -271,13 +271,18 @@ class PinguinoQueries(object):
         board_config = board.name
 
         if board.arch == 8 and board.bldr == "boot4":
-            board_config += " - Bootloader: v4"
+            board_config += " | Bootloader: v4"
         if board.arch == 8 and board.bldr == "boot2":
-            board_config += " - Bootloader: v1 & v2"
+            board_config += " | Bootloader: v1 & v2"
+
+        if board.arch == 8 and board.bldr != "boot2":
+            board_config += " | Compiler: {}".format(self.configIDE.config("Board", "compiler", "XC8"))
+        elif board.arch == 8:
+            board_config += " | Compiler: SDCC"
+        elif board.arch == 32:
+            board_config += " | Compiler: GCC"
 
         return board_config
-
-
 
 
     #----------------------------------------------------------------------
