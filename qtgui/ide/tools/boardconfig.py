@@ -66,7 +66,7 @@ class BoardConfig(object):
         self.main.radioButton_arch_32.setChecked(arch == 32)
         self.main.frame_advance.setVisible(arch == 32)
 
-        compiler = self.configIDE.config("Board", "arch", "XC8")
+        compiler = self.configIDE.config("Board", "compiler", "XC8")
         self.main.radioButton_compiler_sdcc.setChecked(compiler=="SDCC")
         self.main.radioButton_compiler_sdcc.setChecked(compiler=="XC8")
 

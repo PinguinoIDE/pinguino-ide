@@ -191,9 +191,6 @@ class TimedMethods(object):
         editor = self.get_current_editor()
         filename = getattr(editor, "path", None)
         if not filename: return
-        if self.get_current_filename().endswith("(r/o)"):
-            self.editor_reload_file()
-            return
 
         if os.path.exists(filename):
             file_ = codecs.open(filename, "r", "utf-8")
@@ -205,6 +202,14 @@ class TimedMethods(object):
             exist = False
 
         last_saved = getattr(editor, "last_saved")
+
+
+        if self.get_current_filename().endswith("(r/o)"):
+            if content_file != last_saved:
+                self.editor_reload_file()
+            self.ide_save_file()
+            return
+
 
         if content_file != last_saved:
             reload_ = Dialogs.overwrite_file(self, filename, exist)

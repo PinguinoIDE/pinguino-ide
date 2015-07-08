@@ -114,18 +114,18 @@ class PinguinoTools(Uploader):
     #----------------------------------------------------------------------
     def get_8bit_compiler(self):
         """"""
-        if hasattr(self, "COMPILER_8BIT"):  #if no setted
-            return getattr(self, "COMPILER_8BIT")
+        if hasattr(self, "SET_COMPILER_8BIT"):  #if no setted
+            return getattr(self, "SET_COMPILER_8BIT")
         else:
             config = Config()  #then, select from config
-            return config.config("BOARD", "compiler", "XC8")
+            return config.config("Board", "compiler", "XC8")
 
 
     #----------------------------------------------------------------------
     def set_8bit_compiler(self, compiler):
         """"""
         assert compiler in ["SDCC", "XC8"], "Compiler must be SDCC or XC8"
-        self.COMPILER_8BIT = compiler
+        self.SET_COMPILER_8BIT = compiler
 
 
     #----------------------------------------------------------------------
