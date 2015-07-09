@@ -97,18 +97,18 @@ class PinguinoChilds(object):
         self.submit_bug.show()
 
 
-    #----------------------------------------------------------------------
-    def __show_patches__(self):
-        self.patches = Patches(self)
-        patches = self.patches.get_patches()
+    # #----------------------------------------------------------------------
+    # def __show_patches__(self):
+        # self.patches = Patches(self)
+        # patches = self.patches.get_patches()
 
-        if patches == 0:
-            Dialogs.info_message(self, "There are no new updates available.\n {PINGUINO_FULLNAME} is up to date".format(**os.environ))
-            self.patches.close()
-        elif patches is None:
-            self.patches.close()
-        else:
-            self.patches.show()
+        # if patches == 0:
+            # Dialogs.info_message(self, "There are no new updates available.\n {PINGUINO_FULLNAME} is up to date".format(**os.environ))
+            # self.patches.close()
+        # elif patches is None:
+            # self.patches.close()
+        # else:
+            # self.patches.show()
 
 
 ########################################################################
@@ -704,7 +704,11 @@ class PinguinoMain(object):
                 compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
 
 
-        self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(filename)))
+        if os.getenv("PINGUINO_PROJECT"):
+            self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(self.get_project_name())))
+        else:
+            self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(filename)))
+
         self.write_log(self.get_description_board())
 
         compile_code()

@@ -194,7 +194,6 @@
     <addaction name="menuLinks"/>
     <addaction name="separator"/>
     <addaction name="actionSubmit_bug_report"/>
-    <addaction name="actionCheck_for_patches"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>

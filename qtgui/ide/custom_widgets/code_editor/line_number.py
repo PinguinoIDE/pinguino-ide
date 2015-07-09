@@ -77,4 +77,5 @@ class LineNumber(QWidget):
             block = block.next()
         self.highest_line = line_count
         painter.end()
+
         QWidget.paintEvent(self, event)

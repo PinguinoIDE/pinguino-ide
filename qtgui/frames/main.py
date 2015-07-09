@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Wed Jul  8 18:19:01 2015
+# Created: Thu Jul  9 11:35:30 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -879,7 +879,6 @@ class Ui_PinguinoIDE(object):
         self.menuHelp.addAction(self.menuLinks.menuAction())
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionSubmit_bug_report)
-        self.menuHelp.addAction(self.actionCheck_for_patches)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
         self.menuSource.addAction(self.actionAutocomplete)
