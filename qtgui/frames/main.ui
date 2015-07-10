@@ -194,6 +194,7 @@
     <addaction name="menuLinks"/>
     <addaction name="separator"/>
     <addaction name="actionSubmit_bug_report"/>
+    <addaction name="actionCheck_for_updates"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -1680,19 +1681,6 @@
     <string>Ctrl+Shift+P</string>
    </property>
   </action>
-  <action name="actionExport_code_to_editor">
-   <property name="text">
-    <string>Export code to editor</string>
-   </property>
-  </action>
-  <action name="actionInsert_Block">
-   <property name="text">
-    <string>Insert block</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+I</string>
-   </property>
-  </action>
   <action name="actionIndent">
    <property name="text">
     <string>Indent</string>
@@ -1884,11 +1872,6 @@
     <string>Submit bug report...</string>
    </property>
   </action>
-  <action name="actionCheck_for_patches">
-   <property name="text">
-    <string>Check for patches...</string>
-   </property>
-  </action>
   <action name="actionTabShell">
    <property name="checkable">
     <bool>true</bool>
@@ -2055,6 +2038,24 @@
   <action name="actionHex">
    <property name="text">
     <string>Open .hex</string>
+   </property>
+  </action>
+  <action name="actionCheck_for_updates">
+   <property name="text">
+    <string>Check for updates...</string>
+   </property>
+  </action>
+  <action name="actionExport_code_to_editor">
+   <property name="text">
+    <string>Export code to editor</string>
+   </property>
+  </action>
+  <action name="actionInsert_Block">
+   <property name="text">
+    <string>Insert block</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+I</string>
    </property>
   </action>
  </widget>

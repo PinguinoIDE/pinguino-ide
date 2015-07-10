@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Thu Jul  9 11:35:30 2015
+# Created: Thu Jul  9 21:59:52 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -685,10 +685,6 @@ class Ui_PinguinoIDE(object):
         self.actionLibrary_manager.setObjectName("actionLibrary_manager")
         self.actionSet_paths = QtGui.QAction(PinguinoIDE)
         self.actionSet_paths.setObjectName("actionSet_paths")
-        self.actionExport_code_to_editor = QtGui.QAction(PinguinoIDE)
-        self.actionExport_code_to_editor.setObjectName("actionExport_code_to_editor")
-        self.actionInsert_Block = QtGui.QAction(PinguinoIDE)
-        self.actionInsert_Block.setObjectName("actionInsert_Block")
         self.actionIndent = QtGui.QAction(PinguinoIDE)
         self.actionIndent.setObjectName("actionIndent")
         self.actionDedent = QtGui.QAction(PinguinoIDE)
@@ -759,8 +755,6 @@ class Ui_PinguinoIDE(object):
         self.actionAdd_new_file.setObjectName("actionAdd_new_file")
         self.actionSubmit_bug_report = QtGui.QAction(PinguinoIDE)
         self.actionSubmit_bug_report.setObjectName("actionSubmit_bug_report")
-        self.actionCheck_for_patches = QtGui.QAction(PinguinoIDE)
-        self.actionCheck_for_patches.setObjectName("actionCheck_for_patches")
         self.actionTabShell = QtGui.QAction(PinguinoIDE)
         self.actionTabShell.setCheckable(True)
         self.actionTabShell.setChecked(True)
@@ -822,6 +816,12 @@ class Ui_PinguinoIDE(object):
         self.actionAdd_new_blocks_file.setObjectName("actionAdd_new_blocks_file")
         self.actionHex = QtGui.QAction(PinguinoIDE)
         self.actionHex.setObjectName("actionHex")
+        self.actionCheck_for_updates = QtGui.QAction(PinguinoIDE)
+        self.actionCheck_for_updates.setObjectName("actionCheck_for_updates")
+        self.actionExport_code_to_editor = QtGui.QAction(PinguinoIDE)
+        self.actionExport_code_to_editor.setObjectName("actionExport_code_to_editor")
+        self.actionInsert_Block = QtGui.QAction(PinguinoIDE)
+        self.actionInsert_Block.setObjectName("actionInsert_Block")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionNew_blocks_file)
@@ -879,6 +879,7 @@ class Ui_PinguinoIDE(object):
         self.menuHelp.addAction(self.menuLinks.menuAction())
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionSubmit_bug_report)
+        self.menuHelp.addAction(self.actionCheck_for_updates)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
         self.menuSource.addAction(self.actionAutocomplete)
@@ -1091,9 +1092,6 @@ class Ui_PinguinoIDE(object):
         self.actionSet_paths.setText(QtGui.QApplication.translate("PinguinoIDE", "System paths...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSet_paths.setToolTip(QtGui.QApplication.translate("PinguinoIDE", "Set paths", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSet_paths.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+P", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionExport_code_to_editor.setText(QtGui.QApplication.translate("PinguinoIDE", "Export code to editor", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionInsert_Block.setText(QtGui.QApplication.translate("PinguinoIDE", "Insert block", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionInsert_Block.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+I", None, QtGui.QApplication.UnicodeUTF8))
         self.actionIndent.setText(QtGui.QApplication.translate("PinguinoIDE", "Indent", None, QtGui.QApplication.UnicodeUTF8))
         self.actionIndent.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+>", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDedent.setText(QtGui.QApplication.translate("PinguinoIDE", "Outdent", None, QtGui.QApplication.UnicodeUTF8))
@@ -1129,7 +1127,6 @@ class Ui_PinguinoIDE(object):
         self.actionAdd_existing_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Add existing file...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAdd_new_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Add new file...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSubmit_bug_report.setText(QtGui.QApplication.translate("PinguinoIDE", "Submit bug report...", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionCheck_for_patches.setText(QtGui.QApplication.translate("PinguinoIDE", "Check for patches...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTabShell.setText(QtGui.QApplication.translate("PinguinoIDE", "Python shell", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTabLog.setText(QtGui.QApplication.translate("PinguinoIDE", "Logs", None, QtGui.QApplication.UnicodeUTF8))
         self.actionTabStdout.setText(QtGui.QApplication.translate("PinguinoIDE", "Stdout", None, QtGui.QApplication.UnicodeUTF8))
@@ -1152,6 +1149,10 @@ class Ui_PinguinoIDE(object):
         self.actionNew_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New blocks file", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAdd_new_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Add new blocks file...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHex.setText(QtGui.QApplication.translate("PinguinoIDE", "Open .hex", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionCheck_for_updates.setText(QtGui.QApplication.translate("PinguinoIDE", "Check for updates...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExport_code_to_editor.setText(QtGui.QApplication.translate("PinguinoIDE", "Export code to editor", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionInsert_Block.setText(QtGui.QApplication.translate("PinguinoIDE", "Insert block", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionInsert_Block.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+I", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 import resources_rc

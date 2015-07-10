@@ -68,7 +68,7 @@ class BoardConfig(object):
 
         compiler = self.configIDE.config("Board", "compiler", "XC8")
         self.main.radioButton_compiler_sdcc.setChecked(compiler=="SDCC")
-        self.main.radioButton_compiler_sdcc.setChecked(compiler=="XC8")
+        self.main.radioButton_compiler_xc8.setChecked(compiler=="XC8")
 
         mode = self.configIDE.config("Board", "mode", "bootloader")
         self.main.radioButton_mode_bootloader.setChecked(mode == "bootloader")
