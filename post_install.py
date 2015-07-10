@@ -14,7 +14,7 @@ else:
     from ConfigParser import RawConfigParser
 
 
-from qtgui.pinguino_api.pinguino_config import PinguinoConfig
+from qtgui.pinguino_core.pinguino_config import PinguinoConfig
 
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
