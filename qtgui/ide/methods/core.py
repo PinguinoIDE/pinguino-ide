@@ -915,7 +915,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
     #----------------------------------------------------------------------
     @Decorator.call_later(3000)
-    def need_update(self):
+    def need_update(self, silent=False):
         """"""
         if os.getenv("PINGUINO_MODE") == "NORMAL":
             SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/version/"
@@ -923,7 +923,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             SUBMIT_SERVER = "http://localhost:8000/version/"
 
         try:
-            logging.info("Checking for updates...")
+            if not silent: logging.info("Checking for updates...")
             response = requests.get(SUBMIT_SERVER, data={})
             version = response.json().get("version", None)
 
@@ -945,10 +945,12 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                     Dialogs.info_message(self, html)
 
                 else:
+                    if silent: return
                     Dialogs.info_message(self, "Your Pinguino IDE is up to date.")
 
 
         except requests.ConnectionError:
+            if silent: return
             Dialogs.error_message(self, "Unable to connect to server. Please check your network connection and try again.")
             logging.error("ConnectionError")
 

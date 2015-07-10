@@ -148,7 +148,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
         PinguinoEvents.__init__(self)
 
-        self.need_update()
+        self.need_update(silent=True)
 
 
 
