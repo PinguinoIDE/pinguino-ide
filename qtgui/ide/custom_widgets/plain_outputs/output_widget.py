@@ -64,8 +64,8 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
         # for i in range(100): print(i)
 
         self.moveCursor(QtGui.QTextCursor.EndOfLine)
+        self.moveCursor(QtGui.QTextCursor.End)
         self.insertPlainText(text)
-        # self.appendPlainText(text)
         self.moveCursor(QtGui.QTextCursor.End)
 
         self.repaint()

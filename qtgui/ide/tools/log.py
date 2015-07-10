@@ -4,6 +4,8 @@
 import os
 import logging
 
+from PySide import QtGui
+
 from ..custom_widgets import PinguinoTextEdit
 
 
@@ -40,7 +42,3 @@ class PinguinoLog(object):
             lines = data
 
         self.main.plainTextEdit_log.write(lines, prefix=prefix)
-        self.main.plainTextEdit_log.update()
-
-        scroll = self.main.plainTextEdit_log.verticalScrollBar()
-        scroll.setValue(scroll.maximum())
