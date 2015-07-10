@@ -2,10 +2,10 @@
 #-*- coding: utf-8 -*-
 
 import os
-import requests
 import logging
 
 from PySide import QtGui, QtCore
+import requests
 
 from ...frames.submit_bug import Ui_SubmitBug
 

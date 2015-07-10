@@ -10,6 +10,7 @@ import shutil
 from math import ceil
 
 from PySide import QtGui, QtCore
+import requests
 
 from ..custom_widgets import PinguinoCodeEditor
 
@@ -910,6 +911,49 @@ class PinguinoMain(object):
 
 ########################################################################
 class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, PinguinoSettings, PinguinoMain):
+
+
+    #----------------------------------------------------------------------
+    @Decorator.call_later(3000)
+    def need_update(self):
+        """"""
+        if os.getenv("PINGUINO_MODE") == "NORMAL":
+            SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/version/"
+        else:
+            SUBMIT_SERVER = "http://localhost:8000/version/"
+
+        try:
+            logging.info("Checking for updates...")
+            response = requests.get(SUBMIT_SERVER, data={})
+            version = response.json().get("version", None)
+
+            if version:
+                local_version = "{PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
+
+                html = """
+                <html>
+                  <head/>
+                  <body>
+                    <p>
+                      A new version of Pinguino is available at:\n
+                      <a href="http://www.pinguino.cc/download"><span style=" text-decoration: underline; color:#2980b9;">http://www.pinguino.cc/download</span></a>
+                    </p>
+                  </body>
+                </html>"""
+
+                if version > local_version:
+                    Dialogs.info_message(self, html)
+
+                else:
+                    Dialogs.info_message(self, "Your Pinguino IDE is up to date.")
+
+
+        except requests.ConnectionError:
+            Dialogs.error_message(self, "Unable to connect to server. Please check your network connection and try again.")
+            logging.error("ConnectionError")
+
+
+
 
 
     #----------------------------------------------------------------------

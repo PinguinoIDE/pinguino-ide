@@ -108,6 +108,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.actionGroup, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://groups.google.com/forum/#!forum/pinguinocard"))
         self.connect(self.main.actionShop, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://shop.pinguino.cc/"))
         self.connect(self.main.actionAbout, QtCore.SIGNAL("triggered()"), self.__show_about__)
+        self.connect(self.main.actionCheck_for_updates, QtCore.SIGNAL("triggered()"), self.need_update)
 
 
         # Events

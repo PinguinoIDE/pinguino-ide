@@ -2040,11 +2040,6 @@
     <string>Open .hex</string>
    </property>
   </action>
-  <action name="actionCheck_for_updates">
-   <property name="text">
-    <string>Check for updates...</string>
-   </property>
-  </action>
   <action name="actionExport_code_to_editor">
    <property name="text">
     <string>Export code to editor</string>
@@ -2058,6 +2053,11 @@
     <string>Ctrl+Shift+I</string>
    </property>
   </action>
+  <action name="actionCheck_for_updates">
+   <property name="text">
+    <string>Check for updates...</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>tabWidget_tools</tabstop>
@@ -2069,7 +2069,6 @@
  </tabstops>
  <resources>
   <include location="../../../pinguino-extra/resources/resources.qrc"/>
-  <include location="../../../../../../../../pinguino-extra/resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
