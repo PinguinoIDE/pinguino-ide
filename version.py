@@ -3,7 +3,7 @@
 
 NAME = "Pinguino IDE"
 VERSION = "11.1"
-SUBVERSION = ""
+SUBVERSION = "0"
 
 """-------------------------------------------------------------------------
     Pinguino IDE
@@ -43,7 +43,7 @@ else:
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
 os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
-os.environ["PINGUINO_FULLNAME"] = " ".join([NAME, VERSION, SUBVERSION])
+os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
 

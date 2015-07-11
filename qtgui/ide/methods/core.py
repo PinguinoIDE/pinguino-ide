@@ -917,15 +917,13 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     @Decorator.call_later(3000)
     def need_update(self, silent=False):
         """"""
-        if os.getenv("PINGUINO_MODE") == "NORMAL":
-            SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/version/"
-        else:
-            SUBMIT_SERVER = "http://localhost:8000/version/"
-
         try:
             if not silent: logging.info("Checking for updates...")
-            response = requests.get(SUBMIT_SERVER, data={})
-            version = response.json().get("version", None)
+            response = requests.get("https://api.github.com/repos/PinguinoIDE/pinguino-ide/releases/latest", data={})
+            version = response.json().get("tag_name", None)
+
+            if version.startswith("v"):
+                version = version[1:]
 
             if version:
                 local_version = "{PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
@@ -935,27 +933,35 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                   <head/>
                   <body>
                     <p>
-                      A new version of Pinguino is available at:\n
+                      <b>{}</b><br>
+                      A new version of Pinguino IDE is available at:<br>
                       <a href="http://www.pinguino.cc/download"><span style=" text-decoration: underline; color:#2980b9;">http://www.pinguino.cc/download</span></a>
                     </p>
                   </body>
-                </html>"""
+                </html>""".format(version)
 
                 if version > local_version:
                     Dialogs.info_message(self, html)
 
                 else:
                     if silent: return
-                    Dialogs.info_message(self, "Your Pinguino IDE is up to date.")
+                    html = """
+                    <html>
+                      <head/>
+                      <body>
+                        <p>
+                          <b>{}</b><br>
+                          Your copy of Pinguino IDE is up to date.
+                          </p>
+                      </body>
+                    </html>""".format(local_version)
 
+                    Dialogs.info_message(self, html)
 
         except requests.ConnectionError:
             if silent: return
             Dialogs.error_message(self, "Unable to connect to server. Please check your network connection and try again.")
             logging.error("ConnectionError")
-
-
-
 
 
     #----------------------------------------------------------------------
