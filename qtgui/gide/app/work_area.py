@@ -278,6 +278,11 @@ class WorkArea(QtGui.QWidget):
     def fill_widget_with(self, parent, content):
 
         for block in content:
+            if type(block) == tuple:
+                block, value = block
+            else:
+                value = None
+
             name = all_sets.get(block.replace("-", "_"), None)
             if name is None: return
             else: name = name[:]
@@ -285,13 +290,17 @@ class WorkArea(QtGui.QWidget):
             ARGS = name
             BASENAME = block
             child = self.new_bloq(NAME, ARGS, QtCore.QPoint(), BASENAME)[0]
+
+            if value:
+                child.metadata.widget.set_value(value)
+
             child.metadata.add_parent([parent.metadata.widget, child.metadata.widget], force=True)
             child.metadata.from_.append(parent)
 
 
 
     #----------------------------------------------------------------------
-    def mouseMoveEvent(self, event=None, eventPos=None, child=None, pos = QtCore.QPoint(0, 0)):
+    def mouseMoveEvent(self, event=None, eventPos=None, child=None, pos=QtCore.QPoint(0, 0)):
 
         self.isDragging = True
         if event != None:
@@ -301,7 +310,8 @@ class WorkArea(QtGui.QWidget):
 
         self.repaint()
 
-        if child == None: child, pos = self.get_child_drag()
+        if child == None:
+            child, pos = self.get_child_drag()
 
 
         if child != None:
@@ -411,19 +421,20 @@ class WorkArea(QtGui.QWidget):
 
 
     #----------------------------------------------------------------------
-    def accept_move(self, accept, child, _ID):
+    def accept_move(self, accept, child, _ID=None, nested=None):
 
         if accept:
             #print point
             child.metadata.from_.append(_ID)
             child.metadata.add_parent([_ID.metadata.widget, child.metadata.widget])
 
-            toPos = False
-            if _ID.metadata.type_ in ["tipo4", "tipo7", "tipo9"]:
-                toPos = _ID.metadata.object_.addSubs([_ID.metadata.widget, child.metadata.widget])
+            if nested is None:
+                nested = False
+                if _ID.metadata.type_ in ["tipo4", "tipo7", "tipo9"]:
+                    nested = _ID.metadata.object_.addSubs([_ID.metadata.widget, child.metadata.widget])
 
 
-            if toPos:
+            if nested:
                 if not child in _ID.metadata.nested:
                     _ID.metadata.nested.append(child)
                     if child in _ID.metadata.to:

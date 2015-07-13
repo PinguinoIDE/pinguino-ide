@@ -126,6 +126,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.lineEdit_blocks_search, QtCore.SIGNAL("textChanged(QString)"), self.PinguinoKIT.update_blocks_search_tab)
         self.connect(self.main.actionExport_code_to_editor, QtCore.SIGNAL("triggered()"), self.editor_export_pinguino_code)
         self.connect(self.main.comboBox_blocks, QtCore.SIGNAL("activated(QString)"), self.set_block_tab)
+        self.connect(self.main.actionGenerate_blocks, QtCore.SIGNAL("triggered()"), self.PinguinoKIT.code_to_blocks)
 
 
         # Context menu

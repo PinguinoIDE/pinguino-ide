@@ -224,21 +224,22 @@ class Decorator(object):
                 Pinguino.main.actionSearch.setEnabled(bool(count))
                 Pinguino.main.actionSearch_and_replace.setEnabled(bool(count))
                 Pinguino.main.actionPaste.setEnabled(bool(count))
-                Pinguino.main.actionUndo.setEnabled(bool(count))
-                Pinguino.main.actionRedo.setEnabled(bool(count))
 
                 if not count:
                     Pinguino.main.actionUpload.setEnabled(False)
 
-                if Pinguino.is_widget():
-                    Pinguino.main.actionSearch.setEnabled(False)
-                    Pinguino.main.actionSearch_and_replace.setEnabled(False)
+
+                if Pinguino.is_graphical() is False:
+                    editor = Pinguino.get_current_editor()
+                    textcursor = editor.text_edit.textCursor()
+                    Pinguino.main.actionCut.setEnabled(bool(textcursor.selectedText()))
+                    Pinguino.main.actionCopy.setEnabled(bool(textcursor.selectedText()))
+
+                else:
                     Pinguino.main.actionCut.setEnabled(False)
                     Pinguino.main.actionCopy.setEnabled(False)
-                    Pinguino.main.actionPaste.setEnabled(False)
                     Pinguino.main.actionUndo.setEnabled(False)
                     Pinguino.main.actionRedo.setEnabled(False)
-                    Pinguino.main.actionCompile.setEnabled(False)
 
 
                 return fn(Pinguino, *args, **kwargs)

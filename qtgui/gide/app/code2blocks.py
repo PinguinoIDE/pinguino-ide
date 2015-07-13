@@ -1,197 +1,200 @@
+#! /usr/bin/python2
+#-*- coding: utf-8 -*-
 
-#To hard!!
-#This feature will be available in Pinguino 1X (X>2)
+import os
 
+from PySide import QtCore, QtGui
+import logging
 
-# #! /usr/bin/python2
-# #-*- coding: utf-8 -*-
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from configparser import RawConfigParser
+    from io import StringIO
+else:
+    #Python2
+    from ConfigParser import RawConfigParser
+    from cStringIO import StringIO
 
-# import os
 
-# # Python3 compatibility
-# if os.getenv("PINGUINO_PYTHON") is "3":
-    # #Python3
-    # from configparser import RawConfigParser
-    # from io import StringIO
-# else:
-    # #Python2
-    # from ConfigParser import RawConfigParser
-    # from cStringIO import StringIO
+from ..py_bloques import constructor as Blocks
 
 
-# ########################################################################
-# class Code2Blocks(object):
-    # """"""
+########################################################################
+class Code2Blocks(object):
+    """"""
 
 
-    # #----------------------------------------------------------------------
-    # def code_to_blocks(self, code):
-        # """"""
-        # self.index_count = 0
+    #----------------------------------------------------------------------
+    def code_to_blocks(self, event=None):
+        """"""
+        code = self.ide.get_current_code()
+        code = self.ide.remove_comments(code)
 
-        # l = range(1, 10)
-        # l.reverse()
-        # code = code.replace("{", "\n{\n")
-        # code = code.replace("}", "\n}\n")
-        # for i in l: code = code.replace(" "*i, " ")
-        # code = code.replace(", ", ",")
+        self.index_count = 0
 
-        # code = code.split("\n")
-        # code = filter(lambda x:not x.isspace(), code)
-        # code = filter(None, code)
+        l = range(1, 10)
+        l.reverse()
+        code = code.replace("{", "\n{\n")
+        code = code.replace("}", "\n}\n")
+        code = code.replace(";", "\n")
+        for i in l: code = code.replace(" "*i, " ")
+        code = code.replace(", ", ",")
 
+        code = code.split("\n")
+        code = filter(lambda x:not x.isspace(), code)
+        code = filter(None, code)
 
-        # for index in range(len(code)):
-            # if code[index].endswith(";"): code[index] = code[index][:-1]
-            # if code[index].startswith(" "): code[index] = code[index][1:]
+        for index in range(len(code)):
+            if code[index].endswith(";"): code[index] = code[index][:-1]
+            if code[index].startswith(" "): code[index] = code[index][1:]
 
-        # self.parse_blocks = RawConfigParser()
-        # self.process_code(code)
 
-        # return self.parse_blocks
+        # code_blocks = []
+        self.ide_new_file()
+        start_pos = QtCore.QPoint(450, 150)
 
+        work_area = self.ide.get_current_editor().graphical_area
 
-    # #----------------------------------------------------------------------
-    # def get_index(self):
-        # """"""
-        # self.index_count += 1
-        # return self.index_count
+        last_block, pos = work_area.new_bloq("function", ['function', 'Pinguino', ['label', 'global'], ['syntax', ' variables']], QtCore.QPoint(50, 150), "global")
+        last_block.metadata.pos_ = pos
 
+        for line in range(len(code)):
+            block_type = self.get_block_type(code, line)
 
+            if code[line] in ["{", "}"]:
+                continue
 
-    # #----------------------------------------------------------------------
-    # def add_block(self, name, constructor, basename, position=(0, 0), inside=[], from_=[]):
-        # """"""
-        # id_ = self.get_index()
+            constructor = self.get_contructor(block_type, code[line])
 
-        # section_name = "Block-{0}".format(id_)
-        # self.parse_blocks.add_section(section_name)
+            block, pos = work_area.new_bloq(constructor[0], constructor, start_pos, "block_{}_{}".format(self.ide.get_current_filename(), line))
 
-        # self.parse_blocks.set(section_name, "self_id", str(id_))
-        # self.parse_blocks.set(section_name, "from", from_)
-        # self.parse_blocks.set(section_name, "name", name)
-        # self.parse_blocks.set(section_name, "constructor", constructor)
-        # self.parse_blocks.set(section_name, "position", position)
-        # self.parse_blocks.set(section_name, "basename", basename)
-        # self.parse_blocks.set(section_name, "inside", inside)
-        # self.parse_blocks.set(section_name, "to", [])
-        # self.parse_blocks.set(section_name, "nested", [])
 
-        # return str(id_)
+            block.metadata.pos_ = pos
 
+            if block.metadata.type_ != "tipo4":
+                new_pos = last_block.pos() + last_block.metadata.to_type[block.metadata.type_][0]
 
-    # #----------------------------------------------------------------------
-    # def update_parser(self, id_, option, value):
-        # """"""
-        # section_name = "Block-{0}".format(id_)
-        # self.parse_blocks.set(section_name, option, value)
+                if code[line-1] == "{":
+                    nested = True
+                else:
+                    nested = None
+                work_area.accept_move(True, block, last_block, nested)
+                block.move(new_pos)
 
+            else:
+                start_pos += QtCore.QPoint(400, 0)
+                # work_area.accept_move(False, block)
 
-    # #----------------------------------------------------------------------
-    # def from_section(self, id_, option):
-        # """"""
-        # section_name = "Block-{0}".format(id_)
-        # return self.parse_blocks.get(section_name, option)
+            # else:
+                # block.metadata.pos_ = pos
 
+            # if code[line-1] == "{":
+                # last_nested_block = block
+                # # last_nested_pos = pos
 
+            # if code[line+1] == "}":
+                # last_nested_block.metadata.expand()
 
+            work_area.expand_all()
 
-    # #----------------------------------------------------------------------
-    # def process_code(self, code):
-        # """"""
-        # global_ = self.add_block(name="function", constructor=[['label', 'global'], ['syntax', ' variables']], basename="global_vars", position=(10, 10))
 
-        # last = global_
-        # pos_func = 300
-        # pos_func_i = 300
 
-        # linear_ = []
+            last_block = block
+            # last_pos = pos
 
-        # for line in code:
+        # work_area.expand_all()
 
-            # last_iter = last
 
-            # if line.startswith("#define"):
-                # d, value1, value2 = line.split()
-                # last = self.add_define(last, value1, value2)
 
-            # elif line.startswith("void"):
-                # name = line.split()[1].split("(")[0]
-                # linear_.append(name)
-                # last = self.add_funtion(name, pos=pos_func)
-                # pos_func += pos_func_i
 
-            # if line.split("(")[0] in ["pinMode", "digitalWrite", "delay"] + linear_:
-                # name = line.split("(")[0]
-                # values = line.split("(")[1][:-1].split(",")
-                # last = self.add_linear(last, name, values)
-                # self.update_parser(last_iter, "to", [last])
+    #----------------------------------------------------------------------
+    def get_block_type(self, code, line):
+        """"""
+        try:
+            # Function
+            if code[line+1] == "{" and code[line].split()[0] in ["char*", "char", "int", "float", "u8", "u16", "u32", "void"]:
+                return Blocks.Function
 
+            # Nested
+            elif code[line+1] == "{" :
+                return Blocks.Nested
 
+            # Linear
+            else:
+                return Blocks.Linear
 
-    # #----------------------------------------------------------------------
-    # def add_define(self, parent, value1, value2):
-        # """"""
-        # in1 = self.add_block(name="output", constructor=[['edit', value1, 'white', (90, 90, 90)]], basename="edit-value")
-        # in2 = self.add_block(name="output", constructor=[['edit', value2, 'white', (90, 90, 90)]], basename="edit-value")
-        # define = self.add_block(name="linear", constructor=[['label', '#define'], ['syntax', ' '], ['space'], ['syntax', ' '], ['space'], ['syntax', ' //']], basename= "define", inside=[in1, in2])
+        except IndexError:
+            return Blocks.Linear
 
-        # self.update_parser(in1, "from", [define])
-        # self.update_parser(in2, "from", [define])
-        # self.update_parser(define, "from", [parent])
 
-        # if self.from_section(parent, "name") in ["function"]:
-            # self.update_parser(parent, "nested", [define])
-        # else:
-            # self.update_parser(parent, "to", [define])
 
-        # return define
 
+    #----------------------------------------------------------------------
+    def get_contructor(self, block, linecode):
+        """"""
+        blk = block("None")
 
-    # #----------------------------------------------------------------------
-    # def add_funtion(self, name, pos):
-        # """"""
-        # return self.add_block(name="function", constructor=[['label', name], ['syntax', '()']], basename=name, position=(pos, 10))
+        fill_args = []
+        if linecode.count("("):
+            name = linecode[:linecode.find("(")]
+            args = linecode[linecode.find("(")+1:linecode.find(")")].split(",")
 
+            blk.addLabel(name)
+            blk.addSyntax("(")
 
-    # #----------------------------------------------------------------------
-    # def add_linear(self, parent, name, values=["", ""]):
-        # """"""
-        # sp = []
-        # for i in range(1, len(values)+1):
-            # sp.append(['space'])
-            # if i != len(values): sp.append(['syntax', ', '])
+            for arg in args:
+                if arg:
+                    if arg in ["False", "True"]:
+                        blk.addSpaceBool()
+                    else:
+                        blk.addSpace()
+                    fill_args.append(self.get_fancy_widget(arg))
 
 
-        # cns = [['label', name], ['syntax', '(']] + sp + ['syntax', ')']
+            blk.addSyntax(")")
+        else:
+            blk.addLabel(linecode)
 
+        if fill_args:
+            blk.fillWith(fill_args)
+            # ["edit-value", "edit-value"]
 
-        # linear = self.add_block(name="linear", constructor=cns, basename=name, from_=[parent])
+        return blk.getBlock()
 
 
-        # insides = []
-        # for value in values:
-            # insides.append(self.add_block(name="output", constructor=[['edit', value, 'white', (90, 90, 90)]], basename="edit-value", from_=[linear]))
+    #----------------------------------------------------------------------
+    def get_fancy_widget(self, arg):
+        """"""
+        if arg in ["True", "False"]:
+            return ("choice-B", arg)
 
+        elif arg in ["INPUT", "OUTPUT"]:
+            return ("choice-io", arg)
 
+        elif arg in ["HIGH", "LOW"]:
+            return ("choice-hl", arg)
 
+        elif arg in ["GREENLED", "YELLOWLED", "USERBUTTON", "RUNLED", "USERLED"]:
+            return ("choice-user", arg)
 
-        # self.update_parser(linear, "inside", insides)
+        elif arg in map(lambda x:"D{}".format(x), range(14)):
+            return ("choice-D", arg)
 
-        # # self.update_parser(linear, "to", [insides[0]])
+        elif arg in map(lambda x:"A{}".format(x), range(6)):
+            return ("choice-A", arg)
 
+        elif arg.isdigit():
+            return ("spin-int", arg)
 
-        # return linear
+        elif arg.count(".") == 1:
+            try:
+                type(eval("45.5")) == float
+                return ("spin-float", arg)
+            except:
+                return ("edit-value", arg)
 
+        else:
+            return ("edit-value", arg)
 
 
-        # # [Block-10]
-        # # self_id = 0x7f21e03f0bd8
-        # # from = ['0x7f21e03d9050']
-        # # name = linear
-        # # constructor = [['label', 'pinMode'], ['syntax', '('], ['space'], ['syntax', ', '], ['space'], ['syntax', ')']]
-        # # position = (21, 51)
-        # # basename = pinMode
-        # # inside = ['0x7f21e03f45f0', '0x7f21e03f4f38']
-        # # to = ['0x7f21e03f75f0']
-        # # nested = []

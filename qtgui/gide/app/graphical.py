@@ -20,7 +20,7 @@ import logging
 
 from PySide import QtGui, QtCore
 
-# from .code2blocks import Code2Blocks
+from .code2blocks import Code2Blocks
 from .blocks import Blocks
 from .work_area import WorkArea
 from .tool_area import ToolArea
@@ -39,7 +39,7 @@ from ..py_bloques.user_blocks import UserBlocks
 
 
 ########################################################################
-class GraphicalIDE(object):
+class GraphicalIDE(Code2Blocks):
 
     #----------------------------------------------------------------------
     def __init__(self, ide):
@@ -675,6 +675,41 @@ class GraphicalIDE(object):
 
             grid_layout.addWidget(newIcon, count, side, 1, 1)
             count += 1
+
+
+
+
+    # #----------------------------------------------------------------------
+    # def add_blocks2(self, tab, tab_set):
+        # # widget = self.get_widget(tab)
+        # # grid_layout = widget.grid_layout
+        # # tool_area = widget.tool_area
+
+        # # if clear: self.clear_area(tab)
+
+        # count = 0
+
+        # for key, tab in tab_set:
+
+            # area = self.ide.get_current_editor().graphical_area
+
+            # newIcon = QtGui.QWidget(area)
+            # eval(Blocks[tab[0]])(newIcon, tab[2:])
+            # newIcon.setMaximumSize(newIcon.size())
+
+            # # widget.content_widgets.append(newIcon)
+
+            # newIcon.NAME = tab[0]
+            # newIcon.ARGS = tab
+            # newIcon.BASENAME = key
+
+            # newIcon.move(10, 10)
+
+            # # area.addWidget(newIcon, count, 0, 1, 1)
+            # count += 1
+
+
+
 
     #----------------------------------------------------------------------
     def add_group_blocks(self, name, new_set):

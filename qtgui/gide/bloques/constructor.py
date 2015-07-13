@@ -6,23 +6,12 @@
 
 from PySide import QtGui, QtCore
 
-#from .widgets import Label
 from .widgets.label import Ui_Frame as Label
-
-#from .widgets import ControlSpin
 from .widgets.control_spin import Ui_Frame as ControlSpin
-
-#from .widgets import ControlSlider
 from .widgets.control_slider import Ui_Frame as ControlSlider
-
-#from .widgets import Name
 from .widgets.name import Ui_Frame as Name
-
-#from .inside import Inside, Inside2
 from .inside.inside import Ui_Form as Inside
 from .inside.inside2 import Ui_Form as Inside2
-
-#from .inside import InsideBool, Inside2Bool
 from .inside.inside_bool import Ui_Form as InsideBool
 from .inside.inside2_bool import Ui_Form as Inside2Bool
 
@@ -32,11 +21,6 @@ FIX_SYNTAX = ", ; = > < >= <= + -".split()
 FONT_SIZE = 15
 ADJ = 10  #space at end
 ADJ2 = -5  #space on expand
-
-###Windows Xp
-##FONT_SIZE = 14
-##ADJ = 20
-##ADJ2 = -3
 
 
 #----------------------------------------------------------------------
@@ -779,6 +763,7 @@ class Constructor(object):
         self.layout.addWidget(widget_choide)
         lineEdit.contextMenuEvent = self.build_menu
         # self.set_as_draggable(lineEdit, widget)
+        widget.set_value = lambda value:lineEdit.setText(value)
         self.constructorCode.append(lambda :["spin_choice"]+[str(lineEdit.text())]+add[2:])
 
     def addSpinInt(self, widget, add):
@@ -789,6 +774,7 @@ class Constructor(object):
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
         self.updateLine(lineEdit)
         lineEdit.contextMenuEvent = self.build_menu
+        widget.set_value = lambda value:lineEdit.setText(value)
         # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["spin_int"]+[str(lineEdit.text())]+add[2:])
 
@@ -800,6 +786,7 @@ class Constructor(object):
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
         self.updateLine(lineEdit)
         lineEdit.contextMenuEvent = self.build_menu
+        widget.set_value = lambda value:lineEdit.setText(value)
         # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["spin_float", str(lineEdit.text())]+add[2:])
 
@@ -809,6 +796,7 @@ class Constructor(object):
         self.layout.addWidget(widgetEdit)
         QtCore.QObject.connect(lineEdit, QtCore.SIGNAL("textChanged(QString)"), lambda x:self.updateLine(lineEdit))
         self.updateLine(lineEdit)
+        widget.set_value = lambda value:lineEdit.setText(value)
         # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["edit", str(lineEdit.text())] + add[2:])
         # lineEdit.setCursor(QtCore.Qt.ArrowCursor)
@@ -818,6 +806,7 @@ class Constructor(object):
         widgetSlider.setObjectName("BLOCK_SLIDER")
         self.layout.addWidget(widgetSlider)
         lineEdit.contextMenuEvent = self.build_menu
+        widget.set_value = lambda value:lineEdit.setText(value)
         # self.set_as_draggable(lineEdit, widget)
         self.constructorCode.append(lambda :["slider", str(lineEdit.text())])
 

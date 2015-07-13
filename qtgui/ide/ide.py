@@ -145,12 +145,10 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         self.setCorner(QtCore.Qt.BottomLeftCorner, QtCore.Qt.LeftDockWidgetArea)
         self.set_sise_hint()
 
-
         PinguinoEvents.__init__(self)
 
-        self.need_update(silent=True)
-
-
+        if os.getenv("PINGUINO_MODE") == "NORMAL":
+            self.need_update(silent=True)
 
     #----------------------------------------------------------------------
     def set_sise_hint(self):
@@ -255,7 +253,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
 
 
-if os.getenv("PINGUINO_MODE") == "DEV":
+if os.getenv("PINGUINO_MODE") == "NORMAL":
     for name, fn in inspect.getmembers(PinguinoIDE):
         if isinstance(fn, types.UnboundMethodType):
             setattr(PinguinoIDE, name, Decorator.debug_method()(fn))

@@ -58,7 +58,7 @@ class Pinguino(object):
         st.addSpace()
         st.addSyntax(" ")
         st.addSpace()
-        st.addSyntax(" //")  #fix the ; at line end, ugly byt works!
+        st.addSyntax(" //")  #fix the ; at ent line, ugly but works!
         st.fillWith(["edit-value", "edit-value"])
         return st.getBlock()
 

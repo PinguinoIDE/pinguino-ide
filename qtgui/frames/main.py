@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Fri Jul 10 13:53:23 2015
+# Created: Sat Jul 11 16:36:52 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -822,6 +822,8 @@ class Ui_PinguinoIDE(object):
         self.actionInsert_Block.setObjectName("actionInsert_Block")
         self.actionCheck_for_updates = QtGui.QAction(PinguinoIDE)
         self.actionCheck_for_updates.setObjectName("actionCheck_for_updates")
+        self.actionGenerate_blocks = QtGui.QAction(PinguinoIDE)
+        self.actionGenerate_blocks.setObjectName("actionGenerate_blocks")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionNew_blocks_file)
@@ -888,6 +890,8 @@ class Ui_PinguinoIDE(object):
         self.menuSource.addSeparator()
         self.menuSource.addAction(self.actionIndent)
         self.menuSource.addAction(self.actionDedent)
+        self.menuSource.addSeparator()
+        self.menuSource.addAction(self.actionGenerate_blocks)
         self.menuIcons_theme.addAction(self.actionPinguino11)
         self.menuIcons_size.addAction(self.action16x16)
         self.menuIcons_size.addAction(self.action24x24)
@@ -1153,5 +1157,6 @@ class Ui_PinguinoIDE(object):
         self.actionInsert_Block.setText(QtGui.QApplication.translate("PinguinoIDE", "Insert block", None, QtGui.QApplication.UnicodeUTF8))
         self.actionInsert_Block.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+I", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCheck_for_updates.setText(QtGui.QApplication.translate("PinguinoIDE", "Check for updates...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionGenerate_blocks.setText(QtGui.QApplication.translate("PinguinoIDE", "Generate blocks", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

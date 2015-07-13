@@ -145,6 +145,11 @@ class PinguinoQueries(object):
 
         return self.main.tabWidget_files.currentWidget()
 
+    #----------------------------------------------------------------------
+    def get_current_code(self):
+        """"""
+        editor = self.get_current_editor()
+        return editor.text_edit.toPlainText()
 
     #----------------------------------------------------------------------
     def get_all_editors(self, text=True, blocks=False, html=False):
@@ -1173,31 +1178,22 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    def editor_can_undo(self, *args, **kwargs):
+    def editor_can_undo(self, available):
 
-        state = not self.main.actionUndo.isEnabled()
-        self.main.actionUndo.setEnabled(state)
-        editor = self.get_current_editor()
-        editor.tool_bar_state["undo"] = state
+        self.main.actionUndo.setEnabled(available)
 
 
     #----------------------------------------------------------------------
-    def editor_can_redo(self, *args, **kwargs):
+    def editor_can_redo(self, available):
 
-        state = not self.main.actionRedo.isEnabled()
-        self.main.actionRedo.setEnabled(state)
-        editor = self.get_current_editor()
-        editor.tool_bar_state["redo"] = state
+        self.main.actionRedo.setEnabled(available)
 
 
     #----------------------------------------------------------------------
-    def editor_can_copy(self, *args, **kwargs):
+    def editor_can_copy(self, available):
 
-        state = not self.main.actionCopy.isEnabled()
-        self.main.actionCopy.setEnabled(state)
-        self.main.actionCut.setEnabled(state)
-        editor = self.get_current_editor()
-        editor.tool_bar_state["copy"] = state
+        self.main.actionCopy.setEnabled(available)
+        self.main.actionCut.setEnabled(available)
 
 
     #----------------------------------------------------------------------
@@ -1476,8 +1472,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                    "actionSave_file":	(True, True, False),
                    "actionUndo":		(False, True, False),
                    "actionRedo":		(False, True, False),
-                   "actionCopy":		(False, True, False),
-                   "actionCut":			(False, True, False),
+                   # "actionCopy":		(False, True, False),  #automatic
+                   # "actionCut":			(False, True, False),  #automatic
                    "actionPaste":		(False, True, False),
                    "actionSearch":		(False, True, False),
                    "actionCompile":		(True, True, False),
@@ -1562,7 +1558,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.main.toolBar_menu.addWidget(self.toolbutton_menutoolbar)
 
     #----------------------------------------------------------------------
-    # @Decorator.connect_features()
+    # @Decorator.update_toolbar()
     def ide_new_file(self, *args, **kwargs):
 
         path = kwargs.get("filename", self.get_untitled_name())
@@ -1589,6 +1585,10 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         editor.text_edit.undoAvailable.connect(self.editor_can_undo)
         editor.text_edit.redoAvailable.connect(self.editor_can_redo)
         editor.text_edit.copyAvailable.connect(self.editor_can_copy)
+        self.main.actionUndo.setEnabled(False)
+        self.main.actionRedo.setEnabled(False)
+        self.main.actionCopy.setEnabled(False)
+
         editor.text_edit.dropEvent = self.ide_drop_file
         editor.text_edit.keyPressEvent = self.editor_key_press
         editor.text_edit.contextMenuEvent = self.editor_file_context_menu
@@ -1596,6 +1596,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), filename[:-1])
         editor.text_edit.setFocus()
         self.update_actions()
+
+        # Decorator.update_toolbar()
 
 
     #----------------------------------------------------------------------
@@ -2395,6 +2397,10 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         if filename and (filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples")) or filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))):
             menu.addAction(QtGui.QApplication.translate("Frame", "Restore example"), self.editor_restore_example)
             menu.addSeparator()
+
+
+        menu.addAction(self.main.actionGenerate_blocks)
+        menu.addSeparator()
 
         menu.addAction(self.main.actionUndo)
         menu.addAction(self.main.actionRedo)

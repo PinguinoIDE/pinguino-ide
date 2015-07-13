@@ -208,6 +208,8 @@
     <addaction name="separator"/>
     <addaction name="actionIndent"/>
     <addaction name="actionDedent"/>
+    <addaction name="separator"/>
+    <addaction name="actionGenerate_blocks"/>
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
@@ -2056,6 +2058,11 @@
   <action name="actionCheck_for_updates">
    <property name="text">
     <string>Check for updates...</string>
+   </property>
+  </action>
+  <action name="actionGenerate_blocks">
+   <property name="text">
+    <string>Generate blocks</string>
    </property>
   </action>
  </widget>

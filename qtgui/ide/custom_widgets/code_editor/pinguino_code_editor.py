@@ -48,11 +48,7 @@ class PinguinoCodeEditor(QWidget):
         self.line_number.setTextEdit(self.text_edit)
         self.text_edit.viewport().installEventFilter(self)
 
-        self.tool_bar_state = {"undo": True,
-                               "redo": False,
-                               #"cut": False,
-                               "copy": False,
-                               }
+
 
 
     #----------------------------------------------------------------------
