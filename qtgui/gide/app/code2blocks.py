@@ -28,6 +28,50 @@ class Code2Blocks(object):
     #----------------------------------------------------------------------
     def code_to_blocks(self, event=None):
         """"""
+
+        code = self.parse_code()
+
+        self.ide_new_file()
+        start_pos = QtCore.QPoint(50, 150)
+
+        work_area = self.ide.get_current_editor().graphical_area
+
+        if code[1] != "{":
+            last_block, pos = work_area.new_bloq("function", ['function', 'Pinguino', ['label', 'global'], ['syntax', ' variables']], QtCore.QPoint(50, 150), "global")
+            last_block.metadata.pos_ = pos
+            start_pos += QtCore.QPoint(500, 0)
+
+        for line in range(len(code)):
+            block_type = self.get_block_type(code, line)
+
+            if code[line] in ["{", "}"]:
+                continue
+
+            constructor = self.get_contructor(block_type, code[line])
+            block, pos = work_area.new_bloq(constructor[0], constructor, start_pos, "block_{}_{}".format(self.ide.get_current_filename(), line))
+            block.metadata.pos_ = pos
+
+            if block.metadata.type_ != "tipo4":
+                new_pos = last_block.pos() + last_block.metadata.to_type[block.metadata.type_][0]
+
+                if code[line-1] == "{":
+                    nested = True
+                else:
+                    nested = None
+                work_area.accept_move(True, block, last_block, nested)
+                block.move(new_pos)
+
+            else:
+                start_pos += QtCore.QPoint(500, 0)
+
+            work_area.expand_all()
+
+            last_block = block
+
+
+    #----------------------------------------------------------------------
+    def parse_code(self):
+        """"""
         code = self.ide.get_current_code()
         code = self.ide.remove_comments(code)
 
@@ -50,62 +94,26 @@ class Code2Blocks(object):
             if code[index].startswith(" "): code[index] = code[index][1:]
 
 
-        # code_blocks = []
-        self.ide_new_file()
-        start_pos = QtCore.QPoint(450, 150)
+        #fix for
+        finish_for = False
+        while not finish_for:
+            for line in range(len(code)):
+                try:
+                    if code[line].startswith("for"):
+                        code[line] = ";".join(code[line:line+3])
+                        code.pop(line+1)
+                        code.pop(line+1)
 
-        work_area = self.ide.get_current_editor().graphical_area
+                    else:
+                        finish_for = True
 
-        last_block, pos = work_area.new_bloq("function", ['function', 'Pinguino', ['label', 'global'], ['syntax', ' variables']], QtCore.QPoint(50, 150), "global")
-        last_block.metadata.pos_ = pos
-
-        for line in range(len(code)):
-            block_type = self.get_block_type(code, line)
-
-            if code[line] in ["{", "}"]:
-                continue
-
-            constructor = self.get_contructor(block_type, code[line])
-
-            block, pos = work_area.new_bloq(constructor[0], constructor, start_pos, "block_{}_{}".format(self.ide.get_current_filename(), line))
-
-
-            block.metadata.pos_ = pos
-
-            if block.metadata.type_ != "tipo4":
-                new_pos = last_block.pos() + last_block.metadata.to_type[block.metadata.type_][0]
-
-                if code[line-1] == "{":
-                    nested = True
-                else:
-                    nested = None
-                work_area.accept_move(True, block, last_block, nested)
-                block.move(new_pos)
-
-            else:
-                start_pos += QtCore.QPoint(400, 0)
-                # work_area.accept_move(False, block)
-
-            # else:
-                # block.metadata.pos_ = pos
-
-            # if code[line-1] == "{":
-                # last_nested_block = block
-                # # last_nested_pos = pos
-
-            # if code[line+1] == "}":
-                # last_nested_block.metadata.expand()
-
-            work_area.expand_all()
+                except IndexError:
+                    break
 
 
 
-            last_block = block
-            # last_pos = pos
 
-        # work_area.expand_all()
-
-
+        return code
 
 
     #----------------------------------------------------------------------
@@ -140,16 +148,29 @@ class Code2Blocks(object):
             name = linecode[:linecode.find("(")]
             args = linecode[linecode.find("(")+1:linecode.find(")")].split(",")
 
+
+            syntax = ","
+
+            if len(args) == 1:
+                args = args[0].split(";")
+                syntax = ";"
+
+            # logging.debug(args)
+
             blk.addLabel(name)
             blk.addSyntax("(")
 
-            for arg in args:
-                if arg:
-                    if arg in ["False", "True"]:
+            for index in range(len(args)):
+                if args[index]:
+
+                    if len(args)>index>0:
+                        blk.addSyntax(syntax)
+
+                    if args[index] in ["False", "True"]:
                         blk.addSpaceBool()
                     else:
                         blk.addSpace()
-                    fill_args.append(self.get_fancy_widget(arg))
+                    fill_args.append(self.get_fancy_widget(args[index]))
 
 
             blk.addSyntax(")")
@@ -158,7 +179,6 @@ class Code2Blocks(object):
 
         if fill_args:
             blk.fillWith(fill_args)
-            # ["edit-value", "edit-value"]
 
         return blk.getBlock()
 
