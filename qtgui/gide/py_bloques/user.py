@@ -46,3 +46,19 @@ class User(object):
         pm.bloque.append("Pinguino Rules")
         pm.bloque.append(['resize', 300, 100])
         return pm.getBlock()
+
+
+    #----------------------------------------------------------------------
+    def linear__(self):
+
+        pm = Block.Linear("Tools")
+        pm.addSpace()
+        return pm.getBlock()
+
+
+    #----------------------------------------------------------------------
+    def linearb__(self):
+
+        pm = Block.Linear("Tools")
+        pm.addSpaceBool()
+        return pm.getBlock()

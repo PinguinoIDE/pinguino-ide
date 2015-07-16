@@ -112,23 +112,6 @@ class Math_(object):
         pm.addSpace()
         return pm.getBlock()
 
-
-    #----------------------------------------------------------------------
-    def linear__(self):
-
-        pm = Block.Linear("Math")
-        pm.addSpace()
-        return pm.getBlock()
-
-
-    #----------------------------------------------------------------------
-    def linearb__(self):
-
-        pm = Block.Linear("Math")
-        pm.addSpaceBool()
-        return pm.getBlock()
-
-
     ##  Logical operators
 
     #----------------------------------------------------------------------

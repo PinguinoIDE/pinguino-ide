@@ -59,6 +59,7 @@ class Control(object):
         pm.addSyntax(";")
         pm.addSpace()
         pm.addSyntax(")")
+        pm.fillWith([("edit", "i=1"), ("edit-bool", "i<10"), ("edit", "i++")])
         return pm.getBlock()
 
 

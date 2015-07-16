@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sat Jul 11 16:36:52 2015
+# Created: Wed Jul 15 17:55:37 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -486,9 +486,9 @@ class Ui_PinguinoIDE(object):
         self.comboBox_blocks = QtGui.QComboBox(self.Blocks)
         self.comboBox_blocks.setObjectName("comboBox_blocks")
         self.gridLayout_4.addWidget(self.comboBox_blocks, 0, 0, 1, 1)
-        self.stackedWidget = QtGui.QStackedWidget(self.Blocks)
-        self.stackedWidget.setObjectName("stackedWidget")
-        self.gridLayout_4.addWidget(self.stackedWidget, 1, 0, 1, 1)
+        self.stackedWidget_blocks = QtGui.QStackedWidget(self.Blocks)
+        self.stackedWidget_blocks.setObjectName("stackedWidget_blocks")
+        self.gridLayout_4.addWidget(self.stackedWidget_blocks, 1, 0, 1, 1)
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.label_search_block = QtGui.QLabel(self.Blocks)
@@ -957,7 +957,7 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(3)
+        self.tabWidget_tools.setCurrentIndex(5)
         self.tabWidget_browser.setCurrentIndex(1)
         self.tabWidget_bottom.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)

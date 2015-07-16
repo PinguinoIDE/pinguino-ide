@@ -729,6 +729,9 @@ class PinguinoMain(object):
         self.main.actionUpload.setEnabled(self.pinguinoAPI.compiled())
         if not self.pinguinoAPI.compiled():
 
+            if os.getenv("PINGUINO_PROJECT"):
+                self.ide_show_user_c()
+
             # errors_preprocess = self.pinguinoAPI.get_errors_preprocess()
             # if errors_preprocess:
                 # for error in errors_preprocess:
@@ -1502,6 +1505,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             if not self.configIDE.config("TABS", "Blocks", False):
                 if hasattr(self.main.Blocks, "tab_parent"):
                     self.toggle_tab("Blocks", True)
+                    self.main.comboBox_blocks.setCurrentIndex(0)
+                    self.main.stackedWidget_blocks.setCurrentIndex(0)
         else:
             # if self.configIDE.config("TABS", "Blocks", True):
             self.toggle_tab("Blocks", False)
@@ -2534,7 +2539,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     def set_block_tab(self, name):
         """"""
         widget = self.PinguinoKIT.get_widget(name)
-        self.main.stackedWidget.setCurrentWidget(widget)
+        self.main.stackedWidget_blocks.setCurrentWidget(widget)
 
         for i in range(self.main.comboBox_blocks.count()):
             if self.main.comboBox_blocks.itemText(i) == name:

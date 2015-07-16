@@ -65,7 +65,7 @@ class GraphicalIDE(Code2Blocks):
         self.main.tabWidget_files.setMaximumSize(10000, 10e6)
 
         widget = self.get_widget("Pinguino")
-        self.main.stackedWidget.setCurrentWidget(widget)
+        self.main.stackedWidget_blocks.setCurrentWidget(widget)
 
         self.constant_update()
         self.constant_auto_raise()
@@ -594,7 +594,7 @@ class GraphicalIDE(Code2Blocks):
 
             # self.main.tabWidget_blocks.addTab(widget, tab)
             widget.setObjectName(tab)
-            self.main.stackedWidget.addWidget(widget)
+            self.main.stackedWidget_blocks.addWidget(widget)
 
             ui.gridLayout_2.setContentsMargins(9, 9, 9, 9)
             ui.gridLayout_2.setSpacing(10)
@@ -645,9 +645,9 @@ class GraphicalIDE(Code2Blocks):
                 # widget = self.main.tabWidget_blocks.widget(index)
                 # return widget
 
-        for index in range(self.main.stackedWidget.count()):
-            # self.main.stackedWidget
-            widget = self.main.stackedWidget.widget(index)
+        for index in range(self.main.stackedWidget_blocks.count()):
+            # self.main.stackedWidget_blocks
+            widget = self.main.stackedWidget_blocks.widget(index)
             if widget.objectName() == tab_name:
                 return widget
 

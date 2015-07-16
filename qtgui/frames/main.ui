@@ -320,7 +320,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>5</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -1173,7 +1173,7 @@
           <widget class="QComboBox" name="comboBox_blocks"/>
          </item>
          <item row="1" column="0">
-          <widget class="QStackedWidget" name="stackedWidget"/>
+          <widget class="QStackedWidget" name="stackedWidget_blocks"/>
          </item>
          <item row="2" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_3">

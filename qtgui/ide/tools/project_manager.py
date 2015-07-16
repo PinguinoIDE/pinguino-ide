@@ -209,10 +209,10 @@ class ProjectManager(object):
         self.ConfigProject = RawConfigParser()
         project_name = self.set_project_name()
 
-        self.main.tabWidget_tools.setCurrentIndex(1)
-        add_dir = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "Do you want add an existing directory now?"))
-        if add_dir: self.select_existing_directory()
-        self.update_project_status(project_name)
+        if project_name:
+            add_dir = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "Do you want add an existing directory now?"))
+            if add_dir: self.select_existing_directory()
+            self.update_project_status(project_name)
 
 
     #----------------------------------------------------------------------

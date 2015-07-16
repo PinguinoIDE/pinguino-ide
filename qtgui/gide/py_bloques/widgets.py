@@ -93,6 +93,13 @@ class Widgets(object):
         pm.addEdit("\"string\"")
         return pm.getBlock()
 
+    #----------------------------------------------------------------------
+    def edit_bool(self):
+
+        pm = Block.OutputBool("Output")
+        pm.addEdit("\"string\"")
+        return pm.getBlock()
+
 
     #----------------------------------------------------------------------
     def edit_c(self):
