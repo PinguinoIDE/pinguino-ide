@@ -1612,7 +1612,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         path = getattr(editor, "path", None)
         if path: path = os.path.dirname(path)
         else: path = QtCore.QDir.home().path()
-        filenames = Dialogs.set_open_file(self, path)
+        filenames = Dialogs.set_open_files(self, path)
 
         for filename in filenames:
             if self.ide_check_duplicate_file(filename): continue

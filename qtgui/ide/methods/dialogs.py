@@ -28,14 +28,25 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def set_open_file(cls, parent, path=HOME_PATH, exts="*.pde *.gpde *.ppde"):
+        open_file = QtGui.QFileDialog.getOpenFileName(parent,
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
+                #QtCore.QDir.home().path(),
+                path,
+                QtGui.QApplication.translate("Dialogs", "Pinguino Files ({});;All Files (*)".format(exts)))
+        if open_file[0]:
+            return open_file[0]
+        else: return None
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def set_open_files(cls, parent, path=HOME_PATH, exts="*.pde *.gpde *.ppde"):
         open_files = QtGui.QFileDialog.getOpenFileNames(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
                 #QtCore.QDir.home().path(),
                 path,
                 QtGui.QApplication.translate("Dialogs", "Pinguino Files ({});;All Files (*)".format(exts)))
-        if open_files:
-            if len(open_files[0]) == 1: return str(open_files[0][0])
-            else: return open_files[0]
+        if open_files[0]:
+            return open_files[0]
         else: return None
 
 
