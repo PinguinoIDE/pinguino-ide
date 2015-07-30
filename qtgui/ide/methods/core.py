@@ -34,7 +34,7 @@ from ..child_windows.paths import Paths
 from ..child_windows.insert_block_dialog import InsertBlock
 # from ..child_windows.environ_viewer import EnvironViewer
 from ..child_windows.submit_bug import SubmitBug
-from ..child_windows.patches import Patches
+# from ..child_windows.patches import Patches
 
 # # Python3 compatibility
 # if os.getenv("PINGUINO_PYTHON") is "3":
@@ -1483,6 +1483,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                    "actionUpload":		(True, True, False),
                    "tabWidget_browser":	(True, True, False),
                    "SearchReplace":		(False, True, False),
+                   "actionInsert_Block":(True, False, False),
 
                    }
 

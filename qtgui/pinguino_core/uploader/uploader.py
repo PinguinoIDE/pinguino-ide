@@ -208,16 +208,16 @@ class Uploader(object):
             raise Exception("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board")
 
         elif board.bldr == "boot2":
-            from uploaderVSC import uploaderVSC as Uploader
+            from .uploaderVSC import uploaderVSC as Uploader
 
         #elif board.bldr == 'boot3':
         #    self.uploader = self.uploaderDLN(*parameters)
 
         elif board.bldr == "boot4":
-            from uploader8 import uploader8 as Uploader
+            from .uploader8 import uploader8 as Uploader
 
         elif board.bldr == "microchip":
-            from uploader32 import uploader32 as Uploader
+            from .uploader32 import uploader32 as Uploader
 
         self.uploader = Uploader()
 

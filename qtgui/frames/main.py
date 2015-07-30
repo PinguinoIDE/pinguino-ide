@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Wed Jul 15 17:55:37 2015
+# Created: Wed Jul 29 18:29:07 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -887,6 +887,7 @@ class Ui_PinguinoIDE(object):
         self.menuSource.addAction(self.actionAutocomplete)
         self.menuSource.addAction(self.actionComment_out_region)
         self.menuSource.addAction(self.actionComment_Uncomment_region)
+        self.menuSource.addAction(self.actionInsert_Block)
         self.menuSource.addSeparator()
         self.menuSource.addAction(self.actionIndent)
         self.menuSource.addAction(self.actionDedent)
@@ -1151,11 +1152,12 @@ class Ui_PinguinoIDE(object):
         self.actionGitPinguinoCompilers.setText(QtGui.QApplication.translate("PinguinoIDE", "pinguino-compilers", None, QtGui.QApplication.UnicodeUTF8))
         self.actionReset_IDE_instalation.setText(QtGui.QApplication.translate("PinguinoIDE", "Reset IDE configuration", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New blocks file", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionNew_blocks_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+N", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAdd_new_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Add new blocks file...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionHex.setText(QtGui.QApplication.translate("PinguinoIDE", "Open .hex", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport_code_to_editor.setText(QtGui.QApplication.translate("PinguinoIDE", "Export code to editor", None, QtGui.QApplication.UnicodeUTF8))
         self.actionInsert_Block.setText(QtGui.QApplication.translate("PinguinoIDE", "Insert block", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionInsert_Block.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+I", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionInsert_Block.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+I", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCheck_for_updates.setText(QtGui.QApplication.translate("PinguinoIDE", "Check for updates...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionGenerate_blocks.setText(QtGui.QApplication.translate("PinguinoIDE", "Generate blocks", None, QtGui.QApplication.UnicodeUTF8))
 

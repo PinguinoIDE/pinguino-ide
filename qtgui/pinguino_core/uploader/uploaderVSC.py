@@ -31,7 +31,7 @@ import sys
 import os
 #import usb			# checked in check.py
 
-from uploader import baseUploader
+from .uploader import baseUploader
 
 class uploaderVSC(baseUploader):
     """ upload .hex into pinguino device """

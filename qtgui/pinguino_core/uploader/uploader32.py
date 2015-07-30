@@ -36,7 +36,7 @@ import usb
 import logging
 
 from ..tools import Debugger
-from uploader import baseUploader
+from .uploader import baseUploader
 
 class uploader32(baseUploader):
     """ upload .hex into pinguino device """

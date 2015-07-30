@@ -33,7 +33,7 @@
 import os
 #import usb            # checked in check.py
 
-from uploader import baseUploader
+from .uploader import baseUploader
 
 class uploader8(baseUploader):
     """ upload .hex into pinguino device """
@@ -249,7 +249,7 @@ class uploader8(baseUploader):
         # command code
         usbBuf[self.BOOT_CMD] = self.ERASE_FLASH_CMD
         # number of blocks to erase
-        usbBuf[self.BOOT_SIZE] = numBlocks
+        usbBuf[self.BOOT_SIZE] = int(numBlocks)
         # block address
         usbBuf[self.BOOT_ADDR_LO] = (address      ) & 0xFF
         usbBuf[self.BOOT_ADDR_HI] = (address >> 8 ) & 0xFF

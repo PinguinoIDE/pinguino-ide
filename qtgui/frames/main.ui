@@ -205,6 +205,7 @@
     <addaction name="actionAutocomplete"/>
     <addaction name="actionComment_out_region"/>
     <addaction name="actionComment_Uncomment_region"/>
+    <addaction name="actionInsert_Block"/>
     <addaction name="separator"/>
     <addaction name="actionIndent"/>
     <addaction name="actionDedent"/>
@@ -2031,6 +2032,9 @@
    <property name="text">
     <string>New blocks file</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+N</string>
+   </property>
   </action>
   <action name="actionAdd_new_blocks_file">
    <property name="text">
@@ -2052,7 +2056,7 @@
     <string>Insert block</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Shift+I</string>
+    <string>Ctrl+I</string>
    </property>
   </action>
   <action name="actionCheck_for_updates">
