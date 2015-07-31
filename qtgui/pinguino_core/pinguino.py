@@ -1,4 +1,4 @@
-#! /usr/bin/python2
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
 import os
@@ -129,6 +129,13 @@ class Pinguino(PinguinoTools):
         if self.__current_board__.arch == 8:
             self.__current_board__.bldr = bldr
             self.__current_board__.memstart = memstart
+
+
+    #----------------------------------------------------------------------
+    def set_8bit_compiler(self, compiler):
+        """"""
+        assert compiler in ["SDCC", "XC8"], "Compiler must be SDCC or XC8"
+        self.SET_COMPILER_8BIT = compiler
 
 
     #----------------------------------------------------------------------

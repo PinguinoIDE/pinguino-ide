@@ -66,11 +66,11 @@ class bcolors:
     ENDC = "\033[0m"
 
 import argparse
-from qtgui.pinguino_api.boards import boardlist
+from qtgui.pinguino_core.boards import boardlist
 
-from qtgui.pinguino_api.pinguino import Pinguino
-from qtgui.pinguino_api.pinguino_config import PinguinoConfig
-from qtgui.pinguino_api.config import Config
+from qtgui.pinguino_core.pinguino import Pinguino
+from qtgui.pinguino_core.pinguino_config import PinguinoConfig
+from qtgui.pinguino_core.config import Config
 
 pinguino = Pinguino()
 PinguinoConfig.set_environ_vars()
@@ -92,6 +92,7 @@ def build_argparse():
     parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show {PINGUINO_NAME} version and exit".format(**os.environ))
     parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this {PINGUINO_NAME} version and exit".format(**os.environ))
     parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
+    parser.add_argument("-8c", "--8bit_compiler", dest="compiler", nargs=1, default=False, help="8bit compiler: SDCC or XC8")
     parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
     parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
@@ -127,6 +128,9 @@ if parser.board:
         bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.bldr)
         pinguino.set_bootloader(bootloader)
     printb("using {} bootloader".format(pinguino.get_board().bldr), bcolors.Green)
+
+    if parser.board.arch == 8:
+        pinguino.set_8bit_compiler(parser.compiler)
 
     if not parser.filename:
         printb("ERROR: missing filename", bcolors.Red)

@@ -1,4 +1,4 @@
-#! /usr/bin/python2
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
 import os
@@ -2470,9 +2470,6 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def toggle_tab(self, tab_name, force=None):
         """"""
-        # FIXME: this method is ugly!!
-
-
         widget = getattr(self.main, tab_name)
 
         if force is None:

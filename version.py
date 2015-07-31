@@ -1,8 +1,8 @@
-#! /usr/bin/python2
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
 NAME = "Pinguino IDE"
-VERSION = "11.1"
+VERSION = "12"
 SUBVERSION = "0"
 
 """-------------------------------------------------------------------------
@@ -43,7 +43,10 @@ else:
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
 os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
-os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
+if SUBVERSION != "0":
+    os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
+else:
+    os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
 
 

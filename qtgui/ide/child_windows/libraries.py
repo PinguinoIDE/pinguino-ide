@@ -1,4 +1,4 @@
-#! /usr/bin/python2
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
 import os
@@ -144,7 +144,7 @@ class LibManager(QtGui.QMainWindow):
         lista = []
 
         path_examples = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, "lib", "examples")
-        dest_examples = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "examples", lib_name)
+        dest_examples = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "library_examples", lib_name)
         lista.append([path_examples, dest_examples])
 
         path_blocks = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries", lib_name, "lib", "blocks")

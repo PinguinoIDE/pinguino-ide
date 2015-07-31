@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#-*- coding: utf-8 -*-
 #-*- coding: iso-8859-15 -*-
 
 """-------------------------------------------------------------------------
@@ -736,7 +737,7 @@ class uploader32(baseUploader):
         # min and max address must be divisible by self.DATABLOCKSIZE
         # --------------------------------------------------------------
 
-        # 13/10/2014 - fixed by André
+        # 13/10/2014 - fixed by AndrÃ©
         #max_address = max_address + self.DATABLOCKSIZE - (codesize % self.DATABLOCKSIZE)
         #max_address = max_address + self.DATABLOCKSIZE - (max_address % self.DATABLOCKSIZE)
         #logging.info("program max. address = 0x%08X" % max_address)

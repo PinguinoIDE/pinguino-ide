@@ -122,13 +122,6 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def set_8bit_compiler(self, compiler):
-        """"""
-        assert compiler in ["SDCC", "XC8"], "Compiler must be SDCC or XC8"
-        self.SET_COMPILER_8BIT = compiler
-
-
-    #----------------------------------------------------------------------
     def set_board(self, board):
         """Select Pinguino board for compiling and uploading.
 

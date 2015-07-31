@@ -150,7 +150,6 @@ class ProjectManager(object):
         # flags = QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
         flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
 
-        #FIXME: eliminar añadidos de lista de ignore, buena suerte YeisonEng del futuro.
         self.add_new_file_item(filename, parent, path, flags, check=check)
 
         if not open_:
