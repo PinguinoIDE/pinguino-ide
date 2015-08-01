@@ -1570,7 +1570,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         path = kwargs.get("filename", self.get_untitled_name())
         filename = os.path.split(path)[1]
         highlighter = filename.endswith(".pde") or filename.endswith(".c") or filename.endswith(".h") or filename.endswith(".cpp") or \
-                filename.endswith(".pde*") or filename.endswith(".c*") or filename.endswith(".h*") or filename.endswith(".cpp*")
+                filename.endswith(".pde*") or filename.endswith(".c*") or filename.endswith(".h*") or filename.endswith(".cpp*") or \
+                filename.endswith(".lib") or filename.endswith(".lib*")
         autocompleter = highlighter
         editor = PinguinoCodeEditor(highlighter=highlighter, autocompleter=autocompleter)
         self.main.tabWidget_files.addTab(editor, filename)

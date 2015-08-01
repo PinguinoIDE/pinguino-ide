@@ -248,6 +248,8 @@
      <addaction name="action_list_recent"/>
     </widget>
     <addaction name="actionNew_project"/>
+    <addaction name="actionNew_library"/>
+    <addaction name="separator"/>
     <addaction name="actionOpen_project"/>
     <addaction name="menuRecentProjects"/>
     <addaction name="actionSave_project"/>
@@ -321,7 +323,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>5</number>
+        <number>1</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -380,7 +382,80 @@
          <string>Project</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_16">
-         <item row="2" column="0">
+         <item row="3" column="0" colspan="2">
+          <widget class="QWidget" name="widget_library" native="true">
+           <layout class="QGridLayout" name="gridLayout_28">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="pushButton_compilelibrary">
+              <property name="text">
+               <string>Compile library</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="pushButton_packagelibrary">
+              <property name="text">
+               <string>Package library</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QWidget" name="widget_noproject" native="true">
+           <layout class="QGridLayout" name="gridLayout_20">
+            <item row="5" column="2">
+             <spacer name="verticalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="0" column="1" colspan="3">
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>60</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="1" colspan="3">
+             <widget class="QPushButton" name="pushButton_newproject">
+              <property name="text">
+               <string>New project</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1" colspan="3">
+             <widget class="QPushButton" name="pushButton_openproject">
+              <property name="text">
+               <string>Open project</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" colspan="3">
+             <widget class="QPushButton" name="pushButton_newlibrary">
+              <property name="text">
+               <string>New Library</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="2">
           <widget class="QTreeWidget" name="treeWidget_projects">
            <property name="midLineWidth">
             <number>1</number>
@@ -417,52 +492,6 @@
              <string/>
             </property>
            </column>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QWidget" name="widget_noproject" native="true">
-           <layout class="QGridLayout" name="gridLayout_20">
-            <item row="4" column="2">
-             <spacer name="verticalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="0" column="1" colspan="3">
-             <spacer name="verticalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>60</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="1" colspan="3">
-             <widget class="QPushButton" name="pushButton_newproject">
-              <property name="text">
-               <string>New project</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1" colspan="3">
-             <widget class="QPushButton" name="pushButton_openproject">
-              <property name="text">
-               <string>Open project</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
           </widget>
          </item>
         </layout>
@@ -2067,6 +2096,11 @@
   <action name="actionGenerate_blocks">
    <property name="text">
     <string>Generate blocks</string>
+   </property>
+  </action>
+  <action name="actionNew_library">
+   <property name="text">
+    <string>New library...</string>
    </property>
   </action>
  </widget>

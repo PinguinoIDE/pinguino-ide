@@ -58,7 +58,7 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     def get_functions(self):
 
-        regex_function = "[\s]*(unsigned|signed|long)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
+        regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
         #regex_function_content = "[\s]*{}[\s]*\{[\s\S]*\}[\s]*
 
         funtions = []
@@ -103,7 +103,7 @@ class CodeNavigator(object):
                     # this_function["line"] = (str(line + 1), str(line + 1 + count))
                     this_function["line"] = line + 1
                     this_function["name"] = match.groups()[2] + match.groups()[3]
-                    this_function["return"] = ("" if not match.groups()[2] else "pointer to ") + match.groups()[1]
+                    this_function["return"] = ("" if not match.groups()[2] else "pointer to ") + ((match.groups()[0] + " " + match.groups()[1]) if match.groups()[0] else match.groups()[1])
                     this_function["args"] = match.groups()[4]
                     this_function["filename"] = filename
                     funtions.append(this_function)
@@ -268,8 +268,12 @@ class CodeNavigator(object):
         if os.environ["PINGUINO_PROJECT"]:
             """"""
             # files = self.get_files_from_project()
-            filenames = [s[0] for s in filter(lambda l:l[1], self.get_files_from_project().items())]
-            filenames.extend([s[0] for s in filter(lambda l:l[1], self.get_inherits_from_project().items())])
+
+            if self.is_library():
+                filenames = [self.lib]
+            else:
+                filenames = [s[0] for s in filter(lambda l:l[1], self.get_files_from_project().items())]
+                filenames.extend([s[0] for s in filter(lambda l:l[1], self.get_inherits_from_project().items())])
 
 
             files = [{"filename": filename, "content": str(codecs.open(filename, encoding="utf-8").read()),} for filename in filenames]

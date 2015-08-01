@@ -29,8 +29,10 @@ class ProjectManager(object):
         """"""
         self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.select_existing_directory)
         self.connect(self.main.actionNew_project, QtCore.SIGNAL("triggered()"), self.new_project)
+        self.connect(self.main.actionNew_library, QtCore.SIGNAL("triggered()"), self.new_library)
         self.connect(self.main.pushButton_newproject, QtCore.SIGNAL("clicked()"), self.new_project)
         self.connect(self.main.pushButton_openproject, QtCore.SIGNAL("clicked()"), self.open_project)
+        self.connect(self.main.pushButton_newlibrary, QtCore.SIGNAL("clicked()"), self.new_library)
         self.connect(self.main.actionClose_project, QtCore.SIGNAL("triggered()"), self.close_project)
         self.connect(self.main.actionSave_project, QtCore.SIGNAL("triggered()"), self.save_project)
         self.connect(self.main.actionSave_project_as, QtCore.SIGNAL("triggered()"), self.save_project_as)
@@ -39,6 +41,10 @@ class ProjectManager(object):
         self.connect(self.main.actionAdd_existing_file, QtCore.SIGNAL("triggered()"), self.select_existing_file)
         self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemExpanded(QTreeWidgetItem*)"), self.expand_tree)
         self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemDoubleClicked(QTreeWidgetItem*,int)"), self.open_from_tree)
+
+
+
+        self.connect(self.main.pushButton_compilelibrary, QtCore.SIGNAL("clicked()"), self.compile_library)
 
         self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemChanged(QTreeWidgetItem*,int)"), self.update_check_status)
 
@@ -99,9 +105,10 @@ class ProjectManager(object):
     def select_existing_directory(self):
         """"""
         dir_project = Dialogs.set_open_dir(self)
-        if dir_project in self.get_dirs_from_project(): return
+        if dir_project in self.get_dirs_from_project(): return False
 
         self.add_existing_directory(dir_project, inherits_status=True)
+        return dir_project
 
 
 
@@ -158,9 +165,13 @@ class ProjectManager(object):
 
 
     #----------------------------------------------------------------------
-    def set_project_name(self):
+    def set_project_name(self, library=False):
         """"""
-        project_name = Dialogs.get_text(self, "Project name", default="untitled_project")
+        if library: type_ = "Library"
+        else: type_ = "Project"
+
+
+        project_name = Dialogs.get_text(self, "{} name".format(type_), default="untitled_{}".format(type_.lower()))
 
         if project_name is False:
             return
@@ -170,12 +181,26 @@ class ProjectManager(object):
         if not self.ConfigProject.has_section("Main"): self.ConfigProject.add_section("Main")
         options = self.ConfigProject.options("Main")
         self.ConfigProject.set("Main", "name", project_name)
+        self.ConfigProject.set("Main", "library", library)
+
+        self.main.widget_library.setVisible(library)
+
         self.save_project(default=True)
 
-        logging.debug("Created \"{}\" project.".format(project_name))
+        logging.debug("Created \"{}\" {}.".format(project_name, type_.lower()))
 
         return project_name
         # self.main.treeWidget_projects.setHeaderLabel(project_name)
+
+
+    #----------------------------------------------------------------------
+    def is_library(self):
+        """"""
+        if os.environ.get("PINGUINO_PROJECT", False):
+            return self.ConfigProject.get("Main", "library")
+        else:
+            return False
+
 
 
     #----------------------------------------------------------------------
@@ -328,11 +353,12 @@ class ProjectManager(object):
     def update_project_status(self, project="reload"):
         """"""
         if project == "reload": pass
-        elif project: os.environ["PINGUINO_PROJECT"] = project
+        elif project:os.environ["PINGUINO_PROJECT"] = project
         else: os.environ["PINGUINO_PROJECT"] = ""
 
         self.main.treeWidget_projects.setVisible(bool(project))
         self.main.widget_noproject.setVisible(not bool(project))
+        self.main.widget_library.setVisible(self.is_library())
 
         self.main.treeWidget_projects.contextMenuEvent = self.project_context_menu
         Decorator.update_toolbar()
@@ -649,4 +675,100 @@ class ProjectManager(object):
         self.main.menuRecentProjects.addSeparator()
         self.main.menuRecentProjects.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_projects)
         self.recent_projects = []
+
+
+
+    #----------------------------------------------------------------------
+    @Decorator.show_tab("Project")
+    def new_library(self):
+        """"""
+        self.project_saved = False
+        self.ConfigProject = RawConfigParser()
+        library_name = self.set_project_name(library=True)
+
+        if library_name:
+            # add_dir = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "Do you want add an existing directory now?"))
+            Dialogs.info_message(self, QtGui.QApplication.translate("Dialogs", "Select directory for store your new library."))
+            # target_dir = self.select_existing_directory()
+
+
+            target_dir = Dialogs.set_open_dir(self)
+
+            if target_dir:
+                # self.update_project_status(library_name)
+                self.create_library_template(target_dir, library_name)
+            else:
+                self.close_project()
+
+            self.add_existing_directory(os.path.join(target_dir, library_name), inherits_status=True)
+            self.update_project_status(library_name)
+            self.reload_project()
+
+
+    #----------------------------------------------------------------------
+    def create_library_template(self, target_dir, library_name):
+        """"""
+        library_dir = os.path.join(target_dir, library_name)
+        self.lib = os.path.join(target_dir, library_name, "{}.lib".format(library_name.lower()))
+
+        os.mkdir(library_dir)
+        self.add_existing_directory(library_dir, inherits_status=True)
+        lib_file = open(self.lib, mode="w")
+        lib_file.close()
+
+        self.ide_open_file_from_path(filename=self.lib)
+
+
+
+    #----------------------------------------------------------------------
+    def compile_library(self):
+        """"""
+        files = self.get_project_files()
+
+        lib_name = self.get_project_name()
+
+        define = self.lib.replace(".lib", ".h")
+        userc = self.lib.replace(".lib", ".c")
+        pdl = self.lib.replace(".lib", ".pdl")
+
+        self.pinguinoAPI.preprocess([self.lib], define_output=define, userc_output=userc)
+
+
+        userc_file = open(userc, mode="r")
+        userc_content = userc_file.readlines()
+        userc_file.close()
+
+        include = "#include <{}.h>\n\n".format(lib_name)
+
+
+        functions = self.get_functions()
+
+        pdl_content = []
+        for function in functions:
+            if function["return"].startswith("PUBLIC"):
+                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace("PUBLIC ", "", 1)
+                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
+                pdl_content.append("{} {}#include <{}.c>".format("{}_{}".format(lib_name, function["name"]), "{}.{}".format(lib_name, function["name"]), lib_name.lower()))
+            else:
+                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
+
+
+        userc_file = open(userc, mode="w")
+        userc_file.writelines([include] + userc_content)
+        userc_file.close()
+
+
+        pdl_file = open(pdl, mode="w")
+        pdl_file.writelines(pdl_content)
+        pdl_file.close()
+
+
+
+
+
+
+        self.reload_project()
+
+
+
 
