@@ -371,11 +371,17 @@ class PinguinoTools(Uploader):
                     #Python2
                     regex = re.compile(u"{}".format(regex_str).format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
 
-                libinstructions.append([instruction, cnvinstruction, include, define, regex])
+
+                # libinstructions.append([instruction, cnvinstruction, include, define, regex])
+                libinstructions.append({"pinguino": instruction,
+                                        "c": cnvinstruction,
+                                        "include": include,
+                                        "define": define,
+                                        "regex": regex})
 
 
         # libinstructions.sort(lambda x,y: cmp(len(x[0]), len(y[0])))
-        libinstructions = sorted(libinstructions, key=lambda x: len(x[0]))  #Python3 style
+        libinstructions = sorted(libinstructions, key=lambda x: len(x["pinguino"]))  #Python3 style
         libinstructions.reverse()
 
         return libinstructions[:]
@@ -567,15 +573,16 @@ class PinguinoTools(Uploader):
         index = 0
 
         # replace arduino/pinguino language and add #define or #include to define.h
-        for instruction, cnvinstruction, include, define, regex in libinstructions:
-            if re.search(regex, content):
-                content = re.sub(regex, '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content)  #safe
+        # for instruction, cnvinstruction, include, define, regex in libinstructions:
+        for instruction in libinstructions:
+            if re.search(instruction["regex"], content):
+                content = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content)  #safe
 
-                keys['<PINGUINO_RESERVED:%d>' % index] = cnvinstruction
+                keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
                 index += 1
 
-                defines.add(include+"\n")
-                defines.add(define+"\n")
+                defines.add(instruction["include"]+"\n")
+                defines.add(instruction["define"]+"\n")
 
         content = self.recove_strings(content, keys)
 

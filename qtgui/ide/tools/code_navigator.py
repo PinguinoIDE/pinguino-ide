@@ -56,13 +56,16 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    def get_functions(self):
+    def get_functions(self, files=None):
 
         regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
+        # regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\s\w ,*.\[\]]*)\)[\s]*"
         #regex_function_content = "[\s]*{}[\s]*\{[\s\S]*\}[\s]*
 
         funtions = []
-        files = self.get_files_to_explore()
+        if files is None:
+            files = self.get_files_to_explore()
+
         for file_ in files:
 
             filename = file_["filename"]
@@ -112,13 +115,15 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    def get_directives(self):
+    def get_directives(self, files=None):
 
         regex_directive = "[\s]*#(" + "|".join(preprocessor_commands)+ ")[\s]+<?[\s]*([\w.]*)[\s]*>?[\s]*([\S]*)"
 
         directives = []
 
-        files = self.get_files_to_explore()
+        if files is None:
+            files = self.get_files_to_explore()
+
         for file_ in files:
 
             filename = file_["filename"]
@@ -144,13 +149,16 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    def get_variables(self):
+    def get_variables(self, files=None):
 
         regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(" + "|".join(data_types) + ")+[\s]*( \* )*[\s]*([ \w\[\]=,.{}\"']*);"
         # regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*+([*])*([ \w\[\]=,.{}\"'\*]*);"
 
         variables = []
-        files = self.get_files_to_explore()
+
+        if files is None:
+            files = self.get_files_to_explore()
+
         for file_ in files:
 
             filename = file_["filename"]

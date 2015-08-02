@@ -109,7 +109,7 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def focusOutEvent(self, event):
-        self.hide()
+        # self.hide()
         QtGui.QListWidget.focusOutEvent(self, event)
 
     #----------------------------------------------------------------------

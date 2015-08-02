@@ -21,6 +21,7 @@ from ..tools.search_replace import SearchReplace
 from ..tools.project_manager import ProjectManager
 from ..tools.boardconfig import BoardConfig
 from ..tools.code_navigator import CodeNavigator
+from ..tools.source_assistant import SourceAssistant
 # from ..methods.library_manager import Librarymanager
 # from ..widgets.output_widget import START
 
@@ -45,8 +46,9 @@ from ..child_windows.submit_bug import SubmitBug
     # from ..commons.intel_hex import IntelHex
 
 
+
 ########################################################################
-class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig, CodeNavigator):
+class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig, CodeNavigator, SourceAssistant):
     """"""
 
     #----------------------------------------------------------------------
@@ -57,6 +59,7 @@ class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, Boa
         CodeNavigator.__init__(self)
         Files.__init__(self)
         ProjectManager.__init__(self)
+        SourceAssistant.__init__(self)
         # super(BoardConfig, self).__init__()
 
 
@@ -1303,11 +1306,43 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def update_reserved_words(self):
 
-        libinstructions = self.pinguinoAPI.read_lib(8)
-        name_spaces_8 = map(lambda x:x[0], libinstructions)
+        helpers = {}
+        assistant = {}
 
-        libinstructions = self.pinguinoAPI.read_lib(32)
-        name_spaces_32 = map(lambda x:x[0], libinstructions)
+        libinstructions8 = self.pinguinoAPI.read_lib(8)
+        name_spaces_8 = map(lambda x:x["pinguino"], libinstructions8)
+
+        libinstructions32 = self.pinguinoAPI.read_lib(32)
+        name_spaces_32 = map(lambda x:x["pinguino"], libinstructions32)
+
+        core = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "core")
+        libraries = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "libraries")
+
+        files = []
+        for filename in os.listdir(core) + os.listdir(libraries):
+            core_file = os.path.join(core, filename)
+            lib_file = os.path.join(libraries, filename)
+
+            if os.path.exists(core_file): path = core_file
+            elif os.path.exists(lib_file): path = lib_file
+
+            else: continue
+
+            if path.endswith(".c"):
+                files.append({"filename": filename,
+                              "content": open(path, mode="r").read(),
+                              })
+
+        functions = {function["name"]:function for function in self.get_functions(files)}
+
+        for instruction in libinstructions8 + libinstructions32:
+            if instruction["c"] in functions:
+                args = ""
+                if functions[instruction["c"]]["args"] != "void":
+                    args = functions[instruction["c"]]["args"]
+                helpers[instruction["pinguino"]] = "{}({{{{{}}}}});".format(instruction["pinguino"], args)
+
+                assistant[instruction["pinguino"]] = functions[instruction["c"]]
 
         reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
 
@@ -1320,11 +1355,17 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 name_spaces_32.remove(name)
                 name_spaces_commun.append(name)
 
-        namespaces = {"arch8": name_spaces_8, "arch32": name_spaces_32, "all": name_spaces_commun,}
+        namespaces = {"arch8": name_spaces_8,
+                      "arch32": name_spaces_32,
+                      "all": name_spaces_commun,
+                      "helpers": helpers,
+                      "assistant": assistant,}
+
+
         pickle.dump(namespaces, open(reserved_filename, "w"))
 
         logging.warning("Writing: " + reserved_filename)
-        return("Writing: " + reserved_filename)
+        return "Writing: {}" .format(reserved_filename)
 
 
     #----------------------------------------------------------------------
@@ -1357,7 +1398,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         pickle.dump(namespaces, open(reserved_filename, "w"))
 
         logging.warning("Writing: " + reserved_filename)
-        return("Writing: " + reserved_filename)
+        return "Writing: {}".format(reserved_filename)
 
 
 
@@ -2454,6 +2495,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         menu.addAction(self.main.actionTabFiles)
         menu.addAction(self.main.actionTabProject)
         menu.addAction(self.main.actionTabSourceBrowser)
+        menu.addAction(self.main.actionTabSourceAssistant)
         menu.addAction(self.main.actionTabSearchReplace)
         menu.addAction(self.main.actionTabBoardConfig)
         menu.exec_(event.globalPos())

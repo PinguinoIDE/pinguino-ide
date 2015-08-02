@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+import os
 import re
-#import pickle
+import pickle
 
 from PySide import QtGui, QtCore
 from PySide.QtCore import QPoint
@@ -10,7 +11,7 @@ from PySide.QtCore import QPoint
 from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons
 from .pinguino_highlighter import Highlighter
-from .syntax import Autocompleter, Snippet, Helpers
+from .syntax import Autocompleter, Snippet
 #from ..methods import constants as Constants
 #from ..methods.decorators import Decorator
 
@@ -22,6 +23,14 @@ class CustomTextEdit(QtGui.QTextEdit):
     def __init__(self, parent, linenumber, highlighter, autocompleter):
 
         super(CustomTextEdit, self).__init__(parent)
+
+
+        with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
+            self.helpers = pickle.load(file_reserved)["helpers"]
+
+
+
+
         # self.completer = PinguinoAutoCompleter()
         # self.cursorC = QtGui.QCursor()
         # self.completer.text_edit = self
@@ -143,20 +152,21 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         tc.removeSelectedText()
 
-        if completion in Helpers.keys():
+        # if completion in Helpers.keys():
+        if completion in self.helpers.keys():
             pos = tc.position()
 
             # text_position = Snippet[completion].find("[!]")
-            text_insert = Helpers[completion].replace("{{", "").replace("}}", "")
+            text_insert = self.helpers[completion].replace("{{", "").replace("}}", "")
             position_in_line = tc.positionInBlock()
 
-            start_position = Helpers[completion].find("{{")
-            end_position = Helpers[completion].find("}}")
+            start_position = self.helpers[completion].find("{{")
+            end_position = self.helpers[completion].find("}}")
 
             tc.insertText(text_insert.replace("\n", "\n"+" "*position_in_line))
             tc.setPosition(pos + start_position)
 
-            select = Helpers[completion][(start_position + 2):end_position]
+            select = self.helpers[completion][(start_position + 2):end_position]
             tc.beginEditBlock()
             self.moveCursor(tc.StartOfLine)
             self.find(select)

@@ -58,6 +58,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.actionTabProject, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Project"))
         self.connect(self.main.actionTabShell, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Shell"))
         self.connect(self.main.actionTabSourceBrowser, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SourceBrowser"))
+        self.connect(self.main.actionTabSourceAssistant, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SourceAssistant"))
 
 
         # Perspective related events

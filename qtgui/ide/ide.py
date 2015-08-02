@@ -239,14 +239,23 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         }
         """)
 
-        #Log CSS styles
+        #StdOut CSS styles
         self.main.plainTextEdit_stdout.setStyleSheet("""
         QPlainTextEdit {
             background-color: #FFFFFF;
-            color: #000;
             font-family: mono;
             font-weight: normal;
             font-size: 10pt;
+        }
+        """)
+
+        #Assistant CSS styles
+        self.main.plainTextEdit_assistant.setStyleSheet("""
+        QPlainTextEdit {
+            background-color: #FFFFFF;
+            font-family: mono;
+            font-weight: normal;
+            font-size: 9pt;
         }
         """)
 
