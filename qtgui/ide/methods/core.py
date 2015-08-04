@@ -21,7 +21,6 @@ from ..tools.search_replace import SearchReplace
 from ..tools.project_manager import ProjectManager
 from ..tools.boardconfig import BoardConfig
 from ..tools.code_navigator import CodeNavigator
-from ..tools.source_assistant import SourceAssistant
 # from ..methods.library_manager import Librarymanager
 # from ..widgets.output_widget import START
 
@@ -48,7 +47,7 @@ from ..child_windows.submit_bug import SubmitBug
 
 
 ########################################################################
-class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig, CodeNavigator, SourceAssistant):
+class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig, CodeNavigator):
     """"""
 
     #----------------------------------------------------------------------
@@ -59,7 +58,6 @@ class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, Boa
         CodeNavigator.__init__(self)
         Files.__init__(self)
         ProjectManager.__init__(self)
-        SourceAssistant.__init__(self)
         # super(BoardConfig, self).__init__()
 
 
@@ -273,6 +271,12 @@ class PinguinoQueries(object):
         if filename.endswith("*"):
             filename = filename[:-1]
         return filename
+
+    # #----------------------------------------------------------------------
+    # def get_curren_path_filename(self):
+        # """"""
+        # editor = self.get_current_editor
+
 
 
     #----------------------------------------------------------------------
@@ -1342,7 +1346,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                     args = functions[instruction["c"]]["args"]
                 helpers[instruction["pinguino"]] = "{}({{{{{}}}}});".format(instruction["pinguino"], args)
 
-                assistant[instruction["pinguino"]] = functions[instruction["c"]]
+                # assistant[instruction["pinguino"]] = functions[instruction["c"]]
 
         reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
 
@@ -1359,7 +1363,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                       "arch32": name_spaces_32,
                       "all": name_spaces_commun,
                       "helpers": helpers,
-                      "assistant": assistant,}
+                      # "assistant": assistant,
+                      }
 
 
         pickle.dump(namespaces, open(reserved_filename, "w"))

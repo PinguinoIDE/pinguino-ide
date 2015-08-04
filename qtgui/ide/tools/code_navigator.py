@@ -38,7 +38,7 @@ class CodeNavigator(object):
 
             if s.startswith('/'):
                 #return "" #bug in line number in error info, multiline comments
-                return "" + "\n" * (s.count("\n"))
+                return " "*(len(s)-s.count("\n")) + "\n" * (s.count("\n"))
 
             else:
                 return s
@@ -71,38 +71,40 @@ class CodeNavigator(object):
             filename = file_["filename"]
             content = file_["content"]
 
-            full_text = self.remove_comments(content)
-            content = full_text.split("\n")
 
-            for line in range(len(content)):
+            # content_comments = content
+            content_no_comments = self.remove_comments(content)
+            content_list = self.remove_comments(content).split("\n")
 
-                match = re.match(regex_function, content[line])
+            for line in range(len(content_list)):
+
+                match = re.match(regex_function, content_list[line])
                 if match:
                     this_function = {}
 
-                    #full_text = editor.text_edit.toPlainText()
-                    index = full_text.find(content[line])
+                    # content_no_comments = editor.text_edit.toPlainText()
+                    index =  content_no_comments.find(content_list[line])
                     index_start = index
                     index_end = index
                     bracket = 1
 
                     try:
-                        while full_text[index_end] != "{": index_end += 1
+                        while  content_no_comments[index_end] != "{": index_end += 1
                     except IndexError:
                         bracket = 0
 
                     while bracket != 0:
                         index_end += 1
                         try:
-                            if full_text[index_end] == "{": bracket += 1
-                            elif full_text[index_end] == "}": bracket -= 1
+                            if  content_no_comments[index_end] == "{": bracket += 1
+                            elif  content_no_comments[index_end] == "}": bracket -= 1
                         except IndexError:
                             index_end = index_start - 1
                             break
 
-                    count = full_text[index_start:index_end+1].count("\n")
+                    count =  content_no_comments[index_start:index_end+1].count("\n")
 
-                    this_function["content"] = full_text[index_start:index_end+1]
+                    # this_function["content"] = content_comments[index_start:index_end+1]
                     # this_function["line"] = (str(line + 1), str(line + 1 + count))
                     this_function["line"] = line + 1
                     this_function["name"] = match.groups()[2] + match.groups()[3]
@@ -289,11 +291,10 @@ class CodeNavigator(object):
             return files
 
 
-
-
         else:
             if self.is_graphical() is False:
-                return [{"filename": None,
+                return [{"filename": "",
                          "content": str(self.get_current_editor().text_edit.toPlainText())}]
             else:
                 return []
+

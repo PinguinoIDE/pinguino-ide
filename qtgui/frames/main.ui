@@ -279,7 +279,6 @@
     <addaction name="actionTabFiles"/>
     <addaction name="actionTabProject"/>
     <addaction name="actionTabSourceBrowser"/>
-    <addaction name="actionTabSourceAssistant"/>
     <addaction name="actionTabSearchReplace"/>
     <addaction name="actionTabBoardConfig"/>
     <addaction name="separator"/>
@@ -324,7 +323,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>2</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -502,7 +501,7 @@
          <string>Source Browser</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_8">
-         <item row="0" column="0">
+         <item row="0" column="0" colspan="2">
           <widget class="QTabWidget" name="tabWidget_browser">
            <property name="tabPosition">
             <enum>QTabWidget::South</enum>
@@ -563,12 +562,6 @@
              <string>Functions</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_5">
-             <property name="margin">
-              <number>0</number>
-             </property>
-             <property name="spacing">
-              <number>0</number>
-             </property>
              <item row="0" column="0">
               <widget class="QTableWidget" name="tableWidget_functions">
                <property name="frameShape">
@@ -704,123 +697,6 @@
              </item>
             </layout>
            </widget>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="SourceAssistant">
-        <attribute name="title">
-         <string>Source Assistant</string>
-        </attribute>
-        <layout class="QGridLayout" name="gridLayout_29">
-         <item row="0" column="0">
-          <spacer name="horizontalSpacer_3">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>28</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="0" column="1">
-          <layout class="QFormLayout" name="formLayout">
-           <property name="fieldGrowthPolicy">
-            <enum>QFormLayout::ExpandingFieldsGrow</enum>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_10">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Name:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_assistant_name">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_11">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Args:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_assistant_args">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Return:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="label_assistant_return">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_13">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Library:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="label_assistant_library">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QPlainTextEdit" name="plainTextEdit_assistant">
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
           </widget>
          </item>
         </layout>
@@ -2219,17 +2095,6 @@
   <action name="actionNew_library">
    <property name="text">
     <string>New library...</string>
-   </property>
-  </action>
-  <action name="actionTabSourceAssistant">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Source Assistant</string>
    </property>
   </action>
  </widget>

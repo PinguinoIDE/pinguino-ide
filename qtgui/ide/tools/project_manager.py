@@ -197,7 +197,11 @@ class ProjectManager(object):
     def is_library(self):
         """"""
         if os.environ.get("PINGUINO_PROJECT", False):
-            return self.ConfigProject.get("Main", "library")
+            if self.ConfigProject.has_option("Main", "library"):
+                return self.ConfigProject.get("Main", "library")
+            else:
+                self.ConfigProject.set("Main", "library", False)
+                return False
         else:
             return False
 
@@ -256,7 +260,7 @@ class ProjectManager(object):
 
             if not os.path.exists(default_path):
                 os.mkdir(default_path)
-            self.ConfigProject.filename = os.path.join(default_path, self.get_project_name())
+            self.ConfigProject.filename = os.path.join(default_path, self.get_project_name()) + ".ppde"
             self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
             self.project_saved = True
             return
@@ -709,12 +713,26 @@ class ProjectManager(object):
     def create_library_template(self, target_dir, library_name):
         """"""
         library_dir = os.path.join(target_dir, library_name)
+        example_dir = os.path.join(library_dir, "examples")
+        tests_dir = os.path.join(library_dir, "tests")
         self.lib = os.path.join(target_dir, library_name, "{}.lib".format(library_name.lower()))
 
         os.mkdir(library_dir)
+        os.mkdir(example_dir)
+        os.mkdir(tests_dir)
+
         self.add_existing_directory(library_dir, inherits_status=True)
         lib_file = open(self.lib, mode="w")
         lib_file.close()
+
+        example_file = open(os.path.join(example_dir, "example.pde"), mode="w")
+        example_file.close()
+
+        example_file = open(os.path.join(example_dir, "example.gpde"), mode="w")
+        example_file.close()
+
+        test_file = open(os.path.join(tests_dir, "test.pde"), mode="w")
+        test_file.close()
 
         self.ide_open_file_from_path(filename=self.lib)
 
@@ -733,13 +751,11 @@ class ProjectManager(object):
 
         self.pinguinoAPI.preprocess([self.lib], define_output=define, userc_output=userc)
 
-
         userc_file = open(userc, mode="r")
         userc_content = userc_file.readlines()
         userc_file.close()
 
         include = "#include <{}.h>\n\n".format(lib_name)
-
 
         functions = self.get_functions()
 
@@ -757,15 +773,9 @@ class ProjectManager(object):
         userc_file.writelines([include] + userc_content)
         userc_file.close()
 
-
         pdl_file = open(pdl, mode="w")
         pdl_file.writelines(pdl_content)
         pdl_file.close()
-
-
-
-
-
 
         self.reload_project()
 

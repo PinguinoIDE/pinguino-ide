@@ -208,14 +208,12 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         }}
         """.format(bg_color, alternate_bg_color))
 
-
         self.main.statusBar.setStyleSheet("""
         font-family: inherit;
         font-weight: normal;
         selection-color: {};
         selection-background-color: {};
         """.format(selection_color, selection_bg_color))
-
 
         #Python shell CSS styles
         self.main.plainTextEdit_output.setStyleSheet("""
@@ -248,18 +246,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
             font-size: 10pt;
         }
         """)
-
-        #Assistant CSS styles
-        self.main.plainTextEdit_assistant.setStyleSheet("""
-        QPlainTextEdit {
-            background-color: #FFFFFF;
-            font-family: mono;
-            font-weight: normal;
-            font-size: 9pt;
-        }
-        """)
-
-
 
 
 if os.getenv("PINGUINO_MODE") == "NORMAL":

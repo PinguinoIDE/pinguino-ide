@@ -19,7 +19,7 @@ class PinguinoAutoCompleter(QListWidget):
     * Don't show with nodifiers
     * Don't show with backspace
     * When no matchs autocompleter must be visible
-    * Autocompleter must hide with space
+    * Autocompleter must hidding with space key
 
 
 
@@ -48,6 +48,7 @@ class PinguinoAutoCompleter(QListWidget):
         self.setEnabled(True)
         self.itemsList = []
         self.itemsListName = []
+        self.local_functions = {}
         self.temporal = {"variables" : [],
                          "functions" : [],
                          "directives" : [],
@@ -177,6 +178,11 @@ class PinguinoAutoCompleter(QListWidget):
         item = self.addNewItem(name, icon)
         if item:
             self.temporal[llave].append(item)
+
+    #----------------------------------------------------------------------
+    def update_local_functions(self, functions):
+        """"""
+        self.local_functions = functions
 
     #----------------------------------------------------------------------
     def removeTemporalItems(self, llave):

@@ -11,7 +11,7 @@ from PySide.QtCore import QPoint
 from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons
 from .pinguino_highlighter import Highlighter
-from .syntax import Autocompleter, Snippet
+from .syntax import Autocompleter, Snippet, Helpers
 #from ..methods import constants as Constants
 #from ..methods.decorators import Decorator
 
@@ -27,9 +27,6 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
             self.helpers = pickle.load(file_reserved)["helpers"]
-
-
-
 
         # self.completer = PinguinoAutoCompleter()
         # self.cursorC = QtGui.QCursor()
@@ -153,20 +150,25 @@ class CustomTextEdit(QtGui.QTextEdit):
         tc.removeSelectedText()
 
         # if completion in Helpers.keys():
-        if completion in self.helpers.keys():
+
+        self.temp_helpers = self.helpers.copy()
+        self.temp_helpers.update(Helpers)
+        self.temp_helpers.update(self.completer.local_functions)
+
+        if completion in self.temp_helpers.keys():
             pos = tc.position()
 
             # text_position = Snippet[completion].find("[!]")
-            text_insert = self.helpers[completion].replace("{{", "").replace("}}", "")
+            text_insert = self.temp_helpers[completion].replace("{{", "").replace("}}", "")
             position_in_line = tc.positionInBlock()
 
-            start_position = self.helpers[completion].find("{{")
-            end_position = self.helpers[completion].find("}}")
+            start_position = self.temp_helpers[completion].find("{{")
+            end_position = self.temp_helpers[completion].find("}}")
 
             tc.insertText(text_insert.replace("\n", "\n"+" "*position_in_line))
             tc.setPosition(pos + start_position)
 
-            select = self.helpers[completion][(start_position + 2):end_position]
+            select = self.temp_helpers[completion][(start_position + 2):end_position]
             tc.beginEditBlock()
             self.moveCursor(tc.StartOfLine)
             self.find(select)

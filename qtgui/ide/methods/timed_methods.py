@@ -141,9 +141,17 @@ class TimedMethods(object):
 
         if not getattr(self, "completer_funtions", False):
             self.completer_funtions = []
+            self.functions_args = {}
             functions_parse = self.get_functions()
             for funtion in functions_parse:
                 self.completer_funtions.append(funtion["name"])
+
+                self.functions_args[funtion["name"]] = "{name}({{{{{args}}}}});".format(**funtion)
+
+
+        # if not getattr(self, "functions_args", False):
+            # self.functions_args = {}
+
 
         if not getattr(self, "completer_variables", False):
             self.completer_variables = []
@@ -160,6 +168,8 @@ class TimedMethods(object):
         editor.text_edit.completer.removeTemporalItems("directives")
         editor.text_edit.completer.removeTemporalItems("variables")
         editor.text_edit.completer.removeTemporalItems("functions")
+
+        editor.text_edit.completer.update_local_functions(self.functions_args)
 
         for item in self.completer_directives:
             editor.text_edit.completer.addTemporalItem("directives", item, self.ICONS.iconDirectives)
