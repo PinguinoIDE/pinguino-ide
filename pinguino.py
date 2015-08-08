@@ -115,7 +115,7 @@ def build_argparse():
 
 
 parser, use_gui = build_argparse()
-os.environ["PINGUINO_DEBUGMODE"] = str(parser.devmode)
+os.environ["PINGUINO_DEBUGMODE"] = str(False)
 
 
 # Python3 compatibility
@@ -252,48 +252,52 @@ if __name__ == "__main__":
                 filename = parser.filename[0]
 
                 fname, extension = os.path.splitext(filename)
-                if extension != ".pde":
-                    printb("ERROR: bad file extension, it should be .pde", bcolors.Red)
+                if (extension != ".pde") and (extension != ".hex"):
+                    printb("ERROR: bad file extension, it should be .pde or .hex", bcolors.Red)
                     sys.exit()
-                del fname, extension
+                del fname
 
-                pinguino.compile_file(filename)
+                if (extension == ".pde"):
 
-                if not pinguino.compiled():
-                    printb("\nERROR: no compiled\n", bcolors.Red)
+                    pinguino.compile_file(filename)
 
-                    errors_proprocess = pinguino.get_errors_preprocess()
-                    if errors_proprocess:
-                        for error in errors_proprocess["preprocess"]: printb(error, bcolors.Red)
+                    if not pinguino.compiled():
+                        printb("\nERROR: no compiled\n", bcolors.Red)
 
-                    errors_c = pinguino.get_errors_compiling_c()
-                    if errors_c:
-                        printb(errors_c["complete_message"], bcolors.Red)
+                        errors_proprocess = pinguino.get_errors_preprocess()
+                        if errors_proprocess:
+                            for error in errors_proprocess["preprocess"]: printb(error, bcolors.Red)
 
-                    errors_asm = pinguino.get_errors_compiling_asm()
-                    if errors_asm:
-                        for error in errors_asm["error_symbols"]: printb(error, bcolors.Red)
+                        errors_c = pinguino.get_errors_compiling_c()
+                        if errors_c:
+                            printb(errors_c["complete_message"], bcolors.Red)
 
-                    errors_link = pinguino.get_errors_linking()
-                    if errors_link:
-                        for error in errors_link["linking"]: printb(error, bcolors.Red)
+                        errors_asm = pinguino.get_errors_compiling_asm()
+                        if errors_asm:
+                            for error in errors_asm["error_symbols"]: printb(error, bcolors.Red)
 
-                    sys.exit()
+                        errors_link = pinguino.get_errors_linking()
+                        if errors_link:
+                            for error in errors_link["linking"]: printb(error, bcolors.Red)
 
+                        sys.exit()
+
+                    else:
+                        result = pinguino.get_result()
+                        printb("compilation time: %s" % result["time"], bcolors.Yellow)
+                        printb("compiled to: %s" % result["hex_file"], bcolors.Yellow)
+
+                        if parser.hex_file:
+                            hex_file = open(result["hex_file"], "r")
+                            content_hex = hex_file.readlines()
+                            hex_file.close()
+                            printb("\n" + "*" * 70, bcolors.Cyan)
+                            printb(result["hex_file"], bcolors.Cyan)
+                            printb("*" * 70, bcolors.Cyan)
+                            for line in content_hex: printb(line, bcolors.Cyan),
+                            printb("*" * 70 + "\n", bcolors.Cyan)
                 else:
-                    result = pinguino.get_result()
-                    printb("compilation time: %s" % result["time"], bcolors.Yellow)
-                    printb("compiled to: %s" % result["hex_file"], bcolors.Yellow)
-
-                    if parser.hex_file:
-                        hex_file = open(result["hex_file"], "r")
-                        content_hex = hex_file.readlines()
-                        hex_file.close()
-                        printb("\n" + "*" * 70, bcolors.Cyan)
-                        printb(result["hex_file"], bcolors.Cyan)
-                        printb("*" * 70, bcolors.Cyan)
-                        for line in content_hex: printb(line, bcolors.Cyan),
-                        printb("*" * 70 + "\n", bcolors.Cyan)
+                    pinguino.__hex_file__ = filename
 
                 if parser.upload:
                     try:
