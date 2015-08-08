@@ -86,13 +86,13 @@ def printb(text, color):
 #----------------------------------------------------------------------
 def build_argparse():
 
-    argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
+    parser = argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
 
     #command line args
     parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show {PINGUINO_NAME} version and exit".format(**os.environ))
     parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this {PINGUINO_NAME} version and exit".format(**os.environ))
     parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
-    parser.add_argument("-8c", "--8bit_compiler", dest="compiler", nargs=1, default=False, help="8bit compiler: SDCC or XC8")
+    parser.add_argument("-8c", "--8bit_compiler", dest="compiler", nargs=1, default=None, help="8bit compiler: SDCC or XC8")
     parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
     parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
@@ -126,62 +126,71 @@ if parser.board:
 
     if parser.bootloader:
         bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.bldr)
-        pinguino.set_bootloader(bootloader)  #FIXME
+        pinguino.set_bootloader(*bootloader)
     printb("using {} bootloader".format(pinguino.get_board().bldr), BColors.Green)
 
     if parser.board.arch == 8:
-        pinguino.set_8bit_compiler(parser.compiler)
+        if parser.compiler:
+            try:
+                pinguino.set_8bit_compiler(parser.compiler[0])
+            except Exception as err:
+                printb(str(err), BColors.Red)
+                sys.exit()
 
     if not parser.filename:
         printb("ERROR: missing filename", BColors.Red)
         sys.exit(1)
 
     else:
-        filename = parser.filename[0]
+        filename = parser.filename
 
-        fname, extension = os.path.splitext(filename)
-        if extension != ".pde":
-            printb("ERROR: bad file extension, it should be .pde", BColors.Red)
-            sys.exit()
-        del fname, extension
+        if not (len(filename) == 1 and filename[0].endswith(".hex")):
 
-        pinguino.compile_file(filename)
+            fname, extension = os.path.splitext(filename)
+            if extension != ".pde":
+                printb("ERROR: bad file extension, it should be .pde", BColors.Red)
+                sys.exit()
+            del fname, extension
 
-        if not pinguino.compiled():
-            printb("\nERROR: no compiled\n", BColors.Red)
+            pinguino.compile_file(filename)
 
-            errors_proprocess = pinguino.get_errors_preprocess()
-            if errors_proprocess:
-                for error in errors_proprocess["preprocess"]: printb(error, BColors.Red)
+            if not pinguino.compiled():
+                printb("\nERROR: no compiled\n", BColors.Red)
 
-            errors_c = pinguino.get_errors_compiling_c()
-            if errors_c:
-                printb(errors_c["complete_message"], BColors.Red)
+                errors_proprocess = pinguino.get_errors_preprocess()
+                if errors_proprocess:
+                    for error in errors_proprocess["preprocess"]: printb(error, BColors.Red)
 
-            errors_asm = pinguino.get_errors_compiling_asm()
-            if errors_asm:
-                for error in errors_asm["error_symbols"]: printb(error, BColors.Red)
+                errors_c = pinguino.get_errors_compiling_c()
+                if errors_c:
+                    printb(errors_c["complete_message"], BColors.Red)
 
-            errors_link = pinguino.get_errors_linking()
-            if errors_link:
-                for error in errors_link["linking"]: printb(error, BColors.Red)
+                errors_asm = pinguino.get_errors_compiling_asm()
+                if errors_asm:
+                    for error in errors_asm["error_symbols"]: printb(error, BColors.Red)
 
-            sys.exit()
+                errors_link = pinguino.get_errors_linking()
+                if errors_link:
+                    for error in errors_link["linking"]: printb(error, BColors.Red)
 
+                sys.exit()
+
+            else:
+                result = pinguino.get_result()
+                printb("compilation time: {time}".format(**result), BColors.Yellow)
+                printb("compiled to: {hex_file}".format(**result), BColors.Yellow)
+
+                if parser.hex_file:
+                    hex_file = open(result["hex_file"], "r")
+                    content_hex = hex_file.readlines()
+                    hex_file.close()
+                    printb("\n" + "*" * 70, BColors.Cyan)
+                    printb(result["hex_file"], BColors.Cyan)
+                    printb("*" * 70, BColors.Cyan)
+                    for line in content_hex: printb(line, BColors.Cyan),
+                    printb("*" * 70 + "\n", BColors.Cyan)
         else:
-            result = pinguino.get_result()
-            printb("compilation time: {time}".format(**result), BColors.Yellow)
-            printb("compiled to: {hex_file}".format(**result), BColors.Yellow)
-
-            if parser.hex_file:
-                hex_file = open(result["hex_file"], "r")
-                content_hex = hex_file.readlines()
-                hex_file.close()
-                printb("\n" + "*" * 70, BColors.Cyan)
-                printb(result["hex_file"], BColors.Cyan)
-                printb("*" * 70, BColors.Cyan)
-                for line in content_hex: printb(line, BColors.Cyan),
-                printb("*" * 70 + "\n", BColors.Cyan)
+            pinguino.__hex_file__ = filename[0]
 
         if parser.upload:
             try:

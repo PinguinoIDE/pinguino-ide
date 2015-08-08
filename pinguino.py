@@ -31,8 +31,6 @@ from PySide.QtGui import QApplication, QSplashScreen, QPixmap
 #----------------------------------------------------------------------
 def build_argparse():
 
-    argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
-
     #IDE args
     parsergui = argparse.ArgumentParser(description="*** {PINGUINO_NAME}:GUI ***".format(**os.environ))
     parsergui.add_argument("--lang", dest="lang", nargs=1, default=False, help="set IDE language")
