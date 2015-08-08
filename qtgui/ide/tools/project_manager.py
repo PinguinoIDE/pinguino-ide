@@ -6,6 +6,7 @@ from PySide import QtGui, QtCore
 import os
 import shutil
 import logging
+from datetime import datetime
 
 from ..methods.decorators import Decorator
 from ..methods.dialogs import Dialogs
@@ -58,21 +59,33 @@ class ProjectManager(object):
         file_project = Dialogs.set_open_file(self, exts="*.ppde")
         if file_project is None: return
         self.open_project_from_path(file_project)
+        self.update_project_status()
 
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
     def open_project_from_path(self, filename):
         """"""
-        self.project_saved = True
-        self.ConfigProject = RawConfigParser()
-        self.ConfigProject.readfp(open(filename, "r"))
-        self.ConfigProject.filename = filename
+        try:
+            self.project_saved = True
+            self.ConfigProject = RawConfigParser()
+            self.ConfigProject.readfp(open(filename, "r"))
+            self.ConfigProject.filename = filename
 
-        project_name = self.reload_project()
-        logging.debug("Opening \"{}\" project.".format(project_name))
+            project_name = self.reload_project()
+            logging.debug("Opening \"{}\" project.".format(project_name))
 
-        self.update_recents_projects(self.ConfigProject.filename)
+            self.update_recents_projects(self.ConfigProject.filename)
+
+            self.ide_close_all()
+            if self.is_library():
+                lib = self.ConfigProject.get("Main", "lib")
+                self.ide_open_file_from_path(filename=lib)
+
+        except:
+            Dialogs.error_message(self, "File seems to be corrupted!")
+
+
 
 
     #----------------------------------------------------------------------
@@ -194,17 +207,35 @@ class ProjectManager(object):
 
 
     #----------------------------------------------------------------------
+    def is_project(self):
+        """"""
+        if os.environ.has_key("PINGUINO_PROJECT"):
+            return bool(os.environ["PINGUINO_PROJECT"])
+        else:
+            return False
+
+
+    #----------------------------------------------------------------------
     def is_library(self):
         """"""
         if os.environ.get("PINGUINO_PROJECT", False):
             if self.ConfigProject.has_option("Main", "library"):
-                return self.ConfigProject.get("Main", "library")
+                r = self.ConfigProject.get("Main", "library")
+                if type(r) == str:
+                    return r == "True"
+                elif type(r) == bool:
+                    return r
             else:
                 self.ConfigProject.set("Main", "library", False)
                 return False
         else:
             return False
 
+
+    #----------------------------------------------------------------------
+    def get_lib_file(self):
+        """"""
+        return [self.ConfigProject.get("Main", "lib")]
 
 
     #----------------------------------------------------------------------
@@ -715,14 +746,38 @@ class ProjectManager(object):
         library_dir = os.path.join(target_dir, library_name)
         example_dir = os.path.join(library_dir, "examples")
         tests_dir = os.path.join(library_dir, "tests")
-        self.lib = os.path.join(target_dir, library_name, "{}.lib".format(library_name.lower()))
+        lib = os.path.join(target_dir, library_name, "{}.lib".format(library_name))
+
+        self.ConfigProject.set("Main", "lib", lib)
 
         os.mkdir(library_dir)
         os.mkdir(example_dir)
         os.mkdir(tests_dir)
 
         self.add_existing_directory(library_dir, inherits_status=True)
-        lib_file = open(self.lib, mode="w")
+        lib_file = open(lib, mode="w")
+
+        lib_template = """/*-----------------------------------------------------
+Author:  --<>
+Date: {}
+Description:
+
+-----------------------------------------------------*/
+
+
+void my_private_function(){{
+
+
+}}
+
+PUBLIC u8 my_function(){{
+    // This function could be used as {}.my_function
+
+}}
+""".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), library_name)
+
+
+        lib_file.write(lib_template)
         lib_file.close()
 
         example_file = open(os.path.join(example_dir, "example.pde"), mode="w")
@@ -734,47 +789,63 @@ class ProjectManager(object):
         test_file = open(os.path.join(tests_dir, "test.pde"), mode="w")
         test_file.close()
 
-        self.ide_open_file_from_path(filename=self.lib)
+        self.ide_open_file_from_path(filename=lib)
+        # self.update_project_status()
 
 
 
     #----------------------------------------------------------------------
     def compile_library(self):
         """"""
-        files = self.get_project_files()
+        self.ide_save_all()
 
-        lib_name = self.get_project_name()
+        lib_path = self.get_project_name()
+        lib_name = os.path.split(lib_path)[1]
+        lib = self.ConfigProject.get("Main", "lib")
 
-        define = self.lib.replace(".lib", ".h")
-        userc = self.lib.replace(".lib", ".c")
-        pdl = self.lib.replace(".lib", ".pdl")
+        define = lib.replace(".lib", ".h")
+        userc = lib.replace(".lib", ".c")
+        pdl = lib.replace(".lib", ".pdl")
 
-        self.pinguinoAPI.preprocess([self.lib], define_output=define, userc_output=userc)
+        self.pinguinoAPI.preprocess([lib], define_output=define, userc_output=userc, ignore_spaces=self.is_project())
 
         userc_file = open(userc, mode="r")
         userc_content = userc_file.readlines()
         userc_file.close()
 
-        include = "#include <{}.h>\n\n".format(lib_name)
+        include = "#include <{}.h>".format(lib_name)
 
-        functions = self.get_functions()
+        functions = self.get_functions([{"filename":userc, "content":userc_content}], ignore_spaces=self.is_project())
 
         pdl_content = []
         for function in functions:
             if function["return"].startswith("PUBLIC"):
                 userc_content[function["line"]-1] = userc_content[function["line"]-1].replace("PUBLIC ", "", 1)
-                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
-                pdl_content.append("{} {}#include <{}.c>".format("{}_{}".format(lib_name, function["name"]), "{}.{}".format(lib_name, function["name"]), lib_name.lower()))
+                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_path, function["name"]), 1)
+                pdl_content.append("{} {}#include <{}.c>".format("{}_{}".format(lib_path, function["name"]), "{}.{}".format(lib_name, function["name"]), lib_name))
             else:
-                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
+                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_path, function["name"]), 1)
+
+
+        header_content = """//------------------------------------------------------------------
+// Pinguino Library source code generated automatically.
+//
+// {}
+//
+// Created: {}
+// by: {}
+//
+//  WARNING! All changes made in this file will be lost!
+//------------------------------------------------------------------\n
+""".format(lib_name, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), os.getenv("PINGUINO_FULLNAME"))
 
 
         userc_file = open(userc, mode="w")
-        userc_file.writelines([include] + userc_content)
+        userc_file.writelines([header_content] + [include] + userc_content)
         userc_file.close()
 
         pdl_file = open(pdl, mode="w")
-        pdl_file.writelines(pdl_content)
+        pdl_file.writelines([header_content] + pdl_content)
         pdl_file.close()
 
         self.reload_project()

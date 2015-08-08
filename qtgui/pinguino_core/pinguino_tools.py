@@ -450,7 +450,7 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def preprocess(self, file_path, define_output=None, userc_output=None):
+    def preprocess(self, file_path, define_output=None, userc_output=None, ignore_spaces=False):
         """Read Pinguino File (.pde) and translate it into C language.
 
         Parameters
@@ -473,7 +473,7 @@ class PinguinoTools(Uploader):
             file_pde.close()
 
             readlines = user_c.readlines()
-            readlines = self.remove_comments(readlines)
+            readlines = self.remove_comments(readlines, ignore_spaces=ignore_spaces)
             user_c = StringIO()
             for line in readlines:
                 if line.find("#include")!=-1 or line.find("#define")!=-1:
@@ -590,7 +590,7 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def remove_comments(self, textinput):
+    def remove_comments(self, textinput, ignore_spaces=False):
         """Remove comments of a code.
 
         Multiline comments are replaced with white lines, for correct interpretation of debug messages.
@@ -615,7 +615,10 @@ class PinguinoTools(Uploader):
             s = match.group(0)
 
             if s.startswith('/'):
-                return "" + "\n" * (s.count("\n"))
+                if not ignore_spaces:
+                    return "" + "\n" * (s.count("\n"))
+                else:
+                    return ""
             else:
                 return s
 

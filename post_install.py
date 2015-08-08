@@ -5,15 +5,6 @@ import os
 import sys
 import shutil
 
-# Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
-    #Python3
-    from configparser import RawConfigParser
-else:
-    #Python2
-    from ConfigParser import RawConfigParser
-
-
 from qtgui.pinguino_core.pinguino_config import PinguinoConfig
 
 os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])

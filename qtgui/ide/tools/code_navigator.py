@@ -28,7 +28,7 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    def remove_comments(self, text):
+    def remove_comments(self, text, ignore_spaces=False):
 
         if type(text) == type([]):
             text = "".join(text)
@@ -38,7 +38,10 @@ class CodeNavigator(object):
 
             if s.startswith('/'):
                 #return "" #bug in line number in error info, multiline comments
-                return " "*(len(s)-s.count("\n")) + "\n" * (s.count("\n"))
+                if not ignore_spaces:
+                    return " "*(len(s)-s.count("\n")) + "\n" * (s.count("\n"))
+                else:
+                    return ""
 
             else:
                 return s
@@ -56,7 +59,7 @@ class CodeNavigator(object):
 
 
     #----------------------------------------------------------------------
-    def get_functions(self, files=None):
+    def get_functions(self, files=None, ignore_spaces=False):
 
         regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
         # regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\s\w ,*.\[\]]*)\)[\s]*"
@@ -73,7 +76,8 @@ class CodeNavigator(object):
 
 
             # content_comments = content
-            content_no_comments = self.remove_comments(content)
+
+            content_no_comments = self.remove_comments(content, ignore_spaces=ignore_spaces)
             content_list = self.remove_comments(content).split("\n")
 
             for line in range(len(content_list)):
@@ -280,7 +284,7 @@ class CodeNavigator(object):
             # files = self.get_files_from_project()
 
             if self.is_library():
-                filenames = [self.lib]
+                filenames = self.get_lib_file()
             else:
                 filenames = [s[0] for s in filter(lambda l:l[1], self.get_files_from_project().items())]
                 filenames.extend([s[0] for s in filter(lambda l:l[1], self.get_inherits_from_project().items())])

@@ -794,7 +794,7 @@ class WorkArea(QtGui.QWidget):
 //
 //  WARNING! All changes made in this file will be lost!
 //------------------------------------------------------------------\n
-""".format(datetime.today().strftime("%Y-%m-%d"), os.getenv("PINGUINO_FULLNAME"))
+""".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), os.getenv("PINGUINO_FULLNAME"))
 
         pinguino_code = header_code + global_ + pinguino_code
 

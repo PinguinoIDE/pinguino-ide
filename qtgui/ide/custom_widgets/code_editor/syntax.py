@@ -21,7 +21,7 @@ const = [ "PI", "HALF_PI", "TWO_PI", "DEG_TO_RAD", "RAD_TO_DEG", "NULL", "ON", "
           "PORTA", "PORTB", "PORTC", "PORTD", "PORTE", "PORTF", "PORTG",
 
           "void", "const", "BOOL", "char", "unsigned", "short", "int", "long", "float", "double", "byte", "word",
-          "u8", "s8", "u16", "s16", "u32", "s32", "u64", "s64",
+          "u8", "s8", "u16", "s16", "u32", "s32", "u64", "s64", "PUBLIC",
 
           "struct", "union", "typedef", "enum", "register", "static", "extern", "volatile",
           "loop", "setup", "INT_MILLISEC", "INT_MICROSEC", "INT_FALLING_EDGE", "interrupt",

@@ -5,22 +5,6 @@ import unittest
 import os
 import sys
 
-from version import NAME, VERSION, SUBVERSION
-# NAME = "Pinguino IDE"
-# VERSION = "11.1"
-# SUBVERSION = ""
-
-# os.environ["PINGUINO_NAME"] = NAME
-# os.environ["PINGUINO_VERSION"] = VERSION
-# os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
-# os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
-
-# # For PyInstaller compatibility
-# if os.path.exists(os.path.abspath("pinguino_data")):
-    # os.environ["PINGUINO_DATA"] = os.path.abspath("pinguino_data")
-# else:
-    # os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")
-
 sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
 from qtgui.pinguino_api.pinguino import Pinguino, AllBoards
@@ -119,21 +103,24 @@ class TestBareMinumumCompilation(unittest.TestCase):
 
         def inter(self):
 
-            try: Pinguino.set_board(board)
-            except BaseException, msg:
+            try:
+                Pinguino.set_board(board)
+            except BaseException as msg:
                 raise BaseException("Compilation: imposible set board {}\n{}".format(board.name, str(msg)))
 
             if board.arch == 8:
                 for key in Pinguino.dict_boot.keys():
                     boot = Pinguino.dict_boot[key]
                     Pinguino.set_bootloader(*boot)
-                    try: Pinguino.compile_string(code)
-                    except BaseException, msg:
+                    try:
+                        Pinguino.compile_string(code)
+                    except BaseException as msg:
                         self.fail("Compilation: impossible compile for {}, {}-bit, boot:{}\n{}".format(board.name, board.arch, key, str(msg)))
 
             if board.arch == 32:
-                try: Pinguino.compile_string(code)
-                except BaseException, msg:
+                try:
+                    Pinguino.compile_string(code)
+                except BaseException as msg:
                     self.fail("Compilation: impossible compile for {}, {}-bit\n{}".format(board.name, board.arch, str(msg)))
 
         return inter

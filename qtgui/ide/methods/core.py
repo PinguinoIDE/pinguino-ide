@@ -700,6 +700,8 @@ class PinguinoMain(object):
     @Decorator.requiere_can_compile()
     def pinguino_compile(self, dialog_upload=True):
 
+        self.ide_save_all()
+
         filename = self.get_tab().currentWidget().path
 
         if self.is_graphical() is False:
@@ -1617,7 +1619,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         filename = os.path.split(path)[1]
         highlighter = filename.endswith(".pde") or filename.endswith(".c") or filename.endswith(".h") or filename.endswith(".cpp") or \
                 filename.endswith(".pde*") or filename.endswith(".c*") or filename.endswith(".h*") or filename.endswith(".cpp*") or \
-                filename.endswith(".lib") or filename.endswith(".lib*")
+                filename.endswith(".lib") or filename.endswith(".lib*") or filename.endswith(".pdl") or filename.endswith(".pdl*")
         autocompleter = highlighter
         editor = PinguinoCodeEditor(highlighter=highlighter, autocompleter=autocompleter)
         self.main.tabWidget_files.addTab(editor, filename)

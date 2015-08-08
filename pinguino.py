@@ -1,7 +1,7 @@
 #! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
-from version import NAME, SUBVERSION, VERSION
+from version import NAME, VERSION
 
 """-------------------------------------------------------------------------
     Pinguino IDE
@@ -26,12 +26,12 @@ import os
 import argparse
 
 from PySide import QtCore, QtGui
-from PySide.QtGui import QApplication, QSplashScreen, QPixmap, QPainter
+from PySide.QtGui import QApplication, QSplashScreen, QPixmap
 
 #----------------------------------------------------------------------
 def build_argparse():
 
-    parser = argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
+    argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
 
     #IDE args
     parsergui = argparse.ArgumentParser(description="*** {PINGUINO_NAME}:GUI ***".format(**os.environ))
@@ -62,18 +62,19 @@ if parser.devmode:
 else:
     os.environ["PINGUINO_MODE"] = "NORMAL"
 
-
 if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
 
 sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
-import resources_rc
+# import resources_rc
 
 from qtgui.ide.ide import PinguinoIDE
 
 if __name__ == "__main__":
 
-    if parser.lang: sys_locale = parser.lang[0]
-    else: sys_locale = QtCore.QLocale.system().name()
+    if parser.lang:
+        sys_locale = parser.lang[0]
+    else:
+        sys_locale = QtCore.QLocale.system().name()
     translator = QtCore.QTranslator()
 
     #load intern dialogs translations
@@ -117,7 +118,8 @@ if __name__ == "__main__":
     app.processEvents()
 
     app.installTranslator(qtTranslator)
-    if trasnlations: app.installTranslator(translator)
+    if trasnlations:
+        app.installTranslator(translator)
 
     frame = PinguinoIDE(splash_write=splash_write)
     frame.show()
@@ -125,11 +127,5 @@ if __name__ == "__main__":
     if not splash is None:
         splash.finish(frame)
 
-    #For PyInstaller compatibility
-    if app is None:
-        from PySide.QtGui import QApplication
-        QApplication.instance().exec_()
-    else:
-        #sys.exit(app.exec_())
-        app.exec_()
+    app.exec_()
 

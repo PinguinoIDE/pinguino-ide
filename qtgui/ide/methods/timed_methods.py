@@ -200,7 +200,8 @@ class TimedMethods(object):
 
         editor = self.get_current_editor()
         filename = getattr(editor, "path", None)
-        if not filename: return
+        if not filename:
+            return
 
         if os.path.exists(filename):
             file_ = codecs.open(filename, "r", "utf-8")
@@ -220,12 +221,27 @@ class TimedMethods(object):
             self.ide_save_file()
             return
 
+        if self.is_library():
+            name = self.get_project_name()
+            if self.get_current_filename().startswith(name) and (self.get_current_filename().endswith(".c")\
+                                                                 or self.get_current_filename().endswith(".h")\
+                                                                 or self.get_current_filename().endswith(".pdl")\
+                                                                 or self.get_current_filename().endswith(".pdl32")):
+                if content_file != last_saved:
+                    self.editor_reload_file()
+                self.ide_save_file()
+                return
+
+
+
 
         if content_file != last_saved:
             reload_ = Dialogs.overwrite_file(self, filename, exist)
 
-            if reload_: self.ide_save_file()
-            else: self.editor_reload_file()
+            if reload_:
+                self.ide_save_file()
+            else:
+                self.editor_reload_file()
 
 
     #----------------------------------------------------------------------
@@ -236,14 +252,14 @@ class TimedMethods(object):
     def save_backup_file(self):
 
         editor = self.get_current_editor()
-        index = self.main.tabWidget_files.indexOf(editor)
-        filename_tab = self.main.tabWidget_files.tabText(index)
+        # index = self.main.tabWidget_files.indexOf(editor)
+        # filename_tab = self.main.tabWidget_files.tabText(index)
         filename = getattr(editor, "path", None)
-        if not filename: return
+        if not filename:
+            return
         content_saved = getattr(editor, "last_saved", None)
 
         if self.is_graphical() is True:
-
             content = self.PinguinoKIT.get_gpde()
             self.PinguinoKIT.save_raw_parser(content, editor.path+"~")
 

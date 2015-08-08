@@ -1,7 +1,7 @@
 #! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
-from version import NAME, SUBVERSION, VERSION
+from version import VERSION
 
 """-------------------------------------------------------------------------
     Pinguino IDE
@@ -54,7 +54,7 @@ import os
     # os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")
 
 
-class bcolors:
+class BColors:
     Black = "\033[0;30m"
     Red = "\033[0;31m"
     Green = "\033[0;32m"
@@ -81,12 +81,12 @@ PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
 PinguinoConfig.update_user_libs(pinguino)
 
 def printb(text, color):
-    print(color + text + bcolors.ENDC)
+    print(color + text + BColors.ENDC)
 
 #----------------------------------------------------------------------
 def build_argparse():
 
-    parser = argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
+    argparse.ArgumentParser(description="*** {PINGUINO_NAME}:Command line ***".format(**os.environ))
 
     #command line args
     parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show {PINGUINO_NAME} version and exit".format(**os.environ))
@@ -111,29 +111,29 @@ def build_argparse():
 parser = build_argparse()
 
 if parser.version:
-    printb("\t" + VERSION, bcolors.Green)
+    printb("\t" + VERSION, BColors.Green)
     sys.exit()
 
 if parser.author:
-    printb("\tJean-Pierre Mandon", bcolors.Green)
-    printb("\tRegis Blanchot", bcolors.Green)
-    printb("\tYeison Cardona", bcolors.Green)
+    printb("\tJean-Pierre Mandon", BColors.Green)
+    printb("\tRegis Blanchot", BColors.Green)
+    printb("\tYeison Cardona", BColors.Green)
     sys.exit()
 
 if parser.board:
     pinguino.set_board(parser.board)
-    printb("using {} board".format(parser.board.name), bcolors.Green)
+    printb("using {} board".format(parser.board.name), BColors.Green)
 
     if parser.bootloader:
         bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.bldr)
-        pinguino.set_bootloader(bootloader)
-    printb("using {} bootloader".format(pinguino.get_board().bldr), bcolors.Green)
+        pinguino.set_bootloader(bootloader)  #FIXME
+    printb("using {} bootloader".format(pinguino.get_board().bldr), BColors.Green)
 
     if parser.board.arch == 8:
         pinguino.set_8bit_compiler(parser.compiler)
 
     if not parser.filename:
-        printb("ERROR: missing filename", bcolors.Red)
+        printb("ERROR: missing filename", BColors.Red)
         sys.exit(1)
 
     else:
@@ -141,55 +141,55 @@ if parser.board:
 
         fname, extension = os.path.splitext(filename)
         if extension != ".pde":
-            printb("ERROR: bad file extension, it should be .pde", bcolors.Red)
+            printb("ERROR: bad file extension, it should be .pde", BColors.Red)
             sys.exit()
         del fname, extension
 
         pinguino.compile_file(filename)
 
         if not pinguino.compiled():
-            printb("\nERROR: no compiled\n", bcolors.Red)
+            printb("\nERROR: no compiled\n", BColors.Red)
 
             errors_proprocess = pinguino.get_errors_preprocess()
             if errors_proprocess:
-                for error in errors_proprocess["preprocess"]: printb(error, bcolors.Red)
+                for error in errors_proprocess["preprocess"]: printb(error, BColors.Red)
 
             errors_c = pinguino.get_errors_compiling_c()
             if errors_c:
-                printb(errors_c["complete_message"], bcolors.Red)
+                printb(errors_c["complete_message"], BColors.Red)
 
             errors_asm = pinguino.get_errors_compiling_asm()
             if errors_asm:
-                for error in errors_asm["error_symbols"]: printb(error, bcolors.Red)
+                for error in errors_asm["error_symbols"]: printb(error, BColors.Red)
 
             errors_link = pinguino.get_errors_linking()
             if errors_link:
-                for error in errors_link["linking"]: printb(error, bcolors.Red)
+                for error in errors_link["linking"]: printb(error, BColors.Red)
 
             sys.exit()
 
         else:
             result = pinguino.get_result()
-            printb("compilation time: {time}".format(**result), bcolors.Yellow)
-            printb("compiled to: {hex_file}".format(**result), bcolors.Yellow)
+            printb("compilation time: {time}".format(**result), BColors.Yellow)
+            printb("compiled to: {hex_file}".format(**result), BColors.Yellow)
 
             if parser.hex_file:
                 hex_file = open(result["hex_file"], "r")
                 content_hex = hex_file.readlines()
                 hex_file.close()
-                printb("\n" + "*" * 70, bcolors.Cyan)
-                printb(result["hex_file"], bcolors.Cyan)
-                printb("*" * 70, bcolors.Cyan)
-                for line in content_hex: printb(line, bcolors.Cyan),
-                printb("*" * 70 + "\n", bcolors.Cyan)
+                printb("\n" + "*" * 70, BColors.Cyan)
+                printb(result["hex_file"], BColors.Cyan)
+                printb("*" * 70, BColors.Cyan)
+                for line in content_hex: printb(line, BColors.Cyan),
+                printb("*" * 70 + "\n", BColors.Cyan)
 
         if parser.upload:
             try:
                 uploaded, result = pinguino.upload()
                 if result:
-                    printb(result, bcolors.Green)
+                    printb(result, BColors.Green)
             except:
                 if pinguino.get_board().arch == 8:
-                    printb("ERROR: bootloader option might be incorrect.", bcolors.Red)
-                    printb("Bootloader options: ", bcolors.Green),
-                    printb(", ".join(pinguino.dict_boot.keys()), bcolors.Green)
+                    printb("ERROR: bootloader option might be incorrect.", BColors.Red)
+                    printb("Bootloader options: ", BColors.Green),
+                    printb(", ".join(pinguino.dict_boot.keys()), BColors.Green)
