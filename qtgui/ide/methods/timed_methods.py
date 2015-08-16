@@ -6,6 +6,7 @@ import codecs
 
 from PySide import QtGui
 
+from .core_threads import UpdateAutocompleter
 from ..methods.decorators import Decorator
 # from ..tools.code_navigator import self
 from ..methods.dialogs import Dialogs
@@ -14,14 +15,14 @@ from ..methods.dialogs import Dialogs
 class TimedMethods(object):
 
 
+
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(1500)
     @Decorator.requiere_open_files()
-    # @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Functions")
     @Decorator.requiere_tools_tab("SourceBrowser")
     @Decorator.requiere_main_focus()
-    def update_functions(self):
+    def timer_update_functions(self):
 
         functions_parse = self.get_functions()
 
@@ -54,13 +55,12 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(1500)
     @Decorator.requiere_open_files()
-    # @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Directives")
     @Decorator.requiere_tools_tab("SourceBrowser")
     @Decorator.requiere_main_focus()
-    def update_directives(self):
+    def timer_update_directives(self):
 
         directives_parse = self.get_directives()
 
@@ -92,13 +92,12 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(1000)
+    @Decorator.timer(1500)
     @Decorator.requiere_open_files()
-    # @Decorator.requiere_text_mode()
     @Decorator.requiere_browser_tab("Variables")
     @Decorator.requiere_tools_tab("SourceBrowser")
     @Decorator.requiere_main_focus()
-    def update_variables(self):
+    def timer_update_variables(self):
 
         variables_parse = self.get_variables()
 
@@ -127,76 +126,11 @@ class TimedMethods(object):
 
 
     #----------------------------------------------------------------------
-    @Decorator.timer(5000)
-    @Decorator.requiere_open_files()
-    @Decorator.requiere_text_mode()
-    @Decorator.if_autocomplete_is_enable()
-    @Decorator.requiere_main_focus()
-    def update_autocompleter(self):
-
-        editor = self.get_current_editor()
-
-        if not hasattr(editor.text_edit, "completer"):
-            return
-
-        if not getattr(self, "completer_funtions", False):
-            self.completer_funtions = []
-            self.functions_args = {}
-            functions_parse = self.get_functions()
-            for funtion in functions_parse:
-                self.completer_funtions.append(funtion["name"])
-
-                self.functions_args[funtion["name"]] = "{name}({{{{{args}}}}});".format(**funtion)
-
-
-        # if not getattr(self, "functions_args", False):
-            # self.functions_args = {}
-
-
-        if not getattr(self, "completer_variables", False):
-            self.completer_variables = []
-            variables_parse = self.get_variables()
-            for variable in variables_parse:
-                self.completer_variables.append([variable["name"], variable["type"]])
-
-        if not getattr(self, "completer_directives", False):
-            self.completer_directives = []
-            directives_parse = self.get_directives()
-            for directive in directives_parse:
-                self.completer_directives.append(directive["name"])
-
-        editor.text_edit.completer.removeTemporalItems("directives")
-        editor.text_edit.completer.removeTemporalItems("variables")
-        editor.text_edit.completer.removeTemporalItems("functions")
-
-        editor.text_edit.completer.update_local_functions(self.functions_args)
-
-        for item in self.completer_directives:
-            editor.text_edit.completer.addTemporalItem("directives", item, self.ICONS.iconDirectives)
-
-        for item in self.completer_funtions:
-            editor.text_edit.completer.addTemporalItem("functions", item, self.ICONS.iconFunction)
-
-        for item, type_ in self.completer_variables:
-            type_ = type_.split()[-1]
-            if type_ in "int float bool byte bool double struct union".split():
-                icon = getattr(self.ICONS, "icon"+type_.capitalize())
-            else:
-                icon = None
-
-            editor.text_edit.completer.addTemporalItem("variables", item, icon)
-
-        self.completer_funtions = []
-        self.completer_directives = []
-        self.completer_variables = []
-
-
-    #----------------------------------------------------------------------
     @Decorator.timer(3000)
     @Decorator.requiere_open_files()
     @Decorator.requiere_text_mode()
     @Decorator.requiere_main_focus()
-    def check_external_changes(self):
+    def timer_check_changes(self):
 
         editor = self.get_current_editor()
         filename = getattr(editor, "path", None)
@@ -204,7 +138,7 @@ class TimedMethods(object):
             return
 
         if os.path.exists(filename):
-            file_ = codecs.open(filename, "r", "utf-8")
+            file_ = codecs.open(filename, "r", encoding="utf-8")
             content_file = "".join(file_.readlines())
             file_.close()
             exist = True
@@ -214,6 +148,8 @@ class TimedMethods(object):
 
         last_saved = getattr(editor, "last_saved")
 
+        # if content_file != last_saved:
+            # self.thread_variables()
 
         if self.get_current_filename().endswith("(r/o)"):
             if content_file != last_saved:
@@ -249,7 +185,7 @@ class TimedMethods(object):
     @Decorator.requiere_open_files()
     # @Decorator.requiere_text_mode()
     @Decorator.requiere_main_focus()
-    def save_backup_file(self):
+    def timer_backup_file(self):
 
         editor = self.get_current_editor()
         # index = self.main.tabWidget_files.indexOf(editor)
@@ -268,9 +204,57 @@ class TimedMethods(object):
             filename_backup = filename + "~"
             #if os.path.exists(filename) and filename_tab.endswith("*"):
             if os.path.exists(filename) and (content_saved != content):
-                file_ = codecs.open(filename_backup, "w", "utf-8")
+                file_ = codecs.open(filename_backup, "w", encoding="utf-8")
                 file_.write(content)
                 file_.close()
 
         elif content_saved == content and os.path.exists(filename_backup):
             os.remove(filename_backup)
+
+
+    #----------------------------------------------------------------------
+    @Decorator.timer(1000)
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_tools_tab("SourceBrowser")
+    @Decorator.requiere_main_focus()
+    def timer_update_assiatant(self):
+
+        editor = self.get_current_editor()
+        tc = editor.text_edit.textCursor()
+        tc.movePosition(tc.EndOfWord, tc.MoveAnchor)
+        editor.text_edit.smart_under_selection(tc)
+        selected = tc.selectedText()
+        self.update_assistant(selected)
+
+
+    #----------------------------------------------------------------------
+    @Decorator.timer(3000)
+    @Decorator.requiere_open_files()
+    @Decorator.requiere_text_mode()
+    @Decorator.if_autocomplete_is_enable()
+    @Decorator.requiere_main_focus()
+    def timer_update_autocompleter(self):
+
+        editor = self.get_current_editor()
+        if not hasattr(editor.text_edit, "completer"):
+            return
+
+        if not hasattr(self, "thread_autocompleter"):
+            self.thread_autocompleter = UpdateAutocompleter()
+            self.thread_autocompleter.signal_set_variables.connect(self.set_variables)
+            self.thread_autocompleter.signal_set_directives.connect(self.set_directives)
+            self.thread_autocompleter.signal_set_functions.connect(self.set_functions)
+            self.thread_autocompleter.signal_add_autocompleter.connect(editor.text_edit.completer.addTemporalItem)
+            self.thread_autocompleter.signal_rm_autocompleter.connect(editor.text_edit.completer.removeTemporalItems)
+
+        if not self.thread_autocompleter.isRunning():
+            self.thread_autocompleter.set_files(self.get_files_to_explore())
+            self.thread_autocompleter.setTerminationEnabled(True)
+            self.thread_autocompleter.start()
+        # else:
+            # logging.debug("Working...")
+            # self.thread_autocompleter.terminate()
+            # self.thread_autocompleter.set_files(self.get_files_to_explore())
+            # self.thread_autocompleter.setTerminationEnabled(True)
+            # self.thread_autocompleter.start()
+

@@ -67,7 +67,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.actionToggle_vertical_tool_area, QtCore.SIGNAL("triggered()"), self.toggle_right_area)
         self.connect(self.main.tabWidget_tools, QtCore.SIGNAL("currentChanged(int)"), self.tab_right_changed)
         self.connect(self.main.tabWidget_bottom, QtCore.SIGNAL("currentChanged(int)"), self.tab_bottoms_changed)
-        self.connect(self.main.actionToggle_editor_area, QtCore.SIGNAL("toggled(bool)"), self.toggle_editor_area)
+        # self.connect(self.main.actionToggle_editor_area, QtCore.SIGNAL("toggled(bool)"), self.toggle_editor_area)
         self.connect(self.main.actionMove_vertical_tool_area, QtCore.SIGNAL("triggered()"), self.toggle_side_vertical_area)
 
 
@@ -81,7 +81,7 @@ class PinguinoEvents(PinguinoCore):
 
 
         # Child windows
-        self.connect(self.main.actionLibrary_manager, QtCore.SIGNAL("triggered()"), self.__show_libmanager__)
+        # self.connect(self.main.actionLibrary_manager, QtCore.SIGNAL("triggered()"), self.__show_libmanager__)
         self.connect(self.main.actionSet_paths, QtCore.SIGNAL("triggered()"), self.__config_paths__)
         self.connect(self.main.actionSelect_board, QtCore.SIGNAL("triggered()"), self.set_tab_board)
         # self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)
@@ -108,7 +108,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.actionGroup, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("https://groups.google.com/forum/#!forum/pinguinocard"))
         self.connect(self.main.actionShop, QtCore.SIGNAL("triggered()"), lambda :self.open_web_site("http://shop.pinguino.cc/"))
         self.connect(self.main.actionAbout, QtCore.SIGNAL("triggered()"), self.__show_about__)
-        self.connect(self.main.actionCheck_for_updates, QtCore.SIGNAL("triggered()"), self.need_update)
+        # self.connect(self.main.actionCheck_for_updates, QtCore.SIGNAL("triggered()"), self.need_update)
 
 
         # Events

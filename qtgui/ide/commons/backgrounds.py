@@ -2,7 +2,6 @@
 #-*- coding: utf-8 -*-
 
 from PySide import QtGui
-#from .constants import a
 
 ########################################################################
 class BackgroundPallete(object):

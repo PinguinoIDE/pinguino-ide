@@ -59,9 +59,9 @@ class PinguinoAutoCompleter(QListWidget):
         with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
             self.namespaces = pickle.load(file_reserved)
 
-        icons = CompleteIcons()
-        self.addItemsCompleter(self.namespaces["all"], icons.iconLibrary)
-        del icons
+        self.icons = CompleteIcons()
+        self.addItemsCompleter(self.namespaces["all"], self.icons.iconLibrary)
+        # del icons
         self.set_arch_autocompleter()
 
         configIDE = Config()
@@ -164,6 +164,8 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def addNewItem(self, name, icon=None):
+        if not icon: icon = None
+        elif type(icon) == str: icon = getattr(self.icons, icon)
         if not name in self.itemsListName:
             item = QListWidgetItem()
             if icon: item.setIcon(icon)
@@ -175,6 +177,8 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def addTemporalItem(self, llave, name, icon=None):
+        if not icon: icon = None
+        elif type(icon) == str: icon = getattr(self.icons, icon)
         item = self.addNewItem(name, icon)
         if item:
             self.temporal[llave].append(item)
@@ -212,6 +216,8 @@ class PinguinoAutoCompleter(QListWidget):
         for text in list_:
             if not text in self.itemsListName:
                 item = QListWidgetItem()
+                if not icon: icon = None
+                elif type(icon) == str: icon = getattr(self.icons, icon)
                 if icon != None: item.setIcon(icon)
                 item.setText(text)
                 self.addItem(item)

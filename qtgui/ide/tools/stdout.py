@@ -25,7 +25,7 @@ class Stdout(object):
         self.main.plainTextEdit_stdout.insertPlainText(intro)
 
         if os.path.exists(file_):
-            stdout = codecs.open(file_, "r", "utf-8")
+            stdout = codecs.open(file_, "r", encoding="utf-8")
             content = stdout.readlines()
             stdout.close()
             self.main.plainTextEdit_stdout.insertPlainText("".join(content))

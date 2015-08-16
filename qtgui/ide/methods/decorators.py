@@ -16,20 +16,20 @@ from ..child_windows.submit_bug import SubmitBug
 class Decorator(object):
 
 
-    #----------------------------------------------------------------------
-    @classmethod
-    def files_tab_on_focus(cls):
-        def actualdecorator(fn):
-            @functools.wraps(fn)
-            def wrapped(Pinguino, *args, **kwargs):
-                # Pinguino.main.actionSwitch_ide.setChecked(False)
-                Pinguino.main.tabWidget_files.setVisible(True)
-                Pinguino.main.tabWidget_files.setVisible(False)
-                Pinguino.ide_tab_changed()
-                #Pinguino.main.frame_logo.setVisible(False)
-                return fn(Pinguino, *args, **kwargs)
-            return wrapped
-        return actualdecorator
+    # #----------------------------------------------------------------------
+    # @classmethod
+    # def files_tab_on_focus(cls):
+        # def actualdecorator(fn):
+            # @functools.wraps(fn)
+            # def wrapped(Pinguino, *args, **kwargs):
+                # # Pinguino.main.actionSwitch_ide.setChecked(False)
+                # Pinguino.main.tabWidget_files.setVisible(True)
+                # Pinguino.main.tabWidget_files.setVisible(False)
+                # Pinguino.ide_tab_changed()
+                # #Pinguino.main.frame_logo.setVisible(False)
+                # return fn(Pinguino, *args, **kwargs)
+            # return wrapped
+        # return actualdecorator
 
     #----------------------------------------------------------------------
     @classmethod
@@ -350,6 +350,12 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
+
+                # DEBUG = True  #os.getenv("PINGUINO_MODE") == "DEV"
+
+                # if DEBUG:
+                    # logging.debug(fn.__name__)
+
 
                 # Pinguino.clear_highlighted_lines()
                 try:

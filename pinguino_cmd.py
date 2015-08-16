@@ -24,36 +24,6 @@ from version import VERSION
 import sys
 import os
 
-# if sys.version_info >= (3, ):
-    # #Python3
-    # os.environ["PINGUINO_PYTHON"] = "3"
-# else:
-    # #Python2
-    # os.environ["PINGUINO_PYTHON"] = "2"
-
-
-# # Python3 compatibility
-# if os.getenv("PINGUINO_PYTHON") is "3":
-    # import imp
-    # imp.reload(sys)
-# else:
-    # reload(sys)
-    # sys.setdefaultencoding("utf-8")
-
-# os.environ["PINGUINO_NAME"] = NAME
-# os.environ["PINGUINO_VERSION"] = VERSION
-# os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
-# os.environ["PINGUINO_FULLNAME"] = " ".join([NAME, VERSION, SUBVERSION])
-# os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
-
-
-# # For PyInstaller compatibility
-# if os.path.exists(os.path.abspath("pinguino_data")):
-    # os.environ["PINGUINO_DATA"] = os.path.abspath("pinguino_data")
-# else:
-    # os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")
-
-
 class BColors:
     Black = "\033[0;30m"
     Red = "\033[0;31m"
@@ -199,6 +169,6 @@ if parser.board:
                     printb(result, BColors.Green)
             except:
                 if pinguino.get_board().arch == 8:
-                    printb("ERROR: bootloader option might be incorrect.", BColors.Red)
+                    printb("ERROR: bootloader option could be incorrect.", BColors.Red)
                     printb("Bootloader options: ", BColors.Green),
                     printb(", ".join(pinguino.dict_boot.keys()), BColors.Green)

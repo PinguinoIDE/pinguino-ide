@@ -232,7 +232,7 @@ class GraphicalIDE(Code2Blocks):
             file_parser.add_section(name_section)
             for key in block.keys():
                 file_parser.set(name_section, key, block[key])
-        file_parser.write(codecs.open(filename, "w", "utf-8"))
+        file_parser.write(codecs.open(filename, "w", encoding="utf-8"))
 
 
     #----------------------------------------------------------------------
@@ -243,7 +243,7 @@ class GraphicalIDE(Code2Blocks):
         file_parser = RawConfigParser()
 
         if type(filename) in [str, unicode]:
-            file_parser.readfp(codecs.open(filename, "r", "utf-8"))
+            file_parser.readfp(codecs.open(filename, "r", encoding="utf-8"))
         else:
             file_parser = filename
 
@@ -370,7 +370,7 @@ class GraphicalIDE(Code2Blocks):
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
         setattr(editor, "path", filename)
 
-        self.ide.ide_tab_changed()
+        # self.ide.ide_tab_changed()
 
     #----------------------------------------------------------------------
     def load_blocks(self, set_blocks):
@@ -486,7 +486,7 @@ class GraphicalIDE(Code2Blocks):
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
 
-        self.ide.ide_tab_changed()
+        # self.ide.ide_tab_changed()
 
 
     #----------------------------------------------------------------------
@@ -506,7 +506,7 @@ class GraphicalIDE(Code2Blocks):
         self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
         self.ide.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+filename)
 
-        self.ide.ide_tab_changed()
+        # self.ide.ide_tab_changed()
 
         self.init_positions()
 
@@ -532,7 +532,7 @@ class GraphicalIDE(Code2Blocks):
 
         #editor = self.main.tabWidget_files.currentWidget()
         #filename = editor.path.replace(".gpde", ".pde")
-        #file_pde = codecs.open(filename, "w", "utf-8")
+        #file_pde = codecs.open(filename, "w", encoding="utf-8")
         #file_pde.write(self.get_pinguino_source_code())
         #file_pde.close()
 

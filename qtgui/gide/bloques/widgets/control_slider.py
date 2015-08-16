@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/gide/bloques/widgets/control_slider.ui'
 #
-# Created: Mon Aug  3 17:12:10 2015
+# Created: Sun Aug 16 14:42:35 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!

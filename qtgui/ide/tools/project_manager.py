@@ -7,9 +7,11 @@ import os
 import shutil
 import logging
 from datetime import datetime
+from zipfile import ZipFile
 
 from ..methods.decorators import Decorator
 from ..methods.dialogs import Dialogs
+from ..methods.parser import PinguinoParser
 
 
 # Python3 compatibility
@@ -21,6 +23,7 @@ else:
     from ConfigParser import RawConfigParser
 
 
+
 ########################################################################
 class ProjectManager(object):
     """"""
@@ -30,10 +33,10 @@ class ProjectManager(object):
         """"""
         self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.select_existing_directory)
         self.connect(self.main.actionNew_project, QtCore.SIGNAL("triggered()"), self.new_project)
-        self.connect(self.main.actionNew_library, QtCore.SIGNAL("triggered()"), self.new_library)
+        self.connect(self.main.actionNew_library, QtCore.SIGNAL("triggered()"), self.__show_library_template__)
         self.connect(self.main.pushButton_newproject, QtCore.SIGNAL("clicked()"), self.new_project)
         self.connect(self.main.pushButton_openproject, QtCore.SIGNAL("clicked()"), self.open_project)
-        self.connect(self.main.pushButton_newlibrary, QtCore.SIGNAL("clicked()"), self.new_library)
+        self.connect(self.main.pushButton_newlibrary, QtCore.SIGNAL("clicked()"), self.__show_library_template__)
         self.connect(self.main.actionClose_project, QtCore.SIGNAL("triggered()"), self.close_project)
         self.connect(self.main.actionSave_project, QtCore.SIGNAL("triggered()"), self.save_project)
         self.connect(self.main.actionSave_project_as, QtCore.SIGNAL("triggered()"), self.save_project_as)
@@ -43,9 +46,8 @@ class ProjectManager(object):
         self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemExpanded(QTreeWidgetItem*)"), self.expand_tree)
         self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemDoubleClicked(QTreeWidgetItem*,int)"), self.open_from_tree)
 
-
-
         self.connect(self.main.pushButton_compilelibrary, QtCore.SIGNAL("clicked()"), self.compile_library)
+        self.connect(self.main.pushButton_packagelibrary, QtCore.SIGNAL("clicked()"), self.package_library)
 
         self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemChanged(QTreeWidgetItem*,int)"), self.update_check_status)
 
@@ -178,13 +180,9 @@ class ProjectManager(object):
 
 
     #----------------------------------------------------------------------
-    def set_project_name(self, library=False):
+    def set_project_name(self):
         """"""
-        if library: type_ = "Library"
-        else: type_ = "Project"
-
-
-        project_name = Dialogs.get_text(self, "{} name".format(type_), default="untitled_{}".format(type_.lower()))
+        project_name = Dialogs.get_text(self, "Project name", default="untitled_project")
 
         if project_name is False:
             return
@@ -194,22 +192,41 @@ class ProjectManager(object):
         if not self.ConfigProject.has_section("Main"): self.ConfigProject.add_section("Main")
         options = self.ConfigProject.options("Main")
         self.ConfigProject.set("Main", "name", project_name)
-        self.ConfigProject.set("Main", "library", library)
+        self.ConfigProject.set("Main", "library", False)
 
-        self.main.widget_library.setVisible(library)
+        self.main.widget_library.setVisible(False)
 
         self.save_project(default=True)
 
-        logging.debug("Created \"{}\" {}.".format(project_name, type_.lower()))
+        logging.debug("Created \"{}\" project.".format(project_name))
 
         return project_name
         # self.main.treeWidget_projects.setHeaderLabel(project_name)
 
 
     #----------------------------------------------------------------------
+    def set_library_name(self, project_name):
+        """"""
+        self.main.treeWidget_projects.setHeaderLabel(project_name)
+
+        if not self.ConfigProject.has_section("Main"): self.ConfigProject.add_section("Main")
+        options = self.ConfigProject.options("Main")
+        self.ConfigProject.set("Main", "name", project_name)
+        self.ConfigProject.set("Main", "library", True)
+
+        self.main.widget_library.setVisible(True)
+
+        self.save_project(default=True)
+
+        logging.debug("Created \"{}\" library.".format(project_name))
+
+        return project_name
+
+
+    #----------------------------------------------------------------------
     def is_project(self):
         """"""
-        if os.environ.has_key("PINGUINO_PROJECT"):
+        if "PINGUINO_PROJECT" in os.environ:
             return bool(os.environ["PINGUINO_PROJECT"])
         else:
             return False
@@ -715,50 +732,43 @@ class ProjectManager(object):
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
-    def new_library(self):
+    def new_library(self, **kwargs):
         """"""
+        library_name = kwargs["libname"]
+        library_dir = kwargs["libpath"]
+
         self.project_saved = False
         self.ConfigProject = RawConfigParser()
-        library_name = self.set_project_name(library=True)
+        self.set_library_name(library_name)
 
-        if library_name:
-            # add_dir = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "Do you want add an existing directory now?"))
-            Dialogs.info_message(self, QtGui.QApplication.translate("Dialogs", "Select directory for store your new library."))
-            # target_dir = self.select_existing_directory()
+        if library_dir:  #FIXME no necesario
+            self.create_library_template(**kwargs)
+        else:
+            self.close_project()
 
-
-            target_dir = Dialogs.set_open_dir(self)
-
-            if target_dir:
-                # self.update_project_status(library_name)
-                self.create_library_template(target_dir, library_name)
-            else:
-                self.close_project()
-
-            self.add_existing_directory(os.path.join(target_dir, library_name), inherits_status=True)
-            self.update_project_status(library_name)
-            self.reload_project()
+        self.add_existing_directory(os.path.join(library_dir, library_name), inherits_status=True)
+        self.update_project_status(library_name)
+        self.reload_project()
 
 
     #----------------------------------------------------------------------
-    def create_library_template(self, target_dir, library_name):
+    def create_library_template(self, libpath, libname, author, description, _8bit, _32bit):
         """"""
-        library_dir = os.path.join(target_dir, library_name)
+        library_dir = os.path.join(libpath, libname)
         example_dir = os.path.join(library_dir, "examples")
         tests_dir = os.path.join(library_dir, "tests")
-        lib = os.path.join(target_dir, library_name, "{}.lib".format(library_name))
-
-        self.ConfigProject.set("Main", "lib", lib)
+        pinguino_file = os.path.join(library_dir, "PINGUINO")
+        # lib = os.path.join(library_dir, "{}.lib".format(libname))
+        # self.ConfigProject.set("Main", "lib", lib)
 
         os.mkdir(library_dir)
         os.mkdir(example_dir)
         os.mkdir(tests_dir)
 
         self.add_existing_directory(library_dir, inherits_status=True)
-        lib_file = open(lib, mode="w")
 
         lib_template = """/*-----------------------------------------------------
-Author:  --<>
+Author: {}--<>
 Date: {}
 Description:
 
@@ -774,11 +784,21 @@ PUBLIC u8 my_function(){{
     // This function could be used as {}.my_function
 
 }}
-""".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"), library_name)
+""".format(author, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), libname)
 
+        if _8bit:
+            lib = os.path.join(library_dir, "{}.lib".format(libname))
+            self.ConfigProject.set("Main", "lib", lib)
+            lib_file = open(lib, mode="w")
+            lib_file.write(lib_template)
+            lib_file.close()
 
-        lib_file.write(lib_template)
-        lib_file.close()
+        if _32bit:
+            lib32 = os.path.join(library_dir, "{}.lib32".format(libname))
+            self.ConfigProject.set("Main", "lib32", lib32)
+            lib_file = open(lib32, mode="w")
+            lib_file.write(lib_template)
+            lib_file.close()
 
         example_file = open(os.path.join(example_dir, "example.pde"), mode="w")
         example_file.close()
@@ -789,8 +809,21 @@ PUBLIC u8 my_function(){{
         test_file = open(os.path.join(tests_dir, "test.pde"), mode="w")
         test_file.close()
 
+        archs = []
+        if _8bit: archs.append("8bit")
+        if _32bit: archs.append("32bit")
+        parse_lib = RawConfigParser()
+        parse_lib.add_section("PINGUINO")
+        parse_lib.set("PINGUINO", "name", libname)
+        parse_lib.set("PINGUINO", "author", author)
+        parse_lib.set("PINGUINO", "arch", ", ".join(archs))
+        parse_lib.set("PINGUINO", "repository", "")
+        parse_lib.set("PINGUINO", "description", description)
+        parse_lib.set("PINGUINO", "url", "")
+        parse_lib.set("PINGUINO", "version", "0.1")
+        parse_lib.write(open(pinguino_file, "w"))
+
         self.ide_open_file_from_path(filename=lib)
-        # self.update_project_status()
 
 
 
@@ -799,57 +832,146 @@ PUBLIC u8 my_function(){{
         """"""
         self.ide_save_all()
 
-        lib_path = self.get_project_name()
-        lib_name = os.path.split(lib_path)[1]
+        lib_name = self.get_project_name()
+        # lib_name = os.path.split(lib_path)[1]
         lib = self.ConfigProject.get("Main", "lib")
 
-        define = lib.replace(".lib", ".h")
-        userc = lib.replace(".lib", ".c")
-        pdl = lib.replace(".lib", ".pdl")
+        archs = self.get_library_archs()
 
-        self.pinguinoAPI.preprocess([lib], define_output=define, userc_output=userc, ignore_spaces=self.is_project())
+        for arch in archs:
 
-        userc_file = open(userc, mode="r")
-        userc_content = userc_file.readlines()
-        userc_file.close()
+            lib_dir = os.path.dirname(lib)
+            if not os.path.isdir(os.path.join(lib_dir, arch)):
+                os.mkdir(os.path.join(lib_dir, arch))
+            if not os.path.isdir(os.path.join(lib_dir, "pdl")):
+                os.mkdir(os.path.join(lib_dir, "pdl"))
 
-        include = "#include <{}.h>".format(lib_name)
+            define = os.path.join(lib_dir, arch, "{}.h".format(lib_name))
+            userc = os.path.join(lib_dir, arch, "{}.c".format(lib_name))
+            pdl = os.path.join(lib_dir, "pdl", "{}.pdl{}".format(lib_name, "" if arch=="p8" else "32"))
 
-        functions = self.get_functions([{"filename":userc, "content":userc_content}], ignore_spaces=self.is_project())
+            if arch == "p8": arch_num = 8
+            elif arch == "p32": arch_num = 32
 
-        pdl_content = []
-        for function in functions:
-            if function["return"].startswith("PUBLIC"):
-                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace("PUBLIC ", "", 1)
-                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_path, function["name"]), 1)
-                pdl_content.append("{} {}#include <{}.c>".format("{}_{}".format(lib_path, function["name"]), "{}.{}".format(lib_name, function["name"]), lib_name))
-            else:
-                userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_path, function["name"]), 1)
+            libinstructions = self.pinguinoAPI.get_regobject_libinstructions(arch_num)
+            self.pinguinoAPI.preprocess([lib], define_output=define, userc_output=userc, ignore_spaces=self.is_project(), libinstructions=libinstructions)
+
+            userc_file = open(userc, mode="r")
+            userc_content = userc_file.read()
+            userc_file.close()
+
+            include = "#include <{}.h>".format(lib_name)
+
+            parser = PinguinoParser([{"filename":userc, "content":userc_content}])
+
+            # functions = self.get_functions([{"filename":userc, "content":userc_content}])
+            functions = parser.get_functions()
+            userc_content = userc_content.split("\n")
+
+            pdl_content = []
+
+            for function in functions:
+                if function["return"].startswith("PUBLIC"):
+                    userc_content[function["line"]-1] = userc_content[function["line"]-1].replace("PUBLIC ", "", 1)
+                    userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
+                    pdl_content.append("{} {}#include <{}.c>".format("{}.{}".format(lib_name, function["name"]), "{}_{}".format(lib_name, function["name"]), lib_name))
+                else:
+                    userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
 
 
-        header_content = """//------------------------------------------------------------------
+            header_content = """//------------------------------------------------------------------
 // Pinguino Library source code generated automatically.
 //
-// {}
+// {} for {}bit
 //
 // Created: {}
 // by: {}
 //
 //  WARNING! All changes made in this file will be lost!
 //------------------------------------------------------------------\n
-""".format(lib_name, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), os.getenv("PINGUINO_FULLNAME"))
+""".format(lib_name, arch_num, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), os.getenv("PINGUINO_FULLNAME"))
 
 
-        userc_file = open(userc, mode="w")
-        userc_file.writelines([header_content] + [include] + userc_content)
-        userc_file.close()
+            userc_file = open(userc, mode="w")
+            userc_file.writelines([header_content] + [include] + ["\n".join(userc_content)])
+            userc_file.close()
 
-        pdl_file = open(pdl, mode="w")
-        pdl_file.writelines([header_content] + pdl_content)
-        pdl_file.close()
+            pdl_file = open(pdl, mode="w")
+            pdl_file.writelines([header_content] + pdl_content + ["\n"])
+            pdl_file.close()
 
         self.reload_project()
 
 
+    #----------------------------------------------------------------------
+    def get_library_archs(self):
+        """"""
+        archs = []
+        if self.ConfigProject.has_option("Main", "lib"):
+            archs.append("p8")
+        if self.ConfigProject.has_option("Main", "lib32"):
+            archs.append("p32")
+
+        return archs
 
 
+    #----------------------------------------------------------------------
+    def get_library_version(self):
+        """"""
+        parse_lib = RawConfigParser()
+        parse_lib.readfp(open(os.path.join(self.get_library_path(), "PINGUINO"), "r"))
+        return parse_lib.get("PINGUINO", "version")
+
+
+    #----------------------------------------------------------------------
+    def get_library_path(self):
+        """"""
+        return os.path.dirname(self.get_library_libs()[0])
+
+
+    #----------------------------------------------------------------------
+    def get_library_libs(self):
+        """"""
+        libs = []
+        if self.ConfigProject.has_option("Main", "lib"):
+            libs.append(self.ConfigProject.get("Main", "lib"))
+        if self.ConfigProject.has_option("Main", "lib32"):
+            libs.append(self.ConfigProject.get("Main", "lib32"))
+
+        return libs
+
+
+    #----------------------------------------------------------------------
+    def package_library(self):
+        """"""
+        library_dir = self.get_library_path()
+        library_versioned_name = "{}-{}".format(self.get_project_name(), self.get_library_version())
+        package_name = "{}.zip".format(library_versioned_name)
+        package = ZipFile(os.path.join(library_dir, package_name), "w")
+
+        files = [
+            "pdl",
+            "examples",
+            # "{}.lib".format(self.get_project_name()),
+            # "{}.lib32".format(self.get_project_name()),
+            "p8",
+            "p32",
+            "PINGUINO",
+            "README.md",
+            "README",
+        ]
+
+        for target in files:
+            if os.path.exists(os.path.join(library_dir, target)):
+                package.write(os.path.join(library_dir, target), arcname=os.path.join(library_versioned_name, target))
+                logging.debug("Adding {} to {}".format(target, package_name))
+
+                if os.path.isdir(os.path.join(library_dir, target)):
+
+                    for root, dirs, files in os.walk(os.path.join(library_dir, target)):
+                        for file in files:
+                            package.write(os.path.join(root, file), arcname=os.path.join(library_versioned_name, os.path.split(root)[1], file))
+                            logging.debug("Adding {} to {}".format(os.path.join(root, file), package_name))
+
+
+        package.close()

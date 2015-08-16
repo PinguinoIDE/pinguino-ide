@@ -214,7 +214,6 @@ class WorkArea(QtGui.QWidget):
 
 
     #----------------------------------------------------------------------
-    #def new_bloq(self, name, args, pos, baseName, IDuser=None, full=None):
     def new_bloq(self, name, args, pos, baseName, full=None):
 
         newIcon = QtGui.QWidget(self)

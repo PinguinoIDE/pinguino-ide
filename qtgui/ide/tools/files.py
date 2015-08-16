@@ -179,7 +179,7 @@ class Files(object):
         if to_dir == "Examples":
             self.update_path_files([os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"),
                                     os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"),
-                                    os.path.join(os.getenv("PINGUINO_USER_PATH"), "library_manager", "library_examples"),
+                                    os.path.join(os.getenv("PINGUINO_USER_PATH"), "libraries", "library_examples"),
                                     ])
 
         elif to_dir == "Home":

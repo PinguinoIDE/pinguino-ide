@@ -10,7 +10,16 @@ import shutil
 from math import ceil
 
 from PySide import QtGui, QtCore
-import requests
+# import requests
+# from urllib import request
+# import urllib
+# import json
+
+from ...pinguino_core.pinguino_config import PinguinoConfig
+
+
+from .core_threads import UpdateAutocompleter, PinguinoRequest
+from .parser import PinguinoParser
 
 from ..custom_widgets import PinguinoCodeEditor
 
@@ -21,6 +30,7 @@ from ..tools.search_replace import SearchReplace
 from ..tools.project_manager import ProjectManager
 from ..tools.boardconfig import BoardConfig
 from ..tools.code_navigator import CodeNavigator
+from ..tools.library_manager import LibraryManager
 # from ..methods.library_manager import Librarymanager
 # from ..widgets.output_widget import START
 
@@ -28,13 +38,13 @@ from .timed_methods import TimedMethods
 # from .event_methods import EventMethods
 
 from ..child_windows.about import About
-from ..child_windows.libraries import LibManager
+# from ..child_windows.libraries import LibManager
 from ..child_windows.paths import Paths
 # from ..child_windows.hex_viewer import HexViewer
 from ..child_windows.insert_block_dialog import InsertBlock
 # from ..child_windows.environ_viewer import EnvironViewer
 from ..child_windows.submit_bug import SubmitBug
-# from ..child_windows.patches import Patches
+from ..child_windows.library_template import LibraryTemplate
 
 # # Python3 compatibility
 # if os.getenv("PINGUINO_PYTHON") is "3":
@@ -47,7 +57,7 @@ from ..child_windows.submit_bug import SubmitBug
 
 
 ########################################################################
-class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig, CodeNavigator):
+class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig, CodeNavigator, LibraryManager):
     """"""
 
     #----------------------------------------------------------------------
@@ -58,6 +68,7 @@ class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, Boa
         CodeNavigator.__init__(self)
         Files.__init__(self)
         ProjectManager.__init__(self)
+        LibraryManager.__init__(self)
         # super(BoardConfig, self).__init__()
 
 
@@ -81,10 +92,10 @@ class PinguinoChilds(object):
         self.frame_about.show()
 
 
-    #----------------------------------------------------------------------
-    def __show_libmanager__(self):
-        self.frame_stdout = LibManager(self)
-        self.frame_stdout.show()
+    # #----------------------------------------------------------------------
+    # def __show_libmanager__(self):
+        # self.frame_stdout = LibManager(self)
+        # self.frame_stdout.show()
 
 
     #----------------------------------------------------------------------
@@ -97,6 +108,14 @@ class PinguinoChilds(object):
     def __show_submit_bug__(self):
         self.submit_bug = SubmitBug(self)
         self.submit_bug.show()
+
+
+    #----------------------------------------------------------------------
+    def __show_library_template__(self):
+        """"""
+        self.library_template = LibraryTemplate(self)
+        self.library_template.show()
+
 
 
     # #----------------------------------------------------------------------
@@ -291,9 +310,6 @@ class PinguinoQueries(object):
                 return False
         else:
             return False
-
-
-
 
 
 ########################################################################
@@ -622,17 +638,17 @@ class PinguinoSettings(object):
         self.configIDE.set("Main", "bottom_area_height", self.main.dockWidgetContents_bottom.height()-3)
 
 
-    #----------------------------------------------------------------------
-    def toggle_editor_area(self, expand):
+    # #----------------------------------------------------------------------
+    # def toggle_editor_area(self, expand):
 
-        self.toggle_right_area(not expand)
-        self.toggle_bottom_area(not expand)
-        self.toggle_toolbars(not expand)
-        self.main.actionToolbars.setChecked(not expand)
+        # self.toggle_right_area(not expand)
+        # self.toggle_bottom_area(not expand)
+        # self.toggle_toolbars(not expand)
+        # self.main.actionToolbars.setChecked(not expand)
 
-        self.main.actionMenubar.setChecked(not expand)
-        self.main.menubar.setVisible(expand)
-        self.main.actionMenubar.setVisible(not expand)
+        # self.main.actionMenubar.setChecked(not expand)
+        # self.main.menubar.setVisible(expand)
+        # self.main.actionMenubar.setVisible(not expand)
 
 
     #----------------------------------------------------------------------
@@ -705,21 +721,21 @@ class PinguinoMain(object):
         filename = self.get_tab().currentWidget().path
 
         if self.is_graphical() is False:
-            if os.getenv("PINGUINO_PROJECT"):
+            if self.is_project() and not self.is_library():
                 filenames = self.get_project_files()
                 compile_code = lambda :self.pinguinoAPI.compile_file(filenames)
             else:
                 compile_code = lambda :self.pinguinoAPI.compile_file([filename])
 
         else:
-            if os.getenv("PINGUINO_PROJECT"):
+            if self.is_project():
                 filenames = self.get_project_files()
                 compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code(), filenames=filenames)
             else:
                 compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
 
 
-        if os.getenv("PINGUINO_PROJECT"):
+        if self.is_project() and not self.is_library():
             self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(self.get_project_name())))
         else:
             self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(filename)))
@@ -738,7 +754,7 @@ class PinguinoMain(object):
         self.main.actionUpload.setEnabled(self.pinguinoAPI.compiled())
         if not self.pinguinoAPI.compiled():
 
-            if os.getenv("PINGUINO_PROJECT"):
+            if self.is_project() and not self.is_library():
                 self.ide_show_user_c()
 
             # errors_preprocess = self.pinguinoAPI.get_errors_preprocess()
@@ -930,59 +946,32 @@ class PinguinoMain(object):
 class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, PinguinoSettings, PinguinoMain):
 
 
+
     #----------------------------------------------------------------------
-    @Decorator.call_later(3000)
-    def need_update(self, silent=False):
+    def show_message(self, frame, msg):
         """"""
-        try:
-            if not silent: logging.info("Checking for updates...")
-            response = requests.get("https://api.github.com/repos/PinguinoIDE/pinguino-ide/releases/latest", data={})
-            version = response.json().get("tag_name", None)
-
-            if version.startswith("v"):
-                version = version[1:]
-
-            if version:
-                local_version = "{PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
-
-                html = """
-                <html>
-                  <head/>
-                  <body>
-                    <p>
-                      <b>{}</b><br>
-                      A new version of Pinguino IDE is available at:<br>
-                      <a href="http://www.pinguino.cc/download"><span style=" text-decoration: underline; color:#2980b9;">http://www.pinguino.cc/download</span></a>
-                    </p>
-                  </body>
-                </html>""".format(version)
-
-                if version > local_version:
-                    Dialogs.info_message(self, html)
-
-                else:
-                    if silent: return
-                    html = """
-                    <html>
-                      <head/>
-                      <body>
-                        <p>
-                          <b>{}</b><br>
-                          Your copy of Pinguino IDE is up to date.
-                          </p>
-                      </body>
-                    </html>""".format(local_version)
-
-                    Dialogs.info_message(self, html)
-
-        except requests.ConnectionError:
-            if silent: return
-            Dialogs.error_message(self, "Unable to connect to server. Please check your network connection and try again.")
-            logging.error("ConnectionError")
+        if frame:
+            Dialogs.info_message(self, msg)
+        else:
+            logging.info(msg)
 
 
     #----------------------------------------------------------------------
-    #@Decorator.debug_time()
+    # @Decorator.call_later(2000)
+    def need_update(self):
+        """"""
+        url = "https://api.github.com/repos/PinguinoIDE/pinguino-ide/releases/latest"
+
+        if not hasattr(self, "thread_response"):
+            self.thread_response = PinguinoRequest(url)
+            self.thread_response.signal_message.connect(self.show_message)
+            self.thread_response.setTerminationEnabled(True)
+
+        if not self.thread_response.isRunning():
+            self.thread_response.start()
+
+
+    #----------------------------------------------------------------------
     def ide_open_file_from_path(self, *args, **kwargs):
         filename = kwargs["filename"]
         readonly = kwargs.get("readonly", False)
@@ -995,7 +984,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             # self.switch_ide_mode(True)
             self.PinguinoKIT.ide_open_file_from_path(filename=filename)
             editor = self.get_current_editor()
-            pde_file = codecs.open(filename, "r", "utf-8")
+            pde_file = codecs.open(filename, "r", encoding="utf-8")
             content = "".join(pde_file.readlines())
             pde_file.close()
         elif filename.endswith(".ppde"):
@@ -1006,7 +995,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             self.ide_new_file(filename=filename)
             editor = self.get_current_editor()
             #pde_file = open(path, mode="r")
-            pde_file = codecs.open(filename, "r", "utf-8")
+            pde_file = codecs.open(filename, "r", encoding="utf-8")
             content = "".join(pde_file.readlines())
             pde_file.close()
             editor.text_edit.setPlainText(content)
@@ -1020,7 +1009,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         setattr(editor, "last_saved", content)
 
         self.ide_check_backup_file(editor=editor)
-        self.ide_tab_changed()
+        # self.ide_tab_changed()
 
 
 
@@ -1035,7 +1024,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.update_recents_menu_project()
 
         opens = self.configIDE.get_recents_open()
-        if not filter(lambda f:f.endswith(".pde"), opens):
+        # if not filter(lambda f:f.endswith(".pde"), opens):
+        if not opens:
             self.pinguino_ide_manual()
             return
 
@@ -1053,6 +1043,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         # self.main.actionSwitch_ide.setChecked(file_.endswith(".gpde"))
         # self.switch_ide_mode(file_.endswith(".gpde"))
         self.setCursor(QtCore.Qt.ArrowCursor)
+        # self.thread_variables()
 
 
     #----------------------------------------------------------------------
@@ -1151,7 +1142,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         editor = kwargs.get("editor", self.get_tab())
         content = editor.text_edit.toPlainText()
-        pde_file = codecs.open(editor.path, "w", "utf-8")
+        pde_file = codecs.open(editor.path, "w", encoding="utf-8")
         pde_file.write(content)
         pde_file.close()
         setattr(editor, "last_saved", content)
@@ -1304,42 +1295,64 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         editor = self.get_current_editor()
         filename = getattr(editor, "path", False)
-        file_ = codecs.open(filename, "r", "utf-8")
+        file_ = codecs.open(filename, "r", encoding="utf-8")
         editor.text_edit.clear()
         editor.text_edit.insertPlainText("".join(file_.readlines()))
         self.ide_save_file()
 
+
     #----------------------------------------------------------------------
     def update_reserved_words(self):
-
+        """"""
         helpers = {}
         assistant = {}
 
         libinstructions8 = self.pinguinoAPI.read_lib(8)
-        name_spaces_8 = map(lambda x:x["pinguino"], libinstructions8)
+        name_spaces_8 = list(map(lambda x:x["pinguino"], libinstructions8))
 
         libinstructions32 = self.pinguinoAPI.read_lib(32)
-        name_spaces_32 = map(lambda x:x["pinguino"], libinstructions32)
+        name_spaces_32 = list(map(lambda x:x["pinguino"], libinstructions32))
 
         core = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "core")
         libraries = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "libraries")
 
+        lib_paths = []
+
+        # From core
+        for filename in os.listdir(core):
+            lib_paths.append((filename, core))
+
+        # From libraries
+        for filename in os.listdir(libraries):
+            lib_paths.append((filename, libraries))
+
+        # # From user
+        for path in PinguinoConfig.get_p8_libraries() + PinguinoConfig.get_p32_libraries():
+            for filename in os.listdir(path):
+                lib_paths.append((filename, path))
+
         files = []
-        for filename in os.listdir(core) + os.listdir(libraries):
-            core_file = os.path.join(core, filename)
-            lib_file = os.path.join(libraries, filename)
+        for filename, path in lib_paths:
+            if filename.endswith(".c"):
+                try:
+                    files.append({"filename": filename,
+                                  "content": open(os.path.join(path, filename), mode="r").read(),
+                                  })
+                except Exception as msg:
+                    logging.error("{}: {}".format(filename, msg))
 
-            if os.path.exists(core_file): path = core_file
-            elif os.path.exists(lib_file): path = lib_file
+        parser = PinguinoParser(files)
 
-            else: continue
+        functions = {function["name"]:function for function in parser.get_functions()}
 
-            if path.endswith(".c"):
-                files.append({"filename": filename,
-                              "content": open(path, mode="r").read(),
-                              })
+        directives = {}
+        for directive in parser.get_directives():
+            if directive["name"].endswith(".h"):
+                if directive["filename"] in directives:
+                    directives[directive["filename"]].append(directive)
+                else:
+                    directives[directive["filename"]] = [directive]
 
-        functions = {function["name"]:function for function in self.get_functions(files)}
 
         for instruction in libinstructions8 + libinstructions32:
             if instruction["c"] in functions:
@@ -1347,8 +1360,13 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 if functions[instruction["c"]]["args"] != "void":
                     args = functions[instruction["c"]]["args"]
                 helpers[instruction["pinguino"]] = "{}({{{{{}}}}});".format(instruction["pinguino"], args)
-
-                # assistant[instruction["pinguino"]] = functions[instruction["c"]]
+                try:
+                    headers = [directive["name"] for directive in directives[functions[instruction["c"]]["filename"]]]
+                except KeyError:
+                    headers = []
+                info_funtion = functions[instruction["c"]]
+                info_funtion["headers"] = headers
+                assistant[instruction["pinguino"]] = info_funtion
 
         reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
 
@@ -1365,48 +1383,12 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                       "arch32": name_spaces_32,
                       "all": name_spaces_commun,
                       "helpers": helpers,
-                      # "assistant": assistant,
+                      "assistant": assistant,
                       }
 
-
-        pickle.dump(namespaces, open(reserved_filename, "w"))
-
-        logging.warning("Writing: " + reserved_filename)
-        return "Writing: {}" .format(reserved_filename)
-
-
-    #----------------------------------------------------------------------
-    def update_instaled_reserved_words(self):
-
-        libinstructions = self.pinguinoAPI.read_lib(8, include_default=False)
-        name_spaces_8 = map(lambda x:x[0], libinstructions)
-
-        libinstructions = self.pinguinoAPI.read_lib(32, include_default=False)
-        name_spaces_32 = map(lambda x:x[0], libinstructions)
-
-        reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
-
-        name_spaces_commun = []
-
-        copy_32 = name_spaces_32[:]
-        for name in name_spaces_8:
-            if name in copy_32:
-                name_spaces_8.remove(name)
-                name_spaces_32.remove(name)
-                name_spaces_commun.append(name)
-
-        olds = pickle.load(open(reserved_filename, "r"))
-
-        namespaces = {"arch8": list(set(name_spaces_8 + olds["arch8"])),
-                      "arch32": list(set(name_spaces_32 + olds["arch32"])),
-                      "all": list(set(name_spaces_commun + olds["all"])),}
-
-        #pickle.dump(olds, open(reserved_filename, "w"))
-        pickle.dump(namespaces, open(reserved_filename, "w"))
-
-        logging.warning("Writing: " + reserved_filename)
-        return "Writing: {}".format(reserved_filename)
-
+        pickle.dump(namespaces, open(reserved_filename, "wb"), protocol=2)
+        # logging.warning("Writing: " + reserved_filename)
+        # return "Writing: {}" .format(reserved_filename)
 
 
     #----------------------------------------------------------------------
@@ -1420,7 +1402,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             filename_backup = filename + "~"
 
             if os.path.exists(filename_backup):
-                backup_file = codecs.open(filename_backup, "r", "utf-8")
+                backup_file = codecs.open(filename_backup, "r", encoding="utf-8")
                 content = "".join(backup_file.readlines())
                 backup_file.close()
 
@@ -1500,7 +1482,6 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         """"""
         if not os.path.exists(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")):
             self.update_reserved_words()
-            self.update_instaled_reserved_words()
 
 
     #----------------------------------------------------------------------
@@ -1619,7 +1600,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         filename = os.path.split(path)[1]
         highlighter = filename.endswith(".pde") or filename.endswith(".c") or filename.endswith(".h") or filename.endswith(".cpp") or \
                 filename.endswith(".pde*") or filename.endswith(".c*") or filename.endswith(".h*") or filename.endswith(".cpp*") or \
-                filename.endswith(".lib") or filename.endswith(".lib*") or filename.endswith(".pdl") or filename.endswith(".pdl*")
+                filename.endswith(".lib") or filename.endswith(".lib*") or filename.endswith(".pdl") or filename.endswith(".pdl*") or \
+                filename.endswith(".lib32") or filename.endswith(".lib32*") or filename.endswith(".pdl32") or filename.endswith(".pdl32*") or \
+                filename.lower() == "pinguino" or filename.lower() == "readme.md"
         autocompleter = highlighter
         editor = PinguinoCodeEditor(highlighter=highlighter, autocompleter=autocompleter)
         self.main.tabWidget_files.addTab(editor, filename)
@@ -1674,21 +1657,21 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 return
             # elif filename.endswith(".pde"):
                 # self.switch_ide_mode(False)
+            self.ide_open_file_from_path(filename=filename)
+            # self.ide_new_file(os.path.split(filename)[1])
+            # editor = self.get_current_editor()
+            # pde_file = codecs.open(filename, "r", encoding="utf-8")
+            # content = "".join(pde_file.readlines())
+            # pde_file.close()
+            # editor.text_edit.setPlainText(content)
+            # setattr(editor, "path", filename)
+            # setattr(editor, "last_saved", content)
+            # self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
+            # self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
+            # #self.update_recents(filename)
+            # self.ide_check_backup_file(editor=editor)
 
-            self.ide_new_file(os.path.split(filename)[1])
-            editor = self.get_current_editor()
-            pde_file = codecs.open(filename, "r", "utf-8")
-            content = "".join(pde_file.readlines())
-            pde_file.close()
-            editor.text_edit.setPlainText(content)
-            setattr(editor, "path", filename)
-            setattr(editor, "last_saved", content)
-            self.main.tabWidget_files.setTabToolTip(self.main.tabWidget_files.currentIndex(), filename)
-            self.main.tabWidget_files.setTabText(self.main.tabWidget_files.currentIndex(), os.path.split(filename)[1])
-            #self.update_recents(filename)
-            self.ide_check_backup_file(editor=editor)
-
-        self.ide_tab_changed()
+        # self.ide_tab_changed()
 
 
     #----------------------------------------------------------------------
@@ -2355,6 +2338,12 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         # self.__update_current_dir_on_files__()
 
         self.update_actions()
+        # self.thread_variables()
+        # self.update_code_navigator()
+        # # if not hasattr(self, "ii"):
+            # # self.ii = 0
+        # # self.ii += 1
+        # # logging.debug("WTF-{}".format(self.ii))
 
 
     #----------------------------------------------------------------------
@@ -2502,7 +2491,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         menu.addAction(self.main.actionTabFiles)
         menu.addAction(self.main.actionTabProject)
         menu.addAction(self.main.actionTabSourceBrowser)
-        menu.addAction(self.main.actionTabSourceAssistant)
+        # menu.addAction(self.main.actionTabSourceAssistant)
         menu.addAction(self.main.actionTabSearchReplace)
         menu.addAction(self.main.actionTabBoardConfig)
         menu.exec_(event.globalPos())

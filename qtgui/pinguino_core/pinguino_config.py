@@ -48,7 +48,7 @@ class PinguinoConfig(object):
         #load path from paths.conf
         os.environ["PINGUINO_USER_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "user_path")))
         os.environ["PINGUINO_INSTALL_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "install_path")))
-        os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.join(os.getenv("PINGUINO_USER_PATH"), "library_manager"))
+        os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.join(os.getenv("PINGUINO_USER_PATH"), "libraries"))
 
 
     #----------------------------------------------------------------------
@@ -209,17 +209,49 @@ class PinguinoConfig(object):
             Pinguino
         """
 
-        from ..ide.commons.library_manager import Librarymanager
+        pinguino_object.USER_P8_LIBS = cls.get_p8_libraries()
+        pinguino_object.USER_P32_LIBS = cls.get_p32_libraries()
+        pinguino_object.USER_PDL = cls.get_pdl_libraries()
 
-        libs = Librarymanager()
 
-        all_p8 = libs.get_p8_libraries()
-        all_p8 = map(lambda lib:lib["p8"], all_p8)
-        pinguino_object.USER_P8_LIBS = all_p8
+    #----------------------------------------------------------------------
+    @classmethod
+    def get_p8_libraries(cls):
+        """"""
+        p8_libs = []
+        if os.path.exists(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
+            for lib in os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
+                p8 = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr", lib, "p8")
+                if os.path.exists(p8):
+                    p8_libs.append(p8)
 
-        all_p32 = libs.get_p32_libraries()
-        all_p32 = map(lambda lib:lib["p32"], all_p32)
-        pinguino_object.USER_P32_LIBS = all_p32
+        return p8_libs
 
-        pinguino_object.USER_PDL = libs.get_pdls()
 
+    #----------------------------------------------------------------------
+    @classmethod
+    def get_p32_libraries(cls):
+        """"""
+        p32_libs = []
+        if os.path.exists(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
+            for lib in os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
+                p32 = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr", lib, "p32")
+                if os.path.exists(p32):
+                    p32_libs.append(p32)
+
+        return p32_libs
+
+
+    #----------------------------------------------------------------------
+    @classmethod
+    def get_pdl_libraries(cls):
+        """"""
+        pdl_libs = []
+        if os.path.exists(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
+            for lib in os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
+                pdls = os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr", lib, "pdl"))
+                for pdl in pdls:
+                    if pdl.endswith(".pdl") or pdl.endswith(".pdl32"):
+                        pdl_libs.append(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr", lib, "pdl", pdl))
+
+        return pdl_libs

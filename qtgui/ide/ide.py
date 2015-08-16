@@ -105,16 +105,18 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
         #timer events
         splash_write(QtGui.QApplication.translate("Splash", "Starting timers"))
-        self.update_functions()
-        self.update_directives()
-        self.update_variables()
-        self.update_autocompleter()
-        self.check_external_changes()
-        self.save_backup_file()
+        self.timer_update_functions()
+        self.timer_update_directives()
+        self.timer_update_variables()
+        self.timer_update_autocompleter()
+        self.timer_check_changes()
+        self.timer_backup_file()
+        self.timer_update_assiatant()
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
-        self.update_path_files([os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"),
-                                os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples")])
+        self .change_dir_files(0)  #Examples
+        # self.update_path_files([os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"),
+                                # os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples")])
         # self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Loading boards configuration"))
@@ -148,7 +150,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         PinguinoEvents.__init__(self)
 
         if os.getenv("PINGUINO_MODE") == "NORMAL":
-            self.need_update(silent=True)
+            self.need_update()
+
 
     #----------------------------------------------------------------------
     def set_sise_hint(self):
@@ -250,5 +253,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
 
 if os.getenv("PINGUINO_MODE") == "NORMAL":
     for name, fn in inspect.getmembers(PinguinoIDE):
-        if isinstance(fn, types.UnboundMethodType):
+        # if isinstance(fn, types.UnboundMethodType):
+        if isinstance(fn, (types.MethodType, types.FunctionType)):
             setattr(PinguinoIDE, name, Decorator.debug_method()(fn))

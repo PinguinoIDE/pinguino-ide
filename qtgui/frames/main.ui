@@ -24,7 +24,7 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_25">
+   <layout class="QGridLayout" name="gridLayout_29">
     <property name="margin">
      <number>0</number>
     </property>
@@ -53,7 +53,7 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="0">
+       <item row="1" column="0">
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -66,7 +66,7 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="1">
+       <item row="1" column="1">
         <widget class="QLabel" name="label_logo">
          <property name="text">
           <string/>
@@ -76,7 +76,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="2">
+       <item row="1" column="2">
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -194,7 +194,6 @@
     <addaction name="menuLinks"/>
     <addaction name="separator"/>
     <addaction name="actionSubmit_bug_report"/>
-    <addaction name="actionCheck_for_updates"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -269,7 +268,6 @@
     <addaction name="actionToggle_vertical_tool_area"/>
     <addaction name="actionToggle_horizontal_tool_area"/>
     <addaction name="actionMove_vertical_tool_area"/>
-    <addaction name="actionToggle_editor_area"/>
     <addaction name="actionToolbars"/>
     <addaction name="actionMenubar"/>
     <addaction name="separator"/>
@@ -314,7 +312,7 @@
      <property name="spacing">
       <number>0</number>
      </property>
-     <item row="0" column="0">
+     <item row="0" column="1">
       <widget class="QTabWidget" name="tabWidget_tools">
        <property name="acceptDrops">
         <bool>true</bool>
@@ -323,7 +321,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -365,6 +363,9 @@
              <height>25</height>
             </size>
            </property>
+           <property name="animated">
+            <bool>true</bool>
+           </property>
            <attribute name="headerVisible">
             <bool>false</bool>
            </attribute>
@@ -385,6 +386,12 @@
          <item row="3" column="0" colspan="2">
           <widget class="QWidget" name="widget_library" native="true">
            <layout class="QGridLayout" name="gridLayout_28">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
             <item row="0" column="0">
              <widget class="QPushButton" name="pushButton_compilelibrary">
               <property name="text">
@@ -405,6 +412,12 @@
          <item row="1" column="0" colspan="2">
           <widget class="QWidget" name="widget_noproject" native="true">
            <layout class="QGridLayout" name="gridLayout_20">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
             <item row="5" column="2">
              <spacer name="verticalSpacer_5">
               <property name="orientation">
@@ -500,14 +513,14 @@
         <attribute name="title">
          <string>Source Browser</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_8">
-         <item row="0" column="0" colspan="2">
+        <layout class="QGridLayout" name="gridLayout_25">
+         <item row="1" column="0">
           <widget class="QTabWidget" name="tabWidget_browser">
            <property name="tabPosition">
             <enum>QTabWidget::South</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="Variables">
             <attribute name="title">
@@ -520,7 +533,7 @@
              <property name="spacing">
               <number>0</number>
              </property>
-             <item row="0" column="0">
+             <item row="1" column="0">
               <widget class="QTableWidget" name="tableWidget_variables">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -562,6 +575,12 @@
              <string>Functions</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_5">
+             <property name="margin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
              <item row="0" column="0">
               <widget class="QTableWidget" name="tableWidget_functions">
                <property name="frameShape">
@@ -697,6 +716,223 @@
              </item>
             </layout>
            </widget>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QFrame" name="frame_source_assistnant">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_8">
+            <item row="0" column="0" colspan="2">
+             <layout class="QFormLayout" name="formLayout_source_browser">
+              <property name="fieldGrowthPolicy">
+               <enum>QFormLayout::ExpandingFieldsGrow</enum>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_name">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Name:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_name_edit">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_args">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Args:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_args_edit">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_library">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Library:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_library_edit">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_return">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Retutn:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="label_return_edit">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QLabel" name="label_source_browser">
+              <property name="styleSheet">
+               <string notr="true">color: rgb(226, 0, 0);</string>
+              </property>
+              <property name="text">
+               <string>Move cursor over function to see details about it.</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="LibraryManager">
+        <attribute name="title">
+         <string>Library Manager</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_30">
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLineEdit" name="lineEdit_libraries_source"/>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_library_git">
+             <property name="text">
+              <string>Git</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_library_mercurial">
+             <property name="text">
+              <string>Mercurial</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QPushButton" name="pushButton_libraries_install">
+             <property name="text">
+              <string>Install</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_libraries_install_from_zip">
+             <property name="text">
+              <string>Install from .zip</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="2" column="0">
+          <widget class="QTableWidget" name="tableWidget_user_libraries">
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="verticalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <property name="horizontalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <property name="gridStyle">
+            <enum>Qt::NoPen</enum>
+           </property>
+           <property name="wordWrap">
+            <bool>false</bool>
+           </property>
+           <property name="cornerButtonEnabled">
+            <bool>false</bool>
+           </property>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Library</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Architecture</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Author</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Info</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </column>
           </widget>
          </item>
         </layout>
@@ -1380,7 +1616,7 @@
   <action name="actionNew_file">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</iconset>
    </property>
    <property name="text">
     <string>New file</string>
@@ -1392,7 +1628,7 @@
   <action name="actionOpen_file">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>Open...</string>
@@ -1407,7 +1643,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -1436,7 +1672,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</iconset>
    </property>
    <property name="text">
     <string>Undo</string>
@@ -1451,7 +1687,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</iconset>
    </property>
    <property name="text">
     <string>Redo</string>
@@ -1466,7 +1702,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</iconset>
    </property>
    <property name="text">
     <string>Cut</string>
@@ -1481,7 +1717,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</iconset>
    </property>
    <property name="text">
     <string>Copy</string>
@@ -1496,7 +1732,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</iconset>
    </property>
    <property name="text">
     <string>Paste</string>
@@ -1511,7 +1747,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
    </property>
    <property name="text">
     <string>Search</string>
@@ -1526,7 +1762,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
    </property>
    <property name="text">
     <string>Search and replace</string>
@@ -1538,7 +1774,7 @@
   <action name="actionSelect_board">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</iconset>
    </property>
    <property name="text">
     <string>Pinguino board selection</string>
@@ -1553,7 +1789,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</iconset>
    </property>
    <property name="text">
     <string>Compile</string>
@@ -1568,7 +1804,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</iconset>
    </property>
    <property name="text">
     <string>Upload</string>
@@ -1612,7 +1848,7 @@
   <action name="actionSave_image">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</iconset>
    </property>
    <property name="text">
     <string>Save image</string>
@@ -2007,20 +2243,6 @@
     <string>Move vertical tool area to right</string>
    </property>
   </action>
-  <action name="actionToggle_editor_area">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-   <property name="text">
-    <string>Maximize editor area</string>
-   </property>
-   <property name="shortcut">
-    <string>Shift+F2</string>
-   </property>
-  </action>
   <action name="actionPinguino_ide_manual">
    <property name="text">
     <string>Pinguino IDE manual</string>
@@ -2050,7 +2272,7 @@
   <action name="actionNew_blocks_file">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</normaloff>../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</iconset>
+     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</iconset>
    </property>
    <property name="text">
     <string>New blocks file</string>
@@ -2082,11 +2304,6 @@
     <string>Ctrl+I</string>
    </property>
   </action>
-  <action name="actionCheck_for_updates">
-   <property name="text">
-    <string>Check for updates...</string>
-   </property>
-  </action>
   <action name="actionGenerate_blocks">
    <property name="text">
     <string>Generate blocks</string>
@@ -2099,7 +2316,6 @@
   </action>
  </widget>
  <tabstops>
-  <tabstop>tabWidget_tools</tabstop>
   <tabstop>tabWidget_browser</tabstop>
   <tabstop>comboBox_files</tabstop>
   <tabstop>tableWidget_variables</tabstop>
@@ -2107,6 +2323,7 @@
   <tabstop>tableWidget_directives</tabstop>
  </tabstops>
  <resources>
+  <include location="../../../pinguino-extra/resources/resources.qrc"/>
   <include location="../../../pinguino-extra/resources/resources.qrc"/>
  </resources>
  <connections/>

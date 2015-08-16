@@ -450,7 +450,7 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def preprocess(self, file_path, define_output=None, userc_output=None, ignore_spaces=False):
+    def preprocess(self, file_path, define_output=None, userc_output=None, ignore_spaces=False, libinstructions=None):
         """Read Pinguino File (.pde) and translate it into C language.
 
         Parameters
@@ -461,6 +461,8 @@ class PinguinoTools(Uploader):
             Custom file for headers code.
         userc_output: str
             Custom file for preprocessed code.
+        libinstructions: list
+            Custom libinstructions
         """
 
         defines = set()
@@ -468,7 +470,7 @@ class PinguinoTools(Uploader):
 
         for path in file_path:
 
-            file_pde = codecs.open("{}".format(path), "r", "utf-8")
+            file_pde = codecs.open("{}".format(path), "r", encoding="utf-8")
             user_c = StringIO(file_pde.read())
             file_pde.close()
 
@@ -489,7 +491,7 @@ class PinguinoTools(Uploader):
             nblines = 0
             # libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
-            content_nostrings, defines_lib = self.replace_word(content_nostrings)
+            content_nostrings, defines_lib = self.replace_word(content_nostrings, libinstructions=libinstructions)
             content = self.recove_strings(content_nostrings+"\n", keys)
 
             defines = defines.union(defines_lib)
@@ -550,13 +552,15 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def replace_word(self, content):
+    def replace_word(self, content, libinstructions=None):
         """Convert Pinguino language in C language.
 
         Parameters
         ----------
         content: str
             Pinguino code.
+        libinstructions: list
+            Custom libinstructions.
 
         Returns
         -------
@@ -565,8 +569,8 @@ class PinguinoTools(Uploader):
         defines: list
             List with directives needed and finded.
         """
-
-        libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
+        if libinstructions is None:
+            libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
         defines = set()
         keys = dict()
@@ -1015,7 +1019,18 @@ class PinguinoTools(Uploader):
                     codesize = codesize + byte_count
 
         fichier.close()
-        return "Code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
+        # return "Code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
+        return "Code size: {}/{} bytes ({:.2f}% used)".format(codesize, memfree, 100*codesize/memfree)  #Python3 rocks!
+
+
+    #----------------------------------------------------------------------
+    def force_reload_libs(self):
+        """"""
+        if hasattr(self, "libinstructions_32"):
+            delattr(self, "libinstructions_32")
+
+        if hasattr(self, "libinstructions_8"):
+            delattr(self, "libinstructions_8")
 
 
 # ------------------------------------------------------------------------------
@@ -1039,3 +1054,4 @@ def getOptions():
                                 default=False,
                                 help='compile code for ' + Boardlist[b].board + ' board')
     return parser.parse_args()
+

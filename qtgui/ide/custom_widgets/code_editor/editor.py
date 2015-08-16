@@ -27,6 +27,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
             self.helpers = pickle.load(file_reserved)["helpers"]
+        # self.helpers = {}
 
         # self.completer = PinguinoAutoCompleter()
         # self.cursorC = QtGui.QCursor()
@@ -155,7 +156,12 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.temp_helpers.update(Helpers)
         self.temp_helpers.update(self.completer.local_functions)
 
-        if completion in self.temp_helpers.keys():
+        pos = tc.position()
+        tc.movePosition(tc.EndOfLine, tc.KeepAnchor)
+        at_right = tc.selectedText()
+        tc.setPosition(pos, tc.MoveAnchor)
+
+        if completion in self.temp_helpers.keys() and not at_right:
             pos = tc.position()
 
             # text_position = Snippet[completion].find("[!]")
@@ -190,7 +196,10 @@ class CustomTextEdit(QtGui.QTextEdit):
         elif re.match("(.+) +\[.+\]", str(completion)) != None:
             ins = re.match("(.+) +\[.+\]", str(completion)).group(1)
             tc.insertText(ins)
-        else: tc.insertText(completion)
+
+        else:
+            tc.insertText(completion)
+
         self.completer.hide()
         self.setFocus()
 

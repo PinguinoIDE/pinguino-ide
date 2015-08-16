@@ -2,12 +2,14 @@
 #-*- coding: utf-8 -*-
 
 import os
-#import shutil
 import logging
 
 INFO = "{} is an optional dependence for Pinguino's Library Manager."
 
-ErrorModules = {"gitpython": True, "pysvn": True, "hgapi": True,}
+ErrorModules = {"gitpython": True,
+                # "pysvn": True,
+                "hgapi": True,
+                }
 
 try: import git
 except ImportError:
@@ -24,25 +26,17 @@ except ImportError:
     ErrorModules["hgapi"] = False
     logging.warning(INFO.format("hgapi"))
 
-from ..commons.config_libs import ConfigLibsGroup
-
-
 
 ########################################################################
-class PinguinoLibrary(object):
-
+class Repository(object):
 
     #----------------------------------------------------------------------
-    def __init__(self, lib):
-        self.config = ConfigLibsGroup()
-        self.ide_library_installed = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "libraries")
+    def __init__(self, repo_path, dir_path, repo_type):
+        """"""
+        self.repo_path = repo_path
+        self.dir_path = dir_path
 
-        self.name = lib
-        self.url = self.config.get_all_sources()[lib]["repository"]
-        self.path = os.path.join(self.ide_library_installed, self.name, "lib")
-
-
-        self.REPOSYTORIES = [
+        self.REPOSITORIES = [
                              {"name": "git",
                               "file": ".git",
                               "cv": GitRepo},
@@ -56,39 +50,40 @@ class PinguinoLibrary(object):
                               # "cv": SvnRepo},
                             ]
 
+        self.set_repo(repo_type)
+
 
     #----------------------------------------------------------------------
     def search_repo(self):
-        listdir = os.listdir(self.path)
+        listdir = os.listdir(self.dir_path)
 
-        for repo in self.REPOSYTORIES:
+        for repo in self.REPOSITORIES:
             if repo["file"] in listdir:
                 Repository = repo["cv"]()
         self.clone = Repository.clone
         self.update = Repository.update
 
     #----------------------------------------------------------------------
-    def set_repo(self, repo_):
-        for repo in self.REPOSYTORIES:
-            if repo_ == repo["name"]:
+    def set_repo(self, repo_type):
+        for repo in self.REPOSITORIES:
+            if repo_type == repo["name"]:
                 Repository = repo["cv"]()
 
         self.clone = Repository.clone
         self.update = Repository.update
 
     #----------------------------------------------------------------------
-    def install_library(self, repo):
-        try:
-            self.set_repo(repo)
-            self.clone(self.url, self.path)
-            return True
-        except: return False
+    def install_library(self):
+        # try:
+        self.clone(self.repo_path, self.dir_path)
+        return True
+        # except: return False
 
     #----------------------------------------------------------------------
     def update_library(self):
         try:
             self.search_repo()
-            self.update(self.path)
+            self.update(self.dir_path)
             return True
         except:
             return False

@@ -4,13 +4,16 @@
 import os
 import re
 import codecs
+import pickle
 
 from ..methods.decorators import Decorator
 
-from PySide import QtCore
+from ...pinguino_core.pinguino_config import PinguinoConfig
 
-data_types = ["int", "float", "char", "double", "u8", "u16", "u32", "u64", "BOOL", "byte", "word", "void", "short", "long"]  # Yes I know, void is NOT a data type.
-preprocessor_commands = ["define", "include", "error", "undef", "if", "else", "if", "elif", "ifdef", "ifndef", "line", "pragma"]  #endif
+from PySide import QtCore, QtGui
+
+# data_types = ["int", "float", "char", "double", "u8", "u16", "u32", "u64", "BOOL", "byte", "word", "void", "short", "long"]  # Yes I know, void is NOT a data type.
+# preprocessor_commands = ["define", "include", "error", "undef", "if", "else", "if", "elif", "ifdef", "ifndef", "line", "pragma"]  #endif
 
 
 ########################################################################
@@ -26,199 +29,50 @@ class CodeNavigator(object):
         self.connect(self.main.tableWidget_directives.verticalHeader(), QtCore.SIGNAL("sectionClicked(int)"), self.jump_directive)
         self.connect(self.main.tableWidget_variables.verticalHeader(), QtCore.SIGNAL("sectionClicked(int)"), self.jump_variable)
 
-
-    #----------------------------------------------------------------------
-    def remove_comments(self, text, ignore_spaces=False):
-
-        if type(text) == type([]):
-            text = "".join(text)
-
-        def replacer(match):
-            s = match.group(0)
-
-            if s.startswith('/'):
-                #return "" #bug in line number in error info, multiline comments
-                if not ignore_spaces:
-                    return " "*(len(s)-s.count("\n")) + "\n" * (s.count("\n"))
-                else:
-                    return ""
-
-            else:
-                return s
-
-        pattern = re.compile(
-            r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
-            re.DOTALL | re.MULTILINE
-        )
-        textout = re.sub(pattern, replacer, text)
-
-        if type(text) == type([]):
-            textout = textout.split("\n")
-
-        return textout
+        self.connect(self.main.label_library_edit, QtCore.SIGNAL("linkActivated(QString)"), self.open_file_from_link)
+        # self.connect(self.main.label_headers_edit, QtCore.SIGNAL("linkActivated(QString)"), self.open_file_from_link)
 
 
     #----------------------------------------------------------------------
-    def get_functions(self, files=None, ignore_spaces=False):
+    def set_functions(self, functions):
 
-        regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
-        # regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\s\w ,*.\[\]]*)\)[\s]*"
-        #regex_function_content = "[\s]*{}[\s]*\{[\s\S]*\}[\s]*
-
-        funtions = []
-        if files is None:
-            files = self.get_files_to_explore()
-
-        for file_ in files:
-
-            filename = file_["filename"]
-            content = file_["content"]
-
-
-            # content_comments = content
-
-            content_no_comments = self.remove_comments(content, ignore_spaces=ignore_spaces)
-            content_list = self.remove_comments(content).split("\n")
-
-            for line in range(len(content_list)):
-
-                match = re.match(regex_function, content_list[line])
-                if match:
-                    this_function = {}
-
-                    # content_no_comments = editor.text_edit.toPlainText()
-                    index =  content_no_comments.find(content_list[line])
-                    index_start = index
-                    index_end = index
-                    bracket = 1
-
-                    try:
-                        while  content_no_comments[index_end] != "{": index_end += 1
-                    except IndexError:
-                        bracket = 0
-
-                    while bracket != 0:
-                        index_end += 1
-                        try:
-                            if  content_no_comments[index_end] == "{": bracket += 1
-                            elif  content_no_comments[index_end] == "}": bracket -= 1
-                        except IndexError:
-                            index_end = index_start - 1
-                            break
-
-                    count =  content_no_comments[index_start:index_end+1].count("\n")
-
-                    # this_function["content"] = content_comments[index_start:index_end+1]
-                    # this_function["line"] = (str(line + 1), str(line + 1 + count))
-                    this_function["line"] = line + 1
-                    this_function["name"] = match.groups()[2] + match.groups()[3]
-                    this_function["return"] = ("" if not match.groups()[2] else "pointer to ") + ((match.groups()[0] + " " + match.groups()[1]) if match.groups()[0] else match.groups()[1])
-                    this_function["args"] = match.groups()[4]
-                    this_function["filename"] = filename
-                    funtions.append(this_function)
-
-        return funtions
+        self.functions = functions
+        # self.update_functions()
 
 
     #----------------------------------------------------------------------
-    def get_directives(self, files=None):
+    def get_functions(self):
 
-        regex_directive = "[\s]*#(" + "|".join(preprocessor_commands)+ ")[\s]+<?[\s]*([\w.]*)[\s]*>?[\s]*([\S]*)"
-
-        directives = []
-
-        if files is None:
-            files = self.get_files_to_explore()
-
-        for file_ in files:
-
-            filename = file_["filename"]
-            content = file_["content"]
-
-            content = self.remove_comments(content)
-            content = content.split("\n")
-
-            for line in range(len(content)):
-                match = re.match(regex_directive, content[line])
-                this_directive = {}
-                if match:
-                    this_directive["type"] = "#" + match.groups()[0]
-                    this_directive["name"] = match.groups()[1]
-                    this_directive["value"] = match.groups()[2]
-                    this_directive["line"] = line + 1
-                    this_directive["filename"] = filename
-                    directives.append(this_directive)
-
-        return directives
-
-
+        if hasattr(self, "functions"): return self.functions
+        else: return []
 
 
     #----------------------------------------------------------------------
-    def get_variables(self, files=None):
+    def set_directives(self, directives):
 
-        regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(" + "|".join(data_types) + ")+[\s]*( \* )*[\s]*([ \w\[\]=,.{}\"']*);"
-        # regex_variables = "[\s]*(volatile|register|static|extern)*[\s]*(unsigned|signed)*[\s]*(short|long)*[\s]*(" + "|".join(data_types) + ")[\s]*+([*])*([ \w\[\]=,.{}\"'\*]*);"
+        self.directives = directives
+        # self.update_directives()
 
-        variables = []
 
-        if files is None:
-            files = self.get_files_to_explore()
+    #----------------------------------------------------------------------
+    def get_directives(self):
 
-        for file_ in files:
+        if hasattr(self, "directives"): return self.directives
+        else: return []
 
-            filename = file_["filename"]
-            content = file_["content"]
 
-            content = self.remove_comments(content)
-            content = content.split("\n")
-            for line in range(len(content)):
-                match = re.match(regex_variables, content[line])
-                if match:
-                    args = match.groups()[4]
-                    l = []
-                    index = 0
-                    while index < len(args):
-                        if args[index] == "{":
-                            start = index
-                            bracket = 1
+    #----------------------------------------------------------------------
+    def set_variables(self, variables):
 
-                            while bracket != 0:
-                                index += 1
-                                if args[index] == "{": bracket += 1
-                                if args[index] == "}": bracket -= 1
-                            end = index
+        self.variables = variables
+        # self.update_variables()
 
-                            l.append(args[start:end+1])
 
-                        else: index += 1
+    #----------------------------------------------------------------------
+    def get_variables(self):
 
-                    for j in l: args = args.replace(j, "", 1)
-                    args = args.split(",")
-                    args = map(lambda a:a[:a.find("=")] if "=" in a else a, args)
-
-                    type_ = " ".join([("" if not match.groups()[3] else "pointer to "),
-                                    ("" if not match.groups()[0] else match.groups()[0]),
-                                    ("" if not match.groups()[1] else match.groups()[1]),
-                                    (match.groups()[2]),
-                                    # match.groups()[3]
-                                    ])
-
-                    while type_.startswith(" "): type_ = type_[1:]
-
-                    for arg in args:
-                        this_variable = {}
-                        this_variable["type"] = type_
-                        if re.match("(.*)(\[.*\])", arg):
-                            this_variable["name"] = re.match("(.*)(\[.*\])", arg).groups()[0]
-                        else:
-                            this_variable["name"] = arg
-                        #this_variable["value"] = match.groups()[6]
-                        this_variable["line"] = line + 1
-                        this_variable["filename"] = filename
-                        variables.append(this_variable)
-
-        return variables
+        if hasattr(self, "variables"): return self.variables
+        else: return []
 
 
     #----------------------------------------------------------------------
@@ -301,4 +155,71 @@ class CodeNavigator(object):
                          "content": str(self.get_current_editor().text_edit.toPlainText())}]
             else:
                 return []
+
+
+
+    #----------------------------------------------------------------------
+    def update_assistant(self, name):
+        """"""
+        if not hasattr(self, "assistant"):
+            with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
+                self.assistant = pickle.load(file_reserved)["assistant"]
+
+        if name in self.assistant:
+
+            link = "<a href='{text}'><span style='text-decoration: none; color:#2980b9;'>{text}</span></a>"
+            html = "<html><head/><body><p>{links}</p></body></html>"
+
+            self.main.label_name_edit.setText("{} ({name})".format(name, **self.assistant[name]))
+            self.main.label_args_edit.setText("({args})".format(**self.assistant[name]))
+            self.main.label_library_edit.setText(html.format(links=link.format(text=self.assistant[name]["filename"])))
+
+            return_ = self.assistant[name]["return"]
+            if return_ == "void": return_ = "None"
+            self.main.label_return_edit.setText("{}".format(return_))
+
+            # return True
+            self.main.label_source_browser.setVisible(False)
+
+
+        # return False
+        # self.main.label_source_browser.setVisible(True)
+
+
+
+            # links = []
+            # for header in self.assistant[name]["headers"]:links.append(link.format(text=header))
+            # self.main.label_headers_edit.setText(html.format(links="[{}]".format(", ".join(links))))
+
+
+
+    #----------------------------------------------------------------------
+    def open_file_from_link(self, name):
+        """"""
+        core = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "core")
+        libraries = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "libraries")
+
+        path = None
+        if name in os.listdir(core):
+            path =  os.path.join(core, name)
+        elif name in os.listdir(libraries):
+            path =  os.path.join(libraries, name)
+
+        if path is None:
+            for path_ in PinguinoConfig.get_p8_libraries() + PinguinoConfig.get_p32_libraries():
+                if name in os.listdir(path_):
+                    path = os.path.join(path_, name)
+                    break
+
+        if os.path.exists(path):
+            self.ide_open_file_from_path(filename=path, readonly=True)
+
+
+
+    # #----------------------------------------------------------------------
+    # def update_code_navigator(self):
+        # """"""
+        # self.update_variables()
+        # self.update_functions()
+        # self.update_directives()
 
