@@ -8,7 +8,7 @@ from datetime import datetime
 
 from PySide import QtGui, QtCore
 
-from .blocks import Blocks
+from .blocks import Blocks, OPENHANDCURSOR, CLOSEHANDCURSOR
 #from .constant import INTRO_CODE
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
@@ -584,7 +584,7 @@ class WorkArea(QtGui.QWidget):
                 if child.metadata.parent != "None":
                     pos += child.metadata.parent.metadata.widget.pos()
                 fullw = map(lambda wdg:wdg.metadata.basename, child.metadata.inside)
-                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.ClosedHandCursor)
+                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(CLOSEHANDCURSOR)
                 child = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=fullw)[0]
 
 
@@ -592,12 +592,12 @@ class WorkArea(QtGui.QWidget):
                 #Copy a basic block
                 if child.metadata.parent != "None":
                     pos += child.metadata.parent.metadata.widget.pos()
-                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.ClosedHandCursor)
+                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(CLOSEHANDCURSOR)
                 child = self.new_bloq(child.NAME, child.ARGS, self.mapToGlobal(pos), child.BASENAME, full=[False])[0]
 
 
             if child.childAt(child.mapFromGlobal(event.globalPos())):
-                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.ClosedHandCursor)
+                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(CLOSEHANDCURSOR)
 
             self.set_child_drag(child, event.pos()-pos)
 
@@ -616,9 +616,9 @@ class WorkArea(QtGui.QWidget):
 
         if self.CHILD != None:
             if self.CHILD.childAt(self.CHILD.mapFromGlobal(event.globalPos())):
-                self.CHILD.childAt(self.CHILD.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.OpenHandCursor)
+                self.CHILD.childAt(self.CHILD.mapFromGlobal(event.globalPos())).setCursor(OPENHANDCURSOR)
                 for ch in self.global_close_hand:
-                    ch.setCursor(QtCore.Qt.OpenHandCursor)
+                    ch.setCursor(OPENHANDCURSOR)
 
             self.frame.main.actionSave_file.setEnabled(True)
 

@@ -3,6 +3,7 @@
 
 import os
 
+import random
 from PySide import QtCore, QtGui
 import logging
 
@@ -18,6 +19,8 @@ else:
 
 
 from ..py_bloques import constructor as Blocks
+
+from ...ide.methods.parser import remove_comments
 
 
 ########################################################################
@@ -73,7 +76,8 @@ class Code2Blocks(object):
     def parse_code(self):
         """"""
         code = self.ide.get_current_code()
-        code = self.ide.remove_comments(code)
+        # code = self.ide.remove_comments(code)
+        code = remove_comments(code)
 
         self.index_count = 0
 
@@ -186,6 +190,8 @@ class Code2Blocks(object):
     #----------------------------------------------------------------------
     def get_fancy_widget(self, arg):
         """"""
+        arg = self.fix_arg(arg)
+
         if arg in ["True", "False"]:
             return ("choice-B", arg)
 
@@ -209,12 +215,39 @@ class Code2Blocks(object):
 
         elif arg.count(".") == 1:
             try:
-                type(eval("45.5")) == float
+                type(eval(arg)) == float
                 return ("spin-float", arg)
             except:
                 return ("edit-value", arg)
 
         else:
             return ("edit-value", arg)
+
+
+
+    #----------------------------------------------------------------------
+    def fix_arg(self, arg):
+        """"""
+        data = {
+            "int": ["int ", "u8 ", "u16 ", "u32 ", "u64 "],
+            "float": ["float "],
+            "string": ["char *"],
+        }
+
+        while arg.startswith(" "): arg = arg[1:]
+
+        if filter(None, map(arg.startswith, data["int"])):
+            return "{}".format(random.randint(0, 255))
+
+        elif filter(None, map(arg.startswith, data["float"])):
+            return "{:.2f}".format(random.random() + random.randint(0, 10))
+
+        elif filter(None, map(arg.startswith, data["string"])):
+            return "\"PinguiString\""
+
+
+
+
+        return arg
 
 

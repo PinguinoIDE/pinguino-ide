@@ -133,21 +133,15 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     def get_files_to_explore(self):
         """"""
-        if os.environ["PINGUINO_PROJECT"]:
+        if self.is_project() and not self.is_library():
             """"""
             # files = self.get_files_from_project()
 
-            if self.is_library():
-                filenames = self.get_lib_file()
-            else:
-                filenames = [s[0] for s in filter(lambda l:l[1], self.get_files_from_project().items())]
-                filenames.extend([s[0] for s in filter(lambda l:l[1], self.get_inherits_from_project().items())])
-
+            filenames = [s[0] for s in filter(lambda l:l[1], self.get_files_from_project().items())]
+            filenames.extend([s[0] for s in filter(lambda l:l[1], self.get_inherits_from_project().items())])
 
             files = [{"filename": filename, "content": str(codecs.open(filename, encoding="utf-8").read()),} for filename in filenames]
-
             return files
-
 
         else:
             if self.is_graphical() is False:
@@ -161,9 +155,7 @@ class CodeNavigator(object):
     #----------------------------------------------------------------------
     def update_assistant(self, name):
         """"""
-        if not hasattr(self, "assistant"):
-            with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
-                self.assistant = pickle.load(file_reserved)["assistant"]
+        if not hasattr(self, "assistant"): self.set_assistant()
 
         if name in self.assistant:
 
@@ -182,15 +174,11 @@ class CodeNavigator(object):
             self.main.label_source_browser.setVisible(False)
 
 
-        # return False
-        # self.main.label_source_browser.setVisible(True)
-
-
-
-            # links = []
-            # for header in self.assistant[name]["headers"]:links.append(link.format(text=header))
-            # self.main.label_headers_edit.setText(html.format(links="[{}]".format(", ".join(links))))
-
+    #----------------------------------------------------------------------
+    def set_assistant(self):
+        """"""
+        with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
+            self.assistant = pickle.load(file_reserved)["assistant"]
 
 
     #----------------------------------------------------------------------

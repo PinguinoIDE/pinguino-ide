@@ -25,13 +25,14 @@ from .inside.part_bool import Ui_Form as FloatableBool
 from .frame_edit.frame_edit import Ui_Form as FrameEdit
 
 from .constructor import Constructor, changeFontSize
+from ..app.blocks import OPENHANDCURSOR
 
 #----------------------------------------------------------------------
 def setPartOfBlock(blocks):
 
     for block in blocks:
         block.setObjectName("Block")
-        block.setCursor(QtCore.Qt.OpenHandCursor)
+        block.setCursor(OPENHANDCURSOR)
 
 
 ########################################################################

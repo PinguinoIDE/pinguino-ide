@@ -3,7 +3,7 @@
 
 from PySide import QtGui, QtCore
 
-from .blocks import Blocks
+from .blocks import Blocks, OPENHANDCURSOR, CLOSEHANDCURSOR
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
      BlockSpace, BlockNestedSecond, BlockSpaceBool, BlockFrameEdit
 from ...ide.methods.decorators import Decorator
@@ -115,7 +115,7 @@ class ToolArea(QtGui.QWidget):
                 if not child: return
 
             if child.childAt(child.mapFromGlobal(event.globalPos())):
-                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.ClosedHandCursor)
+                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(CLOSEHANDCURSOR)
                 self.block_close_hand = child.childAt(child.mapFromGlobal(event.globalPos()))
 
             self.set_child_drag(child, event.pos()-child.pos())
@@ -131,7 +131,7 @@ class ToolArea(QtGui.QWidget):
         child = self.get_child_drag()[0]
 
         try:
-            self.block_close_hand.setCursor(QtCore.Qt.OpenHandCursor)
+            self.block_close_hand.setCursor(OPENHANDCURSOR)
             del self.block_close_hand
         except: pass
 
@@ -139,7 +139,7 @@ class ToolArea(QtGui.QWidget):
         if child != None:
 
             if child.childAt(child.mapFromGlobal(event.globalPos())):
-                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.OpenHandCursor)
+                child.childAt(child.mapFromGlobal(event.globalPos())).setCursor(OPENHANDCURSOR)
 
 
             while child.objectName() != "Bloq!":
@@ -159,7 +159,7 @@ class ToolArea(QtGui.QWidget):
 
 
             if self.finalBlock.childAt(self.finalBlock.mapFromGlobal(event.globalPos())):
-                self.finalBlock.childAt(self.finalBlock.mapFromGlobal(event.globalPos())).setCursor(QtCore.Qt.OpenHandCursor)
+                self.finalBlock.childAt(self.finalBlock.mapFromGlobal(event.globalPos())).setCursor(OPENHANDCURSOR)
 
 
             self.CHILD = None

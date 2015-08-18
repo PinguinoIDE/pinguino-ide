@@ -21,7 +21,7 @@ import logging
 from PySide import QtGui, QtCore
 
 from .code2blocks import Code2Blocks
-from .blocks import Blocks
+from .blocks import Blocks, OPENHANDCURSOR
 from .work_area import WorkArea
 from .tool_area import ToolArea
 #from .constant import os.getenv("PINGUINO_NAME")
@@ -35,6 +35,7 @@ from ...frames.grafical_widget import Ui_Form_graphical
 from ...ide.methods.dialogs import Dialogs
 
 from ..py_bloques.user_blocks import UserBlocks
+from ..py_bloques import constructor as BlocksConstructor
 
 
 
@@ -396,7 +397,7 @@ class GraphicalIDE(Code2Blocks):
             newIcon.metadata.self_id = ID
 
             newIcon.move(pos)
-            newIcon.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+            newIcon.setCursor(QtGui.QCursor(OPENHANDCURSOR))
 
             newIcon.metadata.to = block["to"]
             newIcon.metadata.from_ = block["from"]
@@ -762,6 +763,7 @@ class GraphicalIDE(Code2Blocks):
     @Decorator.requiere_graphical_mode()
     @Decorator.requiere_main_focus()
     def constant_auto_raise(self):
+
         editor = self.main.tabWidget_files.currentWidget()
         if not editor.graphical_area.isDragging:
             editor.graphical_area.auto_raise()
@@ -769,14 +771,20 @@ class GraphicalIDE(Code2Blocks):
 
     #----------------------------------------------------------------------
     def update_blocks_search_tab(self, text):
+
         if len(text) < 2: return
         if text == QtGui.QApplication.translate("Frame", "Search Block..."): return
         if not text: return
         bloques = []
+        exclude = []
         for key in all_sets.keys():
             if all_sets[key][2][0] in ["label", "decorator"]:
                 label = all_sets[key][2][1]
-                if label.lower().startswith(text.lower()): bloques.append([key, all_sets[key]])
+                if label.lower().startswith(text.lower()):
+                    bloques.append([key, all_sets[key]])
+                    exclude.append(all_sets[key][2][1])
+
+        bloques.extend(self.get_blocks_for_library(text.lower(), exclude))
 
         if not bloques: return
 
@@ -784,7 +792,36 @@ class GraphicalIDE(Code2Blocks):
         self.add_blocks("Search", bloques)
         self.ide.set_block_tab("Search")
 
+
     #----------------------------------------------------------------------
     def get_all_sets(self):
+
         return all_sets
+
+
+    #----------------------------------------------------------------------
+    def get_blocks_for_library(self, text, exclude):
+        """"""
+        if not hasattr(self.ide, "assistant"): self.ide.set_assistant()
+
+        blocks = []
+        for item in self.ide.assistant:
+            function = self.ide.assistant[item]
+            if not item.lower().startswith(text): continue
+            if item in exclude: continue
+
+            if function["return"] == "void":
+                block = BlocksConstructor.Linear
+
+            elif function["return"] == "bool":
+                block = BlocksConstructor.OutputBool
+
+            else:
+                block = BlocksConstructor.Output
+
+            linecode = "{}({});".format(item, function["args"])
+            blocks.append([item, self.get_contructor(block, linecode)])
+
+        return blocks
+
 

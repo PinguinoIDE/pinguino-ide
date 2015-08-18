@@ -957,7 +957,6 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    # @Decorator.call_later(2000)
     def need_update(self):
         """"""
         url = "https://api.github.com/repos/PinguinoIDE/pinguino-ide/releases/latest"
@@ -1014,7 +1013,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    @Decorator.call_later(100)
+    @Decorator.call_later()
     #@Decorator.debug_time()
     def ide_open_last_files(self):
         self.recent_files = self.configIDE.get_recents()
@@ -2327,8 +2326,24 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.main.actionClose_file.setEnabled(self.main.tabWidget_files.count() > 0)
 
         editor = self.get_current_editor()
-        if getattr(editor, "path", None): self.setWindowTitle(os.getenv("PINGUINO_FULLNAME")+" - "+editor.path)
-        else: self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
+        if getattr(editor, "path", None):
+
+            if self.is_project():
+                if self.is_library():
+                    type_project = "Library: {}-{}".format(self.get_project_name(), self.get_library_version())
+                else:
+                    type_project = "Project: {}".format(self.get_project_name())
+
+                self.setWindowTitle("{pinguino} | {type_project} - {path}".format(pinguino=os.getenv("PINGUINO_FULLNAME"), type_project=type_project, path=editor.path))
+            else:
+                self.setWindowTitle("{pinguino} - {path}".format(pinguino=os.getenv("PINGUINO_FULLNAME"), path=editor.path))
+
+
+        # else: self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
+        else:
+            self.setWindowTitle("{PINGUINO_FULLNAME}".format(**os.environ))
+
+
 
         index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)

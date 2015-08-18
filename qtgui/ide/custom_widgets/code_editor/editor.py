@@ -76,19 +76,6 @@ class CustomTextEdit(QtGui.QTextEdit):
 
 
 
-
-
-    ##----------------------------------------------------------------------
-    #@Decorator.call_later()
-    #def set_highlighter(self):
-        #""""""
-        #Highlighter(self)
-
-
-    ##----------------------------------------------------------------------
-    #def setAutoClose(self, dic):
-        #self.autoClose = dic
-
     #----------------------------------------------------------------------
     def mouseAction(self, event):
 

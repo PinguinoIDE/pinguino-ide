@@ -235,9 +235,9 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def timer_update_autocompleter(self):
 
+        if not self.is_graphical() is False: return
+
         editor = self.get_current_editor()
-        if not hasattr(editor.text_edit, "completer"):
-            return
 
         if not hasattr(self, "thread_autocompleter"):
             self.thread_autocompleter = UpdateAutocompleter()

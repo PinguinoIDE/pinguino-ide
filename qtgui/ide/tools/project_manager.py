@@ -252,7 +252,12 @@ class ProjectManager(object):
     #----------------------------------------------------------------------
     def get_lib_file(self):
         """"""
-        return [self.ConfigProject.get("Main", "lib")]
+        libs = []
+        if self.ConfigProject.has_option("Main", "lib"):
+            libs.append(self.ConfigProject.get("Main", "lib"))
+        if self.ConfigProject.has_option("Main", "lib32"):
+            libs.append(self.ConfigProject.get("Main", "lib32"))
+        return libs
 
 
     #----------------------------------------------------------------------
