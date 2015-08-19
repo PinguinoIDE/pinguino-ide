@@ -1,11 +1,3 @@
-Pinguino IDE 11.1
-=================
+Pinguino IDE 12
+===============
 
-
-### New features
-  * Project manager
-  * Bug Submitter
-
-### Improves
-  * All widgets
-  * Help frames
