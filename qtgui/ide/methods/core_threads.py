@@ -92,18 +92,18 @@ class UpdateAutocompleter(QtCore.QThread):
 
         for item in self.completer_directives:
             # editor.text_edit.completer.addTemporalItem("directives", item, self.ICONS.iconDirectives)
-            self.signal_add_autocompleter.emit("directives", item, str("iconDirectives"))
+            self.signal_add_autocompleter.emit("directives", item, "iconDirectives")
 
         for item in self.completer_functions:
             # editor.text_edit.completer.addTemporalItem("functions", item, self.ICONS.iconFunction)
-            self.signal_add_autocompleter.emit("functions", item, str("iconFunction"))
+            self.signal_add_autocompleter.emit("functions", item, "iconFunction")
 
         for item, type_ in self.completer_variables:
             type_ = type_.split()[-1]
             if type_ in "int float bool byte bool double struct union".split():
-                icon = str("icon"+type_.capitalize())
+                icon = "icon{}".format(type_.capitalize())
             else:
-                icon = str("")
+                icon = ""
 
             # editor.text_edit.completer.addTemporalItem("variables", item, icon)
             self.signal_add_autocompleter.emit("variables", item, icon)

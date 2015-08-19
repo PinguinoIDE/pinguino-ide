@@ -164,8 +164,10 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def addNewItem(self, name, icon=None):
+
         if not icon: icon = None
         elif type(icon) == str: icon = getattr(self.icons, icon)
+
         if not name in self.itemsListName:
             item = QListWidgetItem()
             if icon: item.setIcon(icon)
@@ -175,10 +177,11 @@ class PinguinoAutoCompleter(QListWidget):
             self.itemsListName.append(name)
             return item
 
+
     #----------------------------------------------------------------------
     def addTemporalItem(self, llave, name, icon=None):
-        if not icon: icon = None
-        elif type(icon) == str: icon = getattr(self.icons, icon)
+        # if not icon: icon = None
+        # elif type(icon) == str: icon = getattr(self.icons, icon)
         item = self.addNewItem(name, icon)
         if item:
             self.temporal[llave].append(item)
@@ -188,8 +191,10 @@ class PinguinoAutoCompleter(QListWidget):
         """"""
         self.local_functions = functions
 
+
     #----------------------------------------------------------------------
     def removeTemporalItems(self, llave):
+
         for item in self.temporal[llave]:
             index = self.getIndex(item.text())
             if index:
@@ -213,16 +218,18 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def addItemsCompleter(self, list_, icon=None):
+
+        if not icon: icon = None
+        elif type(icon) == str: icon = getattr(self.icons, icon)
         for text in list_:
             if not text in self.itemsListName:
                 item = QListWidgetItem()
-                if not icon: icon = None
-                elif type(icon) == str: icon = getattr(self.icons, icon)
                 if icon != None: item.setIcon(icon)
                 item.setText(text)
                 self.addItem(item)
                 self.itemsList.append(item)
                 self.itemsListName.append(item.text())
+
 
     #----------------------------------------------------------------------
     def popup(self, pos, index=None):

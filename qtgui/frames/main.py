@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sun Aug 16 14:42:40 2015
+# Created: Wed Aug 19 16:35:26 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_PinguinoIDE(object):
     def setupUi(self, PinguinoIDE):
         PinguinoIDE.setObjectName("PinguinoIDE")
-        PinguinoIDE.resize(1135, 816)
+        PinguinoIDE.resize(1136, 816)
         PinguinoIDE.setWindowTitle("Pinguino 11.1")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/logo/art/windowIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -48,7 +48,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_29.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1135, 29))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1136, 29))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -135,19 +135,19 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_20 = QtGui.QGridLayout(self.widget_noproject)
         self.gridLayout_20.setContentsMargins(0, -1, 0, -1)
         self.gridLayout_20.setObjectName("gridLayout_20")
-        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout_20.addItem(spacerItem2, 5, 2, 1, 1)
-        spacerItem3 = QtGui.QSpacerItem(20, 60, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout_20.addItem(spacerItem3, 0, 1, 1, 3)
-        self.pushButton_newproject = QtGui.QPushButton(self.widget_noproject)
-        self.pushButton_newproject.setObjectName("pushButton_newproject")
-        self.gridLayout_20.addWidget(self.pushButton_newproject, 1, 1, 1, 3)
         self.pushButton_openproject = QtGui.QPushButton(self.widget_noproject)
         self.pushButton_openproject.setObjectName("pushButton_openproject")
-        self.gridLayout_20.addWidget(self.pushButton_openproject, 3, 1, 1, 3)
+        self.gridLayout_20.addWidget(self.pushButton_openproject, 4, 0, 1, 4)
+        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_20.addItem(spacerItem2, 6, 0, 1, 4)
+        spacerItem3 = QtGui.QSpacerItem(20, 60, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_20.addItem(spacerItem3, 0, 0, 1, 4)
         self.pushButton_newlibrary = QtGui.QPushButton(self.widget_noproject)
         self.pushButton_newlibrary.setObjectName("pushButton_newlibrary")
-        self.gridLayout_20.addWidget(self.pushButton_newlibrary, 2, 1, 1, 3)
+        self.gridLayout_20.addWidget(self.pushButton_newlibrary, 1, 2, 1, 2)
+        self.pushButton_newproject = QtGui.QPushButton(self.widget_noproject)
+        self.pushButton_newproject.setObjectName("pushButton_newproject")
+        self.gridLayout_20.addWidget(self.pushButton_newproject, 1, 0, 1, 2)
         self.gridLayout_16.addWidget(self.widget_noproject, 1, 0, 1, 2)
         self.treeWidget_projects = QtGui.QTreeWidget(self.Project)
         self.treeWidget_projects.setMidLineWidth(1)
@@ -943,12 +943,12 @@ class Ui_PinguinoIDE(object):
         self.actionExport_code_to_editor.setObjectName("actionExport_code_to_editor")
         self.actionInsert_Block = QtGui.QAction(PinguinoIDE)
         self.actionInsert_Block.setObjectName("actionInsert_Block")
-        self.actionCheck_for_updates = QtGui.QAction(PinguinoIDE)
-        self.actionCheck_for_updates.setObjectName("actionCheck_for_updates")
         self.actionGenerate_blocks = QtGui.QAction(PinguinoIDE)
         self.actionGenerate_blocks.setObjectName("actionGenerate_blocks")
         self.actionNew_library = QtGui.QAction(PinguinoIDE)
         self.actionNew_library.setObjectName("actionNew_library")
+        self.actionImport_library_project = QtGui.QAction(PinguinoIDE)
+        self.actionImport_library_project.setObjectName("actionImport_library_project")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionNew_blocks_file)
@@ -1032,6 +1032,8 @@ class Ui_PinguinoIDE(object):
         self.menuProject.addAction(self.actionNew_library)
         self.menuProject.addSeparator()
         self.menuProject.addAction(self.actionOpen_project)
+        self.menuProject.addAction(self.actionImport_library_project)
+        self.menuProject.addSeparator()
         self.menuProject.addAction(self.menuRecentProjects.menuAction())
         self.menuProject.addAction(self.actionSave_project)
         self.menuProject.addAction(self.actionSave_project_as)
@@ -1083,7 +1085,7 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(3)
+        self.tabWidget_tools.setCurrentIndex(1)
         self.tabWidget_browser.setCurrentIndex(0)
         self.tabWidget_bottom.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)
@@ -1114,9 +1116,9 @@ class Ui_PinguinoIDE(object):
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.Files), QtGui.QApplication.translate("PinguinoIDE", "Files", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_compilelibrary.setText(QtGui.QApplication.translate("PinguinoIDE", "Compile library", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_packagelibrary.setText(QtGui.QApplication.translate("PinguinoIDE", "Package library", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_newproject.setText(QtGui.QApplication.translate("PinguinoIDE", "New project", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_openproject.setText(QtGui.QApplication.translate("PinguinoIDE", "Open project", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_newlibrary.setText(QtGui.QApplication.translate("PinguinoIDE", "New Library", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_newproject.setText(QtGui.QApplication.translate("PinguinoIDE", "New project", None, QtGui.QApplication.UnicodeUTF8))
         self.treeWidget_projects.setSortingEnabled(False)
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.Project), QtGui.QApplication.translate("PinguinoIDE", "Project", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget_variables.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("PinguinoIDE", "File", None, QtGui.QApplication.UnicodeUTF8))
@@ -1298,9 +1300,9 @@ class Ui_PinguinoIDE(object):
         self.actionExport_code_to_editor.setText(QtGui.QApplication.translate("PinguinoIDE", "Export code to editor", None, QtGui.QApplication.UnicodeUTF8))
         self.actionInsert_Block.setText(QtGui.QApplication.translate("PinguinoIDE", "Insert block", None, QtGui.QApplication.UnicodeUTF8))
         self.actionInsert_Block.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+I", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionCheck_for_updates.setText(QtGui.QApplication.translate("PinguinoIDE", "Check for updates...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionGenerate_blocks.setText(QtGui.QApplication.translate("PinguinoIDE", "Generate blocks", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_library.setText(QtGui.QApplication.translate("PinguinoIDE", "New library...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionImport_library_project.setText(QtGui.QApplication.translate("PinguinoIDE", "Import library project (PINGUINO)...", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 import resources_rc

@@ -193,8 +193,9 @@ class PinguinoQueries(object):
 
 
     #----------------------------------------------------------------------
-    def is_graphical(self):
-        editor = self.get_current_editor()
+    def is_graphical(self, editor=None):
+        if editor is None:
+            editor = self.get_current_editor()
         if hasattr(editor, "graphical_area"):
             return True
         elif hasattr(editor, "text_edit"):
@@ -391,8 +392,8 @@ class PinguinoSettings(object):
         for name in names:
             if name in exclude:
                 continue
-            if not self.configIDE.config("TABS", name, True):
-                name = self.configIDE.config("TABS", "{}_name".format(name), None)
+            if not self.configIDE.config("Tabs", name, True):
+                name = self.configIDE.config("Tabs", "{}_name".format(name), None)
                 if hasattr(self.main, name):
                     getattr(self.main, "actionTab{}".format(name)).setChecked(False)
 
@@ -725,6 +726,9 @@ class PinguinoMain(object):
                 filenames = self.get_project_files()
                 compile_code = lambda :self.pinguinoAPI.compile_file(filenames)
             else:
+                if self.is_project() and self.is_library():
+                    self.refresh_libraries()
+                    logging.info("Adding library to environment...")
                 compile_code = lambda :self.pinguinoAPI.compile_file([filename])
 
         else:
@@ -1136,10 +1140,15 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             editor.text_edit.setExtraSelections([])
 
     #----------------------------------------------------------------------
-    @Decorator.connect_features()
+    # @Decorator.connect_features()
     def __save_file__(self, *args, **kwargs):
 
         editor = kwargs.get("editor", self.get_tab())
+        if self.is_graphical(editor):
+            self.PinguinoKIT.__save_file__(*args, **kwargs)
+        elif self.is_graphical(editor) is None:
+            return
+
         content = editor.text_edit.toPlainText()
         pde_file = codecs.open(editor.path, "w", encoding="utf-8")
         pde_file.write(content)
@@ -1531,13 +1540,13 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 break
 
         if graph:
-            if not self.configIDE.config("TABS", "Blocks", False):
+            if not self.configIDE.config("Tabs", "Blocks", False):
                 if hasattr(self.main.Blocks, "tab_parent"):
                     self.toggle_tab("Blocks", True)
                     self.main.comboBox_blocks.setCurrentIndex(0)
                     self.main.stackedWidget_blocks.setCurrentIndex(0)
         else:
-            # if self.configIDE.config("TABS", "Blocks", True):
+            # if self.configIDE.config("Tabs", "Blocks", True):
             self.toggle_tab("Blocks", False)
 
         self.main.actionHex.setVisible(bool(self.get_current_hex()))
@@ -1755,7 +1764,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     def ide_save_all(self):
         tab = self.get_tab()
         for index in range(tab.count()):
-            self.ide_save_file(editor=tab.widget(index))
+            editor = tab.widget(index)
+            if not self.is_graphical(editor) is None:
+                self.ide_save_file(editor=editor)
 
 
     #----------------------------------------------------------------------
@@ -2534,8 +2545,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 widget.index = index
                 widget.label = self.main.tabWidget_bottom.tabText(index)
                 self.main.tabWidget_bottom.removeTab(index)
-                self.configIDE.set("TABS", tab_name, False)
-                self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+                self.configIDE.set("Tabs", tab_name, False)
+                self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
 
             elif self.main.tabWidget_tools.indexOf(widget) != -1:
                 index = self.main.tabWidget_tools.indexOf(widget)
@@ -2543,16 +2554,16 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 widget.index = index
                 widget.label = self.main.tabWidget_tools.tabText(index)
                 self.main.tabWidget_tools.removeTab(index)
-                self.configIDE.set("TABS", tab_name, False)
-                self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+                self.configIDE.set("Tabs", tab_name, False)
+                self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
 
             else:
                 widget.tab_parent.addTab(widget, widget.label)
                 i = widget.tab_parent.indexOf(widget)
                 widget.tab_parent.tabBar().moveTab(i, widget.index)
                 widget.tab_parent.setCurrentIndex(widget.index)
-                self.configIDE.set("TABS", tab_name, True)
-                self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+                self.configIDE.set("Tabs", tab_name, True)
+                self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
 
         else:
             if force is True:
@@ -2561,8 +2572,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 i = widget.tab_parent.indexOf(widget)
                 widget.tab_parent.tabBar().moveTab(i, widget.index)
                 # widget.tab_parent.setCurrentIndex(widget.index)
-                self.configIDE.set("TABS", tab_name, True)
-                self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+                self.configIDE.set("Tabs", tab_name, True)
+                self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
 
 
             elif force is False:
@@ -2573,8 +2584,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                     widget.index = index
                     widget.label = self.main.tabWidget_bottom.tabText(index)
                     self.main.tabWidget_bottom.removeTab(index)
-                    self.configIDE.set("TABS", tab_name, False)
-                    self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+                    self.configIDE.set("Tabs", tab_name, False)
+                    self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
 
                 elif self.main.tabWidget_tools.indexOf(widget) != -1:
                     index = self.main.tabWidget_tools.indexOf(widget)
@@ -2582,8 +2593,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                     widget.index = index
                     widget.label = self.main.tabWidget_tools.tabText(index)
                     self.main.tabWidget_tools.removeTab(index)
-                    self.configIDE.set("TABS", tab_name, False)
-                    self.configIDE.set("TABS", "{}_name".format(tab_name), tab_name)
+                    self.configIDE.set("Tabs", tab_name, False)
+                    self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
 
         self.configIDE.save_config()
 

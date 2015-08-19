@@ -26,9 +26,10 @@ class Files(object):
         flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
         self.main.treeWidget_explorer.clear()
         for dir_project in path:
-            parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_explorer, dir_project, flags)
-            self.generate_tree(dir_project, parent, levels=1, flags=flags)
-            parent.setExpanded(True)
+            if os.listdir(dir_project):
+                parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_explorer, dir_project, flags)
+                self.generate_tree(dir_project, parent, levels=1, flags=flags)
+                parent.setExpanded(True)
 
 
     #----------------------------------------------------------------------

@@ -34,6 +34,7 @@ class ProjectManager(object):
         self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.select_existing_directory)
         self.connect(self.main.actionNew_project, QtCore.SIGNAL("triggered()"), self.new_project)
         self.connect(self.main.actionNew_library, QtCore.SIGNAL("triggered()"), self.__show_library_template__)
+        self.connect(self.main.actionImport_library_project, QtCore.SIGNAL("triggered()"), self.import_library)
         self.connect(self.main.pushButton_newproject, QtCore.SIGNAL("clicked()"), self.new_project)
         self.connect(self.main.pushButton_openproject, QtCore.SIGNAL("clicked()"), self.open_project)
         self.connect(self.main.pushButton_newlibrary, QtCore.SIGNAL("clicked()"), self.__show_library_template__)
@@ -81,8 +82,8 @@ class ProjectManager(object):
 
             self.ide_close_all()
             if self.is_library():
-                lib = self.ConfigProject.get("Main", "lib")
-                self.ide_open_file_from_path(filename=lib)
+                for path in self.get_libs_file():
+                    self.ide_open_file_from_path(filename=path)
 
         except:
             Dialogs.error_message(self, "File seems to be corrupted!")
@@ -250,7 +251,7 @@ class ProjectManager(object):
 
 
     #----------------------------------------------------------------------
-    def get_lib_file(self):
+    def get_libs_file(self):
         """"""
         libs = []
         if self.ConfigProject.has_option("Main", "lib"):
@@ -734,7 +735,6 @@ class ProjectManager(object):
         self.recent_projects = []
 
 
-
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
     def new_library(self, **kwargs):
@@ -838,7 +838,6 @@ PUBLIC u8 my_function(){{
         self.ide_save_all()
 
         lib_name = self.get_project_name()
-        # lib_name = os.path.split(lib_path)[1]
         lib = self.ConfigProject.get("Main", "lib")
 
         archs = self.get_library_archs()
@@ -906,6 +905,31 @@ PUBLIC u8 my_function(){{
             pdl_file.close()
 
         self.reload_project()
+        self.add_library_to_env(lib_dir)
+
+
+    #----------------------------------------------------------------------
+    def add_library_to_env(self, lib_dir):
+        """"""
+        os_name = os.getenv("PINGUINO_OS_NAME")
+        if os_name == "windows":
+            separator = ";"
+        elif os_name == "linux":
+            separator = ":"
+        #FIXME_OSX
+        # elif os_name == "macosx":
+            # separator = ":"
+
+
+        if os.path.exists(os.path.join(lib_dir, "p32")):
+            os.environ["PINGUINO_P32"] = os.path.join(lib_dir, "p32")
+
+        if os.path.exists(os.path.join(lib_dir, "p8")):
+            os.environ["PINGUINO_P8"] = os.path.join(lib_dir, "p8")
+
+        if os.path.exists(os.path.join(lib_dir, "pdl")):
+            # os.environ["PINGUINO_PDL"] = os.listdir(os.path.join(lib_dir, "pdl"))
+            os.environ["PINGUINO_PDL"] = separator.join([os.path.join(lib_dir, "pdl", filename) for filename in os.listdir(os.path.join(lib_dir, "pdl")) if filename.endswith(".pdl") or filename.endswith(".pdl32")])
 
 
     #----------------------------------------------------------------------
@@ -980,3 +1004,34 @@ PUBLIC u8 my_function(){{
 
 
         package.close()
+
+
+    #----------------------------------------------------------------------
+    @Decorator.show_tab("Project")
+    def import_library(self):
+        """"""
+        pinguino = Dialogs.set_open_file(self, exts="PINGUINO")
+        if not pinguino: return
+
+        parce_pinguino = RawConfigParser()
+        parce_pinguino.readfp(open(pinguino, "r"))
+
+        library_dir = os.path.dirname(pinguino)
+        library_name = parce_pinguino.get("PINGUINO", "name")
+
+        self.project_saved = False
+        self.ConfigProject = RawConfigParser()
+        self.set_library_name(library_name)
+
+
+        if "{}.lib".format(library_name) in os.listdir(library_dir):
+            self.ConfigProject.set("Main", "lib", os.path.join(library_dir, "{}.lib".format(library_name)))
+
+        if "{}.lib32".format(library_name) in os.listdir(library_dir):
+            self.ConfigProject.set("Main", "lib32", os.path.join(library_dir, "{}.lib32".format(library_name)))
+
+        self.add_existing_directory(library_dir, inherits_status=True)
+        self.update_project_status(library_name)
+        self.reload_project()
+
+        self.ide_open_file_from_path(filename=pinguino)

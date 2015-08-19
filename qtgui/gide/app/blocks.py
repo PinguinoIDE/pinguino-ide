@@ -14,7 +14,7 @@ Blocks = {"linear": "BlockLinear",
           #"frame-debug": "BlockFrameDebug",
           }
 
-# CLOSEHANDCURSOR = QtCore.Qt.ClosedHandCursor
-# OPENHANDCURSOR = QtCore.Qt.OpenHandCursor
-CLOSEHANDCURSOR = QtCore.Qt.SizeAllCursor
-OPENHANDCURSOR = QtCore.Qt.SizeAllCursor
+CLOSEHANDCURSOR = QtCore.Qt.ClosedHandCursor
+OPENHANDCURSOR = QtCore.Qt.OpenHandCursor
+# CLOSEHANDCURSOR = QtCore.Qt.SizeAllCursor
+# OPENHANDCURSOR = QtCore.Qt.SizeAllCursor

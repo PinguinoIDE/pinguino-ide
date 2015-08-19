@@ -138,6 +138,11 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         elif os_name == "linux":
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"
 
+        elif os_name == "macosx":
+            #FIXME_OSX
+            os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"  #Confirm this for macosx
+
+
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to {PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)))
 
         self.enable_debugger()

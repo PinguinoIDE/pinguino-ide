@@ -217,7 +217,10 @@ class PinguinoConfig(object):
     #----------------------------------------------------------------------
     @classmethod
     def get_p8_libraries(cls):
-        """"""
+        """
+        This is path were is .c files.
+
+        """
         p8_libs = []
         if os.path.exists(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
             for lib in os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
@@ -225,13 +228,28 @@ class PinguinoConfig(object):
                 if os.path.exists(p8):
                     p8_libs.append(p8)
 
+        os_name = os.getenv("PINGUINO_OS_NAME")
+        if os.getenv("PINGUINO_P8", False):
+            if os_name == "windows":
+                p8_libs.extend(os.getenv("PINGUINO_P8").split(";"))
+            elif os_name == "linux":
+                p8_libs.extend(os.getenv("PINGUINO_P8").split(":"))
+            #FIXME_OSX
+            # elif os_name == "macosx":
+                # p32_libs.extend(os.getenv(PINGUINO_P32).aplit(":"))
+
+
         return p8_libs
 
 
     #----------------------------------------------------------------------
     @classmethod
     def get_p32_libraries(cls):
-        """"""
+        """
+
+        This is path were is .c files.
+
+        """
         p32_libs = []
         if os.path.exists(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
             for lib in os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
@@ -239,13 +257,27 @@ class PinguinoConfig(object):
                 if os.path.exists(p32):
                     p32_libs.append(p32)
 
+        os_name = os.getenv("PINGUINO_OS_NAME")
+        if os.getenv("PINGUINO_P32", False):
+            if os_name == "windows":
+                p32_libs.extend(os.getenv("PINGUINO_P32").split(";"))
+            elif os_name == "linux":
+                p32_libs.extend(os.getenv("PINGUINO_P32").split(":"))
+            #FIXME_OSX
+            # elif os_name == "macosx":
+                # p32_libs.extend(os.getenv(PINGUINO_P32).aplit(":"))
+
         return p32_libs
 
 
     #----------------------------------------------------------------------
     @classmethod
     def get_pdl_libraries(cls):
-        """"""
+        """
+
+        This is individual paths for each .pdl or pdl32.
+
+        """
         pdl_libs = []
         if os.path.exists(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
             for lib in os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr")):
@@ -253,5 +285,16 @@ class PinguinoConfig(object):
                 for pdl in pdls:
                     if pdl.endswith(".pdl") or pdl.endswith(".pdl32"):
                         pdl_libs.append(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr", lib, "pdl", pdl))
+
+        os_name = os.getenv("PINGUINO_OS_NAME")
+        if os.getenv("PINGUINO_PDL", False):
+            if os_name == "windows":
+                pdl_libs.extend(os.getenv("PINGUINO_PDL").split(";"))
+            elif os_name == "linux":
+                pdl_libs.extend(os.getenv("PINGUINO_PDL").split(":"))
+            #FIXME_OSX
+            # elif os_name == "macosx":
+                # pdl_libs.extend(os.getenv(PINGUINO_P32).aplit(":"))
+
 
         return pdl_libs

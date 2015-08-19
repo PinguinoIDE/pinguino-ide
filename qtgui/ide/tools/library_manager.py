@@ -411,3 +411,4 @@ class LibraryManager(object):
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
         self.update_reserved_words()
         if hasattr(self, "assistant"): delattr(self, "assistant")
+        self.change_dir_files(0)
