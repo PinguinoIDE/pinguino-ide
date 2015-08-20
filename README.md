@@ -6,6 +6,7 @@ Pinguino IDE 12
 ```shell
 git clone https://github.com/PinguinoIDE/pinguino-ide.git Pinguino12
 cd Pinguino12
+git checkout 12
 python post_install.py
 python pinguino.py
 ```
