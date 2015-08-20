@@ -10,7 +10,7 @@ from ..custom_widgets import PinguinoTextEdit
 
 
 ########################################################################
-class PinguinoLog(object):
+class Log(object):
 
     def __init__(self):
 

@@ -26,10 +26,10 @@ from ..custom_widgets import PinguinoCodeEditor
 from .decorators import Decorator
 from .dialogs import Dialogs
 from ..tools.files import Files
-from ..tools.search_replace import SearchReplace
-from ..tools.project_manager import ProjectManager
-from ..tools.boardconfig import BoardConfig
-from ..tools.code_navigator import CodeNavigator
+from ..tools.search import Search
+from ..tools.project import Project
+from ..tools.boards import Boards
+from ..tools.source_browser import SourceBrowser
 from ..tools.library_manager import LibraryManager
 # from ..methods.library_manager import Librarymanager
 # from ..widgets.output_widget import START
@@ -57,17 +57,17 @@ from ..child_windows.library_template import LibraryTemplate
 
 
 ########################################################################
-class PinguinoComponents(TimedMethods, SearchReplace, ProjectManager, Files, BoardConfig, CodeNavigator, LibraryManager):
+class PinguinoComponents(TimedMethods, Search, Project, Files, Boards, SourceBrowser, LibraryManager):
     """"""
 
     #----------------------------------------------------------------------
     def __init__(self):
         """"""
-        BoardConfig.__init__(self)
-        SearchReplace.__init__(self)
-        CodeNavigator.__init__(self)
+        Boards.__init__(self)
+        Search.__init__(self)
+        SourceBrowser.__init__(self)
         Files.__init__(self)
-        ProjectManager.__init__(self)
+        Project.__init__(self)
         LibraryManager.__init__(self)
         # super(BoardConfig, self).__init__()
 
@@ -1519,7 +1519,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                    "actionCompile":		(True, True, False),
                    "actionUpload":		(True, True, False),
                    "tabWidget_browser":	(True, True, False),
-                   "SearchReplace":		(False, True, False),
+                   "Search":			(False, True, False),
                    "actionInsert_Block":(True, False, False),
 
                    }
@@ -1543,6 +1543,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             if not self.configIDE.config("Tabs", "Blocks", False):
                 if hasattr(self.main.Blocks, "tab_parent"):
                     self.toggle_tab("Blocks", True)
+                    # Decorator.alert_tab("Blocks")(lambda :None)
                     self.main.comboBox_blocks.setCurrentIndex(0)
                     self.main.stackedWidget_blocks.setCurrentIndex(0)
         else:
@@ -1929,9 +1930,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
     #----------------------------------------------------------------------
     @Decorator.requiere_open_files()
+    @Decorator.alert_tab("Search")
+    @Decorator.show_tab("Search")
     def set_tab_search(self, mode):
-
-        self.main.tabWidget_tools.setCurrentWidget(self.main.SearchReplace)
 
         self.main.lineEdit_search.setFocus()
         editor = self.get_current_editor()
@@ -2242,12 +2243,14 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("BoardConfig")
+    @Decorator.alert_tab("BoardConfig")
     def set_tab_board(self):
         pass
 
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("Stdout")
+    @Decorator.alert_tab("Stdout")
     def set_tab_stdout(self):
         pass
 
@@ -2517,7 +2520,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         menu.addAction(self.main.actionTabFiles)
         menu.addAction(self.main.actionTabProject)
         menu.addAction(self.main.actionTabSourceBrowser)
-        # menu.addAction(self.main.actionTabSourceAssistant)
+        menu.addAction(self.main.actionLibraryManager)
         menu.addAction(self.main.actionTabSearchReplace)
         menu.addAction(self.main.actionTabBoardConfig)
         menu.exec_(event.globalPos())

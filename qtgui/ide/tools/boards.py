@@ -7,7 +7,7 @@ from PySide import QtGui, QtCore
 
 
 ########################################################################
-class BoardConfig(object):
+class Boards(object):
 
     def __init__(self):
 

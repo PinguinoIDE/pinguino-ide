@@ -17,7 +17,7 @@ from PySide import QtCore, QtGui
 
 
 ########################################################################
-class CodeNavigator(object):
+class SourceBrowser(object):
 
     #----------------------------------------------------------------------
     def __init__(self):

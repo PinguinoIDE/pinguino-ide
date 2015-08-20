@@ -26,11 +26,11 @@ import logging
 #import debugger
 
 from .tools.python_shell import PythonShell
-from .tools.log import PinguinoLog
+from .tools.log import Log
 from .tools.stdout import Stdout
 
 ########################################################################
-class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, PinguinoLog, Stdout):
+class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Log, Stdout):
 
     #@Decorator.debug_time()
     def __init__(self, splash_write):
@@ -46,7 +46,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Pinguino
         self.main.setupUi(self)
 
         PythonShell.__init__(self)
-        PinguinoLog.__init__(self)
+        Log.__init__(self)
         Help.__init__(self)
 
         # self.argvs = argvs

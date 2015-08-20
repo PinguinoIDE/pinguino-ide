@@ -25,7 +25,7 @@ else:
 
 
 ########################################################################
-class ProjectManager(object):
+class Project(object):
     """"""
 
     #----------------------------------------------------------------------
@@ -55,6 +55,7 @@ class ProjectManager(object):
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
+    @Decorator.alert_tab("Project")
     def open_project(self):
 
         self.project_saved = True
@@ -67,6 +68,7 @@ class ProjectManager(object):
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
+    @Decorator.alert_tab("Project")
     def open_project_from_path(self, filename):
         """"""
         try:
@@ -285,6 +287,7 @@ class ProjectManager(object):
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
+    @Decorator.alert_tab("Project")
     def new_project(self):
         """"""
         self.project_saved = False
@@ -737,6 +740,7 @@ class ProjectManager(object):
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
+    @Decorator.alert_tab("Project")
     def new_library(self, **kwargs):
         """"""
         library_name = kwargs["libname"]
@@ -1008,6 +1012,7 @@ PUBLIC u8 my_function(){{
 
     #----------------------------------------------------------------------
     @Decorator.show_tab("Project")
+    @Decorator.alert_tab("Project")
     def import_library(self):
         """"""
         pinguino = Dialogs.set_open_file(self, exts="PINGUINO")

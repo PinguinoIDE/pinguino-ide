@@ -219,12 +219,13 @@ class TimedMethods(object):
     @Decorator.requiere_main_focus()
     def timer_update_assiatant(self):
 
-        editor = self.get_current_editor()
-        tc = editor.text_edit.textCursor()
-        tc.movePosition(tc.EndOfWord, tc.MoveAnchor)
-        editor.text_edit.smart_under_selection(tc)
-        selected = tc.selectedText()
-        self.update_assistant(selected)
+        if not self.is_graphical() is None:
+            editor = self.get_current_editor()
+            tc = editor.text_edit.textCursor()
+            tc.movePosition(tc.EndOfWord, tc.MoveAnchor)
+            editor.text_edit.smart_under_selection(tc)
+            selected = tc.selectedText()
+            self.update_assistant(selected)
 
 
     #----------------------------------------------------------------------

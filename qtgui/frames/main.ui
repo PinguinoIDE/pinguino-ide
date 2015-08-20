@@ -279,10 +279,9 @@
     <addaction name="actionTabFiles"/>
     <addaction name="actionTabProject"/>
     <addaction name="actionTabSourceBrowser"/>
+    <addaction name="actionLibraryManager"/>
     <addaction name="actionTabSearchReplace"/>
     <addaction name="actionTabBoardConfig"/>
-    <addaction name="separator"/>
-    <addaction name="actionLibrary_manager"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -323,7 +322,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>4</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -939,7 +938,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="BoardConfig">
+       <widget class="QWidget" name="Boards">
         <attribute name="title">
          <string>Boards</string>
         </attribute>
@@ -1286,7 +1285,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="SearchReplace">
+       <widget class="QWidget" name="Search">
         <attribute name="title">
          <string>Search</string>
         </attribute>
@@ -1926,12 +1925,15 @@
     <string>Background color</string>
    </property>
   </action>
-  <action name="actionLibrary_manager">
-   <property name="text">
-    <string>Library manager...</string>
+  <action name="actionLibraryManager">
+   <property name="checkable">
+    <bool>true</bool>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+L</string>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Library manager</string>
    </property>
   </action>
   <action name="actionSet_paths">

@@ -7,7 +7,7 @@ from ..methods.decorators import Decorator
 
 
 ########################################################################
-class SearchReplace(object):
+class Search(object):
 
     #----------------------------------------------------------------------
     def __init__(self):
