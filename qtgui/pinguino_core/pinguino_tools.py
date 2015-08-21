@@ -199,6 +199,9 @@ class PinguinoTools(Uploader):
         data_msg["linking"] = []
         data_msg["verified"] = False
 
+        if type(filenames) == str:
+            filenames = [filenames]
+
         filename = filenames[0]
         filenames.reverse()
         self.__filename__ = filename

@@ -5,9 +5,19 @@ import os
 import logging
 
 from PySide import QtGui, QtCore
-import requests
+
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from urllib.request import urlopen
+    from urllib.parse import urlencode
+else:
+    #Python2
+    from urllib import urlopen, urlencode
+
 
 from ...frames.submit_bug import Ui_SubmitBug
+from ..methods.dialogs import Dialogs
 
 if os.getenv("PINGUINO_MODE") == "NORMAL":
     SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/submit/"
@@ -67,11 +77,21 @@ class SubmitBug(QtGui.QDialog):
         """"""
         try:
             summary = self.submit.lineEdit_summary.text()
-            details = self.get_systeminfo() + "\n\nDetails:\n" + self.submit.plainTextEdit_details.toPlainText()
-            logging.info("Sending: {}".format(details))
-            requests.post(SUBMIT_SERVER, data={"summary": summary, "details": details,})
+            details = self.submit.plainTextEdit_details.toPlainText()
+            environ = self.get_systeminfo()
+            logging.info("Submitting bug report.")
+            response = urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}))
+            share_link = eval(response.read())["share"]
+            self.hide()
+            msg = "<html> <head/> <body> <p> \
+            We will work to solve this bug.<br>\
+            If you want, you can <a href='https://github.com/PinguinoIDE/pinguino-ide/issues/new'>open an issue</a> too.<br>\
+            <br>\
+            <a href='{0}'>{0}</a>\
+            </p> </body> </html>".format(share_link)
+            Dialogs.info_message(self, msg)
 
-        except requests.ConnectionError:
+        except:
             logging.error("ConnectionError")
 
         self.close()

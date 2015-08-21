@@ -20,6 +20,7 @@ else:
 
 from ..py_bloques import constructor as Blocks
 
+from ...ide.methods.decorators import Decorator
 from ...ide.methods.parser import remove_comments
 
 
@@ -29,6 +30,7 @@ class Code2Blocks(object):
 
 
     #----------------------------------------------------------------------
+    @Decorator.requiere_text_mode()
     def code_to_blocks(self, event=None):
         """"""
 

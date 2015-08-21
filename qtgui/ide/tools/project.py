@@ -90,6 +90,7 @@ class Project(object):
         except:
             Dialogs.error_message(self, "File seems to be corrupted!")
 
+        self.save_recents()
 
 
 
@@ -400,12 +401,23 @@ class Project(object):
 
         self.ConfigProject.set("Ignore", "ignore_%d"%index, path)
 
+
         logging.debug("Removing \"{}\" from project.".format(path))
         for path_inherit, option in self.get_inherits_option_from_project().items():
             if path_inherit.startswith(path):
                 self.ConfigProject.remove_option("Inherits", option)
                 self.ConfigProject.remove_option("Inherits", option+"_checked")
                 logging.debug("Removing \"{}\" from project.".format(path_inherit))
+
+
+        for path_files, option in self.get_files_option_from_project().items():
+            if path_files.startswith(path):
+                self.ConfigProject.remove_option("Files", option)
+                self.ConfigProject.remove_option("Files", option+"_checked")
+                logging.debug("Removing \"{}\" from project.".format(path_files))
+
+
+
 
         self.save_project(silent=True)
 
@@ -636,7 +648,9 @@ class Project(object):
         nf = open(new_file, "w")
         nf.close()
 
-        if self.get_current_item().path in self.get_files_option_from_project():
+        self.ide_open_file_from_path(filename=new_file)
+
+        if new_file in self.get_files_option_from_project():
             self.add_existing_file(new_file)
 
         self.reload_project()

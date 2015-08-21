@@ -743,7 +743,13 @@ class GraphicalIDE(Code2Blocks):
     #----------------------------------------------------------------------
     def is_graphical(self):
 
-        return self.ide.is_graphical() is True
+        return self.ide.is_graphical()
+
+    #----------------------------------------------------------------------
+    def is_widget(self):
+        """"""
+        return self.ide.is_widget()
+
 
 
     #----------------------------------------------------------------------

@@ -721,9 +721,14 @@ class PinguinoMain(object):
 
         filename = self.get_tab().currentWidget().path
 
+        if not os.path.exists(filename): return
+
         if self.is_graphical() is False:
             if self.is_project() and not self.is_library():
                 filenames = self.get_project_files()
+                if not filenames:
+                    Dialogs.add_files_to_project(self)
+                    return
                 compile_code = lambda :self.pinguinoAPI.compile_file(filenames)
             else:
                 if self.is_project() and self.is_library():
@@ -734,6 +739,9 @@ class PinguinoMain(object):
         else:
             if self.is_project():
                 filenames = self.get_project_files()
+                if not filenames:
+                    Dialogs.add_files_to_project(self)
+                    return
                 compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code(), filenames=filenames)
             else:
                 compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
@@ -1012,6 +1020,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         setattr(editor, "last_saved", content)
 
         self.ide_check_backup_file(editor=editor)
+        self.save_recents()
         # self.ide_tab_changed()
 
 
@@ -1734,6 +1743,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             elif reply == None: return
 
         self.get_tab().removeTab(index)
+        self.save_recents()
 
 
     #----------------------------------------------------------------------
@@ -1819,19 +1829,16 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.configIDE.set("Main", "size", self.size().toTuple())
         self.configIDE.set("Main", "position", self.pos().toTuple())
         self.configIDE.set("Main", "maximized", self.isMaximized())
-        #self.configIDE.set("Main", "terminal_height", self.main.dockWidget_output.height())
-
-        # side = self.dockWidgetArea(self.main.dockWidget_right)
-        # self.configIDE.set("Main", "dock_tools", side.name.decode())
-
-        # side = self.dockWidgetArea(self.main.dockWidget_blocks)
-        # self.configIDE.set("Main", "dock_blocks", side.name.decode())
-
-        # side = self.dockWidgetArea(self.main.dockWidget_output)
-        # self.configIDE.set("Main", "dock_shell", side.name.decode())
-
         self.configIDE.set("Main", "menubar", self.main.menubar.isVisible())
+        self.configIDE.save_config()
+        self.save_recents()
 
+        self.close()
+
+
+    #----------------------------------------------------------------------
+    def save_recents(self):
+        """"""
         count = 1
         self.configIDE.clear_recents()
         for file_ in self.recent_files:
@@ -1850,18 +1857,15 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             self.configIDE.set("Recents", "open_"+str(count), file_)
             count += 1
 
-        # self.configIDE.set("Features", "graphical", self.is_graphical())
-
-        # self.configIDE.set("Features", "debug_in_output", self.main.checkBox_output_debug.isChecked())
-        # self.configIDE.set("Features", "out_in_output", self.main.checkBox_output_messages.isChecked())
-
         self.configIDE.save_config()
 
-        self.close()
+        self.update_recents_menu()
+        self.update_recents_menu_project()
+
+
 
 
     # Menu Edit
-
     #----------------------------------------------------------------------
     def editor_undo(self):
         editor = self.get_current_editor()

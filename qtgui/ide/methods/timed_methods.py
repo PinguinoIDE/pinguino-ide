@@ -221,6 +221,7 @@ class TimedMethods(object):
 
         if not self.is_graphical() is None:
             editor = self.get_current_editor()
+            if not hasattr(editor, "text_edit"): return
             tc = editor.text_edit.textCursor()
             tc.movePosition(tc.EndOfWord, tc.MoveAnchor)
             editor.text_edit.smart_under_selection(tc)

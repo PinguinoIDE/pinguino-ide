@@ -155,6 +155,16 @@ class Dialogs(object):
         return True
 
 
+    #----------------------------------------------------------------------
+    @classmethod
+    def add_files_to_project(cls, parent):
+
+        QtGui.QMessageBox.information(parent,
+                os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Save file first."),
+                QtGui.QApplication.translate("Dialogs", "You must add files to project before compiling."))
+        return True
+
+
     # #----------------------------------------------------------------------
     # @classmethod
     # def confirm_board(cls, parent):
