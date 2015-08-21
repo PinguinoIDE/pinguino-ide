@@ -136,4 +136,4 @@ class SubmitBug(QtGui.QDialog):
         try: data["platform.release"] = str(platform.release())
         except: pass
 
-        return "\n" + "#" + "-" * 80 + "\n#" + "-" * 80 + "\n" + "\n".join([": ".join(item) for item in data.items()]) + "\n#" + "-" * 80 + "\n#" + "-" * 80
+        return "\n".join([": ".join(item) for item in data.items()])
