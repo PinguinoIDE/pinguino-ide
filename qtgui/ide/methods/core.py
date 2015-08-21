@@ -2246,8 +2246,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    @Decorator.show_tab("BoardConfig")
-    @Decorator.alert_tab("BoardConfig")
+    @Decorator.show_tab("Boards")
+    @Decorator.alert_tab("Boards")
     def set_tab_board(self):
         pass
 
