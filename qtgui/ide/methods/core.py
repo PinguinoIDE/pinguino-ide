@@ -802,13 +802,14 @@ class PinguinoMain(object):
             elif errors_linking:
                 Dialogs.error_while_linking(self)
                 self.set_tab_stdout()
-            elif errors_preprocess:
-                Dialogs.error_while_preprocess(self)
-                self.set_tab_stdout()
+            # elif errors_preprocess:
+                # Dialogs.error_while_preprocess(self)
+                # self.set_tab_stdout()
 
             else:
                 Dialogs.error_while_unknow(self)
                 self.set_tab_stdout()
+                self.submit_stdout()
 
         else:
             result = self.pinguinoAPI.get_result()
@@ -2615,4 +2616,18 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             if self.main.comboBox_blocks.itemText(i) == name:
                 self.main.comboBox_blocks.setCurrentIndex(i)
                 break
+
+
+    #----------------------------------------------------------------------
+    def submit_stdout(self):
+        """"""
+        file_ = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "stdout")
+
+        if os.path.exists(file_):
+            stdout = codecs.open(file_, "r", encoding="utf-8")
+            content = stdout.read()
+            stdout.close()
+        self.submit_bug = SubmitBug(self, content)
+        self.submit_bug.show()
+
 

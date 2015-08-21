@@ -27,7 +27,7 @@ else:
 ########################################################################
 class SubmitBug(QtGui.QDialog):
 
-    def __init__(self, parent, summary=""):
+    def __init__(self, parent, details=""):
         super(SubmitBug, self).__init__()
         self.setWindowFlags(QtCore.Qt.WindowCloseButtonHint |
                             QtCore.Qt.WindowSystemMenuHint |
@@ -38,7 +38,7 @@ class SubmitBug(QtGui.QDialog):
         self.submit.setupUi(self)
         self.main = parent
 
-        self.submit.plainTextEdit_details.insertPlainText(summary)
+        self.submit.plainTextEdit_details.insertPlainText(details)
 
         self.setWindowTitle(os.getenv("PINGUINO_NAME")+" - "+self.windowTitle())
 
