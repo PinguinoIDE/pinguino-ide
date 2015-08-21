@@ -80,7 +80,7 @@ class SubmitBug(QtGui.QDialog):
             details = self.submit.plainTextEdit_details.toPlainText()
             environ = self.get_systeminfo()
             logging.info("Submitting bug report.")
-            response = urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}))
+            response = urlopen(SUBMIT_SERVER, urlencode({"summary": summary.replace("\n", "<br>"), "details": details, "environ": environ,}))
             share_link = eval(response.read())["share"]
             self.hide()
             msg = "<html> <head/> <body> <p> \

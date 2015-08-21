@@ -2323,6 +2323,11 @@
     <string>Import library project (PINGUINO)...</string>
    </property>
   </action>
+  <action name="action">
+   <property name="text">
+    <string>-_-</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>tabWidget_browser</tabstop>
