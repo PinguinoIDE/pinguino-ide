@@ -21,7 +21,7 @@ class Stdout(object):
 
         self.main.plainTextEdit_stdout.moveCursor(QtGui.QTextCursor.End)
 
-        intro = "#" * 70 + "\n" + str(datetime.now()) + "\n" + "#" * 70
+        intro = "\n" * 2 + str(datetime.now()) + "\n" + "#" * 70 + "\n"
         self.main.plainTextEdit_stdout.insertPlainText(intro)
 
         if os.path.exists(file_):

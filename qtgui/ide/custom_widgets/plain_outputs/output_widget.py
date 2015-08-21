@@ -207,14 +207,22 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
                 s = self.shell.statement_module
                 options = filter(lambda x:x.startswith(word), s.__dict__.keys())
 
-            options = filter(lambda x:not x.startswith("__"), options)
+            options = list(filter(lambda x:not x.startswith("__"), options))
 
             common = os.path.commonprefix(options)
             if common and word != common: options = [common]
 
             if len(options) > 1:
                 self.moveCursor(tc.StartOfLine)
-                self.insertPlainText("\t".join(options)+"\n\n")
+                i = 0
+                options = sorted(options)
+                for option in options:
+                    i += 1
+                    if i == 3:
+                        i = 0
+                        self.insertPlainText("{}\n".format(option))
+                    else: self.insertPlainText("{}".format(option).ljust(50," "))
+                self.insertPlainText("\n\n")
                 self.moveCursor(tc.End)
 
             elif len(options) == 1:
@@ -233,6 +241,13 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
                 self.insertPlainText(options[0])
                 self.moveCursor(tc.End)
 
+        elif event.key() == QtCore.Qt.Key_Home:
+            super(PinguinoTextEdit, self).keyPressEvent(event)
+            tc = self.textCursor()
+            self.moveCursor(tc.WordRight, tc.MoveAnchor)
+
+        elif event.key() in [QtCore.Qt.Key_PageUp, QtCore.Qt.Key_PageDown]:
+            pass
 
         else:
             super(PinguinoTextEdit, self).keyPressEvent(event)
