@@ -40,6 +40,9 @@
        <property name="text">
         <string>Close</string>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -78,7 +81,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../resources/resources.qrc">
+        <iconset>
          <normaloff>:/icons/icons/clear.png</normaloff>:/icons/icons/clear.png</iconset>
        </property>
        <property name="flat">
@@ -122,7 +125,7 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="../resources/resources.qrc">
+        <iconset>
          <normaloff>:/icons/icons/clear.png</normaloff>:/icons/icons/clear.png</iconset>
        </property>
        <property name="flat">

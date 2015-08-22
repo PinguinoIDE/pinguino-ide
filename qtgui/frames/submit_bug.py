@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/submit_bug.ui'
 #
-# Created: Thu Aug 20 08:31:56 2015
+# Created: Sat Aug 22 13:55:58 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_SubmitBug(object):
     def setupUi(self, SubmitBug):
         SubmitBug.setObjectName("SubmitBug")
-        SubmitBug.resize(571, 365)
+        SubmitBug.resize(571, 364)
         self.verticalLayout_3 = QtGui.QVBoxLayout(SubmitBug)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.label = QtGui.QLabel(SubmitBug)
@@ -46,12 +46,14 @@ class Ui_SubmitBug(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
-        self.pushButton_submit = QtGui.QPushButton(SubmitBug)
-        self.pushButton_submit.setObjectName("pushButton_submit")
-        self.horizontalLayout.addWidget(self.pushButton_submit)
         self.pushButton_cancel = QtGui.QPushButton(SubmitBug)
         self.pushButton_cancel.setObjectName("pushButton_cancel")
         self.horizontalLayout.addWidget(self.pushButton_cancel)
+        self.pushButton_submit = QtGui.QPushButton(SubmitBug)
+        self.pushButton_submit.setDefault(True)
+        self.pushButton_submit.setFlat(False)
+        self.pushButton_submit.setObjectName("pushButton_submit")
+        self.horizontalLayout.addWidget(self.pushButton_submit)
         self.verticalLayout_3.addLayout(self.horizontalLayout)
 
         self.retranslateUi(SubmitBug)
@@ -65,6 +67,6 @@ class Ui_SubmitBug(object):
         self.label_2.setText(QtGui.QApplication.translate("SubmitBug", "Summary:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("SubmitBug", "Details:", None, QtGui.QApplication.UnicodeUTF8))
         self.checkBox_show_this_dialog.setText(QtGui.QApplication.translate("SubmitBug", "Show this dialog on unexpected errors.", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton_submit.setText(QtGui.QApplication.translate("SubmitBug", "Submit Now", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_cancel.setText(QtGui.QApplication.translate("SubmitBug", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_submit.setText(QtGui.QApplication.translate("SubmitBug", "Submit Now", None, QtGui.QApplication.UnicodeUTF8))
 

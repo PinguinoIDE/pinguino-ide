@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Thu Aug 20 08:31:55 2015
+# Created: Sat Aug 22 13:56:00 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -951,6 +951,8 @@ class Ui_PinguinoIDE(object):
         self.actionNew_library.setObjectName("actionNew_library")
         self.actionImport_library_project = QtGui.QAction(PinguinoIDE)
         self.actionImport_library_project.setObjectName("actionImport_library_project")
+        self.action = QtGui.QAction(PinguinoIDE)
+        self.action.setObjectName("action")
         self.menuRecents.addSeparator()
         self.menuFile.addAction(self.actionNew_file)
         self.menuFile.addAction(self.actionNew_blocks_file)
@@ -1086,7 +1088,7 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(4)
+        self.tabWidget_tools.setCurrentIndex(2)
         self.tabWidget_browser.setCurrentIndex(0)
         self.tabWidget_bottom.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)
@@ -1303,6 +1305,7 @@ class Ui_PinguinoIDE(object):
         self.actionGenerate_blocks.setText(QtGui.QApplication.translate("PinguinoIDE", "Generate blocks", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_library.setText(QtGui.QApplication.translate("PinguinoIDE", "New library...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionImport_library_project.setText(QtGui.QApplication.translate("PinguinoIDE", "Import library project (PINGUINO)...", None, QtGui.QApplication.UnicodeUTF8))
+        self.action.setText(QtGui.QApplication.translate("PinguinoIDE", "-_-", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 import resources_rc

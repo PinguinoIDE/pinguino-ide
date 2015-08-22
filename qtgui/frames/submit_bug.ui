@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>571</width>
-    <height>365</height>
+    <height>364</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -93,16 +93,22 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_submit">
+      <widget class="QPushButton" name="pushButton_cancel">
        <property name="text">
-        <string>Submit Now</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_cancel">
+      <widget class="QPushButton" name="pushButton_submit">
        <property name="text">
-        <string>Cancel</string>
+        <string>Submit Now</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

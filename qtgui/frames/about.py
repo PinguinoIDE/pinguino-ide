@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Thu Aug 20 08:31:56 2015
+# Created: Sat Aug 22 13:55:52 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,6 +31,7 @@ class Ui_About(object):
         self.gridLayout_4 = QtGui.QGridLayout()
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.pushButton_credits = QtGui.QPushButton(self.page)
+        self.pushButton_credits.setDefault(True)
         self.pushButton_credits.setObjectName("pushButton_credits")
         self.gridLayout_4.addWidget(self.pushButton_credits, 0, 0, 1, 1)
         self.pushButton_close = QtGui.QPushButton(self.page)
@@ -118,6 +119,7 @@ class Ui_About(object):
         self.gridLayout_6 = QtGui.QGridLayout()
         self.gridLayout_6.setObjectName("gridLayout_6")
         self.pushButton_license = QtGui.QPushButton(self.page_2)
+        self.pushButton_license.setDefault(True)
         self.pushButton_license.setObjectName("pushButton_license")
         self.gridLayout_6.addWidget(self.pushButton_license, 0, 0, 1, 1)
         self.pushButton_close_2 = QtGui.QPushButton(self.page_2)
@@ -135,6 +137,7 @@ class Ui_About(object):
         self.pushButton_close_3.setObjectName("pushButton_close_3")
         self.gridLayout_12.addWidget(self.pushButton_close_3, 0, 1, 1, 1)
         self.pushButton_about = QtGui.QPushButton(self.page_3)
+        self.pushButton_about.setDefault(True)
         self.pushButton_about.setObjectName("pushButton_about")
         self.gridLayout_12.addWidget(self.pushButton_about, 0, 0, 1, 1)
         self.gridLayout_13.addLayout(self.gridLayout_12, 4, 0, 1, 1)
@@ -168,8 +171,8 @@ class Ui_About(object):
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(About)
-        self.stackedWidget.setCurrentIndex(1)
-        self.tabWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(About)
 
     def retranslateUi(self, About):

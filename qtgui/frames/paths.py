@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/paths.ui'
 #
-# Created: Thu Aug 20 08:31:55 2015
+# Created: Sat Aug 22 13:56:00 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -21,6 +21,7 @@ class Ui_Paths(object):
         self.horizontalLayout_2.addItem(spacerItem)
         self.pushButton_close = QtGui.QPushButton(Paths)
         self.pushButton_close.setMinimumSize(QtCore.QSize(165, 0))
+        self.pushButton_close.setDefault(True)
         self.pushButton_close.setObjectName("pushButton_close")
         self.horizontalLayout_2.addWidget(self.pushButton_close)
         self.gridLayout_5.addLayout(self.horizontalLayout_2, 3, 0, 1, 1)
