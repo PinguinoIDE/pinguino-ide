@@ -78,7 +78,7 @@ class SubmitBug(QtGui.QDialog):
     def submit_now(self):
         """"""
         try:
-            summary = self.submit.lineEdit_summary.text()
+            summary = self.submit.lineEdit_summary.text().replace("\n", "<br>")
             details = self.submit.plainTextEdit_details.toPlainText()
 
             if not details:
@@ -86,7 +86,7 @@ class SubmitBug(QtGui.QDialog):
                 return
             environ = self.get_systeminfo()
             logging.info("Submitting bug report.")
-            response = urlopen(SUBMIT_SERVER, urlencode({"summary": summary.replace("\n", "<br>"), "details": details, "environ": environ,}))
+            response = urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}).encode("utf-8"))
             share_link = eval(response.read())["share"]
             self.hide()
             msg = "<html> <head/> <body> <p> \
@@ -174,7 +174,7 @@ def send_old_submits():
         environ = parser.get("SUBMIT", "environ")
 
         try:
-            urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}))
+            urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}).encode("utf-8"))
             os.remove(filename)
         except:
             pass
