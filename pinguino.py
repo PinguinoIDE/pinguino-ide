@@ -50,10 +50,10 @@ parser = build_argparse()
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
-    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python3_requirements")
+    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "batteries", "py3")
 else:
     #Python2
-    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "python_requirements")
+    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "batteries", "py2")
 
 if parser.devmode:
     os.environ["PINGUINO_MODE"] = "DEV"
