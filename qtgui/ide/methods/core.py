@@ -43,7 +43,7 @@ from ..child_windows.paths import Paths
 # from ..child_windows.hex_viewer import HexViewer
 from ..child_windows.insert_block_dialog import InsertBlock
 # from ..child_windows.environ_viewer import EnvironViewer
-from ..child_windows.submit_bug import SubmitBug
+from ..child_windows.submit_bug import SubmitBug, send_old_submits
 from ..child_windows.library_template import LibraryTemplate
 
 # # Python3 compatibility
@@ -958,6 +958,18 @@ class PinguinoMain(object):
 ########################################################################
 class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, PinguinoSettings, PinguinoMain):
 
+
+    #----------------------------------------------------------------------
+    def __startapp__(self):
+        """This method will be runned with IDE starting."""
+
+        # Search updates
+        if os.getenv("PINGUINO_MODE") == "NORMAL":
+            self.need_update()
+
+        # Try to send failed submittes
+        try:send_old_submits()
+        except: pass
 
 
     #----------------------------------------------------------------------

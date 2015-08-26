@@ -1525,7 +1525,7 @@
         <bool>true</bool>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -1579,6 +1579,9 @@
             <widget class="QPlainTextEdit" name="plainTextEdit_stdout">
              <property name="frameShape">
               <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="lineWrapMode">
+              <enum>QPlainTextEdit::NoWrap</enum>
              </property>
              <property name="readOnly">
               <bool>true</bool>

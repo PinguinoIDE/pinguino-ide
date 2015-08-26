@@ -85,9 +85,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Log, Std
         splash_write(QtGui.QApplication.translate("Splash", "Searching user libraries"))
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
 
-        # RB 2015-01-27 : Still useful ? See also methods.py/set_board
-        # self.pinguinoAPI.set_os_variables()
-
         self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
 
         splash_write(QtGui.QApplication.translate("Splash", "Opening last files"))
@@ -153,10 +150,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Log, Std
         self.set_sise_hint()
 
         PinguinoEvents.__init__(self)
-
-        if os.getenv("PINGUINO_MODE") == "NORMAL":
-            self.need_update()
-
+        self.__startapp__()
 
     #----------------------------------------------------------------------
     def set_sise_hint(self):

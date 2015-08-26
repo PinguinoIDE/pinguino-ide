@@ -24,24 +24,12 @@ class CustomTextEdit(QtGui.QTextEdit):
 
         super(CustomTextEdit, self).__init__(parent)
 
+        self.setLineWrapMode(self.NoWrap)
 
         with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
             self.helpers = pickle.load(file_reserved).get("helpers", {})
-        # self.helpers = {}
-
-        # self.completer = PinguinoAutoCompleter()
-        # self.cursorC = QtGui.QCursor()
-        # self.completer.text_edit = self
-        # self.mousePressEvent = self.mouseAction
-        # self.completer.setFont(self.font())
-        # self.connect(self.completer, QtCore.SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.insertItem)
-        # self.completer.keyPressEvent = self.keyPressEvent_autocompleter
-        # self.resize(500, 500)
-        # self.completer.setFont(self.font())
 
         self.cursorC = QtGui.QCursor()
-        # self.resize(500, 500)
-
         self.linenumber = linenumber
 
         if autocompleter:

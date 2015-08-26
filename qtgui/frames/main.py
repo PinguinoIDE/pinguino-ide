@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
 #
-# Created: Sat Aug 22 13:56:00 2015
+# Created: Wed Aug 26 14:14:00 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -680,6 +680,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_stdout.setObjectName("gridLayout_stdout")
         self.plainTextEdit_stdout = QtGui.QPlainTextEdit(self.Stdout)
         self.plainTextEdit_stdout.setFrameShape(QtGui.QFrame.NoFrame)
+        self.plainTextEdit_stdout.setLineWrapMode(QtGui.QPlainTextEdit.NoWrap)
         self.plainTextEdit_stdout.setReadOnly(True)
         self.plainTextEdit_stdout.setObjectName("plainTextEdit_stdout")
         self.gridLayout_stdout.addWidget(self.plainTextEdit_stdout, 0, 0, 1, 1)
@@ -1090,7 +1091,7 @@ class Ui_PinguinoIDE(object):
         self.tabWidget_files.setCurrentIndex(-1)
         self.tabWidget_tools.setCurrentIndex(2)
         self.tabWidget_browser.setCurrentIndex(0)
-        self.tabWidget_bottom.setCurrentIndex(1)
+        self.tabWidget_bottom.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)
         PinguinoIDE.setTabOrder(self.tabWidget_browser, self.comboBox_files)
         PinguinoIDE.setTabOrder(self.comboBox_files, self.tableWidget_variables)

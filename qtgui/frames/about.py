@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/about.ui'
 #
-# Created: Sat Aug 22 13:55:52 2015
+# Created: Wed Aug 26 14:13:59 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -171,7 +171,7 @@ class Ui_About(object):
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(About)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(About)
 

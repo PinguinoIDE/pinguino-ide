@@ -74,10 +74,10 @@ class Repository(object):
 
     #----------------------------------------------------------------------
     def install_library(self):
-        # try:
-        self.clone(self.repo_path, self.dir_path)
-        return True
-        # except: return False
+        try:
+            self.clone(self.repo_path, self.dir_path)
+            return True
+        except: return False
 
     #----------------------------------------------------------------------
     def update_library(self):

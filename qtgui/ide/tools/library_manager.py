@@ -113,13 +113,21 @@ class LibraryManager(object):
     def install_from_repository(self):
         """"""
         repo_path = self.main.lineEdit_libraries_source.text()
+
+        if repo_path.startswith("e.g."):
+            Dialogs.error_message(self, "Insert a valid repository url.")
+            return
+
         dir_path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr", "temp_lib_name")
         repo_type = self.get_repo_type()
-        library_cv = Repository(repo_path, dir_path, repo_type)
-        library_cv.install_library()
 
-        # enb = open(os.path.join(dir_path, ".enable"), "w")
-        # enb.close()
+        library_cv = Repository(repo_path, dir_path, repo_type)
+
+        installed = library_cv.install_library()
+
+        if not installed:
+            Dialogs.error_message(self, "Impossible install from with this repository.")
+            return
 
         pinguino = os.path.join(dir_path, "PINGUINO")
         parser = RawConfigParser()

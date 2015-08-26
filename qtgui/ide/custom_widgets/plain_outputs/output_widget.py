@@ -25,6 +25,8 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
 
         self.shell = PythonShell()
 
+        self.setLineWrapMode(self.NoWrap)
+
         if shell:
             self.appendPlainText(HEAD)
             self.appendPlainText(HELP)

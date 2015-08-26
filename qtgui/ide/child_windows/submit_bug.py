@@ -3,6 +3,7 @@
 
 import os
 import logging
+from datetime import datetime
 
 from PySide import QtGui, QtCore
 
@@ -11,10 +12,11 @@ if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
     from urllib.request import urlopen
     from urllib.parse import urlencode
+    from configparser import RawConfigParser
 else:
     #Python2
     from urllib import urlopen, urlencode
-
+    from ConfigParser import RawConfigParser
 
 from ...frames.submit_bug import Ui_SubmitBug
 from ..methods.dialogs import Dialogs
@@ -78,6 +80,10 @@ class SubmitBug(QtGui.QDialog):
         try:
             summary = self.submit.lineEdit_summary.text()
             details = self.submit.plainTextEdit_details.toPlainText()
+
+            if not details:
+                Dialogs.error_message(self, "No details!")
+                return
             environ = self.get_systeminfo()
             logging.info("Submitting bug report.")
             response = urlopen(SUBMIT_SERVER, urlencode({"summary": summary.replace("\n", "<br>"), "details": details, "environ": environ,}))
@@ -92,6 +98,8 @@ class SubmitBug(QtGui.QDialog):
             Dialogs.info_message(self, msg)
 
         except:
+            if details and environ:
+                self.save_for_later(summary, details, environ)
             logging.error("ConnectionError")
 
         self.close()
@@ -137,3 +145,36 @@ class SubmitBug(QtGui.QDialog):
         except: pass
 
         return "\n".join([": ".join(item) for item in data.items()])
+
+
+    #----------------------------------------------------------------------
+    def save_for_later(self, summary, details, environ):
+        """"""
+        parser = RawConfigParser()
+        parser.add_section("SUBMIT")
+        parser.set("SUBMIT", "summary", summary)
+        parser.set("SUBMIT", "details", details)
+        parser.set("SUBMIT", "environ", environ)
+
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "submit-{}".format(datetime.now()))
+        parser.write(open(filename, "w"))
+
+
+#----------------------------------------------------------------------
+def send_old_submits():
+
+    submits = filter(lambda s:s.startswith("submit-"), os.listdir(os.getenv("PINGUINO_USER_PATH")))
+    for submit in submits:
+        parser = RawConfigParser()
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), submit)
+        parser.readfp(open(filename, "r"))
+
+        summary = parser.get("SUBMIT", "summary")
+        details = parser.get("SUBMIT", "details")
+        environ = parser.get("SUBMIT", "environ")
+
+        try:
+            urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}))
+            os.remove(filename)
+        except:
+            pass

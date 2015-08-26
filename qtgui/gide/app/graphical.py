@@ -240,13 +240,14 @@ class GraphicalIDE(Code2Blocks):
     def read_raw_parser(self, filename):
 
         blocks_set = []
-
         file_parser = RawConfigParser()
 
-        if type(filename) in [str, unicode]:
-            file_parser.readfp(codecs.open(filename, "r", encoding="utf-8"))
-        else:
-            file_parser = filename
+        if os.getenv("PINGUINO_PYTHON") == "2":
+            if type(filename) in [str, unicode]: file_parser.readfp(codecs.open(filename, "r", encoding="utf-8"))
+            else: file_parser = filename
+        elif os.getenv("PINGUINO_PYTHON") == "3":
+            if type(filename) == str: file_parser.readfp(codecs.open(filename, "r", encoding="utf-8"))
+            else: file_parser = filename
 
         sections = file_parser.sections()
         for section in sections:
@@ -255,16 +256,20 @@ class GraphicalIDE(Code2Blocks):
             for option in options:
                 file_parser.get(section, option)
                 value = file_parser.get(section, option)
-                if (type(value) in [str, unicode]) and (value[0] in ["[", "("]):
-                    block[option] = eval(file_parser.get(section, option))
-                else:
-                    block[option] = file_parser.get(section, option)
 
+                if os.getenv("PINGUINO_PYTHON") == "2":
+                    if (type(value) in [str, unicode]) and (value[0] in ["[", "("]):
+                        block[option] = eval(file_parser.get(section, option))
+                    else:
+                        block[option] = file_parser.get(section, option)
+                elif os.getenv("PINGUINO_PYTHON") == "3":
+                    if (type(value) == str) and (value[0] in ["[", "("]):
+                        block[option] = eval(file_parser.get(section, option))
+                    else:
+                        block[option] = file_parser.get(section, option)
 
             blocks_set.append(block)
         return blocks_set
-
-
 
 
     #----------------------------------------------------------------------
@@ -316,7 +321,7 @@ class GraphicalIDE(Code2Blocks):
         for i in range(layout.count()):
             widgets.append(layout.itemAt(i).widget())
 
-        widgets = filter(lambda wdg:getattr(wdg, "metadata", False), widgets)
+        widgets = list(filter(lambda wdg:getattr(wdg, "metadata", False), widgets))
 
         inside = layout_pos[:]
 
@@ -446,10 +451,10 @@ class GraphicalIDE(Code2Blocks):
 
         editor = self.main.tabWidget_files.currentWidget()
         for block in editor.graphical_area.get_project_blocks():
-            block.metadata.to = map(self.get_widget_from_id, block.metadata.to)
-            block.metadata.from_ = map(self.get_widget_from_id, block.metadata.from_)
-            block.metadata.inside = map(self.get_widget_from_id, block.metadata.inside)
-            block.metadata.nested = map(self.get_widget_from_id, block.metadata.nested)
+            block.metadata.to = list(map(self.get_widget_from_id, block.metadata.to))
+            block.metadata.from_ = list(map(self.get_widget_from_id, block.metadata.from_))
+            block.metadata.inside = list(map(self.get_widget_from_id, block.metadata.inside))
+            block.metadata.nested = list(map(self.get_widget_from_id, block.metadata.nested))
 
 
     #----------------------------------------------------------------------
