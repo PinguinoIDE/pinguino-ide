@@ -117,19 +117,6 @@ class SourceBrowser(object):
         self.editor_highligh_line(item.line, "#DBFFE3")
 
 
-    # #----------------------------------------------------------------------
-    # @Decorator.clear_highlighted_lines()
-    # def jump_directive(self, model_index):
-
-        # column = model_index.column()
-        # item = self.main.tableWidget_directives.itemFromIndex(model_index).text()
-        # if column == 2:
-            # line = item
-            # self.editor_highligh_line(int(line), "#DBFFE3")
-
-
-
-
     #----------------------------------------------------------------------
     def get_files_to_explore(self):
         """"""
@@ -178,7 +165,7 @@ class SourceBrowser(object):
     def set_assistant(self):
         """"""
         with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
-            self.assistant = pickle.load(file_reserved)["assistant"]
+            self.assistant = pickle.load(file_reserved).get("assistant", {})
 
 
     #----------------------------------------------------------------------

@@ -26,7 +26,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
 
         with open(os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle"), "rb") as file_reserved:
-            self.helpers = pickle.load(file_reserved)["helpers"]
+            self.helpers = pickle.load(file_reserved).get("helpers", {})
         # self.helpers = {}
 
         # self.completer = PinguinoAutoCompleter()
