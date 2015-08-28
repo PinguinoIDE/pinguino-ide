@@ -3,7 +3,7 @@
 
 NAME = "Pinguino IDE"
 VERSION = "11.0"
-SUBVERSION = "beta.3"
+SUBVERSION = "beta.4"
 
 #DESCRIPTION = ""
 #LONG_DESCRIPTION = ""
