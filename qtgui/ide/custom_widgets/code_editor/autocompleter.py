@@ -165,8 +165,12 @@ class PinguinoAutoCompleter(QListWidget):
     #----------------------------------------------------------------------
     def addNewItem(self, name, icon=None):
 
-        if not icon: icon = None
-        elif type(icon) == str: icon = getattr(self.icons, icon)
+        if os.getenv("PINGUINO_PYTHON") is "2":
+            if not icon: icon = None
+            elif type(icon) in [str, unicode]: icon = getattr(self.icons, icon)
+        elif os.getenv("PINGUINO_PYTHON") is "3":
+            if not icon: icon = None
+            elif type(icon) == str: icon = getattr(self.icons, icon)
 
         if not name in self.itemsListName:
             item = QListWidgetItem()
@@ -219,8 +223,13 @@ class PinguinoAutoCompleter(QListWidget):
     #----------------------------------------------------------------------
     def addItemsCompleter(self, list_, icon=None):
 
-        if not icon: icon = None
-        elif type(icon) == str: icon = getattr(self.icons, icon)
+        if os.getenv("PINGUINO_PYTHON") is "2":
+            if not icon: icon = None
+            elif type(icon) in [str, unicode]: icon = getattr(self.icons, icon)
+        elif os.getenv("PINGUINO_PYTHON") is "3":
+            if not icon: icon = None
+            elif type(icon) == str: icon = getattr(self.icons, icon)
+
         for text in list_:
             if not text in self.itemsListName:
                 item = QListWidgetItem()

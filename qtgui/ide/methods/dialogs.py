@@ -5,21 +5,20 @@ import os
 
 from PySide import QtGui, QtCore
 
-#from setup import os.getenv("PINGUINO_NAME")
-
-HOME_PATH = QtCore.QDir.home().path()
 
 ########################################################################
 class Dialogs(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def set_save_file(cls, parent, filename):
+    def set_save_file(cls, parent, filename, dirpath=None):
+
+        if dirpath is None:dirpath = parent.get_default_dir()
         if filename.endswith("*"): filename = filename[:-1]
         ext = os.path.splitext(os.path.split(filename)[1])[1]
         save_filename = QtGui.QFileDialog.getSaveFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Save"),
-                os.path.join(QtCore.QDir.home().path(), filename),
+                os.path.join(dirpath, filename),
                 QtGui.QApplication.translate("Dialogs", "Pinguino files (*{});;All Files (*)".format(ext)))
         if save_filename: return save_filename[0], os.path.split(save_filename[0])[1]
         else: return None, None
@@ -27,11 +26,13 @@ class Dialogs(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def set_open_file(cls, parent, path=HOME_PATH, exts="*.pde *.gpde *.ppde"):
+    def set_open_file(cls, parent, exts="*.pde *.gpde *.ppde", dirpath=None):
+
+        if dirpath is None:dirpath = parent.get_default_dir()
         open_file = QtGui.QFileDialog.getOpenFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
                 #QtCore.QDir.home().path(),
-                path,
+                dirpath,
                 QtGui.QApplication.translate("Dialogs", "Pinguino Files ({});;All Files (*)".format(exts)))
         if open_file[0]:
             return open_file[0]
@@ -39,11 +40,13 @@ class Dialogs(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def set_open_files(cls, parent, path=HOME_PATH, exts="*.pde *.gpde *.ppde"):
+    def set_open_files(cls, parent, exts="*.pde *.gpde *.ppde", dirpath=None):
+
+        if dirpath is None:dirpath = parent.get_default_dir()
         open_files = QtGui.QFileDialog.getOpenFileNames(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
                 #QtCore.QDir.home().path(),
-                path,
+                dirpath,
                 QtGui.QApplication.translate("Dialogs", "Pinguino Files ({});;All Files (*)".format(exts)))
         if open_files[0]:
             return open_files[0]
@@ -52,11 +55,13 @@ class Dialogs(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def set_open_hex(cls, parent, path=HOME_PATH):
+    def set_open_hex(cls, parent, dirpath=None):
+
+        if dirpath is None:dirpath = parent.get_default_dir()
         open_file = QtGui.QFileDialog.getOpenFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Select"),
                 #QtCore.QDir.home().path(),
-                path,
+                dirpath,
                 QtGui.QApplication.translate("Dialogs", "Hex Files (*.hex);;All Files (*)"))
         if open_file: return open_file[0]
         else: return None
@@ -79,11 +84,12 @@ class Dialogs(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def set_open_dir(cls, parent):
+    def set_open_dir(cls, parent, dirpath=None):
 
+        if dirpath is None:dirpath = parent.get_default_dir()
         open_dir = QtGui.QFileDialog.getExistingDirectory(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open directory"),
-                QtCore.QDir.home().path())
+                dirpath)
 
         if open_dir: return open_dir
         else: return None
@@ -165,133 +171,6 @@ class Dialogs(object):
         return True
 
 
-    # #----------------------------------------------------------------------
-    # @classmethod
-    # def confirm_board(cls, parent):
-
-        # parent.set_board()
-
-        # confirm = parent.configIDE.config("Features", "confirm_board", True)
-        # if not confirm: return True
-
-        # board_config = parent.get_description_board()
-
-        # msg_box = QtGui.QMessageBox()
-        # msg_box.setIcon(QtGui.QMessageBox.Question)
-        # msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Config board"))
-        # msg_box.setText(board_config+QtGui.QApplication.translate("Dialogs", "\nUse this board config?\n"))
-
-        # cancel = QtGui.QPushButton()
-        # cancel.setText(QtGui.QApplication.translate("Dialogs", "Cancel"))
-
-        # change = QtGui.QPushButton()
-        # change.setText(QtGui.QApplication.translate("Dialogs", "Change board"))
-
-        # compile_ = QtGui.QPushButton()
-        # compile_.setText(QtGui.QApplication.translate("Dialogs", "Compile"))
-
-        # checkbox = QtGui.QCheckBox()
-        # checkbox.setText(QtGui.QApplication.translate("Dialogs", "Don't ask again"))
-        # layout = msg_box.layout()
-
-        # checkbox.setStyleSheet("""
-        # font-family: inherit;
-        # font-weight: bold;
-
-        # """)
-        # checkbox.setChecked(False)
-        # layout.addWidget(checkbox, 1, 0, 1, 2)
-
-        # msg_box.addButton(cancel, QtGui.QMessageBox.RejectRole)
-        # msg_box.addButton(change, QtGui.QMessageBox.NoRole)
-        # msg_box.addButton(compile_, QtGui.QMessageBox.YesRole)
-
-        # msg_box.setDefaultButton(compile_)
-
-        # msg_box.setStyleSheet("""
-        # font-family: inherit;
-        # font-weight: normal;
-
-        # """)
-
-        # reply = msg_box.exec_()
-
-        # show_again = checkbox.isChecked()
-        # parent.configIDE.set("Features", "confirm_board", not show_again)
-        # parent.main.actionConfirm_board.setChecked(not show_again)
-        # parent.configIDE.save_config()
-        # parent.configIDE.load_config()
-
-        # if reply == 2: return True
-        # elif reply == 1: return False
-        # else: return None
-
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def error_while_compiling(cls, parent):
-
-        msg_box = QtGui.QMessageBox(parent)
-        msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
-        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while compiling."))
-
-        # stdout = QtGui.QPushButton()
-        # stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
-
-        ok = QtGui.QPushButton()
-        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
-
-        # msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
-        msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
-
-        msg_box.setDefaultButton(ok)
-
-        msg_box.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
-
-        """)
-
-        reply = msg_box.exec_()
-
-        # if reply == 0: return True
-        # elif reply == 1: return False
-
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def error_while_linking(cls, parent):
-
-        msg_box = QtGui.QMessageBox(parent)
-        msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
-        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while linking."))
-
-        # stdout = QtGui.QPushButton()
-        # stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
-
-        ok = QtGui.QPushButton()
-        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
-
-        # msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
-        msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
-
-        msg_box.setDefaultButton(ok)
-
-        msg_box.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
-
-        """)
-
-        reply = msg_box.exec_()
-
-        if reply == 0: return True
-        elif reply == 1: return False
-
-
-
     #----------------------------------------------------------------------
     @classmethod
     def overwrite_file(cls, parent, filename, exist):
@@ -327,72 +206,6 @@ class Dialogs(object):
 
         # if reply == 0: return True
         # elif reply == 1: return False
-
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def error_while_preprocess(cls, parent):
-
-        msg_box = QtGui.QMessageBox(parent)
-        msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
-        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Error while preprocess."))
-
-        # stdout = QtGui.QPushButton()
-        # stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
-
-        ok = QtGui.QPushButton()
-        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
-
-        # msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
-        msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
-
-        msg_box.setDefaultButton(ok)
-
-        msg_box.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
-
-        """)
-
-        reply = msg_box.exec_()
-
-        # if reply == 0: return True
-        # elif reply == 1: return False
-
-
-
-    #----------------------------------------------------------------------
-    @classmethod
-    def error_while_unknow(cls, parent):
-
-        msg_box = QtGui.QMessageBox(parent)
-        msg_box.setIcon(QtGui.QMessageBox.Warning)
-        msg_box.setWindowTitle(os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Error"))
-        msg_box.setText(QtGui.QApplication.translate("Dialogs", "Unknow error."))
-
-        # stdout = QtGui.QPushButton()
-        # stdout.setText(QtGui.QApplication.translate("Dialogs", "View stdout"))
-
-        ok = QtGui.QPushButton()
-        ok.setText(QtGui.QApplication.translate("Dialogs", "Ok"))
-
-        # msg_box.addButton(stdout, QtGui.QMessageBox.RejectRole)
-        msg_box.addButton(ok, QtGui.QMessageBox.NoRole)
-
-        msg_box.setDefaultButton(ok)
-
-        msg_box.setStyleSheet("""
-        font-family: inherit;
-        font-weight: normal;
-
-        """)
-
-        reply = msg_box.exec_()
-
-        # if reply == 0: return True
-        # elif reply == 1: return False
-
 
 
     #----------------------------------------------------------------------
@@ -471,11 +284,12 @@ class Dialogs(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def set_save_image(cls, parent, filename):
+    def set_save_image(cls, parent, filename, dirpath=None):
 
+        if dirpath is None:dirpath = parent.get_default_dir()
         file_name = QtGui.QFileDialog.getSaveFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Save image"),
-                filename,
+                os.path.join(dirpath, filename),
                 QtGui.QApplication.translate("Dialogs", "Png files (*.png);;All Files (*)"))
 
         if file_name: return file_name[0]
@@ -485,7 +299,7 @@ class Dialogs(object):
     #----------------------------------------------------------------------
     @classmethod
     def get_text(self, parent, name, default=""):
-        """"""
+
         text, ok = QtGui.QInputDialog.getText(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Input text"),
                 name+":", QtGui.QLineEdit.Normal,

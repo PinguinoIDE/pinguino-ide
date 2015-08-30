@@ -434,47 +434,6 @@ class Constructor(object):
         self.LineCode.append(edit.text)
         return widgetSlider, edit
 
-
-
-    ##----------------------------------------------------------------------
-    #def buildButton(self, widget, text, checkeable=False, start=False, loop=False):
-        #
-        #widgetButton = QtGui.QWidget(widget)
-        #button = ControlButton()
-        #button.setupUi(widgetButton)
-
-
-        #button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png);"%sys.path[0])
-
-        #def down():
-            #if button.pushButton.isChecked():
-                #button.pushButton.setText("OFF")
-                #button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box2.png);"%sys.path[0])
-            #else:
-                #button.pushButton.setText("ON")
-                #button.pushButton.setStyleSheet("background-image: url(%s/bloques/widgets/arte/box.png);"%sys.path[0])
-
-        #def activate():
-            #
-            #if self.IDE: self.IDE.frame.startPython(self.getLine(), "pynguino_code")
-
-
-
-        #if checkeable:
-            #button.pushButton.setCheckable(True)
-            #button.pushButton.setChecked(start)
-            #QtCore.QObject.connect(button.pushButton, QtCore.SIGNAL("clicked()"), down)
-            #down()
-        #else:
-            #QtCore.QObject.connect(button.pushButton, QtCore.SIGNAL("clicked()"), activate)
-
-
-
-        #button.pushButton.setText(text)
-        #return widgetButton, button.pushButton
-
-
-
     #----------------------------------------------------------------------
     def buidToInside(self, widget, insideType):
         widgetInside = QtGui.QWidget(widget)

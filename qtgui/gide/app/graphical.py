@@ -242,10 +242,10 @@ class GraphicalIDE(Code2Blocks):
         blocks_set = []
         file_parser = RawConfigParser()
 
-        if os.getenv("PINGUINO_PYTHON") == "2":
+        if os.getenv("PINGUINO_PYTHON") is "2":
             if type(filename) in [str, unicode]: file_parser.readfp(codecs.open(filename, "r", encoding="utf-8"))
             else: file_parser = filename
-        elif os.getenv("PINGUINO_PYTHON") == "3":
+        elif os.getenv("PINGUINO_PYTHON") is "3":
             if type(filename) == str: file_parser.readfp(codecs.open(filename, "r", encoding="utf-8"))
             else: file_parser = filename
 
@@ -257,12 +257,12 @@ class GraphicalIDE(Code2Blocks):
                 file_parser.get(section, option)
                 value = file_parser.get(section, option)
 
-                if os.getenv("PINGUINO_PYTHON") == "2":
+                if os.getenv("PINGUINO_PYTHON") is "2":
                     if (type(value) in [str, unicode]) and (value[0] in ["[", "("]):
                         block[option] = eval(file_parser.get(section, option))
                     else:
                         block[option] = file_parser.get(section, option)
-                elif os.getenv("PINGUINO_PYTHON") == "3":
+                elif os.getenv("PINGUINO_PYTHON") is "3":
                     if (type(value) == str) and (value[0] in ["[", "("]):
                         block[option] = eval(file_parser.get(section, option))
                     else:

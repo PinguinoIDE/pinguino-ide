@@ -59,7 +59,6 @@ class Project(object):
     def open_project(self):
 
         self.project_saved = True
-
         file_project = Dialogs.set_open_file(self, exts="*.ppde")
         if file_project is None: return
         self.open_project_from_path(file_project)
@@ -267,7 +266,7 @@ class Project(object):
     #----------------------------------------------------------------------
     def get_project_name(self):
         """"""
-        return self.main.treeWidget_projects.headerItem().text(0)
+        return self.ConfigProject.get("Main", "name")
 
 
     #----------------------------------------------------------------------
@@ -551,6 +550,18 @@ class Project(object):
 
 
     #----------------------------------------------------------------------
+    def get_default_project_dir(self):
+        """"""
+        dirs = self.get_dirs_from_project()
+        if dirs:  return dirs[0]
+
+        files = self.get_files_from_project().keys()
+        if files: return files[0]
+
+        return QtCore.QDir.home().path()
+
+
+    #----------------------------------------------------------------------
     def get_dirs_from_project(self):
         """"""
         if not self.ConfigProject.has_section("Dirs"): return []
@@ -779,14 +790,14 @@ class Project(object):
         """"""
         library_dir = os.path.join(libpath, libname)
         example_dir = os.path.join(library_dir, "examples")
-        tests_dir = os.path.join(library_dir, "tests")
+        # tests_dir = os.path.join(library_dir, "tests")
         pinguino_file = os.path.join(library_dir, "PINGUINO")
         # lib = os.path.join(library_dir, "{}.lib".format(libname))
         # self.ConfigProject.set("Main", "lib", lib)
 
         os.mkdir(library_dir)
         os.mkdir(example_dir)
-        os.mkdir(tests_dir)
+        # os.mkdir(tests_dir)
 
         self.add_existing_directory(library_dir, inherits_status=True)
 
@@ -829,8 +840,8 @@ PUBLIC u8 my_function(){{
         example_file = open(os.path.join(example_dir, "example.gpde"), mode="w")
         example_file.close()
 
-        test_file = open(os.path.join(tests_dir, "test.pde"), mode="w")
-        test_file.close()
+        # test_file = open(os.path.join(tests_dir, "test.pde"), mode="w")
+        # test_file.close()
 
         archs = []
         if _8bit: archs.append("8bit")
@@ -854,6 +865,7 @@ PUBLIC u8 my_function(){{
     def compile_library(self):
         """"""
         self.ide_save_all()
+        self.update_library_project()
 
         lib_name = self.get_project_name()
         lib = self.ConfigProject.get("Main", "lib")
@@ -896,9 +908,9 @@ PUBLIC u8 my_function(){{
                 if function["return"].startswith("PUBLIC"):
                     userc_content[function["line"]-1] = userc_content[function["line"]-1].replace("PUBLIC ", "", 1)
                     userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
-                    pdl_content.append("{} {}#include <{}.c>".format("{}.{}".format(lib_name, function["name"]), "{}_{}".format(lib_name, function["name"]), lib_name))
-                else:
-                    userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
+                    pdl_content.append("{} {}#include <{}.c>\n".format("{}.{}".format(lib_name, function["name"]), "{}_{}".format(lib_name, function["name"]), lib_name))
+                # else:
+                    # userc_content[function["line"]-1] = userc_content[function["line"]-1].replace(function["name"], "{}_{}".format(lib_name, function["name"]), 1)
 
 
             header_content = """//------------------------------------------------------------------
@@ -989,6 +1001,16 @@ PUBLIC u8 my_function(){{
 
 
     #----------------------------------------------------------------------
+    def set_library_libs(self, lib=None, lib32=None):
+        """"""
+        if lib:
+            self.ConfigProject.set("Main", "lib", lib)
+
+        if lib32:
+            self.ConfigProject.set("Main", "lib32", lib32)
+
+
+    #----------------------------------------------------------------------
     def package_library(self):
         """"""
         library_dir = self.get_library_path()
@@ -1054,3 +1076,26 @@ PUBLIC u8 my_function(){{
         self.reload_project()
 
         self.ide_open_file_from_path(filename=pinguino)
+
+
+    #----------------------------------------------------------------------
+    def update_library_project(self):
+        """"""
+        libs = []
+        path = self.get_library_path()
+        for file_ in os.listdir(path):
+            if file_.endswith(".lib"):
+                self.set_library_libs(lib=os.path.join(path, file_))
+                libs.append("8bit")
+            elif file_.endswith(".lib32"):
+                self.set_library_libs(lib32=os.path.join(path, file_))
+                libs.append("32bit")
+
+        parse_lib = RawConfigParser()
+        parse_lib.readfp(open(os.path.join(self.get_library_path(), "PINGUINO"), "r"))
+        parse_lib.set("PINGUINO", "arch", ", ".join(set(libs)))
+        self.ConfigProject.set("Main", "name", parse_lib.get("PINGUINO", "name"))
+        # self.save_project(silent=False, default=False)
+        parse_lib.write(open(os.path.join(self.get_library_path(), "PINGUINO"), "w"))
+
+

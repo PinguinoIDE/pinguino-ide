@@ -45,10 +45,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Log, Std
         self.main = Ui_PinguinoIDE()
         self.main.setupUi(self)
 
-        PythonShell.__init__(self)
-        Log.__init__(self)
-        Help.__init__(self)
-
         # self.argvs = argvs
 
         # if not self.argvs.devmode:
@@ -86,6 +82,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Log, Std
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
 
         self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
+        PythonShell.__init__(self)
+        Log.__init__(self)
+        Help.__init__(self)
 
         splash_write(QtGui.QApplication.translate("Splash", "Opening last files"))
         self.ide_open_last_files()
@@ -138,7 +137,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Log, Std
         elif os_name == "macosx":
             #FIXME_OSX
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"  #Confirm this for macosx
-
 
         splash_write(QtGui.QApplication.translate("Splash", "Welcome to {PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)))
 

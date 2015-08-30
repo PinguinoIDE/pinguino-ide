@@ -46,15 +46,6 @@ from ..child_windows.insert_block_dialog import InsertBlock
 from ..child_windows.submit_bug import SubmitBug, send_old_submits
 from ..child_windows.library_template import LibraryTemplate
 
-# # Python3 compatibility
-# if os.getenv("PINGUINO_PYTHON") is "3":
-    # #Python3
-    # from ..commons.intel_hex3 import IntelHex
-# else:
-    # #Python2
-    # from ..commons.intel_hex import IntelHex
-
-
 
 ########################################################################
 class PinguinoComponents(TimedMethods, Search, Project, Files, Boards, SourceBrowser, LibraryManager):
@@ -313,6 +304,21 @@ class PinguinoQueries(object):
             return False
 
 
+    #----------------------------------------------------------------------
+    def get_default_dir(self):
+        """"""
+        if self.is_project() and self.is_library():
+            return self.get_library_path()
+        elif self.is_project():
+            return self.get_default_project_dir()
+        elif self.is_graphical() != None:
+            editor = self.get_current_editor()
+            return getattr(editor, "path", QtCore.QDir.home().path())
+        else:
+            return QtCore.QDir.home().path()
+
+
+
 ########################################################################
 class PinguinoSettings(object):
     """"""
@@ -517,7 +523,6 @@ class PinguinoSettings(object):
     #----------------------------------------------------------------------
     def switch_color_theme(self, pinguino_color=True):
         default_pallete = ["toolBar", "toolBar_menu", "menubar", "statusBar"]
-
         pinguino_pallete = ["dockWidget_bottom", "dockWidget_right"]
 
         if pinguino_color:
@@ -797,17 +802,17 @@ class PinguinoMain(object):
 
 
             if errors_asm or errors_c:
-                Dialogs.error_while_compiling(self)
+                Dialogs.error_message(self, "Error while compiling.")
                 self.set_tab_stdout()
             elif errors_linking:
-                Dialogs.error_while_linking(self)
+                Dialogs.error_message(self, "Error while linking.")
                 self.set_tab_stdout()
             # elif errors_preprocess:
                 # Dialogs.error_while_preprocess(self)
                 # self.set_tab_stdout()
 
             else:
-                Dialogs.error_while_unknow(self)
+                Dialogs.error_message(self, "Unknow error.")
                 self.set_tab_stdout()
                 self.submit_stdout()
 
@@ -970,6 +975,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         # Try to send failed submittes
         try:send_old_submits()
         except: pass
+
+
+        # PythonShell.__init__(self)
 
 
     #----------------------------------------------------------------------
@@ -1356,7 +1364,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         for filename in os.listdir(libraries):
             lib_paths.append((filename, libraries))
 
-        # # From user
+        # From user
         for path in PinguinoConfig.get_p8_libraries() + PinguinoConfig.get_p32_libraries():
             for filename in os.listdir(path):
                 lib_paths.append((filename, path))
@@ -1673,10 +1681,10 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     def ide_open_files(self):
 
         editor = self.get_current_editor()
-        path = getattr(editor, "path", None)
-        if path: path = os.path.dirname(path)
-        else: path = QtCore.QDir.home().path()
-        filenames = Dialogs.set_open_files(self, path)
+        dirpath = self.get_default_dir()
+
+        filenames = Dialogs.set_open_files(self, dirpath)
+        if filenames is None: return
 
         for filename in filenames:
             if self.ide_check_duplicate_file(filename): continue
@@ -1766,13 +1774,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         editor = kwargs.get("editor", None)
         if not editor: editor = self.get_tab().currentWidget()
         index = self.get_tab().indexOf(editor)
-        #editor = self.get_current_editor()
-        #index = self.main.tabWidget_files.currentIndex()
         filename = self.main.tabWidget_files.tabText(index)
-        save_path = getattr(editor, "path", None)
-        if save_path is None: save_path = filename
-
-        save_path, filename = Dialogs.set_save_file(self, save_path)
+        save_path, filename = Dialogs.set_save_file(self, filename)
         if not save_path: return False
         setattr(editor, "path", save_path)
         self.main.tabWidget_files.setTabText(index, filename)

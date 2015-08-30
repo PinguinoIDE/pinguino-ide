@@ -251,7 +251,10 @@ class Pinguino(PinguinoTools):
         errors = self.__data__["compiling"]["asm"]
         if not errors: return None
 
-        return errors["error_symbols"]
+        if (type(errors) is dict) and ("error_symbols" in errors):
+            return errors["error_symbols"]
+        else:
+            return errors
 
 
     #----------------------------------------------------------------------

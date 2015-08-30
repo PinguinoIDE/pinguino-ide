@@ -7,7 +7,7 @@ import shutil
 
 from qtgui.pinguino_core.pinguino_config import PinguinoConfig
 
-os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
+os.environ["PINGUINO_HOME"] = os.path.abspath(os.path.dirname(__file__))
 
 # For PyInstaller compatibility
 if os.path.exists(os.path.abspath("pinguino_data")):

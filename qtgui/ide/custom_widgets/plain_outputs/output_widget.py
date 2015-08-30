@@ -3,6 +3,7 @@
 
 import os
 import sys
+import pickle
 
 from PySide import QtCore, QtGui
 
@@ -34,7 +35,7 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
 
             self.extra_args = {}
 
-            self.historial = []
+            self.load_historial()
             self.index_historial = 0
 
             self.multiline_commands = []
@@ -43,6 +44,30 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
         # self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
         self.setFrameShape(QtGui.QFrame.NoFrame)
 
+
+    #----------------------------------------------------------------------
+    def update_historial(self, element):
+        """"""
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), ".shellhistory")
+        if os.path.exists(filename):
+            self.load_historial()
+            self.historial.append(element)
+            self.historial = self.historial[-100:]
+        else:
+            self.historial = [element]
+
+        pickle.dump(self.historial, open(filename, "wb"), protocol=2)
+
+
+    #----------------------------------------------------------------------
+    def load_historial(self):
+        """"""
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), ".shellhistory")
+        if os.path.exists(filename):
+            self.historial = pickle.load(open(filename, "r"))
+        else:
+            pickle.dump([], open(filename, "wb"), protocol=2)
+            self.historial = []
 
 
 
@@ -117,7 +142,7 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
                 self.appendPlainText(START)
                 return
 
-            self.historial.append(command.replace("\n", ""))
+            self.update_historial(command.replace("\n", ""))
 
             if not command.isspace():
                 self.moveCursor(QtGui.QTextCursor.End)
@@ -279,23 +304,23 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
     def contextMenuEvent(self, event):
         menu = QtGui.QMenu()
 
-        if hasattr(self, "historial"):
-            if self.historial:
-                sub_menu = QtGui.QMenu(QtGui.QApplication.translate("PythonShell", "Last commands"))
-                rhistorial = self.historial[:]
+        # if hasattr(self, "historial"):
+            # if self.historial:
+                # sub_menu = QtGui.QMenu(QtGui.QApplication.translate("PythonShell", "Last commands"))
+                # rhistorial = self.historial[:]
 
-                rhistorial.reverse()
+                # rhistorial.reverse()
 
-                rhistorial = filter(lambda cm: not cm.isspace(), rhistorial)
-                rhistorial = filter(lambda cm: not cm == "", rhistorial)
+                # rhistorial = filter(lambda cm: not cm.isspace(), rhistorial)
+                # rhistorial = filter(lambda cm: not cm == "", rhistorial)
 
-                for command in rhistorial[:10]:
-                    sub_menu.addAction(command, lambda :self.insertPlainText(command))
-                menu.addMenu(sub_menu)
-                menu.addSeparator()
+                # for command in rhistorial[:10]:
+                    # sub_menu.addAction(command, lambda :self.insertPlainText(command))
+                # menu.addMenu(sub_menu)
+                # menu.addSeparator()
 
         if self.isReadOnly():
-            # menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
+            menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
             # menu.addAction(QtGui.QApplication.translate("PythonShell", "Restart"), self.command_restart)
             # menu.addSeparator()
             # menu.addAction(QtGui.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)

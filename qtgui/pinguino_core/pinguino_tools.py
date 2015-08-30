@@ -468,7 +468,7 @@ class PinguinoTools(Uploader):
             Custom libinstructions
         """
 
-        defines = set()
+        defines = []
         user_content = ""
 
         for path in file_path:
@@ -477,15 +477,15 @@ class PinguinoTools(Uploader):
             user_c = StringIO(file_pde.read())
             file_pde.close()
 
-            readlines = user_c.readlines()
-            readlines = self.remove_comments(readlines, ignore_spaces=ignore_spaces)
-            user_c = StringIO()
-            for line in readlines:
-                if line.find("#include")!=-1 or line.find("#define")!=-1:
-                    defines.add(line+"\n")
-                    user_c.write("\n")
-                else:
-                    user_c.write(line)
+            # readlines = user_c.readlines()
+            # readlines = self.remove_comments(readlines, ignore_spaces=ignore_spaces)
+            # user_c = StringIO()
+            # for line in readlines:
+                # if line.find("#include")!=-1 or line.find("#define")!=-1:
+                    # defines.append(line+"\n")
+                    # user_c.write("\n")
+                # else:
+                    # user_c.write(line)
 
             # search and replace arduino keywords in file
             content = user_c.getvalue()
@@ -497,7 +497,7 @@ class PinguinoTools(Uploader):
             content_nostrings, defines_lib = self.replace_word(content_nostrings, libinstructions=libinstructions)
             content = self.recove_strings(content_nostrings+"\n", keys)
 
-            defines = defines.union(defines_lib)
+            defines.extend(defines_lib)
             user_content += content
 
 
@@ -528,7 +528,6 @@ class PinguinoTools(Uploader):
         """
 
         fichier = open(file_path, "w")
-        defines = sorted(list(defines))
         fichier.writelines(defines)
         fichier.close()
 
@@ -575,25 +574,80 @@ class PinguinoTools(Uploader):
         if libinstructions is None:
             libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
 
-        defines = set()
-        keys = dict()
+        preprocessor_commands = ["if", "ifdef", "elif", "endif", "define", "include"]
+        regex_directive = "[\s]*#(" + "|".join(preprocessor_commands)+ ")[\s\S]*"
+        defines = []
+        keys = {}
         index = 0
 
-        # replace arduino/pinguino language and add #define or #include to define.h
-        # for instruction, cnvinstruction, include, define, regex in libinstructions:
-        for instruction in libinstructions:
-            if re.search(instruction["regex"], content):
-                content = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content)  #safe
+        # replace all code
+        # for instruction in libinstructions:
+            # if re.search(instruction["regex"], content):
+                # content = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content)  #safe
 
-                keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
-                index += 1
+                # keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
+                # index += 1
 
-                defines.add(instruction["include"]+"\n")
-                defines.add(instruction["define"]+"\n")
+                # defines.add(instruction["include"]+"\n")
+                # defines.add(instruction["define"]+"\n")
 
-        content = self.recove_strings(content, keys)
 
-        return content, defines
+
+
+        # replace per line
+        content = content.split("\n")
+        for line in range(len(content)):
+            for instruction in libinstructions:
+                if re.search(instruction["regex"], content[line]):
+                    content[line] = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content[line])  #safe
+
+                    keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
+                    index += 1
+
+                    if not instruction["define"]+"\n" in defines:
+                        defines.append(instruction["define"]+"\n")
+                    if not instruction["include"]+"\n" in defines:
+                        defines.append(instruction["include"]+"\n")
+
+
+            match = re.match(regex_directive, content[line])
+            if match:
+                defines.append(content[line]+"\n")
+                if match.group(1) == "define": content[line] = ""
+
+
+
+
+        # content = "\n".join(content)
+        content = self.recove_strings("\n".join(content), keys)
+
+        return content, self.sort_directives(defines)
+
+
+    #----------------------------------------------------------------------
+    def sort_directives(self, list_directives):
+        """"""
+        directives = "\n".join(list_directives) + "\n"
+
+        start = 0
+        conditionals = []
+        while directives.find("#if", start) != -1:
+            start = directives.find("#if", start)
+            end = directives.find("#endif", start)
+            end_= directives.find("\n", end)
+            conditionals.append(directives[start:end_])
+            start = end
+
+
+        for conditional in conditionals:
+            directives = directives.replace(conditional, "")
+            conditional = conditional.split("\n")
+
+        directives = list(filter(None, sorted(directives.split("\n"))))
+        [directives.extend(cond.split("\n")) for cond in conditionals]
+
+        return [directive + "\n" for directive in list(filter(None, directives))]
+
 
 
     #----------------------------------------------------------------------

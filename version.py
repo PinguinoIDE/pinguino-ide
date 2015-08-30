@@ -47,7 +47,7 @@ if SUBVERSION != "0":
     os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
 else:
     os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)
-os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
+os.environ["PINGUINO_HOME"] = os.path.abspath(os.path.dirname(__file__))
 
 
 # For PyInstaller compatibility

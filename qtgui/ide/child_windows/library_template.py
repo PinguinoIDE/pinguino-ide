@@ -51,7 +51,7 @@ class LibraryTemplate(QtGui.QDialog):
     #----------------------------------------------------------------------
     def set_directory(self):
 
-        target_dir = Dialogs.set_open_dir(self)
+        target_dir = Dialogs.set_open_dir(self.main)
         if target_dir:
             self.lib_template.lineEdit_lib_path.setText(target_dir)
 

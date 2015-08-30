@@ -11,8 +11,7 @@ class BackgroundPallete(object):
     def __init__(self):
         """Constructor"""
 
-        #self.PinguinoColor = (175, 200, 225)
-        self.PinguinoColor = "#AFC8E1"
+        self.PinguinoColor = "#AFC8E1"  #RGB(175, 200, 225)
 
 
     #----------------------------------------------------------------------
