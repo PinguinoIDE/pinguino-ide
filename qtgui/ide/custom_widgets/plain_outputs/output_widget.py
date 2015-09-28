@@ -64,7 +64,7 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
         """"""
         filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), ".shellhistory")
         if os.path.exists(filename):
-            self.historial = pickle.load(open(filename, "r"))
+            self.historial = pickle.load(open(filename, "rb"))
         else:
             pickle.dump([], open(filename, "wb"), protocol=2)
             self.historial = []
