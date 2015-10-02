@@ -15,22 +15,6 @@ from ..child_windows.submit_bug import SubmitBug
 ########################################################################
 class Decorator(object):
 
-
-    # #----------------------------------------------------------------------
-    # @classmethod
-    # def files_tab_on_focus(cls):
-        # def actualdecorator(fn):
-            # @functools.wraps(fn)
-            # def wrapped(Pinguino, *args, **kwargs):
-                # # Pinguino.main.actionSwitch_ide.setChecked(False)
-                # Pinguino.main.tabWidget_files.setVisible(True)
-                # Pinguino.main.tabWidget_files.setVisible(False)
-                # Pinguino.ide_tab_changed()
-                # #Pinguino.main.frame_logo.setVisible(False)
-                # return fn(Pinguino, *args, **kwargs)
-            # return wrapped
-        # return actualdecorator
-
     #----------------------------------------------------------------------
     @classmethod
     def requiere_open_files(cls):
@@ -101,22 +85,6 @@ class Decorator(object):
                     return None
             return wrapped
         return actualdecorator
-
-
-    # #----------------------------------------------------------------------
-    # @classmethod
-    # def requiere_tab(cls, name):
-        # def actualdecorator(fn):
-            # @functools.wraps(fn)
-            # def wrapped(Pinguino, *args, **kwargs):
-                # current_tab_name = Pinguino.main.tabWidget.currentWidget().objectName()
-                # if current_tab_name == name:
-                    # return fn(Pinguino, *args, **kwargs)
-                # else:
-                    # #print(name + " not in focus.")
-                    # return None
-            # return wrapped
-        # return actualdecorator
 
 
     #----------------------------------------------------------------------
@@ -273,6 +241,7 @@ class Decorator(object):
             return wrapped
         return actualdecorator
 
+
     # #----------------------------------------------------------------------
     # @classmethod
     # def debug_time(cls):
@@ -300,49 +269,6 @@ class Decorator(object):
         return actualdecorator
 
 
-    ##----------------------------------------------------------------------
-    #@classmethod
-    #def thread(cls):
-        #def actualdecorator(fn):
-            #@functools.wraps(fn)
-            #def wrapped(Pinguino, *args, **kwargs):
-                #t = threading.Thread(target=fn, args=(Pinguino, ))
-                #t.start()
-                #retorno = t
-                #return retorno
-            #return wrapped
-        #return actualdecorator
-
-    ##----------------------------------------------------------------------
-    #@classmethod
-    #def call_delay(cls, key, delay):
-        #def actualdecorator(fn):
-            #@functools.wraps(fn)
-            #def wrapped(Pinguino, *args, **kwargs):
-
-                #last_time = getattr(Pinguino, "key_delay_"+key, False)
-
-                #if last_time:
-                    #if time.time() - last_time >= delay:
-                        #print("tiempo")
-                        #setattr(Pinguino, "key_delay_"+key, time.time())
-                        #return fn(Pinguino, *args, **kwargs)
-                    #else:
-                        #print("no es tiempo")
-                        #print(time.time())
-                        #print(last_time)
-                        #print(time.time() - last_time)
-
-                #else:
-                    #print("sin inicializar")
-                    #setattr(Pinguino, "key_delay_"+key, time.time())
-                    #return fn(Pinguino, *args, **kwargs)
-
-
-            #return wrapped
-        #return actualdecorator
-
-
 
     #----------------------------------------------------------------------
     @classmethod
@@ -351,13 +277,6 @@ class Decorator(object):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
 
-                # DEBUG = True  #os.getenv("PINGUINO_MODE") == "DEV"
-
-                # if DEBUG:
-                    # logging.debug(fn.__name__)
-
-
-                # Pinguino.clear_highlighted_lines()
                 try:
                     return fn(Pinguino, *args, **kwargs)
                 except:
@@ -369,9 +288,6 @@ class Decorator(object):
 
             return wrapped
         return actualdecorator
-
-
-
 
 
     #----------------------------------------------------------------------
@@ -396,7 +312,6 @@ class Decorator(object):
 
                     return fn(Pinguino, *args, **kwargs)
                 else:
-                    #print("No files are open.")
                     return None
             return wrapped
         return actualdecorator
@@ -407,9 +322,7 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                # if Pinguino.get_tab().count():
 
-                # Pinguino.main.tabWidget.setCurrentIndex(0)
                 widget = getattr(Pinguino.main, widget_name)
 
                 tab = widget.parent().parent()
@@ -417,8 +330,6 @@ class Decorator(object):
                 tab.setCurrentIndex(index)
 
                 return fn(Pinguino, *args, **kwargs)
-                # else:
-                    # #print("No files are open.")
-                    # return None
+
             return wrapped
         return actualdecorator

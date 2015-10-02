@@ -188,14 +188,11 @@
      <addaction name="actionGroup"/>
      <addaction name="actionShop"/>
     </widget>
+    <addaction name="actionAbout"/>
+    <addaction name="actionSubmit_bug_report"/>
     <addaction name="actionPinguino_ide_manual"/>
-    <addaction name="actionLibraries_help"/>
     <addaction name="separator"/>
     <addaction name="menuLinks"/>
-    <addaction name="separator"/>
-    <addaction name="actionSubmit_bug_report"/>
-    <addaction name="separator"/>
-    <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuSource">
     <property name="title">
@@ -322,7 +319,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>4</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -515,7 +512,7 @@
          <string>Source Browser</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_25">
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QTabWidget" name="tabWidget_browser">
            <property name="tabPosition">
             <enum>QTabWidget::South</enum>
@@ -719,7 +716,7 @@
            </widget>
           </widget>
          </item>
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QFrame" name="frame_source_assistnant">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -1008,17 +1005,23 @@
             </item>
             <item row="1" column="0">
              <layout class="QGridLayout" name="gridLayout_26">
+              <item row="0" column="1">
+               <widget class="QRadioButton" name="radioButton_compiler_xc8">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>XC8</string>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
               <item row="0" column="0">
                <widget class="QRadioButton" name="radioButton_compiler_sdcc">
                 <property name="text">
                  <string>SDCC</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QRadioButton" name="radioButton_compiler_xc8">
-                <property name="text">
-                 <string>XC8</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>
@@ -2251,6 +2254,9 @@
    </property>
   </action>
   <action name="actionPinguino_ide_manual">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Pinguino IDE manual</string>
    </property>

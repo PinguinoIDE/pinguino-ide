@@ -1057,15 +1057,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.update_recents_menu_project()
 
         opens = self.configIDE.get_recents_open()
-        # if not filter(lambda f:f.endswith(".pde"), opens):
-        if not opens:
-            self.pinguino_ide_manual()
-            return
-
-        #files = "\n".join(opens)
-        #dialogtext = QtGui.QApplication.translate("Dialogs", "Do you want open files of last sesion?")
-        #if not Dialogs.confirm_message(self, dialogtext+"\n"+files):
-            #return
+        # if not opens:
+            # self.pinguino_ide_manual()
+            # return
 
         self.setCursor(QtCore.Qt.WaitCursor)
         for file_ in opens:
@@ -1538,19 +1532,20 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     def update_actions(self):
 
         # actionname: (Blocks, Code, HTML)
-        actions = {"actionSave_image":	(True, False, False),
-                   "actionSave_file":	(True, True, False),
-                   "actionUndo":		(False, True, False),
-                   "actionRedo":		(False, True, False),
-                   # "actionCopy":		(False, True, False),  #automatic
-                   # "actionCut":			(False, True, False),  #automatic
-                   "actionPaste":		(False, True, False),
-                   "actionSearch":		(False, True, False),
-                   "actionCompile":		(True, True, False),
-                   "actionUpload":		(True, True, False),
-                   "tabWidget_browser":	(True, True, False),
-                   "Search":			(False, True, False),
-                   "actionInsert_Block":(True, False, False),
+        actions = {"actionSave_image":			(True, False, False),
+                   "actionSave_file":			(True, True, False),
+                   "actionUndo":				(False, True, False),
+                   "actionRedo":				(False, True, False),
+                   # "actionCopy":				(False, True, False),  #automatic
+                   # "actionCut":				(False, True, False),  #automatic
+                   "actionPaste":				(False, True, False),
+                   "actionSearch":				(False, True, False),
+                   "actionCompile":				(True, True, False),
+                   "actionUpload":				(True, True, False),
+                   "tabWidget_browser":			(True, True, False),
+                   "frame_source_assistnant":	(True, True, False),
+                   "Search":					(False, True, False),
+                   "actionInsert_Block":		(True, False, False),
 
                    }
 

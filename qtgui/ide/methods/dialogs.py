@@ -31,7 +31,6 @@ class Dialogs(object):
         if dirpath is None:dirpath = parent.get_default_dir()
         open_file = QtGui.QFileDialog.getOpenFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
-                #QtCore.QDir.home().path(),
                 dirpath,
                 QtGui.QApplication.translate("Dialogs", "Pinguino Files ({});;All Files (*)".format(exts)))
         if open_file[0]:
@@ -45,7 +44,6 @@ class Dialogs(object):
         if dirpath is None:dirpath = parent.get_default_dir()
         open_files = QtGui.QFileDialog.getOpenFileNames(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Open"),
-                #QtCore.QDir.home().path(),
                 dirpath,
                 QtGui.QApplication.translate("Dialogs", "Pinguino Files ({});;All Files (*)".format(exts)))
         if open_files[0]:
@@ -60,7 +58,6 @@ class Dialogs(object):
         if dirpath is None:dirpath = parent.get_default_dir()
         open_file = QtGui.QFileDialog.getOpenFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtGui.QApplication.translate("Dialogs", " - Select"),
-                #QtCore.QDir.home().path(),
                 dirpath,
                 QtGui.QApplication.translate("Dialogs", "Hex Files (*.hex);;All Files (*)"))
         if open_file: return open_file[0]
@@ -203,9 +200,6 @@ class Dialogs(object):
         """)
 
         reply = msg_box.exec_()
-
-        # if reply == 0: return True
-        # elif reply == 1: return False
 
 
     #----------------------------------------------------------------------
