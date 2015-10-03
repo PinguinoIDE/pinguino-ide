@@ -10,7 +10,7 @@ Features
 * Added Project and Libraries manager
 * Moved boards selector to lateral tab
 * All tabs are toggleable
-* Added submmit bug report system
+* Added submit bug report system
 * Better integration between clasic code and blocks files
 * Tabs areas can be fully resized
 * Script only for command line (pinguino_cmd.py)
