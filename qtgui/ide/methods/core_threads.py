@@ -112,7 +112,7 @@ class PinguinoRequest(QtCore.QThread):
                 version = version[1:]
 
             if version:
-                local_version = "{PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
+                local_version = os.environ.get("PINGUINO_VERSION")
 
                 html = """
                     <html>

@@ -1,32 +1,19 @@
-Pinguino IDE 12
---------------------------
+Pinguino IDE 12.0 - Beta 1
+------------------------
 
-xxx. xx, 2015
+Oct. 03, 2015
 
 Features
 
-* Separated Python shell and Debugger tabs
+* Separated Python Shell and Debugger tabs
 * Moved stdout to bottom tab
-* Added Project manager
-* Moved boards selector to side tab
-* All tools are toggleable
-* Added IDE documentation
-* Added patch system
+* Added Project and Libraries manager
+* Moved boards selector to lateral tab
+* All tabs are toggleable
 * Added submmit bug report system
-
-
-Improves
-
-* main.c, user.c, define.h can be opened as read only
-* Tools areas can be fully resized
-* Help are now offline html files
+* Better integration between clasic code and blocks files
+* Tabs areas can be fully resized
 * Script only for command line (pinguino_cmd.py)
-
-
-Bug Fixes
-
-* Commandline mode need PySide
-* Many preprocessor bugs
 
 
 Pinguino IDE 11.0 - Beta 3

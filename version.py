@@ -1,9 +1,30 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
+"""
+Semantic Versioning 2.0.0 - http://semver.org/
+
+Given a version number MAJOR.MINOR.PATCH, increment the:
+
+    MAJOR version when you make incompatible API changes,
+    MINOR version when you add functionality in a backwards-compatible manner, and
+    PATCH version when you make backwards-compatible bug fixes.
+
+Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
+"""
+
 NAME = "Pinguino IDE"
-VERSION = "12"
-SUBVERSION = "0"
+
+MAJOR = "12"
+MINOR = "0"
+PATCH = "0"
+PRE_RELEASE = "beta.1"
+
+if PRE_RELEASE:
+    VERSION = "{MAJOR}.{MINOR}.{PATCH}-{PRE_RELEASE}".format(**locals())
+else:
+    VERSION = "{MAJOR}.{MINOR}.{PATCH}".format(**locals())
+
 
 """-------------------------------------------------------------------------
     Pinguino IDE
@@ -42,11 +63,7 @@ else:
 
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
-os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
-if SUBVERSION != "0":
-    os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}.{PINGUINO_SUBVERSION}".format(**os.environ)
-else:
-    os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)
+os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)
 os.environ["PINGUINO_HOME"] = os.path.abspath(os.path.dirname(__file__))
 
 
