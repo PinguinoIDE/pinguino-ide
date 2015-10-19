@@ -31,7 +31,14 @@ class UpdateAutocompleter(QtCore.QThread):
     #----------------------------------------------------------------------
     def __init__(self, parent=None):
         """Constructor"""
-        super().__init__(parent)
+
+        # Python3 compatibility
+        if os.getenv("PINGUINO_PYTHON") is "3":
+            #Python3
+            super().__init__(parent)
+        else:
+            #Python2
+            super(UpdateAutocompleter, self).__init__(parent)
 
 
     #----------------------------------------------------------------------
