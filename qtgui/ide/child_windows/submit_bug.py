@@ -143,6 +143,8 @@ class SubmitBug(QtGui.QDialog):
         except: pass
         try: data["platform.release"] = str(platform.release())
         except: pass
+        try: data["pyusb"] = str(usb.__version__)
+        except: pass
 
         return "\n".join([": ".join(item) for item in data.items()])
 
