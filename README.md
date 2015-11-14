@@ -1,7 +1,14 @@
 Pinguino IDE 12
 ===============
 
-### How to test:
+
+### Install from pypi ###
+```shell
+pip install pinguino
+```
+
+
+### Install from source code ###
 
 ```shell
 git clone https://github.com/PinguinoIDE/pinguino-ide.git Pinguino12-dev
