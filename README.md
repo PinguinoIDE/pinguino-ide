@@ -2,7 +2,7 @@ Pinguino IDE 12
 ===============
 
 
-### Install from pypi ###
+### Install from PyPI ###
 ```shell
 pip install pinguino
 ```
