@@ -3,14 +3,9 @@
 
 from setuptools import setup, find_packages
 
-# import site
-# site.addsitedir("/usr/share/pinguino-12")
-
-
-
 
 setup(name = "pinguino",
-      version = "12.0.8",
+      version = "12.0.10",
       description = "Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)",
       description_file = "README.rst",
 
@@ -34,21 +29,19 @@ setup(name = "pinguino",
                    "Programming Language :: Python",
                    ],
 
-
       scripts = ["bin/pinguino",
                  "bin/pinguino-cmd",
-                 "bin/pinguino-reset",],
+                 "bin/pinguino-reset",
+                 ],
 
       packages = find_packages(),
 
       include_package_data = True,
-
 
       data_files=[
           ('/usr/share/applications', ['pinguino12.desktop']),
           ('/usr/share/icons/hicolor/256x256', ['pinguino/qtgui/resources/art/pinguino_logo-256x256.png']),
           ('/usr/share/icons/hicolor/256x256', ['pinguino/qtgui/resources/art/pinguino_logo_background_blue-256x256.png']),
           ],
-
 
       )

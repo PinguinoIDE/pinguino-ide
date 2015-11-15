@@ -50,10 +50,10 @@ parser = build_argparse()
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
-    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "batteries", "py3")
+    python_path_modules = os.path.join(os.getenv("PINGUINO_LIB"), "batteries", "py3")
 else:
     #Python2
-    python_path_modules = os.path.join(os.getenv("PINGUINO_DATA"), "batteries", "py2")
+    python_path_modules = os.path.join(os.getenv("PINGUINO_LIB"), "batteries", "py2")
 
 if parser.devmode:
     os.environ["PINGUINO_MODE"] = "DEV"
@@ -62,68 +62,72 @@ else:
 
 if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
 
-sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
+sys.path.append(os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "resources"))
 # import resources_rc
 
 from .qtgui.ide.ide import PinguinoIDE
 
-# if __name__ == "__main__":
 
-if parser.lang:
-    sys_locale = parser.lang[0]
-else:
-    sys_locale = QtCore.QLocale.system().name()
-translator = QtCore.QTranslator()
+def main():
 
-#load intern dialogs translations
-qtTranslator = QtCore.QTranslator()
-qtTranslator.load("qt_" + sys_locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
+    if parser.lang:
+        sys_locale = parser.lang[0]
+    else:
+        sys_locale = QtCore.QLocale.system().name()
+    translator = QtCore.QTranslator()
 
-#load translations files
-translations_path = os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage")
-trasnlations = os.path.exists(translations_path)
+    #load intern dialogs translations
+    qtTranslator = QtCore.QTranslator()
+    qtTranslator.load("qt_" + sys_locale, QtCore.QLibraryInfo.location(QtCore.QLibraryInfo.TranslationsPath))
 
-if trasnlations and (os.getenv("PINGUINO_MODE") == "NORMAL"):
-    translations_file = "pinguino_" + sys_locale
+    #load translations files
+    translations_path = os.path.join(os.getenv("PINGUINO_LIB"), "multilanguage")
+    trasnlations = os.path.exists(translations_path)
 
-    if translations_file + ".qm" in os.listdir(translations_path):
-        translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_{}.qm".format(sys_locale)))
-
-    elif "_" in sys_locale:
-        sys_locale = sys_locale[:sys_locale.find("_")]
+    if trasnlations and (os.getenv("PINGUINO_MODE") == "NORMAL"):
         translations_file = "pinguino_" + sys_locale
+
         if translations_file + ".qm" in os.listdir(translations_path):
-            translator.load(os.path.join(os.getenv("PINGUINO_DATA"), "multilanguage", "pinguino_{}.qm".format(sys_locale)))
+            translator.load(os.path.join(os.getenv("PINGUINO_LIB"), "multilanguage", "pinguino_{}.qm".format(sys_locale)))
 
-app = QApplication(sys.argv)
+        elif "_" in sys_locale:
+            sys_locale = sys_locale[:sys_locale.find("_")]
+            translations_file = "pinguino_" + sys_locale
+            if translations_file + ".qm" in os.listdir(translations_path):
+                translator.load(os.path.join(os.getenv("PINGUINO_LIB"), "multilanguage", "pinguino_{}.qm".format(sys_locale)))
 
-#Splash
-pixmap = QPixmap(":/logo/art/splash.png")
-splash = QSplashScreen(pixmap, QtCore.Qt.WindowStaysOnTopHint)
+    app = QApplication(sys.argv)
 
-splash.show()
-splash.setStyleSheet("""
-    font-family: inherit;
-    font-weight: normal;
-    font-size: 11pt;
-    """)
+    #Splash
+    pixmap = QPixmap(":/logo/art/splash.png")
+    splash = QSplashScreen(pixmap, QtCore.Qt.WindowStaysOnTopHint)
 
-def splash_write(msg):
+    splash.show()
+    splash.setStyleSheet("""
+        font-family: inherit;
+        font-weight: normal;
+        font-size: 11pt;
+        """)
+
+    def splash_write(msg):
+        if not splash is None:
+            splash.showMessage("\t"+msg, color=QtGui.QColor("#4d4d4d"), alignment=QtCore.Qt.AlignBottom)
+
+    splash_write(NAME+" "+VERSION)
+    app.processEvents()
+
+    app.installTranslator(qtTranslator)
+    if trasnlations:
+        app.installTranslator(translator)
+
+    frame = PinguinoIDE(splash_write=splash_write)
+    frame.show()
+
     if not splash is None:
-        splash.showMessage("\t"+msg, color=QtGui.QColor("#4d4d4d"), alignment=QtCore.Qt.AlignBottom)
+        splash.finish(frame)
 
-splash_write(NAME+" "+VERSION)
-app.processEvents()
+    app.exec_()
 
-app.installTranslator(qtTranslator)
-if trasnlations:
-    app.installTranslator(translator)
 
-frame = PinguinoIDE(splash_write=splash_write)
-frame.show()
-
-if not splash is None:
-    splash.finish(frame)
-
-app.exec_()
-
+if __name__ == "__main__":
+    main()

@@ -30,6 +30,8 @@ import time
 import argparse
 import logging
 import codecs
+import string
+
 from .config import Config
 
 from .boards import boardlist as Boardlist
@@ -369,10 +371,12 @@ class PinguinoTools(Uploader):
                 if os.getenv("PINGUINO_PYTHON") is "3":
                     #Python3
                     regex = re.compile("{}".format(regex_str).format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
+                    # regex = re.compile("{}".format(regex_str).format(re.escape(instruction)))
 
                 else:
                     #Python2
                     regex = re.compile(u"{}".format(regex_str).format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
+                    # regex = re.compile(u"{}".format(regex_str).format(re.escape(instruction)))
 
 
                 # libinstructions.append([instruction, cnvinstruction, include, define, regex])
@@ -380,7 +384,8 @@ class PinguinoTools(Uploader):
                                         "c": cnvinstruction,
                                         "include": include,
                                         "define": define,
-                                        "regex": regex})
+                                        "regex": regex,
+                                        })
 
 
         # libinstructions.sort(lambda x,y: cmp(len(x[0]), len(y[0])))
@@ -489,6 +494,7 @@ class PinguinoTools(Uploader):
 
             # search and replace arduino keywords in file
             content = user_c.getvalue()
+            content = self.format_code(content)
             content = self.remove_comments(content)
             content_nostrings, keys = self.remove_strings(content)
             nblines = 0
@@ -509,6 +515,17 @@ class PinguinoTools(Uploader):
         # Generate files
         self.save_define(defines, define_output)
         self.save_userc(user_content, userc_output)
+
+
+    #----------------------------------------------------------------------
+    def format_code(self, code):
+        """"""
+        # for sym in list('!#$&()*+,-/:;<=>?@[\\]^`{|}~'):
+            # code = code.replace(sym, " {} ".format(sym))
+
+        return code
+
+
 
 
     #----------------------------------------------------------------------
@@ -580,26 +597,20 @@ class PinguinoTools(Uploader):
         keys = {}
         index = 0
 
-        # replace all code
-        # for instruction in libinstructions:
-            # if re.search(instruction["regex"], content):
-                # content = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content)  #safe
-
-                # keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
-                # index += 1
-
-                # defines.add(instruction["include"]+"\n")
-                # defines.add(instruction["define"]+"\n")
-
-
-
-
-        # replace per line
+        # replace in lines
         content = content.split("\n")
         for line in range(len(content)):
+
+            if not content[line]:
+                continue
+
+            #hack!!, very important line!! #truth
+            content[line] = " {} ".format(content[line])
+
             for instruction in libinstructions:
                 if re.search(instruction["regex"], content[line]):
                     content[line] = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content[line])  #safe
+                    content[line] = content[line][1:-1] #truth
 
                     keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
                     index += 1
@@ -609,13 +620,10 @@ class PinguinoTools(Uploader):
                     if not instruction["include"]+"\n" in defines:
                         defines.append(instruction["include"]+"\n")
 
-
             match = re.match(regex_directive, content[line])
             if match:
                 defines.append(content[line]+"\n")
                 if match.group(1) == "define": content[line] = ""
-
-
 
 
         # content = "\n".join(content)

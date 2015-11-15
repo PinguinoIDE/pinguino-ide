@@ -5,11 +5,12 @@ import unittest
 import os
 import sys
 
-sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
+from . import version
+sys.path.append(os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "resources"))
 
-from qtgui.pinguino_api.pinguino import Pinguino, AllBoards
-from qtgui.pinguino_api.pinguino_config import PinguinoConfig
-from qtgui.pinguino_api.config import Config
+from .qtgui.pinguino_core.pinguino import Pinguino, AllBoards
+from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
+from .qtgui.pinguino_core.config import Config
 
 Pinguino = Pinguino()
 PinguinoConfig.set_environ_vars()
@@ -18,7 +19,7 @@ config = Config()
 PinguinoConfig.update_pinguino_paths(config, Pinguino)
 PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
 PinguinoConfig.update_user_libs(Pinguino)
-# Pinguino.set_os_variables()
+
 
 ########################################################################
 class TestPreprocess(unittest.TestCase):
@@ -32,7 +33,6 @@ class TestPreprocess(unittest.TestCase):
             ("/*Pinguino Rules!*/", ""),
             ("/*Pinguino //Rules!*/", ""),
             ("///*Pinguino Rules!*/", ""),
-
 
             ("\n".join([
             "#define LED1 0\n",
@@ -66,29 +66,14 @@ class TestPreprocess(unittest.TestCase):
 
 
     #----------------------------------------------------------------------
-    def preprocess(self, arch):
+    @classmethod
+    def preprocess(cls, lib, libinstructions):
 
-        libinstructions = Pinguino.get_regobject_libinstructions(arch)
-
-        for line, expected, include, define, regex in libinstructions:
-            got, d = Pinguino.replace_word(line, libinstructions)
-            if got != expected:
-                got, d = Pinguino.replace_word(line, libinstructions)
-
-            self.assertEqual(got, expected,
-                             "Preprocess: Failure\ngot: '{}'\nexpected: '{}'".format(got, expected))
-
-
-    #----------------------------------------------------------------------
-    def test_preprocess_8bit(self):
-
-        self.preprocess(8)
-
-
-    #----------------------------------------------------------------------
-    def test_preprocess_32bit(self):
-
-        self.preprocess(32)
+        def inter(self):
+            got, d = Pinguino.replace_word(lib["pinguino"], libinstructions)
+            self.assertEqual(got, lib["c"],
+                             "Preprocess: Failure\ngot: '{}'\nexpected: '{}'".format(got, lib["c"]))
+        return inter
 
 
 
@@ -126,12 +111,21 @@ class TestBareMinumumCompilation(unittest.TestCase):
         return inter
 
 
+libs8 = Pinguino.get_regobject_libinstructions(8)
+for lib in libs8:
+    test_name = "test_preprocess_8_{}".format(lib["pinguino"].replace(".", "_"))
+    setattr(TestPreprocess, test_name, TestPreprocess.preprocess(lib, libs8))
+
+
+libs32 = Pinguino.get_regobject_libinstructions(8)
+for lib in libs32:
+    test_name = "test_preprocess_32_{}".format(lib["pinguino"].replace(".", "-"))
+    setattr(TestPreprocess, test_name, TestPreprocess.preprocess(lib, libs32))
+
+
 for board in AllBoards:
     test_name = "test_compile_{}".format(board.name.replace(" ", "_").replace(".", "_"))
     setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board))
-
-
-
 
 
 if __name__ == "__main__":

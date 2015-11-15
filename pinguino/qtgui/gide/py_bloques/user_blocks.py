@@ -17,7 +17,7 @@ class UserBlocks(object):
         path = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks")
         if not os.path.exists(path): return
         sets = os.listdir(os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks"))
-        sys.path.append(os.path.join(os.getenv("PINGUINO_HOME"), "qtgui", "gide", "py_bloques"))
+        sys.path.append(os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "gide", "py_bloques"))
 
         for dir_ in sets:
             files = os.listdir(os.path.join(path, dir_))
@@ -27,7 +27,7 @@ class UserBlocks(object):
                 mod = __import__(module.replace(".py", ""))
                 self.extractBlocks(getattr(mod, "PinguinoBlock"))
             sys.path.remove(os.path.join(path, dir_))
-        sys.path.remove(os.path.join(os.getenv("PINGUINO_HOME"), "qtgui", "gide", "py_bloques"))
+        sys.path.remove(os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "gide", "py_bloques"))
 
 
     #----------------------------------------------------------------------

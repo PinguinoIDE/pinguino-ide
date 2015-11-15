@@ -464,7 +464,7 @@ class PinguinoSettings(object):
     #----------------------------------------------------------------------
     def set_icon_theme(self):
 
-        QtGui.QIcon.setThemeSearchPaths(QtGui.QIcon.themeSearchPaths()+[os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources", "themes")])
+        QtGui.QIcon.setThemeSearchPaths(QtGui.QIcon.themeSearchPaths()+[os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "resources", "themes")])
         #paths = filter(lambda path:os.path.isdir(path), QtGui.QIcon.themeSearchPaths())
         paths = [path for path in QtGui.QIcon.themeSearchPaths() if os.path.isdir(path)]
         themes = [(path, os.listdir(path)) for path in paths]
@@ -1465,7 +1465,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         time.sleep(1)
 
         # python = sys.executable
-        file_ = os.path.join(os.getenv("PINGUINO_HOME"), "pinguino.py")
+        file_ = os.path.join(os.getenv("PINGUINO_LIB"), "pinguino.py")
 
         os.execv(file_, sys.argv)
 
@@ -1522,7 +1522,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         path = os.getenv("PINGUINO_USER_PATH")
         if Dialogs.confirm_message(self, "This function remove some files from {} and restart the IDE.\nthis could fix some bugs".format(path)):
 
-            import post_install
+            import pinguino_reset
             self.ide_restart_now()
 
 
@@ -2024,7 +2024,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
         s = editor.text_edit.cursor()
         s.pos()
-        for i in xrange(start, end + 1):
+        for i in range(start, end + 1):
             editor.text_edit.textCursor().insertText(comment_wildcard)
             #cursor.insertText(comment_wildcard)
             editor.text_edit.moveCursor(QtGui.QTextCursor.Down)
@@ -2066,7 +2066,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         #Move the QPlainTextEdit Cursor where the COPY cursor IS!
         editor.text_edit.setTextCursor(cursor)
         editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
-        for i in xrange(start, end + 1):
+        for i in range(start, end + 1):
 
             for i in comment_wildcard:
                 editor.text_edit.moveCursor(QtGui.QTextCursor.Right, QtGui.QTextCursor.KeepAnchor)
@@ -2172,7 +2172,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
             s = editor.text_edit.cursor()
             s.pos()
-            for i in xrange(start, end + 1):
+            for i in range(start, end + 1):
                 editor.text_edit.textCursor().insertText(comment_wildcard)
                 #cursor.insertText(comment_wildcard)
                 editor.text_edit.moveCursor(QtGui.QTextCursor.Down)
@@ -2224,7 +2224,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             #Move the QPlainTextEdit Cursor where the COPY cursor IS!
             editor.text_edit.setTextCursor(cursor)
             editor.text_edit.moveCursor(QtGui.QTextCursor.StartOfLine)
-            for i in xrange(start, end + 1):
+            for i in range(start, end + 1):
 
                 for i in comment_wildcard:
                     editor.text_edit.moveCursor(QtGui.QTextCursor.Right, QtGui.QTextCursor.KeepAnchor)

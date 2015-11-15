@@ -64,11 +64,5 @@ else:
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
 os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)
-os.environ["PINGUINO_HOME"] = os.path.abspath(os.path.dirname(__file__))
+os.environ["PINGUINO_LIB"] = os.path.abspath(os.path.dirname(__file__))
 
-
-# For PyInstaller compatibility
-if os.path.exists(os.path.abspath("pinguino_data")):
-    os.environ["PINGUINO_DATA"] = os.path.abspath("pinguino_data")
-else:
-    os.environ["PINGUINO_DATA"] = os.getenv("PINGUINO_HOME")

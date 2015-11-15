@@ -24,12 +24,12 @@ class PinguinoConfig(object):
         """Configure some environ variables about OS and architecture.
         """
 
-        if not os.path.exists(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg")):
-            logging.error("Missing: "+os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"))
+        if not os.path.exists(os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg")):
+            logging.error("Missing: "+os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg"))
             sys.exit()
 
         config_paths = RawConfigParser()
-        config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_DATA"), "paths.cfg"), "r"))
+        config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg"), "r"))
 
         #RB20141116 : get the “bitness” of the current OS
         bitness, linkage = platform.architecture()
@@ -59,7 +59,7 @@ class PinguinoConfig(object):
         #check instalation path
         if not os.path.exists(os.getenv("PINGUINO_INSTALL_PATH")):
             logging.warning("Missing Pinguino libraries instalation. "
-                            "Make sure the paths in %s are correct."%os.path.join(os.getenv("PINGUINO_DATA"), "paths.conf"))
+                            "Make sure the paths in %s are correct."%os.path.join(os.getenv("PINGUINO_LIB"), "paths.conf"))
 
         #create ~/.pinguino
         if not os.path.exists(os.getenv("PINGUINO_USER_PATH")):
@@ -86,7 +86,7 @@ class PinguinoConfig(object):
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p32", "obj"),
                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source", "obj"))
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "config", "pinguino.%s.conf"%os.getenv("PINGUINO_OS_NAME")),
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "config", "pinguino.%s.conf"%os.getenv("PINGUINO_OS_NAME")),
                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 
 
