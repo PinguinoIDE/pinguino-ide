@@ -19,4 +19,4 @@
 -------------------------------------------------------------------------"""
 
 from pinguino import pinguino
-pinguino.main
+pinguino.main()
