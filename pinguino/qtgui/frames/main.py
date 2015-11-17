@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/qtgui/frames/main.ui'
+# Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/pinguino/qtgui/frames/main.ui'
 #
-# Created: Sat Nov 14 10:38:46 2015
+# Created: Tue Nov 17 15:05:17 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -448,33 +448,6 @@ class Ui_PinguinoIDE(object):
         self.label.setObjectName("label")
         self.gridLayout_23.addWidget(self.label, 0, 0, 1, 1)
         self.verticalLayout.addWidget(self.frame_prgmode)
-        self.frame_bootloader = QtGui.QFrame(self.Boards)
-        self.frame_bootloader.setFrameShape(QtGui.QFrame.NoFrame)
-        self.frame_bootloader.setFrameShadow(QtGui.QFrame.Raised)
-        self.frame_bootloader.setObjectName("frame_bootloader")
-        self.gridLayout_24 = QtGui.QGridLayout(self.frame_bootloader)
-        self.gridLayout_24.setObjectName("gridLayout_24")
-        self.label_3 = QtGui.QLabel(self.frame_bootloader)
-        self.label_3.setObjectName("label_3")
-        self.gridLayout_24.addWidget(self.label_3, 1, 0, 1, 1)
-        self.gridLayout_19 = QtGui.QGridLayout()
-        self.gridLayout_19.setObjectName("gridLayout_19")
-        self.radioButton_bootloader_v1_v2 = QtGui.QRadioButton(self.frame_bootloader)
-        self.radioButton_bootloader_v1_v2.setText("v1.x or v2.x")
-        self.radioButton_bootloader_v1_v2.setObjectName("radioButton_bootloader_v1_v2")
-        self.gridLayout_19.addWidget(self.radioButton_bootloader_v1_v2, 0, 0, 1, 1)
-        self.radioButton_bootloader_v4 = QtGui.QRadioButton(self.frame_bootloader)
-        self.radioButton_bootloader_v4.setText("v4.x")
-        self.radioButton_bootloader_v4.setChecked(True)
-        self.radioButton_bootloader_v4.setObjectName("radioButton_bootloader_v4")
-        self.gridLayout_19.addWidget(self.radioButton_bootloader_v4, 0, 1, 1, 1)
-        self.gridLayout_24.addLayout(self.gridLayout_19, 2, 0, 1, 1)
-        self.line_3 = QtGui.QFrame(self.frame_bootloader)
-        self.line_3.setFrameShape(QtGui.QFrame.HLine)
-        self.line_3.setFrameShadow(QtGui.QFrame.Sunken)
-        self.line_3.setObjectName("line_3")
-        self.gridLayout_24.addWidget(self.line_3, 3, 0, 1, 1)
-        self.verticalLayout.addWidget(self.frame_bootloader)
         self.frame_devices_8 = QtGui.QFrame(self.Boards)
         self.frame_devices_8.setFrameShape(QtGui.QFrame.NoFrame)
         self.frame_devices_8.setFrameShadow(QtGui.QFrame.Raised)
@@ -1089,7 +1062,7 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(3)
+        self.tabWidget_tools.setCurrentIndex(4)
         self.tabWidget_browser.setCurrentIndex(0)
         self.tabWidget_bottom.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)
@@ -1160,7 +1133,6 @@ class Ui_PinguinoIDE(object):
         self.radioButton_compiler_sdcc.setText(QtGui.QApplication.translate("PinguinoIDE", "SDCC", None, QtGui.QApplication.UnicodeUTF8))
         self.radioButton_mode_bootloader.setText(QtGui.QApplication.translate("PinguinoIDE", "Bootloader", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("PinguinoIDE", "Programming mode:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_3.setText(QtGui.QApplication.translate("PinguinoIDE", "Bootloader:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("PinguinoIDE", "Boards:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("PinguinoIDE", "Boards:", None, QtGui.QApplication.UnicodeUTF8))
         self.checkBox_mips16.setToolTip(QtGui.QApplication.translate("PinguinoIDE", "<html><head/><body><p>Checked: Less memory but also less speed.<br>Unchecked: More memory but also increase speed.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))

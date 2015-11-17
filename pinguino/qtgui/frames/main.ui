@@ -14,7 +14,7 @@
    <string notr="true">Pinguino 11.1</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../pinguino-extra/resources/resources.qrc">
+   <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
     <normaloff>:/logo/art/windowIcon.png</normaloff>:/logo/art/windowIcon.png</iconset>
   </property>
   <property name="dockOptions">
@@ -72,7 +72,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../../pinguino-extra/resources/resources.qrc">:/logo/art/banner_blue.png</pixmap>
+          <pixmap resource="../../../../pinguino-extra/resources/resources.qrc">:/logo/art/banner_blue.png</pixmap>
          </property>
         </widget>
        </item>
@@ -1008,7 +1008,7 @@
               <item row="0" column="1">
                <widget class="QRadioButton" name="radioButton_compiler_xc8">
                 <property name="enabled">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="text">
                  <string>XC8</string>
@@ -1081,53 +1081,6 @@
              <widget class="QLabel" name="label">
               <property name="text">
                <string>Programming mode:</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QFrame" name="frame_bootloader">
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_24">
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>Bootloader:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <layout class="QGridLayout" name="gridLayout_19">
-              <item row="0" column="0">
-               <widget class="QRadioButton" name="radioButton_bootloader_v1_v2">
-                <property name="text">
-                 <string notr="true">v1.x or v2.x</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QRadioButton" name="radioButton_bootloader_v4">
-                <property name="text">
-                 <string notr="true">v4.x</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="3" column="0">
-             <widget class="Line" name="line_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -1369,7 +1322,7 @@
               <string>Previous</string>
              </property>
              <property name="icon">
-              <iconset resource="../../../pinguino-extra/resources/resources.qrc">
+              <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
                <normaloff>:/icons/icons/icon_up.png</normaloff>:/icons/icons/icon_up.png</iconset>
              </property>
             </widget>
@@ -1383,7 +1336,7 @@
               <string>Next</string>
              </property>
              <property name="icon">
-              <iconset resource="../../../pinguino-extra/resources/resources.qrc">
+              <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
                <normaloff>:/icons/icons/icon_down.png</normaloff>:/icons/icons/icon_down.png</iconset>
              </property>
             </widget>
@@ -2346,7 +2299,7 @@
   <tabstop>tableWidget_directives</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../pinguino-extra/resources/resources.qrc"/>
+  <include location="../../../../pinguino-extra/resources/resources.qrc"/>
   <include location="../../../pinguino-extra/resources/resources.qrc"/>
  </resources>
  <connections/>
