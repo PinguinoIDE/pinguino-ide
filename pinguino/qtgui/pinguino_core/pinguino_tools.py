@@ -58,14 +58,15 @@ class PinguinoTools(Uploader):
         Helper methods for preprocesing, compiling and updloading code to Pinguino.
         """
 
-        self.NoBoot = ("noboot", 0)
-        self.Boot2 = ("boot2", 0x2000)
-        self.Boot4 = ("boot4", 0x0C00)
+        # v2 dropped
+        # self.NoBoot = ("noboot", 0)
+        # self.Boot2 = ("boot2", 0x2000)
+        # self.Boot4 = ("boot4", 0x0C00)
 
-        self.dict_boot = {"v2": self.Boot2,
-                          "v4": self.Boot4,
-                          "no": self.NoBoot,
-                          }
+        # self.dict_boot = {"v2": self.Boot2,
+                          # "v4": self.Boot4,
+                          # "no": self.NoBoot,
+                          # }
 
 
     #----------------------------------------------------------------------
@@ -133,7 +134,12 @@ class PinguinoTools(Uploader):
             Board class from .boards.
         """
 
-        self.__current_board__ = board
+        # Board reference
+        class Board(board):
+            pass
+
+
+        self.__current_board__ = Board
         #self.get_regobject_libinstructions(board.arch)
 
 
@@ -248,7 +254,7 @@ class PinguinoTools(Uploader):
 
     #----------------------------------------------------------------------
     def __upload__(self):
-        """Upload a conpiled file to Pinguino.
+        """Upload a compiled file to Pinguino.
 
         Returns
         -------
@@ -262,8 +268,8 @@ class PinguinoTools(Uploader):
         # uploader = Uploader(hex_file, board)
         # result = uploader.write_hex()
 
-        # Since Pinguino IDE 11.1 Uploader is an inherited class, so now we must use method get_uploader
-        self.init_uploader(hex_file, board)
+        # Since Pinguino IDE 11.1 Uploader is an inherited class, so now we must use method configure_uploader
+        self.configure_uploader(hex_file, board)
         result = self.upload_hex()
         # result = uploader.report
 
@@ -743,7 +749,31 @@ class PinguinoTools(Uploader):
         #for lib_dir in self.USER_P8_LIBS:
             #user_imports.append("-I" + lib_dir)
 
-        if board.bldr == 'boot2':
+        # if board.bldr == 'boot2':
+            # sortie = Popen([self.COMPILER_8BIT,
+                            # "--verbose",
+                            # "-mpic16",
+                            # "--denable-peeps",
+                            # "--obanksel=9",
+                            # "--optimize-cmp",
+                            # "--optimize-df",
+                            # "-p" + board.proc,
+                            # "-D" + board.board,
+                            # "-D" + board.bldr,
+                            # "-DBOARD=\"" + board.board + "\"",
+                            # "-DPROC=\"" + board.proc + "\"",
+                            # "-DBOOT_VER=2",
+                            # "--use-non-free",
+                            # "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
+                            # "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
+                            # "-I" + os.path.dirname(filename),
+                            # "--compile-only",
+                            # "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),
+                            # userc_output] + user_imports,
+                           # stdout=fichier, stderr=STDOUT)
+
+
+        if board.bldr == 'noboot':
             sortie = Popen([self.COMPILER_8BIT,
                             "--verbose",
                             "-mpic16",
@@ -756,18 +786,18 @@ class PinguinoTools(Uploader):
                             "-D" + board.bldr,
                             "-DBOARD=\"" + board.board + "\"",
                             "-DPROC=\"" + board.proc + "\"",
-                            "-DBOOT_VER=2",
+                            "-DBOOT_VER=0",
                             "--use-non-free",
                             "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
                             "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
                             "-I" + os.path.dirname(filename),
                             "--compile-only",
-                            "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),
-                            userc_output] + user_imports,
+                            userc_output,
+                            "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,
                            stdout=fichier, stderr=STDOUT)
 
 
-        elif board.bldr == 'boot4':
+        else:
             sortie = Popen([self.COMPILER_8BIT,
                             "--verbose",
                             "-mpic16",
@@ -792,28 +822,6 @@ class PinguinoTools(Uploader):
                             "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,
                            stdout=fichier, stderr=STDOUT)
 
-        elif board.bldr == 'noboot':
-            sortie = Popen([self.COMPILER_8BIT,
-                            "--verbose",
-                            "-mpic16",
-                            "--denable-peeps",
-                            "--obanksel=9",
-                            "--optimize-cmp",
-                            "--optimize-df",
-                            "-p" + board.proc,
-                            "-D" + board.board,
-                            "-D" + board.bldr,
-                            "-DBOARD=\"" + board.board + "\"",
-                            "-DPROC=\"" + board.proc + "\"",
-                            "-DBOOT_VER=0",
-                            "--use-non-free",
-                            "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
-                            "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
-                            "-I" + os.path.dirname(filename),
-                            "--compile-only",
-                            userc_output,
-                            "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,
-                           stdout=fichier, stderr=STDOUT)
 
 
         sortie.communicate()
@@ -889,7 +897,40 @@ class PinguinoTools(Uploader):
 
         if board.arch == 8:
 
-            if board.bldr == 'boot2':
+            # if board.bldr == 'boot2':
+                # sortie = Popen([self.COMPILER_8BIT,
+                    # "--verbose",\
+                    # "-mpic16",\
+                    # "--denable-peeps",\
+                    # "--obanksel=9",\
+                    # "--optimize-cmp",\
+                    # "--optimize-df",\
+                    # "--no-crt",\
+                    # "-Wl-s" + os.path.join(self.P8_DIR, 'lkr', board.bldr + '.' + board.proc + '.lkr') + ",-m",\
+                    # "-p" + board.proc,\
+                    # "-D" + board.bldr,\
+                    # "-D" + board.board,\
+                    # "-DBOARD=\"" + board.board + "\"",\
+                    # "-DPROC=\"" + board.proc + "\"",\
+                    # "-DBOOT_VER=2",\
+                    # "--use-non-free",\
+                    # "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
+                    # "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                    # 'libio' + board.proc + '.lib',\
+                    # 'libdev' + board.proc + '.lib',\
+                    # 'libc18f.lib',\
+                    # 'libm18f.lib',\
+                    # 'libsdcc.lib',\
+                    # "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
+                    # os.path.join(self.P8_DIR, 'obj', 'application_iface.o'),\
+                    # os.path.join(self.P8_DIR, 'obj', 'boot_iface.o'),\
+                    # os.path.join(self.P8_DIR, 'obj', 'usb_descriptors.o'),\
+                    # os.path.join(self.P8_DIR, 'obj', 'crt0ipinguino.o'),\
+                    # os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
+                    # stdout=fichier, stderr=STDOUT)
+
+
+            if board.bldr == 'noboot':
                 sortie = Popen([self.COMPILER_8BIT,
                     "--verbose",\
                     "-mpic16",\
@@ -897,14 +938,14 @@ class PinguinoTools(Uploader):
                     "--obanksel=9",\
                     "--optimize-cmp",\
                     "--optimize-df",\
-                    "--no-crt",\
-                    "-Wl-s" + os.path.join(self.P8_DIR, 'lkr', board.bldr + '.' + board.proc + '.lkr') + ",-m",\
+                    #"--no-crt",\ we use default run-time module inside libsdcc.lib
+                    "-Wl-s" + os.path.join(self.P8_DIR, 'lkr', board.proc + '_g.lkr') + ",-m",\
                     "-p" + board.proc,\
                     "-D" + board.bldr,\
                     "-D" + board.board,\
                     "-DBOARD=\"" + board.board + "\"",\
                     "-DPROC=\"" + board.proc + "\"",\
-                    "-DBOOT_VER=2",\
+                    "-DBOOT_VER=0",\
                     "--use-non-free",\
                     "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
                     "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
@@ -912,16 +953,14 @@ class PinguinoTools(Uploader):
                     'libdev' + board.proc + '.lib',\
                     'libc18f.lib',\
                     'libm18f.lib',\
+                    # link the default run-time module
                     'libsdcc.lib',\
                     "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
-                    os.path.join(self.P8_DIR, 'obj', 'application_iface.o'),\
-                    os.path.join(self.P8_DIR, 'obj', 'boot_iface.o'),\
-                    os.path.join(self.P8_DIR, 'obj', 'usb_descriptors.o'),\
-                    os.path.join(self.P8_DIR, 'obj', 'crt0ipinguino.o'),\
                     os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
                     stdout=fichier, stderr=STDOUT)
 
-            elif board.bldr == 'boot4':
+
+            else:
                 sortie = Popen([self.COMPILER_8BIT,
                     "--verbose", "-V",\
                     "-mpic16",\
@@ -957,34 +996,7 @@ class PinguinoTools(Uploader):
                     ] + user_imports,\
                     stdout=fichier, stderr=STDOUT)
 
-            elif board.bldr == 'noboot':
-                sortie = Popen([self.COMPILER_8BIT,
-                    "--verbose",\
-                    "-mpic16",\
-                    "--denable-peeps",\
-                    "--obanksel=9",\
-                    "--optimize-cmp",\
-                    "--optimize-df",\
-                    #"--no-crt",\ we use default run-time module inside libsdcc.lib
-                    "-Wl-s" + os.path.join(self.P8_DIR, 'lkr', board.proc + '_g.lkr') + ",-m",\
-                    "-p" + board.proc,\
-                    "-D" + board.bldr,\
-                    "-D" + board.board,\
-                    "-DBOARD=\"" + board.board + "\"",\
-                    "-DPROC=\"" + board.proc + "\"",\
-                    "-DBOOT_VER=0",\
-                    "--use-non-free",\
-                    "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
-                    "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
-                    'libio' + board.proc + '.lib',\
-                    'libdev' + board.proc + '.lib',\
-                    'libc18f.lib',\
-                    'libm18f.lib',\
-                    # link the default run-time module
-                    'libsdcc.lib',\
-                    "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
-                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
-                    stdout=fichier, stderr=STDOUT)
+
 
         else:#if board.arch == 32:
 

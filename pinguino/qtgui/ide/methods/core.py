@@ -243,12 +243,10 @@ class PinguinoQueries(object):
             board_config.append("Heap size: {} bytes".format(self.configIDE.config("Board", "heapsize", 512)))
             board_config.append("Optimization: {}".format(self.configIDE.config("Board", "optimization", "-O3")))
 
-        if board.arch == 8 and board.bldr == "boot4":
-            board_config.append("Bootloader: v4")
-        elif board.arch == 8 and board.bldr == "boot2":
-            board_config.append("Bootloader: v1 & v2")
-        elif board.arch == 8 and board.bldr == "noboot":
+        if board.bldr == "noboot":
             board_config.append("Mode: ICSP")
+        else:
+            board_config.append("Bootloader: {}".format(board.bldr))
 
         return "\n".join(board_config)
 
@@ -258,21 +256,23 @@ class PinguinoQueries(object):
 
         self.set_board()
         board = self.pinguinoAPI.get_board()
-        board_config = board.name
+        board_config = [board.name]
 
-        if board.arch == 8 and board.bldr == "boot4":
-            board_config += " | Bootloader: v4"
-        if board.arch == 8 and board.bldr == "boot2":
-            board_config += " | Bootloader: v1 & v2"
+        if board.bldr == "noboot":
+            board_config.append("Mode: ICSP")
 
-        if board.arch == 8 and board.bldr != "boot2":
-            board_config += " | Compiler: {}".format(self.configIDE.config("Board", "compiler", "XC8"))
-        elif board.arch == 8:
-            board_config += " | Compiler: SDCC"
+        else:
+            board_config.append("Bootloader: {}".format(board.bldr))
+            # if board.arch == 8 and board.bldr == "boot2":
+                # board_config += " | Bootloader: v1 & v2"
+
+        if board.arch == 8:
+            board_config.append("Compiler: {}".format(self.configIDE.config("Board", "compiler", "XC8")))
         elif board.arch == 32:
-            board_config += " | Compiler: GCC"
+            board_config.append("Compiler: GCC")
 
-        return board_config
+
+        return " | ".join(board_config)
 
 
     #----------------------------------------------------------------------
@@ -882,7 +882,7 @@ class PinguinoMain(object):
         board_name = self.configIDE.config("Board", "board", "Pinguino 2550")
         arch = self.configIDE.config("Board", "arch", 8)
         mode = self.configIDE.config("Board", "mode", "boot")
-        bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
+        # bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
 
 
         # set board
@@ -892,17 +892,17 @@ class PinguinoMain(object):
 
 
         # set mode and bootloader
-        if arch == 8 and mode == "bootloader":
-            if bootloader == "v1_v2":
-                self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.Boot2)
-            else:
-                self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.Boot4)
+        # if arch == 8 and mode == "bootloader":
+            # if bootloader == "v1_v2":
+                # self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.Boot2)
+            # else:
+                # self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.Boot4)
 
         # no configuration bootloader for 32 bits
 
         if mode == "icsp":
             # if mode is icsp overwrite all configuration
-            self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.NoBoot)
+            self.pinguinoAPI.set_icsp()
 
 
         # update environment

@@ -194,7 +194,7 @@ class Uploader(object):
     """Universal uploader class"""
 
     #----------------------------------------------------------------------
-    def init_uploader(self, hex_file, board):
+    def configure_uploader(self, hex_file, board):
 
         #debugger.Debugger(sys)
 
@@ -208,16 +208,16 @@ class Uploader(object):
             #self.logwindow("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board", 1)
             raise Exception("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board")
 
-        elif board.bldr == "boot2":
-            from .uploaderVSC import uploaderVSC as Uploader
+        # elif board.bldr == "boot2":
+            # from .uploaderVSC import uploaderVSC as Uploader
 
         #elif board.bldr == 'boot3':
         #    self.uploader = self.uploaderDLN(*parameters)
 
-        elif board.bldr == "boot4":
+        elif board.arch == 8:
             from .uploader8 import uploader8 as Uploader
 
-        elif board.bldr == "microchip":
+        elif board.arch == 32:
             from .uploader32 import uploader32 as Uploader
 
         self.uploader = Uploader()

@@ -15,7 +15,7 @@ class Boards(object):
 
         all_groups = [self.main.frame_arch,
                       self.main.frame_prgmode,
-                      self.main.frame_bootloader,
+                      # self.main.frame_bootloader,
                       self.main.frame_devices_8,
                       self.main.frame_devices_32]
 
@@ -41,8 +41,8 @@ class Boards(object):
         self.connect(self.main.radioButton_arch_8, QtCore.SIGNAL("clicked()"), self.update_config)
         self.connect(self.main.radioButton_arch_32, QtCore.SIGNAL("clicked()"), self.update_config)
 
-        self.connect(self.main.radioButton_bootloader_v1_v2, QtCore.SIGNAL("clicked()"), self.update_config)
-        self.connect(self.main.radioButton_bootloader_v4, QtCore.SIGNAL("clicked()"), self.update_config)
+        # self.connect(self.main.radioButton_bootloader_v1_v2, QtCore.SIGNAL("clicked()"), self.update_config)
+        # self.connect(self.main.radioButton_bootloader_v4, QtCore.SIGNAL("clicked()"), self.update_config)
 
         self.load_config()
 
@@ -66,7 +66,7 @@ class Boards(object):
         self.main.radioButton_arch_32.setChecked(arch == 32)
         self.main.frame_advance.setVisible(arch == 32)
 
-        compiler = self.configIDE.config("Board", "compiler", "XC8")
+        compiler = self.configIDE.config("Board", "compiler", "SDCC")  #SDCC default compiler
         self.main.radioButton_compiler_sdcc.setChecked(compiler=="SDCC")
         self.main.radioButton_compiler_xc8.setChecked(compiler=="XC8")
 
@@ -74,9 +74,9 @@ class Boards(object):
         self.main.radioButton_mode_bootloader.setChecked(mode == "bootloader")
         self.main.radioButton_mode_icsp.setChecked(mode == "icsp")
 
-        bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
-        self.main.radioButton_bootloader_v1_v2.setChecked(bootloader == "v1_v2")
-        self.main.radioButton_bootloader_v4.setChecked(bootloader == "v4")
+        # bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
+        # self.main.radioButton_bootloader_v1_v2.setChecked(bootloader == "v1_v2")
+        # self.main.radioButton_bootloader_v4.setChecked(bootloader == "v4")
 
         mips16 = self.configIDE.config("Board", "mips16", True)
         self.main.checkBox_mips16.setChecked(mips16)
@@ -108,9 +108,9 @@ class Boards(object):
         else: mode = "icsp"
         self.configIDE.set("Board", "mode", mode)
 
-        if self.main.radioButton_bootloader_v1_v2.isChecked(): bootloader = "v1_v2"
-        else: bootloader = "v4"
-        self.configIDE.set("Board", "bootloader", bootloader)
+        # if self.main.radioButton_bootloader_v1_v2.isChecked(): bootloader = "v1_v2"
+        # else: bootloader = "v4"
+        # self.configIDE.set("Board", "bootloader", bootloader)
 
         name = self.configIDE.config("Board", "board_"+str(arch), None)
         self.configIDE.set("Board", "board", name)
@@ -128,17 +128,11 @@ class Boards(object):
 
         mode_boot = self.main.radioButton_mode_bootloader.isChecked()
         arch_8 = self.main.radioButton_arch_8.isChecked()
-        self.main.frame_bootloader.setVisible(mode_boot and arch_8)
+        # self.main.frame_bootloader.setVisible(mode_boot and arch_8)
 
         self.main.frame_devices_32.setVisible(not arch_8)
         self.main.frame_devices_8.setVisible(arch_8)
         self.main.frame_compiler.setVisible(arch_8)
-
-        if self.main.radioButton_bootloader_v1_v2.isChecked() and arch_8 and mode_boot:
-            self.main.radioButton_compiler_sdcc.setChecked(True)
-            self.main.radioButton_compiler_xc8.setEnabled(False)
-        else:
-            self.main.radioButton_compiler_xc8.setEnabled(True)
 
         self.main.frame_advance.setVisible(not arch_8)
         self.save_config()
@@ -166,7 +160,7 @@ class Boards(object):
     def build_devices_arch(self):
 
         #8bits
-        name_checked = self.configIDE.config("Board", "board_8", "Pinguino 2550")
+        name_checked = self.configIDE.config("Board", "board_8", "Pinguino 45k50")  #Pinguino 45k50 default board
         arch_8 = list(filter(lambda board:board.arch==8, self.pinguinoAPI._boards_))
         # arch_8.sort()
 

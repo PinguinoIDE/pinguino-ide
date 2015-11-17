@@ -110,25 +110,32 @@ class Pinguino(PinguinoTools):
         return True, data
 
 
+    # #----------------------------------------------------------------------
+    # def set_bootloader(self, bldr, memstart):
+        # """Configure bootloader for current board selected.
+
+        # Parameters
+        # ----------
+        # bldr: str
+            # "noboot", "boot2" or "boot4"
+        # memstart: int
+            # 0, 0x2000 or 0x0C00
+
+        # See Also
+        # --------
+        # set_board: Set the board to use.
+        # """
+
+        # if self.__current_board__.arch == 8:
+            # self.__current_board__.bldr = bldr
+            # self.__current_board__.memstart = memstart
+
     #----------------------------------------------------------------------
-    def set_bootloader(self, bldr, memstart):
-        """Configure bootloader for current board selected.
-
-        Parameters
-        ----------
-        bldr: str
-            "noboot", "boot2" or "boot4"
-        memstart: int
-            0, 0x2000 or 0x0C00
-
-        See Also
-        --------
-        set_board: Set the board to use.
-        """
-
+    def set_icsp(self):
+        """"""
         if self.__current_board__.arch == 8:
-            self.__current_board__.bldr = bldr
-            self.__current_board__.memstart = memstart
+            self.__current_board__.bldr = "noboot"
+            self.__current_board__.memstart = 0
 
 
     #----------------------------------------------------------------------
