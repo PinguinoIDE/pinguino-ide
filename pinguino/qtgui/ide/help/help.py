@@ -23,7 +23,7 @@ class Help(object):
         """"""
         # self.switch_ide_mode(graphical=False)
         self.add_tab("Libraries")
-        self.web_view.load("html-documentation/index_pinguino/index.html")
+        self.web_view.load("pinguino/docs/index_pinguino/index.html")
 
 
     #----------------------------------------------------------------------
@@ -31,7 +31,7 @@ class Help(object):
         """"""
         # self.switch_ide_mode(graphical=False)
         self.add_tab("Help")
-        self.web_view.load("html-documentation/index/index.html")
+        self.web_view.load("pinguino/docs/index/index.html")
 
 
     #----------------------------------------------------------------------
