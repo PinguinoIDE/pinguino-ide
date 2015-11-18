@@ -485,9 +485,9 @@ class PinguinoSettings(object):
             dict_themes[theme] = action
             self.main.menuIcons_theme.addAction(action)
 
-        theme = self.configIDE.config("Main", "theme", "pinguino11")
+        theme = self.configIDE.config("Main", "theme", "pinguino12")
         if not theme in valid_themes:
-            theme = "pinguino11"
+            theme = "pinguino12"
             self.configIDE.set("Main", "theme", "pinguino11")
         self.change_icon_theme(theme, dict_themes[theme])()
         dict_themes[theme].setChecked(True)

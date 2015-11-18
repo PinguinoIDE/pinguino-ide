@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Pinguino 11.1</string>
+   <string notr="true">Pinguino 12</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
@@ -319,7 +319,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>4</number>
+        <number>0</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -355,12 +355,6 @@
          </item>
          <item row="1" column="0">
           <widget class="QTreeWidget" name="treeWidget_explorer">
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
            <property name="animated">
             <bool>true</bool>
            </property>
@@ -470,12 +464,6 @@
           <widget class="QTreeWidget" name="treeWidget_projects">
            <property name="midLineWidth">
             <number>1</number>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
            </property>
            <property name="rootIsDecorated">
             <bool>true</bool>
@@ -1322,8 +1310,9 @@
               <string>Previous</string>
              </property>
              <property name="icon">
-              <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
-               <normaloff>:/icons/icons/icon_up.png</normaloff>:/icons/icons/icon_up.png</iconset>
+              <iconset theme="go-top">
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -1336,8 +1325,9 @@
               <string>Next</string>
              </property>
              <property name="icon">
-              <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
-               <normaloff>:/icons/icons/icon_down.png</normaloff>:/icons/icons/icon_down.png</iconset>
+              <iconset theme="go-down">
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -2300,7 +2290,6 @@
  </tabstops>
  <resources>
   <include location="../../../../pinguino-extra/resources/resources.qrc"/>
-  <include location="../../../pinguino-extra/resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

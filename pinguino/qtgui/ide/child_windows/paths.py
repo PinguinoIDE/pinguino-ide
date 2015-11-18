@@ -79,6 +79,11 @@ class Paths(QtGui.QDialog):
 
         Dialogs.warning_message(self, QtGui.QApplication.translate("Dialogs", "This paths are very important don't try to edit it if you don't know what are you doing."))
 
+
+        self.set_paths.pushButton_clear_8_libs.setIcon(QtGui.QIcon.fromTheme("edit-clear"))
+        self.set_paths.pushButton_clear_32_libs.setIcon(QtGui.QIcon.fromTheme("edit-clear"))
+
+
         self.center_on_screen()
 
 

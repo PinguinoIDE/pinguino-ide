@@ -104,21 +104,15 @@ class Files(object):
         file_item.setText(0, filename)
         file_item.path = fullpath
 
-        icon_file = QtGui.QIcon()
-        icon_file.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        #icon_file = QtGui.QIcon.fromTheme("text-x-generic")
 
-        icon_file_pde = QtGui.QIcon()
-        icon_file_pde.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file_pde.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        #icon_file_pde = QtGui.QIcon.fromTheme("text-x-generic")
-
-        icon_file_py = QtGui.QIcon()
-        icon_file_py.addPixmap(QtGui.QPixmap(":/icons/icons/icon_file_py.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        #icon_file_py = QtGui.QIcon.fromTheme("text-x-generic")
-
-        if filename.endswith("py"): file_item.setIcon(0, icon_file_py)
-        elif filename.endswith("pde"): file_item.setIcon(0, icon_file_pde)
-        else: file_item.setIcon(0, icon_file)
+        if filename.endswith(".py"):
+            file_item.setIcon(0, QtGui.QIcon.fromTheme("text-x-python"))
+        elif filename.endswith(".pde"):
+            file_item.setIcon(0, QtGui.QIcon.fromTheme("text-x-csrc"))
+        elif filename.endswith(".h"):
+            file_item.setIcon(0, QtGui.QIcon.fromTheme("text-x-chdr"))
+        else:
+            file_item.setIcon(0, QtGui.QIcon.fromTheme("text-x-generic"))
 
         if flags:
             file_item.setFlags(flags)
@@ -137,8 +131,10 @@ class Files(object):
         tree = QtGui.QTreeWidgetItem(parent)
         tree.setText(0, name)
         tree.path = fullpath
-        icon_dir = QtGui.QIcon()
-        icon_dir.addPixmap(QtGui.QPixmap(":/icons/icons/icon_dir.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # icon_dir = QtGui.QIcon()
+        # icon_dir.addPixmap(QtGui.QPixmap(":/icons/icons/icon_dir.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon_dir = QtGui.QIcon.fromTheme("folder")
+
         tree.setIcon(0, icon_dir)
 
         if flags:

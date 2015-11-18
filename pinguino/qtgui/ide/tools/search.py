@@ -22,6 +22,13 @@ class Search(object):
         self.connect(self.main.lineEdit_search, QtCore.SIGNAL("textChanged(QString)"), self.search_instantaneous)
         self.connect(self.main.lineEdit_replace, QtCore.SIGNAL("textChanged(QString)"), self.replace_instantaneous)
 
+        self.main.pushButton_search_next.setIcon(QtGui.QIcon.fromTheme("go-down"))
+        self.main.pushButton_search_previous.setIcon(QtGui.QIcon.fromTheme("go-top"))
+
+        # icon = QtGui.QIcon()
+        # icon.addPixmap(QtGui.QIcon.fromTheme("insert-text").pixmap(size), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        # icon.addPixmap(QtGui.QIcon.fromTheme("insert-object").pixmap(size), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+
 
 
     #----------------------------------------------------------------------

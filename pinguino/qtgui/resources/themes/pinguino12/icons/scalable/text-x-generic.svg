@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   id="svg38"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="text-x-generic.svg">
+  <metadata
+     id="metadata48">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs46" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="718"
+     id="namedview44"
+     showgrid="true"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="18.40515"
+     inkscape:cy="17.965529"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg38"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:bbox-paths="true"
+     inkscape:object-nodes="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4163"
+       empspacing="1"
+       spacingx="2"
+       spacingy="2"
+       snapvisiblegridlinesonly="false"
+       empcolor="#3f3fff"
+       empopacity="0.10980392" />
+  </sodipodi:namedview>
+  <path
+     style="fill:#1a1a1a;fill-opacity:1"
+     d="M 12 4 C 9.79 4 8.0195312 5.79 8.0195312 8 L 8 40 C 8 42.21 9.7704688 44 11.980469 44 L 36 44 C 38.21 44 40 42.21 40 40 L 40 16 L 28 4 L 12 4 z M 12 8 L 26 8 L 36 18 L 36 40 L 12 40 L 12 8 z "
+     id="path40" />
+  <path
+     d="M0 0h48v48H0z"
+     fill="none"
+     id="path42" />
+</svg>
