@@ -77,9 +77,9 @@ class PinguinoTools(Uploader):
         compiler = self.get_8bit_compiler()
 
         if os.getenv("PINGUINO_OS_NAME") == "windows":
-            if compiler == "SDCC":
+            if compiler.lower() == "sdcc":
                 self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc.exe")
-            elif compiler == "XC8":
+            elif compiler.lower() == "xc8":
                 self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8.exe")  #change for xc8
 
             #self.p8 = 'picpgm.exe'
@@ -94,9 +94,9 @@ class PinguinoTools(Uploader):
             self.MAKE = os.path.join(self.P32_GCC_BIN, "make.exe")
 
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
-            if compiler == "SDCC":
+            if compiler.lower() == "sdcc":
                 self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc")
-            elif compiler == "XC8":
+            elif compiler.lower() == "xc8":
                 self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8")  #change for xc8
 
             #self.p8 = 'picpgm'
@@ -105,9 +105,9 @@ class PinguinoTools(Uploader):
             self.MAKE = "make"
 
         elif os.getenv("PINGUINO_OS_NAME") == "macosx":
-            if compiler == "SDCC":
+            if compiler.lower() == "sdcc":
                 self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc")
-            elif compiler == "XC8":
+            elif compiler.lower() == "xc8":
                 self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8")  #change for xc8
             #self.p8 = 'picpgm'
             #self.UPLOADER_32 = os.path.join(self.P32_GCC_BIN, "mphidflash")
@@ -121,7 +121,7 @@ class PinguinoTools(Uploader):
             return getattr(self, "SET_COMPILER_8BIT")
         else:
             config = Config()  #then, select from config
-            return config.config("Board", "compiler", "XC8")
+            return config.config("Board", "compiler", "xc8")
 
 
     #----------------------------------------------------------------------
@@ -217,6 +217,8 @@ class PinguinoTools(Uploader):
 
         t0 = time.time()
 
+        src_dir = os.path.expanduser(self.SOURCE_DIR)
+
         if os.path.exists("{}.hex".format(filename)):
             os.remove("{}.hex".format(filename))
 
@@ -233,13 +235,13 @@ class PinguinoTools(Uploader):
             return data_msg
         else:
             retour, error_link = self.link()
-            if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE)) != True:
+            if os.path.exists(os.path.join(src_dir, MAIN_FILE)) != True:
                 data_msg["verified"] = False
                 data_msg["linking"] = error_link
                 return data_msg
             else:
-                shutil.copy(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE), filename+".hex")
-                os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), MAIN_FILE))
+                shutil.copy(os.path.join(src_dir, MAIN_FILE), filename+".hex")
+                os.remove(os.path.join(src_dir, MAIN_FILE))
                 self.__hex_file__ = filename+".hex"
 
                 data_msg["verified"] = True
@@ -479,6 +481,8 @@ class PinguinoTools(Uploader):
             Custom libinstructions
         """
 
+        src_dir = os.path.expanduser(self.SOURCE_DIR)
+
         defines = []
         user_content = ""
 
@@ -514,9 +518,9 @@ class PinguinoTools(Uploader):
 
 
         if userc_output is None:
-            userc_output = os.path.join(os.path.expanduser(self.SOURCE_DIR), "user.c")
+            userc_output = os.path.join(src_dir, "user.c")
         if define_output is None:
-            define_output = os.path.join(os.path.expanduser(self.SOURCE_DIR), "define.h")
+            define_output = os.path.join(src_dir, "define.h")
 
         # Generate files
         self.save_define(defines, define_output)
@@ -722,7 +726,7 @@ class PinguinoTools(Uploader):
         return " ".join(user_imports)
 
     #----------------------------------------------------------------------
-    def compile(self, userc_output=None):
+    def compile(self):
         """ Compile.
 
             NB :    "--opt-code-size"   deprecated
@@ -733,9 +737,9 @@ class PinguinoTools(Uploader):
 
         filename = self.__filename__
 
-        if userc_output is None:
-            userc_output = os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.c')
+        src_dir = os.path.expanduser(self.SOURCE_DIR)
 
+        userc_output = os.path.join(src_dir, 'main.c')
         ERROR = {"c": {},
                  "asm": {},}
 
@@ -743,7 +747,7 @@ class PinguinoTools(Uploader):
 
         if board.arch == 32: return 0, None
 
-        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
+        fichier = open(os.path.join(src_dir, "stdout"), "w+")
 
         user_imports = self.get_user_imports_p8()
         #for lib_dir in self.USER_P8_LIBS:
@@ -768,7 +772,7 @@ class PinguinoTools(Uploader):
                             # "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
                             # "-I" + os.path.dirname(filename),
                             # "--compile-only",
-                            # "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),
+                            # "-o" + os.path.join(, 'main.o'),
                             # userc_output] + user_imports,
                            # stdout=fichier, stderr=STDOUT)
 
@@ -793,7 +797,7 @@ class PinguinoTools(Uploader):
                             "-I" + os.path.dirname(filename),
                             "--compile-only",
                             userc_output,
-                            "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,
+                            "-o" + os.path.join(src_dir, 'main.o')] + user_imports,
                            stdout=fichier, stderr=STDOUT)
 
 
@@ -819,7 +823,7 @@ class PinguinoTools(Uploader):
                             "-I" + os.path.dirname(filename),
                             "--compile-only",
                             userc_output,
-                            "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,
+                            "-o" + os.path.join(src_dir, 'main.o')] + user_imports,
                            stdout=fichier, stderr=STDOUT)
 
 
@@ -889,8 +893,10 @@ class PinguinoTools(Uploader):
 
         error = []
         board = self.get_board()
-        fichier = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "stdout"), "w+")
 
+        src_dir = os.path.expanduser(self.SOURCE_DIR)
+
+        fichier = open(os.path.join(src_dir, "stdout"), "w+")
         user_imports = self.get_user_imports_p8()
 
         file_dir = os.path.dirname(self.__filename__)
@@ -921,12 +927,12 @@ class PinguinoTools(Uploader):
                     # 'libc18f.lib',\
                     # 'libm18f.lib',\
                     # 'libsdcc.lib',\
-                    # "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
+                    # "-o" + os.path.join(, 'main.hex'),\
                     # os.path.join(self.P8_DIR, 'obj', 'application_iface.o'),\
                     # os.path.join(self.P8_DIR, 'obj', 'boot_iface.o'),\
                     # os.path.join(self.P8_DIR, 'obj', 'usb_descriptors.o'),\
                     # os.path.join(self.P8_DIR, 'obj', 'crt0ipinguino.o'),\
-                    # os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
+                    # os.path.join(, 'main.o')] + user_imports,\
                     # stdout=fichier, stderr=STDOUT)
 
 
@@ -955,8 +961,8 @@ class PinguinoTools(Uploader):
                     'libm18f.lib',\
                     # link the default run-time module
                     'libsdcc.lib',\
-                    "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
-                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o')] + user_imports,\
+                    "-o" + os.path.join(src_dir, 'main.hex'),\
+                    os.path.join(src_dir, 'main.o')] + user_imports,\
                     stdout=fichier, stderr=STDOUT)
 
 
@@ -984,7 +990,7 @@ class PinguinoTools(Uploader):
                     "--use-non-free",\
                     "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
                     "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
-                    os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.o'),\
+                    os.path.join(src_dir, 'main.o'),\
                     'libio' + board.proc + '.lib',\
                     'libdev' + board.proc + '.lib',\
                     'libc18f.lib',\
@@ -992,7 +998,7 @@ class PinguinoTools(Uploader):
                     # link the default run-time module (crt0i.o)
                     # except when "-no-crt" option is used
                     'libsdcc.lib',\
-                    "-o" + os.path.join(os.path.expanduser(self.SOURCE_DIR), 'main.hex'),\
+                    "-o" + os.path.join(src_dir, 'main.hex'),\
                     ] + user_imports,\
                     stdout=fichier, stderr=STDOUT)
 
@@ -1044,15 +1050,15 @@ class PinguinoTools(Uploader):
             else:
                 badrecord = ":040000059D006000FA\n"
 
-            if os.path.exists(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32tmp.hex")):
-                fichiersource = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32tmp.hex"), "r")
-                fichierdest = open(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32.hex"), "w+")
+            if os.path.exists(os.path.join(src_dir, "main32tmp.hex")):
+                fichiersource = open(os.path.join(src_dir, "main32tmp.hex"), "r")
+                fichierdest = open(os.path.join(src_dir, "main32.hex"), "w+")
                 for line in fichiersource:
                     if line != badrecord:
                         fichierdest.writelines(line)
                 fichiersource.close()
                 fichierdest.close()
-                os.remove(os.path.join(os.path.expanduser(self.SOURCE_DIR), "main32tmp.hex"))
+                os.remove(os.path.join(src_dir, "main32tmp.hex"))
 
         return sortie.poll(), error
 

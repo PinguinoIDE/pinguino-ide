@@ -77,7 +77,7 @@ class Pinguino(PinguinoTools):
         file_ = codecs.open(tmp_file, "w", encoding="utf-8")
         file_.write(code)
         file_.close()
-        self.compile_file([tmp_file]+filenames)
+        self.compile_file([tmp_file] + filenames)
 
 
     #----------------------------------------------------------------------
@@ -141,8 +141,8 @@ class Pinguino(PinguinoTools):
     #----------------------------------------------------------------------
     def set_8bit_compiler(self, compiler):
         """"""
-        assert compiler in ["SDCC", "XC8"], "Compiler must be SDCC or XC8"
-        self.SET_COMPILER_8BIT = compiler
+        assert compiler.lower() in ["sdcc", "xc8"], "Compiler must be SDCC or XC8"
+        self.SET_COMPILER_8BIT = compiler.lower()
 
 
     #----------------------------------------------------------------------
