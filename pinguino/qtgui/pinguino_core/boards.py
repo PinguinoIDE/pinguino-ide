@@ -67,7 +67,7 @@ class Pinguino2455(object):
 class Pinguino2550(object):
     name = 'Pinguino 2550'
     arch = 8
-    bldr = 'boot2'
+    bldr = 'boot4'
     proc = '18f2550'
     board = 'PINGUINO2550'
     vendor = MICROCHIP_ID
@@ -80,7 +80,7 @@ class Pinguino2550(object):
 class FreeJALduino(object):
     name = 'FreeJALduino'
     arch = 8
-    bldr = 'boot2'
+    bldr = 'boot4'
     proc = '18f2550'
     board = 'FREEJALDUINO'
     vendor = MICROCHIP_ID
@@ -146,7 +146,7 @@ class Pinguino4455(object):
 class Pinguino4550(object):
     name = 'Pinguino 4550'
     arch = 8
-    bldr = 'boot2'
+    bldr = 'boot4'
     proc = '18f4550'
     board = 'PINGUINO4550'
     vendor = MICROCHIP_ID
@@ -159,7 +159,7 @@ class Pinguino4550(object):
 class PICuno_Equo(object):
     name = 'PICuno Equo'
     arch = 8
-    bldr = 'boot2'
+    bldr = 'boot4'
     proc = '18f4550'
     board = 'PICUNO_EQUO'
     vendor = MICROCHIP_ID
