@@ -488,7 +488,7 @@ class PinguinoSettings(object):
         theme = self.configIDE.config("Main", "theme", "pinguino12")
         if not theme in valid_themes:
             theme = "pinguino12"
-            self.configIDE.set("Main", "theme", "pinguino11")
+            self.configIDE.set("Main", "theme", "pinguino12")
         self.change_icon_theme(theme, dict_themes[theme])()
         dict_themes[theme].setChecked(True)
 
@@ -667,7 +667,7 @@ class PinguinoSettings(object):
             # Invert current position and saved in position
             side = self.dockWidgetArea(self.main.dockWidget_right)
             position = {"RightDockWidgetArea": "LeftDockWidgetArea",
-                        "LeftDockWidgetArea": "RightDockWidgetArea",}[side.name]
+                        "LeftDockWidgetArea": "RightDockWidgetArea",}[side.name.decode()]
             self.configIDE.set("Main", "dock_tools", position)
 
         self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, position)), self.main.dockWidget_right)
@@ -1057,9 +1057,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.update_recents_menu_project()
 
         opens = self.configIDE.get_recents_open()
-        # if not opens:
-            # self.pinguino_ide_manual()
-            # return
+        if not opens:
+            self.pinguino_ide_manual()
+            return
 
         self.setCursor(QtCore.Qt.WaitCursor)
         for file_ in opens:
