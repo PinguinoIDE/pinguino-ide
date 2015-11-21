@@ -1,3 +1,2 @@
 @ECHO OFF
-CD C:\pinguino-11\
-C:\Python27\python.exe pinguino.py
+C:\Python27\pythonw.exe C:\Python27\Scripts\pinguinoide.pyw.
