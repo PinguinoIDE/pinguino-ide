@@ -4,7 +4,7 @@
 import os
 from setuptools import setup, find_packages
 
-if os.name in ["posix", "os2"]: #GNU/Linux and MacOs
+if os.name in ["posix", "os2"]: #GNU/Linux and MacOS
     os_kwargs = {"data_files": [
                                 ("/usr/share/applications", ["pinguino12.desktop"]),
                                 ("/usr/share/icons/hicolor/256x256", ["pinguino/qtgui/resources/art/pinguino_logo-256x256.png"]),
@@ -25,7 +25,7 @@ elif os.name == "nt":  #Windows
 
 
 setup(name = "pinguino",
-      version = "12.0.17",
+      version = "12.0.18",
       description = "Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)",
       description_file = "README.rst",
 
@@ -46,7 +46,7 @@ setup(name = "pinguino",
                    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
                    "Operating System :: POSIX :: Linux",
                    "Operating System :: Microsoft :: Windows",
-                   # "Operating System :: MacOS",
+                   "Operating System :: MacOS",
                    "Programming Language :: Python",
                    "Topic :: Software Development",
                    "Topic :: Software Development :: Code Generators",

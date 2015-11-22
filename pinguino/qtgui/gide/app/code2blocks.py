@@ -83,7 +83,7 @@ class Code2Blocks(object):
 
         self.index_count = 0
 
-        l = range(1, 10)
+        l = list(range(1, 10))
         l.reverse()
         code = code.replace("{", "\n{\n")
         code = code.replace("}", "\n}\n")
@@ -93,7 +93,7 @@ class Code2Blocks(object):
 
         code = code.split("\n")
         code = filter(lambda x:not x.isspace(), code)
-        code = filter(None, code)
+        code = list(filter(None, code))
 
         for index in range(len(code)):
             if code[index].endswith(";"): code[index] = code[index][:-1]

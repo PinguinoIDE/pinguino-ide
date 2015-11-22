@@ -30,7 +30,7 @@ from ..tools.search import Search
 from ..tools.project import Project
 from ..tools.boards import Boards
 from ..tools.source_browser import SourceBrowser
-from ..tools.library_manager import LibraryManager
+# from ..tools.library_manager import LibraryManager
 # from ..methods.library_manager import Librarymanager
 # from ..widgets.output_widget import START
 
@@ -48,7 +48,7 @@ from ..child_windows.library_template import LibraryTemplate
 
 
 ########################################################################
-class PinguinoComponents(TimedMethods, Search, Project, Files, Boards, SourceBrowser, LibraryManager):
+class PinguinoComponents(TimedMethods, Search, Project, Files, Boards, SourceBrowser):
     """"""
 
     #----------------------------------------------------------------------
@@ -59,7 +59,7 @@ class PinguinoComponents(TimedMethods, Search, Project, Files, Boards, SourceBro
         SourceBrowser.__init__(self)
         Files.__init__(self)
         Project.__init__(self)
-        LibraryManager.__init__(self)
+        # LibraryManager.__init__(self)
         # super(BoardConfig, self).__init__()
 
 

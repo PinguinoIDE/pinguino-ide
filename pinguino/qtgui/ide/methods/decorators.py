@@ -222,7 +222,7 @@ class Decorator(object):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
                 if Pinguino.is_graphical() is True:
-                    return getattr(Pinguino.PinguinoKIT, fn.func_name)(Pinguino, *args, **kwargs)
+                    return getattr(Pinguino.PinguinoKIT, fn.__name__)(Pinguino, *args, **kwargs)
                 elif Pinguino.is_graphical() is False:
                     return fn(Pinguino, *args, **kwargs)
             return wrapped
