@@ -347,9 +347,6 @@ class PinguinoSettings(object):
         self.recent_files = []
 
 
-
-
-
     #----------------------------------------------------------------------
     @Decorator.call_later()
     def load_main_config(self):
@@ -1057,9 +1054,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.update_recents_menu_project()
 
         opens = self.configIDE.get_recents_open()
-        if not opens:
-            self.pinguino_ide_manual()
-            return
+        # if not opens:
+            # self.pinguino_ide_manual()
+            # return
 
         self.setCursor(QtCore.Qt.WaitCursor)
         for file_ in opens:
