@@ -241,13 +241,16 @@ class TimedMethods(object):
 
         editor = self.get_current_editor()
 
-        if not hasattr(self, "thread_autocompleter"):
+        if (not hasattr(self, "thread_autocompleter")) and hasattr(editor.text_edit, "completer"):
             self.thread_autocompleter = UpdateAutocompleter()
             self.thread_autocompleter.signal_set_variables.connect(self.set_variables)
             self.thread_autocompleter.signal_set_directives.connect(self.set_directives)
             self.thread_autocompleter.signal_set_functions.connect(self.set_functions)
             self.thread_autocompleter.signal_add_autocompleter.connect(editor.text_edit.completer.addTemporalItem)
             self.thread_autocompleter.signal_rm_autocompleter.connect(editor.text_edit.completer.removeTemporalItems)
+
+        if not hasattr(self, "thread_autocompleter"):
+            return
 
         if not self.thread_autocompleter.isRunning():
             self.thread_autocompleter.set_files(self.get_files_to_explore())

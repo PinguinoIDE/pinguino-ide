@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/pinguino/qtgui/frames/main.ui'
 #
-# Created: Sun Nov 22 17:49:56 2015
+# Created: Thu Nov 26 17:38:49 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -354,7 +354,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_26 = QtGui.QGridLayout()
         self.gridLayout_26.setObjectName("gridLayout_26")
         self.radioButton_compiler_xc8 = QtGui.QRadioButton(self.frame_compiler)
-        self.radioButton_compiler_xc8.setEnabled(False)
+        self.radioButton_compiler_xc8.setEnabled(True)
         self.radioButton_compiler_xc8.setChecked(False)
         self.radioButton_compiler_xc8.setObjectName("radioButton_compiler_xc8")
         self.gridLayout_26.addWidget(self.radioButton_compiler_xc8, 0, 1, 1, 1)

@@ -1013,37 +1013,42 @@ PUBLIC u8 my_function(){{
     #----------------------------------------------------------------------
     def package_library(self):
         """"""
-        library_dir = self.get_library_path()
-        library_versioned_name = "{}-{}".format(self.get_project_name(), self.get_library_version())
-        package_name = "{}.zip".format(library_versioned_name)
-        package = ZipFile(os.path.join(library_dir, package_name), "w")
-
-        files = [
-            "pdl",
-            "examples",
-            # "{}.lib".format(self.get_project_name()),
-            # "{}.lib32".format(self.get_project_name()),
-            "p8",
-            "p32",
-            "PINGUINO",
-            "README.md",
-            "README",
-        ]
-
-        for target in files:
-            if os.path.exists(os.path.join(library_dir, target)):
-                package.write(os.path.join(library_dir, target), arcname=os.path.join(library_versioned_name, target))
-                logging.debug("Adding {} to {}".format(target, package_name))
-
-                if os.path.isdir(os.path.join(library_dir, target)):
-
-                    for root, dirs, files in os.walk(os.path.join(library_dir, target)):
-                        for file in files:
-                            package.write(os.path.join(root, file), arcname=os.path.join(library_versioned_name, os.path.split(root)[1], file))
-                            logging.debug("Adding {} to {}".format(os.path.join(root, file), package_name))
 
 
-        package.close()
+    # #----------------------------------------------------------------------
+    # def package_library(self):
+        # """"""
+        # library_dir = self.get_library_path()
+        # library_versioned_name = "{}-{}".format(self.get_project_name(), self.get_library_version())
+        # package_name = "{}.zip".format(library_versioned_name)
+        # package = ZipFile(os.path.join(library_dir, package_name), "w")
+
+        # files = [
+            # "pdl",
+            # "examples",
+            # # "{}.lib".format(self.get_project_name()),
+            # # "{}.lib32".format(self.get_project_name()),
+            # "p8",
+            # "p32",
+            # "PINGUINO",
+            # "README.md",
+            # "README",
+        # ]
+
+        # for target in files:
+            # if os.path.exists(os.path.join(library_dir, target)):
+                # package.write(os.path.join(library_dir, target), arcname=os.path.join(library_versioned_name, target))
+                # logging.debug("Adding {} to {}".format(target, package_name))
+
+                # if os.path.isdir(os.path.join(library_dir, target)):
+
+                    # for root, dirs, files in os.walk(os.path.join(library_dir, target)):
+                        # for file in files:
+                            # package.write(os.path.join(root, file), arcname=os.path.join(library_versioned_name, os.path.split(root)[1], file))
+                            # logging.debug("Adding {} to {}".format(os.path.join(root, file), package_name))
+
+
+        # package.close()
 
 
     #----------------------------------------------------------------------

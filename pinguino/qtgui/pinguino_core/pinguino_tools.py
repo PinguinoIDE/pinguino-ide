@@ -121,7 +121,7 @@ class PinguinoTools(Uploader):
             return getattr(self, "SET_COMPILER_8BIT")
         else:
             config = Config()  #then, select from config
-            return config.config("Board", "compiler", "xc8")
+            return config.config("Board", "compiler", "sdcc")
 
 
     #----------------------------------------------------------------------

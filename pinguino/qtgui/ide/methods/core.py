@@ -1522,7 +1522,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         path = os.getenv("PINGUINO_USER_PATH")
         if Dialogs.confirm_message(self, "This function remove some files from {} and restart the IDE.\nthis could fix some bugs".format(path)):
 
-            import pinguino_reset
+            from pinguino import pinguino_reset
             self.ide_restart_now()
 
 
@@ -2641,3 +2641,11 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         self.submit_bug.show()
 
 
+    #----------------------------------------------------------------------
+    def refresh_libraries(self):
+        """"""
+        self.pinguinoAPI.force_reload_libs()
+        PinguinoConfig.update_user_libs(self.pinguinoAPI)
+        self.update_reserved_words()
+        if hasattr(self, "assistant"): delattr(self, "assistant")
+        self.change_dir_files(0)
