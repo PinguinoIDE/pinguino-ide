@@ -17,7 +17,7 @@ if os.name in ["posix", "os2"]: #GNU/Linux and MacOS
 
 elif os.name == "nt":  #Windows
     os_kwargs = {"data_files": [
-                                ("C:\pinguino", ["pinguino12.desktop"]),
+                                # ("C:\pinguino", ["pinguino12.desktop"]),
                                 ("C:\pinguino\icons", ["pinguino/qtgui/resources/art/pinguino_logo-256x256.ico"]),
                                 ("C:\pinguino\icons", ["pinguino/qtgui/resources/art/pinguino_logo_background_blue-256x256.ico"]),
                                 ],
@@ -25,7 +25,7 @@ elif os.name == "nt":  #Windows
 
 
 setup(name = "pinguino",
-      version = "12.0.18",
+      version = "12.0.19",
       description = "Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)",
       description_file = "README.rst",
 
