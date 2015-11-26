@@ -77,9 +77,9 @@ class PinguinoTools(Uploader):
         compiler = self.get_8bit_compiler()
 
         if os.getenv("PINGUINO_OS_NAME") == "windows":
-            if compiler.lower() == "sdcc":
+            if compiler == "sdcc":
                 self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc.exe")
-            elif compiler.lower() == "xc8":
+            elif compiler == "xc8":
                 self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8.exe")  #change for xc8
 
             #self.p8 = 'picpgm.exe'
@@ -118,10 +118,10 @@ class PinguinoTools(Uploader):
     def get_8bit_compiler(self):
         """"""
         if hasattr(self, "SET_COMPILER_8BIT"):  #if no setted
-            return getattr(self, "SET_COMPILER_8BIT")
+            return getattr(self, "SET_COMPILER_8BIT").lower()
         else:
             config = Config()  #then, select from config
-            return config.config("Board", "compiler", "sdcc")
+            return config.config("Board", "compiler", "sdcc").lower()
 
 
     #----------------------------------------------------------------------
@@ -1018,7 +1018,7 @@ class PinguinoTools(Uploader):
             sortie = Popen([self.COMPILER_8BIT,
                 # Define device
                 "--CHIP=" + board.proc,
-                # -Verbose, -Preprocess Assembly Files, -Map file, 
+                # -Verbose, -Preprocess Assembly Files, -Map file,
                 "-P", "-N64", "-V", "-M", "-Q", "-G",
                 # Compiler Optimizations
                 "--OPT=default,+asm,+asmfile,-speed,+space,-debug",
