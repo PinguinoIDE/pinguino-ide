@@ -7,8 +7,10 @@
     author:			Regis Blanchot
     contact:		rblanchot@gmail.com
     first release:	2011-10-23
-    last release:	2014-09-05
-
+    last release:	2015-09-08
+    --------------------------------------------------------------------
+    2015-09-08      RB - added Pinguino 16F1459
+    --------------------------------------------------------------------
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -48,7 +50,25 @@ class PinguinoNoBoot(object):
 """
 
 """---------------------------------------------------------------------
-    8-bit Boards
+    8-bit (16F) Boards
+---------------------------------------------------------------------"""
+
+class Pinguino1459(object):
+    name = 'Pinguino 1459'
+    arch = 8
+    bldr = 'boot4'
+    proc = '16f1459'
+    board = 'PINGUINO1459'
+    family = '16F'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend   = 0x2000
+    shortarg = '-p1459'
+    longarg = '--pinguino1459'
+
+"""---------------------------------------------------------------------
+    8-bit (18F) Boards
 ---------------------------------------------------------------------"""
 
 class Pinguino2455(object):
@@ -57,6 +77,7 @@ class Pinguino2455(object):
     bldr = 'boot4'
     proc = '18f2455'
     board = 'PINGUINO2455'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -70,6 +91,7 @@ class Pinguino2550(object):
     bldr = 'boot4'
     proc = '18f2550'
     board = 'PINGUINO2550'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x2000       # bootloader offset
@@ -83,6 +105,7 @@ class FreeJALduino(object):
     bldr = 'boot4'
     proc = '18f2550'
     board = 'FREEJALDUINO'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x2000
@@ -97,6 +120,7 @@ class Pinguino25k50(object):
     bldr = 'boot4'
     proc = '18f25k50'
     board = 'PINGUINO25K50'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -110,6 +134,7 @@ class Pinguino26J50(object):
     bldr = 'boot4'
     proc = '18f26j50'
     board = 'PINGUINO26J50'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -123,6 +148,7 @@ class Pinguino27J53(object):
     bldr = 'boot4'
     proc = '18f27j53'
     board = 'PINGUINO27J53'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -136,6 +162,7 @@ class Pinguino4455(object):
     bldr = 'boot4'
     proc = '18f4455'
     board = 'PINGUINO4455'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -149,6 +176,7 @@ class Pinguino4550(object):
     bldr = 'boot4'
     proc = '18f4550'
     board = 'PINGUINO4550'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x2000       # bootloader offset
@@ -162,6 +190,7 @@ class PICuno_Equo(object):
     bldr = 'boot4'
     proc = '18f4550'
     board = 'PICUNO_EQUO'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x2000
@@ -176,6 +205,7 @@ class Pinguino45k50(object):
     bldr = 'boot4'
     proc = '18f45k50'
     board = 'PINGUINO45K50'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -189,6 +219,7 @@ class CHRP3(object):
     bldr = 'boot4'
     proc = '18f25k50'
     board = 'CHRP3'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -202,6 +233,7 @@ class Pinguino46J50(object):
     bldr = 'boot4'
     proc = '18f46j50'
     board = 'PINGUINO46J50'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -215,6 +247,7 @@ class Pinguino47J53(object):
     bldr = 'boot4'
     proc = '18f47j53'
     board = 'PINGUINO47J53'
+    family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
@@ -223,7 +256,7 @@ class Pinguino47J53(object):
     longarg = '--pinguino47j53'
 
 """---------------------------------------------------------------------
-    32-bit Boards
+    32-bit (MX) Boards
 ---------------------------------------------------------------------"""
 
 class Pinguino32MX220(object):
@@ -395,12 +428,17 @@ class UBW32_795(object):
     longarg = '--ubw795'
 
 """---------------------------------------------------------------------
+    32-bit (MZ) Boards
+---------------------------------------------------------------------"""
+
+"""---------------------------------------------------------------------
     Board list
 ---------------------------------------------------------------------"""
 
     # RB 17/09/2013
     #PinguinoNoBoot,
 boardlist = [
+    Pinguino1459,
     Pinguino2455,  Pinguino4455,
     Pinguino2550,  Pinguino4550,
     FreeJALduino,  PICuno_Equo, CHRP3,
