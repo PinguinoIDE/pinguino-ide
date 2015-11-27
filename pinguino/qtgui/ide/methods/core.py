@@ -719,7 +719,7 @@ class PinguinoMain(object):
     @Decorator.requiere_can_compile()
     def pinguino_compile(self, dialog_upload=True):
 
-        self.ide_save_all()
+        self.ide_save_file()
 
         filename = self.get_tab().currentWidget().path
 
@@ -727,6 +727,7 @@ class PinguinoMain(object):
 
         if self.is_graphical() is False:
             if self.is_project() and not self.is_library():
+                self.ide_save_all()
                 filenames = self.get_project_files()
                 if not filenames:
                     Dialogs.add_files_to_project(self)
@@ -734,12 +735,14 @@ class PinguinoMain(object):
                 compile_code = lambda :self.pinguinoAPI.compile_file(filenames)
             else:
                 if self.is_project() and self.is_library():
+                    self.ide_save_all()
                     self.refresh_libraries()
                     logging.info("Adding library to environment...")
                 compile_code = lambda :self.pinguinoAPI.compile_file([filename])
 
         else:
             if self.is_project():
+                self.ide_save_all()
                 filenames = self.get_project_files()
                 if not filenames:
                     Dialogs.add_files_to_project(self)
@@ -750,6 +753,7 @@ class PinguinoMain(object):
 
 
         if self.is_project() and not self.is_library():
+            self.ide_save_all()
             self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(self.get_project_name())))
         else:
             self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(filename)))
