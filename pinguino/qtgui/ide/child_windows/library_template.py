@@ -66,7 +66,7 @@ class LibraryTemplate(QtGui.QDialog):
         _8bit = self.lib_template.checkBox_lib8.isChecked()
         _32bit = self.lib_template.checkBox_lib32.isChecked()
 
-        kwargs = locals()
+        kwargs = locals().copy()
         kwargs.pop("self")
         self.main.new_library(**kwargs)
         self.close()
