@@ -62,7 +62,7 @@ class Pinguino1459(object):
     family = '16F'
     vendor = MICROCHIP_ID
     product = P8_ID
-    memstart = 0x0C00       # bootloader offset
+    memstart = 0x0500       # bootloader offset
     memend   = 0x2000
     shortarg = '-p1459'
     longarg = '--pinguino1459'
