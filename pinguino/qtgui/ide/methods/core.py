@@ -2483,7 +2483,10 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         editor = self.get_current_editor()
         filename = getattr(editor, "path", False)
-        if filename and (filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples")) or filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))):
+        if filename and (filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples")) or
+                         filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples")) or
+                         filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples_libs"))
+                         ):
             menu.addAction(QtGui.QApplication.translate("Frame", "Restore example"), self.editor_restore_example)
             menu.addSeparator()
 

@@ -34,7 +34,6 @@ from ...frames.blocks_widget import Ui_widgetBlock
 from ...frames.grafical_widget import Ui_Form_graphical
 from ...ide.methods.dialogs import Dialogs
 
-from ..py_bloques.user_blocks import UserBlocks
 from ..py_bloques import constructor as BlocksConstructor
 
 
@@ -54,8 +53,6 @@ class GraphicalIDE(Code2Blocks):
         self.openID = 1
 
         self.fileName = None
-
-        self.update_all_blocks()
 
         self.listBlocks = []
         #self.listSpaces = 0
@@ -113,13 +110,6 @@ class GraphicalIDE(Code2Blocks):
         index = self.main.tabWidget_files.currentIndex()
         self.main.tabWidget_files.setTabText(index, filename[:-1])
         self.ide.update_actions()
-
-
-    #----------------------------------------------------------------------
-    def update_all_blocks(self):
-        ub = UserBlocks()
-        blocks = ub.getBlocks()
-        all_sets.update(blocks)
 
 
     #----------------------------------------------------------------------

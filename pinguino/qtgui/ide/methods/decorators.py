@@ -296,23 +296,20 @@ class Decorator(object):
         def actualdecorator(fn):
             @functools.wraps(fn)
             def wrapped(Pinguino, *args, **kwargs):
-                if Pinguino.get_tab().count():
 
-                    widget = getattr(Pinguino.main, widget_name)
+                widget = getattr(Pinguino.main, widget_name)
 
-                    tab = widget.parent().parent()
-                    index = tab.indexOf(widget)
-                    tabbar = tab.tabBar()
-                    orig_c = tabbar.tabTextColor(0)
+                tab = widget.parent().parent()
+                index = tab.indexOf(widget)
+                tabbar = tab.tabBar()
+                orig_c = tabbar.tabTextColor(0)
 
-                    for i in range(0, 8, 2):
-                        QtCore.QTimer.singleShot(300*i, lambda :tabbar.setTabTextColor(index, orig_c))
-                        QtCore.QTimer.singleShot((300*i)+300, lambda :tabbar.setTabTextColor(index, QtCore.Qt.red))
-                    QtCore.QTimer.singleShot(500*20, lambda :tabbar.setTabTextColor(index, orig_c))
+                for i in range(0, 8, 2):
+                    QtCore.QTimer.singleShot(300*i, lambda :tabbar.setTabTextColor(index, orig_c))
+                    QtCore.QTimer.singleShot((300*i)+300, lambda :tabbar.setTabTextColor(index, QtCore.Qt.red))
+                QtCore.QTimer.singleShot(500*20, lambda :tabbar.setTabTextColor(index, orig_c))
+                return fn(Pinguino, *args, **kwargs)
 
-                    return fn(Pinguino, *args, **kwargs)
-                else:
-                    return None
             return wrapped
         return actualdecorator
 
