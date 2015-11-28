@@ -94,7 +94,7 @@ class baseUploader(object):
         busses = usb.busses()
         for bus in busses:
             for device in bus.devices:
-                logging.info("Found device 0x%04X:0x%04X" % (device.idVendor, device.idProduct))
+                #logging.info("Found device 0x%04X:0x%04X" % (device.idVendor, device.idProduct))
                 if (device.idVendor, device.idProduct) == (board.vendor, board.product):
                     """
                     self.configuration = device.configurations[0]
@@ -144,25 +144,25 @@ class baseUploader(object):
 
         if handle:
 
-            logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
+            #logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
 
             if os.getenv("PINGUINO_OS_NAME") == "linux":
                 if device.idProduct == 0x003C: #self.P32_ID:
                     # make sure the hid kernel driver is not active
                     # functionality not available on Darwin or Windows
                     handle.detachKernelDriver(self.INTERFACE_ID)
-                    logging.info("Kernel driver detached")
+                    #logging.info("Kernel driver detached")
 
 
             #handle.setConfiguration(self.configuration)
             handle.setConfiguration(self.ACTIVE_CONFIG)
-            logging.info("Configuration set")
+            #logging.info("Configuration set")
 
             #handle.claimInterface(self.interface)
             handle.claimInterface(self.INTERFACE_ID)
-            logging.info("Interface claimed")
+            #logging.info("Interface claimed")
 
-            logging.info("Everything OK so far")
+            #logging.info("Everything OK so far")
             return handle
 
         return self.ERR_USB_INIT1
@@ -185,7 +185,7 @@ class baseUploader(object):
         except Exception as e:
             logging.info(e)
             pass
-        logging.info("Device closed")
+        #logging.info("Device closed")
 
 
 

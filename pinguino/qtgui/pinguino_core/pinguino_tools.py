@@ -746,6 +746,7 @@ class PinguinoTools(Uploader):
         compiler = self.get_8bit_compiler()
 
         # GCC and XC8 compile and link at the "same time"
+        # so nothing to do here
         if board.arch == 32 or compiler == 'xc8':
             return 0, None
 
@@ -907,8 +908,7 @@ class PinguinoTools(Uploader):
         user_imports = self.get_user_imports_p8()
 
         file_dir = os.path.dirname(self.__filename__)
-
-
+    
         if board.arch == 8 and board.bldr == 'noboot' and compiler == 'xc8':
 
                     sortie = Popen([self.COMPILER_8BIT,
@@ -1112,20 +1112,19 @@ class PinguinoTools(Uploader):
             #self.report(makefile)
 
             sortie = Popen([self.MAKE,
-                            "--makefile=" + makefile,
-                            "_IDE_PDEDIR_=" + file_dir,
-                            "_IDE_PROC_=" + board.proc,
-                            "_IDE_BOARD_=" + board.board,
-                            "_IDE_BINDIR_=" + self.P32_GCC_BIN,  #default /usr/bin
-                            "_IDE_P32DIR_=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
-                            "_IDE_SRCDIR_=" + self.SOURCE_DIR,
-                            "_IDE_USERHOMEDIR_=" + os.getenv("PINGUINO_USER_PATH"),  #default ~/.pinguino
-                            "_IDE_OSARCH_=" + os.getenv("PINGUINO_OS_ARCH"),
-                            "_IDE_HEAP_SIZE_=" + self.HEAPSIZE,
-                            "_IDE_MIPS16_ENABLE_=" + self.MIPS16,
-                            "_IDE_OPTIMIZATION_=" + self.OPTIMIZATION,
-
-                         ] + _IDE_USERLIBS_,
+                "--makefile=" + makefile,
+                "_IDE_PDEDIR_=" + file_dir,
+                "_IDE_PROC_=" + board.proc,
+                "_IDE_BOARD_=" + board.board,
+                "_IDE_BINDIR_=" + self.P32_GCC_BIN,  #default /usr/bin
+                "_IDE_P32DIR_=" + self.P32_DIR,  #default /usr/share/pinguino-11.0/p32
+                "_IDE_SRCDIR_=" + self.SOURCE_DIR,
+                "_IDE_USERHOMEDIR_=" + os.getenv("PINGUINO_USER_PATH"),  #default ~/.pinguino
+                "_IDE_OSARCH_=" + os.getenv("PINGUINO_OS_ARCH"),
+                "_IDE_HEAP_SIZE_=" + self.HEAPSIZE,
+                "_IDE_MIPS16_ENABLE_=" + self.MIPS16,
+                "_IDE_OPTIMIZATION_=" + self.OPTIMIZATION,
+	            ] + _IDE_USERLIBS_,
 
                          stdout=fichier, stderr=STDOUT)
 
