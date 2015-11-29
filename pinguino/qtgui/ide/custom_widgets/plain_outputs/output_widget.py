@@ -354,20 +354,33 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
     def step_font_size(self, delta):
+
+        cursor = self.textCursor()
         font = self.font()
         size = font.pointSize()
         if delta > 0: size = size + 1
         else: size = size - 1
 
+        if size < 0:
+            size = 0
+
+        self.selectAll()
+        font.setPointSize(size)
+        self.setFont(font)
+
         self.setStyleSheet("""
-        QPlainTextEdit {
-            background-color: #333;
+        QPlainTextEdit {{
+            background-color: #000;
             color: #FFFFFF;
             font-family: mono;
             font-weight: normal;
             font-size: {}dpt;
-        }
+        }}
         """.format(size))
+
+        # cursor.clearSelection()
+        self.setTextCursor(cursor)
+
 
 
     #----------------------------------------------------------------------

@@ -83,21 +83,23 @@ class CustomTextEdit(QtGui.QTextEdit):
     #----------------------------------------------------------------------
     def step_font_size(self, delta):
 
-        font = self.font()
-        size = font.pointSize()
+        size = self.fontPointSize()
+        if size == 0:
+            size = 10
+
         if delta > 0: size = size + 1
         else: size = size - 1
 
-        self.setStyleSheet("""
-        QTextEdit {
-            background-color: #FFF;
-            font-family: mono;
-            font-weight: normal;
-            font-size: {}dpt;
-            }
+        if size <= 1:
+            size = 1
 
-        """.format(size))
+        cursor = self.textCursor()
+        self.selectAll()
+        self.setFontPointSize(size)
 
+        font = self.linenumber.font()
+        font.setPointSize(size)
+        self.linenumber.setFont(font)
 
         self.linenumber.setStyleSheet("""
         font-family: mono;
@@ -105,6 +107,9 @@ class CustomTextEdit(QtGui.QTextEdit):
         font-size: {}dpt;
 
         """.format(size))
+
+        # cursor.clearSelection()
+        self.setTextCursor(cursor)
 
 
 
