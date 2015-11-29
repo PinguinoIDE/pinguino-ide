@@ -4,14 +4,18 @@
 from PySide import QtGui, QtCore
 
 import os
+import sys
 import shutil
 import logging
 from datetime import datetime
 from zipfile import ZipFile
+import subprocess
 
 from ..methods.decorators import Decorator
 from ..methods.dialogs import Dialogs
 from ..methods.parser import PinguinoParser
+
+from pinguino.dev import PinguinoLib
 
 
 # Python3 compatibility
@@ -1013,7 +1017,42 @@ PUBLIC u8 my_function(){{
     #----------------------------------------------------------------------
     def package_library(self):
         """"""
+        cwd = os.getcwd()
+        os.chdir(self.get_library_path())
 
+        try:
+            manifest = open(os.path.join(self.get_library_path(), "MANIFEST.in"), "w+")
+            manifest.write(PinguinoLib.get_manifest_template())
+            manifest.close()
+
+            setup = open(os.path.join(self.get_library_path(), "setup.py"), "w+")
+            setup.write(PinguinoLib.get_setup_template())
+            setup.close()
+
+            dest = "-d{}".format(os.path.join(self.get_library_path(), "packages"))
+            p = subprocess.Popen([sys.executable, "setup.py", "sdist", dest, "--formats=zip"], stdout=subprocess.PIPE,
+                                                                        stderr=subprocess.PIPE)
+            out, err = p.communicate()
+            self.write_log(out.decode())
+
+            os.remove(os.path.join(self.get_library_path(), "MANIFEST.in"))
+            os.remove(os.path.join(self.get_library_path(), "setup.py"))
+
+            info = list(filter(lambda f:f.endswith(".egg-info"), os.listdir()))
+            if info:
+                try:
+                    os.remove(os.path.join(self.get_library_path(), info[0]))
+                except:
+                    shutil.rmtree(os.path.join(self.get_library_path(), info[0]))
+
+            self.reload_project()
+            Dialogs.info_message(self, "Package created in '{}'".format(os.path.join(self.get_library_path(), "packages")))
+
+
+        except Exception as err:
+            logging.error(err)
+
+        os.chdir(cwd)
 
     # #----------------------------------------------------------------------
     # def package_library(self):

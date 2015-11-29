@@ -106,13 +106,13 @@ class Files(object):
 
 
         if filename.endswith(".py"):
-            file_item.setIcon(0, QtGui.QIcon.fromTheme("text-x-python"))
+            file_item.setIcon(0, QtGui.QIcon.fromTheme("file-python"))
         elif filename.endswith(".pde"):
-            file_item.setIcon(0, QtGui.QIcon.fromTheme("text-x-csrc"))
+            file_item.setIcon(0, QtGui.QIcon.fromTheme("file-csrc"))
         elif filename.endswith(".h"):
-            file_item.setIcon(0, QtGui.QIcon.fromTheme("text-x-chdr"))
+            file_item.setIcon(0, QtGui.QIcon.fromTheme("file-chdr"))
         else:
-            file_item.setIcon(0, QtGui.QIcon.fromTheme("text-x-generic"))
+            file_item.setIcon(0, QtGui.QIcon.fromTheme("document-new"))
 
         if flags:
             file_item.setFlags(flags)
@@ -133,7 +133,7 @@ class Files(object):
         tree.path = fullpath
         # icon_dir = QtGui.QIcon()
         # icon_dir.addPixmap(QtGui.QPixmap(":/icons/icons/icon_dir.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        icon_dir = QtGui.QIcon.fromTheme("folder")
+        icon_dir = QtGui.QIcon.fromTheme("document-open")
 
         tree.setIcon(0, icon_dir)
 
