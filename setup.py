@@ -55,12 +55,13 @@ setup(name = "pinguino",
                    ],
 
       packages = find_packages(),
-      include_package_data = True,
 
       install_requires = [
                           "gitpython",
                           "hgapi",
                           "pyusb==1.0.0b2",
+                          "setuptools",
+                          "pip",
                           # "pyside",
                           ],
 
