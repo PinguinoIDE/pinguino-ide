@@ -40,19 +40,22 @@
      inkscape:window-height="718"
      id="namedview110"
      showgrid="false"
-     inkscape:zoom="4.9166667"
-     inkscape:cx="7.1186444"
-     inkscape:cy="24"
+     inkscape:zoom="6.9532167"
+     inkscape:cx="30.103537"
+     inkscape:cy="13.447641"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg104" />
+     inkscape:current-layer="svg104"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-nodes="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4163" />
+  </sodipodi:namedview>
   <path
-     d="M33.17 17.17L24 26.34l-9.17-9.17L12 20l12 12 12-12z"
+     d="M 36.226667,14.113333 24,26.34 11.773333,14.113333 8.0000005,17.886667 24,33.886667 l 16,-16 z"
      id="path106"
-     style="fill:#1a1a1a;fill-opacity:1" />
-  <path
-     d="M0 0h48v48H0z"
-     fill="none"
-     id="path108" />
+     style="fill:#afc8e1;fill-opacity:1"
+     inkscape:connector-curvature="0" />
 </svg>

@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.4"
-     inkscape:cx="12.178233"
-     inkscape:cy="11.381963"
+     inkscape:zoom="5.6"
+     inkscape:cx="13.9797"
+     inkscape:cy="21.10265"
      inkscape:document-units="px"
      inkscape:current-layer="g4191"
      showgrid="true"
@@ -48,12 +48,14 @@
     <inkscape:grid
        type="xygrid"
        id="grid4155"
-       empspacing="4"
+       empspacing="8"
        dotted="false"
        empcolor="#3f3fff"
        empopacity="0.15294118"
        color="#3f3fff"
-       opacity="0.03921569" />
+       opacity="0.03921569"
+       spacingx="2"
+       spacingy="2" />
     <sodipodi:guide
        position="2,12"
        orientation="1,0"
@@ -95,12 +97,12 @@
      inkscape:label="Capa 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1028.3622)">
+     transform="translate(0,-1004.3622)">
     <g
        id="g4191">
       <g
          id="g4199"
-         sodipodi:insensitive="true">
+         transform="matrix(2,0,0,2,0,-1052.3622)">
         <ellipse
            style="opacity:0.28500001;fill:none;fill-opacity:1;stroke:#333333;stroke-width:0.06;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
            id="path4179"
