@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*
 
 import os
+import sys
 from setuptools import setup
 from . import version
 
@@ -14,6 +15,9 @@ else:
     from ConfigParser import RawConfigParser
 
 
+from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
+PinguinoConfig.set_environ_vars()
+
 
 ########################################################################
 class PinguinoLib:
@@ -23,21 +27,23 @@ class PinguinoLib:
     def __init__(self):
         """Constructor"""
 
+        config_file = os.path.join(sys.path[0], "PINGUINO")
+
         self.PINGUINO = RawConfigParser()
-        self.PINGUINO.readfp(open("PINGUINO", "r"))
+        self.PINGUINO.readfp(open(config_file, "r"))
         self.PINGUINO = dict(self.PINGUINO.items("PINGUINO"))
 
-        self.BASE_DIR = os.path.abspath(os.path.dirname("PINGUINO"))
+        self.BASE_DIR = sys.path[0]
 
 
 
     #----------------------------------------------------------------------
     def get_data_files(self):
 
-        PINGUINOLIBS_DIR = os.path.join(self.get_libraries_dir(), self.PINGUINO["name"])
+        PINGUINOLIBS_DIR = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), self.PINGUINO["name"])
         data_files = []
         mainlib = [(PINGUINOLIBS_DIR, "PINGUINO")]
-        for dir_ in ["p8", "p32", "pdl", "examples", "blocks"]:
+        for dir_ in ["p8", "p32", "pdl", "examples"]:
             path = os.path.join(self.BASE_DIR, dir_)
             if os.path.exists(path):
                 for file_ in os.listdir(path):
@@ -48,54 +54,13 @@ class PinguinoLib:
 
 
     #----------------------------------------------------------------------
-    @classmethod
-    def get_libraries_dir(cls):
-        """"""
-
-        if os.name in ["posix", "os2"]: #GNU/Linux and MacOS
-            return "/usr/share/pinguinolibs"
-
-        # elif os.name == "os2":  #Mac OS X
-            # os_kwargs = {}
-
-        elif os.name == "nt":  #Windows
-            return "C:\pinguino\libs"
-
-
-
-    # #----------------------------------------------------------------------
-    # def post_install(self, lib_name):
-        # """"""
-        # lista = []
-
-        # path_examples = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr", lib_name, "examples")
-        # dest_examples = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "library_examples", lib_name)
-        # lista.append([path_examples, dest_examples])
-
-        # path_blocks = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "usr", lib_name, "blocks")
-        # dest_blocks = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), "blocks", lib_name)
-        # lista.append([path_blocks, dest_blocks])
-
-        # for src, dest in lista:
-            # if os.path.exists(src):
-                # if os.path.exists(dest): shutil.rmtree(dest)
-                # shutil.copytree(src, dest)
-
-        # # self.pinguinoAPI.force_reload_libs()
-        # # self.update_reserved_words()
-        # # delattr(self, "assistant")
-        # self.refresh_libraries()
-
-
-
-    #----------------------------------------------------------------------
     def pinguino_setup(self, **kwargs):
         """"""
         return setup(install_requires = ["pinguino",
                                          # "pyside",
                                          ],
 
-                    include_package_data = True,
+                    # include_package_data = True,
                     data_files = self.get_data_files(),
                     zip_safe = False,
 
@@ -105,7 +70,8 @@ class PinguinoLib:
 
 
     #----------------------------------------------------------------------
-    def get_setup_template(self):
+    @classmethod
+    def get_setup_template(cls):
         return """
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
@@ -121,7 +87,6 @@ library.pinguino_setup(
     name = "pinguino-{name}".format(**PINGUINO),
     version = PINGUINO["version"],
     description = PINGUINO["description"],
-    description_file = "README.rst",
 
     author = PINGUINO["name"],
     author_email = "",
@@ -139,15 +104,15 @@ library.pinguino_setup(
                  ],
 )"""
 
+
     #----------------------------------------------------------------------
-    def get_pinguino_template(self, **kwargs):
+    @classmethod
+    def get_manifest_template(cls):
         return """
-[PINGUINO]
-name = {name}
-author = {author}
-arch = {archs}
-repository =
-description =
-url =
-version = 0.1""".format(**kwargs)
+recursive-include p8 *
+recursive-include p32 *
+recursive-include pdl *
+recursive-include examples *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]"""
 
