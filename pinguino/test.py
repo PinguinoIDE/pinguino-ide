@@ -59,6 +59,7 @@ class TestPreprocess(unittest.TestCase):
         )
 
         for case in cases:
+            # print("Testing remove comments for case: {}".format(case))
             got = Pinguino.remove_comments(case[0])
             expected = case[1]
             self.assertMultiLineEqual(got, expected,
@@ -70,6 +71,7 @@ class TestPreprocess(unittest.TestCase):
     def preprocess(cls, lib, libinstructions):
 
         def inter(self):
+            # print("Testing preprocess pinguino -> c | {} -> {}".format(lib["pinguino"], lib["c"]))
             got, d = Pinguino.replace_word(lib["pinguino"], libinstructions)
             self.assertEqual(got, lib["c"],
                              "Preprocess: Failure\ngot: '{}'\nexpected: '{}'".format(got, lib["c"]))
@@ -82,40 +84,40 @@ class TestBareMinumumCompilation(unittest.TestCase):
 
     #----------------------------------------------------------------------
     @classmethod
-    def compilation(cls, board):
+    def compilation(cls, board, icsp=False, compiler="gcc"):
 
-        code = "void setup(){}; void loop(){}"
+        code = "void setup(){} void loop(){}"
 
         def inter(self):
 
+            # print("Testing compilation (bare minimum) for board {name} - {bldr} - {arch}bit - {proc} - {compiler}".format(compiler=compiler, **board.__dict__))
+
+            Pinguino.set_board(board)
+            if icsp:
+                Pinguino.set_icsp()
+
+            if compiler != "gcc":
+                Pinguino.set_8bit_compiler(compiler)
+
             try:
-                Pinguino.set_board(board)
+                Pinguino.compile_string(code)
             except BaseException as msg:
-                raise BaseException("Compilation: imposible set board {}\n{}".format(board.name, str(msg)))
+                self.fail("Compilation: impossible compile for {}, {}-bit\n{}".format(board.name, board.arch, str(msg)))
 
-            if board.arch == 8:
-                for key in Pinguino.dict_boot.keys():
-                    boot = Pinguino.dict_boot[key]
-                    Pinguino.set_bootloader(*boot)
-                    try:
-                        Pinguino.compile_string(code)
-                    except BaseException as msg:
-                        self.fail("Compilation: impossible compile for {}, {}-bit, boot:{}\n{}".format(board.name, board.arch, key, str(msg)))
+            if not Pinguino.compiled():
+                msg = Pinguino.get_errors()
+                self.fail("Compilation: impossible compile for {}, {}-bit\n{}".format(board.name, board.arch, str(msg)))
 
-            if board.arch == 32:
-                try:
-                    Pinguino.compile_string(code)
-                except BaseException as msg:
-                    self.fail("Compilation: impossible compile for {}, {}-bit\n{}".format(board.name, board.arch, str(msg)))
 
         return inter
+
+
 
 
 libs8 = Pinguino.get_regobject_libinstructions(8)
 for lib in libs8:
     test_name = "test_preprocess_8_{}".format(lib["pinguino"].replace(".", "_"))
     setattr(TestPreprocess, test_name, TestPreprocess.preprocess(lib, libs8))
-
 
 libs32 = Pinguino.get_regobject_libinstructions(8)
 for lib in libs32:
@@ -124,9 +126,23 @@ for lib in libs32:
 
 
 for board in AllBoards:
-    test_name = "test_compile_{}".format(board.name.replace(" ", "_").replace(".", "_"))
-    setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board))
+    if board.arch == 8:
+        for compiler in ["sdcc", "xc8"]:
+            test_name = "test_compile_icsp_{}_{}".format(compiler, board.name.replace(" ", "_").replace(".", "_"))
+            setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board, icsp=True, compiler=compiler))
+
+            test_name = "test_compile_{}_{}_{}".format(compiler, board.bldr, board.name.replace(" ", "_").replace(".", "_"))
+            setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board, icsp=False, compiler=compiler))
+
+    else:
+        test_name = "test_compile_{}_{}".format(board.bldr, board.name.replace(" ", "_").replace(".", "_"))
+        setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board))
 
 
-if __name__ == "__main__":
-    unittest.main()
+
+# unittest.main()
+
+suite = unittest.TestSuite()
+suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(TestBareMinumumCompilation))
+suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(TestPreprocess))
+unittest.TextTestRunner().run(suite)
