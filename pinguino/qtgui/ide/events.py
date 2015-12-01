@@ -83,7 +83,7 @@ class PinguinoEvents(PinguinoCore):
 
         # Child windows
         # self.connect(self.main.actionLibrary_manager, QtCore.SIGNAL("triggered()"), self.__show_libmanager__)
-        self.connect(self.main.actionSet_paths, QtCore.SIGNAL("triggered()"), self.__config_paths__)
+        # self.connect(self.main.actionSet_paths, QtCore.SIGNAL("triggered()"), self.__config_paths__)
         self.connect(self.main.actionSelect_board, QtCore.SIGNAL("triggered()"), self.set_tab_board)
         # self.connect(self.main.actionView_Pinguino_code, QtCore.SIGNAL("triggered()"), self.__show_pinguino_code__)
         self.connect(self.main.actionInsert_Block, QtCore.SIGNAL("triggered()"), self.__show_insert_block__)

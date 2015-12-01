@@ -39,7 +39,7 @@ from .timed_methods import TimedMethods
 
 from ..child_windows.about import About
 # from ..child_windows.libraries import LibManager
-from ..child_windows.paths import Paths
+# from ..child_windows.paths import Paths
 # from ..child_windows.hex_viewer import HexViewer
 from ..child_windows.insert_block_dialog import InsertBlock
 # from ..child_windows.environ_viewer import EnvironViewer
@@ -89,10 +89,10 @@ class PinguinoChilds(object):
         # self.frame_stdout.show()
 
 
-    #----------------------------------------------------------------------
-    def __config_paths__(self):
-        self.frame_paths = Paths(self)
-        self.frame_paths.show()
+    # #----------------------------------------------------------------------
+    # def __config_paths__(self):
+        # self.frame_paths = Paths(self)
+        # self.frame_paths.show()
 
 
     #----------------------------------------------------------------------
