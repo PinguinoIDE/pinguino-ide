@@ -731,7 +731,7 @@ class PinguinoTools(Uploader):
 
         src_dir = os.path.expanduser(self.SOURCE_DIR)
 
-        userc_output = os.path.join(src_dir, "user.c")
+        mainc_output = os.path.join(src_dir, "main.c")
 
         ERROR = {"c": {},
                  "asm": {},}
@@ -770,7 +770,7 @@ class PinguinoTools(Uploader):
                             "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
                             "-I" + os.path.dirname(filename),
                             "--compile-only",
-                            userc_output,
+                            mainc_output,
                             "-o" + os.path.join(src_dir, 'main.o')] + user_imports,
                            stdout=fichier, stderr=STDOUT)
 
@@ -796,7 +796,7 @@ class PinguinoTools(Uploader):
                             # "-I" + os.path.dirname(filename),
                             # "--compile-only",
                             # "-o" + os.path.join(, 'main.o'),
-                            # userc_output] + user_imports,
+                            # mainc_output] + user_imports,
                            # stdout=fichier, stderr=STDOUT)
 
 
@@ -823,7 +823,7 @@ class PinguinoTools(Uploader):
                             "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
                             "-I" + os.path.dirname(filename),
                             "--compile-only",
-                            userc_output,
+                            mainc_output,
                             "-o" + os.path.join(src_dir, 'main.o')] + user_imports,
                            stdout=fichier, stderr=STDOUT)
 
@@ -907,38 +907,38 @@ class PinguinoTools(Uploader):
 
         if board.arch == 8 and board.bldr == 'noboot' and compiler == 'xc8':
 
-                    sortie = Popen([self.COMPILER_8BIT,
-                        "--chip=" + board.proc,
-                        "-Q -P -M -N255",
-                        "--double=24",
-                        "--float=24",
-                        "--emi=wordwrite",
-                        "--addrqual=ignore",
-                        # TODO : in Board Selector, adding 2 more options
-                        # to XC8 compiler: free and pro
-                        "--mode=free",
-                        "--warn=0",
-                        "--asmlist",
-                        "--errata=default",
-                        "--summary=default,+psect,-class,+mem,-hex,-file",
-                        "--runtime=default,+clear,+init,-keep,-no_startup,-download,-config,+clib,-plib",
-                        "--output=default,-inhx032",
-                        "--opt=default,+asm,+asmfile,-speed,+space,-debug",
-                        "-D" + board.board,
-                        "-D" + board.bldr,
-                        # To use in Pinguino programs
-                        "-DBOARD=\"" + board.board + "\"",
-                        "-DPROC=\"" + board.proc + "\"",
-                        "-DBOOT_VER=4",
-                        "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
-                        "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
-                        "-I" + file_dir,
-                        "-L-Pusbram5=BANK5",
-                        userc_output,
-                        "-O" + os.path.join(src_dir, 'main.o')] + user_imports,
-                       stdout=fichier, stderr=STDOUT)
+            sortie = Popen([self.COMPILER_8BIT,
+                "--chip=" + board.proc,
+                "-Q -P -M -N255",
+                "--double=24",
+                "--float=24",
+                "--emi=wordwrite",
+                "--addrqual=ignore",
+                # TODO : in Board Selector, adding 2 more options
+                # to XC8 compiler: free and pro
+                "--mode=free",
+                "--warn=0",
+                "--asmlist",
+                "--errata=default",
+                "--summary=default,+psect,-class,+mem,-hex,-file",
+                "--runtime=default,+clear,+init,-keep,-no_startup,-download,-config,+clib,-plib",
+                "--output=default,-inhx032",
+                "--opt=default,+asm,+asmfile,-speed,+space,-debug",
+                "-D" + board.board,
+                "-D" + board.bldr,
+                # To use in Pinguino programs
+                "-DBOARD=\"" + board.board + "\"",
+                "-DPROC=\"" + board.proc + "\"",
+                "-DBOOT_VER=4",
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
+                "-I" + file_dir,
+                "-L-Pusbram5=BANK5",
+                userc_output,
+                "-O" + os.path.join(src_dir, 'main.o')] + user_imports,
+               stdout=fichier, stderr=STDOUT)
 
-        if board.arch == 8 and board.bldr == 'noboot' and compiler == 'sdcc':
+        elif board.arch == 8 and board.bldr == 'noboot' and compiler == 'sdcc':
 
             sortie = Popen([self.COMPILER_8BIT,
                 "--verbose",\
@@ -958,6 +958,7 @@ class PinguinoTools(Uploader):
                 "--use-non-free",\
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                "-I" + file_dir,\
                 'libio' + board.proc + '.lib',\
                 'libdev' + board.proc + '.lib',\
                 'libc18f.lib',\
@@ -1009,7 +1010,7 @@ class PinguinoTools(Uploader):
 
 
         #if board.arch == 8 and board.bldr == 'boot4' and compiler == 'xc8':
-        if board.arch == 8 and board.bldr != 'noboot' and compiler == 'xc8':
+        elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'xc8':
 
             sortie = Popen([self.COMPILER_8BIT,
                 # Define device
@@ -1052,13 +1053,14 @@ class PinguinoTools(Uploader):
                 # Pathes
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
+                "-I" + file_dir,
                 os.path.join(src_dir, 'main.c'),
                 "-O" + os.path.join(src_dir, 'main.hex'),
                 ] + user_imports,
                stdout=fichier, stderr=STDOUT)
 
         #if board.arch == 8 and board.bldr == 'boot4' and compiler == 'sdcc':
-        if board.arch == 8 and board.bldr != 'noboot' and compiler == 'sdcc':
+        elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'sdcc':
 
             sortie = Popen([self.COMPILER_8BIT,
                 "--verbose", "-V",\
@@ -1083,6 +1085,7 @@ class PinguinoTools(Uploader):
                 "--use-non-free",\
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
+                "-I" + file_dir, \
                 os.path.join(src_dir, 'main.o'),\
                 'libio' + board.proc + '.lib',\
                 'libdev' + board.proc + '.lib',\
@@ -1096,7 +1099,7 @@ class PinguinoTools(Uploader):
                 stdout=fichier, stderr=STDOUT)
 
 
-        if board.arch == 32:
+        elif board.arch == 32:
 
             makefile = os.path.join(src_dir, 'Makefile32.'+os.getenv("PINGUINO_OS_NAME"))
 
