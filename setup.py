@@ -25,7 +25,7 @@ elif os.name == "nt":  #Windows
 
 
 setup(name = "pinguino",
-      version = "12.0.20",
+      version = "12.0.21",
       description = "Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)",
       description_file = "README.rst",
 
@@ -55,6 +55,7 @@ setup(name = "pinguino",
                    ],
 
       packages = find_packages(),
+      include_package_data = True,
 
       install_requires = [
                           "gitpython",
