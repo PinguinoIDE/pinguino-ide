@@ -25,7 +25,7 @@ elif os.name == "nt":  #Windows
 
 
 setup(name = "pinguino",
-      version = "12.0.21",
+      version = "12.0.22",
       description = "Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)",
       description_file = "README.rst",
 
@@ -73,6 +73,8 @@ setup(name = "pinguino",
                  "cmd/pinguino-cmd.py",		# pinguino command line with extension for windows
                  "cmd/pinguino-reset",
                  "cmd/pinguino-reset.py",
+                 "cmd/pinguino-test",
+                 "cmd/pinguino-test.py",
                  ],
 
       zip_safe = False,
