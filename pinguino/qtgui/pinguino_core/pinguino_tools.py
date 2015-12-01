@@ -466,17 +466,13 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def preprocess(self, file_path, define_output=None, userc_output=None, ignore_spaces=False, libinstructions=None):
+    def preprocess(self, file_path, libinstructions=None):
         """Read Pinguino File (.pde) and translate it into C language.
 
         Parameters
         ----------
         file_path: list of str
             List of absolute paths of *.pde files to preprocess.
-        define_output: str
-            Custom file for headers code.
-        userc_output: str
-            Custom file for preprocessed code.
         libinstructions: list
             Custom libinstructions
         """
@@ -516,11 +512,8 @@ class PinguinoTools(Uploader):
             defines.extend(defines_lib)
             user_content += content
 
-
-        if userc_output is None:
-            userc_output = os.path.join(src_dir, "user.c")
-        if define_output is None:
-            define_output = os.path.join(src_dir, "define.h")
+        userc_output = os.path.join(src_dir, "user.c")
+        define_output = os.path.join(src_dir, "define.h")
 
         # Generate files
         self.save_define(defines, define_output)
@@ -738,7 +731,8 @@ class PinguinoTools(Uploader):
 
         src_dir = os.path.expanduser(self.SOURCE_DIR)
 
-        userc_output = os.path.join(src_dir, 'main.c')
+        userc_output = os.path.join(src_dir, "user.c")
+
         ERROR = {"c": {},
                  "asm": {},}
 
@@ -904,11 +898,13 @@ class PinguinoTools(Uploader):
 
         src_dir = os.path.expanduser(self.SOURCE_DIR)
 
+        userc_output = os.path.join(src_dir, "user.c")
+
         fichier = open(os.path.join(src_dir, "stdout"), "w+")
         user_imports = self.get_user_imports_p8()
 
         file_dir = os.path.dirname(self.__filename__)
-    
+
         if board.arch == 8 and board.bldr == 'noboot' and compiler == 'xc8':
 
                     sortie = Popen([self.COMPILER_8BIT,
@@ -936,7 +932,7 @@ class PinguinoTools(Uploader):
                         "-DBOOT_VER=4",
                         "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
                         "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
-                        "-I" + os.path.dirname(filename),
+                        "-I" + file_dir,
                         "-L-Pusbram5=BANK5",
                         userc_output,
                         "-O" + os.path.join(src_dir, 'main.o')] + user_imports,
