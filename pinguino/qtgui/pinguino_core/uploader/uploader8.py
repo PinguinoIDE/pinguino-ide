@@ -35,7 +35,7 @@
 
 #import sys
 import os
-import logging
+#import usb            # checked in check.py
 
 from .uploader import baseUploader
 
@@ -245,6 +245,9 @@ class uploader8(baseUploader):
         else:
             # REVISION & DEVICE ID
             usbBuf = self.flashRead(handle, 0x3FFFFE, 2)
+            dev1 = usbBuf[self.BOOT_REV1]
+            dev2 = usbBuf[self.BOOT_REV2]
+            device_id = (int(dev2) << 8) + int(dev1)
             device_id  = device_id & 0xFFE0
             device_rev = device_id & 0x001F
 
@@ -364,13 +367,13 @@ class uploader8(baseUploader):
         # Pinguino 18Fx6j50 or 18Fx7j53
         # Erased block size is 1024-byte long
         if ("j" or "J") in board.proc :
-            #logging.info("x6j50, x6j53 or x7j53 chip")
+            #self.add_report("x6j50, x6j53 or x7j53 chip")
             erasedBlockSize = 1024
 
         # Pinguino 16f145x, 18Fx455, 18Fx550 or 18Fx5k50
         # Erased block size is 64-byte long
         else:
-            #logging.info("x455, x550 or x5k50 chip")
+            #self.add_report("x455, x550 or x5k50 chip")
             erasedBlockSize = 64
 
         # image of the whole PIC memory (above memstart)
@@ -502,7 +505,7 @@ class uploader8(baseUploader):
                 self.flashWrite(handle, addr8,  data[index:index+self.DATABLOCKSIZE])
                 #logging.info("0x%X  [%s]" % (addr8, data[index:index+self.DATABLOCKSIZE]))
 
-        logging.info("%d bytes written." % codesize)
+        self.add_report("%d bytes written." % codesize)
 
         return self.ERR_NONE
 
@@ -515,13 +518,13 @@ class uploader8(baseUploader):
         # --------------------------------------------------------------
 
         if filename == '':
-            logging.info("No program to write")
+            self.add_report("No program to write")
             self.closeDevice(handle)
             return
 
         hexfile = open(filename, 'r')
         if hexfile == "":
-            logging.info("Unable to open %s" % filename)
+            self.add_report("Unable to open %s" % filename)
             return
         hexfile.close()
 
@@ -531,18 +534,18 @@ class uploader8(baseUploader):
         device = self.getDevice(board)
 
         if device == self.ERR_DEVICE_NOT_FOUND:
-            logging.info("Pinguino not found")
-            logging.info("If your device is connected,")
-            logging.info("press the Reset button to switch to bootloader mode.")
+            self.add_report("Pinguino not found")
+            self.add_report("If your device is connected,")
+            self.add_report("press the Reset button to switch to bootloader mode.")
             return
 
-        logging.info("Pinguino found ...")
+        self.add_report("Pinguino found ...")
 
         handle = self.initDevice(device)
 
         if handle == self.ERR_USB_INIT1:
-            logging.info("Upload not possible")
-            logging.info("Try to restart the bootloader mode")
+            self.add_report("Upload not possible")
+            self.add_report("Try to restart the bootloader mode")
             return
 
         # find out the processor
@@ -552,14 +555,14 @@ class uploader8(baseUploader):
         proc = self.getDeviceName(device_id)
         
         if proc == self.ERR_DEVICE_NOT_FOUND:
-            logging.info("Aborting: unknown PIC (id=0x%X)" % device_id)
+            self.add_report("Aborting: unknown PIC (id=0x%X)" % device_id)
             self.closeDevice(handle)
             return
         else:
-            logging.info(" - with PIC%s (id=0x%X, rev=%x)" % (proc, device_id, device_rev))
+            self.add_report(" - with PIC%s (id=0x%X, rev=%x)" % (proc, device_id, device_rev))
 
         if proc != board.proc:
-            logging.info("Aborting: program compiled for %s but device has %s" % (board.proc, proc))
+            self.add_report("Aborting: program compiled for %s but device has %s" % (board.proc, proc))
             self.closeDevice(handle)
             return
 
@@ -567,51 +570,51 @@ class uploader8(baseUploader):
         # --------------------------------------------------------------
 
         memfree = board.memend - board.memstart;
-        logging.info(" - with %d bytes free (%.2f/%d KB)" % (memfree, memfree/1024, board.memend/1024))
-        logging.info("   from 0x%05X to 0x%05X" % (board.memstart, board.memend))
+        self.add_report(" - with %d bytes free (%d KB)" % (memfree, memfree/1024))
+        self.add_report("   from 0x%05X to 0x%05X" % (board.memstart, board.memend))
 
         # find out bootloader version
         # --------------------------------------------------------------
 
         #product = handle.getString(device.iProduct, 30)
         #manufacturer = handle.getString(device.iManufacturer, 30)
-        logging.info(" - with USB bootloader v%s" % self.getVersion(handle))
+        self.add_report(" - with USB bootloader v%s" % self.getVersion(handle))
 
         # start writing
         # --------------------------------------------------------------
 
-        logging.info("Uploading user program ...")
+        self.add_report("Uploading user program ...")
         status = self.writeHex(handle, filename, board)
 
         if status == self.ERR_HEX_RECORD:
-            logging.info("Aborting: record error")
+            self.add_report("Aborting: record error")
             self.closeDevice(handle)
             return
 
         elif status == self.ERR_HEX_CHECKSUM:
-            logging.info("Aborting: checksum error")
+            self.add_report("Aborting: checksum error")
             self.closeDevice(handle)
             return
 
         elif status == self.ERR_USB_ERASE:
-            logging.info("Aborting: erase error")
+            self.add_report("Aborting: erase error")
             self.closeDevice(handle)
             return
 
         elif status == self.ERR_NONE:
-            logging.info(os.path.basename(filename) + " successfully uploaded")
+            self.add_report(os.path.basename(filename) + " successfully uploaded")
 
         # reset and start start user's app.
         # --------------------------------------------------------------
 
             #self.txtWrite("Resetting ...")
-            logging.info("Starting user program ...")
+            self.add_report("Starting user program ...")
             self.resetDevice(handle)
             # Device can't be closed because it just has been reseted
             #self.closeDevice(handle)
             return
 
         else:
-            logging.info("Aborting: unknown error")
+            self.add_report("Aborting: unknown error")
             return
 # ----------------------------------------------------------------------
