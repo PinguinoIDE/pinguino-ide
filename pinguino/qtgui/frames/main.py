@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/pinguino/qtgui/frames/main.ui'
 #
-# Created: Thu Nov 26 17:38:49 2015
+# Created: Mon Nov 30 23:27:53 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -904,13 +904,12 @@ class Ui_PinguinoIDE(object):
         self.menuEdit.addAction(self.actionSearch)
         self.menuEdit.addAction(self.actionSearch_and_replace)
         self.menuEdit.addSeparator()
-        self.menuPinguino.addAction(self.actionSelect_board)
-        self.menuPinguino.addAction(self.actionSet_paths)
-        self.menuPinguino.addSeparator()
         self.menuPinguino.addAction(self.actionCompile)
         self.menuPinguino.addAction(self.actionUpload)
         self.menuPinguino.addAction(self.actionUpload_hex_directly)
         self.menuPinguino.addAction(self.actionIf_Compile_then_Upload)
+        self.menuPinguino.addSeparator()
+        self.menuPinguino.addAction(self.actionSelect_board)
         self.menuPinguino.addSeparator()
         self.menuPinguino.addAction(self.actionUser_c)
         self.menuPinguino.addAction(self.actionMain_c)
@@ -1120,7 +1119,7 @@ class Ui_PinguinoIDE(object):
         self.actionSearch.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+F", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSearch_and_replace.setText(QtGui.QApplication.translate("PinguinoIDE", "Search and replace", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSearch_and_replace.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+R", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSelect_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Pinguino board selection", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSelect_board.setText(QtGui.QApplication.translate("PinguinoIDE", "Pinguino boards", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSelect_board.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+B", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCompile.setText(QtGui.QApplication.translate("PinguinoIDE", "Compile", None, QtGui.QApplication.UnicodeUTF8))
         self.actionCompile.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "F5", None, QtGui.QApplication.UnicodeUTF8))

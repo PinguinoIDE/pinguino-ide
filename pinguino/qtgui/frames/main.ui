@@ -151,13 +151,12 @@
     <property name="title">
      <string notr="true">Debug</string>
     </property>
-    <addaction name="actionSelect_board"/>
-    <addaction name="actionSet_paths"/>
-    <addaction name="separator"/>
     <addaction name="actionCompile"/>
     <addaction name="actionUpload"/>
     <addaction name="actionUpload_hex_directly"/>
     <addaction name="actionIf_Compile_then_Upload"/>
+    <addaction name="separator"/>
+    <addaction name="actionSelect_board"/>
     <addaction name="separator"/>
     <addaction name="actionUser_c"/>
     <addaction name="actionMain_c"/>
@@ -1622,7 +1621,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</iconset>
    </property>
    <property name="text">
-    <string>Pinguino board selection</string>
+    <string>Pinguino boards</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+B</string>
