@@ -313,9 +313,9 @@ class PinguinoQueries(object):
             return self.get_default_project_dir()
         elif self.is_graphical() != None:
             editor = self.get_current_editor()
-            return getattr(editor, "path", QtCore.QDir.home().path())
+            return getattr(editor, "path", os.getenv("PINGUINO_DEFAULT_FILES"))
         else:
-            return QtCore.QDir.home().path()
+            return os.getenv("PINGUINO_DEFAULT_FILES")
 
 
 

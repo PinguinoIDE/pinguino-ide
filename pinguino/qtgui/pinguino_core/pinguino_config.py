@@ -50,6 +50,7 @@ class PinguinoConfig(object):
         os.environ["PINGUINO_INSTALL_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "install_path")))
         # os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.join(os.getenv("PINGUINO_USER_PATH"), "libraries"))
         os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "user_libs")))
+        os.environ["PINGUINO_DEFAULT_FILES"] = os.path.join(os.getenv("PINGUINO_USER_PATH"), "local")
 
 
     #----------------------------------------------------------------------
@@ -65,6 +66,10 @@ class PinguinoConfig(object):
         #create ~/.pinguino
         if not os.path.exists(os.getenv("PINGUINO_USER_PATH")):
             os.mkdir(os.getenv("PINGUINO_USER_PATH"))
+
+        #create ~/.pinguino/user
+        if not os.path.exists(os.getenv("PINGUINO_DEFAULT_FILES")):
+            os.mkdir(os.getenv("PINGUINO_DEFAULT_FILES"))
 
         #Check files and directories
         cls.check_locations()
