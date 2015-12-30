@@ -13,7 +13,7 @@ class Dialogs(object):
     @classmethod
     def set_save_file(cls, parent, filename, dirpath=None):
 
-        if dirpath is None:dirpath = parent.get_default_dir()
+        if dirpath is None: dirpath = parent.get_default_dir()
         if filename.endswith("*"): filename = filename[:-1]
         ext = os.path.splitext(os.path.split(filename)[1])[1]
         save_filename = QtGui.QFileDialog.getSaveFileName(parent,

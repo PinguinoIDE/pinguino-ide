@@ -562,7 +562,8 @@ class Project(object):
         files = self.get_files_from_project().keys()
         if files: return files[0]
 
-        return QtCore.QDir.home().path()
+        # return QtCore.QDir.home().path()
+        return os.getenv("PINGUINO_DEFAULT_FILES")
 
 
     #----------------------------------------------------------------------
@@ -709,9 +710,12 @@ class Project(object):
     #----------------------------------------------------------------------
     def rename(self):
         """"""
-        path = self.get_current_item().path
-        name = Dialogs.get_text(self, "New name", default=os.path.basename(self.get_current_item().path))
-        new_name = os.path.join(os.path.dirname(self.get_current_item().path), name)
+        # path = self.get_current_item().path
+        path = getattr(self.get_current_item(), "path", "")
+        name = Dialogs.get_text(self, "New name", default=os.path.basename(path))
+        if not name: return
+
+        new_name = os.path.join(os.path.dirname(path), name)
         files = self.get_files_option_from_project()
         os.rename(path, new_name)
 
