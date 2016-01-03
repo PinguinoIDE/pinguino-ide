@@ -330,3 +330,18 @@ class Decorator(object):
 
             return wrapped
         return actualdecorator
+
+    # #----------------------------------------------------------------------
+    # @classmethod
+    # def reload_project(cls):
+        # def actualdecorator(fn):
+            # @functools.wraps(fn)
+            # def wrapped(Pinguino, *args, **kwargs):
+
+                # if Pinguino.is_project():
+                    # Pinguino.reload_project()
+
+                # return fn(Pinguino, *args, **kwargs)
+
+            # return wrapped
+        # return actualdecorator

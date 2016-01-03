@@ -466,6 +466,26 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
+    def generate_functions_declarations(self):
+        """"""
+        if not hasattr(self, "functions_declarations"):
+            return ""
+
+        declarations = []
+        for func in self.functions_declarations:
+            decl = "{return} {name}({args});".format(**func)
+            declarations.append(decl)
+
+        return "\n/* Declarations */\n"+"\n".join(declarations)
+
+
+    #----------------------------------------------------------------------
+    def set_functions_declarations(self, obj):
+        """"""
+        self.functions_declarations = obj
+
+
+    #----------------------------------------------------------------------
     def preprocess(self, file_path, libinstructions=None):
         """Read Pinguino File (.pde) and translate it into C language.
 
@@ -480,7 +500,14 @@ class PinguinoTools(Uploader):
         src_dir = os.path.expanduser(self.SOURCE_DIR)
 
         defines = []
-        user_content = ""
+        # user_content = ""
+        user_content = self.generate_functions_declarations()
+
+        user_content += "\n\n/* Merged\n"
+        for path in file_path:
+            user_content += "{}\n".format(path)
+        user_content += "*/"
+
 
         for path in file_path:
 

@@ -55,6 +55,7 @@ class Project(object):
         self.connect(self.main.pushButton_packagelibrary, QtCore.SIGNAL("clicked()"), self.package_library)
 
         self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemChanged(QTreeWidgetItem*,int)"), self.update_check_status)
+        # self.connect(self.main.treeWidget_projects, QtCore.SIGNAL("itemClicked(QTreeWidgetItem*,int)"), self.update_check_status)
 
 
     #----------------------------------------------------------------------
@@ -100,6 +101,8 @@ class Project(object):
     #----------------------------------------------------------------------
     def reload_project(self):
         """"""
+        if not self.is_project: return
+
         self.main.treeWidget_projects.clear()
 
         project_name = self.ConfigProject.get("Main", "name")
@@ -299,8 +302,8 @@ class Project(object):
         project_name = self.set_project_name()
 
         if project_name:
-            add_dir = Dialogs.confirm_message(self, QtGui.QApplication.translate("Dialogs", "Do you want add an existing directory now?"))
-            if add_dir: self.select_existing_directory()
+            Dialogs.info_message(self, QtGui.QApplication.translate("Dialogs", "Create or add an existing directory for project."))
+            self.select_existing_directory()
             self.update_project_status(project_name)
 
 
@@ -428,9 +431,12 @@ class Project(object):
     #----------------------------------------------------------------------
     def update_project_status(self, project="reload"):
         """"""
-        if project == "reload": pass
-        elif project:os.environ["PINGUINO_PROJECT"] = project
-        else: os.environ["PINGUINO_PROJECT"] = ""
+        if project == "reload":
+            pass
+        elif project:
+            os.environ["PINGUINO_PROJECT"] = project
+        else:
+            os.environ["PINGUINO_PROJECT"] = ""
 
         self.main.treeWidget_projects.setVisible(bool(project))
         self.main.widget_noproject.setVisible(not bool(project))
@@ -630,15 +636,57 @@ class Project(object):
 
             path = item.path
 
+            if not os.path.isfile(path):
+                return
+
+            if not path.endswith(".pde"):
+                return
+
             inherits = self.get_inherits_option_from_project()
+            files = self.get_files_option_from_project()
+
             if path in inherits:
                 self.ConfigProject.set("Inherits", inherits[path]+"_checked", status)
 
-            files = self.get_files_option_from_project()
-            if path in files:
-                self.ConfigProject.set("Files", files[path]+"_checked", status)
+            elif path in files:
+                    self.ConfigProject.set("Files", files[path]+"_checked", status)
+
+            else:
+                self.update_new_file(path, status)
+                # files = self.get_files_option_from_project()
+                # self.ConfigProject.set("Files", files[path]+"_checked", status)
 
             self.save_project(silent=True)
+
+
+    #----------------------------------------------------------------------
+    def update_new_file(self, path, status):
+        """
+        Add new file and define their status.
+        """
+        dirs = self.get_dirs_from_project()
+        for dir_ in dirs:
+            if path.startswith(dir_):
+                # add as inherits
+                inherits = self.get_inherits_option_from_project()
+
+                x = 0
+                while "inherit_{}".format(x) in inherits.values():
+                    x += 1
+
+                self.ConfigProject.set("Inherits", "inherit_{}".format(x), path)
+                self.ConfigProject.set("Inherits", "inherit_{}_checked".format(x), status)
+                return
+
+        files = self.get_files_option_from_project()
+        x = 0
+        while "files_{}".format(x) in files.values():
+            x += 1
+            self.ConfigProject.set("Files", "files_{}".format(x), path)
+            self.ConfigProject.set("Files", "files_{}_checked".format(x), status)
+
+
+        # add as file
 
 
 

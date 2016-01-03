@@ -725,6 +725,8 @@ class PinguinoMain(object):
 
         if not os.path.exists(filename): return
 
+        self.pinguinoAPI.set_functions_declarations(self.get_functions())
+
         if self.is_graphical() is False:
             if self.is_project() and not self.is_library():
                 self.ide_save_all()
@@ -1730,6 +1732,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             self.update_recents(save_path)
 
         self.__save_file__(editor=editor)
+        self.reload_project()
         return True
 
 
