@@ -202,7 +202,7 @@ class GraphicalIDE(Code2Blocks):
     def __save_file__(self, *args, **kwargs):
 
         editor = kwargs.get("editor", self.ide.get_tab())
-        content = self.get_gpde()
+        content = self.get_gpde(editor)
         self.save_raw_parser(content, editor.path)
 
         # setattr(editor, "last_saved", content)
@@ -263,9 +263,11 @@ class GraphicalIDE(Code2Blocks):
 
 
     #----------------------------------------------------------------------
-    def get_gpde(self):
+    def get_gpde(self, editor=None):
 
-        editor = self.main.tabWidget_files.currentWidget()
+        if editor is None:
+            editor = self.main.tabWidget_files.currentWidget()
+
         blocks = editor.graphical_area.get_project_blocks()
 
         to_save = []

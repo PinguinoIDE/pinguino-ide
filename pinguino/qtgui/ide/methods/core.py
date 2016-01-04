@@ -1173,6 +1173,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         editor = kwargs.get("editor", self.get_tab())
         if self.is_graphical(editor):
             self.PinguinoKIT.__save_file__(*args, **kwargs)
+            return
         elif self.is_graphical(editor) is None:
             return
 
@@ -1206,9 +1207,11 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    def editor_saved(self, *args, **kwargs):
+    def editor_saved(self, index=None, *args, **kwargs):
 
-        index = self.get_tab().currentIndex()
+        if index is None:
+            index = self.get_tab().currentIndex()
+
         filename = self.get_tab().tabText(index)
         if filename.endswith("*"):
             self.get_tab().setTabText(index, filename[:-1])
@@ -1792,6 +1795,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         for index in range(tab.count()):
             editor = tab.widget(index)
             if not self.is_graphical(editor) is None:
+                self.editor_saved(index)
                 self.ide_save_file(editor=editor)
 
 
