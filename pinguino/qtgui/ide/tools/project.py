@@ -717,7 +717,8 @@ class Project(object):
         if new_file in self.get_files_option_from_project():
             self.add_existing_file(new_file)
 
-        self.reload_project()
+        if self.is_project():
+            self.reload_project()
 
     #----------------------------------------------------------------------
     def add_new_blocks_file(self):
@@ -735,7 +736,8 @@ class Project(object):
         if self.get_current_item().path in self.get_files_option_from_project():
             self.add_existing_file(new_file)
 
-        self.reload_project()
+        if self.is_project():
+            self.reload_project()
 
 
     #----------------------------------------------------------------------
@@ -752,8 +754,8 @@ class Project(object):
         if self.get_current_item().path in self.get_files_option_from_project():
             self.add_existing_directory(new_dir)
 
-        self.reload_project()
-
+        if self.is_project():
+            self.reload_project()
 
     #----------------------------------------------------------------------
     def rename(self):
@@ -770,7 +772,8 @@ class Project(object):
         if path in files:
             self.ConfigProject.set("Files", files[path], new_name)
 
-        self.reload_project()
+        if self.is_project():
+            self.reload_project()
 
 
     #----------------------------------------------------------------------
@@ -838,8 +841,9 @@ class Project(object):
 
         self.add_existing_directory(os.path.join(library_dir, library_name), inherits_status=True)
         self.update_project_status(library_name)
-        self.reload_project()
 
+        if self.is_project():
+            self.reload_project()
 
     #----------------------------------------------------------------------
     def create_library_template(self, libpath, libname, author, description, _8bit, _32bit):
@@ -990,7 +994,9 @@ PUBLIC u8 my_function(){{
             pdl_file.writelines([header_content] + pdl_content + ["\n"])
             pdl_file.close()
 
-        self.reload_project()
+        if self.is_project():
+            self.reload_project()
+
         self.add_library_to_env(lib_dir)
 
 
@@ -1097,7 +1103,8 @@ PUBLIC u8 my_function(){{
                 except:
                     shutil.rmtree(os.path.join(self.get_library_path(), info[0]))
 
-            self.reload_project()
+            if self.is_project():
+                self.reload_project()
             Dialogs.info_message(self, "Package created in '{}'".format(os.path.join(self.get_library_path(), "packages")))
 
 
@@ -1169,7 +1176,9 @@ PUBLIC u8 my_function(){{
 
         self.add_existing_directory(library_dir, inherits_status=True)
         self.update_project_status(library_name)
-        self.reload_project()
+
+        if self.is_project():
+            self.reload_project()
 
         self.ide_open_file_from_path(filename=pinguino)
 

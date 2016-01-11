@@ -1735,7 +1735,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             self.update_recents(save_path)
 
         self.__save_file__(editor=editor)
-        self.reload_project()
+        if self.is_project():
+            self.reload_project()
         return True
 
 
