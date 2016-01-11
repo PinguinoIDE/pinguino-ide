@@ -100,7 +100,7 @@
      <x>0</x>
      <y>0</y>
      <width>1136</width>
-     <height>29</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -246,7 +246,6 @@
     <addaction name="actionNew_library"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_project"/>
-    <addaction name="actionImport_library_project"/>
     <addaction name="separator"/>
     <addaction name="menuRecentProjects"/>
     <addaction name="actionSave_project"/>
@@ -1933,7 +1932,7 @@
   </action>
   <action name="actionOpen_project">
    <property name="text">
-    <string>Open project...</string>
+    <string>Open project or library...</string>
    </property>
   </action>
   <action name="action_list_recent">

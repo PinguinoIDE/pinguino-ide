@@ -486,7 +486,7 @@ class PinguinoTools(Uploader):
 
 
     #----------------------------------------------------------------------
-    def preprocess(self, file_path, libinstructions=None):
+    def preprocess(self, file_path, libinstructions=None, ignore_spaces=False, define_output=None, userc_output=None):
         """Read Pinguino File (.pde) and translate it into C language.
 
         Parameters
@@ -495,6 +495,12 @@ class PinguinoTools(Uploader):
             List of absolute paths of *.pde files to preprocess.
         libinstructions: list
             Custom libinstructions
+        ignore_spaces: bool
+            Ignore spaces like comments in user.c file. Used in projects.
+        define_output: str
+            Path for destination of user.c. Used in projects.
+        userc_output: str
+            Path for destination of define.h. Used in projects.
         """
 
         src_dir = os.path.expanduser(self.SOURCE_DIR)
@@ -528,7 +534,7 @@ class PinguinoTools(Uploader):
             # search and replace arduino keywords in file
             content = user_c.getvalue()
             content = self.format_code(content)
-            content = self.remove_comments(content)
+            content = self.remove_comments(content, ignore_spaces=ignore_spaces)
             content_nostrings, keys = self.remove_strings(content)
             nblines = 0
             # libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
@@ -539,8 +545,11 @@ class PinguinoTools(Uploader):
             defines.extend(defines_lib)
             user_content += content
 
-        userc_output = os.path.join(src_dir, "user.c")
-        define_output = os.path.join(src_dir, "define.h")
+        if userc_output is None:
+            userc_output = os.path.join(src_dir, "user.c")
+
+        if define_output is None:
+            define_output = os.path.join(src_dir, "define.h")
 
         # Generate files
         self.save_define(defines, define_output)

@@ -38,7 +38,7 @@ class Project(object):
         self.connect(self.main.actionAdd_existing_directory, QtCore.SIGNAL("triggered()"), self.select_existing_directory)
         self.connect(self.main.actionNew_project, QtCore.SIGNAL("triggered()"), self.new_project)
         self.connect(self.main.actionNew_library, QtCore.SIGNAL("triggered()"), self.__show_library_template__)
-        self.connect(self.main.actionImport_library_project, QtCore.SIGNAL("triggered()"), self.import_library)
+        # self.connect(self.main.actionImport_library_project, QtCore.SIGNAL("triggered()"), self.import_library)
         self.connect(self.main.pushButton_newproject, QtCore.SIGNAL("clicked()"), self.new_project)
         self.connect(self.main.pushButton_openproject, QtCore.SIGNAL("clicked()"), self.open_project)
         self.connect(self.main.pushButton_newlibrary, QtCore.SIGNAL("clicked()"), self.__show_library_template__)
@@ -64,10 +64,15 @@ class Project(object):
     def open_project(self):
 
         self.project_saved = True
-        file_project = Dialogs.set_open_file(self, exts="*.ppde")
+        file_project = Dialogs.set_open_file(self, exts="*.ppde PINGUINO")
         if file_project is None: return
-        self.open_project_from_path(file_project)
-        self.update_project_status()
+
+        if file_project.endswith("PINGUINO"):
+            self.import_library(file_project)
+
+        elif file_project.endswith(".ppde"):
+            self.open_project_from_path(file_project)
+            self.update_project_status()
 
 
     #----------------------------------------------------------------------
@@ -101,7 +106,8 @@ class Project(object):
     #----------------------------------------------------------------------
     def reload_project(self):
         """"""
-        if not self.is_project: return
+
+        if not self.is_project(): return
 
         self.main.treeWidget_projects.clear()
 
@@ -116,7 +122,7 @@ class Project(object):
 
         for option in self.ConfigProject.options("Dirs"):
             if not self.ConfigProject.get("Dirs", option) in to_ignore:
-                self.add_existing_directory(self.ConfigProject.get("Dirs", option), to_ignore, check_duplicated=False, inherits_status=inherits_status, open_=True)
+                self.add_existing_directory(self.ConfigProject.get("Dirs", option), to_ignore, check_duplicated=False, inherits_status=inherits_status, open_=True, library=self.is_library())
 
         for path, checked in self.get_files_from_project().items():
             if path in to_ignore: continue
@@ -138,16 +144,24 @@ class Project(object):
 
 
     #----------------------------------------------------------------------
-    def add_existing_directory(self, dir_project, to_ignore=[], check_duplicated=True, inherits_status=dict(), open_=False):
+    def add_existing_directory(self, dir_project, to_ignore=[], check_duplicated=True, inherits_status=dict(), open_=False, library=False):
         """"""
+
         self.take_from_ignore(dir_project)
         if check_duplicated:
             if dir_project in self.get_dirs_from_project(): return
 
         # flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsEditable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
-        flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
+        # flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
+
+        if library is True:
+            flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsEnabled
+        else:
+            flags = QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled
+
+
         parent = self.add_new_tree(os.path.basename(dir_project), self.main.treeWidget_projects, dir_project, flags)
-        inherits = self.generate_tree(dir_project, parent, levels=50, flags=flags, to_ignore=to_ignore, inherits_status=inherits_status)
+        inherits = self.generate_tree(dir_project, parent, levels=50, flags=flags, to_ignore=to_ignore, inherits_status=inherits_status, library=library)
         parent.setExpanded(True)
 
         if not open_:
@@ -910,6 +924,7 @@ PUBLIC u8 my_function(){{
         parse_lib.add_section("PINGUINO")
         parse_lib.set("PINGUINO", "name", libname)
         parse_lib.set("PINGUINO", "author", author)
+        parse_lib.set("PINGUINO", "author_email", "")
         parse_lib.set("PINGUINO", "arch", ", ".join(archs))
         parse_lib.set("PINGUINO", "repository", "")
         parse_lib.set("PINGUINO", "description", description)
@@ -944,11 +959,14 @@ PUBLIC u8 my_function(){{
             userc = os.path.join(lib_dir, arch, "{}.c".format(lib_name))
             pdl = os.path.join(lib_dir, "pdl", "{}.pdl{}".format(lib_name, "" if arch=="p8" else "32"))
 
-            if arch == "p8": arch_num = 8
-            elif arch == "p32": arch_num = 32
+            if arch == "p8":
+                arch_num = 8
+            elif arch == "p32":
+                arch_num = 32
 
             libinstructions = self.pinguinoAPI.get_regobject_libinstructions(arch_num)
             self.pinguinoAPI.preprocess([lib], define_output=define, userc_output=userc, ignore_spaces=self.is_project(), libinstructions=libinstructions)
+            # self.pinguinoAPI.preprocess([lib], libinstructions=libinstructions)
 
             userc_file = open(userc, mode="r")
             userc_content = userc_file.read()
@@ -998,6 +1016,8 @@ PUBLIC u8 my_function(){{
             self.reload_project()
 
         self.add_library_to_env(lib_dir)
+        Dialogs.info_message(self, "Library \"{}\" compiled.".format(lib_name))
+
 
 
     #----------------------------------------------------------------------
@@ -1078,6 +1098,7 @@ PUBLIC u8 my_function(){{
         cwd = os.getcwd()
         os.chdir(self.get_library_path())
 
+
         try:
             manifest = open(os.path.join(self.get_library_path(), "MANIFEST.in"), "w+")
             manifest.write(PinguinoLib.get_manifest_template())
@@ -1088,15 +1109,20 @@ PUBLIC u8 my_function(){{
             setup.close()
 
             dest = "-d{}".format(os.path.join(self.get_library_path(), "packages"))
-            p = subprocess.Popen([sys.executable, "setup.py", "sdist", dest, "--formats=zip"], stdout=subprocess.PIPE,
-                                                                        stderr=subprocess.PIPE)
+            p = subprocess.Popen([sys.executable, "setup.py", "sdist", dest, "--formats=zip"],
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
             out, err = p.communicate()
             self.write_log(out.decode())
+            # self.write_log(err.decode())
+
+            # if err:
+                # raise Exception(err.decode())
 
             os.remove(os.path.join(self.get_library_path(), "MANIFEST.in"))
             os.remove(os.path.join(self.get_library_path(), "setup.py"))
 
-            info = list(filter(lambda f:f.endswith(".egg-info"), os.listdir()))
+            info = list(filter(lambda f:f.endswith(".egg-info"), os.listdir(self.get_library_path())))
             if info:
                 try:
                     os.remove(os.path.join(self.get_library_path(), info[0]))
@@ -1150,17 +1176,13 @@ PUBLIC u8 my_function(){{
 
 
     #----------------------------------------------------------------------
-    @Decorator.show_tab("Project")
-    @Decorator.alert_tab("Project")
-    def import_library(self):
+    def import_library(self, filename):
         """"""
-        pinguino = Dialogs.set_open_file(self, exts="PINGUINO")
-        if not pinguino: return
 
         parce_pinguino = RawConfigParser()
-        parce_pinguino.readfp(open(pinguino, "r"))
+        parce_pinguino.readfp(open(filename, "r"))
 
-        library_dir = os.path.dirname(pinguino)
+        library_dir = os.path.dirname(filename)
         library_name = parce_pinguino.get("PINGUINO", "name")
 
         self.project_saved = False
@@ -1174,13 +1196,11 @@ PUBLIC u8 my_function(){{
         if "{}.lib32".format(library_name) in os.listdir(library_dir):
             self.ConfigProject.set("Main", "lib32", os.path.join(library_dir, "{}.lib32".format(library_name)))
 
-        self.add_existing_directory(library_dir, inherits_status=True)
+        self.add_existing_directory(library_dir, inherits_status=True, library=True)
         self.update_project_status(library_name)
 
-        if self.is_project():
-            self.reload_project()
-
-        self.ide_open_file_from_path(filename=pinguino)
+        # self.reload_project()
+        self.ide_open_file_from_path(filename=filename)
 
 
     #----------------------------------------------------------------------

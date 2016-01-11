@@ -34,7 +34,7 @@ class Files(object):
 
 
     #----------------------------------------------------------------------
-    def generate_tree(self, path, parent, levels=0, currentlevel=1, flags=None, to_ignore=[], inherits_status=dict()):
+    def generate_tree(self, path, parent, levels=0, currentlevel=1, flags=None, to_ignore=[], inherits_status=dict(), library=False):
 
         if currentlevel > levels:
             if os.listdir(path):
@@ -72,7 +72,7 @@ class Files(object):
         files_from_tree = []
         for dir_ in list_dirs:
             dir_name = os.path.basename(dir_)
-            ft = self.generate_tree(dir_, self.add_new_tree(dir_name, parent, dir_, flags), currentlevel=currentlevel+1, levels=levels, to_ignore=to_ignore, inherits_status=inherits_status)
+            ft = self.generate_tree(dir_, self.add_new_tree(dir_name, parent, dir_, flags), currentlevel=currentlevel+1, levels=levels, to_ignore=to_ignore, inherits_status=inherits_status, library=library, flags=flags)
             if ft: files_from_tree.extend(ft)
 
         for file_ in list_files:
@@ -85,10 +85,13 @@ class Files(object):
             else:
                 check = None
 
-            if file_name.endswith(".pde") or file_name.endswith(".h") or file_name.endswith(".c") or file_name.endswith(".cpp"):
+            if (file_name.endswith(".pde") or file_name.endswith(".h") or file_name.endswith(".c") or file_name.endswith(".cpp")) and (library is False):
                 self.add_new_file_item(file_name, parent, file_, flags, check)
+            elif library:
+                self.add_new_file_item(file_name, parent, file_, None, None)
             else:
                 self.add_new_file_item(file_name, parent, file_, flags, None)
+
 
         list_files.extend(files_from_tree)
         list_files.sort()

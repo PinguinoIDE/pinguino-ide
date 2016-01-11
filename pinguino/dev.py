@@ -88,8 +88,8 @@ library.pinguino_setup(
     version = PINGUINO["version"],
     description = PINGUINO["description"],
 
-    author = PINGUINO["name"],
-    author_email = "",
+    author = PINGUINO["author"],
+    author_email = PINGUINO["author_email"],
     maintainer = "",
     maintainer_email = "",
 

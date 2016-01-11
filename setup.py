@@ -25,7 +25,7 @@ elif os.name == "nt":  #Windows
 
 
 setup(name = "pinguino",
-      version = "12.0.25",
+      version = "12.0.26",
       description = "Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)",
       description_file = "README.rst",
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/pinguino/qtgui/gide/bloques/nested_in_code_next/nested_second.ui'
 #
-# Created: Mon Nov 30 23:27:46 2015
+# Created: Mon Jan 11 16:35:33 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!

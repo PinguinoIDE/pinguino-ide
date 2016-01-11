@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/pinguino/qtgui/frames/main.ui'
 #
-# Created: Mon Nov 30 23:27:53 2015
+# Created: Mon Jan 11 16:35:37 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -48,7 +48,7 @@ class Ui_PinguinoIDE(object):
         self.gridLayout_29.addWidget(self.frame_logo, 1, 0, 1, 1)
         PinguinoIDE.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(PinguinoIDE)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1136, 29))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1136, 26))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -954,7 +954,6 @@ class Ui_PinguinoIDE(object):
         self.menuProject.addAction(self.actionNew_library)
         self.menuProject.addSeparator()
         self.menuProject.addAction(self.actionOpen_project)
-        self.menuProject.addAction(self.actionImport_library_project)
         self.menuProject.addSeparator()
         self.menuProject.addAction(self.menuRecentProjects.menuAction())
         self.menuProject.addAction(self.actionSave_project)
@@ -1175,7 +1174,7 @@ class Ui_PinguinoIDE(object):
         self.actionUpload_hex_directly.setText(QtGui.QApplication.translate("PinguinoIDE", "Upload .hex...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionMenubar.setText(QtGui.QApplication.translate("PinguinoIDE", "Menubar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_project.setText(QtGui.QApplication.translate("PinguinoIDE", "New project...", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOpen_project.setText(QtGui.QApplication.translate("PinguinoIDE", "Open project...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionOpen_project.setText(QtGui.QApplication.translate("PinguinoIDE", "Open project or library...", None, QtGui.QApplication.UnicodeUTF8))
         self.action_list_recent.setText(QtGui.QApplication.translate("PinguinoIDE", "<list recent>", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_project.setText(QtGui.QApplication.translate("PinguinoIDE", "Save project", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSave_project_as.setText(QtGui.QApplication.translate("PinguinoIDE", "Save project as...", None, QtGui.QApplication.UnicodeUTF8))
