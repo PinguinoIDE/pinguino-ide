@@ -5,12 +5,20 @@ import unittest
 import os
 import sys
 
-from . import version
+try:
+    import version
+except:
+    from . import version
 sys.path.append(os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "resources"))
 
-from .qtgui.pinguino_core.pinguino import Pinguino, AllBoards
-from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
-from .qtgui.pinguino_core.config import Config
+try:
+    from qtgui.pinguino_core.pinguino import Pinguino, AllBoards
+    from qtgui.pinguino_core.pinguino_config import PinguinoConfig
+    from qtgui.pinguino_core.config import Config
+except:
+    from .qtgui.pinguino_core.pinguino import Pinguino, AllBoards
+    from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
+    from .qtgui.pinguino_core.config import Config
 
 Pinguino = Pinguino()
 PinguinoConfig.set_environ_vars()
