@@ -1,11 +1,19 @@
-#!/usr/bin/env python
+#! /usr/bin/python
+#-*- coding: utf-8 -*-
 
 import os
 import sys
 import shutil
 
-from . import version
-from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
+try:
+    import version
+except:
+    from . import version
+
+try:
+    from qtgui.pinguino_core.pinguino_config import PinguinoConfig
+except:
+    from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
 
 os.environ["PINGUINO_LIB"] = os.path.abspath(os.path.dirname(__file__))
 

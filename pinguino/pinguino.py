@@ -1,4 +1,4 @@
-#! /usr/bin/python2
+#! /usr/bin/python
 #-*- coding: utf-8 -*-
 
 from .version import NAME, VERSION

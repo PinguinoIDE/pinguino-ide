@@ -1,7 +1,11 @@
-#! /usr/bin/python2
+#! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-from .version import VERSION
+try:
+    from version import VERSION
+except:
+    from .version import VERSION
+
 
 """-------------------------------------------------------------------------
     Pinguino IDE
@@ -36,10 +40,17 @@ class BColors:
     ENDC = "\033[0m"
 
 import argparse
-from .qtgui.pinguino_core.boards import boardlist
-from .qtgui.pinguino_core.pinguino import Pinguino
-from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
-from .qtgui.pinguino_core.config import Config
+
+try:
+    from qtgui.pinguino_core.boards import boardlist
+    from qtgui.pinguino_core.pinguino import Pinguino
+    from qtgui.pinguino_core.pinguino_config import PinguinoConfig
+    from qtgui.pinguino_core.config import Config
+except:
+    from .qtgui.pinguino_core.boards import boardlist
+    from .qtgui.pinguino_core.pinguino import Pinguino
+    from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
+    from .qtgui.pinguino_core.config import Config
 
 pinguino = Pinguino()
 PinguinoConfig.set_environ_vars()
