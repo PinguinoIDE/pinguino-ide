@@ -96,11 +96,12 @@ class PinguinoConfig(object):
                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "pinguino.conf"))
 
 
-        for lib in os.listdir(os.getenv("PINGUINO_USERLIBS_PATH")):
-            src = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), lib, "examples")
-            if os.path.exists(src):
-                cls.if_not_exist_then_copy(src=src,
-                                           dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples_libs", lib))
+        if os.path.exists(os.getenv("PINGUINO_USERLIBS_PATH")):
+            for lib in os.listdir(os.getenv("PINGUINO_USERLIBS_PATH")):
+                src = os.path.join(os.getenv("PINGUINO_USERLIBS_PATH"), lib, "examples")
+                if os.path.exists(src):
+                    cls.if_not_exist_then_copy(src=src,
+                                               dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples_libs", lib))
 
 
     #----------------------------------------------------------------------
