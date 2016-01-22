@@ -791,13 +791,14 @@ class PinguinoMain(object):
 
             errors_asm = self.pinguinoAPI.get_errors_compiling_asm()
             if errors_asm:
-                for error in errors_asm["error_symbols"]:
-                    self.write_log("ERROR: {}".format(error))
+                #for error in errors_asm["error_symbols"]:
+                    #self.write_log("ERROR: {}".format(error))
+                self.write_log("ERROR: {}".format(errors_asm))
 
             errors_linking = self.pinguinoAPI.get_errors_linking()
             if errors_linking:
                 for error in errors_linking["linking"]:
-                    self.write_log("ERROR: "+error)
+                    self.write_log("ERROR: {}".format(error))
 
                 line_errors_l = errors_linking["line_numbers"]
                 for line_error in line_errors_l:

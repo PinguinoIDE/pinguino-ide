@@ -476,7 +476,10 @@ class PinguinoTools(Uploader):
             decl = "{return} {name}({args});".format(**func)
             declarations.append(decl)
 
-        return "\n/* Declarations */\n"+"\n".join(declarations)
+        if declarations:
+            return "\n/* Declarations */\n"+"\n".join(declarations)
+        else:
+            return ""
 
 
     #----------------------------------------------------------------------
@@ -509,11 +512,11 @@ class PinguinoTools(Uploader):
         # user_content = ""
         user_content = self.generate_functions_declarations()
 
-        user_content += "\n\n/* Merged\n"
-        for path in file_path:
-            user_content += "{}\n".format(path)
-        user_content += "*/"
-
+        if len(file_path) > 1:
+            user_content += "\n\n/* Merged\n"
+            for path in file_path:
+                user_content += "{}\n".format(path)
+            user_content += "*/"
 
         for path in file_path:
 
@@ -643,12 +646,12 @@ class PinguinoTools(Uploader):
                 continue
 
             #hack!!, very important line!! #truth
-            content[line] = " {} ".format(content[line])
+            #content[line] = " {} ".format(content[line])
 
             for instruction in libinstructions:
                 if re.search(instruction["regex"], content[line]):
                     content[line] = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content[line])  #safe
-                    content[line] = content[line][1:-1] #truth
+                    #content[line] = content[line][1:-1] #truth
 
                     keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
                     index += 1
@@ -661,7 +664,7 @@ class PinguinoTools(Uploader):
             match = re.match(regex_directive, content[line])
             if match:
                 defines.append(content[line]+"\n")
-                if match.group(1) == "define": content[line] = ""
+                if match.group(1) in ["define", "include"]: content[line] = ""
 
 
         # content = "\n".join(content)
