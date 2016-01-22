@@ -54,18 +54,18 @@ class PinguinoNoBoot(object):
 ---------------------------------------------------------------------"""
 
 class Pinguino1459(object):
-    name = 'Pinguino 1459'
-    arch = 8
-    bldr = 'boot4'
-    proc = '16f1459'
-    board = 'PINGUINO1459'
-    family = '16F'
-    vendor = MICROCHIP_ID
-    product = P8_ID
+    name     = 'Pinguino 1459'
+    arch     = 8
+    bldr     = 'boot4'
+    proc     = '16f1459'
+    board    = 'PINGUINO1459'
+    family   = '16F'
+    vendor   = MICROCHIP_ID
+    product  = P8_ID
     memstart = 0x0500       # bootloader offset
     memend   = 0x2000
     shortarg = '-p1459'
-    longarg = '--pinguino1459'
+    longarg  = '--pinguino1459'
 
 """---------------------------------------------------------------------
     8-bit (18F) Boards
@@ -94,7 +94,7 @@ class Pinguino2550(object):
     family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
-    memstart = 0x2000       # bootloader offset
+    memstart = 0x0C00       # bootloader offset
     memend   = 0x8000
     shortarg = '-p2550'
     longarg = '--pinguino2550'
@@ -108,7 +108,7 @@ class FreeJALduino(object):
     family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
-    memstart = 0x2000
+    memstart = 0x0C00
     memend   = 0x8000
     config = 0x300000
     shortarg = '-J'
@@ -179,7 +179,7 @@ class Pinguino4550(object):
     family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
-    memstart = 0x2000       # bootloader offset
+    memstart = 0x0C00       # bootloader offset
     memend   = 0x8000
     shortarg = '-p4550'
     longarg = '--pinguino4550'
@@ -193,7 +193,7 @@ class PICuno_Equo(object):
     family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
-    memstart = 0x2000
+    memstart = 0x0C00
     memend   = 0x8000
     config = 0x300000
     shortarg = '-eq'
