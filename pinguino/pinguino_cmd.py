@@ -72,7 +72,9 @@ def build_argparse():
     parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show {PINGUINO_NAME} version and exit".format(**os.environ))
     parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this {PINGUINO_NAME} version and exit".format(**os.environ))
     parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
-    parser.add_argument("-8c", "--8bit_compiler", dest="compiler", nargs=1, default=None, help="8bit compiler: SDCC or XC8")
+    #parser.add_argument("-8c", "--8bit_compiler", dest="compiler", nargs=1, default=None, help="8bit compiler: SDCC or XC8")
+    parser.add_argument("--sdcc", dest="compiler_sdcc", action="store_true", default=None, help="SDCC for 8bit compiler")
+    parser.add_argument("--xc8", dest="compiler_xc8", action="store_true", default=None, help="XC8 for 8bit compiler")
     parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
     parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
@@ -110,12 +112,13 @@ if parser.board:
     printb("using {} bootloader".format(pinguino.get_board().bldr), BColors.Green)
 
     if parser.board.arch == 8:
-        if parser.compiler:
-            try:
-                pinguino.set_8bit_compiler(parser.compiler[0])
-            except Exception as err:
-                printb(str(err), BColors.Red)
-                sys.exit()
+        if parser.compiler_sdcc:
+            pinguino.set_8bit_compiler("sdcc")
+        elif parser.compiler_xc8:
+            pinguino.set_8bit_compiler("xc8")
+        else:
+            pinguino.set_8bit_compiler("xc8")
+
 
     if not parser.filename:
         printb("ERROR: missing filename", BColors.Red)
@@ -126,11 +129,12 @@ if parser.board:
 
         if not (len(filename) == 1 and filename[0].endswith(".hex")):
 
-            fname, extension = os.path.splitext(filename)
-            if extension != ".pde":
-                printb("ERROR: bad file extension, it should be .pde", BColors.Red)
-                sys.exit()
-            del fname, extension
+            if len(filename) == 1:
+                fname, extension = os.path.splitext(filename[0])
+                if extension != ".pde":
+                    printb("ERROR: bad file extension, it should be .pde", BColors.Red)
+                    sys.exit()
+                del fname, extension
 
             pinguino.compile_file(filename)
 
