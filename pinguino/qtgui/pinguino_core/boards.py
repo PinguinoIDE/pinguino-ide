@@ -67,6 +67,20 @@ class Pinguino1459(object):
     shortarg = '-p1459'
     longarg  = '--pinguino1459'
 
+class Curiosity(object):
+    name     = 'Curiosity 1708'
+    arch     = 8
+    bldr     = 'noboot'
+    proc     = '16f1708'
+    board    = 'CURIOSITY1708'
+    family   = '16F'
+    vendor   = MICROCHIP_ID
+    product  = P8_ID
+    memstart = 0x0000
+    memend   = 0x1000
+    shortarg = '-c1708'
+    longarg  = '--curiosity1708'
+
 """---------------------------------------------------------------------
     8-bit (18F) Boards
 ---------------------------------------------------------------------"""
@@ -115,7 +129,7 @@ class FreeJALduino(object):
     longarg = '--freejalduino'
 
 class Pinguino25k50(object):
-    name = 'Pinguino 25k50'
+    name = 'Pinguino 25K50'
     arch = 8
     bldr = 'boot4'
     proc = '18f25k50'
@@ -200,7 +214,7 @@ class PICuno_Equo(object):
     longarg = '--picunoequo'
 
 class Pinguino45k50(object):
-    name = 'Pinguino 45k50'
+    name = 'Pinguino 45K50'
     arch = 8
     bldr = 'boot4'
     proc = '18f45k50'
@@ -431,6 +445,20 @@ class UBW32_795(object):
     32-bit (MZ) Boards
 ---------------------------------------------------------------------"""
 
+class PIC32MZSTARTERKIT(object):
+    name = 'PIC32MZ Starter Kit'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MZ2048ECH144'
+    board = 'PIC32MZSTARTERKIT'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    ivtstart = 0x9D005000           # _ebase_address (exception_mem)
+    memstart = 0x9D006010           # kseg0_program_mem
+    memend   = 0x9D080000
+    shortarg = '-Z2048'
+    longarg = '--pic32zsk'
+
 """---------------------------------------------------------------------
     Board list
 ---------------------------------------------------------------------"""
@@ -438,7 +466,7 @@ class UBW32_795(object):
     # RB 17/09/2013
     #PinguinoNoBoot,
 boardlist = [
-    Pinguino1459,
+    Pinguino1459,  Curiosity,
     Pinguino2455,  Pinguino4455,
     Pinguino2550,  Pinguino4550,
     FreeJALduino,  PICuno_Equo, CHRP3,
@@ -450,5 +478,6 @@ boardlist = [
     PIC32_Pinguino_Micro, PIC32_Pinguino_T795,
     PIC32_Pinguino_220,
     Emperor_460, Emperor_795,
-    UBW32_460, UBW32_795
+    UBW32_460, UBW32_795,
+    PIC32MZSTARTERKIT
 ]

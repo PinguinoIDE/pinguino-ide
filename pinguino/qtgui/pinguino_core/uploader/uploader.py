@@ -207,6 +207,7 @@ class Uploader(object):
             # TODO : interface here something like PICpgm (http://www.members.aon.at/electronics/pic/picpgm/)
             #self.logwindow("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board", 1)
             raise Exception("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board")
+            #from .uploaderICSP import uploaderICSP as Uploader
 
         # elif board.bldr == "boot2":
             # from .uploaderVSC import uploaderVSC as Uploader
@@ -214,11 +215,13 @@ class Uploader(object):
         #elif board.bldr == 'boot3':
         #    self.uploader = self.uploaderDLN(*parameters)
 
-        elif board.arch == 8:
-            from .uploader8 import uploader8 as Uploader
+        else :
 
-        elif board.arch == 32:
-            from .uploader32 import uploader32 as Uploader
+            if board.arch == 8:
+                from .uploader8 import uploader8 as Uploader
+
+            elif board.arch == 32:
+                from .uploader32 import uploader32 as Uploader
 
         self.uploader = Uploader()
 

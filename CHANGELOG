@@ -1,6 +1,15 @@
 Pinguino IDE 12.0 - Beta 1
 ------------------------
 
+Jan. 27, 2016
+* Added PIC16F1708 support
+
+Sep. 09, 2015
+* Added PIC16F1459 support
+
+Jul. 09, 2015
+* Added XC8 compiler support
+
 Oct. 03, 2015
 
 Features
