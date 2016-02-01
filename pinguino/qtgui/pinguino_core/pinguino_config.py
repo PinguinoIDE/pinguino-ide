@@ -24,12 +24,13 @@ class PinguinoConfig(object):
         """Configure some environ variables about OS and architecture.
         """
 
-        if not os.path.exists(os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg")):
-            logging.error("Missing: "+os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg"))
-            sys.exit()
+        #if not os.path.exists(os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg")):
+            #logging.error("Missing: "+os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg"))
+            #sys.exit()
 
-        config_paths = RawConfigParser()
-        config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg"), "r"))
+        #config_paths = RawConfigParser()
+        #config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_LIB"), "paths.cfg"), "r")
+
 
         #RB20141116 : get the “bitness” of the current OS
         bitness, linkage = platform.architecture()
@@ -45,12 +46,19 @@ class PinguinoConfig(object):
         elif os.name == "nt":  #Windows
             os.environ["PINGUINO_OS_NAME"] = "windows"
 
+        config_paths = RawConfigParser()
+        config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "config", "pinguino.{PINGUINO_OS_NAME}.conf".format(**os.environ)), "r"))
+
         #load path from paths.conf
-        os.environ["PINGUINO_USER_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "user_path")))
-        os.environ["PINGUINO_INSTALL_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "install_path")))
+        os.environ["PINGUINO_USER_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("Paths", "user_path")))
+        os.environ["PINGUINO_INSTALL_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("Paths", "install_path")))
+        os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("Paths", "user_libs")))
+
         # os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.join(os.getenv("PINGUINO_USER_PATH"), "libraries"))
-        os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("paths-%s"%os.getenv("PINGUINO_OS_NAME"), "user_libs")))
         os.environ["PINGUINO_DEFAULT_FILES"] = os.path.join(os.getenv("PINGUINO_USER_PATH"), "local")
+
+
+
 
 
     #----------------------------------------------------------------------
