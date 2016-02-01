@@ -150,21 +150,37 @@ if parser.board:
             if not pinguino.compiled():
                 printb("\nERROR: no compiled\n", BColors.Red)
 
-                errors_proprocess = pinguino.get_errors_preprocess()
-                if errors_proprocess:
-                    for error in errors_proprocess["preprocess"]: printb(error, BColors.Red)
+                ##errors_proprocess = pinguino.get_errors_preprocess()
+                ##if errors_proprocess:
+                    ##for error in errors_proprocess["preprocess"]: printb(error, BColors.Red)
+
+                #errors_c = pinguino.get_errors_compiling_c()
+                #if errors_c:
+                    #printb(errors_c["complete_message"], BColors.Red)
+
+                #errors_asm = pinguino.get_errors_compiling_asm()
+                #if errors_asm:
+                    #for error in errors_asm["error_symbols"]:
+                        #printb(error, BColors.Red)
+
+                #errors_link = pinguino.get_errors_linking()
+                #if errors_link:
+                    #for error in errors_link["linking"]:
+                        #printb(error, BColors.Red)
 
                 errors_c = pinguino.get_errors_compiling_c()
                 if errors_c:
-                    printb(errors_c["complete_message"], BColors.Red)
+                    printb("ERROR: {complete_message}".format(**errors_c), BColors.Red)
 
                 errors_asm = pinguino.get_errors_compiling_asm()
                 if errors_asm:
-                    for error in errors_asm["error_symbols"]: printb(error, BColors.Red)
+                    printb("ERROR: {}".format("\n".join(errors_asm)), BColors.Red)
 
-                errors_link = pinguino.get_errors_linking()
-                if errors_link:
-                    for error in errors_link["linking"]: printb(error, BColors.Red)
+                errors_linking = pinguino.get_errors_linking()
+                if errors_linking:
+                    if "linking" in  errors_linking:
+                        for error in errors_linking["linking"]:
+                            printb("ERROR: {}".format(error), BColors.Red)
 
                 sys.exit()
 
@@ -190,8 +206,9 @@ if parser.board:
                 uploaded, result = pinguino.upload()
                 if result:
                     printb(result, BColors.Green)
-            except:
-                if pinguino.get_board().arch == 8:
-                    printb("ERROR: bootloader option could be incorrect.", BColors.Red)
-                    printb("Bootloader options: ", BColors.Green),
-                    printb(", ".join(pinguino.dict_boot.keys()), BColors.Green)
+            except Exception as err:
+                printb(err, BColors.Red)
+                #if pinguino.get_board().arch == 8:
+                    #printb("ERROR: bootloader option could be incorrect.", BColors.Red)
+                    #printb("Bootloader options: ", BColors.Green),
+                    #printb(", ".join(pinguino.dict_boot.keys()), BColors.Green)
