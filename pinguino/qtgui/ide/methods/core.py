@@ -797,12 +797,14 @@ class PinguinoMain(object):
 
             errors_linking = self.pinguinoAPI.get_errors_linking()
             if errors_linking:
-                for error in errors_linking["linking"]:
-                    self.write_log("ERROR: {}".format(error))
+                if "linking" in  errors_linking:
+                    for error in errors_linking["linking"]:
+                        self.write_log("ERROR: {}".format(error))
 
-                line_errors_l = errors_linking["line_numbers"]
-                for line_error in line_errors_l:
-                    self.editor_highligh_line(line_error, "#ff7f7f")
+                if "line_numbers" in  errors_linking:
+                    line_errors_l = errors_linking["line_numbers"]
+                    for line_error in line_errors_l:
+                        self.editor_highligh_line(line_error, "#ff7f7f")
 
 
             if errors_asm or errors_c:
