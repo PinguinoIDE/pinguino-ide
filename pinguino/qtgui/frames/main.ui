@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1136</width>
+    <width>1138</width>
     <height>816</height>
    </rect>
   </property>
@@ -99,8 +99,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1136</width>
-     <height>26</height>
+     <width>1138</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -275,8 +275,10 @@
     <addaction name="actionTabProject"/>
     <addaction name="actionTabSourceBrowser"/>
     <addaction name="actionLibraryManager"/>
-    <addaction name="actionTabSearchReplace"/>
-    <addaction name="actionTabBoardConfig"/>
+    <addaction name="actionTabSearch"/>
+    <addaction name="actionTabBoards"/>
+    <addaction name="actionTabPaths"/>
+    <addaction name="actionTabICSP"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -308,7 +310,7 @@
      <property name="spacing">
       <number>0</number>
      </property>
-     <item row="0" column="1">
+     <item row="0" column="0">
       <widget class="QTabWidget" name="tabWidget_tools">
        <property name="acceptDrops">
         <bool>true</bool>
@@ -317,7 +319,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>4</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -1291,6 +1293,126 @@
          </item>
         </layout>
        </widget>
+       <widget class="QWidget" name="Paths">
+        <attribute name="title">
+         <string>Paths</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_19">
+         <item row="2" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>XC8 bin:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_path_xc8_bin"/>
+           </item>
+          </layout>
+         </item>
+         <item row="3" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>8bit libraries</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_path_8_libs"/>
+           </item>
+          </layout>
+         </item>
+         <item row="4" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>32bit libraries</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_path_32_libs"/>
+           </item>
+          </layout>
+         </item>
+         <item row="6" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_paths_set_default">
+             <property name="text">
+              <string>Default values</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="5" column="0" colspan="2">
+          <spacer name="verticalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>GCC bin:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_path_gcc_bin"/>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="0" colspan="2">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>SDCC bin:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="lineEdit_path_sdcc_bin"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
+        <zorder>verticalSpacer_6</zorder>
+       </widget>
+       <widget class="QWidget" name="ICSP">
+        <attribute name="title">
+         <string>ICSP</string>
+        </attribute>
+       </widget>
       </widget>
      </item>
     </layout>
@@ -1364,7 +1486,7 @@
         <bool>true</bool>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -2046,7 +2168,7 @@
     <string>Source browser</string>
    </property>
   </action>
-  <action name="actionTabSearchReplace">
+  <action name="actionTabSearch">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -2057,7 +2179,7 @@
     <string>Search</string>
    </property>
   </action>
-  <action name="actionTabBoardConfig">
+  <action name="actionTabBoards">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -2069,6 +2191,9 @@
    </property>
   </action>
   <action name="actionToggle_vertical_tool_area">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Hide Vertical tool area</string>
    </property>
@@ -2171,6 +2296,22 @@
   <action name="action">
    <property name="text">
     <string>-_-</string>
+   </property>
+  </action>
+  <action name="actionTabPaths">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Paths</string>
+   </property>
+  </action>
+  <action name="actionTabICSP">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>ICSP</string>
    </property>
   </action>
  </widget>
