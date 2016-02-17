@@ -86,7 +86,7 @@ class Project(object):
             self.ConfigProject.readfp(open(filename, "r"))
             self.ConfigProject.filename = filename
 
-            project_name = self.reload_project()
+            project_name = self.reload_project(open_=True)
             logging.debug("Opening \"{}\" project.".format(project_name))
 
             self.update_recents_projects(self.ConfigProject.filename)
@@ -104,10 +104,10 @@ class Project(object):
 
 
     #----------------------------------------------------------------------
-    def reload_project(self):
+    def reload_project(self, open_=False):
         """"""
 
-        if not self.is_project(): return
+        if (not self.is_project()) and (not open_): return
 
         self.main.treeWidget_projects.clear()
 
@@ -293,8 +293,10 @@ class Project(object):
     #----------------------------------------------------------------------
     def get_project_files(self):
         """"""
-        files = [file_ for file_, checked in self.get_files_from_project().iteritems() if checked]
-        files.extend([file_ for file_, checked in self.get_inherits_from_project().iteritems() if checked])
+        #files = [file_ for file_, checked in self.get_files_from_project().iteritems() if checked]
+        #files.extend([file_ for file_, checked in self.get_inherits_from_project().iteritems() if checked])
+        files = [file_ for file_, checked in self.get_files_from_project().items() if checked]
+        files.extend([file_ for file_, checked in self.get_inherits_from_project().items() if checked])
         return files
 
 
@@ -946,6 +948,7 @@ PUBLIC u8 my_function(){{
         lib = self.ConfigProject.get("Main", "lib")
 
         archs = self.get_library_archs()
+        filenames = []
 
         for arch in archs:
 
@@ -958,6 +961,10 @@ PUBLIC u8 my_function(){{
             define = os.path.join(lib_dir, arch, "{}.h".format(lib_name))
             userc = os.path.join(lib_dir, arch, "{}.c".format(lib_name))
             pdl = os.path.join(lib_dir, "pdl", "{}.pdl{}".format(lib_name, "" if arch=="p8" else "32"))
+
+            filenames.append(define)
+            filenames.append(userc)
+            filenames.append(pdl)
 
             if arch == "p8":
                 arch_num = 8
@@ -1017,6 +1024,10 @@ PUBLIC u8 my_function(){{
 
         self.add_library_to_env(lib_dir)
         Dialogs.info_message(self, "Library \"{}\" compiled.".format(lib_name))
+
+        for filename in filenames:
+            logging.debug("Generated: \"{}\"".format(filename))
+
 
 
 
