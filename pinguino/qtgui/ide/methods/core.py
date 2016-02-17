@@ -30,6 +30,7 @@ from ..tools.search import Search
 from ..tools.project import Project
 from ..tools.boards import Boards
 from ..tools.source_browser import SourceBrowser
+from ..tools.paths import Paths
 # from ..tools.library_manager import LibraryManager
 # from ..methods.library_manager import Librarymanager
 # from ..widgets.output_widget import START
@@ -48,7 +49,7 @@ from ..child_windows.library_template import LibraryTemplate
 
 
 ########################################################################
-class PinguinoComponents(TimedMethods, Search, Project, Files, Boards, SourceBrowser):
+class PinguinoComponents(TimedMethods, Search, Project, Files, Boards, SourceBrowser, Paths):
     """"""
 
     #----------------------------------------------------------------------
@@ -59,6 +60,7 @@ class PinguinoComponents(TimedMethods, Search, Project, Files, Boards, SourceBro
         SourceBrowser.__init__(self)
         Files.__init__(self)
         Project.__init__(self)
+        Paths.__init__(self)
         # LibraryManager.__init__(self)
         # super(BoardConfig, self).__init__()
 
@@ -381,27 +383,42 @@ class PinguinoSettings(object):
     #----------------------------------------------------------------------
     def load_tabs_config(self):
         """"""
-        names = []
-        exclude = ["Blocks"]
+                                    #default, automatic
+        tabs = {"Shell":			(True, False),
+                "Log":				(True, False),
+                "Stdout":			(True, False),
+                "Files":			(True, False),
+                "Project":			(True, False),
+                "SourceBrowser":	(True, False),
+                "Boards": 			(True, False),
+                "Search":			(True, False),
+                "Blocks":			(False, True),
+                "Paths":			(False, False),
+                "ICSP":				(False, False),
+                }
 
-        tabs = self.main.tabWidget_bottom.tabBar()
-        for index in range(tabs.count()):
-            names.append(self.main.tabWidget_bottom.widget(index).objectName())
+        for tab in tabs.keys():
 
-        tabs = self.main.tabWidget_tools.tabBar()
-        for index in range(tabs.count()):
-            names.append(self.main.tabWidget_tools.widget(index).objectName())
+            widget = getattr(self.main, tab)
 
-        for name in names:
-            if name in exclude:
+            if self.main.tabWidget_bottom.indexOf(widget) != -1:
+                tabwidget = self.main.tabWidget_bottom
+            elif self.main.tabWidget_tools.indexOf(widget) != -1:
+                tabwidget = self.main.tabWidget_tools
+
+            widget.tab_parent = tabwidget
+            widget.index = tabwidget.indexOf(widget)
+            widget.label = tabwidget.tabText(widget.index)
+            widget.attached = True
+
+            #automatic
+            if tabs[tab][1]:
                 continue
-            if not self.configIDE.config("Tabs", name, True):
-                name = self.configIDE.config("Tabs", "{}_name".format(name), None)
-                if hasattr(self.main, name):
-                    getattr(self.main, "actionTab{}".format(name)).setChecked(False)
 
+            state = self.configIDE.config("Tabs", tab, tabs[tab][0])
 
-
+            getattr(self.main, "actionTab{}".format(tab)).setChecked(state)
+            self.toggle_tab(tab, state)
 
 
     #----------------------------------------------------------------------
@@ -2566,70 +2583,34 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    def toggle_tab(self, tab_name, force=None):
+    def toggle_tab(self, tab_name, state=None):
         """"""
         widget = getattr(self.main, tab_name)
 
-        if force is None:
-
+        if not hasattr(widget, "tab_parent"):
             if self.main.tabWidget_bottom.indexOf(widget) != -1:
-                index = self.main.tabWidget_bottom.indexOf(widget)
-                widget.tab_parent = self.main.tabWidget_bottom
-                widget.index = index
-                widget.label = self.main.tabWidget_bottom.tabText(index)
-                self.main.tabWidget_bottom.removeTab(index)
-                self.configIDE.set("Tabs", tab_name, False)
-                self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
-
+                tabwidget = self.main.tabWidget_bottom
             elif self.main.tabWidget_tools.indexOf(widget) != -1:
-                index = self.main.tabWidget_tools.indexOf(widget)
-                widget.tab_parent = self.main.tabWidget_tools
-                widget.index = index
-                widget.label = self.main.tabWidget_tools.tabText(index)
-                self.main.tabWidget_tools.removeTab(index)
-                self.configIDE.set("Tabs", tab_name, False)
-                self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
+                tabwidget = self.main.tabWidget_tools
+            widget.tab_parent = tabwidget
+            widget.index = tabwidget.indexOf(widget)
+            widget.label = tabwidget.tabText(widget.index)
+            widget.attached = False
 
-            else:
-                widget.tab_parent.addTab(widget, widget.label)
-                i = widget.tab_parent.indexOf(widget)
-                widget.tab_parent.tabBar().moveTab(i, widget.index)
-                widget.tab_parent.setCurrentIndex(widget.index)
-                self.configIDE.set("Tabs", tab_name, True)
-                self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
+        if ((state is True) and (not widget.attached)) or ((state is None) and (not widget.attached)):
+            widget.tab_parent.addTab(widget, widget.label)
+            i = widget.tab_parent.indexOf(widget)
+            widget.tab_parent.tabBar().moveTab(i, widget.index)
+            widget.tab_parent.setCurrentIndex(widget.index)
+            widget.attached = True
 
-        else:
-            if force is True:
+        elif ((state is False) and widget.attached) or ((state is None) and (widget.attached)):
+            widget.tab_parent.removeTab(widget.index)
+            widget.attached = False
 
-                widget.tab_parent.addTab(widget, widget.label)
-                i = widget.tab_parent.indexOf(widget)
-                widget.tab_parent.tabBar().moveTab(i, widget.index)
-                # widget.tab_parent.setCurrentIndex(widget.index)
-                self.configIDE.set("Tabs", tab_name, True)
-                self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
-
-
-            elif force is False:
-
-                if self.main.tabWidget_bottom.indexOf(widget) != -1:
-                    index = self.main.tabWidget_bottom.indexOf(widget)
-                    widget.tab_parent = self.main.tabWidget_bottom
-                    widget.index = index
-                    widget.label = self.main.tabWidget_bottom.tabText(index)
-                    self.main.tabWidget_bottom.removeTab(index)
-                    self.configIDE.set("Tabs", tab_name, False)
-                    self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
-
-                elif self.main.tabWidget_tools.indexOf(widget) != -1:
-                    index = self.main.tabWidget_tools.indexOf(widget)
-                    widget.tab_parent = self.main.tabWidget_tools
-                    widget.index = index
-                    widget.label = self.main.tabWidget_tools.tabText(index)
-                    self.main.tabWidget_tools.removeTab(index)
-                    self.configIDE.set("Tabs", tab_name, False)
-                    self.configIDE.set("Tabs", "{}_name".format(tab_name), tab_name)
-
+        self.configIDE.set("Tabs", tab_name, widget.attached)
         self.configIDE.save_config()
+
 
     #----------------------------------------------------------------------
     def set_block_tab(self, name):
