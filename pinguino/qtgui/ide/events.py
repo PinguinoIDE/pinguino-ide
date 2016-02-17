@@ -52,13 +52,15 @@ class PinguinoEvents(PinguinoCore):
         # Toggle Tabs
         self.connect(self.main.actionTabLog, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Log"))
         self.connect(self.main.actionTabFiles, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Files"))
-        self.connect(self.main.actionTabBoardConfig, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("BoardConfig"))
+        self.connect(self.main.actionTabBoards, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Boards"))
         self.connect(self.main.actionTabStdout, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Stdout"))
-        self.connect(self.main.actionTabSearchReplace, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SearchReplace"))
+        self.connect(self.main.actionTabSearch, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Search"))
         self.connect(self.main.actionTabProject, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Project"))
         self.connect(self.main.actionTabShell, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Shell"))
         self.connect(self.main.actionTabSourceBrowser, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SourceBrowser"))
         self.connect(self.main.actionLibraryManager, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("LibraryManager"))
+        self.connect(self.main.actionTabPaths, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Paths"))
+        self.connect(self.main.actionTabICSP, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("ICSP"))
 
 
         # Perspective related events
