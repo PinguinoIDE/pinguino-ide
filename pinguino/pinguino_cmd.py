@@ -148,7 +148,7 @@ if parser.board:
             pinguino.compile_file(filename)
 
             if not pinguino.compiled():
-                printb("\nERROR: no compiled\n", BColors.Red)
+                printb("\nERROR: not compiled\n", BColors.Red)
 
                 ##errors_proprocess = pinguino.get_errors_preprocess()
                 ##if errors_proprocess:
@@ -198,6 +198,8 @@ if parser.board:
                     printb("*" * 70, BColors.Cyan)
                     for line in content_hex: printb(line, BColors.Cyan),
                     printb("*" * 70 + "\n", BColors.Cyan)
+                
+                print "OK"
         else:
             pinguino.__hex_file__ = filename[0]
 

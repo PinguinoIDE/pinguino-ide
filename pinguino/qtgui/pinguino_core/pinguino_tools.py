@@ -947,34 +947,48 @@ class PinguinoTools(Uploader):
         if board.arch == 8 and board.bldr == 'noboot' and compiler == 'xc8':
 
             sortie = Popen([self.COMPILER_8BIT,
-                "--chip=" + board.proc,
-                "-Q -P -M -N255",
-                "--double=24",
-                "--float=24",
-                "--emi=wordwrite",
-                "--addrqual=ignore",
+                # Define device
+                "--CHIP=" + board.proc,
+                # -Verbose, -Preprocess Assembly Files, -Map file,
+                "-P", "-N64", "-V", "-M", "-G",
+                # Compiler Optimizations
+                "--OPT=default,+asm,+asmfile,-speed,+space,-debug",
+                # We use the 32-bit format for both float and double values
+                "--FLOAT=24", "--DOUBLE=24",
+                # Reject any non-standard memory qualifiers (near, far, ...) in C source code
+                "--ADDRQUAL=reject",
                 # TODO : in Board Selector, adding 2 more options
                 # to XC8 compiler: free and pro
-                "--mode=free",
-                "--warn=0",
-                "--asmlist",
-                "--errata=default",
-                "--summary=default,+psect,-class,+mem,-hex,-file",
-                "--runtime=default,+clear,+init,-keep,-no_startup,-download,-config,+clib,-plib",
-                "--output=default,-inhx032",
-                "--opt=default,+asm,+asmfile,-speed,+space,-debug",
+                "--MODE=free",
+                # Set Warning Level (form -9 to 9)
+                "--WARN=0",
+                # Shows the assembly output (.lst)
+                "--ASMLIST",
+                # Select the type of memory summary that is displayed after compilation
+                "--SUMMARY=default,+psect,-class,+mem,-hex,-file",
+                # Enable all software workarounds
+                "--ERRATA=default",
+                # --RUNTIME=-plib -> don't include plib.h
+                "--RUNTIME=+init,+clib,+clear,-config,-download,-flp,-no_startup,-osccal,-keep,-plib,-resetbits,-stackcall",
+                # Allows the type of the output files
+                "--OUTPUT=intel",
+                # Options to the Linker
+                "-L-AUSB5=0500h-05FFh",
+                "-L-Pusbram5=USB5",
+                # Macros
                 "-D" + board.board,
                 "-D" + board.bldr,
                 # To use in Pinguino programs
                 "-DBOARD=\"" + board.board + "\"",
                 "-DPROC=\"" + board.proc + "\"",
-                "-DBOOT_VER=4",
+                "-DBOOT_VER=0",
+                # Path
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
                 "-I" + file_dir,
-                "-L-Pusbram5=BANK5",
-                userc_output,
-                "-O" + os.path.join(src_dir, 'main.o')] + user_imports,
+                os.path.join(src_dir, 'main.c'),
+                "-O" + os.path.join(src_dir, 'main.hex'),
+                ] + user_imports,
                stdout=fichier, stderr=STDOUT)
 
         elif board.arch == 8 and board.bldr == 'noboot' and compiler == 'sdcc':
@@ -1055,7 +1069,7 @@ class PinguinoTools(Uploader):
                 # Define device
                 "--CHIP=" + board.proc,
                 # -Verbose, -Preprocess Assembly Files, -Map file,
-                "-P", "-N64", "-V", "-M", "-Q", "-G",
+                "-P", "-N64", "-V", "-M", "-G",
                 # Compiler Optimizations
                 "--OPT=default,+asm,+asmfile,-speed,+space,-debug",
                 # We use the 32-bit format for both float and double values
@@ -1089,7 +1103,7 @@ class PinguinoTools(Uploader):
                 "-DBOARD=\"" + board.board + "\"",
                 "-DPROC=\"" + board.proc + "\"",
                 "-DBOOT_VER=4",
-                # Pathes
+                # Path
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
                 "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
                 "-I" + file_dir,
