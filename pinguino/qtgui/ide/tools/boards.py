@@ -41,19 +41,38 @@ class Boards(object):
         self.connect(self.main.radioButton_arch_8, QtCore.SIGNAL("clicked()"), self.update_config)
         self.connect(self.main.radioButton_arch_32, QtCore.SIGNAL("clicked()"), self.update_config)
 
+
+        self.connect(self.main.checkBox_mips16, QtCore.SIGNAL("clicked()"), self.save_config)
+        self.connect(self.main.comboBox_heapsize, QtCore.SIGNAL("currentIndexChanged(QString)"), self.save_config)
+        self.connect(self.main.comboBox_optimization, QtCore.SIGNAL("currentIndexChanged(QString)"), self.save_config)
+
+
+
         # self.connect(self.main.radioButton_bootloader_v1_v2, QtCore.SIGNAL("clicked()"), self.update_config)
         # self.connect(self.main.radioButton_bootloader_v4, QtCore.SIGNAL("clicked()"), self.update_config)
 
         self.load_config()
 
-    #----------------------------------------------------------------------
-    def update_mips16(self):
-        self.configIDE.set("Board", "mips16", self.main.checkBox_mips16.isChecked())
+    ##----------------------------------------------------------------------
+    #def update_mips16(self):
+        #""""""
+        #self.configIDE.set("Board", "mips16", self.main.checkBox_mips16.isChecked())
+        #self.save_config()
 
 
-    #----------------------------------------------------------------------
-    def update_heapsize(self):
-        self.configIDE.set("Board", "heapsize", self.main.checkBox_heapsize.isChecked())
+    ##----------------------------------------------------------------------
+    #def update_heapsize(self):
+        #""""""
+        #self.configIDE.set("Board", "heapsize", self.main.comboBox_heapsize.currentText())
+        #self.save_config()
+
+
+    ##----------------------------------------------------------------------
+    #def update_optimization(self):
+        #""""""
+        #self.configIDE.set("Board", "optimization", self.main.comboBox_optimization.currentText())
+        #self.save_config()
+
 
 
     #----------------------------------------------------------------------
