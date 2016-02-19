@@ -471,6 +471,7 @@ class Project(object):
         self.main.actionAdd_current_file.setEnabled(open_project)
         self.main.actionAdd_existing_file.setEnabled(open_project)
         self.main.actionAdd_new_file.setEnabled(open_project)
+        self.main.actionAdd_new_blocks_file.setEnabled(open_project)
         # self.main.actionSet_current_file_as_main_upload.setEnabled(open_project)
 
 

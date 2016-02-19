@@ -60,7 +60,7 @@ class PinguinoEvents(PinguinoCore):
         self.connect(self.main.actionTabSourceBrowser, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("SourceBrowser"))
         self.connect(self.main.actionLibraryManager, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("LibraryManager"))
         self.connect(self.main.actionTabPaths, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("Paths"))
-        self.connect(self.main.actionTabICSP, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("ICSP"))
+        #self.connect(self.main.actionTabICSP, QtCore.SIGNAL("toggled(bool)"), lambda :self.toggle_tab("ICSP"))
 
 
         # Perspective related events

@@ -394,7 +394,7 @@ class PinguinoSettings(object):
                 "Search":			(True, False),
                 "Blocks":			(False, True),
                 "Paths":			(False, False),
-                "ICSP":				(False, False),
+                #"ICSP":				(False, False),
                 }
 
         for tab in tabs.keys():
@@ -413,6 +413,7 @@ class PinguinoSettings(object):
 
             #automatic
             if tabs[tab][1]:
+                self.toggle_tab(tab, tabs[tab][0])
                 continue
 
             state = self.configIDE.config("Tabs", tab, tabs[tab][0])
@@ -902,7 +903,7 @@ class PinguinoMain(object):
     def set_board(self):
 
         # config data
-        board_name = self.configIDE.config("Board", "board", "Pinguino 2550")
+        board_name = self.configIDE.config("Board", "board", "Pinguino 4550")
         arch = self.configIDE.config("Board", "arch", 8)
         mode = self.configIDE.config("Board", "mode", "boot")
         # bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
@@ -913,15 +914,19 @@ class PinguinoMain(object):
             if board.name == board_name:
                 self.pinguinoAPI.set_board(board)
 
+        #if for some reason no board
+        if not hasattr(self.pinguinoAPI, "__current_board__"):
+            board_name, arch, mode = "Pinguino 4550", 8, "boot"
+            self.configIDE.set("Board", "board", "Pinguino 4550")
+            self.configIDE.set("Board", "arch", 8)
+            self.configIDE.set("Board", "mode", "boot")
+            self.configIDE.save_config()
 
-        # set mode and bootloader
-        # if arch == 8 and mode == "bootloader":
-            # if bootloader == "v1_v2":
-                # self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.Boot2)
-            # else:
-                # self.pinguinoAPI.set_bootloader(*self.pinguinoAPI.Boot4)
+            for board in self.pinguinoAPI._boards_:
+                print(board.name)
+                if board.name == board_name:
+                    self.pinguinoAPI.set_board(board)
 
-        # no configuration bootloader for 32 bits
 
         if mode == "icsp":
             # if mode is icsp overwrite all configuration

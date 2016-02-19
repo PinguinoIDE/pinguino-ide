@@ -30,7 +30,7 @@ class Paths(object):
         #self.init_groups()
 
 
-        self.connect(self.main.pushButton_paths_set_default, QtCore.SIGNAL("clicked()"), self.set_default_values)
+        #self.connect(self.main.pushButton_paths_set_default, QtCore.SIGNAL("clicked()"), self.set_default_values)
 
 
         self.connect(self.main.lineEdit_path_sdcc_bin, QtCore.SIGNAL("editingFinished()"), self.save_paths)
@@ -85,14 +85,14 @@ class Paths(object):
 
 
 
-    #----------------------------------------------------------------------
-    def set_default_values(self):
-        """"""
-        config_paths = RawConfigParser()
-        config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "config", "pinguino.{PINGUINO_OS_NAME}.conf".format(**os.environ)), "r"))
-        self.load_paths(config_paths)
+    ##----------------------------------------------------------------------
+    #def set_default_values(self):
+        #""""""
+        #config_paths = RawConfigParser()
+        #config_paths.readfp(open(os.path.join(os.getenv("PINGUINO_LIB"), "qtgui", "config", "pinguino.{PINGUINO_OS_NAME}.conf".format(**os.environ)), "r"))
+        #self.load_paths(config_paths)
 
-        self.save_paths()
+        #self.save_paths()
 
 
 
