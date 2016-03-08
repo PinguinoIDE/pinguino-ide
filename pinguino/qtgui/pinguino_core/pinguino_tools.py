@@ -31,6 +31,7 @@ import argparse
 import logging
 import codecs
 import string
+import logging
 
 from .config import Config
 
@@ -93,11 +94,15 @@ class PinguinoTools(Uploader):
 
             self.MAKE = os.path.join(self.P32_GCC_BIN, "make.exe")
 
+            if not os.path.exists(self.MAKE):
+                logging.warning("Missing '{}'".format(self.MAKE))
+
+
         elif os.getenv("PINGUINO_OS_NAME") == "linux":
             if compiler.lower() == "sdcc":
                 self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc")
             elif compiler.lower() == "xc8":
-                self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8")  #change for xc8
+                self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8")
 
             #self.p8 = 'picpgm'
             #self.UPLOADER_32 = os.path.join(self.P32_GCC_BIN, "ubw32")
@@ -108,10 +113,17 @@ class PinguinoTools(Uploader):
             if compiler.lower() == "sdcc":
                 self.COMPILER_8BIT = os.path.join(self.P8_SDCC_BIN, "sdcc")
             elif compiler.lower() == "xc8":
-                self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8")  #change for xc8
+                self.COMPILER_8BIT = os.path.join(self.P8_XC8_BIN, "xc8")
             #self.p8 = 'picpgm'
             #self.UPLOADER_32 = os.path.join(self.P32_GCC_BIN, "mphidflash")
             self.MAKE = "make"
+
+
+        if not os.path.exists(self.P8_SDCC_BIN):
+            logging.warning("Missing '{}'".format(self.P8_SDCC_BIN))
+
+        if not os.path.exists(self.COMPILER_8BIT):
+            logging.warning("Missing '{}'".format(self.COMPILER_8BIT))
 
 
     #----------------------------------------------------------------------
@@ -1176,7 +1188,7 @@ class PinguinoTools(Uploader):
                 "_IDE_HEAP_SIZE_=" + self.HEAPSIZE,
                 "_IDE_MIPS16_ENABLE_=" + self.MIPS16,
                 "_IDE_OPTIMIZATION_=" + self.OPTIMIZATION,
-	            ] + _IDE_USERLIBS_,
+                ] + _IDE_USERLIBS_,
 
                          stdout=fichier, stderr=STDOUT)
 
