@@ -60,12 +60,17 @@ class baseUploader(object):
     VSC_ACTIVE_CONFIG               = 0x02
 
 # # ------------------------------------------------------------------------------
+<<<<<<< HEAD:pinguino/qtgui/pinguino_core/uploader/uploader.py
     # def __init__(self, hex_file, board):
         # self.hex_file = hex_file
         # self.filename = hex_file
         # self.board = board
         # self.report = []
 
+=======
+    # def __init__(self, hexfile, board):
+        # self.report = []
+>>>>>>> fec17e359bf7aa287e422f0f09d095eeb3e4f701:qtgui/pinguino_api/uploader/uploader.py
 
 # ------------------------------------------------------------------------------
     def add_report(self, message):
@@ -144,7 +149,11 @@ class baseUploader(object):
 
         if handle:
 
+<<<<<<< HEAD:pinguino/qtgui/pinguino_core/uploader/uploader.py
             #logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
+=======
+            logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
+>>>>>>> fec17e359bf7aa287e422f0f09d095eeb3e4f701:qtgui/pinguino_api/uploader/uploader.py
 
             if os.getenv("PINGUINO_OS_NAME") == "linux":
                 if device.idProduct == 0x003C: #self.P32_ID:
@@ -154,6 +163,10 @@ class baseUploader(object):
                     #logging.info("Kernel driver detached")
 
 
+<<<<<<< HEAD:pinguino/qtgui/pinguino_core/uploader/uploader.py
+=======
+
+>>>>>>> fec17e359bf7aa287e422f0f09d095eeb3e4f701:qtgui/pinguino_api/uploader/uploader.py
             #handle.setConfiguration(self.configuration)
             handle.setConfiguration(self.ACTIVE_CONFIG)
             #logging.info("Configuration set")
@@ -220,17 +233,27 @@ class Uploader(object):
             if board.arch == 8:
                 from .uploader8 import uploader8 as Uploader
 
+<<<<<<< HEAD:pinguino/qtgui/pinguino_core/uploader/uploader.py
             elif board.arch == 32:
                 from .uploader32 import uploader32 as Uploader
+=======
+        #self.uploader = Uploader(hexfile, board)
+        self.uploader = Uploader()
+>>>>>>> fec17e359bf7aa287e422f0f09d095eeb3e4f701:qtgui/pinguino_api/uploader/uploader.py
 
         self.uploader = Uploader()
 
 
+<<<<<<< HEAD:pinguino/qtgui/pinguino_core/uploader/uploader.py
     #----------------------------------------------------------------------
     # @Debugger.debug_method
     def upload_hex(self):
         self.uploader.report = []
         # self.uploader.writeHex()
         self.uploader.uploadDevice(self.hex_file, self.board)
+=======
+        self.uploader.report = [] 
+        self.uploader.uploadDevice(self.hexfile, self.board)
+>>>>>>> fec17e359bf7aa287e422f0f09d095eeb3e4f701:qtgui/pinguino_api/uploader/uploader.py
         return self.uploader.report
 
