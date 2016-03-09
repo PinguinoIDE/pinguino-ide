@@ -60,12 +60,8 @@ class baseUploader(object):
     VSC_ACTIVE_CONFIG               = 0x02
 
 # # ------------------------------------------------------------------------------
-    # def __init__(self, hex_file, board):
-        # self.hex_file = hex_file
-        # self.filename = hex_file
-        # self.board = board
+    # def __init__(self, hexfile, board):
         # self.report = []
-
 
 # ------------------------------------------------------------------------------
     def add_report(self, message):
@@ -144,7 +140,7 @@ class baseUploader(object):
 
         if handle:
 
-            #logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
+            logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
 
             if os.getenv("PINGUINO_OS_NAME") == "linux":
                 if device.idProduct == 0x003C: #self.P32_ID:
