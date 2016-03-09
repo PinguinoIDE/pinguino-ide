@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=12.0
+Type=Application
+Name=Pinguino IDE 12
+Comment=Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)
+Icon=/usr/share/icons/hicolor/256x256/pinguino_logo-256x256.png
+Exec=pinguino
+Path=
+Terminal=false
+StartupNotify=false
+Categories=Education;Electronics;Development;
