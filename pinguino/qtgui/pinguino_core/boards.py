@@ -85,6 +85,34 @@ class Curiosity(object):
     8-bit (18F) Boards
 ---------------------------------------------------------------------"""
 
+class Pinguino13k50(object):
+    name = 'Pinguino 13K50'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f13k50'
+    board = 'PINGUINO13K50'
+    family = '18F'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend   = 0x8000
+    shortarg = '-p13k50'
+    longarg = '--pinguino13k50'
+
+class Pinguino14k50(object):
+    name = 'Pinguino 14K50'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f14k50'
+    board = 'PINGUINO14K50'
+    family = '18F'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend   = 0x8000
+    shortarg = '-p14k50'
+    longarg = '--pinguino14k50'
+
 class Pinguino2455(object):
     name = 'Pinguino 2455'
     arch = 8
