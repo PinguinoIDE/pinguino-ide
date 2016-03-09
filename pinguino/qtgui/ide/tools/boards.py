@@ -113,7 +113,7 @@ class Boards(object):
 
 
     #----------------------------------------------------------------------
-    def save_config(self):
+    def save_config(self, *args, **kwargs):
 
         if self.main.radioButton_arch_8.isChecked(): arch = 8
         else: arch = 32
