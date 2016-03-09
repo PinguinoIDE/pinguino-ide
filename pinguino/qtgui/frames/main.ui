@@ -1502,7 +1502,7 @@
                </spacer>
               </item>
               <item>
-               <widget class="QCheckBox" name="checkBox">
+               <widget class="QCheckBox" name="checkBox_paths_default">
                 <property name="text">
                  <string>Use default paths</string>
                 </property>
@@ -2467,7 +2467,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox</sender>
+   <sender>checkBox_paths_default</sender>
    <signal>toggled(bool)</signal>
    <receiver>stackedWidget</receiver>
    <slot>setDisabled(bool)</slot>

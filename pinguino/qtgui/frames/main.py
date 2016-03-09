@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/pinguino/qtgui/frames/main.ui'
 #
-# Created: Fri Feb 19 15:00:33 2016
+# Created: Wed Mar  9 16:23:22 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -655,10 +655,10 @@ class Ui_PinguinoIDE(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem10 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem10)
-        self.checkBox = QtGui.QCheckBox(self.frame)
-        self.checkBox.setChecked(True)
-        self.checkBox.setObjectName("checkBox")
-        self.horizontalLayout.addWidget(self.checkBox)
+        self.checkBox_paths_default = QtGui.QCheckBox(self.frame)
+        self.checkBox_paths_default.setChecked(True)
+        self.checkBox_paths_default.setObjectName("checkBox_paths_default")
+        self.horizontalLayout.addWidget(self.checkBox_paths_default)
         self.gridLayout_30.addLayout(self.horizontalLayout, 1, 0, 1, 1)
         self.gridLayout_31.addWidget(self.frame, 1, 0, 1, 2)
         self.comboBox = QtGui.QComboBox(self.Paths)
@@ -1140,7 +1140,7 @@ class Ui_PinguinoIDE(object):
         self.stackedWidget.setCurrentIndex(0)
         self.tabWidget_bottom.setCurrentIndex(1)
         QtCore.QObject.connect(self.comboBox, QtCore.SIGNAL("currentIndexChanged(int)"), self.stackedWidget.setCurrentIndex)
-        QtCore.QObject.connect(self.checkBox, QtCore.SIGNAL("toggled(bool)"), self.stackedWidget.setDisabled)
+        QtCore.QObject.connect(self.checkBox_paths_default, QtCore.SIGNAL("toggled(bool)"), self.stackedWidget.setDisabled)
         QtCore.QMetaObject.connectSlotsByName(PinguinoIDE)
         PinguinoIDE.setTabOrder(self.tabWidget_browser, self.comboBox_files)
         PinguinoIDE.setTabOrder(self.comboBox_files, self.tableWidget_variables)
@@ -1229,7 +1229,7 @@ class Ui_PinguinoIDE(object):
         self.label_12.setText(QtGui.QApplication.translate("PinguinoIDE", "8bit libraries", None, QtGui.QApplication.UnicodeUTF8))
         self.label_13.setText(QtGui.QApplication.translate("PinguinoIDE", "32bit libraries", None, QtGui.QApplication.UnicodeUTF8))
         self.label_15.setText(QtGui.QApplication.translate("PinguinoIDE", "MPLAB IPE", None, QtGui.QApplication.UnicodeUTF8))
-        self.checkBox.setText(QtGui.QApplication.translate("PinguinoIDE", "Use default paths", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkBox_paths_default.setText(QtGui.QApplication.translate("PinguinoIDE", "Use default paths", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox.setItemText(0, QtGui.QApplication.translate("PinguinoIDE", "Compilers", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox.setItemText(1, QtGui.QApplication.translate("PinguinoIDE", "Libraries", None, QtGui.QApplication.UnicodeUTF8))
         self.comboBox.setItemText(2, QtGui.QApplication.translate("PinguinoIDE", "ICSP", None, QtGui.QApplication.UnicodeUTF8))
