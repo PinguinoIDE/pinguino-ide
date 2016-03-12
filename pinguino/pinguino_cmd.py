@@ -56,8 +56,8 @@ pinguino = Pinguino()
 PinguinoConfig.set_environ_vars()
 PinguinoConfig.check_user_files()
 config = Config()
-PinguinoConfig.update_pinguino_paths(config, Pinguino)
-PinguinoConfig.update_pinguino_extra_options(config, Pinguino)
+PinguinoConfig.update_pinguino_paths(config, pinguino)
+PinguinoConfig.update_pinguino_extra_options(config, pinguino)
 PinguinoConfig.update_user_libs(pinguino)
 
 def printb(text, color):
@@ -198,7 +198,7 @@ if parser.board:
                     printb("*" * 70, BColors.Cyan)
                     for line in content_hex: printb(line, BColors.Cyan),
                     printb("*" * 70 + "\n", BColors.Cyan)
-                
+
                 print "OK"
         else:
             pinguino.__hex_file__ = filename[0]

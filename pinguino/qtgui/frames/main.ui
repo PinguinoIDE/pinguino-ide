@@ -2142,17 +2142,17 @@
   </action>
   <action name="actionMain_c">
    <property name="text">
-    <string>Open main.c</string>
+    <string>View main.c</string>
    </property>
   </action>
   <action name="actionDefine_h">
    <property name="text">
-    <string>Open define.h</string>
+    <string>View define.h</string>
    </property>
   </action>
   <action name="actionUser_c">
    <property name="text">
-    <string>Open user.c</string>
+    <string>View user.c</string>
    </property>
   </action>
   <action name="actionUpload_hex_directly">
@@ -2386,7 +2386,7 @@
   </action>
   <action name="actionHex">
    <property name="text">
-    <string>Open .hex</string>
+    <string>View .hex</string>
    </property>
   </action>
   <action name="actionExport_code_to_editor">

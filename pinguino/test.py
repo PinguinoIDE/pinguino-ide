@@ -154,3 +154,5 @@ suite = unittest.TestSuite()
 suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(TestBareMinumumCompilation))
 suite.addTests(unittest.defaultTestLoader.loadTestsFromTestCase(TestPreprocess))
 unittest.TextTestRunner().run(suite)
+
+
