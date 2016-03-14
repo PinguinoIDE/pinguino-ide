@@ -72,7 +72,7 @@ class Pinguino(PinguinoTools):
 
         tmp_dir = os.path.join(os.getenv("PINGUINO_USER_PATH"), "temp")
         if not os.path.exists(tmp_dir):
-            os.mkdir(tmp_dir)
+            os.makedirs(tmp_dir, exist_ok=True)
         tmp_file = os.path.join(tmp_dir, tmp_filename)
         file_ = codecs.open(tmp_file, "w", encoding="utf-8")
         file_.write(code)

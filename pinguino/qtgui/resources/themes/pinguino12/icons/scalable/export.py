@@ -12,10 +12,10 @@ for size in ["16", "24", "32", "48"]:
     path = "../{}".format(size)
 
     if not os.path.exists(path):
-        os.mkdir(path)
+        os.makedirs(path, exist_ok=True)
     else:
         shutil.rmtree(path)
-        os.mkdir(path)
+        os.makedirs(path, exist_ok=True)
 
 
     for file in files:

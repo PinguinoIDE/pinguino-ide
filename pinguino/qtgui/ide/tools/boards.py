@@ -4,7 +4,7 @@
 import os
 
 from PySide import QtGui, QtCore
-
+from collections import OrderedDict
 
 ########################################################################
 class Boards(object):
@@ -19,12 +19,10 @@ class Boards(object):
                       self.main.frame_devices_8,
                       self.main.frame_devices_32]
 
-        #FIXME: add correct options
-        self.HEAPSIZE = {"512 byte": 512,
-                         "1024 byte": 1024,}
+        #self.HEAPSIZE = self.get_heapsize()
 
-        self.main.comboBox_heapsize.clear()
-        self.main.comboBox_heapsize.addItems(list(self.HEAPSIZE.keys()))
+        #self.main.spinBox_heapsize.clear()
+        #self.main.comboBox_heapsize.addItems(list(self.HEAPSIZE.keys()))
 
         self.OPTIMIZATION = "-O2 -O3 -Os".split()
         self.main.comboBox_optimization.clear()
@@ -43,7 +41,7 @@ class Boards(object):
 
 
         self.connect(self.main.checkBox_mips16, QtCore.SIGNAL("clicked()"), self.save_config)
-        self.connect(self.main.comboBox_heapsize, QtCore.SIGNAL("currentIndexChanged(QString)"), self.save_config)
+        self.connect(self.main.spinBox_heapsize, QtCore.SIGNAL("valueChanged(QString)"), self.save_config)
         self.connect(self.main.comboBox_optimization, QtCore.SIGNAL("currentIndexChanged(QString)"), self.save_config)
 
 
@@ -74,6 +72,14 @@ class Boards(object):
         #self.save_config()
 
 
+    ##----------------------------------------------------------------------
+    #def get_heapsize(self):
+        #""""""
+        #heapsize = OrderedDict()
+        #for b in range(0, 8000+512, 512):
+            #heapsize["{} bytes".format(b)] = b
+
+        #return heapsize
 
     #----------------------------------------------------------------------
     def load_config(self):
@@ -100,10 +106,10 @@ class Boards(object):
         mips16 = self.configIDE.config("Board", "mips16", True)
         self.main.checkBox_mips16.setChecked(mips16)
 
-        heapsize = self.configIDE.config("Board", "heapsize", 512)
-        heapsize_values = list(self.HEAPSIZE.values())
-        index = heapsize_values.index(heapsize)
-        self.main.comboBox_heapsize.setCurrentIndex(index)
+        heapsize = self.configIDE.config("Board", "heapsize", 0)
+        #heapsize_values = list(self.HEAPSIZE.values())
+        #index = heapsize_values.index(heapsize)
+        self.main.spinBox_heapsize.setValue(heapsize)
 
         optimization = self.configIDE.config("Board", "optimization", "-O3")
         index = self.OPTIMIZATION.index(optimization)
@@ -135,7 +141,7 @@ class Boards(object):
         self.configIDE.set("Board", "board", name)
 
         self.configIDE.set("Board", "mips16", self.main.checkBox_mips16.isChecked())
-        heapsize = self.HEAPSIZE[self.main.comboBox_heapsize.currentText()]
+        heapsize = self.main.spinBox_heapsize.value()
         self.configIDE.set("Board", "heapsize", heapsize)
         self.configIDE.set("Board", "optimization", self.main.comboBox_optimization.currentText())
 

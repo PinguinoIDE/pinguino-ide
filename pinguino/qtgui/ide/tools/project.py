@@ -339,7 +339,7 @@ class Project(object):
             default_path = os.path.join(os.getenv("PINGUINO_USER_PATH"), "projects")
 
             if not os.path.exists(default_path):
-                os.mkdir(default_path)
+                os.makedirs(default_path, exist_ok=True)
             self.ConfigProject.filename = os.path.join(default_path, self.get_project_name()) + ".ppde"
             self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
             self.project_saved = True
@@ -766,7 +766,7 @@ class Project(object):
 
         dirname = Dialogs.get_text(self, "New directory", default="untitled-dir")
         new_dir = os.path.join(path, dirname)
-        os.mkdir(new_dir)
+        os.makedirs(new_dir, exist_ok=True)
 
         if self.get_current_item().path in self.get_files_option_from_project():
             self.add_existing_directory(new_dir)
@@ -872,9 +872,9 @@ class Project(object):
         # lib = os.path.join(library_dir, "{}.lib".format(libname))
         # self.ConfigProject.set("Main", "lib", lib)
 
-        os.mkdir(library_dir)
-        os.mkdir(example_dir)
-        # os.mkdir(tests_dir)
+        os.makedirs(library_dir, exist_ok=True)
+        os.makedirs(example_dir, exist_ok=True)
+        # os.makedirs(tests_dir, exist_ok=True)
 
         self.add_existing_directory(library_dir, inherits_status=True)
 
@@ -955,9 +955,9 @@ PUBLIC u8 my_function(){{
 
             lib_dir = os.path.dirname(lib)
             if not os.path.isdir(os.path.join(lib_dir, arch)):
-                os.mkdir(os.path.join(lib_dir, arch))
+                os.makedirs(os.path.join(lib_dir, arch), exist_ok=True)
             if not os.path.isdir(os.path.join(lib_dir, "pdl")):
-                os.mkdir(os.path.join(lib_dir, "pdl"))
+                os.makedirs(os.path.join(lib_dir, "pdl"), exist_ok=True)
 
             define = os.path.join(lib_dir, arch, "{}.h".format(lib_name))
             userc = os.path.join(lib_dir, arch, "{}.c".format(lib_name))

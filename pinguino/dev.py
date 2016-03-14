@@ -57,7 +57,6 @@ class PinguinoLib:
     def pinguino_setup(self, **kwargs):
         """"""
         return setup(install_requires = ["pinguino",
-                                         # "pyside",
                                          ],
 
                     # include_package_data = True,

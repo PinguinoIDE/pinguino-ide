@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/yeison/Documentos/Desarrollo/Pinguino/GitHub/pinguino-ide/pinguino/qtgui/frames/main.ui'
 #
-# Created: Wed Mar  9 16:23:22 2016
+# Created: Sun Mar 13 21:33:15 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -453,9 +453,11 @@ class Ui_PinguinoIDE(object):
         self.label_8.setCursor(QtCore.Qt.WhatsThisCursor)
         self.label_8.setObjectName("label_8")
         self.horizontalLayout_6.addWidget(self.label_8)
-        self.comboBox_heapsize = QtGui.QComboBox(self.frame_advance)
-        self.comboBox_heapsize.setObjectName("comboBox_heapsize")
-        self.horizontalLayout_6.addWidget(self.comboBox_heapsize)
+        self.spinBox_heapsize = QtGui.QSpinBox(self.frame_advance)
+        self.spinBox_heapsize.setMaximum(8192)
+        self.spinBox_heapsize.setSingleStep(512)
+        self.spinBox_heapsize.setObjectName("spinBox_heapsize")
+        self.horizontalLayout_6.addWidget(self.spinBox_heapsize)
         self.gridLayout_17.addLayout(self.horizontalLayout_6, 3, 0, 1, 1)
         self.line_5 = QtGui.QFrame(self.frame_advance)
         self.line_5.setFrameShape(QtGui.QFrame.HLine)
@@ -1135,7 +1137,7 @@ class Ui_PinguinoIDE(object):
 
         self.retranslateUi(PinguinoIDE)
         self.tabWidget_files.setCurrentIndex(-1)
-        self.tabWidget_tools.setCurrentIndex(6)
+        self.tabWidget_tools.setCurrentIndex(3)
         self.tabWidget_browser.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
         self.tabWidget_bottom.setCurrentIndex(1)
@@ -1211,6 +1213,7 @@ class Ui_PinguinoIDE(object):
         self.comboBox_optimization.setItemText(2, QtGui.QApplication.translate("PinguinoIDE", "-Os", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setToolTip(QtGui.QApplication.translate("PinguinoIDE", "<html><head/><body><p>The amount of memory allocated to objects that are being defined.</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.label_8.setText(QtGui.QApplication.translate("PinguinoIDE", "Heap Size:", None, QtGui.QApplication.UnicodeUTF8))
+        self.spinBox_heapsize.setSuffix(QtGui.QApplication.translate("PinguinoIDE", " bytes", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget_tools.setTabText(self.tabWidget_tools.indexOf(self.Boards), QtGui.QApplication.translate("PinguinoIDE", "Boards", None, QtGui.QApplication.UnicodeUTF8))
         self.checkBox_case_sensitive.setText(QtGui.QApplication.translate("PinguinoIDE", "Case sensitive", None, QtGui.QApplication.UnicodeUTF8))
         self.label_search.setText(QtGui.QApplication.translate("PinguinoIDE", "Search:", None, QtGui.QApplication.UnicodeUTF8))
@@ -1313,9 +1316,9 @@ class Ui_PinguinoIDE(object):
         self.action24x24.setText(QtGui.QApplication.translate("PinguinoIDE", "24 x 24", None, QtGui.QApplication.UnicodeUTF8))
         self.action32x32.setText(QtGui.QApplication.translate("PinguinoIDE", "32 x 32", None, QtGui.QApplication.UnicodeUTF8))
         self.action48x48.setText(QtGui.QApplication.translate("PinguinoIDE", "48 x 48", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionMain_c.setText(QtGui.QApplication.translate("PinguinoIDE", "Open main.c", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionDefine_h.setText(QtGui.QApplication.translate("PinguinoIDE", "Open define.h", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionUser_c.setText(QtGui.QApplication.translate("PinguinoIDE", "Open user.c", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionMain_c.setText(QtGui.QApplication.translate("PinguinoIDE", "View main.c", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionDefine_h.setText(QtGui.QApplication.translate("PinguinoIDE", "View define.h", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionUser_c.setText(QtGui.QApplication.translate("PinguinoIDE", "View user.c", None, QtGui.QApplication.UnicodeUTF8))
         self.actionUpload_hex_directly.setText(QtGui.QApplication.translate("PinguinoIDE", "Upload .hex...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionMenubar.setText(QtGui.QApplication.translate("PinguinoIDE", "Menubar", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_project.setText(QtGui.QApplication.translate("PinguinoIDE", "New project...", None, QtGui.QApplication.UnicodeUTF8))
@@ -1349,7 +1352,7 @@ class Ui_PinguinoIDE(object):
         self.actionNew_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "New blocks file", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_blocks_file.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+Shift+N", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAdd_new_blocks_file.setText(QtGui.QApplication.translate("PinguinoIDE", "Add new blocks file...", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionHex.setText(QtGui.QApplication.translate("PinguinoIDE", "Open .hex", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionHex.setText(QtGui.QApplication.translate("PinguinoIDE", "View .hex", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport_code_to_editor.setText(QtGui.QApplication.translate("PinguinoIDE", "Export code to editor", None, QtGui.QApplication.UnicodeUTF8))
         self.actionInsert_Block.setText(QtGui.QApplication.translate("PinguinoIDE", "Insert block", None, QtGui.QApplication.UnicodeUTF8))
         self.actionInsert_Block.setShortcut(QtGui.QApplication.translate("PinguinoIDE", "Ctrl+I", None, QtGui.QApplication.UnicodeUTF8))

@@ -318,7 +318,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>6</number>
+        <number>3</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -1094,7 +1094,17 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox_heapsize"/>
+               <widget class="QSpinBox" name="spinBox_heapsize">
+                <property name="suffix">
+                 <string> bytes</string>
+                </property>
+                <property name="maximum">
+                 <number>8192</number>
+                </property>
+                <property name="singleStep">
+                 <number>512</number>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>

@@ -73,11 +73,11 @@ class PinguinoConfig(object):
 
         #create ~/.pinguino
         if not os.path.exists(os.getenv("PINGUINO_USER_PATH")):
-            os.mkdir(os.getenv("PINGUINO_USER_PATH"))
+            os.makedirs(os.getenv("PINGUINO_USER_PATH"), exist_ok=True)
 
         #create ~/.pinguino/user
         if not os.path.exists(os.getenv("PINGUINO_DEFAULT_FILES")):
-            os.mkdir(os.getenv("PINGUINO_DEFAULT_FILES"))
+            os.makedirs(os.getenv("PINGUINO_DEFAULT_FILES"), exist_ok=True)
 
         #Check files and directories
         cls.check_locations()
@@ -144,7 +144,7 @@ class PinguinoConfig(object):
                 all_dirs.append(dir_)
                 dir_, dir2 = os.path.split(dir_)
             all_dirs.reverse()
-            for dir_ in all_dirs:  os.mkdir(dir_)
+            for dir_ in all_dirs:  os.makedirs(dir_, exist_ok=True)
 
         #When src is a directory, copy file by file
         all_files = []
