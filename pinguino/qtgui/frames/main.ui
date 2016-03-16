@@ -189,7 +189,6 @@
     </widget>
     <addaction name="actionAbout"/>
     <addaction name="actionSubmit_bug_report"/>
-    <addaction name="actionPinguino_ide_manual"/>
     <addaction name="separator"/>
     <addaction name="menuLinks"/>
    </widget>
@@ -2034,17 +2033,6 @@
     <string>Library manager</string>
    </property>
   </action>
-  <action name="actionSet_paths">
-   <property name="text">
-    <string>System paths...</string>
-   </property>
-   <property name="toolTip">
-    <string>Set paths</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Shift+P</string>
-   </property>
-  </action>
   <action name="actionIndent">
    <property name="text">
     <string>Indent</string>
@@ -2348,25 +2336,6 @@
     <string>Move vertical tool area to right</string>
    </property>
   </action>
-  <action name="actionPinguino_ide_manual">
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Pinguino IDE manual</string>
-   </property>
-  </action>
-  <action name="actionLibraries_help">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="enabled">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Libraries help</string>
-   </property>
-  </action>
   <action name="actionGitPinguinoCompilers">
    <property name="text">
     <string>pinguino-compilers</string>
@@ -2399,11 +2368,6 @@
     <string>View .hex</string>
    </property>
   </action>
-  <action name="actionExport_code_to_editor">
-   <property name="text">
-    <string>Export code to editor</string>
-   </property>
-  </action>
   <action name="actionInsert_Block">
    <property name="text">
     <string>Insert block</string>
@@ -2422,16 +2386,6 @@
     <string>New library...</string>
    </property>
   </action>
-  <action name="actionImport_library_project">
-   <property name="text">
-    <string>Import library project (PINGUINO)...</string>
-   </property>
-  </action>
-  <action name="action">
-   <property name="text">
-    <string>-_-</string>
-   </property>
-  </action>
   <action name="actionTabPaths">
    <property name="checkable">
     <bool>true</bool>
@@ -2440,12 +2394,9 @@
     <string>Paths</string>
    </property>
   </action>
-  <action name="actionTabICSP">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
+  <action name="actionExport_code_to_editor">
    <property name="text">
-    <string>ICSP</string>
+    <string>Export code to editor</string>
    </property>
   </action>
  </widget>
