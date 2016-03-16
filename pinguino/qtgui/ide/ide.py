@@ -14,7 +14,7 @@ from .events import PinguinoEvents
 from .methods.decorators import Decorator
 from .custom_widgets.code_editor.autocomplete_icons import CompleteIcons
 # from .custom_widgets import PinguinoTextEdit
-from .help.help import Help
+#from .help.help import Help
 # from .methods.widgets_features import PrettyFeatures
 from ..gide.app.graphical import GraphicalIDE
 from ..pinguino_core.pinguino import Pinguino, AllBoards
@@ -30,7 +30,7 @@ from .tools.log import Log
 from .tools.stdout import Stdout
 
 ########################################################################
-class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Log, Stdout):
+class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
 
     #@Decorator.debug_time()
     def __init__(self, splash_write):
@@ -84,7 +84,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, Help, PythonShell, Log, Std
         self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
         PythonShell.__init__(self)
         Log.__init__(self)
-        Help.__init__(self)
+        #Help.__init__(self)
 
         splash_write(QtGui.QApplication.translate("Splash", "Opening last files"))
         self.ide_open_last_files()
