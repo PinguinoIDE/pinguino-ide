@@ -923,7 +923,7 @@ class PinguinoMain(object):
             self.configIDE.save_config()
 
             for board in self.pinguinoAPI._boards_:
-                print(board.name)
+                #print(board.name)
                 if board.name == board_name:
                     self.pinguinoAPI.set_board(board)
 

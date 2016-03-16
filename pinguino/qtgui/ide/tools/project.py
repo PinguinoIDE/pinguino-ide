@@ -22,9 +22,43 @@ from pinguino.dev import PinguinoLib
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
     from configparser import RawConfigParser
+    from os import makedirs
 else:
     #Python2
     from ConfigParser import RawConfigParser
+
+    #----------------------------------------------------------------------
+    def makedirs(name, mode=0o777, exist_ok=False):
+        """makedirs(name [, mode=0o777][, exist_ok=False])
+
+        Super-mkdir; create a leaf directory and all intermediate ones.  Works like
+        mkdir, except that any intermediate path segment (not just the rightmost)
+        will be created if it does not exist. If the target directory already
+        exists, raise an OSError if exist_ok is False. Otherwise no exception is
+        raised.  This is recursive.
+
+        """
+        head, tail = os.path.split(name)
+        if not tail:
+            head, tail = os.path.split(head)
+        if head and tail and not os.path.exists(head):
+            try:
+                makedirs(head, mode, exist_ok)
+            except FileExistsError:
+                # Defeats race condition when another thread created the path
+                pass
+            cdir = os.curdir
+            if isinstance(tail, bytes):
+                cdir = bytes(os.curdir, 'ASCII')
+            if tail == cdir:           # xxx/newdir/. exists if xxx/newdir exists
+                return
+        try:
+            os.mkdir(name, mode)
+        except OSError:
+            # Cannot rely on checking for EEXIST, since the operating system
+            # could give priority to other errors like EACCES or EROFS
+            if not exist_ok or not os.path.isdir(name):
+                raise
 
 
 
@@ -339,7 +373,7 @@ class Project(object):
             default_path = os.path.join(os.getenv("PINGUINO_USER_PATH"), "projects")
 
             if not os.path.exists(default_path):
-                os.makedirs(default_path, exist_ok=True)
+                makedirs(default_path, exist_ok=True)
             self.ConfigProject.filename = os.path.join(default_path, self.get_project_name()) + ".ppde"
             self.ConfigProject.write(open(self.ConfigProject.filename, "w"))
             self.project_saved = True
@@ -766,7 +800,7 @@ class Project(object):
 
         dirname = Dialogs.get_text(self, "New directory", default="untitled-dir")
         new_dir = os.path.join(path, dirname)
-        os.makedirs(new_dir, exist_ok=True)
+        makedirs(new_dir, exist_ok=True)
 
         if self.get_current_item().path in self.get_files_option_from_project():
             self.add_existing_directory(new_dir)
@@ -872,9 +906,9 @@ class Project(object):
         # lib = os.path.join(library_dir, "{}.lib".format(libname))
         # self.ConfigProject.set("Main", "lib", lib)
 
-        os.makedirs(library_dir, exist_ok=True)
-        os.makedirs(example_dir, exist_ok=True)
-        # os.makedirs(tests_dir, exist_ok=True)
+        makedirs(library_dir, exist_ok=True)
+        makedirs(example_dir, exist_ok=True)
+        # makedirs(tests_dir, exist_ok=True)
 
         self.add_existing_directory(library_dir, inherits_status=True)
 
@@ -955,9 +989,9 @@ PUBLIC u8 my_function(){{
 
             lib_dir = os.path.dirname(lib)
             if not os.path.isdir(os.path.join(lib_dir, arch)):
-                os.makedirs(os.path.join(lib_dir, arch), exist_ok=True)
+                makedirs(os.path.join(lib_dir, arch), exist_ok=True)
             if not os.path.isdir(os.path.join(lib_dir, "pdl")):
-                os.makedirs(os.path.join(lib_dir, "pdl"), exist_ok=True)
+                makedirs(os.path.join(lib_dir, "pdl"), exist_ok=True)
 
             define = os.path.join(lib_dir, arch, "{}.h".format(lib_name))
             userc = os.path.join(lib_dir, arch, "{}.c".format(lib_name))

@@ -4,6 +4,11 @@ import sys
 import os
 import shutil
 
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "2":
+    from dev import makedirs
+
+
 root = os.path.dirname(__file__)
 files = os.listdir(".")
 files = filter(lambda f:f.endswith(".svg"), files)

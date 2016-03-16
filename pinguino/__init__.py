@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 from . import version
+
 from .qtgui.pinguino_core import boards
 from .qtgui.pinguino_core.config import Config
 from .qtgui.pinguino_core.pinguino import Pinguino
 from .qtgui.pinguino_core.pinguino_config import PinguinoConfig
-
 
 #----------------------------------------------------------------------
 def lazy(pinguino):

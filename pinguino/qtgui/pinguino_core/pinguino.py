@@ -10,6 +10,46 @@ import codecs
 from .pinguino_tools import PinguinoTools
 from .boards import boardlist as AllBoards
 
+# Python3 compatibility
+if os.getenv("PINGUINO_PYTHON") is "3":
+    #Python3
+    from os import makedirs
+else:
+    #Python2
+    #----------------------------------------------------------------------
+    def makedirs(name, mode=0o777, exist_ok=False):
+        """makedirs(name [, mode=0o777][, exist_ok=False])
+
+        Super-mkdir; create a leaf directory and all intermediate ones.  Works like
+        mkdir, except that any intermediate path segment (not just the rightmost)
+        will be created if it does not exist. If the target directory already
+        exists, raise an OSError if exist_ok is False. Otherwise no exception is
+        raised.  This is recursive.
+
+        """
+        head, tail = os.path.split(name)
+        if not tail:
+            head, tail = os.path.split(head)
+        if head and tail and not os.path.exists(head):
+            try:
+                makedirs(head, mode, exist_ok)
+            except FileExistsError:
+                # Defeats race condition when another thread created the path
+                pass
+            cdir = os.curdir
+            if isinstance(tail, bytes):
+                cdir = bytes(os.curdir, 'ASCII')
+            if tail == cdir:           # xxx/newdir/. exists if xxx/newdir exists
+                return
+        try:
+            os.mkdir(name, mode)
+        except OSError:
+            # Cannot rely on checking for EEXIST, since the operating system
+            # could give priority to other errors like EACCES or EROFS
+            if not exist_ok or not os.path.isdir(name):
+                raise
+
+
 
 ########################################################################
 class Pinguino(PinguinoTools):
@@ -72,7 +112,7 @@ class Pinguino(PinguinoTools):
 
         tmp_dir = os.path.join(os.getenv("PINGUINO_USER_PATH"), "temp")
         if not os.path.exists(tmp_dir):
-            os.makedirs(tmp_dir, exist_ok=True)
+            makedirs(tmp_dir, exist_ok=True)
         tmp_file = os.path.join(tmp_dir, tmp_filename)
         file_ = codecs.open(tmp_file, "w", encoding="utf-8")
         file_.write(code)

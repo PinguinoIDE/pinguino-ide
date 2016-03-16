@@ -11,9 +11,45 @@ import sys
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
     from configparser import RawConfigParser
+    from os import makedirs
 else:
     #Python2
     from ConfigParser import RawConfigParser
+
+    #----------------------------------------------------------------------
+    def makedirs(name, mode=0o777, exist_ok=False):
+        """makedirs(name [, mode=0o777][, exist_ok=False])
+
+        Super-mkdir; create a leaf directory and all intermediate ones.  Works like
+        mkdir, except that any intermediate path segment (not just the rightmost)
+        will be created if it does not exist. If the target directory already
+        exists, raise an OSError if exist_ok is False. Otherwise no exception is
+        raised.  This is recursive.
+
+        """
+        head, tail = os.path.split(name)
+        if not tail:
+            head, tail = os.path.split(head)
+        if head and tail and not os.path.exists(head):
+            try:
+                makedirs(head, mode, exist_ok)
+            except FileExistsError:
+                # Defeats race condition when another thread created the path
+                pass
+            cdir = os.curdir
+            if isinstance(tail, bytes):
+                cdir = bytes(os.curdir, 'ASCII')
+            if tail == cdir:           # xxx/newdir/. exists if xxx/newdir exists
+                return
+        try:
+            os.mkdir(name, mode)
+        except OSError:
+            # Cannot rely on checking for EEXIST, since the operating system
+            # could give priority to other errors like EACCES or EROFS
+            if not exist_ok or not os.path.isdir(name):
+                raise
+
+
 
 ########################################################################
 class PinguinoConfig(object):
@@ -73,11 +109,11 @@ class PinguinoConfig(object):
 
         #create ~/.pinguino
         if not os.path.exists(os.getenv("PINGUINO_USER_PATH")):
-            os.makedirs(os.getenv("PINGUINO_USER_PATH"), exist_ok=True)
+            makedirs(os.getenv("PINGUINO_USER_PATH"), exist_ok=True)
 
         #create ~/.pinguino/user
         if not os.path.exists(os.getenv("PINGUINO_DEFAULT_FILES")):
-            os.makedirs(os.getenv("PINGUINO_DEFAULT_FILES"), exist_ok=True)
+            makedirs(os.getenv("PINGUINO_DEFAULT_FILES"), exist_ok=True)
 
         #Check files and directories
         cls.check_locations()
@@ -144,7 +180,7 @@ class PinguinoConfig(object):
                 all_dirs.append(dir_)
                 dir_, dir2 = os.path.split(dir_)
             all_dirs.reverse()
-            for dir_ in all_dirs:  os.makedirs(dir_, exist_ok=True)
+            for dir_ in all_dirs: makedirs(dir_, exist_ok=True)
 
         #When src is a directory, copy file by file
         all_files = []
@@ -325,3 +361,4 @@ class PinguinoConfig(object):
 
 
         return pdl_libs
+
