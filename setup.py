@@ -25,14 +25,14 @@ elif os.name == "nt":  #Windows
 
 
 setup(name = "pinguino",
-      version = "12.0.29",
+      version = "12.0.31",
       description = "Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)",
       description_file = "README.rst",
 
       author = "",
       author_email = "",
       maintainer = "Yeison Cardona",
-      maintainer_email = "yeison.eng@gmail.com",
+      maintainer_email = "yeisoneng@gmail.com",
 
       url = "http://www.pinguino.cc/",
       download_url = "",
@@ -58,13 +58,17 @@ setup(name = "pinguino",
       include_package_data = True,
 
       install_requires = [
-                          "gitpython",
-                          "hgapi",
+                          #"gitpython",
+                          #"hgapi",
                           "pyusb==1.0.0b2",
-                          "setuptools",
-                          "pip",
-                          # "pyside",
+                          #"setuptools",
+                          #"wheel"
+                          #"pyside",
                           ],
+
+      extras_require = {
+          "gui":  ["pyside"]
+      },
 
       scripts = [
                  "cmd/pinguinoide",			# pinguino ide launcher
