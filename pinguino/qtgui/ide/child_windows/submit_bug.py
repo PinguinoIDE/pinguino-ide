@@ -22,7 +22,7 @@ from ...frames.submit_bug import Ui_SubmitBug
 from ..methods.dialogs import Dialogs
 
 if os.getenv("PINGUINO_MODE") == "NORMAL":
-    SUBMIT_SERVER = "http://submit-pinguino.rhcloud.com/submit/"
+    SUBMIT_SERVER = "http://submit.pinguino.xyz/submit/"
 else:
     SUBMIT_SERVER = "http://localhost:8000/submit/"
 
