@@ -261,7 +261,7 @@ class PinguinoConfig(object):
 
     #----------------------------------------------------------------------
     @classmethod
-    def update_user_libs(cls, pinguino_object):
+    def update_user_libs(cls, pinguino_object, p8=[], p32=[], pdl=[]):
         """Reload paths for user installed libraries.
 
         Parameters
@@ -270,16 +270,16 @@ class PinguinoConfig(object):
             Pinguino
         """
 
-        pinguino_object.USER_P8_LIBS = cls.get_p8_libraries()
-        pinguino_object.USER_P32_LIBS = cls.get_p32_libraries()
-        pinguino_object.USER_PDL = cls.get_pdl_libraries()
+        pinguino_object.USER_P8_LIBS = cls.get_p8_libraries() + p8
+        pinguino_object.USER_P32_LIBS = cls.get_p32_libraries() + p32
+        pinguino_object.USER_PDL = cls.get_pdl_libraries() + pdl
 
 
     #----------------------------------------------------------------------
     @classmethod
     def get_p8_libraries(cls):
         """
-        This is path were is .c files.
+        This is path where are .c files.
 
         """
         p8_libs = []
@@ -308,7 +308,7 @@ class PinguinoConfig(object):
     def get_p32_libraries(cls):
         """
 
-        This is path were is .c files.
+        This is path where are .c files.
 
         """
         p32_libs = []

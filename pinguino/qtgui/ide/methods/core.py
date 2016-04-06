@@ -756,8 +756,12 @@ class PinguinoMain(object):
             else:
                 if self.is_project() and self.is_library():
                     self.ide_save_all()
-                    self.refresh_libraries()
+                    self.refresh_libraries(**self.get_library_kwargs())
                     logging.info("Adding library to environment...")
+
+
+
+
                 compile_code = lambda :self.pinguinoAPI.compile_file([filename])
 
         else:
@@ -784,7 +788,7 @@ class PinguinoMain(object):
         self.post_compile(dialog_upload)
         self.main.actionHex.setVisible(bool(self.get_current_hex()))
 
-        if not os.path.isfile(os.path.splitext(filename)[0] + ".hex"):
+        if self.is_graphical():
             shutil.move(self.pinguinoAPI.get_hex_file(), os.path.splitext(filename)[0] + ".hex")
 
 
@@ -2645,10 +2649,10 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
 
     #----------------------------------------------------------------------
-    def refresh_libraries(self):
+    def refresh_libraries(self, **kwargs):
         """"""
         self.pinguinoAPI.force_reload_libs()
-        PinguinoConfig.update_user_libs(self.pinguinoAPI)
+        PinguinoConfig.update_user_libs(self.pinguinoAPI, **kwargs)
         self.update_reserved_words()
         if hasattr(self, "assistant"): delattr(self, "assistant")
         self.change_dir_files(0)

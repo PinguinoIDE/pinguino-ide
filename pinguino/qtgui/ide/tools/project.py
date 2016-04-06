@@ -1270,3 +1270,24 @@ PUBLIC u8 my_function(){{
         parse_lib.write(open(os.path.join(self.get_library_path(), "PINGUINO"), "w"))
 
 
+
+
+    #----------------------------------------------------------------------
+    def get_library_kwargs(self):
+        """"""
+        path = self.get_default_project_dir()
+        k = {}
+
+        if os.path.exists(os.path.join(path, "p8")):
+            k["p8"] = [os.path.join(path, "p8")]
+
+        if os.path.exists(os.path.join(path, "p32")):
+            k["p32"] = [os.path.join(path, "p32")]
+        pdl = []
+        for f in os.listdir(os.path.join(path, "pdl")):
+            if f.endswith(".pdl") or  f.endswith(".pdl32"):
+                pdl.append(os.path.join(path, "pdl", f))
+
+        k["pdl"] = pdl
+
+        return k

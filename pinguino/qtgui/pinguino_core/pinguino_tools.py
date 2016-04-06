@@ -485,7 +485,7 @@ class PinguinoTools(Uploader):
 
         declarations = []
         for func in self.functions_declarations:
-            decl = "{return} {name}({args});".format(**func)
+            decl = "{return_true} {name}({args});".format(**func)
             declarations.append(decl)
 
         if declarations:
@@ -1123,6 +1123,7 @@ class PinguinoTools(Uploader):
                 "-O" + os.path.join(src_dir, 'main.hex'),
                 ] + user_imports,
                stdout=fichier, stderr=STDOUT)
+
 
         #if board.arch == 8 and board.bldr == 'boot4' and compiler == 'sdcc':
         elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'sdcc':
