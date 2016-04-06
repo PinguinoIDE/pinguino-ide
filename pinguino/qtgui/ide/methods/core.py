@@ -771,7 +771,6 @@ class PinguinoMain(object):
             else:
                 compile_code = lambda :self.pinguinoAPI.compile_string(self.PinguinoKIT.get_pinguino_source_code())
 
-
         if self.is_project() and not self.is_library():
             self.ide_save_all()
             self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(self.get_project_name())))
@@ -784,6 +783,9 @@ class PinguinoMain(object):
         self.update_stdout()
         self.post_compile(dialog_upload)
         self.main.actionHex.setVisible(bool(self.get_current_hex()))
+
+        if not os.path.isfile(os.path.splitext(filename)[0] + ".hex"):
+            shutil.move(self.pinguinoAPI.get_hex_file(), os.path.splitext(filename)[0] + ".hex")
 
 
     #----------------------------------------------------------------------
