@@ -167,7 +167,7 @@ class GraphicalIDE(Code2Blocks):
 
 
     #----------------------------------------------------------------------
-    def save_as(self, *args, **kwargs):
+    def ide_save_as(self, *args, **kwargs):
 
         editor = kwargs.get("editor", None)
         if not editor: editor = self.ide.get_tab().currentWidget()
