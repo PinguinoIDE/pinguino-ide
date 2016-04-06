@@ -203,6 +203,7 @@ class PinguinoParser(object):
                     this_function["line"] = line + 1
                     this_function["name"] = match.groups()[2] + match.groups()[3]
                     this_function["return"] = ("" if not match.groups()[2] else "pointer to ") + ((match.groups()[0] + " " + match.groups()[1]) if match.groups()[0] else match.groups()[1])
+                    this_function["return_true"] = ((match.groups()[0] + " " + match.groups()[1]) if match.groups()[0] else match.groups()[1])
                     this_function["args"] = match.groups()[4]
                     this_function["filename"] = filename
                     functions.append(this_function)
