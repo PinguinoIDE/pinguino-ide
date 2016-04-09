@@ -103,6 +103,7 @@ class Project(object):
 
         if file_project.endswith("PINGUINO"):
             self.import_library(file_project)
+            return
 
         elif file_project.endswith(".ppde"):
             self.open_project_from_path(file_project)
@@ -120,10 +121,19 @@ class Project(object):
             self.ConfigProject.readfp(open(filename, "r"))
             self.ConfigProject.filename = filename
 
+            os.environ["PINGUINO_PROJECT"] = self.ConfigProject.get("Main", "name")
+
             project_name = self.reload_project(open_=True)
-            logging.debug("Opening \"{}\" project.".format(project_name))
+
+
+            if self.is_library():
+                logging.debug("Opening \"{}\" library.".format(project_name))
+            else:
+                logging.debug("Opening \"{}\" project.".format(project_name))
+
 
             self.update_recents_projects(self.ConfigProject.filename)
+
 
             self.ide_close_all()
             if self.is_library():
@@ -148,9 +158,12 @@ class Project(object):
         project_name = self.ConfigProject.get("Main", "name")
         self.main.treeWidget_projects.setHeaderLabel(project_name)
 
-        if not self.ConfigProject.has_section("Ignore"): to_ignore = []
-        elif not self.ConfigProject.options("Ignore"): to_ignore = []
-        else: to_ignore = [self.ConfigProject.get("Ignore", option) for option in self.ConfigProject.options("Ignore")]
+        if not self.ConfigProject.has_section("Ignore"):
+            to_ignore = []
+        elif not self.ConfigProject.options("Ignore"):
+            to_ignore = []
+        else:
+            to_ignore = [self.ConfigProject.get("Ignore", option) for option in self.ConfigProject.options("Ignore")]
 
         inherits_status = self.get_inherits_from_project()
 
@@ -1224,7 +1237,7 @@ PUBLIC u8 my_function(){{
     #----------------------------------------------------------------------
     def import_library(self, filename):
         """"""
-
+        logging.debug("Loading library.")
         parce_pinguino = RawConfigParser()
         parce_pinguino.readfp(open(filename, "r"))
 
@@ -1238,15 +1251,18 @@ PUBLIC u8 my_function(){{
 
         if "{}.lib".format(library_name) in os.listdir(library_dir):
             self.ConfigProject.set("Main", "lib", os.path.join(library_dir, "{}.lib".format(library_name)))
+            self.ide_open_file_from_path(filename=os.path.join(library_dir, "{}.lib".format(library_name)))
 
         if "{}.lib32".format(library_name) in os.listdir(library_dir):
             self.ConfigProject.set("Main", "lib32", os.path.join(library_dir, "{}.lib32".format(library_name)))
+            self.ide_open_file_from_path(filename=os.path.join(library_dir, "{}.lib32".format(library_name)))
 
         self.add_existing_directory(library_dir, inherits_status=True, library=True)
         self.update_project_status(library_name)
 
-        # self.reload_project()
-        self.ide_open_file_from_path(filename=filename)
+        #self.update_recents_projects(filename)
+
+        #self.ide_open_file_from_path(filename=filename)
 
 
     #----------------------------------------------------------------------

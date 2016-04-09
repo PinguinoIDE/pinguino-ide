@@ -1715,7 +1715,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         editor = self.get_current_editor()
         dirpath = self.get_default_dir()
 
-        filenames = Dialogs.set_open_files(self, dirpath)
+        filenames = Dialogs.set_open_files(self, dirpath=dirpath)
         if filenames is None: return
 
         for filename in filenames:
