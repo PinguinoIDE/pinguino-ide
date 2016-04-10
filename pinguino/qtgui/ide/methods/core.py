@@ -18,7 +18,7 @@ from PySide import QtGui, QtCore
 from ...pinguino_core.pinguino_config import PinguinoConfig
 
 
-from .core_threads import UpdateAutocompleter, PinguinoRequest
+from .core_threads import UpdateAutocompleter  #, PinguinoRequest
 from .parser import PinguinoParser
 
 from ..custom_widgets import PinguinoCodeEditor
@@ -1003,8 +1003,8 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         """This method will be runned with IDE starting."""
 
         # Search updates
-        if os.getenv("PINGUINO_MODE") == "NORMAL":
-            self.need_update()
+        #if os.getenv("PINGUINO_MODE") == "NORMAL":
+            #self.need_update()
 
         # Try to send failed submittes
         try:send_old_submits()
@@ -1023,18 +1023,18 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             logging.info(msg)
 
 
-    #----------------------------------------------------------------------
-    def need_update(self):
-        """"""
-        url = "https://api.github.com/repos/PinguinoIDE/pinguino-ide/releases/latest"
+    ##----------------------------------------------------------------------
+    #def need_update(self):
+        #""""""
+        #url = "https://api.github.com/repos/PinguinoIDE/pinguino-ide/releases/latest"
 
-        if not hasattr(self, "thread_response"):
-            self.thread_response = PinguinoRequest(url)
-            self.thread_response.signal_message.connect(self.show_message)
-            self.thread_response.setTerminationEnabled(True)
+        #if not hasattr(self, "thread_response"):
+            #self.thread_response = PinguinoRequest(url)
+            #self.thread_response.signal_message.connect(self.show_message)
+            #self.thread_response.setTerminationEnabled(True)
 
-        if not self.thread_response.isRunning():
-            self.thread_response.start()
+        #if not self.thread_response.isRunning():
+            #self.thread_response.start()
 
 
     #----------------------------------------------------------------------

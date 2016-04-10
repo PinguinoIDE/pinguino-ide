@@ -94,52 +94,52 @@ class UpdateAutocompleter(QtCore.QThread):
 
 
 
-########################################################################
-class PinguinoRequest(QtCore.QThread):
-    """"""
-    signal_message = QtCore.Signal(bool, str)
+#########################################################################
+#class PinguinoRequest(QtCore.QThread):
+    #""""""
+    #signal_message = QtCore.Signal(bool, str)
 
 
-    #----------------------------------------------------------------------
-    def __init__(self, url):
-        """Constructor"""
-        super(PinguinoRequest, self).__init__(None)
-        self.url = url
+    ##----------------------------------------------------------------------
+    #def __init__(self, url):
+        #"""Constructor"""
+        #super(PinguinoRequest, self).__init__(None)
+        #self.url = url
 
 
-    #----------------------------------------------------------------------
-    def run(self):
-        """"""
-        try:
-            response = urlopen(self.url)
-            response = response.read().decode("utf8")
-            version = json.loads(response).get("tag_name", None)
+    ##----------------------------------------------------------------------
+    #def run(self):
+        #""""""
+        #try:
+            #response = urlopen(self.url)
+            #response = response.read().decode("utf8")
+            #version = json.loads(response).get("tag_name", None)
 
-            if version.lower().startswith("v"):
-                version = version[1:]
+            #if version.lower().startswith("v"):
+                #version = version[1:]
 
-            if version:
-                local_version = os.environ.get("PINGUINO_VERSION")
+            #if version:
+                #local_version = os.environ.get("PINGUINO_VERSION")
 
-                html = """
-                    <html>
-                      <head/>
-                      <body>
-                        <p>
-                          <b>{}</b><br>
-                          A new version of Pinguino IDE is available at:<br>
-                          <a href="http://www.pinguino.cc/download"><span style=" text-decoration: underline; color:#2980b9;">http://www.pinguino.cc/download</span></a>
-                        </p>
-                      </body>
-                    </html>""".format(version)
+                #html = """
+                    #<html>
+                      #<head/>
+                      #<body>
+                        #<p>
+                          #<b>{}</b><br>
+                          #A new version of Pinguino IDE is available at:<br>
+                          #<a href="http://www.pinguino.cc/download"><span style=" text-decoration: underline; color:#2980b9;">http://www.pinguino.cc/download</span></a>
+                        #</p>
+                      #</body>
+                    #</html>""".format(version)
 
-                if version > local_version:
-                    self.signal_message.emit(True, html)
-                    return
+                #if version > local_version:
+                    #self.signal_message.emit(True, html)
+                    #return
 
-                else:
-                    self.signal_message.emit(False, "Your copy of Pinguino IDE is up to date.")
+                #else:
+                    #self.signal_message.emit(False, "Your copy of Pinguino IDE is up to date.")
 
-        except Exception as msg:
-            self.signal_message.emit(False, "ConnectionError")
-            return
+        #except Exception as msg:
+            #self.signal_message.emit(False, "ConnectionError")
+            #return
