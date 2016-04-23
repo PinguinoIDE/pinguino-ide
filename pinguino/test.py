@@ -81,6 +81,8 @@ class TestPreprocess(unittest.TestCase):
         def inter(self):
             # print("Testing preprocess pinguino -> c | {} -> {}".format(lib["pinguino"], lib["c"]))
             got, d = Pinguino.replace_word(lib["pinguino"], libinstructions)
+            #if lib["pinguino"] == "1wire.readBit":
+                #print(got)
             self.assertEqual(got, lib["c"],
                              "Preprocess: Failure\ngot: '{}'\nexpected: '{}'".format(got, lib["c"]))
         return inter

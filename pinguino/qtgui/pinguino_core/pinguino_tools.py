@@ -658,12 +658,12 @@ class PinguinoTools(Uploader):
                 continue
 
             #hack!!, very important line!! #truth
-            #content[line] = " {} ".format(content[line])
+            content[line] = " {} ".format(content[line])
 
             for instruction in libinstructions:
                 if re.search(instruction["regex"], content[line]):
                     content[line] = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content[line])  #safe
-                    #content[line] = content[line][1:-1] #truth
+                    content[line] = content[line][1:-1] #truth
 
                     keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
                     index += 1
