@@ -13,6 +13,7 @@ from .commons.backgrounds import BackgroundPallete
 from .events import PinguinoEvents
 from .methods.decorators import Decorator
 from .custom_widgets.code_editor.autocomplete_icons import CompleteIcons
+from .custom_widgets.code_editor.autocompleter import PinguinoAutoCompleter
 # from .custom_widgets import PinguinoTextEdit
 #from .help.help import Help
 # from .methods.widgets_features import PrettyFeatures
@@ -49,6 +50,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
 
         # if not self.argvs.devmode:
             # self.main.menubar.removeAction(self.main.menuDevelopment.menuAction())
+
+        splash_write(QtGui.QApplication.translate("Splash", "Loading autocompleter"))
+        self.PinguinoAutoCompleter = PinguinoAutoCompleter()
 
         splash_write(QtGui.QApplication.translate("Splash", "Setting enviroment values"))
         PinguinoConfig.set_environ_vars()

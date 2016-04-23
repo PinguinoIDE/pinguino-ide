@@ -61,8 +61,12 @@ class PinguinoAutoCompleter(QListWidget):
 
         self.icons = CompleteIcons()
         self.addItemsCompleter(self.namespaces["all"], self.icons.iconLibrary)
-        # del icons
-        self.set_arch_autocompleter()
+        self.addItemsCompleter(self.namespaces["arch8"], self.icons.iconLibrary)
+        self.addItemsCompleter(self.namespaces["arch32"], self.icons.iconLibrary)
+        #self.add_arch_autocompleter()
+
+        self.sortItems()
+        self.itemsList.sort()
 
         configIDE = Config()
         selection_color = configIDE.config("Styles", "selection_color", "#FFFFFF")
@@ -78,24 +82,24 @@ class PinguinoAutoCompleter(QListWidget):
         self.setFrameShape(QtGui.QFrame.NoFrame)
 
 
-    #----------------------------------------------------------------------
-    def set_arch_autocompleter(self):
+    ##----------------------------------------------------------------------
+    #def add_arch_autocompleter(self):
 
-        arch = os.getenv("PINGUINO_BOARD_ARCH")
+        ##arch = os.getenv("PINGUINO_BOARD_ARCH")
 
-        icons = CompleteIcons()
+        #icons = CompleteIcons()
 
-        if arch == "8":
-            for item in self.namespaces["arch8"]:
-                self.addTemporalItem("arch8", item, icons.iconLibrary)
-            self.removeTemporalItems("arch32")
+        ##if arch == "8":
+        #for item in self.namespaces["arch8"]:
+            #self.addTemporalItem("arch8", item, icons.iconLibrary)
+        #self.removeTemporalItems("arch32")
 
-        elif arch == "32":
-            for item in self.namespaces["arch32"]:
-                self.addTemporalItem("arch32", item, icons.iconLibrary)
-            self.removeTemporalItems("arch8")
+        ##elif arch == "32":
+        #for item in self.namespaces["arch32"]:
+            #self.addTemporalItem("arch32", item, icons.iconLibrary)
+        #self.removeTemporalItems("arch8")
 
-        del icons
+        #del icons
 
     #----------------------------------------------------------------------
     def hide(self, *args):
@@ -186,9 +190,14 @@ class PinguinoAutoCompleter(QListWidget):
     def addTemporalItem(self, llave, name, icon=None):
         # if not icon: icon = None
         # elif type(icon) == str: icon = getattr(self.icons, icon)
-        item = self.addNewItem(name, icon)
-        if item:
-            self.temporal[llave].append(item)
+
+        if not isinstance(name, list):
+            name = [name]
+
+        for n in name:
+            item = self.addNewItem(n, icon)
+            if item:
+                self.temporal[llave].append(item)
 
     #----------------------------------------------------------------------
     def update_local_functions(self, functions):
@@ -243,14 +252,14 @@ class PinguinoAutoCompleter(QListWidget):
     #----------------------------------------------------------------------
     def popup(self, pos, index=None):
 
-        ##hide autocompleter after 3s
-        #hide_timer = QtCore.QTimer()
-        #QtCore.QTimer.singleShot(3000, self.hide)
-        #hide_timer.setSingleShot(True)
-        #hide_timer.start()
+        ###hide autocompleter after 3s
+        ##hide_timer = QtCore.QTimer()
+        ##QtCore.QTimer.singleShot(3000, self.hide)
+        ##hide_timer.setSingleShot(True)
+        ##hide_timer.start()
 
-        self.sortItems()
-        self.itemsList.sort()
+        #self.sortItems()
+        #self.itemsList.sort()
 
         if index == None:
             self.setCurrentRow(0)
@@ -262,9 +271,9 @@ class PinguinoAutoCompleter(QListWidget):
             return
 
         cont = self.getIndex(index, True)
-        #if not cont:
-            #self.hide()
-            #return
+        ##if not cont:
+            ##self.hide()
+            ##return
 
         if self.enabled and cont:
             self.setCurrentRow(cont)
@@ -280,3 +289,4 @@ class PinguinoAutoCompleter(QListWidget):
 
         self.setFocus()
         self.activateWindow()
+

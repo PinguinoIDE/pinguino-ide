@@ -2,17 +2,17 @@
 #-*- coding: utf-8 -*-
 
 import os
-import json
+#import json
 
-# Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
-    #Python3
-    from urllib.request import urlopen
-else:
-    #Python2
-    from urllib import urlopen
+## Python3 compatibility
+#if os.getenv("PINGUINO_PYTHON") is "3":
+    ##Python3
+    #from urllib.request import urlopen
+#else:
+    ##Python2
+    #from urllib import urlopen
 
-from PySide import QtCore, QtGui
+from PySide import QtCore
 
 from .parser import PinguinoParser
 
@@ -77,11 +77,13 @@ class UpdateAutocompleter(QtCore.QThread):
         self.signal_rm_autocompleter.emit("variables")
         self.signal_rm_autocompleter.emit("functions")
 
-        for item in self.completer_directives:
-            self.signal_add_autocompleter.emit("directives", item, "iconDirectives")
+        #for item in self.completer_directives:
+            #self.signal_add_autocompleter.emit("directives", item, "iconDirectives")
+        self.signal_add_autocompleter.emit("directives", self.completer_directives, "iconDirectives")
 
-        for item in self.completer_functions:
-            self.signal_add_autocompleter.emit("functions", item, "iconFunction")
+        #for item in self.completer_functions:
+            #self.signal_add_autocompleter.emit("functions", item, "iconFunction")
+        self.signal_add_autocompleter.emit("functions", self.completer_functions, "iconFunction")
 
         for item, type_ in self.completer_variables:
             type_ = type_.split()[-1]

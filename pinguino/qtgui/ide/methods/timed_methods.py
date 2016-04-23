@@ -61,6 +61,7 @@ class TimedMethods(object):
     @Decorator.requiere_tools_tab("SourceBrowser")
     @Decorator.requiere_main_focus()
     def timer_update_directives(self):
+        """"""
 
         directives_parse = self.get_directives()
 
@@ -236,6 +237,7 @@ class TimedMethods(object):
     @Decorator.if_autocomplete_is_enable()
     @Decorator.requiere_main_focus()
     def timer_update_autocompleter(self):
+        """"""
 
         if not self.is_graphical() is False: return
 
@@ -256,10 +258,10 @@ class TimedMethods(object):
             self.thread_autocompleter.set_files(self.get_files_to_explore())
             self.thread_autocompleter.setTerminationEnabled(True)
             self.thread_autocompleter.start()
-        # else:
-            # logging.debug("Working...")
-            # self.thread_autocompleter.terminate()
-            # self.thread_autocompleter.set_files(self.get_files_to_explore())
-            # self.thread_autocompleter.setTerminationEnabled(True)
-            # self.thread_autocompleter.start()
+        ##else:
+            ##logging.debug("Working...")
+            ##self.thread_autocompleter.terminate()
+            ##self.thread_autocompleter.set_files(self.get_files_to_explore())
+            ##self.thread_autocompleter.setTerminationEnabled(True)
+            ##self.thread_autocompleter.start()
 

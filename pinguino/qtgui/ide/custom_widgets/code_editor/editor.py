@@ -8,7 +8,7 @@ import pickle
 from PySide import QtGui, QtCore
 from PySide.QtCore import QPoint
 
-from .autocompleter import PinguinoAutoCompleter
+#from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons
 from .pinguino_highlighter import Highlighter
 from .syntax import Autocompleter, Snippet, Helpers
@@ -20,7 +20,7 @@ from .syntax import Autocompleter, Snippet, Helpers
 class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
-    def __init__(self, parent, linenumber, highlighter, autocompleter):
+    def __init__(self, parent, linenumber, highlighter):
 
         super(CustomTextEdit, self).__init__(parent)
 
@@ -32,22 +32,22 @@ class CustomTextEdit(QtGui.QTextEdit):
         self.cursorC = QtGui.QCursor()
         self.linenumber = linenumber
 
-        if autocompleter:
-            self.completer = PinguinoAutoCompleter()
-            self.completer.text_edit = self
-            self.mousePressEvent = self.mouseAction
-            self.completer.setFont(self.font())
-            self.connect(self.completer, QtCore.SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.insertItem)
-            self.completer.keyPressEvent = self.keyPressEvent_autocompleter
-            self.completer.setFont(self.font())
+        #if autocompleter:
+            #self.setau
+            #self.completer = PinguinoAutoCompleter()
+            #self.completer.text_edit = self
+            #self.mousePressEvent = self.mouseAction
+            #self.completer.setFont(self.font())
+            #self.connect(self.completer, QtCore.SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.insertItem)
+            #self.completer.keyPressEvent = self.keyPressEvent_autocompleter
+            #self.completer.setFont(self.font())
 
-            icons = CompleteIcons()
-            self.completer.addItemsCompleter(Autocompleter["directive"], icons.iconDirectives)
-            self.completer.addItemsCompleter(Autocompleter["reserved"], icons.iconReserved)
-            self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
-            self.last_w = ""
-            self.next_ignore = None
-
+            #icons = CompleteIcons()
+            #self.completer.addItemsCompleter(Autocompleter["directive"], icons.iconDirectives)
+            #self.completer.addItemsCompleter(Autocompleter["reserved"], icons.iconReserved)
+            #self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
+            #self.last_w = ""
+            #self.next_ignore = None
 
 
         if highlighter:
@@ -61,6 +61,27 @@ class CustomTextEdit(QtGui.QTextEdit):
             font-size: 10pt;
             }
         """)
+
+
+    #----------------------------------------------------------------------
+    def set_autocompleter(self, autocompleter):
+        """"""
+
+        self.completer = autocompleter
+        self.completer.text_edit = self
+        self.mousePressEvent = self.mouseAction
+        self.completer.setFont(self.font())
+        self.connect(self.completer, QtCore.SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.insertItem)
+        self.completer.keyPressEvent = self.keyPressEvent_autocompleter
+        self.completer.setFont(self.font())
+
+        icons = CompleteIcons()
+        self.completer.addItemsCompleter(Autocompleter["directive"], icons.iconDirectives)
+        self.completer.addItemsCompleter(Autocompleter["reserved"], icons.iconReserved)
+        self.completer.addItemsCompleter(Snippet.keys(), icons.iconSnippet)
+        self.last_w = ""
+        self.next_ignore = None
+
 
 
 
@@ -349,6 +370,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
     #----------------------------------------------------------------------
     def show_autocomplete_if_conditions(self):
+        """"""
 
         tc = self.textCursor()
 
@@ -378,6 +400,7 @@ class CustomTextEdit(QtGui.QTextEdit):
 
             else:
                 self.completer.popup(self.getPosPopup(), self.last_w)
+                #self.completer.show()
 
         except UnicodeEncodeError:
             return  #capturas tildes y caracteres especiales

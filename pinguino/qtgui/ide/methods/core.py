@@ -1674,8 +1674,12 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 filename.endswith(".lib") or filename.endswith(".lib*") or filename.endswith(".pdl") or filename.endswith(".pdl*") or \
                 filename.endswith(".lib32") or filename.endswith(".lib32*") or filename.endswith(".pdl32") or filename.endswith(".pdl32*") or \
                 filename.lower() == "pinguino" or filename.lower() == "readme.md"
-        autocompleter = highlighter
-        editor = PinguinoCodeEditor(highlighter=highlighter, autocompleter=autocompleter)
+
+        editor = PinguinoCodeEditor(highlighter=highlighter)
+        if highlighter:
+            editor.set_autocompleter(self.PinguinoAutoCompleter)
+
+
         self.main.tabWidget_files.addTab(editor, filename)
         #editor.text_edit.insertPlainText(Snippet["file {snippet}"][1].replace("\t", ""))
         #editor.text_edit.insertPlainText("\n")
