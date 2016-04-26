@@ -663,7 +663,7 @@ class PinguinoTools(Uploader):
             for instruction in libinstructions:
                 if re.search(instruction["regex"], content[line]):
                     content[line] = re.sub(instruction["regex"], '\g<1><PINGUINO_RESERVED:%d>\g<3>' % index, content[line])  #safe
-                    content[line] = content[line][1:-1] #truth
+                    #content[line] = content[line][1:-1] #truth
 
                     keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
                     index += 1
@@ -673,6 +673,7 @@ class PinguinoTools(Uploader):
                     if not instruction["include"]+"\n" in defines:
                         defines.append(instruction["include"]+"\n")
 
+            content[line] = content[line][1:-1] #truth
             match = re.match(regex_directive, content[line])
             if match:
                 defines.append(content[line]+"\n")

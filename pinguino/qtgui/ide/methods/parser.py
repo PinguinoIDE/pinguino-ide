@@ -151,7 +151,7 @@ class PinguinoParser(object):
     #----------------------------------------------------------------------
     def get_functions(self):
 
-        regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]+(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
+        regex_function = "[\s]*(unsigned|signed|static|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]+(\*?)[\s]*([*\w]+)[\s]*\(([\w ,*.\[\]]*)\)[\s]*"
         # regex_function = "[\s]*(unsigned|signed|long|PUBLIC)*[\s]*(" + "|".join(data_types) + ")[\s]*(\*?)[\s]*([*\w]+)[\s]*\(([\s\w ,*.\[\]]*)\)[\s]*"
         #regex_function_content = "[\s]*{}[\s]*\{[\s\S]*\}[\s]*
 

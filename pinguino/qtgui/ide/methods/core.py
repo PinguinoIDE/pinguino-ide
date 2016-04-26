@@ -1425,6 +1425,10 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         for instruction in libinstructions8 + libinstructions32:
             if instruction["c"] in functions:
+
+                if instruction["pinguino"] in assistant:
+                    continue
+
                 args = ""
                 if functions[instruction["c"]]["args"] != "void":
                     args = functions[instruction["c"]]["args"]

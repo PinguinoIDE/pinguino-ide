@@ -51,9 +51,6 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
         # if not self.argvs.devmode:
             # self.main.menubar.removeAction(self.main.menuDevelopment.menuAction())
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading autocompleter"))
-        self.PinguinoAutoCompleter = PinguinoAutoCompleter()
-
         splash_write(QtGui.QApplication.translate("Splash", "Setting enviroment values"))
         PinguinoConfig.set_environ_vars()
         splash_write(QtGui.QApplication.translate("Splash", "Checking user files"))
@@ -130,6 +127,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
         self.update_project_status(None)
         splash_write(QtGui.QApplication.translate("Splash", "Checking configuration files"))
         self.ide_check_files()
+
+        splash_write(QtGui.QApplication.translate("Splash", "Loading autocompleter"))
+        self.PinguinoAutoCompleter = PinguinoAutoCompleter()
 
         os_name = os.getenv("PINGUINO_OS_NAME")
         if os_name == "windows":
