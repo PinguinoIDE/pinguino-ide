@@ -458,7 +458,7 @@ class PinguinoTools(Uploader):
         Parameters
         ----------
         content: str
-            Code without strings.
+            Code without strings, or path to file.
         keys: dict
             Dictionary with original strings.
 
@@ -472,9 +472,22 @@ class PinguinoTools(Uploader):
         remove_strings: Remove strings from code.
         """
 
-        for key in keys.keys():
-            content = content.replace(key, keys[key])
-        return content
+        #is file?
+        if os.path.exists(content):
+            file_content = "".join(open(content, "r").readlines())
+
+            for key in keys.keys():
+                file_content = file_content.replace(key, keys[key])
+
+            file = open(content, "w")
+            file.write(file_content)
+            return file_content
+
+
+        else:
+            for key in keys.keys():
+                content = content.replace(key, keys[key])
+            return content
 
 
     #----------------------------------------------------------------------
@@ -569,6 +582,8 @@ class PinguinoTools(Uploader):
         # Generate files
         self.save_define(defines, define_output)
         self.save_userc(user_content, userc_output)
+        self.recove_strings(userc_output, keys)
+        self.recove_strings(define_output, keys)
 
 
     #----------------------------------------------------------------------
