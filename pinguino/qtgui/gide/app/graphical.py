@@ -343,7 +343,7 @@ class GraphicalIDE(Code2Blocks):
             if not widget:
                 id_ = None
             else:
-                id_ = re.findall("[.]*0x[\dabcdef]*[.]*", widget.__str__())[0]
+                id_ = re.findall("[.]*0x[\dabcdefABCDEF]*[.]*", widget.__str__())[0]
             ser.append(id_)
         return ser
 
