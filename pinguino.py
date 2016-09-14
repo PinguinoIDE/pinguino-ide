@@ -2,8 +2,8 @@
 #-*- coding: utf-8 -*-
 
 NAME = "Pinguino IDE"
-VERSION = "11.0"
-SUBVERSION = "beta.4"
+VERSION = "12.0"
+SUBVERSION = "beta.1"
 
 #DESCRIPTION = ""
 #LONG_DESCRIPTION = ""

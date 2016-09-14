@@ -3,12 +3,24 @@
 #-*- coding: iso-8859-15 -*-
 
 """-------------------------------------------------------------------------
-    Pinguino Uploader for Pinguino 32
-
-    (c) 2011-2014 Regis Blanchot <rblanchot@gmail.com>
-
-    last update : 27 Mar. 2015
-
+             _____ _____ _   _  _____ _    _ _____ _   _  ____             
+            |  __ \_   _| \ | |/ ____| |  | |_   _| \ | |/ __ \            
+            | |__) || | |  \| | |  __| |  | | | | |  \| | |  | |           
+            |  ___/ | | | . ` | | |_ | |  | | | | | . ` | |  | |           
+            | |    _| |_| |\  | |__| | |__| |_| |_| |\  | |__| |           
+  ____ ___  |_|   |_____|_| \_|\_____|\____/|_____|_| \_|\____/_           
+ |___ \__ \      | |   (_) |   | |  | |     | |               | |          
+   __) | ) |_____| |__  _| |_  | |  | |_ __ | | ___   __ _  __| | ___ _ __ 
+  |__ < / /______| '_ \| | __| | |  | | '_ \| |/ _ \ / _` |/ _` |/ _ \ '__|
+  ___) / /_      | |_) | | |_  | |__| | |_) | | (_) | (_| | (_| |  __/ |   
+ |____/____|     |_.__/|_|\__|  \____/| .__/|_|\___/ \__,_|\__,_|\___|_|   
+                                      | |                                  
+                                      |_|                                  
+    Author:         Regis Blanchot <rblanchot@gmail.com>
+    --------------------------------------------------------------------
+    2015-03-27      RB -     
+    2016-08-29      RB - added usb.core functions
+    --------------------------------------------------------------------
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
     License as published by the Free Software Foundation; either
@@ -328,8 +340,11 @@ class uploader32(baseUploader):
         usbBuf = [self.RESET_DEVICE_CMD] * self.MAXPACKETSIZE
 
         try:
-            handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
-
+            if self.PYUSB_USE_CORE:
+                handle.write(self.OUT_EP, usbBuf, self.TIMEOUT)
+            else:
+                handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+                
         except Exception as e:
             logging.info(e)
             return self.ERR_USB_WRITE
@@ -342,7 +357,11 @@ class uploader32(baseUploader):
         """ Send a packet to the bootloader """
 
         try:
-            sent_bytes = handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+            if self.PYUSB_USE_CORE:
+                sent_bytes = handle.write(self.OUT_EP, usbBuf, self.TIMEOUT)
+            else:
+                sent_bytes = handle.interruptWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+
         except Exception as e:
             logging.info(e)
             return self.ERR_USB_WRITE
@@ -370,7 +389,11 @@ class uploader32(baseUploader):
         """ Assumes a command has been sent before """
 
         try:
-            usbBuf = handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
+            if self.PYUSB_USE_CORE:
+                usbBuf = handle.read(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
+            else:
+                usbBuf = handle.interruptRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
+
         except Exception as e:
             logging.info("Received nothing : %s" % e)
             return self.ERR_USB_READ
