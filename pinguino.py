@@ -2,8 +2,8 @@
 #-*- coding: utf-8 -*-
 
 NAME = "Pinguino IDE"
-VERSION = "11.0"
-SUBVERSION = "beta.4"
+VERSION = "12.0"
+SUBVERSION = "beta.5"
 
 #DESCRIPTION = ""
 #LONG_DESCRIPTION = ""
@@ -53,7 +53,7 @@ else:
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
 os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
-os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
+os.environ["PINGUINO_HOME"] = os.path.dirname(os.path.abspath(__file__))
 
 # For PyInstaller compatibility
 if os.path.exists(os.path.abspath("pinguino_data")):
@@ -74,11 +74,18 @@ class bcolors:
     ENDC = "\033[0m"
 
 import argparse
-from qtgui.pinguino_api.boards import boardlist
+
+
+
+#print(os.getenv("PINGUINO_HOME"))
+sys.path.append(os.path.join(os.getenv("PINGUINO_HOME"), "pinguino"))
+sys.path.append(os.path.join(os.getenv("PINGUINO_HOME"), "pinguino", "qtgui", "resources"))
+
 
 #----------------------------------------------------------------------
 def build_argparse():
 
+    from qtgui.pinguino_core.boards import boardlist
     parser = argparse.ArgumentParser(description="*** %s:Command line ***"%os.getenv("PINGUINO_NAME"))
 
     #command line args
@@ -128,9 +135,12 @@ else:
 
 
 
-if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
+if os.path.isdir(python_path_modules):
+    sys.path.append(python_path_modules)
 
-sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
+
+#sys.path.append(os.path.join(os.getenv("PINGUINO_DATA")))
+#sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
 if __name__ == "__main__":
 
@@ -191,7 +201,7 @@ if __name__ == "__main__":
         app.installTranslator(qtTranslator)
         if trasnlations: app.installTranslator(translator)
 
-        frame = PinguinoIDE(splash_write=splash_write, argvs=parser)
+        frame = PinguinoIDE(splash_write=splash_write)
         frame.show()
 
         if not splash is None:
