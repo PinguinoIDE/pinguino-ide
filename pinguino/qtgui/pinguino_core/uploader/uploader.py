@@ -1,8 +1,42 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
-#-*- coding: utf-8 -*-
+
+"""---------------------------------------------------------------------
+      _____ _____ _   _  _____ _    _ _____ _   _  ____  
+     |  __ \_   _| \ | |/ ____| |  | |_   _| \ | |/ __ \ 
+     | |__) || | |  \| | |  __| |  | | | | |  \| | |  | |
+     |  ___/ | | | . ` | | |_ | |  | | | | | . ` | |  | |
+     | |    _| |_| |\  | |__| | |__| |_| |_| |\  | |__| |
+     |_|  _|_____|_| \_|\_____|\____/|_____|_| \_|\____/ 
+         | |  | |     | |               | |              
+         | |  | |_ __ | | ___   __ _  __| | ___ _ __     
+         | |  | | '_ \| |/ _ \ / _` |/ _` |/ _ \ '__|    
+         | |__| | |_) | | (_) | (_| | (_| |  __/ |       
+          \____/| .__/|_|\___/ \__,_|\__,_|\___|_|       
+                | |                                      
+                |_|                                      
+    Author:         Regis Blanchot <rblanchot@gmail.com>
+    --------------------------------------------------------------------
+    2016-08-29      RB - added usb.core functions
+    --------------------------------------------------------------------
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+-------------------------------------------------------------------------"""
 
 import usb
+#import usb.core
+#import usb.util
 import sys
 import logging
 import os
@@ -13,8 +47,13 @@ import os
 ########################################################################
 class baseUploader(object):
 
+    # PyUSB Core module switch
+    #-------------------------------------------------------------------
+
+    PYUSB_USE_CORE                  =   1 # (0=legacy, 1=core)
+
     # Hex format record types
-    # --------------------------------------------------------------------------
+    # ------------------------------------------------------------------
     # Data_Record = 00
     # End_Of_File_Record = 01
     # Extended_Segment_Address_Record = 02
@@ -32,7 +71,7 @@ class baseUploader(object):
 
 
     # Error codes returned by various functions
-    # --------------------------------------------------------------------------
+    # ------------------------------------------------------------------
     ERR_NONE                        = 100
     ERR_CMD_ARG                     = 101
     ERR_CMD_UNKNOWN                 = 102
@@ -53,143 +92,107 @@ class baseUploader(object):
     ERR_USB_ERASE                   = 117
 
     # Configuration
-    # ----------------------------------------------------------------------
+    # ------------------------------------------------------------------
 
     INTERFACE_ID                    = 0x00
     ACTIVE_CONFIG                   = 0x01
     VSC_ACTIVE_CONFIG               = 0x02
 
-# # ------------------------------------------------------------------------------
-    # def __init__(self, hexfile, board):
-        # self.report = []
-
-# ------------------------------------------------------------------------------
+    # ------------------------------------------------------------------
     def add_report(self, message):
         """ display message in the log window """
         self.report.append(message)
-
-        #import sys
-        #reload(sys)
-        #sys.stdout.write("DEBUG : " + message + "\r\n")
         logging.info(message)
 
-# # ------------------------------------------------------------------------------
-    # def getDevice(self):
-        # """ Get a list of USB devices and search for a Pinguino board """
-        # busses = usb.busses()
-        # for bus in busses:
-            # for device in bus.devices:
-                # if device.idVendor == self.board.vendor and device.idProduct == self.board.product:
-                    # return device
-        # return self.ERR_DEVICE_NOT_FOUND
-
-    # ------------------------------------------------------------------------------
+    # ------------------------------------------------------------------
     def getDevice(self, board):
         """ Scans connected USB devices until it finds a Pinguino board """
+
         logging.info("Looking for a Pinguino device ...")
-        busses = usb.busses()
-        for bus in busses:
-            for device in bus.devices:
-                #logging.info("Found device 0x%04X:0x%04X" % (device.idVendor, device.idProduct))
-                if (device.idVendor, device.idProduct) == (board.vendor, board.product):
-                    """
-                    self.configuration = device.configurations[0]
-                    logging.info("Configuration = {}".format(self.configuration))
-                    self.interface = self.configuration.interfaces[0][0]
-                    logging.info("Interface = {}".format(self.interface))
-                    self.endpoints = []
-                    self.pipes = []
-                    for ep in self.interface.endpoints:
-                        self.endpoints.append(ep)
-                        self.pipes.append(ep.address)
-                    """
-                    if board.bldr == "boot2":
-                        self.ACTIVE_CONFIG = self.VSC_ACTIVE_CONFIG
 
-                    return device
-        return self.ERR_DEVICE_NOT_FOUND
+        if self.PYUSB_USE_CORE:
 
+            device = usb.core.find(idVendor=board.vendor, idProduct=board.product)
+            if device is None :
+                return self.ERR_DEVICE_NOT_FOUND
+            else :
+                return device
 
+        else:
 
-# # ----------------------------------------------------------------------
-    # def initDevice(self):
-        # """ Init a Pinguino device """
-        # handle = self.device.open()
-        # if handle:
-            # try:
-                # handle.detachKernelDriver(0)
-            # except:
-                # pass
-            # try:
-                # handle.setConfiguration(self.ACTIVE_CONFIG)
-            # except:
-                # pass
-            # try:
-                # handle.claimInterface(self.INTERFACE_ID)
-            # except:
-                # pass
-            # return handle
-        # return self.ERR_USB_INIT1
+            busses = usb.busses()
+            for bus in busses:
+                for device in bus.devices:
+                    if (device.idVendor, device.idProduct) == (board.vendor, board.product):
+                        return device
+            return self.ERR_DEVICE_NOT_FOUND
 
-
-    # ----------------------------------------------------------------------
+    # ------------------------------------------------------------------
     def initDevice(self, device):
         """ Init a Pinguino device """
 
-        handle = device.open()
+        #logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
 
-        if handle:
+        if os.getenv("PINGUINO_OS_NAME") == "linux":
+            if device.idProduct == 0x003C: #self.P32_ID:
+                # make sure the hid kernel driver is not active
+                # functionality not available on Darwin or Windows
+                if self.PYUSB_USE_CORE:
+                    if device.is_kernel_driver_active(self.INTERFACE_ID):
+                        try:
+                            device.detach_kernel_driver(self.INTERFACE_ID)
+                        except usb.core.USBError as e:
+                            sys.exit("Could not detach kernel driver: %s" % str(e))
+                else:
+                    try:
+                        handle.detachKernelDriver(self.INTERFACE_ID)
+                    except:
+                        #sys.exit("Could not detach kernel driver")
+                        pass
+                        
+                #logging.info("Kernel driver detached")
 
-            logging.info("OS is %s" % os.getenv("PINGUINO_OS_NAME"))
 
-            if os.getenv("PINGUINO_OS_NAME") == "linux":
-                if device.idProduct == 0x003C: #self.P32_ID:
-                    # make sure the hid kernel driver is not active
-                    # functionality not available on Darwin or Windows
-                    handle.detachKernelDriver(self.INTERFACE_ID)
-                    #logging.info("Kernel driver detached")
-
-
-            #handle.setConfiguration(self.configuration)
-            handle.setConfiguration(self.ACTIVE_CONFIG)
+        if self.PYUSB_USE_CORE:
+            try:
+                device.set_configuration(self.ACTIVE_CONFIG)
+            except usb.core.USBError as e:
+                sys.exit("Could not set configuration: %s" % str(e))
             #logging.info("Configuration set")
 
-            #handle.claimInterface(self.interface)
-            handle.claimInterface(self.INTERFACE_ID)
+            try:
+                usb.util.claim_interface(device, self.INTERFACE_ID)
+                #print("Claimed device")
+            except:
+                sys.exit("Could not claim the device: %s" % str(e))
             #logging.info("Interface claimed")
 
-            #logging.info("Everything OK so far")
-            return handle
+            return device
 
-        return self.ERR_USB_INIT1
+        else:
+            handle = device.open()
+            if handle:
+                handle.setConfiguration(self.ACTIVE_CONFIG)
+                handle.claimInterface(self.INTERFACE_ID)
+                return handle
+            return ERR_USB_INIT1
+            
+        #logging.info("Everything OK so far")
 
-
-# # ------------------------------------------------------------------------------
-    # def closeDevice(self):
-        # """ Close currently-open USB device """
-        # try:
-            # self.handle.releaseInterface()
-        # except:
-            # pass
-
-
-    # ------------------------------------------------------------------------------
+    # ------------------------------------------------------------------
     def closeDevice(self, handle):
         """ Close currently-open USB device """
-        try:
+
+        if self.PYUSB_USE_CORE:
+            usb.util.release_interface(handle, self.INTERFACE_ID)
+        else:
             handle.releaseInterface()
-        except Exception as e:
-            logging.info(e)
-            pass
-        #logging.info("Device closed")
-
-
 
 ########################################################################
 class Uploader(object):
     """Universal uploader class"""
 
-    #----------------------------------------------------------------------
+    # ------------------------------------------------------------------
     def configure_uploader(self, hex_file, board):
 
         #debugger.Debugger(sys)
@@ -222,7 +225,7 @@ class Uploader(object):
         self.uploader = Uploader()
 
 
-    #----------------------------------------------------------------------
+    # ------------------------------------------------------------------
     # @Debugger.debug_method
     def upload_hex(self):
         self.uploader.report = []

@@ -495,6 +495,7 @@ class PIC32MZSTARTERKIT(object):
     #PinguinoNoBoot,
 boardlist = [
     Pinguino1459,  Curiosity,
+    Pinguino13k50, Pinguino14k50,
     Pinguino2455,  Pinguino4455,
     Pinguino2550,  Pinguino4550,
     FreeJALduino,  PICuno_Equo, CHRP3,

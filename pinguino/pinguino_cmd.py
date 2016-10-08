@@ -70,11 +70,11 @@ def build_argparse():
 
     #command line args
     parser.add_argument("-v", "--version", dest="version", action="store_true", default=False, help="show {PINGUINO_NAME} version and exit".format(**os.environ))
-    parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of this {PINGUINO_NAME} version and exit".format(**os.environ))
+    parser.add_argument("-a", "--author", dest="author", action="store_true", default=False, help="show authors of the {PINGUINO_NAME} and exit".format(**os.environ))
     parser.add_argument("-f", "--filename", dest="filename", nargs=1, default=False, help="filename to process")
-    #parser.add_argument("-8c", "--8bit_compiler", dest="compiler", nargs=1, default=None, help="8bit compiler: SDCC or XC8")
-    parser.add_argument("--sdcc", dest="compiler_sdcc", action="store_true", default=None, help="SDCC for 8bit compiler")
-    parser.add_argument("--xc8", dest="compiler_xc8", action="store_true", default=None, help="XC8 for 8bit compiler")
+    #parser.add_argument("-8c", "--8bit_compiler", dest="compiler", nargs=1, default=None, help="8-bit compiler: SDCC or XC8")
+    parser.add_argument("--sdcc", dest="compiler_sdcc", action="store_true", default=None, help="Set SDCC as 8-bit compiler")
+    parser.add_argument("--xc8", dest="compiler_xc8", action="store_true", default=None, help="Set XC8 as 8-bit compiler")
     #parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
     parser.add_argument("--icsp", dest="icsp", action="store_true", default=False, help="use ICSP (default use bootloader)")
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")

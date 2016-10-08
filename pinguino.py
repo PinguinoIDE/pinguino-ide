@@ -3,7 +3,7 @@
 
 NAME = "Pinguino IDE"
 VERSION = "12.0"
-SUBVERSION = "beta.5"
+SUBVERSION = "beta.2"
 
 #DESCRIPTION = ""
 #LONG_DESCRIPTION = ""
@@ -76,8 +76,6 @@ class bcolors:
 import argparse
 
 
-
-#print(os.getenv("PINGUINO_HOME"))
 sys.path.append(os.path.join(os.getenv("PINGUINO_HOME"), "pinguino"))
 sys.path.append(os.path.join(os.getenv("PINGUINO_HOME"), "pinguino", "qtgui", "resources"))
 
@@ -85,7 +83,6 @@ sys.path.append(os.path.join(os.getenv("PINGUINO_HOME"), "pinguino", "qtgui", "r
 #----------------------------------------------------------------------
 def build_argparse():
 
-    from qtgui.pinguino_core.boards import boardlist
     parser = argparse.ArgumentParser(description="*** %s:Command line ***"%os.getenv("PINGUINO_NAME"))
 
     #command line args
@@ -96,6 +93,7 @@ def build_argparse():
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
     parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
 
+    from qtgui.pinguino_core.boards import boardlist
     for board in boardlist:
         parser.add_argument(board.shortarg, board.longarg, dest="board", const=board, action="store_const", default=False,
                             help="compile code for " + board.board + " board")
@@ -138,9 +136,6 @@ else:
 if os.path.isdir(python_path_modules):
     sys.path.append(python_path_modules)
 
-
-#sys.path.append(os.path.join(os.getenv("PINGUINO_DATA")))
-#sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
 if __name__ == "__main__":
 
