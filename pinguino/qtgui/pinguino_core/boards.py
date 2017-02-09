@@ -95,7 +95,7 @@ class Pinguino13k50(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend   = 0x8000
+    memend   = 0x2000
     shortarg = '-p13k50'
     longarg = '--pinguino13k50'
 
@@ -109,7 +109,7 @@ class Pinguino14k50(object):
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
-    memend   = 0x8000
+    memend   = 0x4000
     shortarg = '-p14k50'
     longarg = '--pinguino14k50'
 

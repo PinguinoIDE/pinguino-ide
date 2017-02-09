@@ -18,10 +18,12 @@
                                   |_|                                   
     Author:         Regis Blanchot <rblanchot@gmail.com>
     --------------------------------------------------------------------
-    2013-11-13      RB - first release   
-    2015-09-08      RB - fixed numBlocks > numBlocksMax when used with XC8
-    2015-11-09      RB - added PIC16F1459 ID
-    2016-08-29      RB - added usb.core functions
+    2013-11-13 - RB - first release   
+    2015-09-08 - RB - fixed numBlocks > numBlocksMax when used with XC8
+    2015-11-09 - RB - added PIC16F1459 ID
+    2016-08-29 - RB - added usb.core functions
+    2016-11-12 - RB - added python3 support (bytearray)
+    2016-11-23 - RB - changed constant size DATABLOCKSIZE to variable writeBlockSize
     --------------------------------------------------------------------
     This library is free software you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -45,7 +47,7 @@
 # See also http://wiki.erazor-zone.de/wiki:projects:python:pyusb:pydoc
 # Pinguino Device Descriptors : lsusb -v -d 04d8:feaa
 
-#import sys
+import sys
 import os
 #import logging
 
@@ -98,10 +100,6 @@ class uploader8(baseUploader):
     #READ_CONFIG_CMD                =    0x06
     #WRITE_CONFIG_CMD               =    0x07
     RESET_CMD                       =    0xFF
-
-    # Data Block's size to write
-    # ------------------------------------------------------------------
-    DATABLOCKSIZE                   =    32
 
     # USB Packet size
     # ------------------------------------------------------------------
@@ -191,11 +189,45 @@ class uploader8(baseUploader):
     }
 
 # ----------------------------------------------------------------------
+    def usbWrite(self, device, usbBuf):
+# ----------------------------------------------------------------------
+        """ send bytes to the bootloader """
+
+        if sys.version_info.major >= 3:
+            usbBuf = str(bytearray(usbBuf))
+
+        if self.PYUSB_USE_CORE:
+            sent_bytes = device.write(self.OUT_EP, usbBuf, self.TIMEOUT)
+        else:
+            sent_bytes = device.bulkWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+
+        return sent_bytes
+
+# ----------------------------------------------------------------------
+    def usbRead(self, device):
+# ----------------------------------------------------------------------
+        """ read bytes from the bootloader
+            whatever is returned, USB packet size is always 64 bytes
+            long (self.MAXPACKETSIZE) in high speed mode
+        """
+
+        if self.PYUSB_USE_CORE:
+            usbBuf = device.read(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
+        else:
+            usbBuf = device.bulkRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
+
+        if sys.version_info.major >= 3:
+            return str(bytearray(usbBuf))
+        else:
+            return usbBuf
+
+# ----------------------------------------------------------------------
     def sendCommand(self, device, usbBuf):
 # ----------------------------------------------------------------------
         """ send command to the bootloader """
+        
         #self.add_report('[%s]' % ', '.join(map(hex, usbBuf)))
-        sent_bytes = device.write(self.OUT_EP, usbBuf, self.TIMEOUT)
+        sent_bytes = self.usbWrite(device, usbBuf)
         #self.add_report(str(sent_bytes))
 
         if sent_bytes != len(usbBuf):
@@ -203,13 +235,7 @@ class uploader8(baseUploader):
             return self.ERR_USB_WRITE
 
         #self.add_report("Block issued without problem.")
-        # whatever is returned, USB packet size is always
-        # 64 bytes long in high speed mode
-        if self.PYUSB_USE_CORE:
-            usbBuf = device.read(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
-        else:
-            usbBuf = device.bulkRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
-
+        usbBuf = self.usbRead(device)
         #self.add_report('[%s]' % ', '.join(map(hex, usbBuf)))
         return usbBuf
 
@@ -217,6 +243,7 @@ class uploader8(baseUploader):
     def resetDevice(self, device):
 # ----------------------------------------------------------------------
         """ reset device """
+        
         #usbBuf = [self.RESET_DEVICE_CMD] * self.MAXPACKETSIZE
         usbBuf = [0] * self.MAXPACKETSIZE
         # command code
@@ -224,10 +251,7 @@ class uploader8(baseUploader):
         # write data packet
         #usbBuf = self.sendCommand(usbBuf)
         try:
-            if self.PYUSB_USE_CORE:
-                device.write(self.OUT_EP, usbBuf, self.TIMEOUT)
-            else:
-                device.bulkWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+            self.usbWrite(device, usbBuf)
         except:
             return self.ERR_USB_WRITE
 
@@ -237,6 +261,7 @@ class uploader8(baseUploader):
     def getVersion(self, device):
 # ----------------------------------------------------------------------
         """ get bootloader version """
+        
         usbBuf = [0] * self.MAXPACKETSIZE
         # command code
         usbBuf[self.BOOT_CMD] = self.READ_VERSION_CMD
@@ -261,7 +286,7 @@ class uploader8(baseUploader):
             # REVISION & DEVICE ID
             usbBuf = self.flashRead(device, 0x8005, 4)
             if usbBuf == self.ERR_USB_WRITE:
-                return self.ERR_USB_WRITE
+                return self.ERR_USB_WRITE, self.ERR_USB_WRITE
             rev1 = usbBuf[self.BOOT_REV1]
             rev2 = usbBuf[self.BOOT_REV2]
             device_rev = (int(rev2) << 8) + int(rev1)
@@ -272,11 +297,11 @@ class uploader8(baseUploader):
             # REVISION & DEVICE ID
             usbBuf = self.flashRead(device, 0x3FFFFE, 2)
             if usbBuf == self.ERR_USB_WRITE:
-                return self.ERR_USB_WRITE
+                return self.ERR_USB_WRITE, self.ERR_USB_WRITE
             #self.add_report("usbBuf = %s" % usbBuf)
             dev1 = usbBuf[self.BOOT_REV1]
             dev2 = usbBuf[self.BOOT_REV2]
-            device_id = (int(dev2) << 8) + int(dev1)
+            device_id  = (int(dev2) << 8) + int(dev1)
             device_id  = device_id & 0xFFE0
             device_rev = device_id & 0x001F
 
@@ -294,6 +319,7 @@ class uploader8(baseUploader):
     def flashErase(self, device, address, numBlocks):
 # ----------------------------------------------------------------------
         """ erase numBlocks of flash memory """
+        
         usbBuf = [0] * self.MAXPACKETSIZE
         # command code
         usbBuf[self.BOOT_CMD] = self.ERASE_FLASH_CMD
@@ -306,15 +332,13 @@ class uploader8(baseUploader):
         usbBuf[self.BOOT_ADDR_UP] = (address >> 16) & 0xFF
         # write data packet
         #return self.sendCommand(usbBuf)
-        if self.PYUSB_USE_CORE:
-            device.write(self.OUT_EP, usbBuf, self.TIMEOUT)
-        else:
-            device.bulkWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        self.usbWrite(device, usbBuf)
 
 # ----------------------------------------------------------------------
     def flashRead(self, device, address, length):
 # ----------------------------------------------------------------------
         """ read a block of flash """
+        
         usbBuf = [0] * self.MAXPACKETSIZE
         # command code
         usbBuf[self.BOOT_CMD] = self.READ_FLASH_CMD
@@ -334,8 +358,9 @@ class uploader8(baseUploader):
 # ----------------------------------------------------------------------
         """ write a block of code
             first 5 bytes are for block description (BOOT_CMD, BOOT_CMD_LEN and BOOT_ADDR)
-            data block size should be of DATABLOCKSIZE bytes
-            total length is then DATABLOCKSIZE + 5 """
+            data block size should be of writeBlockSize bytes
+            total length is then writeBlockSize + 5 """
+            
         usbBuf = [0xFF] * self.MAXPACKETSIZE
         # command code
         usbBuf[self.BOOT_CMD] = self.WRITE_FLASH_CMD
@@ -351,10 +376,7 @@ class uploader8(baseUploader):
             #self.txtWrite(hex(datablock[i]))
             usbBuf[self.BOOT_DATA_START + i] = datablock[i]
         # write data packet on usb device
-        if self.PYUSB_USE_CORE:
-            device.write(self.OUT_EP, usbBuf, self.TIMEOUT)
-        else:
-            device.bulkWrite(self.OUT_EP, usbBuf, self.TIMEOUT)
+        self.usbWrite(device, usbBuf)
         #print usbBuf
         #usbBuf = self.sendCommand(usbBuf)
         #print usbBuf
@@ -396,20 +418,30 @@ class uploader8(baseUploader):
         address_Hi  = 0
         codesize    = 0
 
-        # size of erased block
+        # size of write block
+        # ------------------------------------------------------------------
+
+        if   "13k50" in board.proc :
+            writeBlockSize = 8
+        elif "14k50" in board.proc :
+            writeBlockSize = 16
+        else :
+            writeBlockSize = 32
+
+        # size of erase block
         # --------------------------------------------------------------
 
         # Pinguino 18Fx6j50 or 18Fx7j53
         # Erased block size is 1024-byte long
         if ("j" or "J") in board.proc :
             #self.add_report("x6j50, x6j53 or x7j53 chip")
-            erasedBlockSize = 1024
+            eraseBlockSize = 1024
 
         # Pinguino 16f145x, 18Fx455, 18Fx550 or 18Fx5k50
         # Erased block size is 64-byte long
         else:
             #self.add_report("x455, x550 or x5k50 chip")
-            erasedBlockSize = 64
+            eraseBlockSize = 64
 
         # image of the whole PIC memory (above memstart)
         # --------------------------------------------------------------
@@ -490,11 +522,11 @@ class uploader8(baseUploader):
             else:
                 return self.ERR_HEX_RECORD
 
-        # max_address must be divisible by self.DATABLOCKSIZE
+        # max_address must be divisible by writeBlockSize
         # --------------------------------------------------------------
 
-        #min_address = min_address - erasedBlockSize - (min_address % erasedBlockSize)
-        max_address = max_address + erasedBlockSize - (max_address % erasedBlockSize)
+        #min_address = min_address - eraseBlockSize - (min_address % eraseBlockSize)
+        max_address = max_address + eraseBlockSize - (max_address % eraseBlockSize)
         if (max_address > MEMEND):
             max_address = MEMEND
 
@@ -504,8 +536,8 @@ class uploader8(baseUploader):
         # erase memory from board.memstart to max_address
         # --------------------------------------------------------------
 
-        numBlocksMax = (board.memend - board.memstart) / erasedBlockSize
-        numBlocks    = (max_address  - board.memstart) / erasedBlockSize
+        numBlocksMax = (board.memend - board.memstart) / eraseBlockSize
+        numBlocks    = (max_address  - board.memstart) / eraseBlockSize
         #self.add_report("numBlocks    : %d" % numBlocks)
         #self.add_report("numBlocksMax : %d" % numBlocksMax)
 
@@ -518,28 +550,28 @@ class uploader8(baseUploader):
 
         else:
             numBlocks = numBlocks - 255
-            upperAddress = board.memstart + 255 * erasedBlockSize
+            upperAddress = board.memstart + 255 * eraseBlockSize
             # from board.memstart to board.memstart + 255 x 64 = 0x3FC0
             self.flashErase(device, board.memstart, 255)
             # erase flash memory from board.memstart + 0x3FC0 to max_address
             self.flashErase(device, upperAddress, numBlocks)
 
-        # write blocks of DATABLOCKSIZE bytes
+        # write blocks of writeBlockSize bytes
         # --------------------------------------------------------------
 
-        #for addr8 in range(board.memstart, max_address, self.DATABLOCKSIZE):
-        for addr8 in range(min_address, max_address, self.DATABLOCKSIZE):
+        #for addr8 in range(board.memstart, max_address, writeBlockSize):
+        for addr8 in range(min_address, max_address, writeBlockSize):
             #index = addr8 - board.memstart
             index = addr8 - min_address
             # the addresses are doubled in the PIC16F HEX file
             if board.family == '16F':
                 addr16 = addr8 / 2
-                self.flashWrite(device, addr16, data[index:index+self.DATABLOCKSIZE])
+                self.flashWrite(device, addr16, data[index:index+writeBlockSize])
                 #self.add_report("addr8=0x%X addr16=0x%X" % (addr8, addr16))
-                #self.add_report("0x%X  [%s]" % (addr16, data[index:index+self.DATABLOCKSIZE]))
+                #self.add_report("0x%X  [%s]" % (addr16, data[index:index+writeBlockSize]))
             else:
-                self.flashWrite(device, addr8,  data[index:index+self.DATABLOCKSIZE])
-                #self.add_report("0x%X  [%s]" % (addr8, data[index:index+self.DATABLOCKSIZE]))
+                self.flashWrite(device, addr8,  data[index:index+writeBlockSize])
+                #self.add_report("0x%X  [%s]" % (addr8, data[index:index+writeBlockSize]))
 
         self.add_report("%d bytes written." % codesize)
 
