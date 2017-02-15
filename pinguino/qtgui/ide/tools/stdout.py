@@ -25,7 +25,10 @@ class Stdout(object):
         self.main.plainTextEdit_stdout.insertPlainText(intro)
 
         if os.path.exists(file_):
-            stdout = codecs.open(file_, "r", encoding="utf-8")
+            #RB20170215 : fixed a UnicodeDecodeError by adding errors='ignore'
+            #Note : codecs.open() returns a file object that will encode unicode values to UTF-8
+            #stdout = codecs.open(file_, "r", encoding="utf-8")
+            stdout = codecs.open(file_, "r", encoding='utf-8', errors='ignore')
             content = stdout.readlines()
             stdout.close()
             self.main.plainTextEdit_stdout.insertPlainText("".join(content))
