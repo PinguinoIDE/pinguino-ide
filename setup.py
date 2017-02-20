@@ -23,8 +23,10 @@ elif os.name == "nt":  #Windows
                                 ],
                 }
 
+from pinguino import version
+
 setup(name = "pinguino",
-      version = "12.0.36",
+      version = "{MAJOR}.{MINOR}.{PATCH}".format(version.MAJOR, version.MINOR, version.PATCH),
       description = "Open Hardware Electronics Prototyping Platform, Open Source Integrated Development Environment (IDE)",
       description_file = "README.rst",
 

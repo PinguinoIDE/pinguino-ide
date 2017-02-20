@@ -32,6 +32,7 @@ import logging
 import codecs
 import string
 import logging
+import glob
 
 from .config import Config
 
@@ -122,8 +123,17 @@ class PinguinoTools(Uploader):
         if not os.path.exists(self.P8_SDCC_BIN):
             logging.warning("Missing '{}'".format(self.P8_SDCC_BIN))
 
+        self.COMPILER_8BIT = self.glob_path(self.COMPILER_8BIT)
         if not os.path.exists(self.COMPILER_8BIT):
             logging.warning("Missing '{}'".format(self.COMPILER_8BIT))
+
+
+    #----------------------------------------------------------------------
+    def glob_path(self, path):
+        """"""
+        dirs = glob.glob(path)
+        dirs.sort()
+        return dirs[-1]
 
 
     #----------------------------------------------------------------------
@@ -683,10 +693,10 @@ class PinguinoTools(Uploader):
                     keys['<PINGUINO_RESERVED:%d>' % index] = instruction["c"]
                     index += 1
 
-                    if not instruction["define"]+"\n" in defines:
-                        defines.append(instruction["define"]+"\n")
                     if not instruction["include"]+"\n" in defines:
                         defines.append(instruction["include"]+"\n")
+                    if not instruction["define"]+"\n" in defines:
+                        defines.append(instruction["define"]+"\n")
 
             content[line] = content[line][1:-1] #truth
             match = re.match(regex_directive, content[line])
@@ -698,32 +708,33 @@ class PinguinoTools(Uploader):
         # content = "\n".join(content)
         content = self.recove_strings("\n".join(content), keys)
 
-        return content, self.sort_directives(defines)
+        #return content, self.sort_directives(defines)
+        return content, defines
 
 
-    #----------------------------------------------------------------------
-    def sort_directives(self, list_directives):
-        """"""
-        directives = "\n".join(list_directives) + "\n"
+    ##----------------------------------------------------------------------
+    #def sort_directives(self, list_directives):
+        #""""""
+        #directives = "\n".join(list_directives) + "\n"
 
-        start = 0
-        conditionals = []
-        while directives.find("#if", start) != -1:
-            start = directives.find("#if", start)
-            end = directives.find("#endif", start)
-            end_= directives.find("\n", end)
-            conditionals.append(directives[start:end_])
-            start = end
+        #start = 0
+        #conditionals = []
+        #while directives.find("#if", start) != -1:
+            #start = directives.find("#if", start)
+            #end = directives.find("#endif", start)
+            #end_= directives.find("\n", end)
+            #conditionals.append(directives[start:end_])
+            #start = end
 
 
-        for conditional in conditionals:
-            directives = directives.replace(conditional, "")
-            conditional = conditional.split("\n")
+        #for conditional in conditionals:
+            #directives = directives.replace(conditional, "")
+            #conditional = conditional.split("\n")
 
-        directives = list(filter(None, sorted(directives.split("\n"))))
-        [directives.extend(cond.split("\n")) for cond in conditionals]
+        #directives = list(filter(None, sorted(directives.split("\n"))))
+        #[directives.extend(cond.split("\n")) for cond in conditionals]
 
-        return [directive + "\n" for directive in list(filter(None, directives))]
+        #return [directive + "\n" for directive in list(filter(None, directives))]
 
 
 
