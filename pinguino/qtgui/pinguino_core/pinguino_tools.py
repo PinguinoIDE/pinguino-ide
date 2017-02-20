@@ -1012,6 +1012,9 @@ class PinguinoTools(Uploader):
                 # Allows the type of the output files
                 "--OUTPUT=intel",
                 # Options to the Linker
+                # ToDo1: *** PIC16F145x  : -L-AUSB5=2080h-21FFh ***
+                # ToDo2: *** PIC18F1xk50 : -L-AUSB5=280h-2BFh   ***
+                # Remove these 2 lines ?
                 "-L-AUSB5=0500h-05FFh",
                 "-L-Pusbram5=USB5",
                 # Macros
@@ -1040,7 +1043,7 @@ class PinguinoTools(Uploader):
                 "--optimize-cmp",\
                 "--optimize-df",\
                 #"--no-crt",\ we use default run-time module inside libsdcc.lib
-                "-Wl-s" + os.path.join(self.P8_DIR, 'lkr', board.proc + '_g.lkr') + ",-m",\
+                "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.proc + '_g.lkr') + "\",-m",\
                 "-p" + board.proc,\
                 "-D" + board.bldr,\
                 "-D" + board.board,\
@@ -1133,8 +1136,11 @@ class PinguinoTools(Uploader):
                 # Move reset and interrupts vectors after bootloader code
                 "--CODEOFFSET=" + hex(board.memstart),
                 # Options to the Linker
-                "-L-AUSB5=0500h-05FFh",
-                "-L-Pusbram5=USB5",
+                # ToDo1: *** PIC16F145x  : -L-AUSB5=2080h-21FFh ***
+                # ToDo2: *** PIC18F1xk50 : -L-AUSB5=280h-2BFh   ***
+                # Remove these 2 lines ?
+                #"-L-AUSB5=0500h-05FFh",
+                #"-L-Pusbram5=USB5",
                 # Macros
                 "-D" + board.board,
                 "-D" + board.bldr,
@@ -1168,7 +1174,7 @@ class PinguinoTools(Uploader):
                 # move all int. vectors after bootloader code
                 "--ivt-loc=" + str(board.memstart),\
                 # link memory map
-                "-Wl-s" + os.path.join(self.P8_DIR, 'lkr', board.bldr + '.' + board.proc + '.lkr') + ",-m",\
+                "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.bldr + '.' + board.proc + '.lkr') + "\",-m",\
                 "-p" + board.proc,\
                 "-D" + board.bldr,\
                 "-D" + board.board,\
@@ -1198,8 +1204,10 @@ class PinguinoTools(Uploader):
 
             user_imports32 = self.get_user_imports_p32()
 
-            if user_imports32: _IDE_USERLIBS_ = ["_IDE_USERLIBS_=" + user_imports32]
-            else: _IDE_USERLIBS_ = []
+            if user_imports32:
+                _IDE_USERLIBS_ = ["_IDE_USERLIBS_=" + user_imports32]
+            else:
+                _IDE_USERLIBS_ = []
 
             #self.report(makefile)
 
@@ -1217,8 +1225,7 @@ class PinguinoTools(Uploader):
                 "_IDE_MIPS16_ENABLE_=" + self.MIPS16,
                 "_IDE_OPTIMIZATION_=" + self.OPTIMIZATION,
                 ] + _IDE_USERLIBS_,
-
-                         stdout=fichier, stderr=STDOUT)
+                stdout=fichier, stderr=STDOUT)
 
         sortie.communicate()
 
@@ -1324,4 +1331,3 @@ def getOptions():
                                 default=False,
                                 help='compile code for ' + Boardlist[b].board + ' board')
     return parser.parse_args()
-
