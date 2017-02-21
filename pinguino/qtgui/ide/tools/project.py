@@ -431,8 +431,6 @@ class Project(object):
 
     """.format(self.get_project_name(), datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
-
-
         main_file = open(main_filename, mode="w")
         main_file.write(main_code)
         main_file.close()
@@ -440,9 +438,6 @@ class Project(object):
         main_file = open(func_filename, mode="w")
         main_file.write(func_code)
         main_file.close()
-
-
-
 
         self.ide_open_file_from_path(filename=func_filename)
         self.ide_open_file_from_path(filename=main_filename)

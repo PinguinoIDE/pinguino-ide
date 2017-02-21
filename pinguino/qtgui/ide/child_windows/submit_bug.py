@@ -6,25 +6,27 @@ import logging
 from datetime import datetime
 
 from PySide import QtGui, QtCore
+import requests
+import json
 
 # Python3 compatibility
 if os.getenv("PINGUINO_PYTHON") is "3":
     #Python3
-    from urllib.request import urlopen
-    from urllib.parse import urlencode
+    #from urllib.request import urlopen
+    #from urllib.parse import urlencode
     from configparser import RawConfigParser
 else:
     #Python2
-    from urllib import urlopen, urlencode
+    #from urllib import urlopen, urlencode
     from ConfigParser import RawConfigParser
 
 from ...frames.submit_bug import Ui_SubmitBug
 from ..methods.dialogs import Dialogs
 
-if os.getenv("PINGUINO_MODE") == "NORMAL":
-    SUBMIT_SERVER = "http://submit.pinguino.xyz/submit/"
-else:
-    SUBMIT_SERVER = "http://localhost:8000/submit/"
+#if os.getenv("PINGUINO_MODE") == "NORMAL":
+    #SUBMIT_SERVER = "http://submit.pinguino.xyz/submit/"
+#else:
+    #SUBMIT_SERVER = "http://localhost:8000/submit/"
 
 ########################################################################
 class SubmitBug(QtGui.QDialog):
@@ -39,6 +41,10 @@ class SubmitBug(QtGui.QDialog):
         self.submit = Ui_SubmitBug()
         self.submit.setupUi(self)
         self.main = parent
+
+        username, password = self.get_auth()
+        self.submit.lineEdit_username.setText(username)
+        self.submit.lineEdit_password.setText(password)
 
         self.submit.plainTextEdit_details.insertPlainText(details)
 
@@ -77,29 +83,35 @@ class SubmitBug(QtGui.QDialog):
     #----------------------------------------------------------------------
     def submit_now(self):
         """"""
-        try:
-            summary = self.submit.lineEdit_summary.text().replace("\n", "<br>")
-            details = self.submit.plainTextEdit_details.toPlainText()
 
-            if not details:
-                Dialogs.error_message(self, "No details!")
-                return
-            environ = self.get_systeminfo()
-            logging.info("Submitting bug report.")
-            response = urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}).encode("utf-8"))
-            share_link = eval(response.read())["share"]
-            self.hide()
-            msg = "<html> <head/> <body> <p> \
-            We will work to solve this bug.<br>\
-            If you want, you can <a href='https://github.com/PinguinoIDE/pinguino-ide/issues/new'>open an issue</a> too.<br>\
-            <br>\
-            <a href='{0}'>{0}</a>\
-            </p> </body> </html>".format(share_link)
-            Dialogs.info_message(self, msg)
+        summary = self.submit.lineEdit_summary.text().replace("\n", "<br>")
+        details = self.submit.plainTextEdit_details.toPlainText()
+        username = self.submit.lineEdit_username.text()
+        password = self.submit.lineEdit_password.text()
+        repo = self.submit.comboBox_repo.currentText()
 
-        except:
+        if not details:
+            Dialogs.error_message(self, "No details!")
+            return
+
+        if not username:
+            Dialogs.error_message(self, "No userbane!")
+            return
+
+        if not password:
+            Dialogs.error_message(self, "No password!")
+            return
+
+        environ = self.get_systeminfo()
+        logging.info("Submitting bug report.")
+        maked = self.make_github_issue(summary, details, repo, environ, username, password)
+        #response = urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}).encode("utf-8"))
+        #share_link = eval(response.read())["share"]
+        self.hide()
+
+        if not maked:
             if details and environ:
-                self.save_for_later(summary, details, environ)
+                self.save_for_later(summary, details, repo, environ, username, password)
             logging.error("ConnectionError")
 
         self.close()
@@ -150,16 +162,75 @@ class SubmitBug(QtGui.QDialog):
 
 
     #----------------------------------------------------------------------
-    def save_for_later(self, summary, details, environ):
+    def save_for_later(self, summary, details, repo, environ, username, password):
         """"""
         parser = RawConfigParser()
         parser.add_section("SUBMIT")
         parser.set("SUBMIT", "summary", summary)
         parser.set("SUBMIT", "details", details)
+        parser.set("SUBMIT", "repo", repo)
         parser.set("SUBMIT", "environ", environ)
+        parser.set("SUBMIT", "username", username)
+        parser.set("SUBMIT", "password", password)
 
         filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "submit-{}".format(datetime.now()))
         parser.write(open(filename, "w"))
+
+
+    #----------------------------------------------------------------------
+    def save_auth(self, username, password):
+        """"""
+        parser = RawConfigParser()
+        parser.add_section("AUTH")
+        parser.set("AUTH", "username", username)
+        parser.set("AUTH", "password", password)
+
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "submit-auth")
+        parser.write(open(filename, "w"))
+
+
+    #----------------------------------------------------------------------
+    def get_auth(self):
+        """"""
+        if not os.path.exists(os.path.join(os.getenv("PINGUINO_USER_PATH"), "submit-auth")):
+            return '', ''
+
+        parser = RawConfigParser()
+        filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "submit-auth")
+        parser.readfp(open(filename, "r"))
+
+        username = parser.get("AUTH", "username")
+        password = parser.get("AUTH", "password")
+
+        return username, password
+
+
+    #----------------------------------------------------------------------
+    def make_github_issue(self, summary, details, repo, environ, username, password):
+        '''Create an issue on github.com using the given parameters.'''
+        # Our url to create issues via POST
+        url = 'https://api.github.com/repos/{}/{}/issues'.format('PinguinoIDE', repo)
+        # Create an authenticated session to create the issue
+        #session = requests.session(auth=(username, password))
+        session = requests.Session()
+        session.auth = (username, password)
+
+        # Create our issue
+        issue = {'title': summary,
+                 'body': "{}\n\n{}".format(details, environ),
+                 'labels': ['submitted-from-ide',
+                            'bug',
+                            'v{}'.format(os.environ["PINGUINO_VERSION"][:2]),
+                            ],
+                 }
+
+        # Add the issue to our repository
+        r = session.post(url, json.dumps(issue))
+        if r.status_code == 201:
+            logging.info('Successfully created Issue "{}"'.format(summary))
+            self.save_auth(username, password)
+
+        return r.status_code == 201
 
 
 #----------------------------------------------------------------------
@@ -173,10 +244,26 @@ def send_old_submits():
 
         summary = parser.get("SUBMIT", "summary")
         details = parser.get("SUBMIT", "details")
+        repo = parser.get("SUBMIT", "repo")
         environ = parser.get("SUBMIT", "environ")
+        username = parser.get("SUBMIT", "username")
+        password = parser.get("SUBMIT", "password")
+
 
         try:
-            urlopen(SUBMIT_SERVER, urlencode({"summary": summary, "details": details, "environ": environ,}).encode("utf-8"))
+            url = 'https://api.github.com/repos/{}/{}/issues'.form
+            session = requests.Session()
+            session.auth = (username, password)
+            issue = {'title': summary,
+                     'body': "{}\n\n{}".format(details, environ),
+                     'labels': ['submitted-from-ide',
+                                'bug',
+                                'v{}'.format(os.environ["PINGUINO_VERSION"][:2]),
+                                ],
+                     }
+            r = session.post(url, json.dumps(issue))
             os.remove(filename)
         except:
             pass
+
+

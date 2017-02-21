@@ -68,7 +68,7 @@ setup(name = "pinguino",
                           ],
 
       extras_require = {
-          "gui":  ["pyside"]
+          "gui":  ["pyside", 'requests']
       },
 
       scripts = [
