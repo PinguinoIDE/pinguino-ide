@@ -103,6 +103,11 @@ class Paths(object):
             self.load_paths(section="PathsCustom")
             self.configIDE.set("Features", "pathstouse", "PathsCustom")
 
+
+        self.main.groupBox_compilers.setEnabled(not default)
+        self.main.groupBox_libraries.setEnabled(not default)
+        self.main.groupBox_icsp.setEnabled(not default)
+
         self.configIDE.save_config()
 
 

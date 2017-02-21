@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1138</width>
-    <height>816</height>
+    <height>963</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">Pinguino 12</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
+   <iconset>
     <normaloff>:/logo/art/windowIcon.png</normaloff>:/logo/art/windowIcon.png</iconset>
   </property>
   <property name="dockOptions">
@@ -25,7 +25,16 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_29">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <property name="spacing">
@@ -59,7 +68,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../../../pinguino-extra/resources/resources.qrc">:/logo/art/banner_blue.png</pixmap>
+          <pixmap>:/logo/art/banner_blue.png</pixmap>
          </property>
         </widget>
        </item>
@@ -105,11 +114,11 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
     <widget class="QMenu" name="menuRecents">
      <property name="title">
-      <string>Recents</string>
+      <string>&amp;Recents</string>
      </property>
      <addaction name="separator"/>
     </widget>
@@ -132,7 +141,7 @@
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
-     <string>Edit</string>
+     <string>&amp;Edit</string>
     </property>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
@@ -149,7 +158,7 @@
    </widget>
    <widget class="QMenu" name="menuPinguino">
     <property name="title">
-     <string notr="true">Debug</string>
+     <string notr="true">&amp;Debug</string>
     </property>
     <addaction name="actionCompile"/>
     <addaction name="actionUpload"/>
@@ -165,15 +174,15 @@
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>&amp;Help</string>
     </property>
     <widget class="QMenu" name="menuLinks">
      <property name="title">
-      <string>Links</string>
+      <string>&amp;Links</string>
      </property>
      <widget class="QMenu" name="menuGitHub">
       <property name="title">
-       <string>GitHub</string>
+       <string>&amp;GitHub</string>
       </property>
       <addaction name="actionGitPinguinoIde"/>
       <addaction name="actionGitPinguinoLibraries"/>
@@ -194,7 +203,7 @@
    </widget>
    <widget class="QMenu" name="menuSource">
     <property name="title">
-     <string>Source</string>
+     <string>So&amp;urce</string>
     </property>
     <addaction name="actionAutocomplete"/>
     <addaction name="actionComment_out_region"/>
@@ -208,17 +217,17 @@
    </widget>
    <widget class="QMenu" name="menuSettings">
     <property name="title">
-     <string>Settings</string>
+     <string>Setti&amp;ngs</string>
     </property>
     <widget class="QMenu" name="menuIcons_theme">
      <property name="title">
-      <string>Icons theme</string>
+      <string>&amp;Icons theme</string>
      </property>
      <addaction name="actionPinguino11"/>
     </widget>
     <widget class="QMenu" name="menuIcons_size">
      <property name="title">
-      <string>Icons size</string>
+      <string>Icons &amp;size</string>
      </property>
      <addaction name="action16x16"/>
      <addaction name="action24x24"/>
@@ -233,11 +242,11 @@
    </widget>
    <widget class="QMenu" name="menuProject">
     <property name="title">
-     <string>Project</string>
+     <string>Pro&amp;ject</string>
     </property>
     <widget class="QMenu" name="menuRecentProjects">
      <property name="title">
-      <string>Recent</string>
+      <string>&amp;Recent</string>
      </property>
      <addaction name="action_list_recent"/>
     </widget>
@@ -259,7 +268,7 @@
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
-     <string>Tools</string>
+     <string>&amp;Tools</string>
     </property>
     <addaction name="actionToggle_vertical_tool_area"/>
     <addaction name="actionToggle_horizontal_tool_area"/>
@@ -295,14 +304,23 @@
     <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
-    <string>Sidebar</string>
+    <string>S&amp;idebar</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_rigth">
     <layout class="QGridLayout" name="gridLayout_15">
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <property name="spacing">
@@ -317,7 +335,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>6</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -511,7 +529,16 @@
              <string>Variables</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_6">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -559,7 +586,16 @@
              <string>Functions</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_5">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -615,7 +651,16 @@
              <string>Directives</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_7">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -842,7 +887,7 @@
               <item row="0" column="0">
                <widget class="QRadioButton" name="radioButton_arch_8">
                 <property name="text">
-                 <string>8-bit</string>
+                 <string>&amp;8-bit</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>
@@ -852,7 +897,7 @@
               <item row="0" column="1">
                <widget class="QRadioButton" name="radioButton_arch_32">
                 <property name="text">
-                 <string>32-bit</string>
+                 <string>&amp;32-bit</string>
                 </property>
                </widget>
               </item>
@@ -892,7 +937,7 @@
                  <bool>true</bool>
                 </property>
                 <property name="text">
-                 <string>XC8</string>
+                 <string>&amp;XC8</string>
                 </property>
                 <property name="checked">
                  <bool>false</bool>
@@ -1214,8 +1259,7 @@
              </property>
              <property name="icon">
               <iconset theme="go-top">
-               <normaloff/>
-              </iconset>
+               <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
            </item>
@@ -1229,8 +1273,7 @@
              </property>
              <property name="icon">
               <iconset theme="go-down">
-               <normaloff/>
-              </iconset>
+               <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
            </item>
@@ -1306,243 +1349,187 @@
          <string>Paths</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_31">
-         <item row="1" column="0" colspan="2">
-          <widget class="QFrame" name="frame">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+         <item row="4" column="1">
+          <widget class="QCheckBox" name="checkBox_paths_default">
+           <property name="text">
+            <string>Use default paths</string>
            </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+           <property name="checked">
+            <bool>true</bool>
            </property>
-           <layout class="QGridLayout" name="gridLayout_30">
-            <item row="0" column="0">
-             <widget class="QStackedWidget" name="stackedWidget">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="currentIndex">
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="2">
+          <widget class="QGroupBox" name="groupBox_compilers">
+           <property name="title">
+            <string>Compilers</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_33">
+            <item row="1" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <property name="spacing">
                <number>0</number>
               </property>
-              <widget class="QWidget" name="page">
-               <layout class="QGridLayout" name="gridLayout_19">
-                <item row="0" column="0" colspan="2">
-                 <layout class="QVBoxLayout" name="verticalLayout_3">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_10">
-                    <property name="text">
-                     <string>GCC bin:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_path_gcc_bin"/>
-                  </item>
-                 </layout>
-                </item>
-                <item row="1" column="0" colspan="2">
-                 <layout class="QVBoxLayout" name="verticalLayout_2">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_3">
-                    <property name="text">
-                     <string>SDCC bin:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_path_sdcc_bin"/>
-                  </item>
-                 </layout>
-                </item>
-                <item row="2" column="0" colspan="2">
-                 <layout class="QVBoxLayout" name="verticalLayout_4">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_11">
-                    <property name="text">
-                     <string>XC8 bin:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_path_xc8_bin"/>
-                  </item>
-                 </layout>
-                </item>
-                <item row="3" column="0" colspan="2">
-                 <spacer name="verticalSpacer_6">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </widget>
-              <widget class="QWidget" name="page_2">
-               <layout class="QGridLayout" name="gridLayout_24">
-                <item row="3" column="0">
-                 <spacer name="verticalSpacer_8">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="2" column="0">
-                 <layout class="QVBoxLayout" name="verticalLayout_7">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_14">
-                    <property name="text">
-                     <string>custom libraries</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_path_custom_libs"/>
-                  </item>
-                 </layout>
-                </item>
-                <item row="0" column="0">
-                 <layout class="QVBoxLayout" name="verticalLayout_5">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_12">
-                    <property name="text">
-                     <string>8bit libraries</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_path_8_libs"/>
-                  </item>
-                 </layout>
-                </item>
-                <item row="1" column="0">
-                 <layout class="QVBoxLayout" name="verticalLayout_6">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_13">
-                    <property name="text">
-                     <string>32bit libraries</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_path_32_libs"/>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
-              <widget class="QWidget" name="page_3">
-               <layout class="QGridLayout" name="gridLayout_32">
-                <item row="1" column="0">
-                 <layout class="QVBoxLayout" name="verticalLayout_8">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_15">
-                    <property name="text">
-                     <string>MPLAB IPE</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit_path_custom_libs_2"/>
-                  </item>
-                 </layout>
-                </item>
-                <item row="2" column="0">
-                 <spacer name="verticalSpacer_7">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </widget>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_paths_default">
+               <widget class="QLabel" name="label_3">
                 <property name="text">
-                 <string>Use default paths</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
+                 <string>SDCC bin:</string>
                 </property>
                </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_path_sdcc_bin"/>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>GCC bin:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_path_gcc_bin"/>
+              </item>
+             </layout>
+            </item>
+            <item row="2" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_4">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>XC8 bin:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_path_xc8_bin"/>
               </item>
              </layout>
             </item>
            </layout>
           </widget>
          </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QComboBox" name="comboBox">
-           <item>
-            <property name="text">
-             <string>Compilers</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Libraries</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>ICSP</string>
-            </property>
-           </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QGroupBox" name="groupBox_libraries">
+           <property name="title">
+            <string>Libraries</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_34">
+            <item row="1" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_13">
+                <property name="text">
+                 <string>32bit libraries</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_path_32_libs"/>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_12">
+                <property name="text">
+                 <string>8bit libraries</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_path_8_libs"/>
+              </item>
+             </layout>
+            </item>
+            <item row="2" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_14">
+                <property name="text">
+                 <string>custom libraries</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_path_custom_libs"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
+         </item>
+         <item row="4" column="0">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="2" column="0" colspan="2">
+          <widget class="QGroupBox" name="groupBox_icsp">
+           <property name="title">
+            <string>ICSP</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_19">
+            <item row="0" column="0">
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_15">
+                <property name="text">
+                 <string>MPLAB IPE</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_path_custom_libs_2"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="2">
+          <spacer name="verticalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -1591,7 +1578,7 @@
     <set>QDockWidget::NoDockWidgetFeatures</set>
    </property>
    <property name="windowTitle">
-    <string>Bottombar</string>
+    <string>&amp;Bottombar</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>8</number>
@@ -1629,7 +1616,16 @@
          <string>Python Shell</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_11">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -1645,7 +1641,16 @@
          <string>Log</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_12">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -1661,7 +1666,16 @@
          <string>Stdout</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_13">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -1717,7 +1731,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</iconset>
    </property>
    <property name="text">
-    <string>New file</string>
+    <string>&amp;New file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
@@ -1729,7 +1743,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</iconset>
    </property>
    <property name="text">
-    <string>Open...</string>
+    <string>&amp;Open...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -1744,7 +1758,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</iconset>
    </property>
    <property name="text">
-    <string>Save</string>
+    <string>&amp;Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -1755,7 +1769,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Close</string>
+    <string>&amp;Close</string>
    </property>
    <property name="toolTip">
     <string>Close file</string>
@@ -1773,7 +1787,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</iconset>
    </property>
    <property name="text">
-    <string>Undo</string>
+    <string>&amp;Undo</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Z</string>
@@ -1788,7 +1802,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</iconset>
    </property>
    <property name="text">
-    <string>Redo</string>
+    <string>&amp;Redo</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Y</string>
@@ -1803,7 +1817,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</iconset>
    </property>
    <property name="text">
-    <string>Cut</string>
+    <string>&amp;Cut</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+X</string>
@@ -1818,7 +1832,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</iconset>
    </property>
    <property name="text">
-    <string>Copy</string>
+    <string>C&amp;opy</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
@@ -1833,7 +1847,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</iconset>
    </property>
    <property name="text">
-    <string>Paste</string>
+    <string>&amp;Paste</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+V</string>
@@ -1848,7 +1862,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
    </property>
    <property name="text">
-    <string>Search</string>
+    <string>S&amp;earch</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
@@ -1863,7 +1877,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
    </property>
    <property name="text">
-    <string>Search and replace</string>
+    <string>Searc&amp;h and replace</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
@@ -1875,7 +1889,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</iconset>
    </property>
    <property name="text">
-    <string>Pinguino boards</string>
+    <string>&amp;Pinguino boards</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+B</string>
@@ -1890,7 +1904,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</iconset>
    </property>
    <property name="text">
-    <string>Compile</string>
+    <string>&amp;Compile</string>
    </property>
    <property name="shortcut">
     <string>F5</string>
@@ -1905,7 +1919,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</iconset>
    </property>
    <property name="text">
-    <string>Upload</string>
+    <string>&amp;Upload</string>
    </property>
    <property name="shortcut">
     <string>F6</string>
@@ -1913,7 +1927,7 @@
   </action>
   <action name="actionQuit">
    <property name="text">
-    <string>Quit</string>
+    <string>&amp;Quit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -1921,12 +1935,12 @@
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About...</string>
+    <string>&amp;About...</string>
    </property>
   </action>
   <action name="actionComment_Uncomment_region">
    <property name="text">
-    <string>Comment/Uncomment region</string>
+    <string>Comment/&amp;Uncomment region</string>
    </property>
    <property name="toolTip">
     <string>Comment/Uncomment region</string>
@@ -1937,7 +1951,7 @@
   </action>
   <action name="actionComment_out_region">
    <property name="text">
-    <string>Comment out region</string>
+    <string>&amp;Comment out region</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+/</string>
@@ -1954,47 +1968,47 @@
   </action>
   <action name="actionSave_all">
    <property name="text">
-    <string>Save all</string>
+    <string>Sav&amp;e all</string>
    </property>
   </action>
   <action name="actionClose_all">
    <property name="text">
-    <string>Close all</string>
+    <string>C&amp;lose all</string>
    </property>
   </action>
   <action name="actionWebsite">
    <property name="text">
-    <string>Website</string>
+    <string>&amp;Website</string>
    </property>
   </action>
   <action name="actionWiki">
    <property name="text">
-    <string>Wiki</string>
+    <string>W&amp;iki</string>
    </property>
   </action>
   <action name="actionForum">
    <property name="text">
-    <string>Forum</string>
+    <string>&amp;Forum</string>
    </property>
   </action>
   <action name="actionBlog">
    <property name="text">
-    <string>Blog</string>
+    <string>&amp;Blog</string>
    </property>
   </action>
   <action name="actionGroup">
    <property name="text">
-    <string>Group</string>
+    <string>G&amp;roup</string>
    </property>
   </action>
   <action name="actionShop">
    <property name="text">
-    <string>Shop</string>
+    <string>&amp;Shop</string>
    </property>
   </action>
   <action name="actionSave_as">
    <property name="text">
-    <string>Save as...</string>
+    <string>Sa&amp;ve as...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+S</string>
@@ -2008,7 +2022,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Autocomplete code</string>
+    <string>&amp;Autocomplete code</string>
    </property>
   </action>
   <action name="actionColor_theme">
@@ -2019,7 +2033,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Background color</string>
+    <string>&amp;Background color</string>
    </property>
   </action>
   <action name="actionLibraryManager">
@@ -2030,12 +2044,12 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Library manager</string>
+    <string>Library ma&amp;nager</string>
    </property>
   </action>
   <action name="actionIndent">
    <property name="text">
-    <string>Indent</string>
+    <string>I&amp;ndent</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+&gt;</string>
@@ -2043,7 +2057,7 @@
   </action>
   <action name="actionDedent">
    <property name="text">
-    <string>Outdent</string>
+    <string>&amp;Outdent</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+&lt;</string>
@@ -2051,22 +2065,22 @@
   </action>
   <action name="actionClose_others">
    <property name="text">
-    <string>Close others</string>
+    <string>Close ot&amp;hers</string>
    </property>
   </action>
   <action name="actionDelete">
    <property name="text">
-    <string>Delete</string>
+    <string>&amp;Delete</string>
    </property>
   </action>
   <action name="actionSelect_all">
    <property name="text">
-    <string>Select all</string>
+    <string>&amp;Select all</string>
    </property>
   </action>
   <action name="actionPrint">
    <property name="text">
-    <string>Print...</string>
+    <string>&amp;Print...</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+P</string>
@@ -2080,12 +2094,12 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Toolbars</string>
+    <string>&amp;Toolbars</string>
    </property>
   </action>
   <action name="actionIf_Compile_then_Upload">
    <property name="text">
-    <string>If Compile then Upload</string>
+    <string>&amp;If Compile then Upload</string>
    </property>
    <property name="shortcut">
     <string>F7</string>
@@ -2093,17 +2107,17 @@
   </action>
   <action name="actionGitPinguinoIde">
    <property name="text">
-    <string>pinguino-ide</string>
+    <string>&amp;pinguino-ide</string>
    </property>
   </action>
   <action name="actionGitPinguinoLibraries">
    <property name="text">
-    <string>pinguino-libraries</string>
+    <string>pinguino-&amp;libraries</string>
    </property>
   </action>
   <action name="actionPinguino11">
    <property name="text">
-    <string>Pinguino11</string>
+    <string>&amp;Pinguino11</string>
    </property>
   </action>
   <action name="action16x16">
@@ -2111,7 +2125,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>16 x 16</string>
+    <string>&amp;16 x 16</string>
    </property>
   </action>
   <action name="action24x24">
@@ -2119,7 +2133,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>24 x 24</string>
+    <string>&amp;24 x 24</string>
    </property>
   </action>
   <action name="action32x32">
@@ -2127,7 +2141,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>32 x 32</string>
+    <string>&amp;32 x 32</string>
    </property>
   </action>
   <action name="action48x48">
@@ -2135,27 +2149,27 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>48 x 48</string>
+    <string>&amp;48 x 48</string>
    </property>
   </action>
   <action name="actionMain_c">
    <property name="text">
-    <string>View main.c</string>
+    <string>View &amp;main.c</string>
    </property>
   </action>
   <action name="actionDefine_h">
    <property name="text">
-    <string>View define.h</string>
+    <string>View &amp;define.h</string>
    </property>
   </action>
   <action name="actionUser_c">
    <property name="text">
-    <string>View user.c</string>
+    <string>&amp;View user.c</string>
    </property>
   </action>
   <action name="actionUpload_hex_directly">
    <property name="text">
-    <string>Upload .hex...</string>
+    <string>Up&amp;load .hex...</string>
    </property>
   </action>
   <action name="actionMenubar">
@@ -2166,62 +2180,62 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Menubar</string>
+    <string>M&amp;enubar</string>
    </property>
   </action>
   <action name="actionNew_project">
    <property name="text">
-    <string>New project...</string>
+    <string>&amp;New project...</string>
    </property>
   </action>
   <action name="actionOpen_project">
    <property name="text">
-    <string>Open project or library...</string>
+    <string>&amp;Open project or library...</string>
    </property>
   </action>
   <action name="action_list_recent">
    <property name="text">
-    <string>&lt;list recent&gt;</string>
+    <string>&lt;&amp;list recent&gt;</string>
    </property>
   </action>
   <action name="actionSave_project">
    <property name="text">
-    <string>Save project</string>
+    <string>&amp;Save project</string>
    </property>
   </action>
   <action name="actionSave_project_as">
    <property name="text">
-    <string>Save project as...</string>
+    <string>Save &amp;project as...</string>
    </property>
   </action>
   <action name="actionClose_project">
    <property name="text">
-    <string>Close project</string>
+    <string>&amp;Close project</string>
    </property>
   </action>
   <action name="actionAdd_existing_directory">
    <property name="text">
-    <string>Add existing directory...</string>
+    <string>&amp;Add existing directory...</string>
    </property>
   </action>
   <action name="actionAdd_current_file">
    <property name="text">
-    <string>Add current file</string>
+    <string>A&amp;dd current file</string>
    </property>
   </action>
   <action name="actionAdd_existing_file">
    <property name="text">
-    <string>Add existing file...</string>
+    <string>Add &amp;existing file...</string>
    </property>
   </action>
   <action name="actionAdd_new_file">
    <property name="text">
-    <string>Add new file...</string>
+    <string>Add new &amp;file...</string>
    </property>
   </action>
   <action name="actionSubmit_bug_report">
    <property name="text">
-    <string>Submit bug report...</string>
+    <string>&amp;Submit bug report...</string>
    </property>
   </action>
   <action name="actionTabShell">
@@ -2232,7 +2246,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Python shell</string>
+    <string>&amp;Python shell</string>
    </property>
   </action>
   <action name="actionTabLog">
@@ -2243,7 +2257,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Logs</string>
+    <string>&amp;Logs</string>
    </property>
   </action>
   <action name="actionTabStdout">
@@ -2254,7 +2268,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Stdout</string>
+    <string>&amp;Stdout</string>
    </property>
   </action>
   <action name="actionTabFiles">
@@ -2265,7 +2279,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Files</string>
+    <string>&amp;Files</string>
    </property>
   </action>
   <action name="actionTabProject">
@@ -2276,7 +2290,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Projects</string>
+    <string>P&amp;rojects</string>
    </property>
   </action>
   <action name="actionTabSourceBrowser">
@@ -2287,7 +2301,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Source browser</string>
+    <string>S&amp;ource browser</string>
    </property>
   </action>
   <action name="actionTabSearch">
@@ -2298,7 +2312,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Search</string>
+    <string>Sear&amp;ch</string>
    </property>
   </action>
   <action name="actionTabBoards">
@@ -2309,7 +2323,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Boards</string>
+    <string>&amp;Boards</string>
    </property>
   </action>
   <action name="actionToggle_vertical_tool_area">
@@ -2317,7 +2331,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Hide Vertical tool area</string>
+    <string>&amp;Hide Vertical tool area</string>
    </property>
    <property name="shortcut">
     <string>F2</string>
@@ -2325,7 +2339,7 @@
   </action>
   <action name="actionToggle_horizontal_tool_area">
    <property name="text">
-    <string>Hide horizontal tool area</string>
+    <string>H&amp;ide horizontal tool area</string>
    </property>
    <property name="shortcut">
     <string>F3</string>
@@ -2333,17 +2347,17 @@
   </action>
   <action name="actionMove_vertical_tool_area">
    <property name="text">
-    <string>Move vertical tool area to right</string>
+    <string>&amp;Move vertical tool area to right</string>
    </property>
   </action>
   <action name="actionGitPinguinoCompilers">
    <property name="text">
-    <string>pinguino-compilers</string>
+    <string>pinguino-&amp;compilers</string>
    </property>
   </action>
   <action name="actionReset_IDE_instalation">
    <property name="text">
-    <string>Reset IDE configuration</string>
+    <string>&amp;Reset IDE configuration</string>
    </property>
   </action>
   <action name="actionNew_blocks_file">
@@ -2352,7 +2366,7 @@
      <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</iconset>
    </property>
    <property name="text">
-    <string>New blocks file</string>
+    <string>New &amp;blocks file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+N</string>
@@ -2360,17 +2374,17 @@
   </action>
   <action name="actionAdd_new_blocks_file">
    <property name="text">
-    <string>Add new blocks file...</string>
+    <string>Add new &amp;blocks file...</string>
    </property>
   </action>
   <action name="actionHex">
    <property name="text">
-    <string>View .hex</string>
+    <string>View .&amp;hex</string>
    </property>
   </action>
   <action name="actionInsert_Block">
    <property name="text">
-    <string>Insert block</string>
+    <string>&amp;Insert block</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
@@ -2378,12 +2392,12 @@
   </action>
   <action name="actionGenerate_blocks">
    <property name="text">
-    <string>Generate blocks</string>
+    <string>&amp;Generate blocks</string>
    </property>
   </action>
   <action name="actionNew_library">
    <property name="text">
-    <string>New library...</string>
+    <string>New &amp;library...</string>
    </property>
   </action>
   <action name="actionTabPaths">
@@ -2410,38 +2424,5 @@
  <resources>
   <include location="../../../../pinguino-extra/resources/resources.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>comboBox</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>stackedWidget</receiver>
-   <slot>setCurrentIndex(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>863</x>
-     <y>140</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1021</x>
-     <y>195</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_paths_default</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>stackedWidget</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>999</x>
-     <y>568</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>992</x>
-     <y>511</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

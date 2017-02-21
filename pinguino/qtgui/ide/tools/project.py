@@ -185,6 +185,17 @@ class Project(object):
         dir_project = Dialogs.set_open_dir(self)
         if dir_project in self.get_dirs_from_project(): return False
 
+        if dir_project == self.get_default_project_dir():
+            dir_project_tmp = os.path.join(dir_project, self.get_project_name())
+
+            i = 1
+            while os.path.exists(dir_project_tmp):
+                dir_project_tmp = os.path.join(dir_project, self.get_project_name() + "-{}".format(i))
+                i += 1
+
+            dir_project = dir_project_tmp
+            os.mkdir(dir_project)
+
         self.add_existing_directory(dir_project, inherits_status=True)
         return dir_project
 
@@ -271,6 +282,7 @@ class Project(object):
 
         logging.debug("Created \"{}\" project.".format(project_name))
 
+        #os.environ["PINGUINO_PROJECT"] = project_name
         return project_name
         # self.main.treeWidget_projects.setHeaderLabel(project_name)
 
@@ -366,8 +378,76 @@ class Project(object):
 
         if project_name:
             Dialogs.info_message(self, QtGui.QApplication.translate("Dialogs", "Create or add an existing directory for project."))
-            self.select_existing_directory()
+            dirname = self.select_existing_directory()
+            if dirname:
+                self.create_project_template(dirname)
             self.update_project_status(project_name)
+
+            self.reload_project()
+            self.reload_project()
+
+
+    #----------------------------------------------------------------------
+    def create_project_template(self, dirname):
+        """"""
+
+        main_filename = os.path.join(dirname, 'main.pde')
+        main_code = """/*-----------------------------------------------------
+    Author: --<>
+    Project: {}
+    Date: {}
+    Description:
+
+    -----------------------------------------------------*/
+
+
+    void setup(){{
+
+    }}
+
+    void loop(){{
+
+        my_function();
+
+    }}
+    """.format(self.get_project_name(), datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+
+
+        func_filename = os.path.join(dirname, 'functions.pde')
+        func_code = """/*-----------------------------------------------------
+    Author: --<>
+    Project: {}
+    Date: {}
+    Description:
+
+    -----------------------------------------------------*/
+
+
+    void my_function(){{
+
+    }}
+
+
+    """.format(self.get_project_name(), datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+
+
+        main_file = open(main_filename, mode="w")
+        main_file.write(main_code)
+        main_file.close()
+
+        main_file = open(func_filename, mode="w")
+        main_file.write(func_code)
+        main_file.close()
+
+
+
+
+        self.ide_open_file_from_path(filename=func_filename)
+        self.ide_open_file_from_path(filename=main_filename)
+
+
 
 
     #----------------------------------------------------------------------
