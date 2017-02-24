@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-import os
+#import os
 
-from PySide import QtGui, QtCore
+from PySide import QtCore
 
 
-# Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
-    #Python3
-    from configparser import RawConfigParser
-else:
-    #Python2
-    from ConfigParser import RawConfigParser
+## Python3 compatibility
+#if os.getenv("PINGUINO_PYTHON") is "3":
+    ##Python3
+    #from configparser import RawConfigParser
+#else:
+    ##Python2
+    #from ConfigParser import RawConfigParser
+
+
+from ..methods.dialogs import Dialogs
 
 
 ########################################################################
@@ -29,10 +32,24 @@ class Paths(object):
         self.connect(self.main.lineEdit_path_8_libs, QtCore.SIGNAL("editingFinished()"), self.save_paths)
         self.connect(self.main.lineEdit_path_32_libs, QtCore.SIGNAL("editingFinished()"), self.save_paths)
 
+        self.connect(self.main.pushButton_dir_sdcc, QtCore.SIGNAL("clicked()"), lambda :self.open_path_for(self.main.lineEdit_path_sdcc_bin))
+        self.connect(self.main.pushButton_dir_gcc, QtCore.SIGNAL("clicked()"), lambda :self.open_path_for(self.main.lineEdit_path_gcc_bin))
+        self.connect(self.main.pushButton_dir_xc8, QtCore.SIGNAL("clicked()"), lambda :self.open_path_for(self.main.lineEdit_path_xc8_bin))
+        self.connect(self.main.pushButton_dir_8bit, QtCore.SIGNAL("clicked()"), lambda :self.open_path_for(self.main.lineEdit_path_8_libs))
+        self.connect(self.main.pushButton_dir_32bit, QtCore.SIGNAL("clicked()"), lambda :self.open_path_for(self.main.lineEdit_path_32_libs))
+        self.connect(self.main.pushButton_dir_libs, QtCore.SIGNAL("clicked()"), lambda :self.open_path_for(self.main.lineEdit_path_custom_libs))
+        self.connect(self.main.pushButton_dir_mplab, QtCore.SIGNAL("clicked()"), lambda :self.open_path_for(self.main.lineEdit_path_mplab))
+
         self.connect(self.main.checkBox_paths_default, QtCore.SIGNAL("toggled(bool)"), self.set_default_values)
 
 
-
+    #----------------------------------------------------------------------
+    def open_path_for(self, lineedit):
+        """"""
+        dir_path = Dialogs.set_open_dir(self)
+        if dir_path:
+            lineedit.setText(dir_path)
+            self.save_paths()
 
 
     #----------------------------------------------------------------------
