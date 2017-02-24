@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1138</width>
-    <height>963</height>
+    <width>1503</width>
+    <height>968</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">Pinguino 12</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
     <normaloff>:/logo/art/windowIcon.png</normaloff>:/logo/art/windowIcon.png</iconset>
   </property>
   <property name="dockOptions">
@@ -25,16 +25,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_29">
-    <property name="leftMargin">
-     <number>0</number>
-    </property>
-    <property name="topMargin">
-     <number>0</number>
-    </property>
-    <property name="rightMargin">
-     <number>0</number>
-    </property>
-    <property name="bottomMargin">
+    <property name="margin">
      <number>0</number>
     </property>
     <property name="spacing">
@@ -68,7 +59,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>:/logo/art/banner_blue.png</pixmap>
+          <pixmap resource="../../../../pinguino-extra/resources/resources.qrc">:/logo/art/banner_blue.png</pixmap>
          </property>
         </widget>
        </item>
@@ -108,8 +99,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1138</width>
-     <height>30</height>
+     <width>1503</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -311,16 +302,7 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_rigth">
     <layout class="QGridLayout" name="gridLayout_15">
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
+     <property name="margin">
       <number>0</number>
      </property>
      <property name="spacing">
@@ -529,16 +511,7 @@
              <string>Variables</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_6">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
+             <property name="margin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -586,16 +559,7 @@
              <string>Functions</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_5">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
+             <property name="margin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -651,16 +615,7 @@
              <string>Directives</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_7">
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
+             <property name="margin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -1259,7 +1214,8 @@
              </property>
              <property name="icon">
               <iconset theme="go-top">
-               <normaloff>.</normaloff>.</iconset>
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -1273,7 +1229,8 @@
              </property>
              <property name="icon">
               <iconset theme="go-down">
-               <normaloff>.</normaloff>.</iconset>
+               <normaloff/>
+              </iconset>
              </property>
             </widget>
            </item>
@@ -1365,54 +1322,93 @@
             <string>Compilers</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_33">
-            <item row="1" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_2">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>SDCC bin:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_path_sdcc_bin"/>
-              </item>
-             </layout>
-            </item>
             <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item>
+             <layout class="QGridLayout" name="gridLayout_24">
+              <item row="0" column="0">
                <widget class="QLabel" name="label_10">
                 <property name="text">
                  <string>GCC bin:</string>
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="1" column="0">
                <widget class="QLineEdit" name="lineEdit_path_gcc_bin"/>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_dir_gcc">
+                <property name="maximumSize">
+                 <size>
+                  <width>34</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_30">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>SDCC bin:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="lineEdit_path_sdcc_bin"/>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_dir_sdcc">
+                <property name="maximumSize">
+                 <size>
+                  <width>34</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
             <item row="2" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_4">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item>
+             <layout class="QGridLayout" name="gridLayout_32">
+              <item row="0" column="0">
                <widget class="QLabel" name="label_11">
                 <property name="text">
                  <string>XC8 bin:</string>
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="1" column="0">
                <widget class="QLineEdit" name="lineEdit_path_xc8_bin"/>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_dir_xc8">
+                <property name="maximumSize">
+                 <size>
+                  <width>34</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -1426,53 +1422,92 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_34">
             <item row="1" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item>
+             <layout class="QGridLayout" name="gridLayout_36">
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="lineEdit_path_32_libs"/>
+              </item>
+              <item row="0" column="0">
                <widget class="QLabel" name="label_13">
                 <property name="text">
                  <string>32bit libraries</string>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_path_32_libs"/>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_dir_32bit">
+                <property name="maximumSize">
+                 <size>
+                  <width>34</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
             <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item>
+             <layout class="QGridLayout" name="gridLayout_35">
+              <item row="0" column="0">
                <widget class="QLabel" name="label_12">
                 <property name="text">
                  <string>8bit libraries</string>
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="1" column="0">
                <widget class="QLineEdit" name="lineEdit_path_8_libs"/>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_dir_8bit">
+                <property name="maximumSize">
+                 <size>
+                  <width>34</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
             <item row="2" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_7">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item>
+             <layout class="QGridLayout" name="gridLayout_37">
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="lineEdit_path_custom_libs"/>
+              </item>
+              <item row="0" column="0">
                <widget class="QLabel" name="label_14">
                 <property name="text">
                  <string>custom libraries</string>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_path_custom_libs"/>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_dir_libs">
+                <property name="maximumSize">
+                 <size>
+                  <width>34</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -1499,19 +1534,32 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_19">
             <item row="0" column="0">
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <property name="spacing">
-               <number>0</number>
-              </property>
-              <item>
+             <layout class="QGridLayout" name="gridLayout_38">
+              <item row="0" column="0">
                <widget class="QLabel" name="label_15">
                 <property name="text">
                  <string>MPLAB IPE</string>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_path_custom_libs_2"/>
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="lineEdit_path_mplab"/>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_dir_mplab">
+                <property name="maximumSize">
+                 <size>
+                  <width>34</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -1616,16 +1664,7 @@
          <string>Python Shell</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_11">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
+         <property name="margin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -1641,16 +1680,7 @@
          <string>Log</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_12">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
+         <property name="margin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -1666,16 +1696,7 @@
          <string>Stdout</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_13">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
+         <property name="margin">
           <number>0</number>
          </property>
          <property name="spacing">

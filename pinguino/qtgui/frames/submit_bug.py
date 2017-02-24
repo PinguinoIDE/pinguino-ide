@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'submit_bug.ui'
 #
-# Created: Mon Feb 20 22:56:48 2017
+# Created: Mon Feb 20 23:09:17 2017
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_SubmitBug(object):
     def setupUi(self, SubmitBug):
         SubmitBug.setObjectName("SubmitBug")
-        SubmitBug.resize(651, 741)
+        SubmitBug.resize(652, 594)
         self.gridLayout = QtGui.QGridLayout(SubmitBug)
         self.gridLayout.setObjectName("gridLayout")
         self.label = QtGui.QLabel(SubmitBug)
