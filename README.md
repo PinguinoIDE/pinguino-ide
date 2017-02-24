@@ -5,6 +5,7 @@ Pinguino IDE 12
 ### Install from PyPI ###
 ```shell
 pip install pyside
+pip install requests
 pip install pinguino
 ```
 
