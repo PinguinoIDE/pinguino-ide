@@ -163,13 +163,15 @@ class Config(RawConfigParser, object):
             Absolute path.
         """
 
-        if self.has_option("Paths", name):
+        paths = self.config("Features", "pathstouse", "Paths")
+
+        if self.has_option(paths, name):
             if prefix:
-                return os.path.normpath(os.path.join(prefix, self.get("Paths", name)[1:]))
+                return os.path.normpath(os.path.join(prefix, self.get(paths, name)[1:]))
             else:
-                return os.path.normpath(self.get("Paths", name))
+                return os.path.normpath(self.get(paths, name))
         else:
-            logging.warning("Missing '{}' for 'Paths' in config file: '{}'".format(name, self.ide_config_file))
+            logging.warning("Missing '{}' for 'Paths' or 'PathsCustom' in config file: '{}'".format(name, self.ide_config_file))
             return ""
 
 
