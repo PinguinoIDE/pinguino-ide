@@ -1405,7 +1405,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             if filename.endswith(".c"):
                 try:
                     files.append({"filename": filename,
-                                  "content": open(os.path.join(path, filename), mode="r").read(),
+                                  "content": codecs.open(os.path.join(path, filename), mode="r", encoding="utf-8", errors='ignore').read(),
                                   })
                 except Exception as msg:
                     logging.error("{}: {}".format(filename, msg))
