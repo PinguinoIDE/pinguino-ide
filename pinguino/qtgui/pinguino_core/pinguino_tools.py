@@ -702,39 +702,40 @@ class PinguinoTools(Uploader):
             match = re.match(regex_directive, content[line])
             if match:
                 defines.append(content[line]+"\n")
-                if match.group(1) in ["define", "include"]: content[line] = ""
+                #if match.group(1) in ["define", "include"]: content[line] = ""
+                if match.group(1) in preprocessor_commands: content[line] = ""
 
 
         # content = "\n".join(content)
         content = self.recove_strings("\n".join(content), keys)
 
-        #return content, self.sort_directives(defines)
-        return content, defines
+        return content, self.sort_directives(defines)
+        #return content, defines
 
 
-    ##----------------------------------------------------------------------
-    #def sort_directives(self, list_directives):
-        #""""""
-        #directives = "\n".join(list_directives) + "\n"
+    #----------------------------------------------------------------------
+    def sort_directives(self, list_directives):
+        """"""
+        directives = "\n".join(list_directives) + "\n"
 
-        #start = 0
-        #conditionals = []
-        #while directives.find("#if", start) != -1:
-            #start = directives.find("#if", start)
-            #end = directives.find("#endif", start)
-            #end_= directives.find("\n", end)
-            #conditionals.append(directives[start:end_])
-            #start = end
+        start = 0
+        conditionals = []
+        while directives.find("#if", start) != -1:
+            start = directives.find("#if", start)
+            end = directives.find("#endif", start)
+            end_= directives.find("\n", end)
+            conditionals.append(directives[start:end_])
+            start = end
 
 
-        #for conditional in conditionals:
-            #directives = directives.replace(conditional, "")
-            #conditional = conditional.split("\n")
+        for conditional in conditionals:
+            directives = directives.replace(conditional, "")
+            conditional = conditional.split("\n")
 
-        #directives = list(filter(None, sorted(directives.split("\n"))))
-        #[directives.extend(cond.split("\n")) for cond in conditionals]
+        directives = list(filter(None, sorted(directives.split("\n"))))
+        [directives.extend(cond.split("\n")) for cond in conditionals]
 
-        #return [directive + "\n" for directive in list(filter(None, directives))]
+        return [directive + "\n" for directive in list(filter(None, directives))]
 
 
 
