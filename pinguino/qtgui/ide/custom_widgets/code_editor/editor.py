@@ -64,12 +64,20 @@ class CustomTextEdit(QtGui.QTextEdit):
 
 
     #----------------------------------------------------------------------
+    def focusInEvent(self, event):
+        """"""
+
+        super(CustomTextEdit, self).focusInEvent(event)
+        #self.cursorC.
+
+
+    #----------------------------------------------------------------------
     def set_autocompleter(self, autocompleter):
         """"""
 
         self.completer = autocompleter
         self.completer.text_edit = self
-        self.mousePressEvent = self.mouseAction
+        #self.mousePressEvent = self.mouseAction
         self.completer.setFont(self.font())
         self.connect(self.completer, QtCore.SIGNAL("itemDoubleClicked(QListWidgetItem*)"), self.insertItem)
         self.completer.keyPressEvent = self.keyPressEvent_autocompleter
@@ -85,11 +93,13 @@ class CustomTextEdit(QtGui.QTextEdit):
 
 
 
-    #----------------------------------------------------------------------
-    def mouseAction(self, event):
+    ##----------------------------------------------------------------------
+    #def mouseAction(self, event):
 
-        if self.underMouse(): self.completer.hide()
-        QtGui.QTextEdit.mousePressEvent(self, event)
+        #if self.underMouse():
+            #self.completer.hide()
+        ##QtGui.QTextEdit.mousePressEvent(self, event)
+        #super(CustomTextEdit, self).mousePressEvent(event)
 
 
     #----------------------------------------------------------------------
