@@ -18,7 +18,7 @@ NAME = "Pinguino IDE"
 MAJOR = "12"
 MINOR = "0"
 PATCH = "39"
-PRE_RELEASE = "beta.4"
+PRE_RELEASE = "beta.5"
 
 if PRE_RELEASE:
     VERSION = "{MAJOR}.{MINOR}.{PATCH}-{PRE_RELEASE}".format(**locals())
