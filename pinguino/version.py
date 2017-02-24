@@ -17,7 +17,7 @@ NAME = "Pinguino IDE"
 
 MAJOR = "12"
 MINOR = "0"
-PATCH = "38"
+PATCH = "39"
 PRE_RELEASE = "beta.4"
 
 if PRE_RELEASE:
