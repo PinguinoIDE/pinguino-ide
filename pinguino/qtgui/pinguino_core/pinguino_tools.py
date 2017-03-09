@@ -1016,8 +1016,8 @@ class PinguinoTools(Uploader):
                 # ToDo1: *** PIC16F145x  : -L-AUSB5=2080h-21FFh ***
                 # ToDo2: *** PIC18F1xk50 : -L-AUSB5=280h-2BFh   ***
                 # Remove these 2 lines ?
-                "-L-AUSB5=0500h-05FFh",
-                "-L-Pusbram5=USB5",
+                #"-L-AUSB5=0500h-05FFh",
+                #"-L-Pusbram5=USB5",
                 # Macros
                 "-D" + board.board,
                 "-D" + board.bldr,
@@ -1037,32 +1037,32 @@ class PinguinoTools(Uploader):
         elif board.arch == 8 and board.bldr == 'noboot' and compiler == 'sdcc':
 
             sortie = Popen([self.COMPILER_8BIT,
-                "--verbose",\
-                "-mpic16",\
-                "--denable-peeps",\
-                "--obanksel=9",\
-                "--optimize-cmp",\
-                "--optimize-df",\
+                "--verbose",
+                "-mpic16",
+                "--denable-peeps",
+                "--obanksel=9",
+                "--optimize-cmp",
+                "--optimize-df",
                 #"--no-crt",\ we use default run-time module inside libsdcc.lib
-                "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.proc + '_g.lkr') + "\",-m",\
-                "-p" + board.proc,\
-                "-D" + board.bldr,\
-                "-D" + board.board,\
-                "-DBOARD=\"" + board.board + "\"",\
-                "-DPROC=\"" + board.proc + "\"",\
-                "-DBOOT_VER=0",\
-                "--use-non-free",\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
-                "-I" + file_dir,\
-                'libio' + board.proc + '.lib',\
-                'libdev' + board.proc + '.lib',\
-                'libc18f.lib',\
-                'libm18f.lib',\
+                "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.proc + '_g.lkr') + "\",-m",
+                "-p" + board.proc,
+                "-D" + board.bldr,
+                "-D" + board.board,
+                "-DBOARD=\"" + board.board + "\"",
+                "-DPROC=\"" + board.proc + "\"",
+                "-DBOOT_VER=0",
+                "--use-non-free",
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
+                "-I" + file_dir,
+                'libio' + board.proc + '.lib',
+                'libdev' + board.proc + '.lib',
+                'libc18f.lib',
+                'libm18f.lib',
                 # link the default run-time module
-                'libsdcc.lib',\
-                "-o" + os.path.join(src_dir, 'main.hex'),\
-                os.path.join(src_dir, 'main.o')] + user_imports,\
+                'libsdcc.lib',
+                "-o" + os.path.join(src_dir, 'main.hex'),
+                os.path.join(src_dir, 'main.o')] + user_imports,
                 stdout=fichier, stderr=STDOUT)
 
 
@@ -1140,8 +1140,8 @@ class PinguinoTools(Uploader):
                 # ToDo1: *** PIC16F145x  : -L-AUSB5=2080h-21FFh ***
                 # ToDo2: *** PIC18F1xk50 : -L-AUSB5=280h-2BFh   ***
                 # Remove these 2 lines ?
-                #"-L-AUSB5=0500h-05FFh",
-                #"-L-Pusbram5=USB5",
+                "-L-AUSB5=0500h-05FFh",
+                "-L-Pusbram5=USB5",
                 # Macros
                 "-D" + board.board,
                 "-D" + board.bldr,
@@ -1163,39 +1163,39 @@ class PinguinoTools(Uploader):
         elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'sdcc':
 
             sortie = Popen([self.COMPILER_8BIT,
-                "--verbose", "-V",\
-                "-mpic16",\
+                "--verbose", "-V",
+                "-mpic16",
                 # optimization
-                "--denable-peeps",\
-                "--obanksel=9",\
-                "--optimize-cmp",\
-                "--optimize-df",\
+                "--denable-peeps",
+                "--obanksel=9",
+                "--optimize-cmp",
+                "--optimize-df",
                 # don't want to link default crt0i.o but crt0i.c
-                "--no-crt",\
+                "--no-crt",
                 # move all int. vectors after bootloader code
-                "--ivt-loc=" + str(board.memstart),\
+                "--ivt-loc=" + str(board.memstart),
                 # link memory map
-                "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.bldr + '.' + board.proc + '.lkr') + "\",-m",\
-                "-p" + board.proc,\
-                "-D" + board.bldr,\
-                "-D" + board.board,\
-                "-DBOARD=\"" + board.board + "\"",\
-                "-DPROC=\"" + board.proc + "\"",\
-                "-DBOOT_VER=4",\
-                "--use-non-free",\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),\
-                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),\
-                "-I" + file_dir, \
-                os.path.join(src_dir, 'main.o'),\
-                'libio' + board.proc + '.lib',\
-                'libdev' + board.proc + '.lib',\
-                'libc18f.lib',\
-                'libm18f.lib',\
+                "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.bldr + '.' + board.proc + '.lkr') + "\",-m",
+                "-p" + board.proc,
+                "-D" + board.bldr,
+                "-D" + board.board,
+                "-DBOARD=\"" + board.board + "\"",
+                "-DPROC=\"" + board.proc + "\"",
+                "-DBOOT_VER=4",
+                "--use-non-free",
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'core'),
+                "-I" + os.path.join(self.P8_DIR, 'include', 'pinguino', 'libraries'),
+                "-I" + file_dir,
+                os.path.join(src_dir, 'main.o'),
+                'libio' + board.proc + '.lib',
+                'libdev' + board.proc + '.lib',
+                'libc18f.lib',
+                'libm18f.lib',
                 # link the default run-time module (crt0i.o)
                 # except when "-no-crt" option is used
-                'libsdcc.lib',\
-                "-o" + os.path.join(src_dir, 'main.hex'),\
-                ] + user_imports,\
+                'libsdcc.lib',
+                "-o" + os.path.join(src_dir, 'main.hex'),
+                ] + user_imports,
                 stdout=fichier, stderr=STDOUT)
 
 
