@@ -220,6 +220,8 @@ class uploader8(baseUploader):
             return str(bytearray(usbBuf))
         else:
             return usbBuf
+        
+        #return usbBuf
 
 # ----------------------------------------------------------------------
     def sendCommand(self, device, usbBuf):

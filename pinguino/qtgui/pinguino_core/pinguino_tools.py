@@ -1193,7 +1193,7 @@ class PinguinoTools(Uploader):
                 'libm18f.lib',
                 # link the default run-time module (crt0i.o)
                 # except when "-no-crt" option is used
-                'libsdcc.lib',
+                #'libsdcc.lib',
                 "-o" + os.path.join(src_dir, 'main.hex'),
                 ] + user_imports,
                 stdout=fichier, stderr=STDOUT)

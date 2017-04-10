@@ -283,19 +283,33 @@ class Pinguino46J50(object):
     shortarg = '-p46j50'
     longarg = '--pinguino46j50'
 
-class Pinguino47J53(object):
-    name = 'Pinguino 47J53'
+class Pinguino47J53A(object):
+    name = 'Pinguino 47J53A'
     arch = 8
     bldr = 'boot4'
     proc = '18f47j53'
-    board = 'PINGUINO47J53'
+    board = 'PINGUINO47J53A'
     family = '18F'
     vendor = MICROCHIP_ID
     product = P8_ID
     memstart = 0x0C00       # bootloader offset
     memend   = 0x20000
-    shortarg = '-p47j53'
-    longarg = '--pinguino47j53'
+    shortarg = '-p47j53a'
+    longarg = '--pinguino47j53a'
+
+class Pinguino47J53B(object):
+    name = 'Pinguino Torda'
+    arch = 8
+    bldr = 'boot4'
+    proc = '18f47j53'
+    board = 'PINGUINO47J53B'
+    family = '18F'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend   = 0x20000
+    shortarg = '-pTorda'
+    longarg = '--pinguinoTorda'
 
 """---------------------------------------------------------------------
     32-bit (MX) Boards
@@ -501,7 +515,7 @@ boardlist = [
     FreeJALduino,  PICuno_Equo, CHRP3,
     Pinguino25k50, Pinguino45k50,
     Pinguino26J50, Pinguino46J50,
-    Pinguino27J53, Pinguino47J53,
+    Pinguino27J53, Pinguino47J53A, Pinguino47J53B,
     Pinguino32MX220, Pinguino32MX250, Pinguino32MX270,
     PIC32_Pinguino, PIC32_Pinguino_OTG,
     PIC32_Pinguino_Micro, PIC32_Pinguino_T795,

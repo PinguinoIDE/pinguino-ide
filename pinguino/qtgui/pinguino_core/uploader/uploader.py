@@ -232,4 +232,3 @@ class Uploader(object):
         # self.uploader.writeHex()
         self.uploader.uploadDevice(self.hex_file, self.board)
         return self.uploader.report
-
