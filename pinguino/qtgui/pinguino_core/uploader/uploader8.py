@@ -538,8 +538,8 @@ class uploader8(baseUploader):
         # erase memory from board.memstart to max_address
         # --------------------------------------------------------------
 
-        numBlocksMax = (board.memend - board.memstart) / eraseBlockSize
-        numBlocks    = (max_address  - board.memstart) / eraseBlockSize
+        numBlocksMax = (MEMEND      - MEMSTART) / eraseBlockSize
+        numBlocks    = (max_address - MEMSTART) / eraseBlockSize
         #self.add_report("numBlocks    : %d" % numBlocks)
         #self.add_report("numBlocksMax : %d" % numBlocksMax)
 
