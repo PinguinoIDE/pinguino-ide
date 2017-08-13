@@ -1108,6 +1108,13 @@ class PinguinoTools(Uploader):
         #if board.arch == 8 and board.bldr == 'boot4' and compiler == 'xc8':
         elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'xc8':
 
+            if board.proc in ('16f1454','16f1455','16f1459'):
+                usbram='2080h-21FFh'
+            elif board.proc in ('18f13k50','18f14k50'):
+                usbram='280h-2BFh'
+            else:
+                usbram='0500h-05FFh'
+
             sortie = Popen([self.COMPILER_8BIT,
                 # Define device
                 "--CHIP=" + board.proc,
@@ -1137,10 +1144,7 @@ class PinguinoTools(Uploader):
                 # Move reset and interrupts vectors after bootloader code
                 "--CODEOFFSET=" + hex(board.memstart),
                 # Options to the Linker
-                # ToDo1: *** PIC16F145x  : -L-AUSB5=2080h-21FFh ***
-                # ToDo2: *** PIC18F1xk50 : -L-AUSB5=280h-2BFh   ***
-                # Remove these 2 lines ?
-                "-L-AUSB5=0500h-05FFh",
+                "-L-AUSB5={}".format(usbram),
                 "-L-Pusbram5=USB5",
                 # Macros
                 "-D" + board.board,
