@@ -1382,8 +1382,10 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
         libinstructions32 = self.pinguinoAPI.read_lib(32)
         name_spaces_32 = list(map(lambda x:x["pinguino"], libinstructions32))
 
-        core = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "core")
-        libraries = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "libraries")
+        #core = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "core")
+        #libraries = os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p8", "include", "pinguino", "libraries")
+        core = os.path.join(os.getenv("PINGUINO_8_LIBS_PATH"), "include", "pinguino", "core")
+        libraries = os.path.join(os.getenv("PINGUINO_8_LIBS_PATH"), "include", "pinguino", "libraries")
 
         lib_paths = []
 

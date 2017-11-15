@@ -90,11 +90,13 @@ class PinguinoConfig(object):
         os.environ["PINGUINO_INSTALL_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("Paths", "install_path")))
         os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("Paths", "user_libs")))
 
+        os.environ["PINGUINO_LIBS_PATH"] = os.path.expandvars(os.path.expanduser(os.path.dirname(config_paths.get("Paths", "pinguino_8_libs"))))
+
+        os.environ["PINGUINO_8_LIBS_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("Paths", "pinguino_8_libs")))
+        os.environ["PINGUINO_32_LIBS_PATH"] = os.path.expandvars(os.path.expanduser(config_paths.get("Paths", "pinguino_32_libs")))
+
         # os.environ["PINGUINO_USERLIBS_PATH"] = os.path.expandvars(os.path.join(os.getenv("PINGUINO_USER_PATH"), "libraries"))
         os.environ["PINGUINO_DEFAULT_FILES"] = os.path.join(os.getenv("PINGUINO_USER_PATH"), "local")
-
-
-
 
 
     #----------------------------------------------------------------------
@@ -124,13 +126,13 @@ class PinguinoConfig(object):
     def check_locations(cls):
         """If not exist some directory then copy them from installation path."""
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "examples"),
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_LIBS_PATH"), "examples"),
                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "graphical_examples"),
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_LIBS_PATH"), "graphical_examples"),
                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
-        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "source"),
+        cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_LIBS_PATH"), "source"),
                                    dst=os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
         cls.if_not_exist_then_copy(src=os.path.join(os.getenv("PINGUINO_INSTALL_PATH"), "p32", "obj"),
@@ -247,6 +249,7 @@ class PinguinoConfig(object):
             pinguino_object.SOURCE_DIR = workspace
         else:
             pinguino_source = os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")
+            #pinguino_source = os.path.join(os.path.dirname(os.getenv("PINGUINO_8_LIBS_PATH")), "source")
             if pinguino_source: pinguino_object.SOURCE_DIR = pinguino_source
             else: logging.warning("Missing path to 'source': '%s'"%pinguino_source)
 
