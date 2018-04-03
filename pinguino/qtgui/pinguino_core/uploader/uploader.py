@@ -48,7 +48,7 @@ import os
 class baseUploader(object):
 
     # PyUSB Core module switch
-    #-------------------------------------------------------------------
+    # ------------------------------------------------------------------
 
     PYUSB_USE_CORE                  =   1 # (0=legacy, 1=core)
 

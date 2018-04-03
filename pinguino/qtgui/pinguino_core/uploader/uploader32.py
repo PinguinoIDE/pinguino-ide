@@ -93,16 +93,14 @@ class uploader32(baseUploader):
     BOOT_ADDR2                      =    13     # long = 4 bytes
     BOOT_LEN2                       =    17     # long = 4 bytes
     BOOT_TYPE3                      =    21     # char = 1 byte
-    BOOT_ADDR3                      =    22     # long = 4 bytes
-    BOOT_LEN3                       =    26     # long = 4 bytes
+    BOOT_VER_MAJOR                  =    22     # long = 4 bytes
+    BOOT_VER_MINOR                  =    26     # long = 4 bytes
+    BOOT_VER_DEVPT                  =    30     # long = 4 bytes
 
     BOOT_TYPE_LEN                   =    9      # char + long + long = 9 bytes
 
     BOOT_DEVID1                     =    8
     BOOT_DEVID2                     =    60
-
-    BOOT_VER_MAJOR                  =    22
-    BOOT_VER_MINOR                  =    26
 
     # Sent packet structure
     # ----------------------------------------------------------------------
@@ -177,7 +175,7 @@ class uploader32(baseUploader):
     DEVICE_ID_ADDRESS               =    0xBF80F220
 
     # Table with supported USB devices
-    # device_id:['CPU name']
+    # device_id:['CPU name', Flash size, Family]
     #-----------------------------------------------------------------------
     """
             0x04A00053: ['32MX220F032B'],
@@ -518,13 +516,16 @@ class uploader32(baseUploader):
         if self.QUERY_DEVICE_CMD_SUPPORTED == True:
             major = self.QUERY_DEVICE_BUFFER[self.BOOT_VER_MAJOR]
             minor = self.QUERY_DEVICE_BUFFER[self.BOOT_VER_MINOR]
+            devpt = self.QUERY_DEVICE_BUFFER[self.BOOT_VER_DEVPT]
+
             if major == 0 and minor == 0:
                 logging.info("No")
                 return False
             else:
                 logging.info("Yes, major = %d" % major)
                 logging.info("Yes, minor = %d" % minor)
-                return str(major) + "." + str(minor)
+                logging.info("Yes, devpt = %d" % devpt)
+                return str(major) + "." + str(minor) + "." + str(devpt)
         else:
             return False
 
@@ -534,9 +535,9 @@ class uploader32(baseUploader):
         """ Get user program start address """
         if self.QUERY_DEVICE_CMD_SUPPORTED == True:
             start = (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 0]      ) | \
-                (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 1] <<  8) | \
-                (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 2] << 16) | \
-                (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 3] << 24)
+                    (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 1] <<  8) | \
+                    (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 2] << 16) | \
+                    (self.QUERY_DEVICE_BUFFER[self.BOOT_IVTSTART + 3] << 24)
             return start
         else:
             return False
@@ -547,8 +548,8 @@ class uploader32(baseUploader):
         """ Get available free memory """
         if self.QUERY_DEVICE_CMD_SUPPORTED == True:
             free = (self.QUERY_DEVICE_BUFFER[self.BOOT_MEMFREE + 0]      ) | \
-                (self.QUERY_DEVICE_BUFFER[self.BOOT_MEMFREE + 1] <<  8) | \
-                (self.QUERY_DEVICE_BUFFER[self.BOOT_MEMFREE + 2] << 16)
+                   (self.QUERY_DEVICE_BUFFER[self.BOOT_MEMFREE + 1] <<  8) | \
+                   (self.QUERY_DEVICE_BUFFER[self.BOOT_MEMFREE + 2] << 16)
             return free
         else:
             return False

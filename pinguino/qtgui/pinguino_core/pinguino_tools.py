@@ -829,6 +829,10 @@ class PinguinoTools(Uploader):
         #for lib_dir in self.USER_P8_LIBS:
             #user_imports.append("-I" + lib_dir)
 
+        #
+        # --- SDCC & ICSP MODE -----------------------------------------
+        #
+        
         if board.bldr == 'noboot':
 
             sortie = Popen([self.COMPILER_8BIT,
@@ -878,7 +882,10 @@ class PinguinoTools(Uploader):
                             # mainc_output] + user_imports,
                            # stdout=fichier, stderr=STDOUT)
 
-
+        #
+        # --- SDCC & BOOTLOADER MODE -----------------------------------
+        #
+        
         #if board.bldr == 'boot4':
         else:
 
@@ -904,9 +911,8 @@ class PinguinoTools(Uploader):
                             "--compile-only",
                             mainc_output,
                             "-o" + os.path.join(src_dir, 'main.o')] + user_imports,
-                           stdout=fichier, stderr=STDOUT)
-
-
+                           stdout=fichier,
+                           stderr=STDOUT)
 
         sortie.communicate()
         if sortie.poll()!=0:
@@ -984,8 +990,17 @@ class PinguinoTools(Uploader):
 
         file_dir = os.path.dirname(self.__filename__)
 
+        #
+        # --- XC8 & ICSP MODE ------------------------------------------
+        #
+        
         if board.arch == 8 and board.bldr == 'noboot' and compiler == 'xc8':
 
+            if board.proc in ('16f1459', '18f13k50', '18f14k50'):
+                fbit = '24'
+            else :
+                fbit = '32'
+                
             sortie = Popen([self.COMPILER_8BIT,
                 # Define device
                 "--CHIP=" + board.proc,
@@ -993,8 +1008,13 @@ class PinguinoTools(Uploader):
                 "-P", "-N64", "-V", "-M", "-G",
                 # Compiler Optimizations
                 "--OPT=default,+asm,+asmfile,-speed,+space,-debug",
-                # We use the 32-bit format for both float and double values
-                "--FLOAT=24", "--DOUBLE=24",
+                # By default, the XC8 compiler uses a 24-bit floating-point format
+                # that is a truncated form of the 32-bit format and that has 8 bits
+                # of exponent but only 16 bits of signed mantissa while P32-GCC uses
+                # 24 bits of mantissa.
+                # So to be compatible with P32s, we use the 32-bit format for both
+                # float and double values
+                "--FLOAT=" + fbit, "--DOUBLE=" + fbit,
                 # Reject any non-standard memory qualifiers (near, far, ...) in C source code
                 "--ADDRQUAL=reject",
                 # TODO : in Board Selector, adding 2 more options
@@ -1034,6 +1054,10 @@ class PinguinoTools(Uploader):
                 ] + user_imports,
                stdout=fichier, stderr=STDOUT)
 
+        #
+        # --- SDCC & ICSP MODE -----------------------------------------
+        #
+        
         elif board.arch == 8 and board.bldr == 'noboot' and compiler == 'sdcc':
 
             sortie = Popen([self.COMPILER_8BIT,
@@ -1104,16 +1128,22 @@ class PinguinoTools(Uploader):
                 # os.path.join(, 'main.o')] + user_imports,\
                 # stdout=fichier, stderr=STDOUT)
 
+        #
+        # --- XC8 & BOOTLOADER MODE ------------------------------------
+        #
 
         #if board.arch == 8 and board.bldr == 'boot4' and compiler == 'xc8':
         elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'xc8':
 
             if board.proc in ('16f1454','16f1455','16f1459'):
                 usbram='2080h-21FFh'
+                fbit = '24'
             elif board.proc in ('18f13k50','18f14k50'):
                 usbram='280h-2BFh'
+                fbit = '24'
             else:
                 usbram='0500h-05FFh'
+                fbit = '32'
 
             sortie = Popen([self.COMPILER_8BIT,
                 # Define device
@@ -1122,8 +1152,13 @@ class PinguinoTools(Uploader):
                 "-P", "-N64", "-V", "-M", "-G",
                 # Compiler Optimizations
                 "--OPT=default,+asm,+asmfile,-speed,+space,-debug",
-                # We use the 32-bit format for both float and double values
-                "--FLOAT=24", "--DOUBLE=24",
+                # By default, the XC8 compiler uses a 24-bit floating-point format
+                # that is a truncated form of the 32-bit format and that has 8 bits
+                # of exponent but only 16 bits of signed mantissa while P32-GCC uses
+                # 24 bits of mantissa.
+                # So to be compatible with P32s, we use the 32-bit format for both
+                # float and double values
+                "--FLOAT=" + fbit, "--DOUBLE=" + fbit,
                 # Reject any non-standard memory qualifiers (near, far, ...) in C source code
                 "--ADDRQUAL=reject",
                 # TODO : in Board Selector, adding 2 more options
@@ -1162,6 +1197,9 @@ class PinguinoTools(Uploader):
                 ] + user_imports,
                stdout=fichier, stderr=STDOUT)
 
+        #
+        # --- SDCC & BOOTLOADER MODE -----------------------------------
+        #
 
         #if board.arch == 8 and board.bldr == 'boot4' and compiler == 'sdcc':
         elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'sdcc':
@@ -1202,6 +1240,9 @@ class PinguinoTools(Uploader):
                 ] + user_imports,
                 stdout=fichier, stderr=STDOUT)
 
+        #
+        # --- P32_GCC & BOOTLOADER MODE --------------------------------
+        #
 
         elif board.arch == 32:
 
@@ -1271,9 +1312,15 @@ class PinguinoTools(Uploader):
         codesize = 0
         address_Hi = 0
 
-        memfree = board.memend - board.memstart
+        if board.arch == 32:
+            # substract the interrupt vector table from the total
+            memstart = board.memstart - 0x10 + 0x1000
+        else:
+            memstart = board.memstart
+        
+        memfree = board.memend - memstart
 
-        #print "%X" % board.memstart
+        #print "%X" % memstart
         #print "%X" % board.memend
 
         fichier = open(filename, 'r')
@@ -1297,12 +1344,12 @@ class PinguinoTools(Uploader):
                 #self.displaymsg(_("address = %X" % address),0)
 
                 #if address >= board.memstart:
-                if (address >= board.memstart) and (address < board.memend):
+                if (address >= memstart) and (address < board.memend):
                     codesize = codesize + byte_count
 
         fichier.close()
         # return "Code size: " + str(codesize) + " / " + str(memfree) + " " + "bytes" + " (" + str(100*codesize/memfree) + "% " + "used"+ ")"
-        return "Code size: {}/{} bytes ({:.2f}% used)".format(codesize, memfree, 100*codesize/memfree)  #Python3 rocks!
+        return "Code size: {}/{} bytes ({:.2f}% used)".format(codesize, memfree, 100.0*codesize/memfree)  #Python3 rocks!
 
 
     #----------------------------------------------------------------------

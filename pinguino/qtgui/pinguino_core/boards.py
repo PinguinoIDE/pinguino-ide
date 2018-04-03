@@ -357,6 +357,20 @@ class Pinguino32MX270(object):
     shortarg = '-p270'
     longarg = '--pinguino32mx270'
 
+class Pinguino32MX470(object):
+    name = 'Pinguino Magna'
+    arch = 32
+    bldr = 'microchip'
+    proc = '32MX470F512H'
+    board = 'PINGUINO32MX470'
+    vendor = MICROCHIP_ID
+    product = P32_ID
+    ivtstart = 0x9D002000           # _ebase_address (exception_mem)
+    memstart = 0x9D003010           # kseg0_program_mem
+    memend   = 0x9D080000
+    shortarg = '-p470'
+    longarg = '--pinguinoMagna'
+
 class PIC32_Pinguino_220(object):
     name = 'PIC32 Pinguino MX220'
     arch = 32
@@ -516,7 +530,7 @@ boardlist = [
     Pinguino25k50, Pinguino45k50,
     Pinguino26J50, Pinguino46J50,
     Pinguino27J53, Pinguino47J53A, Pinguino47J53B,
-    Pinguino32MX220, Pinguino32MX250, Pinguino32MX270,
+    Pinguino32MX220, Pinguino32MX250, Pinguino32MX270, Pinguino32MX470,
     PIC32_Pinguino, PIC32_Pinguino_OTG,
     PIC32_Pinguino_Micro, PIC32_Pinguino_T795,
     PIC32_Pinguino_220,

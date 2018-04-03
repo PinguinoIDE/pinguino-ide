@@ -54,6 +54,8 @@ os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
 os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
 os.environ["PINGUINO_HOME"] = os.path.dirname(os.path.abspath(__file__))
+#RB20171228 : workaround for command line 
+os.environ["PINGUINO_LIB"] = os.path.join(os.path.abspath(os.path.dirname(__file__)), "pinguino")
 
 # For PyInstaller compatibility
 if os.path.exists(os.path.abspath("pinguino_data")):
@@ -213,9 +215,9 @@ if __name__ == "__main__":
 
     else:  #command line
 
-        from qtgui.pinguino_api.pinguino import Pinguino
-        from qtgui.pinguino_api.pinguino_config import PinguinoConfig
-        from qtgui.pinguino_api.config import Config
+        from qtgui.pinguino_core.pinguino import Pinguino
+        from qtgui.pinguino_core.pinguino_config import PinguinoConfig
+        from qtgui.pinguino_core.config import Config
 
         pinguino = Pinguino()
         PinguinoConfig.set_environ_vars()
