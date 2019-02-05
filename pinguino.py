@@ -2,8 +2,8 @@
 #-*- coding: utf-8 -*-
 
 NAME = "Pinguino IDE"
-VERSION = "11.0"
-SUBVERSION = "beta.4"
+VERSION = "12.0"
+SUBVERSION = "beta.2"
 
 #DESCRIPTION = ""
 #LONG_DESCRIPTION = ""
@@ -53,7 +53,9 @@ else:
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
 os.environ["PINGUINO_SUBVERSION"] = SUBVERSION
-os.environ["PINGUINO_HOME"] = os.path.abspath(sys.path[0])
+os.environ["PINGUINO_HOME"] = os.path.dirname(os.path.abspath(__file__))
+#RB20171228 : workaround for command line 
+os.environ["PINGUINO_LIB"] = os.path.join(os.path.abspath(os.path.dirname(__file__)), "pinguino")
 
 # For PyInstaller compatibility
 if os.path.exists(os.path.abspath("pinguino_data")):
@@ -74,7 +76,11 @@ class bcolors:
     ENDC = "\033[0m"
 
 import argparse
-from qtgui.pinguino_api.boards import boardlist
+
+
+sys.path.append(os.path.join(os.getenv("PINGUINO_HOME"), "pinguino"))
+sys.path.append(os.path.join(os.getenv("PINGUINO_HOME"), "pinguino", "qtgui", "resources"))
+
 
 #----------------------------------------------------------------------
 def build_argparse():
@@ -89,6 +95,7 @@ def build_argparse():
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
     parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
 
+    from qtgui.pinguino_core.boards import boardlist
     for board in boardlist:
         parser.add_argument(board.shortarg, board.longarg, dest="board", const=board, action="store_const", default=False,
                             help="compile code for " + board.board + " board")
@@ -128,9 +135,9 @@ else:
 
 
 
-if os.path.isdir(python_path_modules): sys.path.append(python_path_modules)
+if os.path.isdir(python_path_modules):
+    sys.path.append(python_path_modules)
 
-sys.path.append(os.path.join(os.getenv("PINGUINO_DATA"), "qtgui", "resources"))
 
 if __name__ == "__main__":
 
@@ -191,7 +198,7 @@ if __name__ == "__main__":
         app.installTranslator(qtTranslator)
         if trasnlations: app.installTranslator(translator)
 
-        frame = PinguinoIDE(splash_write=splash_write, argvs=parser)
+        frame = PinguinoIDE(splash_write=splash_write)
         frame.show()
 
         if not splash is None:
@@ -208,9 +215,9 @@ if __name__ == "__main__":
 
     else:  #command line
 
-        from qtgui.pinguino_api.pinguino import Pinguino
-        from qtgui.pinguino_api.pinguino_config import PinguinoConfig
-        from qtgui.pinguino_api.config import Config
+        from qtgui.pinguino_core.pinguino import Pinguino
+        from qtgui.pinguino_core.pinguino_config import PinguinoConfig
+        from qtgui.pinguino_core.config import Config
 
         pinguino = Pinguino()
         PinguinoConfig.set_environ_vars()

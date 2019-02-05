@@ -1,0 +1,16 @@
+include LICENSE
+include CHANGELOG
+include README.rst
+include pinguino12.desktop
+include pinguino/paths.cfg
+include pinguino/*.py
+include pinguino/*.bat
+include pinguino/*.sh
+recursive-include pinguino/qtgui/config *
+recursive-include pinguino/qtgui/resources *
+recursive-include pinguino/qtgui/gide/bloques *
+recursive-include pinguino/multilanguage *
+recursive-include pinguino/docs *
+recursive-include cmd *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

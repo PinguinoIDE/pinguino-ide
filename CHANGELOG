@@ -1,16 +1,28 @@
-Pinguino IDE 11.0 - Beta 4
---------------------------
+Pinguino IDE 12.0 - Beta 1
+------------------------
 
-Aug. 28, 2015
+Jan. 27, 2016
+* Added PIC16F1708 support
+
+Sep. 09, 2015
+* Added PIC16F1459 support
+
+Jul. 09, 2015
+* Added XC8 compiler support
+
+Oct. 03, 2015
 
 Features
 
-* Added debugger to Python shell
-
-Bug Fixes
-
-* Commandline mode need PySide
-* Many preprocessor bugs
+* Separated Python Shell and Debugger tabs
+* Moved stdout to bottom tab
+* Added Project and Libraries manager
+* Moved boards selector to lateral tab
+* All tabs are toggleable
+* Added submit bug report system
+* Better integration between clasic code and blocks files
+* Tabs areas can be fully resized
+* Script only for command line (pinguino_cmd.py)
 
 
 Pinguino IDE 11.0 - Beta 3
