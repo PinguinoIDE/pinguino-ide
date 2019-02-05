@@ -5,7 +5,7 @@ import os
 import codecs
 from datetime import datetime
 
-from PySide import QtGui
+from PySide2 import QtGui
 
 from ..methods.decorators import Decorator
 

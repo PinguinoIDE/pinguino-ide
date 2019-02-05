@@ -3,14 +3,14 @@
 
 import os
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from ...frames.about import Ui_About
 
 import resources_rc
 
 ########################################################################
-class About(QtGui.QDialog):
+class About(QtWidgets.QDialog):
 
     def __init__(self):
         super(About, self).__init__()

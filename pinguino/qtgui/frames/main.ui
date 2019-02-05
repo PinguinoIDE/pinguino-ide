@@ -317,7 +317,7 @@
         <enum>QTabWidget::West</enum>
        </property>
        <property name="currentIndex">
-        <number>6</number>
+        <number>3</number>
        </property>
        <property name="movable">
         <bool>true</bool>
@@ -930,15 +930,25 @@
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_23">
-            <item row="2" column="0">
+            <item row="4" column="0">
              <widget class="Line" name="line_2">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
+            <item row="3" column="0">
              <layout class="QGridLayout" name="gridLayout_18">
+              <item row="1" column="0">
+               <widget class="QRadioButton" name="radioButton_mode_usb">
+                <property name="text">
+                 <string>USB</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
               <item row="0" column="0">
                <widget class="QRadioButton" name="radioButton_mode_icsp">
                 <property name="text">
@@ -946,13 +956,10 @@
                 </property>
                </widget>
               </item>
-              <item row="0" column="1">
-               <widget class="QRadioButton" name="radioButton_mode_bootloader">
+              <item row="2" column="0">
+               <widget class="QRadioButton" name="radioButton_mode_bt">
                 <property name="text">
-                 <string>Bootloader</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
+                 <string>Bluetooth</string>
                 </property>
                </widget>
               </item>

@@ -3,7 +3,7 @@
 
 #import os
 
-from PySide import QtCore
+from PySide2 import QtCore
 
 
 ## Python3 compatibility

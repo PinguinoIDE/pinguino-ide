@@ -7,7 +7,7 @@ import os
 import logging
 import traceback
 
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 from .dialogs import Dialogs
 from ..child_windows.submit_bug import SubmitBug
@@ -174,7 +174,7 @@ class Decorator(object):
                     return fn(Pinguino, *args, **kwargs)
                 else:
                     #print("Missing libraries and/or compiler")
-                    Dialogs.warning_message(Pinguino, QtGui.QApplication.translate("Dialogs", "Impossible to compile this file, missing libraries and/or compiler."))
+                    Dialogs.warning_message(Pinguino, QtWidgets.QApplication.translate("Dialogs", "Impossible to compile this file, missing libraries and/or compiler."))
                     return None
             return wrapped
         return actualdecorator

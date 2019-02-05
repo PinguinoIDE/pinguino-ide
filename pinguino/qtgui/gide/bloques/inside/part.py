@@ -7,31 +7,31 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(157, 34)
         Form.setWindowTitle("")
-        self.gridLayout = QtGui.QGridLayout(Form)
+        self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
-        self.frame = QtGui.QFrame(Form)
+        self.frame = QtWidgets.QFrame(Form)
         self.frame.setMinimumSize(QtCore.QSize(10, 34))
         self.frame.setMaximumSize(QtCore.QSize(10, 34))
         self.frame.setObjectName("frame")
         self.gridLayout.addWidget(self.frame, 0, 0, 1, 1)
-        self.frame_2 = QtGui.QFrame(Form)
+        self.frame_2 = QtWidgets.QFrame(Form)
         self.frame_2.setMinimumSize(QtCore.QSize(0, 34))
         self.frame_2.setMaximumSize(QtCore.QSize(16777215, 34))
         self.frame_2.setObjectName("frame_2")
-        self.gridLayout_2 = QtGui.QGridLayout(self.frame_2)
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.frame_2)
         self.gridLayout_2.setSpacing(0)
         self.gridLayout_2.setContentsMargins(0, 0, 6, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setContentsMargins(-1, 0, 3, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")

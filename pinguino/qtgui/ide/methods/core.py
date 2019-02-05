@@ -9,7 +9,7 @@ import webbrowser
 import shutil
 from math import ceil
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 # import requests
 # from urllib import request
 # import urllib
@@ -245,10 +245,10 @@ class PinguinoQueries(object):
             board_config.append("Heap size: {} bytes".format(self.configIDE.config("Board", "heapsize", 512)))
             board_config.append("Optimization: {}".format(self.configIDE.config("Board", "optimization", "-O3")))
 
-        if board.bldr == "noboot":
+        if board.connect == "icsp":
             board_config.append("Mode: ICSP")
         else:
-            board_config.append("Bootloader: {}".format(board.bldr))
+            board_config.append("Bootloader: {}".format(board.connect))
 
         return "\n".join(board_config)
 
@@ -260,18 +260,18 @@ class PinguinoQueries(object):
         board = self.pinguinoAPI.get_board()
         board_config = [board.name]
 
-        if board.bldr == "noboot":
-            board_config.append("Mode: ICSP")
+        #if board.connect == "icsp":
+        #    board_config.append("Mode: ICSP")
 
-        else:
-            board_config.append("Bootloader: {}".format(board.bldr))
-            # if board.arch == 8 and board.bldr == "boot2":
+        #else:
+        board_config.append("Programming mode: {}".format(board.connect))
+            # if board.arch == 8 and board.connect == "boot2":
                 # board_config += " | Bootloader: v1 & v2"
 
         if board.arch == 8:
             board_config.append("Compiler: {}".format(self.configIDE.config("Board", "compiler", "XC8")))
         elif board.arch == 32:
-            board_config.append("Compiler: GCC")
+            board_config.append("Compiler: GCC MIPS ELF")
 
 
         return " | ".join(board_config)
@@ -345,7 +345,7 @@ class PinguinoSettings(object):
 
         self.main.menuRecents.clear()
         self.main.menuRecents.addSeparator()
-        self.main.menuRecents.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_menu)
+        self.main.menuRecents.addAction(QtWidgets.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_menu)
         self.recent_files = []
 
 
@@ -493,7 +493,7 @@ class PinguinoSettings(object):
 
         dict_themes = {}
         for theme in valid_themes:
-            action = QtGui.QAction(self)
+            action = QtWidgets.QAction(self)
             action.setCheckable(True)
             action.setText(theme.capitalize().replace("-", " "))
             self.connect(action, QtCore.SIGNAL("triggered()"), self.change_icon_theme(theme, action))
@@ -688,12 +688,12 @@ class PinguinoSettings(object):
         self.addDockWidget(QtCore.Qt.DockWidgetArea(getattr(QtCore.Qt, position)), self.main.dockWidget_right)
 
         if position == "LeftDockWidgetArea":
-            self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.East)
-            # self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.East)
+            self.main.tabWidget_tools.setTabPosition(QtWidgets.QTabWidget.East)
+            # self.main.tabWidget_blocks.setTabPosition(QtWidgets.QTabWidget.East)
             self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to right")
         else:
-            self.main.tabWidget_tools.setTabPosition(QtGui.QTabWidget.West)
-            # self.main.tabWidget_blocks.setTabPosition(QtGui.QTabWidget.West)
+            self.main.tabWidget_tools.setTabPosition(QtWidgets.QTabWidget.West)
+            # self.main.tabWidget_blocks.setTabPosition(QtWidgets.QTabWidget.West)
             self.main.actionMove_vertical_tool_area.setText("Move vertical tool area to left")
 
 
@@ -777,9 +777,9 @@ class PinguinoMain(object):
 
         if self.is_project() and not self.is_library():
             self.ide_save_all()
-            self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(self.get_project_name())))
+            self.write_log(QtWidgets.QApplication.translate("Frame", "Compiling: {}".format(self.get_project_name())))
         else:
-            self.write_log(QtGui.QApplication.translate("Frame", "Compiling: {}".format(filename)))
+            self.write_log(QtWidgets.QApplication.translate("Frame", "Compiling: {}".format(filename)))
 
         self.write_log(self.get_description_board())
 
@@ -848,9 +848,9 @@ class PinguinoMain(object):
 
         else:
             result = self.pinguinoAPI.get_result()
-            self.write_log(QtGui.QApplication.translate("Frame", "compilation done"))
+            self.write_log(QtWidgets.QApplication.translate("Frame", "compilation done"))
             self.write_log(result["code_size"])
-            self.write_log(QtGui.QApplication.translate("Frame", "{time} seconds process time".format(**result)))
+            self.write_log(QtWidgets.QApplication.translate("Frame", "{time} seconds process time".format(**result)))
 
             if dialog_upload:
                 if Dialogs.compilation_done(self):
@@ -972,17 +972,17 @@ class PinguinoMain(object):
         # generate messages
         status = ""
         if not os.path.exists(compiler_path):
-            status = QtGui.QApplication.translate("Frame", "Missing compiler for {}-bit".format(arch))
+            status = QtWidgets.QApplication.translate("Frame", "Missing compiler for {}-bit".format(arch))
             logging.warning("Missing compiler for {}-bit".format(arch))
             logging.warning("Not found: {}".format(compiler_path))
 
         if not os.path.exists(libraries_path):
-            status = QtGui.QApplication.translate("Frame", "Missing libraries for {}-bit".format(arch))
+            status = QtWidgets.QApplication.translate("Frame", "Missing libraries for {}-bit".format(arch))
             logging.warning("Missing libraries for {}-bit".format(arch))
             logging.warning("Not found: {}".format(libraries_path))
 
         if not os.path.exists(libraries_path) and not os.path.exists(compiler_path):
-            status = QtGui.QApplication.translate("Frame", "Missing libraries and compiler for {}-bit".format(arch))
+            status = QtWidgets.QApplication.translate("Frame", "Missing libraries and compiler for {}-bit".format(arch))
 
         if status:
             self.status_warnnig.setText(status)
@@ -1298,7 +1298,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         self.main.menuRecents.clear()
         for file_ in self.recent_files:
-            action = QtGui.QAction(self)
+            action = QtWidgets.QAction(self)
             filename = os.path.split(file_)[1]
 
             len_ = 40
@@ -1316,7 +1316,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                 self.main.menuRecents.addAction(action)
 
         self.main.menuRecents.addSeparator()
-        self.main.menuRecents.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_menu)
+        self.main.menuRecents.addAction(QtWidgets.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_menu)
 
 
 
@@ -1332,10 +1332,10 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     def build_statusbar(self):
 
         #principal status
-        self.status_info = QtGui.QLabel()
+        self.status_info = QtWidgets.QLabel()
 
         #warning status
-        self.status_warnnig = QtGui.QLabel()
+        self.status_warnnig = QtWidgets.QLabel()
         self.status_warnnig.setAlignment(QtCore.Qt.AlignRight)
         self.status_warnnig.setStyleSheet("""
         QLabel{
@@ -1490,7 +1490,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                         os.remove(filename_backup)
                         return
 
-                reply = Dialogs.confirm_message(self, "{}\n".format(filename) + QtGui.QApplication.translate("Dialogs",
+                reply = Dialogs.confirm_message(self, "{}\n".format(filename) + QtWidgets.QApplication.translate("Dialogs",
                         "Pinguino IDE has found changes that were not saved during your last session.\nDo you want recover it?."))
 
                 if reply:
@@ -1647,9 +1647,9 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def build_menutoolbar(self):
 
-        self.toolbutton_menutoolbar = QtGui.QToolButton(self)
-        self.toolbutton_menutoolbar.setPopupMode(QtGui.QToolButton.MenuButtonPopup)
-        menu = QtGui.QMenu()
+        self.toolbutton_menutoolbar = QtWidgets.QToolButton(self)
+        self.toolbutton_menutoolbar.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        menu = QtWidgets.QMenu()
 
         icon = QtGui.QIcon.fromTheme("preferences-system")
         self.toolbutton_menutoolbar.setIcon(icon)
@@ -2361,7 +2361,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     # def __show_pinguino_code__(self):
         # name = getattr(self.get_tab().currentWidget(), "path", "")
         # if name: name = " - " + name
-        # self.frame_pinguino_code = PlainOut(QtGui.QApplication.translate("Dialogs", "Pinguino code"))
+        # self.frame_pinguino_code = PlainOut(QtWidgets.QApplication.translate("Dialogs", "Pinguino code"))
         # self.frame_pinguino_code.show_text(self.PinguinoKIT.get_pinguino_source_code(), pde=True)
         # self.frame_pinguino_code.show()
 
@@ -2494,7 +2494,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
     #----------------------------------------------------------------------
     def editor_tabfile_context_menu(self, event):
-        menu = QtGui.QMenu()
+        menu = QtWidgets.QMenu()
 
         editor = self.get_current_editor()
 
@@ -2528,7 +2528,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
     #----------------------------------------------------------------------
     def editor_file_context_menu(self, event):
-        menu = QtGui.QMenu()
+        menu = QtWidgets.QMenu()
 
         editor = self.get_current_editor()
         filename = getattr(editor, "path", False)
@@ -2536,7 +2536,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
                          filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples")) or
                          filename.startswith(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples_libs"))
                          ):
-            menu.addAction(QtGui.QApplication.translate("Frame", "Restore example"), self.editor_restore_example)
+            menu.addAction(QtWidgets.QApplication.translate("Frame", "Restore example"), self.editor_restore_example)
             menu.addSeparator()
 
 
@@ -2580,7 +2580,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     #----------------------------------------------------------------------
     def ide_tabs_context_menu(self, event):
         """"""
-        menu = QtGui.QMenu()
+        menu = QtWidgets.QMenu()
         menu.addAction(self.main.actionTabShell)
         menu.addAction(self.main.actionTabLog)
         menu.addAction(self.main.actionTabStdout)

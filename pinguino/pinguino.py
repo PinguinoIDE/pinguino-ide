@@ -25,8 +25,9 @@ import sys
 import os
 import argparse
 
-from PySide import QtCore, QtGui
-from PySide.QtGui import QApplication, QSplashScreen, QPixmap
+from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2.QtWidgets import QApplication, QSplashScreen
+from PySide2.QtGui import QPixmap
 
 #----------------------------------------------------------------------
 def build_argparse():

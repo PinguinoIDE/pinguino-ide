@@ -3,7 +3,7 @@
 
 import os
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 from collections import OrderedDict
 
 ########################################################################
@@ -29,16 +29,15 @@ class Boards(object):
         self.main.comboBox_optimization.addItems(self.OPTIMIZATION)
         self.init_groups()
 
-
-        self.connect(self.main.radioButton_mode_bootloader, QtCore.SIGNAL("clicked()"), self.update_config)
+        self.connect(self.main.radioButton_mode_usb, QtCore.SIGNAL("clicked()"), self.update_config)
         self.connect(self.main.radioButton_mode_icsp, QtCore.SIGNAL("clicked()"), self.update_config)
+        self.connect(self.main.radioButton_mode_bt, QtCore.SIGNAL("clicked()"), self.update_config)
 
         self.connect(self.main.radioButton_compiler_sdcc, QtCore.SIGNAL("clicked()"), self.update_config)
         self.connect(self.main.radioButton_compiler_xc8, QtCore.SIGNAL("clicked()"), self.update_config)
 
         self.connect(self.main.radioButton_arch_8, QtCore.SIGNAL("clicked()"), self.update_config)
         self.connect(self.main.radioButton_arch_32, QtCore.SIGNAL("clicked()"), self.update_config)
-
 
         self.connect(self.main.checkBox_mips16, QtCore.SIGNAL("clicked()"), self.save_config)
         self.connect(self.main.spinBox_heapsize, QtCore.SIGNAL("valueChanged(QString)"), self.save_config)
@@ -95,9 +94,10 @@ class Boards(object):
         self.main.radioButton_compiler_sdcc.setChecked(compiler=="SDCC")
         self.main.radioButton_compiler_xc8.setChecked(compiler=="XC8")
 
-        mode = self.configIDE.config("Board", "mode", "bootloader")
-        self.main.radioButton_mode_bootloader.setChecked(mode == "bootloader")
+        mode = self.configIDE.config("Board", "mode", "usb")
+        self.main.radioButton_mode_usb.setChecked(mode == "usb")
         self.main.radioButton_mode_icsp.setChecked(mode == "icsp")
+        self.main.radioButton_mode_bt.setChecked(mode == "bt")
 
         # bootloader = self.configIDE.config("Board", "bootloader", "v1_v2")
         # self.main.radioButton_bootloader_v1_v2.setChecked(bootloader == "v1_v2")
@@ -129,8 +129,9 @@ class Boards(object):
         else: compiler = "XC8"
         self.configIDE.set("Board", "compiler", compiler)
 
-        if self.main.radioButton_mode_bootloader.isChecked(): mode = "bootloader"
-        else: mode = "icsp"
+        if self.main.radioButton_mode_usb.isChecked(): mode = "usb"
+        if self.main.radioButton_mode_icsp.isChecked(): mode = "icsp"
+        if self.main.radioButton_mode_bt.isChecked(): mode = "bt"
         self.configIDE.set("Board", "mode", mode)
 
         # if self.main.radioButton_bootloader_v1_v2.isChecked(): bootloader = "v1_v2"
@@ -151,9 +152,9 @@ class Boards(object):
     #----------------------------------------------------------------------
     def update_config(self):
 
-        mode_boot = self.main.radioButton_mode_bootloader.isChecked()
+        mode_prog = self.main.radioButton_mode_usb.isChecked()
         arch_8 = self.main.radioButton_arch_8.isChecked()
-        # self.main.frame_bootloader.setVisible(mode_boot and arch_8)
+        # self.main.frame_bootloader.setVisible(mode_prog and arch_8)
 
         self.main.frame_devices_32.setVisible(not arch_8)
         self.main.frame_devices_8.setVisible(arch_8)
@@ -196,7 +197,7 @@ class Boards(object):
                 count = 0
                 side = 1  #rigth
 
-            radio = QtGui.QRadioButton(self.main.frame_devices_8)
+            radio = QtWidgets.QRadioButton(self.main.frame_devices_8)
             self.main.gridLayout_device_8.addWidget(radio, count, side, 1, 1)
             radio.setText(board.name)
             radio.setToolTip(board.proc)
@@ -217,7 +218,7 @@ class Boards(object):
                 count = 0
                 side = 1  #rigth
 
-            radio = QtGui.QRadioButton(self.main.frame_devices_32)
+            radio = QtWidgets.QRadioButton(self.main.frame_devices_32)
             self.main.gridLayout_device_32.addWidget(radio, count, side, 1, 1)
             radio.setText(board.name)
             radio.setToolTip(board.proc)

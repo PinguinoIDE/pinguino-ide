@@ -4,8 +4,8 @@
 import pickle
 import os
 
-from PySide.QtGui import QListWidget, QListWidgetItem
-from PySide import QtCore, QtGui
+from PySide2.QtWidgets import QListWidget, QListWidgetItem
+from PySide2 import QtCore, QtGui, QtWidgets
 
 from .autocomplete_icons import CompleteIcons
 from ....pinguino_core.config import Config
@@ -79,7 +79,7 @@ class PinguinoAutoCompleter(QListWidget):
         selection-background-color: {};
         """.format(selection_color, selection_bg_color))
 
-        self.setFrameShape(QtGui.QFrame.NoFrame)
+        self.setFrameShape(QtWidgets.QFrame.NoFrame)
 
 
     ##----------------------------------------------------------------------

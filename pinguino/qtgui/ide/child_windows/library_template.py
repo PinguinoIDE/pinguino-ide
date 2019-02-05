@@ -5,14 +5,14 @@ import os
 import sys
 import re
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from ..methods.dialogs import Dialogs
 from ...frames.library_template import Ui_LibraryTemplate
 
 
 ########################################################################
-class LibraryTemplate(QtGui.QDialog):
+class LibraryTemplate(QtWidgets.QDialog):
 
     def __init__(self, parent):
         super(LibraryTemplate, self).__init__()

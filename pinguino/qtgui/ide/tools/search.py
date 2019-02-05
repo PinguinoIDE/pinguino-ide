@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from ..methods.decorators import Decorator
 
@@ -36,7 +36,7 @@ class Search(object):
     @Decorator.requiere_text_mode()
     @Decorator.requiere_line_edit_content("main.lineEdit_replace")
     def replace_instantaneous(self, text_to_replace):
-        empty = not text_to_replace == QtGui.QApplication.translate("Frame", "Replace...")
+        empty = not text_to_replace == QtWidgets.QApplication.translate("Frame", "Replace...")
         self.main.pushButton_replace.setEnabled(empty)
         self.main.pushButton_replace_all.setEnabled(empty)
         if empty: return
@@ -47,7 +47,7 @@ class Search(object):
     @Decorator.requiere_text_mode()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
     def search_instantaneous(self, text_to_search):
-        empty = not text_to_search == QtGui.QApplication.translate("Frame", "Search...")
+        empty = not text_to_search == QtWidgets.QApplication.translate("Frame", "Search...")
         self.main.pushButton_search_previous.setEnabled(empty)
         self.main.pushButton_search_next.setEnabled(empty)
 
@@ -62,9 +62,9 @@ class Search(object):
             content = editor.text_edit.toPlainText().lower()
             count = content.count(text_to_search.lower())
 
-        if count == 0: message = QtGui.QApplication.translate("Frame", "No words were found.")
-        elif  count == 1: message = QtGui.QApplication.translate("Frame", "One word were found.")
-        else: message = QtGui.QApplication.translate("Frame", "{} words were found.".format(count))
+        if count == 0: message = QtWidgets.QApplication.translate("Frame", "No words were found.")
+        elif  count == 1: message = QtWidgets.QApplication.translate("Frame", "One word were found.")
+        else: message = QtWidgets.QApplication.translate("Frame", "{} words were found.".format(count))
         self.main.label_replace_info.setText(message)
 
         #for i in range(count): self.search_next()
@@ -79,7 +79,7 @@ class Search(object):
     @Decorator.requiere_open_files()
     @Decorator.requiere_line_edit_content("main.lineEdit_search")
     def __search__(self, text_to_search):
-        if text_to_search == QtGui.QApplication.translate("Frame", "Search..."): return
+        if text_to_search == QtWidgets.QApplication.translate("Frame", "Search..."): return
 
 
         self.find_match(word=text_to_search,

@@ -7,27 +7,27 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(94, 38)
-        self.gridLayout = QtGui.QGridLayout(Form)
+        self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
-        self.frame_3 = QtGui.QFrame(Form)
+        self.frame_3 = QtWidgets.QFrame(Form)
         self.frame_3.setMinimumSize(QtCore.QSize(9, 38))
         self.frame_3.setMaximumSize(QtCore.QSize(9, 38))
         self.frame_3.setObjectName("frame_3")
         self.gridLayout.addWidget(self.frame_3, 0, 2, 1, 1)
-        self.frame = QtGui.QFrame(Form)
+        self.frame = QtWidgets.QFrame(Form)
         self.frame.setMinimumSize(QtCore.QSize(10, 38))
         self.frame.setMaximumSize(QtCore.QSize(10, 38))
         self.frame.setObjectName("frame")
         self.gridLayout.addWidget(self.frame, 0, 0, 1, 1)
-        self.frame_2 = QtGui.QFrame(Form)
+        self.frame_2 = QtWidgets.QFrame(Form)
         self.frame_2.setMinimumSize(QtCore.QSize(0, 38))
         self.frame_2.setMaximumSize(QtCore.QSize(16777215, 38))
         self.frame_2.setObjectName("frame_2")

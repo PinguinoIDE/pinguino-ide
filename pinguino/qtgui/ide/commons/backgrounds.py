@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui
+from PySide2 import QtGui
 
 ########################################################################
 class BackgroundPallete(object):

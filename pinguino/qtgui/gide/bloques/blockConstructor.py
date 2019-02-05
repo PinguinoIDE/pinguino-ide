@@ -3,7 +3,7 @@
 
 import sys
 
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 #from .linear import Linear
 from .linear.linear import Ui_Form as Linear
@@ -46,20 +46,20 @@ class Properties(object):
 
         if not self.ContexMenu:
             if self.Tab == "Saved":
-                menu = QtGui.QMenu()
+                menu = QtWidgets.QMenu()
                 menu.addAction("Remove Block", self.menuRemoveSaved)
                 menu.exec_(event.globalPos())
 
             else: return
 
-        menu = QtGui.QMenu()
+        menu = QtWidgets.QMenu()
         menu.addAction("Remove block", self.destroy_this)
         if self.Type == "tipo8":
             menu.addSeparator()
             menu.addAction("Set small size", self.setSmallSize)
             menu.addAction("Set medium size", self.setMediumSize)
             menu.addAction("Set large size", self.setLargeSize)
-            submenu = QtGui.QMenu("Resize")
+            submenu = QtWidgets.QMenu("Resize")
             submenu.addAction("Aument width", self.setAumentWidth)
             submenu.addAction("Aument height", self.setAumentHigth)
             submenu.addAction("Decrement width", self.setDecrementWidth)

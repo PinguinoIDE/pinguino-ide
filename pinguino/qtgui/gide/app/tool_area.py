@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from .blocks import Blocks, OPENHANDCURSOR, CLOSEHANDCURSOR
 from ..bloques import BlockLinear, BlockFunction, BlockNested, \
@@ -10,7 +10,7 @@ from ...ide.methods.decorators import Decorator
 
 
 ########################################################################
-class ToolArea(QtGui.QWidget):
+class ToolArea(QtWidgets.QWidget):
 
     def __init__(self, parent=None, workArea=None, ide=None):
 
@@ -25,7 +25,7 @@ class ToolArea(QtGui.QWidget):
         self.highlightedRect = QtCore.QRect()
         self.inPlace = 0
 
-        self.gridLayout_2 = QtGui.QGridLayout(parent)
+        self.gridLayout_2 = QtWidgets.QGridLayout(parent)
         self.gridLayout_2.setContentsMargins(*[0]*4)
         self.gridLayout_2.setSpacing(0)
         self.gridLayout_2.addWidget(self, 0, 0, 1, 1)
@@ -60,7 +60,7 @@ class ToolArea(QtGui.QWidget):
 
             finalBlock, self.npos = self.workArea().new_bloq(name, args, self.mapToGlobal(self.workArea().pos()), baseName)
 
-            tempBlock = QtGui.QWidget(self.widget_parent)
+            tempBlock = QtWidgets.QWidget(self.widget_parent)
             eval(Blocks[name])(tempBlock, args[2:])
 
 

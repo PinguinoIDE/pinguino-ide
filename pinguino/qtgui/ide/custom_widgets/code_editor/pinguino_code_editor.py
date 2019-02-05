@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide.QtGui import QWidget
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2.QtWidgets import QWidget
 
 from ..code_editor.line_number import LineNumber
 from ..code_editor.editor import CustomTextEdit
@@ -17,7 +17,7 @@ class PinguinoCodeEditor(QWidget):
 
         self.setObjectName("PinguinoCodeEditor")
 
-        self.gridLayout_0 = QtGui.QGridLayout(self)
+        self.gridLayout_0 = QtWidgets.QGridLayout(self)
         self.gridLayout_0.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_0.setSpacing(0)
 
@@ -27,10 +27,10 @@ class PinguinoCodeEditor(QWidget):
         self.gridLayout_0.addWidget(self.line_number, 0, 0, 1, 1)
 
         self.text_edit = CustomTextEdit(self, self.line_number, highlighter)
-        self.text_edit.setFrameShape(QtGui.QFrame.NoFrame)
+        self.text_edit.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.gridLayout_0.addWidget(self.text_edit, 0, 3, 1, 1)
 
-        self.widget = QtGui.QWidget(self)
+        self.widget = QtWidgets.QWidget(self)
         self.widget.setMinimumSize(QtCore.QSize(10, 0))
         self.gridLayout_0.addWidget(self.widget, 0, 2, 1, 1)
 

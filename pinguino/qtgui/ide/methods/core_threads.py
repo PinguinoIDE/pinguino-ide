@@ -12,7 +12,7 @@ import os
     ##Python2
     #from urllib import urlopen
 
-from PySide import QtCore
+from PySide2 import QtCore
 
 from .parser import PinguinoParser
 

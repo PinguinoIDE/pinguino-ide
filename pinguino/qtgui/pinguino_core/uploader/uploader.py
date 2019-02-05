@@ -50,7 +50,7 @@ class baseUploader(object):
     # PyUSB Core module switch
     # ------------------------------------------------------------------
 
-    PYUSB_USE_CORE                  =   1 # (0=legacy, 1=core)
+    PYUSB_USE_CORE                  =   0 # (0=legacy, 1=core)
 
     # Hex format record types
     # ------------------------------------------------------------------
@@ -201,17 +201,17 @@ class Uploader(object):
         # self.filename = hex_file
         self.board = board
 
-        if board.bldr == "noboot":
+        if board.connect == "icsp":
 
             # TODO : interface here something like PICpgm (http://www.members.aon.at/electronics/pic/picpgm/)
+            from .uploaderICSP import uploaderICSP as Uploader
             #self.logwindow("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board", 1)
-            raise Exception("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board")
-            #from .uploaderICSP import uploaderICSP as Uploader
+            #raise Exception("You choose a board without bootloader.\nYou should either change your board type\nor use a programmer to upload your application on your board")
 
-        # elif board.bldr == "boot2":
+        # elif board.connect == "boot2":
             # from .uploaderVSC import uploaderVSC as Uploader
 
-        #elif board.bldr == 'boot3':
+        #elif board.connect == 'boot3':
         #    self.uploader = self.uploaderDLN(*parameters)
 
         else :

@@ -5,7 +5,7 @@ import os
 import logging
 from datetime import datetime
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 import requests
 import json
 
@@ -29,7 +29,7 @@ from ..methods.dialogs import Dialogs
     #SUBMIT_SERVER = "http://localhost:8000/submit/"
 
 ########################################################################
-class SubmitBug(QtGui.QDialog):
+class SubmitBug(QtWidgets.QDialog):
 
     def __init__(self, parent, details=""):
         super(SubmitBug, self).__init__()
@@ -69,7 +69,7 @@ class SubmitBug(QtGui.QDialog):
     #----------------------------------------------------------------------
     def center_on_screen(self):
 
-        screen = QtGui.QDesktopWidget().screenGeometry()
+        screen = QtWidgets.QDesktopWidget().screenGeometry()
         size = self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
 
