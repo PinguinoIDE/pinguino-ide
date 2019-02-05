@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtCore
+from PySide2 import QtCore
 
 from .methods.core import PinguinoCore
 
@@ -93,7 +93,7 @@ class PinguinoEvents(PinguinoCore):
         # self.connect(self.main.actionCheck_for_patches, QtCore.SIGNAL("triggered()"), self.__show_patches__)
 
 
-        # Pinguinguino related events
+        # Pinguino related events
         self.connect(self.main.actionCompile, QtCore.SIGNAL("triggered()"), self.pinguino_compile)
         self.connect(self.main.actionUpload, QtCore.SIGNAL("triggered()"), self.pinguino_upload)
         self.connect(self.main.actionUpload_hex_directly, QtCore.SIGNAL("triggered()"), self.pinguino_upload_hex)

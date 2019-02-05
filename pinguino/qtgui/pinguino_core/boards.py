@@ -34,20 +34,6 @@ P8_ID  = 0xFEAA
 P32_ID = 0x003C
 
 # RB 17/09/2013
-"""
-class PinguinoNoBoot(object):
-    name = 'Pinguino (no Bootloader)'
-    arch = 8
-    bldr = 'noboot'
-    proc = ''
-    board = ''
-    vendor = ''
-    product = ''
-    memstart = 0x0000
-    memend = 0xFFF8
-    shortarg = '-b'
-    longarg = '--noboot'
-"""
 
 """---------------------------------------------------------------------
     8-bit (16F) Boards
@@ -56,7 +42,7 @@ class PinguinoNoBoot(object):
 class Pinguino1459(object):
     name     = 'Pinguino 1459'
     arch     = 8
-    bldr     = 'boot4'
+    connect     = 'usb'
     proc     = '16f1459'
     board    = 'PINGUINO1459'
     family   = '16F'
@@ -70,7 +56,7 @@ class Pinguino1459(object):
 class Curiosity(object):
     name     = 'Curiosity 1708'
     arch     = 8
-    bldr     = 'noboot'
+    connect     = 'icsp'
     proc     = '16f1708'
     board    = 'CURIOSITY1708'
     family   = '16F'
@@ -88,7 +74,7 @@ class Curiosity(object):
 class Pinguino13k50(object):
     name = 'Pinguino 13K50'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f13k50'
     board = 'PINGUINO13K50'
     family = '18F'
@@ -102,7 +88,7 @@ class Pinguino13k50(object):
 class Pinguino14k50(object):
     name = 'Pinguino 14K50'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f14k50'
     board = 'PINGUINO14K50'
     family = '18F'
@@ -116,7 +102,7 @@ class Pinguino14k50(object):
 class Pinguino2455(object):
     name = 'Pinguino 2455'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f2455'
     board = 'PINGUINO2455'
     family = '18F'
@@ -130,7 +116,7 @@ class Pinguino2455(object):
 class Pinguino2550(object):
     name = 'Pinguino 2550'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f2550'
     board = 'PINGUINO2550'
     family = '18F'
@@ -144,7 +130,7 @@ class Pinguino2550(object):
 class FreeJALduino(object):
     name = 'FreeJALduino'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f2550'
     board = 'FREEJALDUINO'
     family = '18F'
@@ -156,10 +142,24 @@ class FreeJALduino(object):
     shortarg = '-J'
     longarg = '--freejalduino'
 
+class Amicus18(object):
+    name = 'Amicus 18'
+    arch = 8
+    connect = 'icsp'
+    proc = '18f25k22'
+    board = 'AMICUS18'
+    family = '18F'
+    vendor = MICROCHIP_ID
+    product = P8_ID
+    memstart = 0x0C00       # bootloader offset
+    memend   = 0x8000
+    shortarg = '-a18'
+    longarg = '--amicus18'
+
 class Pinguino25k50(object):
     name = 'Pinguino 25K50'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f25k50'
     board = 'PINGUINO25K50'
     family = '18F'
@@ -173,7 +173,7 @@ class Pinguino25k50(object):
 class Pinguino26J50(object):
     name = 'Pinguino 26J50'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f26j50'
     board = 'PINGUINO26J50'
     family = '18F'
@@ -187,7 +187,7 @@ class Pinguino26J50(object):
 class Pinguino27J53(object):
     name = 'Pinguino 27J53'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f27j53'
     board = 'PINGUINO27J53'
     family = '18F'
@@ -201,7 +201,7 @@ class Pinguino27J53(object):
 class Pinguino4455(object):
     name = 'Pinguino 4455'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f4455'
     board = 'PINGUINO4455'
     family = '18F'
@@ -215,7 +215,7 @@ class Pinguino4455(object):
 class Pinguino4550(object):
     name = 'Pinguino 4550'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f4550'
     board = 'PINGUINO4550'
     family = '18F'
@@ -229,7 +229,7 @@ class Pinguino4550(object):
 class PICuno_Equo(object):
     name = 'PICuno Equo'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f4550'
     board = 'PICUNO_EQUO'
     family = '18F'
@@ -244,7 +244,7 @@ class PICuno_Equo(object):
 class Pinguino45k50(object):
     name = 'Pinguino 45K50'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f45k50'
     board = 'PINGUINO45K50'
     family = '18F'
@@ -258,7 +258,7 @@ class Pinguino45k50(object):
 class CHRP3(object):
     name = 'CHRP3.0'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f25k50'
     board = 'CHRP3'
     family = '18F'
@@ -272,7 +272,7 @@ class CHRP3(object):
 class Pinguino46J50(object):
     name = 'Pinguino 46J50'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f46j50'
     board = 'PINGUINO46J50'
     family = '18F'
@@ -286,7 +286,7 @@ class Pinguino46J50(object):
 class Pinguino47J53A(object):
     name = 'Pinguino 47J53A'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f47j53'
     board = 'PINGUINO47J53A'
     family = '18F'
@@ -300,7 +300,7 @@ class Pinguino47J53A(object):
 class Pinguino47J53B(object):
     name = 'Pinguino Torda'
     arch = 8
-    bldr = 'boot4'
+    connect = 'usb'
     proc = '18f47j53'
     board = 'PINGUINO47J53B'
     family = '18F'
@@ -318,7 +318,7 @@ class Pinguino47J53B(object):
 class Pinguino32MX220(object):
     name = 'Pinguino 32MX220'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX220F032B'
     board = 'PINGUINO32MX220'
     vendor = MICROCHIP_ID
@@ -332,7 +332,7 @@ class Pinguino32MX220(object):
 class Pinguino32MX250(object):
     name = 'Pinguino 32MX250'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX250F128B'
     board = 'PINGUINO32MX250'
     vendor = MICROCHIP_ID
@@ -346,7 +346,7 @@ class Pinguino32MX250(object):
 class Pinguino32MX270(object):
     name = 'Pinguino 32MX270'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX270F256B'
     board = 'PINGUINO32MX270'
     vendor = MICROCHIP_ID
@@ -360,7 +360,7 @@ class Pinguino32MX270(object):
 class Pinguino32MX470(object):
     name = 'Pinguino Magna'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX470F512H'
     board = 'PINGUINO32MX470'
     vendor = MICROCHIP_ID
@@ -374,7 +374,7 @@ class Pinguino32MX470(object):
 class PIC32_Pinguino_220(object):
     name = 'PIC32 Pinguino MX220'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX220F032D'
     board = 'PIC32_PINGUINO_220'
     vendor = MICROCHIP_ID
@@ -388,7 +388,7 @@ class PIC32_Pinguino_220(object):
 class PIC32_Pinguino(object):
     name = 'PIC32 Pinguino'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX440F256H'
     board = 'PIC32_PINGUINO'
     vendor = MICROCHIP_ID
@@ -402,7 +402,7 @@ class PIC32_Pinguino(object):
 class PIC32_Pinguino_OTG(object):
     name = 'PIC32 Pinguino OTG'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX440F256H'
     board = 'PIC32_PINGUINO_OTG'
     vendor = MICROCHIP_ID
@@ -416,7 +416,7 @@ class PIC32_Pinguino_OTG(object):
 class PIC32_Pinguino_Micro(object):
     name = 'PIC32 Pinguino Micro'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX440F256H'
     board = 'PIC32_PINGUINO_MICRO'
     vendor = MICROCHIP_ID
@@ -430,7 +430,7 @@ class PIC32_Pinguino_Micro(object):
 class PIC32_Pinguino_T795(object):
     name = 'PIC32 Pinguino T795'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX795F512H'
     board = 'PIC32_PINGUINO_T795'
     vendor = MICROCHIP_ID
@@ -444,7 +444,7 @@ class PIC32_Pinguino_T795(object):
 class Emperor_460(object):
     name = 'Emperor 460'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX460F512L'
     board = 'EMPEROR460'
     vendor = MICROCHIP_ID
@@ -458,7 +458,7 @@ class Emperor_460(object):
 class Emperor_795(object):
     name = 'Emperor 795'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX795F512L'
     board = 'EMPEROR795'
     vendor = MICROCHIP_ID
@@ -472,7 +472,7 @@ class Emperor_795(object):
 class UBW32_460(object):
     name = 'UBW32 460'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX460F512L'
     board = 'UBW32_460'
     vendor = MICROCHIP_ID
@@ -486,7 +486,7 @@ class UBW32_460(object):
 class UBW32_795(object):
     name = 'UBW32 795'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MX795F512L'
     board = 'UBW32_795'
     vendor = MICROCHIP_ID
@@ -504,7 +504,7 @@ class UBW32_795(object):
 class PIC32MZSTARTERKIT(object):
     name = 'PIC32MZ Starter Kit'
     arch = 32
-    bldr = 'microchip'
+    connect = 'usb'
     proc = '32MZ2048ECH144'
     board = 'PIC32MZSTARTERKIT'
     vendor = MICROCHIP_ID
@@ -526,7 +526,7 @@ boardlist = [
     Pinguino13k50, Pinguino14k50,
     Pinguino2455,  Pinguino4455,
     Pinguino2550,  Pinguino4550,
-    FreeJALduino,  PICuno_Equo, CHRP3,
+    FreeJALduino,  PICuno_Equo, CHRP3, Amicus18,
     Pinguino25k50, Pinguino45k50,
     Pinguino26J50, Pinguino46J50,
     Pinguino27J53, Pinguino47J53A, Pinguino47J53B,

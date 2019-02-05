@@ -5,20 +5,20 @@ import os
 import sys
 import pickle
 
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 from .python_highlighter import Highlighter
 from .python_shell import PythonShell
 
 HEAD = os.getenv("PINGUINO_NAME") + " " + os.getenv("PINGUINO_VERSION") + "\n" + "Python " + sys.version + " on " + sys.platform
-HELP = QtGui.QApplication.translate("PythonShell", "Commands available:") + ' "clear", "restart"'
+HELP = QtWidgets.QApplication.translate("PythonShell", "Commands available:") + ' "clear", "restart"'
 
 START = ">>> "
 NEW_LINE = "... "
 
 
 ########################################################################
-class PinguinoTextEdit(QtGui.QPlainTextEdit):
+class PinguinoTextEdit(QtWidgets.QPlainTextEdit):
 
     #----------------------------------------------------------------------
     def __init__(self, widget=None, shell=True):
@@ -42,7 +42,7 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
 
         Highlighter(self.document(), extra=[START, NEW_LINE], python=shell)
         # self.connect(self, QtCore.SIGNAL("textChanged(QString)"), self.textChanged)
-        self.setFrameShape(QtGui.QFrame.NoFrame)
+        self.setFrameShape(QtWidgets.QFrame.NoFrame)
 
 
     #----------------------------------------------------------------------
@@ -302,11 +302,11 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
 
     #----------------------------------------------------------------------
     def contextMenuEvent(self, event):
-        menu = QtGui.QMenu()
+        menu = QtWidgets.QMenu()
 
         # if hasattr(self, "historial"):
             # if self.historial:
-                # sub_menu = QtGui.QMenu(QtGui.QApplication.translate("PythonShell", "Last commands"))
+                # sub_menu = QtWidgets.QMenu(QtWidgets.QApplication.translate("PythonShell", "Last commands"))
                 # rhistorial = self.historial[:]
 
                 # rhistorial.reverse()
@@ -320,23 +320,23 @@ class PinguinoTextEdit(QtGui.QPlainTextEdit):
                 # menu.addSeparator()
 
         if self.isReadOnly():
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
-            # menu.addAction(QtGui.QApplication.translate("PythonShell", "Restart"), self.command_restart)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Clear"), self.command_clear)
+            # menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Restart"), self.command_restart)
             # menu.addSeparator()
-            # menu.addAction(QtGui.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
-            # menu.addAction(QtGui.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
+            # menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
+            # menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
             # menu.addSeparator()
 
         else:
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Clear"), self.command_clear)
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Restart"), self.command_restart)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Clear"), self.command_clear)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Restart"), self.command_restart)
             menu.addSeparator()
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
-            menu.addAction(QtGui.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Cut"), self.cut, QtGui.QKeySequence.Cut)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Copy"), self.copy, QtGui.QKeySequence.Copy)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Paste"), self.paste, QtGui.QKeySequence.Paste)
+            menu.addAction(QtWidgets.QApplication.translate("PythonShell", "Select all"), self.selectAll, QtGui.QKeySequence.SelectAll)
             # menu.addSeparator()
             #menu.addAction(self.main.actionComment_out_region)
 

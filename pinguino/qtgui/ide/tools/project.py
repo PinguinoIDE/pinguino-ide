@@ -1,7 +1,7 @@
 #! /usr/bin/python2
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 import os
 import sys
@@ -377,7 +377,7 @@ class Project(object):
         project_name = self.set_project_name()
 
         if project_name:
-            Dialogs.info_message(self, QtGui.QApplication.translate("Dialogs", "Create or add an existing directory for project."))
+            Dialogs.info_message(self, QtWidgets.QApplication.translate("Dialogs", "Create or add an existing directory for project."))
             dirname = self.select_existing_directory()
             if dirname:
                 self.create_project_template(dirname)
@@ -608,7 +608,7 @@ class Project(object):
 
     #----------------------------------------------------------------------
     def project_context_menu(self, event):
-        menu = QtGui.QMenu()
+        menu = QtWidgets.QMenu()
 
         if hasattr(self.get_current_item(), "path"):
             if os.path.isfile(self.get_current_item().path):
@@ -931,7 +931,7 @@ class Project(object):
 
         self.main.menuRecentProjects.clear()
         for file_ in self.recent_projects:
-            action = QtGui.QAction(self)
+            action = QtWidgets.QAction(self)
             filename = os.path.split(file_)[1]
 
             len_ = 40
@@ -949,7 +949,7 @@ class Project(object):
                 self.main.menuRecentProjects.addAction(action)
 
         self.main.menuRecentProjects.addSeparator()
-        self.main.menuRecentProjects.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_projects)
+        self.main.menuRecentProjects.addAction(QtWidgets.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_projects)
 
 
     #----------------------------------------------------------------------
@@ -957,7 +957,7 @@ class Project(object):
 
         self.main.menuRecentProjects.clear()
         self.main.menuRecentProjects.addSeparator()
-        self.main.menuRecentProjects.addAction(QtGui.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_projects)
+        self.main.menuRecentProjects.addAction(QtWidgets.QApplication.translate("Dialogs", "Clear recent files"), self.clear_recents_projects)
         self.recent_projects = []
 
 

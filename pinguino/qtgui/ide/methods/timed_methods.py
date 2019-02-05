@@ -4,7 +4,7 @@
 import os
 import codecs
 
-from PySide import QtGui
+from PySide2 import QtGui
 
 from .core_threads import UpdateAutocompleter
 from ..methods.decorators import Decorator

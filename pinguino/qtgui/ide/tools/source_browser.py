@@ -10,7 +10,7 @@ from ..methods.decorators import Decorator
 
 from ...pinguino_core.pinguino_config import PinguinoConfig
 
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 # data_types = ["int", "float", "char", "double", "u8", "u16", "u32", "u64", "BOOL", "byte", "word", "void", "short", "long"]  # Yes I know, void is NOT a data type.
 # preprocessor_commands = ["define", "include", "error", "undef", "if", "else", "if", "elif", "ifdef", "ifndef", "line", "pragma"]  #endif

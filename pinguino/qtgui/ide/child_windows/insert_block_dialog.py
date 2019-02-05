@@ -3,12 +3,12 @@
 
 import os
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from ...frames.insert_block import Ui_InsertBlock
 
 ########################################################################
-class InsertBlock(QtGui.QDialog):
+class InsertBlock(QtWidgets.QDialog):
 
     def __init__(self, KIT):
         super(InsertBlock, self).__init__()
@@ -31,7 +31,7 @@ class InsertBlock(QtGui.QDialog):
         self.insert.lineEdit.keyPressEvent = self.line_edit_key
         self.insert.listWidget.keyPressEvent = self.list_key
 
-        self.insert.lineEdit.setText(QtGui.QApplication.translate("Dialogs", "search block..."))
+        self.insert.lineEdit.setText(QtWidgets.QApplication.translate("Dialogs", "search block..."))
         self.insert.lineEdit.selectAll()
 
         self.setStyleSheet("""
@@ -62,7 +62,7 @@ class InsertBlock(QtGui.QDialog):
             if self.insert.listWidget.count() == 1:
                 self.insert_block(self.insert.listWidget.item(0))
 
-        QtGui.QLineEdit.keyPressEvent(self.insert.lineEdit, event)
+        QtWidgets.QLineEdit.keyPressEvent(self.insert.lineEdit, event)
 
 
     #----------------------------------------------------------------------
@@ -76,7 +76,7 @@ class InsertBlock(QtGui.QDialog):
                    ):
             QtGui.QListWidget.keyPressEvent(self.insert.listWidget, event)
             return
-        QtGui.QLineEdit.keyPressEvent(self.insert.lineEdit, event)
+        QtWidgets.QLineEdit.keyPressEvent(self.insert.lineEdit, event)
 
 
     #----------------------------------------------------------------------

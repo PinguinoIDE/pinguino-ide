@@ -4,7 +4,7 @@
 import os
 
 import random
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 import logging
 
 # Python3 compatibility

@@ -4,7 +4,7 @@
 #import os
 #import sys
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from .widgets.label import Ui_Frame as Label
 from .widgets.control_spin import Ui_Frame as ControlSpin
@@ -116,7 +116,7 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buildLabel(self, widget, text="Label", rgb=None):
-        widgetLabel = QtGui.QWidget(widget)
+        widgetLabel = QtWidgets.QWidget(widget)
         label = Label()
         label.setupUi(widgetLabel)
         label.label.setText(text)
@@ -143,7 +143,7 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buildDecorator(self, widget, text="Label", rgb=None):
-        widgetLabel = QtGui.QWidget(widget)
+        widgetLabel = QtWidgets.QWidget(widget)
         label = Label()
         label.setupUi(widgetLabel)
         label.label.setText(text)
@@ -168,7 +168,7 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buildSpinInt(self, widget, start, b_min=-100, b_max=100):
-        widgetSpin = QtGui.QWidget(widget)
+        widgetSpin = QtWidgets.QWidget(widget)
         spin = ControlSpin()
         spin.setupUi(widgetSpin)
 
@@ -231,7 +231,7 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buildSpinFloat(self, widget, start, step=0.1, b_min=-100.0, b_max=100.0):
-        widgetSpin = QtGui.QWidget(widget)
+        widgetSpin = QtWidgets.QWidget(widget)
         spin = ControlSpin()
         spin.setupUi(widgetSpin)
 
@@ -294,7 +294,7 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buildName(self, widget, text, background=None, color=(255, 255, 255)):
-        widgetName = QtGui.QWidget(widget)
+        widgetName = QtWidgets.QWidget(widget)
         name = Name()
         name.setupUi(widgetName)
         name.lineEdit.setText(str(text))
@@ -346,7 +346,7 @@ class Constructor(object):
     def buildChoice(self, widget, curr, opc):
 
         opc = list(opc)
-        widgetChoice = QtGui.QWidget(widget)
+        widgetChoice = QtWidgets.QWidget(widget)
         choice = ControlSpin()
         choice.setupUi(widgetChoice)
         choice.lineEdit.setText(curr)
@@ -406,7 +406,7 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buildSliderInt(self, widget, start, b_min=0, b_max=1023):
-        widgetSlider = QtGui.QWidget(widget)
+        widgetSlider = QtWidgets.QWidget(widget)
         slider = ControlSlider()
         slider.setupUi(widgetSlider)
 
@@ -436,7 +436,7 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buidToInside(self, widget, insideType):
-        widgetInside = QtGui.QWidget(widget)
+        widgetInside = QtWidgets.QWidget(widget)
         widgetInside.getLine = lambda :""
         if insideType:
             inside = Inside2()
@@ -467,7 +467,7 @@ class Constructor(object):
 
     #----------------------------------------------------------------------
     def buidToInsideBool(self, widget, insideType):
-        widgetInside = QtGui.QWidget(widget)
+        widgetInside = QtWidgets.QWidget(widget)
         widgetInside.getLine = lambda :""
         if insideType:
             inside = Inside2Bool()

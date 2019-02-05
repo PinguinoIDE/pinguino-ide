@@ -6,7 +6,7 @@ import os
 from math import sqrt
 from datetime import datetime
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from .blocks import Blocks, OPENHANDCURSOR, CLOSEHANDCURSOR
 #from .constant import INTRO_CODE
@@ -30,7 +30,7 @@ class Metadata(object):
     pass
 
 ########################################################################
-class WorkArea(QtGui.QWidget):
+class WorkArea(QtWidgets.QWidget):
 
     #def __init__(self, parent, scroll, widget, frame, ide):
     def __init__(self, parent, scroll, frame, ide):
@@ -53,7 +53,7 @@ class WorkArea(QtGui.QWidget):
         self.pieceRects = []
         self.pieceLocations = []
 
-        self.gridLayout = QtGui.QGridLayout(parent)
+        self.gridLayout = QtWidgets.QGridLayout(parent)
         self.gridLayout.addWidget(self, 0, 0, 1, 1)
         self.gridLayout.setContentsMargins(1, 0, 0, 0)
         self.gridLayout.setSpacing(0)
@@ -80,7 +80,7 @@ class WorkArea(QtGui.QWidget):
                          str(type("")): "char",
                          }
 
-        self.SelectArea = QtGui.QWidget(self)
+        self.SelectArea = QtWidgets.QWidget(self)
 
         select = Ui_Selection()
         select.setupUi(self.SelectArea)
@@ -95,16 +95,16 @@ class WorkArea(QtGui.QWidget):
 
     #----------------------------------------------------------------------
     def build_menu(self, event):
-        menu = QtGui.QMenu()
+        menu = QtWidgets.QMenu()
 
         if self.SelectArea.isVisible():
             #on selection
-            menu.addAction(QtGui.QApplication.translate("Graphical", "Delete selected blocks"), self.dele_blocks)
-            menu.addAction(QtGui.QApplication.translate("Graphical", "Take Screenshot from selected area"), self.screen_shot_area)
+            menu.addAction(QtWidgets.QApplication.translate("Graphical", "Delete selected blocks"), self.dele_blocks)
+            menu.addAction(QtWidgets.QApplication.translate("Graphical", "Take Screenshot from selected area"), self.screen_shot_area)
 
         else:
             #normal menu
-            #menu.addAction(QtGui.QApplication.translate("Graphical", "Export code to pinguino editor"), self.export_code_to_pinguino_editor)
+            #menu.addAction(QtWidgets.QApplication.translate("Graphical", "Export code to pinguino editor"), self.export_code_to_pinguino_editor)
             menu.addAction(self.main.actionExport_code_to_editor)
             menu.addAction(self.main.actionInsert_Block)
             # menu.addAction(self.main.actionView_Pinguino_code)
@@ -216,7 +216,7 @@ class WorkArea(QtGui.QWidget):
     #----------------------------------------------------------------------
     def new_bloq(self, name, args, pos, baseName, full=None):
 
-        newIcon = QtGui.QWidget(self)
+        newIcon = QtWidgets.QWidget(self)
 
         # newIcon = QtGui.QPaintEngine(self)
 

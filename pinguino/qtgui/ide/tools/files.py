@@ -5,7 +5,7 @@ import os
 from ..methods.dialogs import Dialogs
 from ..methods.decorators import Decorator
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 ########################################################################
 class Files(object):
@@ -102,7 +102,7 @@ class Files(object):
     #----------------------------------------------------------------------
     def add_new_file_item(self, filename, parent, fullpath, flags=None, check=None):
         """"""
-        file_item = QtGui.QTreeWidgetItem(parent)
+        file_item = QtWidgets.QTreeWidgetItem(parent)
 
         file_item.setText(0, filename)
         file_item.path = fullpath
@@ -131,7 +131,7 @@ class Files(object):
     #----------------------------------------------------------------------
     def add_new_tree(self, name, parent, fullpath, flags=None):
         """"""
-        tree = QtGui.QTreeWidgetItem(parent)
+        tree = QtWidgets.QTreeWidgetItem(parent)
         tree.setText(0, name)
         tree.path = fullpath
         # icon_dir = QtGui.QIcon()

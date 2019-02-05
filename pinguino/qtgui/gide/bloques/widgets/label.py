@@ -7,18 +7,18 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_Frame(object):
     def setupUi(self, Frame):
         Frame.setObjectName("Frame")
         Frame.resize(94, 23)
         Frame.setWindowTitle("")
-        self.gridLayout = QtGui.QGridLayout(Frame)
+        self.gridLayout = QtWidgets.QGridLayout(Frame)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
-        self.label = QtGui.QLabel(Frame)
+        self.label = QtWidgets.QLabel(Frame)
         font = QtGui.QFont()
         font.setFamily("Ubuntu Mono")
         font.setPointSize(15)

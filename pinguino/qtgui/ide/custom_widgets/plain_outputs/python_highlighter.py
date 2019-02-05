@@ -1,7 +1,7 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 MESSAGES = [
     ("CRITICAL", "#FF0000"),

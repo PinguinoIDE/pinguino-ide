@@ -76,7 +76,7 @@ def build_argparse():
     parser.add_argument("--sdcc", dest="compiler_sdcc", action="store_true", default=None, help="Set SDCC as 8-bit compiler")
     parser.add_argument("--xc8", dest="compiler_xc8", action="store_true", default=None, help="Set XC8 as 8-bit compiler")
     #parser.add_argument("-l", "--boot", dest="bootloader", nargs=1, default=False, help="set bootloader option")
-    parser.add_argument("--icsp", dest="icsp", action="store_true", default=False, help="use ICSP (default use bootloader)")
+    parser.add_argument("--icsp", dest="icsp", action="store_true", default=False, help="use ICSP (default use USB)")
     parser.add_argument("-x", "--upload", dest="upload", action="store_true", default=False, help="upload code")
     parser.add_argument("-g", "--hex", dest="hex_file", action="store_true", default=False, help="print hex_file")
 
@@ -108,16 +108,16 @@ if parser.board:
     printb("using {} board".format(parser.board.name), BColors.Green)
 
     #if parser.bootloader:
-        #bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.bldr)
+        #bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.connect)
         #pinguino.set_bootloader(*bootloader)
-        #printb("using {} bootloader".format(pinguino.get_board().bldr), BColors.Green)
+        #printb("using {} bootloader".format(pinguino.get_board().connect), BColors.Green)
 
     if parser.icsp:
         #do nothing
         pinguino.set_icsp()  #use ICSP instead of bootloader
         printb("ICSP mode used", BColors.Green)
     else:
-        printb("Bootloader {} used".format(pinguino.get_board().bldr), BColors.Green)
+        printb("Bootloader {} used".format(pinguino.get_board().connect), BColors.Green)
 
 
     if parser.board.arch == 8:

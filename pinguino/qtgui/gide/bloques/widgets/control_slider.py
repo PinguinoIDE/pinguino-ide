@@ -7,18 +7,18 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
 
 class Ui_Frame(object):
     def setupUi(self, Frame):
         Frame.setObjectName("Frame")
         Frame.resize(237, 36)
         Frame.setWindowTitle("")
-        self.gridLayout = QtGui.QGridLayout(Frame)
+        self.gridLayout = QtWidgets.QGridLayout(Frame)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
-        self.lineEdit_2 = QtGui.QLineEdit(Frame)
+        self.lineEdit_2 = QtWidgets.QLineEdit(Frame)
         self.lineEdit_2.setMaximumSize(QtCore.QSize(46, 16777215))
         font = QtGui.QFont()
         font.setFamily("Ubuntu Mono")
@@ -33,13 +33,13 @@ class Ui_Frame(object):
         self.lineEdit_2.setReadOnly(True)
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.gridLayout.addWidget(self.lineEdit_2, 0, 1, 1, 1)
-        self.horizontalSlider = QtGui.QSlider(Frame)
+        self.horizontalSlider = QtWidgets.QSlider(Frame)
         self.horizontalSlider.setCursor(QtCore.Qt.PointingHandCursor)
         self.horizontalSlider.setFocusPolicy(QtCore.Qt.NoFocus)
         self.horizontalSlider.setMaximum(1023)
         self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
         self.horizontalSlider.setInvertedAppearance(False)
-        self.horizontalSlider.setTickPosition(QtGui.QSlider.NoTicks)
+        self.horizontalSlider.setTickPosition(QtWidgets.QSlider.NoTicks)
         self.horizontalSlider.setTickInterval(128)
         self.horizontalSlider.setObjectName("horizontalSlider")
         self.gridLayout.addWidget(self.horizontalSlider, 0, 2, 1, 1)

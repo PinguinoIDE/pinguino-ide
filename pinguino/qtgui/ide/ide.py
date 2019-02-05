@@ -7,7 +7,7 @@ import platform
 import inspect
 import types
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from .commons.backgrounds import BackgroundPallete
 from .events import PinguinoEvents
@@ -31,7 +31,7 @@ from .tools.log import Log
 from .tools.stdout import Stdout
 
 ########################################################################
-class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
+class PinguinoIDE(QtWidgets.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
 
     #@Decorator.debug_time()
     def __init__(self, splash_write):
@@ -39,9 +39,9 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
 
         os.environ["PINGUINO_PROJECT"] = ""
 
-        QtCore.QTextCodec.setCodecForCStrings(QtCore.QTextCodec.codecForName("UTF-8"))
-        QtCore.QTextCodec.setCodecForLocale(QtCore.QTextCodec.codecForName("UTF-8"))
-        QtCore.QTextCodec.setCodecForTr(QtCore.QTextCodec.codecForName("UTF-8"))
+        #QtCore.QTextCodec.setCodecForCStrings(QtCore.QTextCodec.codecForName("UTF-8"))
+        #QtCore.QTextCodec.setCodecForLocale(QtCore.QTextCodec.codecForName("UTF-8"))
+        #QtCore.QTextCodec.setCodecForTr(QtCore.QTextCodec.codecForName("UTF-8"))
 
         self.main = Ui_PinguinoIDE()
         self.main.setupUi(self)
@@ -51,35 +51,35 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
         # if not self.argvs.devmode:
             # self.main.menubar.removeAction(self.main.menuDevelopment.menuAction())
 
-        splash_write(QtGui.QApplication.translate("Splash", "Setting enviroment values"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Setting enviroment values"))
         PinguinoConfig.set_environ_vars()
-        splash_write(QtGui.QApplication.translate("Splash", "Checking user files"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Checking user files"))
         PinguinoConfig.check_user_files()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading Pinguino Core"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Loading Pinguino Core"))
         self.pinguinoAPI = Pinguino()
         self.pinguinoAPI._boards_ = AllBoards
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading configuration"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Loading configuration"))
         self.configIDE = Config()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading blocks programming"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Loading blocks programming"))
         self.PinguinoKIT = GraphicalIDE(self)
         self.main.tabWidget_files.setVisible(False)
         # self.main.dockWidget_blocks.setVisible(False)
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading icons"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Loading icons"))
         self.ICONS = CompleteIcons()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Setting theme"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Setting theme"))
         self.build_menutoolbar()
         self.set_icon_theme()
         self.reload_toolbar_icons()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Linking paths for libraries and compilers"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Linking paths for libraries and compilers"))
         PinguinoConfig.update_pinguino_paths(self.configIDE, self.pinguinoAPI)
         PinguinoConfig.update_pinguino_extra_options(self.configIDE, self.pinguinoAPI)
-        splash_write(QtGui.QApplication.translate("Splash", "Searching user libraries"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Searching user libraries"))
         PinguinoConfig.update_user_libs(self.pinguinoAPI)
 
         self.setWindowTitle(os.getenv("PINGUINO_FULLNAME"))
@@ -87,21 +87,21 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
         Log.__init__(self)
         #Help.__init__(self)
 
-        splash_write(QtGui.QApplication.translate("Splash", "Opening last files"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Opening last files"))
         self.ide_open_last_files()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Starting widgets features"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Starting widgets features"))
         self.init_widgets()
-        splash_write(QtGui.QApplication.translate("Splash", "Building status bar"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Building status bar"))
         self.build_statusbar()
-        # splash_write(QtGui.QApplication.translate("Splash", "Building tabs"))
+        # splash_write(QtWidgets.QApplication.translate("Splash", "Building tabs"))
         # self.build_tabs()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Overwriting stylesheets"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Overwriting stylesheets"))
         self.set_styleSheet()
 
         #timer events
-        splash_write(QtGui.QApplication.translate("Splash", "Starting timers"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Starting timers"))
         self.timer_update_functions()
         self.timer_update_directives()
         self.timer_update_variables()
@@ -110,25 +110,25 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
         self.timer_backup_file()
         self.timer_update_assiatant()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading examples"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Loading examples"))
         self .change_dir_files(0)  #Examples
         # self.update_path_files([os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"),
                                 # os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples")])
         # self.__update_graphical_path_files__(os.path.join(os.getenv("PINGUINO_USER_PATH"), "graphical_examples"))
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading boards configuration"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Loading boards configuration"))
         #self.set_board() #called in self.get_status_board()
         self.status_info.setText(self.get_status_board())
 
-        splash_write(QtGui.QApplication.translate("Splash", "Connecting events"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Connecting events"))
         self.connect_events()
-        splash_write(QtGui.QApplication.translate("Splash", "Loading configuration"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Loading configuration"))
         self.load_main_config()
         self.update_project_status(None)
-        splash_write(QtGui.QApplication.translate("Splash", "Checking configuration files"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Checking configuration files"))
         self.ide_check_files()
 
-        splash_write(QtGui.QApplication.translate("Splash", "Loading autocompleter"))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Loading autocompleter"))
         self.PinguinoAutoCompleter = PinguinoAutoCompleter()
 
         os_name = os.getenv("PINGUINO_OS_NAME")
@@ -142,7 +142,7 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
             #FIXME_OSX
             os.environ["LD_LIBRARY_PATH"]="/usr/lib32:/usr/lib:/usr/lib64"  #Confirm this for macosx
 
-        splash_write(QtGui.QApplication.translate("Splash", "Welcome to {PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)))
+        splash_write(QtWidgets.QApplication.translate("Splash", "Welcome to {PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)))
 
         self.enable_debugger()
         logging.info("Welcome to {PINGUINO_FULLNAME}".format(**os.environ))
@@ -174,8 +174,8 @@ class PinguinoIDE(QtGui.QMainWindow, PinguinoEvents, PythonShell, Log, Stdout):
         self.main.tabWidget_tools.setCurrentWidget(self.main.Files)
         self.main.tabWidget_bottom.setCurrentWidget(self.main.Log)
 
-        self.main.dockWidget_right.setTitleBarWidget(QtGui.QWidget())
-        self.main.dockWidget_bottom.setTitleBarWidget(QtGui.QWidget())
+        self.main.dockWidget_right.setTitleBarWidget(QtWidgets.QWidget())
+        self.main.dockWidget_bottom.setTitleBarWidget(QtWidgets.QWidget())
 
 
     #----------------------------------------------------------------------

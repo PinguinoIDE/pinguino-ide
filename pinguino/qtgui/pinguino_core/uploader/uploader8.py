@@ -679,9 +679,9 @@ class uploader8(baseUploader):
 
             #self.txtWrite("Resetting ...")
             self.add_report("Starting user program ...")
-            self.resetDevice(device)
             # Device can't be closed because it just has been reseted
-            #self.closeDevice(device)
+            self.closeDevice(device)
+            self.resetDevice(device)
             return
 
         else:

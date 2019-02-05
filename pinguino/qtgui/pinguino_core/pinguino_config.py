@@ -49,8 +49,6 @@ else:
             if not exist_ok or not os.path.isdir(name):
                 raise
 
-
-
 ########################################################################
 class PinguinoConfig(object):
 
@@ -112,11 +110,11 @@ class PinguinoConfig(object):
         #create ~/.pinguino
         if not os.path.exists(os.getenv("PINGUINO_USER_PATH")):
             makedirs(os.getenv("PINGUINO_USER_PATH"), exist_ok=True)
-
+                
         #create ~/.pinguino/user
         if not os.path.exists(os.getenv("PINGUINO_DEFAULT_FILES")):
             makedirs(os.getenv("PINGUINO_DEFAULT_FILES"), exist_ok=True)
-
+                
         #Check files and directories
         cls.check_locations()
 

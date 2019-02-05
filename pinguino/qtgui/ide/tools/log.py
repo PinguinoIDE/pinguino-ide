@@ -4,7 +4,7 @@
 import os
 import logging
 
-from PySide import QtGui
+from PySide2 import QtGui
 
 from ..custom_widgets import PinguinoTextEdit
 

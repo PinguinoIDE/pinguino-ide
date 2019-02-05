@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PySide import QtCore
+from PySide2 import QtCore
 
 Blocks = {"linear": "BlockLinear",
           "function": "BlockFunction",

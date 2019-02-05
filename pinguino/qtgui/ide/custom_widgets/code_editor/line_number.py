@@ -1,9 +1,9 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-from PySide.QtGui import QWidget
-from PySide.QtGui import QPainter
-from PySide import QtCore, QtGui
+from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2.QtWidgets import QWidget
+from PySide2.QtGui import QPainter
 
 #from ..methods.backgrounds import BackgroundPallete
 

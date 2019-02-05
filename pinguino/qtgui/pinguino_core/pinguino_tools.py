@@ -61,9 +61,9 @@ class PinguinoTools(Uploader):
         """
 
         # v2 dropped
-        # self.NoBoot = ("noboot", 0)
+        # self.NoBoot = ("icsp", 0)
         # self.Boot2 = ("boot2", 0x2000)
-        # self.Boot4 = ("boot4", 0x0C00)
+        # self.Boot4 = ("usb", 0x0C00)
 
         # self.dict_boot = {"v2": self.Boot2,
                           # "v4": self.Boot4,
@@ -292,7 +292,8 @@ class PinguinoTools(Uploader):
         # uploader = Uploader(hex_file, board)
         # result = uploader.write_hex()
 
-        # Since Pinguino IDE 11.1 Uploader is an inherited class, so now we must use method configure_uploader
+        # Since Pinguino IDE 11.1 Uploader is an inherited class
+        # we must use method configure_uploader
         self.configure_uploader(hex_file, board)
         result = self.upload_hex()
         # result = uploader.report
@@ -664,7 +665,7 @@ class PinguinoTools(Uploader):
         content: str
             Pinguino code with real libraries/functions name.
         defines: list
-            List with directives needed and finded.
+            List with directives needed and found.
         """
         if libinstructions is None:
             libinstructions = self.get_regobject_libinstructions(self.get_board().arch)
@@ -833,7 +834,7 @@ class PinguinoTools(Uploader):
         # --- SDCC & ICSP MODE -----------------------------------------
         #
         
-        if board.bldr == 'noboot':
+        if board.connect == 'icsp':
 
             sortie = Popen([self.COMPILER_8BIT,
                             "--verbose",
@@ -844,7 +845,7 @@ class PinguinoTools(Uploader):
                             "--optimize-df",
                             "-p" + board.proc,
                             "-D" + board.board,
-                            "-D" + board.bldr,
+                            "-D__CONNECT" + board.connect.upper() + "__",
                             "-DBOARD=\"" + board.board + "\"",
                             "-DPROC=\"" + board.proc + "\"",
                             "-DBOOT_VER=0",
@@ -858,7 +859,7 @@ class PinguinoTools(Uploader):
                            stdout=fichier, stderr=STDOUT)
 
 
-        # if board.bldr == 'boot2':
+        # if board.connect == 'boot2':
 
             # sortie = Popen([self.COMPILER_8BIT,
                             # "--verbose",
@@ -869,7 +870,7 @@ class PinguinoTools(Uploader):
                             # "--optimize-df",
                             # "-p" + board.proc,
                             # "-D" + board.board,
-                            # "-D" + board.bldr,
+                            # "-DCONNECT=\"" + board.connect + "\"",
                             # "-DBOARD=\"" + board.board + "\"",
                             # "-DPROC=\"" + board.proc + "\"",
                             # "-DBOOT_VER=2",
@@ -886,7 +887,7 @@ class PinguinoTools(Uploader):
         # --- SDCC & BOOTLOADER MODE -----------------------------------
         #
         
-        #if board.bldr == 'boot4':
+        #if board.connect == 'usb':
         else:
 
             sortie = Popen([self.COMPILER_8BIT,
@@ -900,7 +901,7 @@ class PinguinoTools(Uploader):
                             "--ivt-loc=" + str(board.memstart),
                             "-p" + board.proc,
                             "-D" + board.board,
-                            "-D" + board.bldr,
+                            "-D__CONNECT" + board.connect.upper() + "__",
                             "-DBOARD=\"" + board.board + "\"",
                             "-DPROC=\"" + board.proc + "\"",
                             "-DBOOT_VER=4",
@@ -994,8 +995,9 @@ class PinguinoTools(Uploader):
         # --- XC8 & ICSP MODE ------------------------------------------
         #
         
-        if board.arch == 8 and board.bldr == 'noboot' and compiler == 'xc8':
+        if board.arch == 8 and board.connect == 'icsp' and compiler == 'xc8':
 
+            # Set floats as 24- or 32-bit to save some space on small chips
             if board.proc in ('16f1459', '18f13k50', '18f14k50'):
                 fbit = '24'
             else :
@@ -1040,7 +1042,7 @@ class PinguinoTools(Uploader):
                 #"-L-Pusbram5=USB5",
                 # Macros
                 "-D" + board.board,
-                "-D" + board.bldr,
+                "-D__CONNECT" + board.connect.upper() + "__",
                 # To use in Pinguino programs
                 "-DBOARD=\"" + board.board + "\"",
                 "-DPROC=\"" + board.proc + "\"",
@@ -1058,7 +1060,7 @@ class PinguinoTools(Uploader):
         # --- SDCC & ICSP MODE -----------------------------------------
         #
         
-        elif board.arch == 8 and board.bldr == 'noboot' and compiler == 'sdcc':
+        elif board.arch == 8 and board.connect == 'icsp' and compiler == 'sdcc':
 
             sortie = Popen([self.COMPILER_8BIT,
                 "--verbose",
@@ -1070,7 +1072,7 @@ class PinguinoTools(Uploader):
                 #"--no-crt",\ we use default run-time module inside libsdcc.lib
                 "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.proc + '_g.lkr') + "\",-m",
                 "-p" + board.proc,
-                "-D" + board.bldr,
+                "-D__CONNECT" + board.connect.upper() + "__",
                 "-D" + board.board,
                 "-DBOARD=\"" + board.board + "\"",
                 "-DPROC=\"" + board.proc + "\"",
@@ -1090,13 +1092,13 @@ class PinguinoTools(Uploader):
                 stdout=fichier, stderr=STDOUT)
 
 
-        #if board.arch == 8 and board.bldr == 'boot2' and compiler == 'xc8':
+        #if board.arch == 8 and board.connect == 'boot2' and compiler == 'xc8':
             #
             # ERROR : XC8 and Boot2 are not compatible and will never be
             #
             #return
 
-        #if board.arch == 8 and board.bldr == 'boot2' and compiler == 'sdcc':
+        #if board.arch == 8 and board.connect == 'boot2' and compiler == 'sdcc':
             # sortie = Popen([self.COMPILER_8BIT,
                 # "--verbose",\
                 # "-mpic16",\
@@ -1105,9 +1107,9 @@ class PinguinoTools(Uploader):
                 # "--optimize-cmp",\
                 # "--optimize-df",\
                 # "--no-crt",\
-                # "-Wl-s" + os.path.join(self.P8_DIR, 'lkr', board.bldr + '.' + board.proc + '.lkr') + ",-m",\
+                # "-Wl-s" + os.path.join(self.P8_DIR, 'lkr', board.connect + '.' + board.proc + '.lkr') + ",-m",\
                 # "-p" + board.proc,\
-                # "-D" + board.bldr,\
+                # "-DCONNECT=\"" + board.connect.upper() + "\"",\
                 # "-D" + board.board,\
                 # "-DBOARD=\"" + board.board + "\"",\
                 # "-DPROC=\"" + board.proc + "\"",\
@@ -1132,8 +1134,8 @@ class PinguinoTools(Uploader):
         # --- XC8 & BOOTLOADER MODE ------------------------------------
         #
 
-        #if board.arch == 8 and board.bldr == 'boot4' and compiler == 'xc8':
-        elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'xc8':
+        #if board.arch == 8 and board.connect == 'usb' and compiler == 'xc8':
+        elif board.arch == 8 and board.connect != 'icsp' and compiler == 'xc8':
 
             if board.proc in ('16f1454','16f1455','16f1459'):
                 usbram='2080h-21FFh'
@@ -1183,7 +1185,7 @@ class PinguinoTools(Uploader):
                 "-L-Pusbram5=USB5",
                 # Macros
                 "-D" + board.board,
-                "-D" + board.bldr,
+                "-D__CONNECT" + board.connect.upper() + "__",
                 # To use in Pinguino programs
                 "-DBOARD=\"" + board.board + "\"",
                 "-DPROC=\"" + board.proc + "\"",
@@ -1201,8 +1203,8 @@ class PinguinoTools(Uploader):
         # --- SDCC & BOOTLOADER MODE -----------------------------------
         #
 
-        #if board.arch == 8 and board.bldr == 'boot4' and compiler == 'sdcc':
-        elif board.arch == 8 and board.bldr != 'noboot' and compiler == 'sdcc':
+        #if board.arch == 8 and board.connect == 'usb' and compiler == 'sdcc':
+        elif board.arch == 8 and board.connect != 'icsp' and compiler == 'sdcc':
 
             sortie = Popen([self.COMPILER_8BIT,
                 "--verbose", "-V",
@@ -1217,9 +1219,9 @@ class PinguinoTools(Uploader):
                 # move all int. vectors after bootloader code
                 "--ivt-loc=" + str(board.memstart),
                 # link memory map
-                "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.bldr + '.' + board.proc + '.lkr') + "\",-m",
+                "-Wl-s\"" + os.path.join(self.P8_DIR, 'lkr', board.connect + '.' + board.proc + '.lkr') + "\",-m",
                 "-p" + board.proc,
-                "-D" + board.bldr,
+                "-D__CONNECT" + board.connect.upper() + "__",
                 "-D" + board.board,
                 "-DBOARD=\"" + board.board + "\"",
                 "-DPROC=\"" + board.proc + "\"",

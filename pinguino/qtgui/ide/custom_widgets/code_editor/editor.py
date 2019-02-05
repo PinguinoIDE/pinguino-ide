@@ -5,8 +5,8 @@ import os
 import re
 import pickle
 
-from PySide import QtGui, QtCore
-from PySide.QtCore import QPoint
+from PySide2 import QtGui, QtCore, QtWidgets
+from PySide2.QtCore import QPoint
 
 #from .autocompleter import PinguinoAutoCompleter
 from .autocomplete_icons import CompleteIcons
@@ -17,7 +17,7 @@ from .syntax import Autocompleter, Snippet, Helpers
 
 
 ########################################################################
-class CustomTextEdit(QtGui.QTextEdit):
+class CustomTextEdit(QtWidgets.QTextEdit):
 
     #----------------------------------------------------------------------
     def __init__(self, parent, linenumber, highlighter):

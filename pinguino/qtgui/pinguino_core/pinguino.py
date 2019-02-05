@@ -151,13 +151,13 @@ class Pinguino(PinguinoTools):
 
 
     # #----------------------------------------------------------------------
-    # def set_bootloader(self, bldr, memstart):
+    # def set_bootloader(self, connect, memstart):
         # """Configure bootloader for current board selected.
 
         # Parameters
         # ----------
-        # bldr: str
-            # "noboot", "boot2" or "boot4"
+        # connect: str
+            # "icsp", "boot2" or "usb"
         # memstart: int
             # 0, 0x2000 or 0x0C00
 
@@ -167,21 +167,21 @@ class Pinguino(PinguinoTools):
         # """
 
         # if self.__current_board__.arch == 8:
-            # self.__current_board__.bldr = bldr
+            # self.__current_board__.connect = connect
             # self.__current_board__.memstart = memstart
 
     #----------------------------------------------------------------------
     def set_icsp(self):
         """"""
         if self.__current_board__.arch == 8:
-            self.__current_board__.bldr = "noboot"
+            self.__current_board__.connect = "icsp"
             self.__current_board__.memstart = 0
 
 
     #----------------------------------------------------------------------
     def set_8bit_compiler(self, compiler):
         """"""
-        assert compiler.lower() in ["sdcc", "xc8"], "Compiler must be SDCC or XC8"
+        assert compiler.lower() in ["sdcc", "xc8"], "Compiler must be either SDCC or XC8"
         self.SET_COMPILER_8BIT = compiler.lower()
 
 
@@ -314,7 +314,7 @@ class Pinguino(PinguinoTools):
             Dictionary with info (keys) about: time, hex_file, code_size
         """
 
-        assert self.__compiled__, "Must compile first."
+        assert self.__compiled__, "Must be compiled first."
         result = {}
         result["time"] = self.__data__["time"]
         result["hex_file"] = self.__data__["hex_file"]
@@ -332,6 +332,6 @@ class Pinguino(PinguinoTools):
             Readonly hex file object.
         """
 
-        assert self.__compiled__, "Must compile first."
+        assert self.__compiled__, "Must be compiled first."
         return open(self.__data__["hex_file"], "r")
 

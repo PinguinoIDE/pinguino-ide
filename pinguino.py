@@ -1,12 +1,7 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-NAME = "Pinguino IDE"
-VERSION = "12.0"
-SUBVERSION = "beta.2"
-
-#DESCRIPTION = ""
-#LONG_DESCRIPTION = ""
+from .version import NAME, VERSION
 
 ################################################################################
 
@@ -247,9 +242,9 @@ if __name__ == "__main__":
             printb("using %s board" % parser.board.name, bcolors.Green)
 
             if parser.bootloader:
-                bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.bldr)
+                bootloader = pinguino.dict_boot.get(parser.bootloader[0].lower(), parser.board.connect)
                 pinguino.set_bootloader(bootloader)
-            printb("using %s bootloader" % pinguino.get_board().bldr, bcolors.Green)
+            printb("connected to %s" % pinguino.get_board().connect, bcolors.Green)
 
             if not parser.filename:
                 printb("ERROR: missing filename", bcolors.Red)

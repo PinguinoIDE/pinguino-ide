@@ -7,7 +7,7 @@
 #import os
 #from ConfigParser import RawConfigParser
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from .syntax import Autocompleter
 

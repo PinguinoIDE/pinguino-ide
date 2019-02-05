@@ -15,10 +15,10 @@ Additional labels for pre-release and build metadata are available as extensions
 
 NAME = "Pinguino IDE"
 
-MAJOR = "12"
+MAJOR = "13"
 MINOR = "0"
-PATCH = "41"
-PRE_RELEASE = "beta.2"
+PATCH = "0"
+PRE_RELEASE = ""
 
 if PRE_RELEASE:
     VERSION = "{MAJOR}.{MINOR}.{PATCH}-{PRE_RELEASE}".format(**locals())

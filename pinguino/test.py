@@ -100,7 +100,7 @@ class TestBareMinumumCompilation(unittest.TestCase):
 
         def inter(self):
 
-            # print("Testing compilation (bare minimum) for board {name} - {bldr} - {arch}bit - {proc} - {compiler}".format(compiler=compiler, **board.__dict__))
+            # print("Testing compilation (bare minimum) for board {name} - {connect} - {arch}bit - {proc} - {compiler}".format(compiler=compiler, **board.__dict__))
 
             Pinguino.set_board(board)
             if icsp:
@@ -141,11 +141,11 @@ for board in AllBoards:
             test_name = "test_compile_icsp_{}_{}".format(compiler, board.name.replace(" ", "_").replace(".", "_"))
             setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board, icsp=True, compiler=compiler))
 
-            test_name = "test_compile_{}_{}_{}".format(compiler, board.bldr, board.name.replace(" ", "_").replace(".", "_"))
+            test_name = "test_compile_{}_{}_{}".format(compiler, board.connect, board.name.replace(" ", "_").replace(".", "_"))
             setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board, icsp=False, compiler=compiler))
 
     else:
-        test_name = "test_compile_{}_{}".format(board.bldr, board.name.replace(" ", "_").replace(".", "_"))
+        test_name = "test_compile_{}_{}".format(board.connect, board.name.replace(" ", "_").replace(".", "_"))
         setattr(TestBareMinumumCompilation, test_name, TestBareMinumumCompilation.compilation(board))
 
 

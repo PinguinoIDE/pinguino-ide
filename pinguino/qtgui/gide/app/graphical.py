@@ -18,7 +18,7 @@ else:
 
 import logging
 
-from PySide import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 
 from .code2blocks import Code2Blocks
 from .blocks import Blocks, OPENHANDCURSOR
@@ -82,7 +82,7 @@ class GraphicalIDE(Code2Blocks):
         path = kwargs.get("filename", self.ide.get_untitled_name(ext=".gpde"))
         filename = os.path.split(path)[1]
 
-        editor = QtGui.QWidget()
+        editor = QtWidgets.QWidget()
         widget = Ui_Form_graphical()
         widget.setupUi(editor)
 
@@ -582,7 +582,7 @@ class GraphicalIDE(Code2Blocks):
     def build_block_tabs(self, tabs=None):
         if tabs is None: tabs = self.get_block_tabs()
         for tab in tabs:
-            widget = QtGui.QWidget()
+            widget = QtWidgets.QWidget()
 
             ui = Ui_widgetBlock()
             ui.setupUi(widget)
@@ -622,7 +622,7 @@ class GraphicalIDE(Code2Blocks):
 
             """)
 
-            ui.scrollArea.setFrameShape(QtGui.QFrame.NoFrame)
+            ui.scrollArea.setFrameShape(QtWidgets.QFrame.NoFrame)
 
             widget.mousePressEvent = tool_area.mouse_press_event
             widget.mouseMoveEvent = tool_area.mouse_move_event
@@ -661,7 +661,7 @@ class GraphicalIDE(Code2Blocks):
 
         for key, tab in tab_set:
 
-            newIcon = QtGui.QWidget(tool_area)
+            newIcon = QtWidgets.QWidget(tool_area)
             eval(Blocks[tab[0]])(newIcon, tab[2:])
             newIcon.setMaximumSize(newIcon.size())
 
@@ -691,7 +691,7 @@ class GraphicalIDE(Code2Blocks):
 
             # area = self.ide.get_current_editor().graphical_area
 
-            # newIcon = QtGui.QWidget(area)
+            # newIcon = QtWidgets.QWidget(area)
             # eval(Blocks[tab[0]])(newIcon, tab[2:])
             # newIcon.setMaximumSize(newIcon.size())
 
@@ -776,7 +776,7 @@ class GraphicalIDE(Code2Blocks):
     def update_blocks_search_tab(self, text):
 
         if len(text) < 2: return
-        if text == QtGui.QApplication.translate("Frame", "Search Block..."): return
+        if text == QtWidgets.QApplication.translate("Frame", "Search Block..."): return
         if not text: return
         bloques = []
         exclude = []
