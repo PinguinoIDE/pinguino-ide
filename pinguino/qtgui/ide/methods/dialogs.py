@@ -16,7 +16,7 @@ class Dialogs(object):
         if dirpath is None: dirpath = parent.get_default_dir()
         if filename.endswith("*"): filename = filename[:-1]
         ext = os.path.splitext(os.path.split(filename)[1])[1]
-        save_filename = QtGui.QFileDialog.getSaveFileName(parent,
+        save_filename = QtWidgets.QFileDialog.getSaveFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtWidgets.QApplication.translate("Dialogs", " - Save"),
                 os.path.join(dirpath, filename),
                 QtWidgets.QApplication.translate("Dialogs", "Pinguino files (*{});;All Files (*)".format(ext)))
@@ -29,7 +29,7 @@ class Dialogs(object):
     def set_open_file(cls, parent, exts="*.pde *.gpde *.ppde", dirpath=None):
 
         if dirpath is None:dirpath = parent.get_default_dir()
-        open_file = QtGui.QFileDialog.getOpenFileName(parent,
+        open_file = QtWidgets.QFileDialog.getOpenFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtWidgets.QApplication.translate("Dialogs", " - Open"),
                 dirpath,
                 QtWidgets.QApplication.translate("Dialogs", "Pinguino Files ({});;All Files (*)".format(exts)))
@@ -42,7 +42,7 @@ class Dialogs(object):
     def set_open_files(cls, parent, exts="*.pde *.gpde *.ppde", dirpath=None):
 
         if dirpath is None:dirpath = parent.get_default_dir()
-        open_files = QtGui.QFileDialog.getOpenFileNames(parent,
+        open_files = QtWidgets.QFileDialog.getOpenFileNames(parent,
                 os.getenv("PINGUINO_NAME")+QtWidgets.QApplication.translate("Dialogs", " - Open"),
                 dirpath,
                 QtWidgets.QApplication.translate("Dialogs", "Pinguino Files ({});;All Files (*)".format(exts)))
@@ -56,7 +56,7 @@ class Dialogs(object):
     def set_open_hex(cls, parent, dirpath=None):
 
         if dirpath is None:dirpath = parent.get_default_dir()
-        open_file = QtGui.QFileDialog.getOpenFileName(parent,
+        open_file = QtWidgets.QFileDialog.getOpenFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtWidgets.QApplication.translate("Dialogs", " - Select"),
                 dirpath,
                 QtWidgets.QApplication.translate("Dialogs", "Hex Files (*.hex);;All Files (*)"))
@@ -84,7 +84,7 @@ class Dialogs(object):
     def set_open_dir(cls, parent, dirpath=None):
 
         if dirpath is None:dirpath = parent.get_default_dir()
-        open_dir = QtGui.QFileDialog.getExistingDirectory(parent,
+        open_dir = QtWidgets.QFileDialog.getExistingDirectory(parent,
                 os.getenv("PINGUINO_NAME")+QtWidgets.QApplication.translate("Dialogs", " - Open directory"),
                 dirpath)
 
@@ -281,7 +281,7 @@ class Dialogs(object):
     def set_save_image(cls, parent, filename, dirpath=None):
 
         if dirpath is None:dirpath = parent.get_default_dir()
-        file_name = QtGui.QFileDialog.getSaveFileName(parent,
+        file_name = QtWidgets.QFileDialog.getSaveFileName(parent,
                 os.getenv("PINGUINO_NAME")+QtWidgets.QApplication.translate("Dialogs", " - Save image"),
                 os.path.join(dirpath, filename),
                 QtWidgets.QApplication.translate("Dialogs", "Png files (*.png);;All Files (*)"))
