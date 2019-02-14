@@ -23,11 +23,11 @@ PinguinoConfig.set_environ_vars()
 PinguinoConfig.check_user_files()
 
 #Remove files and directories
-if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")):
-    shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
+#if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")):
+#    shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
-if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples")):
-    shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
+#if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples")):
+#    shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
 
 #Remove old files
 #RB20150202 : each file must be checked before being deleted
