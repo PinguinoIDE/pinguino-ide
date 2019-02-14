@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1503</width>
-    <height>968</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Pinguino 12</string>
+   <string notr="true">Pinguino 13</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../../../pinguino-extra/resources/resources.qrc">
+   <iconset resource="../resources/resources.qrc">
     <normaloff>:/logo/art/windowIcon.png</normaloff>:/logo/art/windowIcon.png</iconset>
   </property>
   <property name="dockOptions">
@@ -25,7 +25,16 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_29">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
      <number>0</number>
     </property>
     <property name="spacing">
@@ -59,7 +68,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../../../pinguino-extra/resources/resources.qrc">:/logo/art/banner_blue.png</pixmap>
+          <pixmap resource="../resources/resources.qrc">:/logo/art/banner_blue.png</pixmap>
          </property>
         </widget>
        </item>
@@ -99,8 +108,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1503</width>
-     <height>26</height>
+     <width>1024</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -302,7 +311,16 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_rigth">
     <layout class="QGridLayout" name="gridLayout_15">
-     <property name="margin">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
       <number>0</number>
      </property>
      <property name="spacing">
@@ -511,7 +529,16 @@
              <string>Variables</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_6">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -559,7 +586,16 @@
              <string>Functions</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_5">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -615,7 +651,16 @@
              <string>Directives</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_7">
-             <property name="margin">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
               <number>0</number>
              </property>
              <property name="spacing">
@@ -1221,8 +1266,7 @@
              </property>
              <property name="icon">
               <iconset theme="go-top">
-               <normaloff/>
-              </iconset>
+               <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
            </item>
@@ -1236,8 +1280,7 @@
              </property>
              <property name="icon">
               <iconset theme="go-down">
-               <normaloff/>
-              </iconset>
+               <normaloff>.</normaloff>.</iconset>
              </property>
             </widget>
            </item>
@@ -1671,7 +1714,16 @@
          <string>Python Shell</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_11">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -1687,7 +1739,16 @@
          <string>Log</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_12">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -1703,7 +1764,16 @@
          <string>Stdout</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_13">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -1756,7 +1826,7 @@
   <action name="actionNew_file">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-new.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;New file</string>
@@ -1768,7 +1838,7 @@
   <action name="actionOpen_file">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-open.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Open...</string>
@@ -1783,7 +1853,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/document-save.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Save</string>
@@ -1812,7 +1882,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-undo.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Undo</string>
@@ -1827,7 +1897,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-redo.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Redo</string>
@@ -1842,7 +1912,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-cut.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Cut</string>
@@ -1857,7 +1927,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-copy.svg</iconset>
    </property>
    <property name="text">
     <string>C&amp;opy</string>
@@ -1872,7 +1942,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-paste.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Paste</string>
@@ -1887,7 +1957,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
    </property>
    <property name="text">
     <string>S&amp;earch</string>
@@ -1902,7 +1972,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/edit-find.svg</iconset>
    </property>
    <property name="text">
     <string>Searc&amp;h and replace</string>
@@ -1914,7 +1984,7 @@
   <action name="actionSelect_board">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applications-electronics.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Pinguino boards</string>
@@ -1929,7 +1999,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/system-run.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Compile</string>
@@ -1944,7 +2014,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/emblem-downloads.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Upload</string>
@@ -1988,7 +2058,7 @@
   <action name="actionSave_image">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/applets-screenshooter.svg</iconset>
    </property>
    <property name="text">
     <string>Save image</string>
@@ -2391,7 +2461,7 @@
   <action name="actionNew_blocks_file">
    <property name="icon">
     <iconset>
-     <normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</normaloff>../../../../../../../../../../../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</iconset>
+     <normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</normaloff>../../../../../../../../pinguino-extra/resources/themes/pinguino11/icons/scalable/insert-object.svg</iconset>
    </property>
    <property name="text">
     <string>New &amp;blocks file</string>
@@ -2450,7 +2520,7 @@
   <tabstop>tableWidget_directives</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../pinguino-extra/resources/resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

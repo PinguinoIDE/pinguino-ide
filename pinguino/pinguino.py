@@ -1,7 +1,7 @@
 #! /usr/bin/python
 #-*- coding: utf-8 -*-
 
-from .version import NAME, VERSION
+from .version import NAME, VERSION, MAJOR
 
 """-------------------------------------------------------------------------
     Pinguino IDE
@@ -99,8 +99,13 @@ def main():
 
     app = QApplication(sys.argv)
 
-    #Splash
-    pixmap = QPixmap(":/logo/art/splash.png")
+    #Splash (pinguino\qtgui\resources\art)
+    #pixmap = QPixmap(":/logo/art/splash.png")
+    pixmap = QPixmap("pinguino/qtgui/resources/art/splash.png")
+    #pixmap = QPixmap("pinguino/qtgui/resources/art/pinguino_logo_background_blue-256x256.png")
+    #pixmap = QPixmap(760, 256)
+    #pixmap.fill(QtGui.QColor("#4d4d4d"))
+    # keep the splash screen above all the other windows on the desktop
     splash = QSplashScreen(pixmap, QtCore.Qt.WindowStaysOnTopHint)
 
     splash.show()
@@ -110,11 +115,12 @@ def main():
         font-size: 11pt;
         """)
 
+    # update the splash screen with messages
     def splash_write(msg):
         if not splash is None:
-            splash.showMessage("\t"+msg, color=QtGui.QColor("#4d4d4d"), alignment=QtCore.Qt.AlignBottom)
+            splash.showMessage("\t" + msg, color=QtGui.QColor("#4d4d4d"), alignment=QtCore.Qt.AlignBottom)
 
-    splash_write(NAME+" "+VERSION)
+    splash_write(NAME + " " + MAJOR)
     app.processEvents()
 
     app.installTranslator(qtTranslator)

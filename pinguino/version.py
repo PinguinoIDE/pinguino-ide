@@ -63,6 +63,9 @@ else:
 
 os.environ["PINGUINO_NAME"] = NAME
 os.environ["PINGUINO_VERSION"] = VERSION
+os.environ["PINGUINO_MAJOR"] = MAJOR
+os.environ["PINGUINO_MINOR"] = MINOR
+os.environ["PINGUINO_PATCH"] = PATCH
 os.environ["PINGUINO_FULLNAME"] = "{PINGUINO_NAME} {PINGUINO_VERSION}".format(**os.environ)
 os.environ["PINGUINO_LIB"] = os.path.abspath(os.path.dirname(__file__))
 
