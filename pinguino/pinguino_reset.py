@@ -26,9 +26,8 @@ PinguinoConfig.check_user_files()
 if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source")):
     shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "source"))
 
-# Deprecated (never released)
-# if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "patches")):
-    # shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "patches"))
+if os.path.isdir(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples")):
+    shutil.rmtree(os.path.join(os.getenv("PINGUINO_USER_PATH"), "examples"))
 
 #Remove old files
 #RB20150202 : each file must be checked before being deleted

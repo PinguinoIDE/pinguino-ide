@@ -1,69 +1,45 @@
-Pinguino IDE 12
+Pinguino IDE 13
 ===============
 
-
-### Install from PyPI ###
-```shell
-pip install pyside
-pip install requests
-pip install pinguino
-```
-
-
 ### Install from source code ###
-
 ```shell
-git clone https://github.com/PinguinoIDE/pinguino-ide.git Pinguino12-dev
-cd Pinguino12-dev
-git checkout v12-dev
-mv ~/.pinguino ~/.pinguino.copy
-python pinguino.py
+mkdir -p ~/Pinguino/v13
+cd ~/Pinguino/v13
+git clone https://github.com/PinguinoIDE/pinguino-ide.git pinguino-ide
+git clone https://github.com/PinguinoIDE/pinguino-libraries.git pinguino-libraries 
 ```
 
+### Launch ###
+```shell
+python ~/Pinguino/pinguino-ide/pinguino-ide.py
+or
+./pinguino.bat (Windows)
+./pinguino.sh  (Linux)
+```
 
-### Run Pinguino with downloaded compilers and libraries ###
+### Update ###
 For special users (Arch Linux).
-
-Download with git.
 ```shell
-git clone https://github.com/PinguinoIDE/pinguino-ide.git Pinguino12-dev
-git clone https://github.com/PinguinoIDE/pinguino-compilers.git
-git clone https://github.com/PinguinoIDE/pinguino-libraries.git
+cd ~/Pinguino/pinguino-ide
+git checkout
+cd ~/Pinguino/pinguino-libraries
+git checkout
 ```
 
-Move to V12 branch.
+### Config. file ###
 ```shell
-cd Pinguino12-dev
-git checkout v12-dev
-```
+Edit pinguino/qtgui/config/pinguino.linux.conf or pinguino.windows.conf
 
-Edit with your paths
-```shell
-vim pinguino/qtgui/config/pinguino.linux.conf
-```
-
-pinguino.linux.conf should seem like:
-```
 [Paths]
+sdcc_bin = "full_path_to_pinguino-compilers"/p8/bin
+gcc_bin = "full_path_to_pinguino-compilers"/p32/bin
+xc8_bin = "full_path_to_xc8"/bin
+pinguino_8_libs = "full_path_to_pinguino-ide"/p8
+pinguino_32_libs = "full_path_to_pinguino-ide"/p32
+install_path = "full_path_to_pinguino-ide"
 
-compilers = full_path_to_pinguino-compilers-master
-libraries = full_path_to_pinguino-libraries-master
-ide = full_path_to_pinguino-ide
-
-sdcc_bin = ${compilers}/linux64/p8/bin
-gcc_bin = ${compilers}/linux64/p8/bin
-xc8_bin = /opt/microchip/xc8/v1.[0-9][0-9]/bin
-pinguino_8_libs = $(libraries)/p8
-pinguino_32_libs = $(libraries)/p32
-install_path = ${ide}
-
-user_path = ~/Pinguino/v12
+user_path = ~/Pinguino/v13
 user_libs = ${user_path}/pinguinolibs
-```
-
-Enjoy.
-```shell
-python pinguino.py
 ```
 
 ----
