@@ -1,0 +1,6 @@
+/* RB20190212 */
+
+pyuic5 -x main.ui -o main.py
+
+NB : replace PyQt5 by PySide2
+   : from PySide2 import QtCore, QtGui, QtWidgets
