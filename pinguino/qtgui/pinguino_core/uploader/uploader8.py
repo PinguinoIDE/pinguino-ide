@@ -24,6 +24,7 @@
     2016-08-29 - RB - added usb.core functions
     2016-11-12 - RB - added python3 support (bytearray)
     2016-11-23 - RB - changed constant size DATABLOCKSIZE to variable writeBlockSize
+    2019-03-05 - RB - uses arrays of bytes instead of lists for Python 3 compatibility
     --------------------------------------------------------------------
     This library is free software you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -49,6 +50,7 @@
 
 import sys
 import os
+import array
 #import logging
 
 from .uploader import baseUploader
@@ -116,7 +118,7 @@ class uploader8(baseUploader):
     # RB 2015-03-20 : moved to uploader.py
     #ACTIVE_CONFIG                   =    0x01
     #INTERFACE_ID                    =    0x00
-    TIMEOUT                         =    10000       # 1200
+    TIMEOUT                         =    1200
 
     # Table with Microchip 8-bit USB devices
     # device_id:[PIC name]
@@ -193,8 +195,10 @@ class uploader8(baseUploader):
 # ----------------------------------------------------------------------
         """ send bytes to the bootloader """
 
-        if sys.version_info.major >= 3:
-            usbBuf = str(bytearray(usbBuf))
+        usbBuf = array.array('B', usbBuf)
+
+        #if sys.version_info.major >= 3:
+        #    usbBuf = str(bytearray(usbBuf))
 
         if self.PYUSB_USE_CORE:
             sent_bytes = device.write(self.OUT_EP, usbBuf, self.TIMEOUT)
@@ -211,17 +215,19 @@ class uploader8(baseUploader):
             long (self.MAXPACKETSIZE) in high speed mode
         """
 
+        usbBuf = array.array('B')
+
         if self.PYUSB_USE_CORE:
             usbBuf = device.read(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
         else:
             usbBuf = device.bulkRead(self.IN_EP, self.MAXPACKETSIZE, self.TIMEOUT)
 
-        if sys.version_info.major >= 3:
-            return str(bytearray(usbBuf))
-        else:
-            return usbBuf
+        #if sys.version_info.major >= 3:
+        #    return str(bytearray(usbBuf))
+        #else:
+        #    return usbBuf
         
-        #return usbBuf
+        return usbBuf
 
 # ----------------------------------------------------------------------
     def sendCommand(self, device, usbBuf):
@@ -324,14 +330,14 @@ class uploader8(baseUploader):
         
         usbBuf = [0] * self.MAXPACKETSIZE
         # command code
-        usbBuf[self.BOOT_CMD] = self.ERASE_FLASH_CMD
+        usbBuf[self.BOOT_CMD] = int(self.ERASE_FLASH_CMD)
         # number of blocks to erase
-        usbBuf[self.BOOT_SIZE] = numBlocks
+        usbBuf[self.BOOT_SIZE] = int(numBlocks)
         #usbBuf[self.BOOT_SIZE] = int(numBlocks)
         # block address
-        usbBuf[self.BOOT_ADDR_LO] = (address      ) & 0xFF
-        usbBuf[self.BOOT_ADDR_HI] = (address >> 8 ) & 0xFF
-        usbBuf[self.BOOT_ADDR_UP] = (address >> 16) & 0xFF
+        usbBuf[self.BOOT_ADDR_LO] = int((address      ) & 0xFF)
+        usbBuf[self.BOOT_ADDR_HI] = int((address >> 8 ) & 0xFF)
+        usbBuf[self.BOOT_ADDR_UP] = int((address >> 16) & 0xFF)
         # write data packet
         #return self.sendCommand(usbBuf)
         self.usbWrite(device, usbBuf)

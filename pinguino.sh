@@ -1,9 +1,18 @@
 #!/bin/sh
 
-cd ~/Dvpt/pinguino/git-local/pinguino-ide
-python3 -m pip install --upgrade pip pyside pyusb
-python3 -m pip install --upgrade wheel beautifulsoup4 setuptools requests
+PYTHON_VERSION=3
+
+cd ~/Dvpt/pinguino/pinguino-ide
+
+python${PYTHON_VERSION} -m pip install --upgrade --user pip
+python${PYTHON_VERSION} -m pip install --upgrade --user pyside2
+python${PYTHON_VERSION} -m pip install --upgrade --user pyusb
+python${PYTHON_VERSION} -m pip install --upgrade --user wheel
+python${PYTHON_VERSION} -m pip install --upgrade --user beautifulsoup4
+python${PYTHON_VERSION} -m pip install --upgrade --user setuptools
+python${PYTHON_VERSION} -m pip install --upgrade --user requests
 # pybluez needs Windows Platform SDK
 # bluepy is for Linux only and then failed to compile on Windows
-# python -m pip install --upgrade pybluez
-python3 pinguino-ide.py
+# python${PYTHON_VERSION} -m pip install --upgrade --user pybluez
+
+python${PYTHON_VERSION} pinguino-ide.py
