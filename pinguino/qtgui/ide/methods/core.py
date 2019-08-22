@@ -1563,7 +1563,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
     def ide_reset_instalation(self):
         """"""
         path = os.getenv("PINGUINO_USER_PATH")
-        if Dialogs.confirm_message(self, "This function remove some files from {} and restart the IDE.\nthis could fix some bugs".format(path)):
+        if Dialogs.confirm_message(self, "This function removes some files from {} and restart the IDE.\nthis could fix some bugs".format(path)):
 
             from pinguino import pinguino_reset
             self.ide_restart_now()
