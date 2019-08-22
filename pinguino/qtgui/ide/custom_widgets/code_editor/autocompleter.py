@@ -136,7 +136,7 @@ class PinguinoAutoCompleter(QListWidget):
 
     #----------------------------------------------------------------------
     def ajustPos(self):
-        screen = QtGui.QDesktopWidget().screenGeometry()
+        screen = QtWidgets.QDesktopWidget().screenGeometry()
         size = self.geometry()
 
         cont = 0

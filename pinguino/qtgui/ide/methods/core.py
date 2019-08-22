@@ -1175,7 +1175,7 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
             editor.text_edit.setDocument(text_doc)
             editor.text_edit.setTextCursor(text_cur)
 
-        selection = QtGui.QTextEdit.ExtraSelection()
+        selection = QtWidgets.QTextEdit.ExtraSelection()
         selection.format.setBackground(QtGui.QColor(color))
         selection.format.setProperty(QtGui.QTextFormat.FullWidthSelection, True)
         selection.cursor = editor.text_edit.textCursor()
