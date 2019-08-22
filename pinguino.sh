@@ -45,9 +45,9 @@ if [ ! -d ${PINGUINODIR}/pinguino-user/examples ]; then
   cp -r ${PINGUINODIR}/pinguino-libraries/examples ${PINGUINODIR}/pinguino-user/examples
 fi
 
-if [ ! -d ${PINGUINODIR}/pinguino-user/sources ]; then
+if [ ! -d ${PINGUINODIR}/pinguino-user/source ]; then
   echo "Copy examples files ..."
-  cp -r ${PINGUINODIR}/pinguino-libraries/sources ${PINGUINODIR}/pinguino-user/sources
+  cp -r ${PINGUINODIR}/pinguino-libraries/source ${PINGUINODIR}/pinguino-user/source
 fi
 
 # Update Python's modules
