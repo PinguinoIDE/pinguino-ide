@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~/Dvpt/pinguino/git-local/pinguino-ide
+#cd ~/Dvpt/pinguino/git-local/pinguino-ide
 python3 -m pip install --upgrade pip pyside pyusb
 python3 -m pip install --upgrade wheel beautifulsoup4 setuptools requests
 # pybluez needs Windows Platform SDK
