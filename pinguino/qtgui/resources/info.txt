@@ -1,0 +1,6 @@
+/* RB20190212 */
+pyrcc5 reads the .qrc file, and the resource files, and generates a Python module
+that only needs to be imported by the application in order for those resources to
+be made available just as if they were the original files.
+
+pyrcc5 resources.qrc -o resources_rc.py

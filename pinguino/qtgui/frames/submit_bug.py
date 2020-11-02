@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'submit_bug.ui'
+#
+# Created: Mon Feb 20 23:09:17 2017
+#      by: pyside-uic 0.2.15 running on PySide 1.2.4
+#
+# WARNING! All changes made in this file will be lost!
+
+from PySide2 import QtCore, QtGui, QtWidgets
+
+class Ui_SubmitBug(object):
+    def setupUi(self, SubmitBug):
+        SubmitBug.setObjectName("SubmitBug")
+        SubmitBug.resize(652, 594)
+        self.gridLayout = QtWidgets.QGridLayout(SubmitBug)
+        self.gridLayout.setObjectName("gridLayout")
+        self.label = QtWidgets.QLabel(SubmitBug)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.label_4 = QtWidgets.QLabel(SubmitBug)
+        self.label_4.setObjectName("label_4")
+        self.horizontalLayout_2.addWidget(self.label_4)
+        self.lineEdit_username = QtWidgets.QLineEdit(SubmitBug)
+        self.lineEdit_username.setObjectName("lineEdit_username")
+        self.horizontalLayout_2.addWidget(self.lineEdit_username)
+        self.label_5 = QtWidgets.QLabel(SubmitBug)
+        self.label_5.setObjectName("label_5")
+        self.horizontalLayout_2.addWidget(self.label_5)
+        self.lineEdit_password = QtWidgets.QLineEdit(SubmitBug)
+        self.lineEdit_password.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.lineEdit_password.setObjectName("lineEdit_password")
+        self.horizontalLayout_2.addWidget(self.lineEdit_password)
+        self.gridLayout.addLayout(self.horizontalLayout_2, 2, 0, 1, 1)
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.label_6 = QtWidgets.QLabel(SubmitBug)
+        self.label_6.setObjectName("label_6")
+        self.verticalLayout_3.addWidget(self.label_6)
+        self.comboBox_repo = QtWidgets.QComboBox(SubmitBug)
+        self.comboBox_repo.setObjectName("comboBox_repo")
+        self.comboBox_repo.addItem("")
+        self.comboBox_repo.addItem("")
+        self.comboBox_repo.addItem("")
+        self.comboBox_repo.addItem("")
+        self.verticalLayout_3.addWidget(self.comboBox_repo)
+        self.gridLayout.addLayout(self.verticalLayout_3, 4, 0, 1, 1)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.label_2 = QtWidgets.QLabel(SubmitBug)
+        self.label_2.setObjectName("label_2")
+        self.verticalLayout.addWidget(self.label_2)
+        self.lineEdit_summary = QtWidgets.QLineEdit(SubmitBug)
+        self.lineEdit_summary.setObjectName("lineEdit_summary")
+        self.verticalLayout.addWidget(self.lineEdit_summary)
+        self.gridLayout.addLayout(self.verticalLayout, 5, 0, 1, 1)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.label_3 = QtWidgets.QLabel(SubmitBug)
+        self.label_3.setObjectName("label_3")
+        self.verticalLayout_2.addWidget(self.label_3)
+        self.plainTextEdit_details = QtWidgets.QPlainTextEdit(SubmitBug)
+        self.plainTextEdit_details.setObjectName("plainTextEdit_details")
+        self.verticalLayout_2.addWidget(self.plainTextEdit_details)
+        self.gridLayout.addLayout(self.verticalLayout_2, 6, 0, 1, 1)
+        self.checkBox_show_this_dialog = QtWidgets.QCheckBox(SubmitBug)
+        self.checkBox_show_this_dialog.setChecked(True)
+        self.checkBox_show_this_dialog.setObjectName("checkBox_show_this_dialog")
+        self.gridLayout.addWidget(self.checkBox_show_this_dialog, 7, 0, 1, 1)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.pushButton_cancel = QtWidgets.QPushButton(SubmitBug)
+        self.pushButton_cancel.setObjectName("pushButton_cancel")
+        self.horizontalLayout.addWidget(self.pushButton_cancel)
+        self.pushButton_submit = QtWidgets.QPushButton(SubmitBug)
+        self.pushButton_submit.setDefault(True)
+        self.pushButton_submit.setFlat(False)
+        self.pushButton_submit.setObjectName("pushButton_submit")
+        self.horizontalLayout.addWidget(self.pushButton_submit)
+        self.gridLayout.addLayout(self.horizontalLayout, 8, 0, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout.addItem(spacerItem1, 3, 0, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout.addItem(spacerItem2, 1, 0, 1, 1)
+
+        self.retranslateUi(SubmitBug)
+        QtCore.QMetaObject.connectSlotsByName(SubmitBug)
+
+    def retranslateUi(self, SubmitBug):
+        #Encoding for translate is not specified in Qt5 because it always uses utf8
+        #SubmitBug.setWindowTitle(QtWidgets.QApplication.translate("SubmitBug", "Submit Bug", None))
+        SubmitBug.setWindowTitle(QtWidgets.QApplication.translate("SubmitBug", "Submit Bug", None))
+
+        self.label.setText(QtWidgets.QApplication.translate("SubmitBug", "<html><head/><body>\n"
+"<p>Please provide as much information as possible about wath caused the bug that you are reporting.</p>\n"
+"<p>This feature could recollect extra information about system, like OS, architecture, PYTHONPATH,<br>username, etc.</p></body></html>", None))
+        self.label_4.setText(QtWidgets.QApplication.translate("SubmitBug", "GitHub username:", None))
+        self.label_5.setText(QtWidgets.QApplication.translate("SubmitBug", "GitHub password", None))
+        self.label_6.setText(QtWidgets.QApplication.translate("SubmitBug", "Repository:", None))
+        self.comboBox_repo.setItemText(0, QtWidgets.QApplication.translate("SubmitBug", "pinguino-ide", None))
+        self.comboBox_repo.setItemText(1, QtWidgets.QApplication.translate("SubmitBug", "pinguino-bootloaders", None))
+        self.comboBox_repo.setItemText(2, QtWidgets.QApplication.translate("SubmitBug", "pinguino-libraries", None))
+        self.comboBox_repo.setItemText(3, QtWidgets.QApplication.translate("SubmitBug", "pinguino-compilers", None))
+        self.label_2.setText(QtWidgets.QApplication.translate("SubmitBug", "Summary:", None))
+        self.label_3.setText(QtWidgets.QApplication.translate("SubmitBug", "Details:", None))
+        self.checkBox_show_this_dialog.setText(QtWidgets.QApplication.translate("SubmitBug", "Show this dialog on unexpected errors.", None))
+        self.pushButton_cancel.setText(QtWidgets.QApplication.translate("SubmitBug", "Cancel", None))
+        self.pushButton_submit.setText(QtWidgets.QApplication.translate("SubmitBug", "Submit Now", None))
+
