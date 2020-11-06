@@ -10,7 +10,7 @@ import requests
 import json
 
 # Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
+if os.getenv("PINGUINO_PYTHON") == "3":
     #Python3
     #from urllib.request import urlopen
     #from urllib.parse import urlencode
