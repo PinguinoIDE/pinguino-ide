@@ -51,6 +51,6 @@ class About(QtWidgets.QDialog):
     #----------------------------------------------------------------------
     def center_on_screen(self):
 
-        screen = QtGui.QDesktopWidget().screenGeometry()
+        screen = QtWidgets.QDesktopWidget().screenGeometry(-1)
         size = self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)

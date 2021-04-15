@@ -11,7 +11,7 @@ from .pinguino_tools import PinguinoTools
 from .boards import boardlist as AllBoards
 
 # Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
+if os.getenv("PINGUINO_PYTHON") == "3":
     #Python3
     from os import makedirs
 else:

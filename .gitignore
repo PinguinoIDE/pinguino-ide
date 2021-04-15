@@ -1,6 +1,7 @@
 *.pyc
 *~
 *.hex
+Pipfile.lock
 __pycache__/
 build/
 dist/

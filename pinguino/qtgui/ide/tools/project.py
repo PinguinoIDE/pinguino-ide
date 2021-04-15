@@ -19,7 +19,7 @@ from pinguino.dev import PinguinoLib
 
 
 # Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
+if os.getenv("PINGUINO_PYTHON") == "3":
     #Python3
     from configparser import RawConfigParser
     from os import makedirs

@@ -54,7 +54,7 @@ else:
     os.environ["PINGUINO_PYTHON"] = "2"
 
 # Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
+if os.getenv("PINGUINO_PYTHON") == "3":
     import imp
     imp.reload(sys)
 else:
