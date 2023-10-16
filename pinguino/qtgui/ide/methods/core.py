@@ -1445,14 +1445,16 @@ class PinguinoCore(PinguinoComponents, PinguinoChilds, PinguinoQueries, Pinguino
 
         reserved_filename = os.path.join(os.getenv("PINGUINO_USER_PATH"), "reserved.pickle")
 
-        name_spaces_commun = []
+        name_spaces_commun = set(name_spaces_8).intersection(name_spaces_32)
+        name_spaces_8 = set(name_spaces_8).difference(name_spaces_commun)
+        name_spaces_32 = set(name_spaces_32).difference(name_spaces_commun)
 
-        copy_32 = name_spaces_32[:]
-        for name in name_spaces_8:
-            if name in copy_32:
-                name_spaces_8.remove(name)
-                name_spaces_32.remove(name)
-                name_spaces_commun.append(name)
+        # copy_32 = name_spaces_32[:]
+        # for name in name_spaces_8:
+            # if name in copy_32:
+                # name_spaces_8.remove(name)
+                # name_spaces_32.remove(name)
+                # name_spaces_commun.append(name)
 
         namespaces = {"arch8": name_spaces_8,
                       "arch32": name_spaces_32,
