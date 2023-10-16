@@ -40,7 +40,7 @@ from .boards import boardlist as Boardlist
 from .uploader.uploader import Uploader
 
 # Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
+if os.getenv("PINGUINO_PYTHON") == "3":
     #Python3
     from io import StringIO
 else:
@@ -394,7 +394,7 @@ class PinguinoTools(Uploader):
                 instruction, cnvinstruction, include, define = reg.groups()
                 include = "" if include is None else include  #if has includes
                 define = "" if define is None else define  #if has directives
-                cnvinstruction = instruction if cnvinstruction is "" else cnvinstruction
+                cnvinstruction = instruction if cnvinstruction == "" else cnvinstruction
 
                 if not instruction: continue
 
@@ -402,7 +402,7 @@ class PinguinoTools(Uploader):
                 regex_str = r"([^.\w])({})([^.\w])"
 
                 # Python3 compatibility
-                if os.getenv("PINGUINO_PYTHON") is "3":
+                if os.getenv("PINGUINO_PYTHON") == "3":
                     #Python3
                     regex = re.compile("{}".format(regex_str).format(re.escape(instruction)), re.MULTILINE | re.DOTALL)
                     # regex = re.compile("{}".format(regex_str).format(re.escape(instruction)))

@@ -1,9 +1,8 @@
 #!/bin/sh
-
-#cd ~/Dvpt/pinguino/git-local/pinguino-ide
-python3 -m pip install --upgrade pip pyside pyusb
-python3 -m pip install --upgrade wheel beautifulsoup4 setuptools requests
-# pybluez needs Windows Platform SDK
-# bluepy is for Linux only and then failed to compile on Windows
-# python -m pip install --upgrade pybluez
-python3 pinguino-ide.py
+#
+# Launch Pinguino's IDE
+echo "Launch Pinguino's IDE ..."
+cd ~/Pinguino/v13/pinguino-ide/
+python3 -m pip install pipenv
+python3 -m pipenv install
+python3 -m pipenv run python pinguino-ide.py

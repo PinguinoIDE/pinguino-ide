@@ -34,7 +34,7 @@ SET BIN=py -3
 @ECHO ---------------------------
 @ECHO LAUNCHING THE PINGUINO IDE ...
 @ECHO ---------------------------
-CD %USERPROFILE%\Dvpt\pinguino\git-local\pinguino-ide
+CD %USERPROFILE%\Dvpt\pinguino\pinguino-ide
 %BIN% pinguino-ide.py
 @ECHO ---------------------------
 @ECHO CLOSING THE PINGUINO IDE ...

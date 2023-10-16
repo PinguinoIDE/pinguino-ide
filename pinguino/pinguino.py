@@ -49,7 +49,7 @@ def build_argparse():
 parser = build_argparse()
 
 # Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
+if os.getenv("PINGUINO_PYTHON") == "3":
     #Python3
     python_path_modules = os.path.join(os.getenv("PINGUINO_LIB"), "batteries", "py3")
 else:

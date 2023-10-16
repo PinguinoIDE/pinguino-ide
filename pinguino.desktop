@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=13
+Name=Pinguino IDE
+GenericName=Pinguino IDE
+X-GNOME-FullName=Pinguino IDE for PIC micros
+Comment=Pinguino IDE v13
+Terminal=false
+Type=Application
+Categories=Development;Education;Electronics
+StartupNotify=true

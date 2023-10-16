@@ -5,7 +5,7 @@ import sys
 import os
 
 # Python3 compatibility
-if os.getenv("PINGUINO_PYTHON") is "3":
+if os.getenv("PINGUINO_PYTHON") == "3":
     #Python3
     # import builtins
     from io import StringIO
