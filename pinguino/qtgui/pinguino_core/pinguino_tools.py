@@ -133,7 +133,10 @@ class PinguinoTools(Uploader):
         """"""
         dirs = glob.glob(path)
         dirs.sort()
-        return dirs[-1]
+        try:
+            return dirs[-1]
+        except IndexError:
+            return path
 
 
     #----------------------------------------------------------------------
