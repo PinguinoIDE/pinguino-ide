@@ -1,47 +1,31 @@
-Pinguino IDE 13
-===============
+# Pinguino IDE (Windows Port)
 
-### Install from source code ###
-```shell
-mkdir -p ~/Pinguino/v13
-cd ~/Pinguino/v13
-git clone https://github.com/PinguinoIDE/pinguino-ide.git pinguino-ide
-git clone https://github.com/PinguinoIDE/pinguino-libraries.git pinguino-libraries 
-```
+This is an **unofficial Windows port** of the discontinued Pinguino IDE, originally used for PIC microcontroller development.
 
-### Launch ###
-```shell
-python ~/Pinguino/pinguino-ide/pinguino-ide.py
-or
-./pinguino.bat (Windows)
-./pinguino.sh  (Linux)
-```
+The original project is no longer actively maintained, but this version aims to keep it usable on modern Windows systems for hobbyists, educators, and legacy hardware setups.
 
-### Update ###
-For special users (Arch Linux).
-```shell
-cd ~/Pinguino/pinguino-ide
-git checkout
-cd ~/Pinguino/pinguino-libraries
-git checkout
-```
+## What this is
+- Windows-compatible build of the original Pinguino IDE  
+- Designed for legacy microcontroller development  
+- Not an official release from the original Pinguino team  
 
-### Config. file ###
-```shell
-Edit pinguino/qtgui/config/pinguino.linux.conf or pinguino.windows.conf
+## Features
+- Runs on Windows  
+- Works with existing Pinguino toolchains (where supported)  
+- Preserves original IDE workflow  
+- Minimal changes to keep behavior familiar  
 
-[Paths]
-sdcc_bin = "full_path_to_pinguino-compilers"/p8/bin
-gcc_bin = "full_path_to_pinguino-compilers"/p32/bin
-xc8_bin = "full_path_to_xc8"/bin
-pinguino_8_libs = "full_path_to_pinguino-ide"/p8
-pinguino_32_libs = "full_path_to_pinguino-ide"/p32
-install_path = "full_path_to_pinguino-ide"
+## Installation
+1. Download the latest release  
+2. Extract the archive  
+3. Run `Pinguino-IDE.exe`  
+4. Install drivers if required for your board  
 
-user_path = ~/Pinguino/v13
-user_libs = ${user_path}/pinguinolibs
-```
+## Notes
+- This is a legacy revival project, not actively maintained upstream  
+- Some features may behave differently on modern Windows versions  
+- Expect quirks — this is old-school embedded tooling  
 
-----
-[Report Bugs](https://github.com/PinguinoIDE/pinguino-ide/issues)
-
+## Credits
+Original Pinguino project and contributors:  
+https://github.com/PinguinoIDE
